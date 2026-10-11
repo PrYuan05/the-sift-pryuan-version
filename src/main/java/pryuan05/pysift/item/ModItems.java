@@ -23,40 +23,6 @@ public class ModItems {
     public static final Item CHAROITE = registerItem("charoite", Item::new);
     public static final Item SIFTITE_INGOT = registerItem("siftite_ingot", Item::new);
 
-    // 24 Original Items
-    public static final Item BLUB = registerItem("blub", Item::new);
-    public static final Item ECHO_GOLEM = registerItem("echo_golem", Item::new);
-    public static final Item SINGER = registerItem("singer", Item::new);
-    public static final Item HARMONIZER_BODY = registerItem("harmonizer_body", Item::new);
-    public static final Item HARMONIZER_HEAD = registerItem("harmonizer_head", Item::new);
-    public static final Item MONARCH_BODY = registerItem("monarch_body", Item::new);
-    public static final Item MONARCH_HEAD = registerItem("monarch_head", Item::new);
-    public static final Item NESTER = registerItem("nester", Item::new);
-    public static final Item SEEDLING = registerItem("seedling", Item::new);
-    public static final Item SENTINEL = registerItem("sentinel", Item::new);
-    public static final Item SPROUT = registerItem("sprout", Item::new);
-    public static final Item STALKER = registerItem("stalker", Item::new);
-    public static final Item SCAVENGER = registerItem("scavenger", Item::new);
-    public static final Item FUSEFLY = registerItem("fusefly", Item::new);
-    public static final Item DARTBACK = registerItem("dartback", Item::new);
-    public static final Item HURLER = registerItem("hurler", Item::new);
-    public static final Item LOOTKIN = registerItem("lootkin", Item::new);
-    public static final Item NUZZLE = registerItem("nuzzle", Item::new);
-    public static final Item PRICKLE = registerItem("prickle", Item::new);
-    public static final Item ROAMROOT = registerItem("roamroot", Item::new);
-    public static final Item SLABBER = registerItem("slabber", Item::new);
-    public static final Item TUNER = registerItem("tuner", Item::new);
-    public static final Item WOBBLE = registerItem("wobble", Item::new);
-    public static final Item BLOOMBUD = registerItem("bloombud", Item::new);
-
-    public static final Item[] ORIGINAL_ITEMS = new Item[] {
-            BLUB, ECHO_GOLEM, SINGER, HARMONIZER_BODY, HARMONIZER_HEAD,
-            MONARCH_BODY, MONARCH_HEAD, NESTER, SEEDLING, SENTINEL,
-            SPROUT, STALKER, SCAVENGER, FUSEFLY, DARTBACK, HURLER,
-            LOOTKIN, NUZZLE, PRICKLE, ROAMROOT, SLABBER, TUNER,
-            WOBBLE, BLOOMBUD
-    };
-
     // 24 Spawn Eggs
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);
     public static final Item ECHO_GOLEM_SPAWN_EGG = registerSpawnEgg("echo_golem_spawn_egg", ModEntities.ECHO_GOLEM);
