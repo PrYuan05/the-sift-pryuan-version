@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/siftslate_pillar"
+    "end": "pysift:block/siftslate_pillar_top",
+    "side": "pysift:block/siftslate_pillar"
   }
 }

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/ancient_relic_pillar"
+    "end": "pysift:block/ancient_relic_pillar_top",
+    "side": "pysift:block/ancient_relic_pillar"
   }
 }

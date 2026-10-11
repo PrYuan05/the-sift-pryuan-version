@@ -7,9 +7,11 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import pryuan05.pysift.PySift;
+import java.util.function.Function;
 
 public class ModBlocks {
     // --- 核心基準方塊 ---
@@ -101,6 +103,7 @@ public class ModBlocks {
     );
 
     public static final Block SIFTSLATE_PILLAR = registerBlock("siftslate_pillar",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(3.5f)
                     .explosionResistance(6.0f)
@@ -204,6 +207,7 @@ public class ModBlocks {
     );
 
     public static final Block OVERGROWN_WILLOW_LOG = registerBlock("overgrown_willow_log",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(2.0f)
                     .explosionResistance(2.0f)
@@ -211,6 +215,7 @@ public class ModBlocks {
     );
 
     public static final Block STRIPPED_OVERGROWN_WILLOW_LOG = registerBlock("stripped_overgrown_willow_log",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(2.0f)
                     .explosionResistance(2.0f)
@@ -218,6 +223,7 @@ public class ModBlocks {
     );
 
     public static final Block OVERGROWN_WILLOW_WOOD = registerBlock("overgrown_willow_wood",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(2.0f)
                     .explosionResistance(2.0f)
@@ -225,6 +231,7 @@ public class ModBlocks {
     );
 
     public static final Block STRIPPED_OVERGROWN_WILLOW_WOOD = registerBlock("stripped_overgrown_willow_wood",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(2.0f)
                     .explosionResistance(2.0f)
@@ -316,6 +323,7 @@ public class ModBlocks {
     );
 
     public static final Block ANCIENT_RELIC_PILLAR = registerBlock("ancient_relic_pillar",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(4.0f)
                     .explosionResistance(8.0f)
@@ -350,6 +358,7 @@ public class ModBlocks {
     );
 
     public static final Block SIFT_BONE_BLOCK = registerBlock("sift_bone_block",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(2.0f)
                     .explosionResistance(2.0f)
@@ -357,6 +366,7 @@ public class ModBlocks {
     );
 
     public static final Block FOSSILIZED_SCULK_BONE = registerBlock("fossilized_sculk_bone",
+            RotatedPillarBlock::new,
             BlockBehaviour.Properties.of()
                     .destroyTime(3.0f)
                     .explosionResistance(4.0f)
@@ -389,10 +399,14 @@ public class ModBlocks {
     };
 
     private static Block registerBlock(String name, BlockBehaviour.Properties properties) {
+        return registerBlock(name, Block::new, properties);
+    }
+
+    private static <T extends Block> T registerBlock(String name, Function<BlockBehaviour.Properties, T> factory, BlockBehaviour.Properties properties) {
         ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
 
-        Block block = new Block(properties.setId(blockKey));
+        T block = factory.apply(properties.setId(blockKey));
         Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
 
         BlockItem blockItem = new BlockItem(block, new Item.Properties().setId(itemKey));

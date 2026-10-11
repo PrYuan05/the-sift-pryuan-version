@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/chiseled_sift_sandstone"
+    "end": "pysift:block/sift_sandstone_top",
+    "side": "pysift:block/chiseled_sift_sandstone"
   }
 }

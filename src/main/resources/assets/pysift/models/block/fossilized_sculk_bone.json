@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/fossilized_sculk_bone"
+    "end": "pysift:block/fossilized_sculk_bone_top",
+    "side": "pysift:block/fossilized_sculk_bone"
   }
 }

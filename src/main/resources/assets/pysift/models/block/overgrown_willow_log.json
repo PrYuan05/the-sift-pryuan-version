@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/overgrown_willow_log"
+    "end": "pysift:block/overgrown_willow_log_top",
+    "side": "pysift:block/overgrown_willow_log"
   }
 }

@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
+    "axis=x": {
+      "model": "pysift:block/fossilized_sculk_bone_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
       "model": "pysift:block/fossilized_sculk_bone"
+    },
+    "axis=z": {
+      "model": "pysift:block/fossilized_sculk_bone_horizontal",
+      "x": 90
     }
   }
 }
