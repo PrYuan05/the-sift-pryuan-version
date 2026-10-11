@@ -120,10 +120,6 @@ public class ModItems {
                 // Materials
                 output.accept(CHAROITE);
                 output.accept(SIFTITE_INGOT);
-                // Original Items
-                for (Item item : ORIGINAL_ITEMS) {
-                    output.accept(item);
-                }
                 // Spawn Eggs
                 for (Item egg : SPAWN_EGGS) {
                     output.accept(egg);
