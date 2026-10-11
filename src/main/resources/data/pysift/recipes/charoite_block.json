@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "pysift:charoite"
+  },
+  "result": {
+    "id": "pysift:charoite_block",
+    "count": 1
+  }
+}

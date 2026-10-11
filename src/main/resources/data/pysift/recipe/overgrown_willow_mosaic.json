@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "#",
+    "#"
+  ],
+  "key": {
+    "#": "pysift:overgrown_willow_planks"
+  },
+  "result": {
+    "id": "pysift:overgrown_willow_mosaic",
+    "count": 1
+  }
+}

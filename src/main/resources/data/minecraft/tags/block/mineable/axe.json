@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:overgrown_willow_planks",
+    "pysift:overgrown_willow_log",
+    "pysift:stripped_overgrown_willow_log",
+    "pysift:overgrown_willow_wood",
+    "pysift:stripped_overgrown_willow_wood",
+    "pysift:overgrown_willow_mosaic"
+  ]
+}

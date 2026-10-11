@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:siftslate",
+    "pysift:cobbled_siftslate",
+    "pysift:polished_siftslate",
+    "pysift:siftslate_bricks",
+    "pysift:siftslate_tiles",
+    "pysift:siftslate_pillar",
+    "pysift:ancient_relic_stone",
+    "pysift:ancient_relic_pillar"
+  ]
+}

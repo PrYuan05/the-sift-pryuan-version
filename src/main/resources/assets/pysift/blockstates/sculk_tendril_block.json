@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/sculk_tendril_block"
+    }
+  }
+}

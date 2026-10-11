@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:sift_sandstone",
+  "result": {
+    "id": "pysift:smooth_sift_sandstone",
+    "count": 1
+  }
+}

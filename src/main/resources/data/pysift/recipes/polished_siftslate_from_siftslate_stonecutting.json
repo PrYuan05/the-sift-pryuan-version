@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:siftslate",
+  "result": {
+    "id": "pysift:polished_siftslate",
+    "count": 1
+  }
+}

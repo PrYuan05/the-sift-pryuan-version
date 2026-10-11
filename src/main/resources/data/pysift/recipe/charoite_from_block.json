@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:charoite_block"
+  ],
+  "result": {
+    "id": "pysift:charoite",
+    "count": 9
+  }
+}

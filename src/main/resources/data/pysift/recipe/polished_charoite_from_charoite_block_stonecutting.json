@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:charoite_block",
+  "result": {
+    "id": "pysift:polished_charoite",
+    "count": 1
+  }
+}

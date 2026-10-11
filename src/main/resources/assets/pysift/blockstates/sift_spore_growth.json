@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/sift_spore_growth"
+    }
+  }
+}

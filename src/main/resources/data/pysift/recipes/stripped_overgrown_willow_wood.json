@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "pysift:stripped_overgrown_willow_log"
+  },
+  "result": {
+    "id": "pysift:stripped_overgrown_willow_wood",
+    "count": 3
+  }
+}

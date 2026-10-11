@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ancient_relic_stone",
+  "result": {
+    "id": "pysift:chiseled_relic_stone",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": "minecraft:glowstone_dust",
+    "X": "pysift:charoite_block"
+  },
+  "result": {
+    "id": "pysift:glowing_charoite",
+    "count": 1
+  }
+}

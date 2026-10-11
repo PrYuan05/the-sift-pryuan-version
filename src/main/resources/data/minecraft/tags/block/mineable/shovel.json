@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:sift_soil",
+    "pysift:sift_mud",
+    "pysift:sift_sand"
+  ]
+}

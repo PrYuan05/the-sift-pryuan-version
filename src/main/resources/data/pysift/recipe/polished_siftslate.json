@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "pysift:cobbled_siftslate"
+  },
+  "result": {
+    "id": "pysift:polished_siftslate",
+    "count": 4
+  }
+}

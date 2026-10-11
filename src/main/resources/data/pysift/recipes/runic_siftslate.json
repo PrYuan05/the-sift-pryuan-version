@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    " # ",
+    "#X#",
+    " # "
+  ],
+  "key": {
+    "#": "pysift:charoite",
+    "X": "pysift:chiseled_siftslate"
+  },
+  "result": {
+    "id": "pysift:runic_siftslate",
+    "count": 1
+  }
+}

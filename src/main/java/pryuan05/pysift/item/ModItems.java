@@ -101,10 +101,9 @@ public class ModItems {
             .icon(() -> new ItemStack(ModBlocks.SIFTSLATE))
             .title(Component.translatable("itemGroup.pysift.pysift_blocks"))
             .displayItems((params, output) -> {
-                output.accept(ModBlocks.SIFTSLATE);
-                output.accept(ModBlocks.RED_SCULK);
-                output.accept(ModBlocks.CHAROITE_ORE);
-                output.accept(ModBlocks.OVERGROWN_WILLOW_PLANKS);
+                for (net.minecraft.world.level.block.Block block : ModBlocks.ALL_BLOCKS) {
+                    output.accept(block);
+                }
             })
             .build();
 

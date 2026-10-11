@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "pysift:siftslate",
+    "minecraft:vine"
+  ],
+  "result": {
+    "id": "pysift:mossy_siftslate",
+    "count": 1
+  }
+}
