@@ -1,11 +1,9 @@
 package pryuan05.pysift.entity.mob;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -13,27 +11,38 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import org.jetbrains.annotations.Nullable;
+import pryuan05.pysift.entity.PysiftGeoEntity;
 
-public class BlubEntity extends TamableAnimal {
-    public BlubEntity(EntityType<? extends TamableAnimal> entityType, Level level) {
+import java.util.UUID;
+
+public class BlubEntity extends PysiftGeoEntity {
+    private UUID ownerUUID;
+    private boolean orderedToSit;
+
+    public BlubEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new SitWhenOrderedToGoal(this));
-        this.goalSelector.addGoal(2, new FollowOwnerGoal(this, 1.25, 10.0f, 2.0f));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0f));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return TamableAnimal.createAnimalAttributes()
+        return PathfinderMob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 16.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.22);
+    }
+
+    public boolean isTame() {
+        return this.ownerUUID != null;
+    }
+
+    public boolean isOwnedBy(Player player) {
+        return this.ownerUUID != null && this.ownerUUID.equals(player.getUUID());
     }
 
     @Override
@@ -46,7 +55,7 @@ public class BlubEntity extends TamableAnimal {
                 }
                 if (!this.level().isClientSide()) {
                     if (this.random.nextInt(3) == 0) {
-                        this.tame(player);
+                        this.ownerUUID = player.getUUID();
                         this.level().broadcastEntityEvent(this, (byte) 7);
                     } else {
                         this.level().broadcastEntityEvent(this, (byte) 6);
@@ -56,21 +65,10 @@ public class BlubEntity extends TamableAnimal {
             }
         } else if (this.isOwnedBy(player)) {
             if (!this.level().isClientSide()) {
-                this.setOrderedToSit(!this.isOrderedToSit());
+                this.orderedToSit = !this.orderedToSit;
             }
             return InteractionResult.SUCCESS;
         }
         return super.mobInteract(player, hand);
-    }
-
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return false;
-    }
-
-    @Nullable
-    @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return null;
     }
 }

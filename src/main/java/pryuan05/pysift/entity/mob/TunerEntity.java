@@ -31,12 +31,12 @@ public class TunerEntity extends PysiftMonsterEntity {
             buffCooldown--;
             if (buffCooldown <= 0) {
                 buffCooldown = 60;
-                List<Monster> allies = this.level().getEntitiesOfClass(
-                        Monster.class,
+                List<net.minecraft.world.entity.LivingEntity> allies = this.level().getEntitiesOfClass(
+                        net.minecraft.world.entity.LivingEntity.class,
                         this.getBoundingBox().inflate(10.0),
-                        m -> m != this
+                        m -> m != this && m instanceof net.minecraft.world.entity.monster.Enemy
                 );
-                for (Monster ally : allies) {
+                for (net.minecraft.world.entity.LivingEntity ally : allies) {
                     ally.addEffect(new MobEffectInstance(MobEffects.SPEED, 100, 1));
                     ally.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 100, 0));
                 }
