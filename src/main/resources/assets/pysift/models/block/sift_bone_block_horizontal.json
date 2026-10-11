@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "pysift:block/sift_bone_block_top",
+    "side": "pysift:block/sift_bone_block"
+  }
+}
