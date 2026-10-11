@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"pryuan05.pysift.TheSiftPrYuanSVersion"
+			"pryuan05.pysift.PySift"
 		],
 		"client": [
-			"pryuan05.pysift.client.TheSiftPrYuanSVersionClient"
+			"pryuan05.pysift.PySiftClient"
 		]
 	},
 	"mixins": [
