@@ -14,18 +14,6 @@
         "weight": 1
       },
       {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
-        "weight": 1
-      },
-      {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_7",
         "weight": 1
       },
@@ -51,21 +39,6 @@
       },
       {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_3",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
         "weight": 1,
         "x": 180
       },
@@ -102,21 +75,6 @@
         "x": 90
       },
       {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
-        "weight": 1,
-        "x": 90
-      },
-      {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_7",
         "weight": 1,
         "x": 90
@@ -147,24 +105,6 @@
       },
       {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_3",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
         "weight": 1,
         "x": 90,
         "y": 180
@@ -208,24 +148,6 @@
         "y": 90
       },
       {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_7",
         "weight": 1,
         "x": 90,
@@ -259,24 +181,6 @@
       },
       {
         "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_3",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_4",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_5",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/crimson_capped_ember_stone/crimson_capped_ember_stone_6",
         "weight": 1,
         "x": 90,
         "y": 270

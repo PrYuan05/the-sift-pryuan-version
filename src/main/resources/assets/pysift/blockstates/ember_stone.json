@@ -4,10 +4,6 @@
       {
         "model": "pysift:block/ember_stone/ember_stone_heat0_a",
         "weight": 1
-      },
-      {
-        "model": "pysift:block/ember_stone/ember_stone_heat0_b",
-        "weight": 1
       }
     ],
     "heat=1": [
