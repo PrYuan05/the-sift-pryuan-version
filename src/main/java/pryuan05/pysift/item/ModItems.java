@@ -64,7 +64,7 @@ public class ModItems {
     );
 
     public static final CreativeModeTab BLOCKS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(ModBlocks.SIFTSLATE))
+            .icon(() -> new ItemStack(ModBlocks.ALL_BLOCKS.isEmpty() ? net.minecraft.world.item.Items.STONE : ModBlocks.ALL_BLOCKS.get(0)))
             .title(Component.translatable("itemGroup.pysift.pysift_blocks"))
             .displayItems((params, output) -> {
                 for (net.minecraft.world.level.block.Block block : ModBlocks.ALL_BLOCKS) {

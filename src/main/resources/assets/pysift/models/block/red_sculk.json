@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/red_sculk",
-    "bottom": "pysift:block/sift_soil",
-    "side": "pysift:block/red_sculk_side"
-  }
-}
