@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "pysift:ancient_relic_stone",
-  "result": {
-    "id": "pysift:ancient_relic_pillar",
-    "count": 1
-  }
-}

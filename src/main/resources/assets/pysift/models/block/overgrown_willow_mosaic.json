@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/overgrown_willow_mosaic_top",
-    "bottom": "pysift:block/overgrown_willow_planks",
-    "side": "pysift:block/overgrown_willow_mosaic"
-  }
-}
