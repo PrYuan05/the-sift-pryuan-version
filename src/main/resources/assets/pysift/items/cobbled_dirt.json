@@ -1,0 +1,55 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "stone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone2_a"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone3_a"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone4_a"
+        },
+        "when": "4"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone5"
+        },
+        "when": "5"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/cobbled_dirt"
+    }
+  }
+}

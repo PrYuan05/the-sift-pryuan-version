@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:emerald_ore",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:emerald_ore",
+              "properties": [
+                "density",
+                "host"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/emerald_ore"
+}

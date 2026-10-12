@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "banding",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/banded_mudstone/banded_mudstone_banding0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/banded_mudstone/banded_mudstone_banding1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/banded_mudstone/banded_mudstone_banding2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/banded_mudstone/banded_mudstone_banding3"
+        },
+        "when": "3"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/banded_mudstone"
+    }
+  }
+}

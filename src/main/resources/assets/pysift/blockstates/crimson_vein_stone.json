@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "crimson_spread=0": {
+      "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0"
+    },
+    "crimson_spread=1": [
+      {
+        "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b",
+        "weight": 1
+      }
+    ],
+    "crimson_spread=2": {
+      "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread2"
+    },
+    "crimson_spread=3": {
+      "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread3"
+    },
+    "crimson_spread=4": {
+      "model": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4"
+    }
+  }
+}

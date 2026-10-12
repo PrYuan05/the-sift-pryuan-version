@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0"
+  }
+}

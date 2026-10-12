@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/spiral_carved_stone/spiral_carved_stone"
+  }
+}

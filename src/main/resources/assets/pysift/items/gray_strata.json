@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/gray_strata/gray_strata_d"
+        },
+        "when": "teal"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/gray_strata/gray_strata_c"
+        },
+        "when": "lavender"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/gray_strata/gray_strata_f"
+        },
+        "when": "violet"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/gray_strata/gray_strata_b"
+        },
+        "when": "warm"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/gray_strata"
+    }
+  }
+}

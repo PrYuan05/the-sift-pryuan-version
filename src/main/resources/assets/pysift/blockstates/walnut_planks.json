@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/walnut_planks"
-    }
+    "": [
+      {
+        "model": "pysift:block/walnut_planks/walnut_planks"
+      }
+    ]
   }
 }

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:forest_floor",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:forest_floor",
+              "properties": [
+                "moss"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/forest_floor"
+}

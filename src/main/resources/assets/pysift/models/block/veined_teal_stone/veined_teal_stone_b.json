@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/veined_teal_stone/veined_teal_stone_b"
+  }
+}

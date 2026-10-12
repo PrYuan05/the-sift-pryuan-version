@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/ember_stone/ember_stone_heat2_a",
+    "bottom": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
+    "side": "pysift:block/crimson_strata/crimson_strata_c"
+  }
+}

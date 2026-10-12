@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:gray_strata",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:gray_strata",
+              "properties": [
+                "tone"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/gray_strata"
+}

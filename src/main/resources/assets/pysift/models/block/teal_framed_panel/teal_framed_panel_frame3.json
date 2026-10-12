@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/teal_framed_panel/teal_framed_panel_frame3"
+  }
+}

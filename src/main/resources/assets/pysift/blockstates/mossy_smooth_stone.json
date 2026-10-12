@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "moss=0": {
+      "model": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss0"
+    },
+    "moss=1": {
+      "model": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss1"
+    }
+  }
+}

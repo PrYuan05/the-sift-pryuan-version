@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:aurum_ore",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:aurum_ore",
+              "properties": [
+                "richness"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/aurum_ore"
+}

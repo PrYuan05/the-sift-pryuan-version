@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:patina_ore",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:patina_ore",
+              "properties": [
+                "oxidation"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/patina_ore"
+}

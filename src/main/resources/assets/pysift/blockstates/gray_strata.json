@@ -1,0 +1,44 @@
+{
+  "variants": {
+    "tone=teal": [
+      {
+        "model": "pysift:block/gray_strata/gray_strata_d",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_e",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_j",
+        "weight": 1
+      }
+    ],
+    "tone=lavender": [
+      {
+        "model": "pysift:block/gray_strata/gray_strata_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_k",
+        "weight": 1
+      }
+    ],
+    "tone=violet": [
+      {
+        "model": "pysift:block/gray_strata/gray_strata_f",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_g",
+        "weight": 1
+      }
+    ],
+    "tone=warm": [
+      {
+        "model": "pysift:block/gray_strata/gray_strata_b",
+        "weight": 1
+      }
+    ]
+  }
+}

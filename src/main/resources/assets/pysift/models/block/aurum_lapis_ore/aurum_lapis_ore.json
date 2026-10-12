@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/aurum_lapis_ore/aurum_lapis_ore"
+  }
+}

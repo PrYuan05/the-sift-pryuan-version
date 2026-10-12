@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/veined_teal_stone/veined_teal_stone_a"
+        },
+        "when": "teal"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/veined_teal_stone/veined_teal_stone_b"
+        },
+        "when": "mottled"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/veined_teal_stone"
+    }
+  }
+}

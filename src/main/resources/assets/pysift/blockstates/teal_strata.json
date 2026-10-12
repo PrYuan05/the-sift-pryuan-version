@@ -1,0 +1,24 @@
+{
+  "variants": {
+    "tone=pale": [
+      {
+        "model": "pysift:block/teal_strata/teal_strata_e",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/teal_strata/teal_strata_f",
+        "weight": 1
+      }
+    ],
+    "tone=cyan": [
+      {
+        "model": "pysift:block/teal_strata/teal_strata_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/teal_strata/teal_strata_b",
+        "weight": 1
+      }
+    ]
+  }
+}

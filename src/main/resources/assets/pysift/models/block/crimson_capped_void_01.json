@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/sift_crimson_capped_void_01_top",
-    "bottom": "pysift:block/sift_crimson_capped_void_01_bottom",
-    "side": "pysift:block/sift_crimson_capped_void_01_side"
-  }
-}

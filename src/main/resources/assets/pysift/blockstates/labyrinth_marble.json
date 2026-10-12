@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/labyrinth_marble"
-    }
+    "": [
+      {
+        "model": "pysift:block/labyrinth_marble/labyrinth_marble"
+      }
+    ]
   }
 }

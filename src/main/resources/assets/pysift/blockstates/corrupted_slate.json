@@ -1,0 +1,53 @@
+{
+  "variants": {
+    "corruption=0": [
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption0_b",
+        "weight": 1
+      }
+    ],
+    "corruption=1": {
+      "model": "pysift:block/corrupted_slate/corrupted_slate_corruption1"
+    },
+    "corruption=2": [
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption2_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption2_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption2_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption2_d",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption2_e",
+        "weight": 1
+      }
+    ],
+    "corruption=3": [
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption3_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption3_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption3_c",
+        "weight": 1
+      }
+    ]
+  }
+}

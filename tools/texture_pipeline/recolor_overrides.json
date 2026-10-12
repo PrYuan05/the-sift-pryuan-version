@@ -1,0 +1,11 @@
+{
+  "_doc": "User decisions for recolor.py. Keys are 'block' or 'block:state'. exclude: pools to leave alone. reference: texture name to use instead of the automatic medoid. skip_targets: textures to keep as-is in a pool. allow_shared: texture names that may be recoloured even though other blocks use them.",
+  "exclude": [
+    "ember_stone",
+    "corrupted_slate:corruption=2",
+    "crimson_strata:tone=rose"
+  ],
+  "reference": {},
+  "skip_targets": {},
+  "allow_shared": []
+}

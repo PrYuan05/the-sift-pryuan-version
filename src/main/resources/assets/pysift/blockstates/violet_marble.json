@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/violet_marble/violet_marble_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/violet_marble/violet_marble_b",
+        "weight": 1
+      }
+    ]
+  }
+}

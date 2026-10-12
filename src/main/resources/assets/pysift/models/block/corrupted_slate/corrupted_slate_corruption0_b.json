@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/corrupted_slate/corrupted_slate_corruption0_b"
+  }
+}

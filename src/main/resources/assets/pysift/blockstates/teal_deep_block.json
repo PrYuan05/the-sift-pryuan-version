@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "depth=0": {
+      "model": "pysift:block/teal_deep_block/teal_deep_block_depth0"
+    },
+    "depth=1": {
+      "model": "pysift:block/teal_deep_block/teal_deep_block_depth1"
+    },
+    "depth=2": {
+      "model": "pysift:block/teal_deep_block/teal_deep_block_depth2"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "variants": {
+    "peel=0,axis=y": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel0"
+      }
+    ],
+    "peel=0,axis=x": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel0",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "peel=0,axis=z": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel0",
+        "x": 90
+      }
+    ],
+    "peel=1,axis=y": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel1"
+      }
+    ],
+    "peel=1,axis=x": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel1",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "peel=1,axis=z": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel1",
+        "x": 90
+      }
+    ],
+    "peel=2,axis=y": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel2"
+      }
+    ],
+    "peel=2,axis=x": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel2",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "peel=2,axis=z": [
+      {
+        "model": "pysift:block/peeling_log/peeling_log_peel2",
+        "x": 90
+      }
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:silted_strata",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:silted_strata",
+              "properties": [
+                "silt"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/silted_strata"
+}

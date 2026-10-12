@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/umber_log/umber_log_top",
+    "side": "pysift:block/umber_log/umber_log_side"
+  }
+}

@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/violet_solid_block"
-    }
+    "": [
+      {
+        "model": "pysift:block/violet_solid_block/violet_solid_block"
+      }
+    ]
   }
 }

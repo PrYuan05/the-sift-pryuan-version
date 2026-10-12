@@ -41,3 +41,6 @@ replay_*.log
 
 # internal
 .gemini/
+
+# texture pipeline backups (see tools/texture_pipeline)
+.texture_backups/

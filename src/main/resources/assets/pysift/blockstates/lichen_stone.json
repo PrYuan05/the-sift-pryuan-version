@@ -1,0 +1,37 @@
+{
+  "variants": {
+    "lichen=0": {
+      "model": "pysift:block/lichen_stone/lichen_stone_lichen0"
+    },
+    "lichen=1": [
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen1_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen2_a",
+        "weight": 1
+      }
+    ],
+    "lichen=2": [
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen2_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen2_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen1_b",
+        "weight": 1
+      }
+    ],
+    "lichen=3": {
+      "model": "pysift:block/lichen_stone/lichen_stone_lichen3"
+    },
+    "lichen=4": {
+      "model": "pysift:block/lichen_stone/lichen_stone_lichen4"
+    }
+  }
+}

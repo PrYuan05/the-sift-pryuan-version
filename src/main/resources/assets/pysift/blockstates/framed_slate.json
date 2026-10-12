@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/framed_slate"
-    }
+    "": [
+      {
+        "model": "pysift:block/framed_slate/framed_slate"
+      }
+    ]
   }
 }

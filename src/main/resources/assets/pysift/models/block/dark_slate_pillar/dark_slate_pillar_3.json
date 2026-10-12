@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/stone_capped_violet_01/stone_capped_violet_01_bottom",
+    "side": "pysift:block/dark_slate/dark_slate_l"
+  }
+}

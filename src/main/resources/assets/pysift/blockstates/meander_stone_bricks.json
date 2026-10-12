@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/meander_stone_bricks"
-    }
+    "": [
+      {
+        "model": "pysift:block/meander_stone_bricks/meander_stone_bricks"
+      }
+    ]
   }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/labyrinth_marble_core/labyrinth_marble_core"
+  }
+}

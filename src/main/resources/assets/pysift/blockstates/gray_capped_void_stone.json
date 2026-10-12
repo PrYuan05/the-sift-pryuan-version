@@ -1,0 +1,304 @@
+{
+  "variants": {
+    "facing=up": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1
+      }
+    ],
+    "facing=down": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1,
+        "x": 180
+      }
+    ],
+    "facing=north": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_2",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_3",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_4",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_5",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_6",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_7",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_8",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/gray_capped_void_stone/gray_capped_void_stone_9",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      }
+    ]
+  }
+}

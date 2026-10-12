@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/corrupted_slate/corrupted_slate_corruption3_a",
+    "side": "pysift:block/dark_slate/dark_slate_l"
+  }
+}

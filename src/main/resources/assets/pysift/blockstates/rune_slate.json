@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "charge=0": [
+      {
+        "model": "pysift:block/rune_slate/rune_slate_charge0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/rune_slate/rune_slate_charge0_b",
+        "weight": 1
+      }
+    ],
+    "charge=1": {
+      "model": "pysift:block/rune_slate/rune_slate_charge1"
+    },
+    "charge=2": {
+      "model": "pysift:block/rune_slate/rune_slate_charge2"
+    }
+  }
+}

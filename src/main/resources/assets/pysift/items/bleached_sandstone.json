@@ -1,0 +1,48 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "bleach",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach3"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach4"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/bleached_sandstone"
+    }
+  }
+}

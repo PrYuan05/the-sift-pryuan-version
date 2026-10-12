@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/circle_slate"
-    }
+    "": [
+      {
+        "model": "pysift:block/circle_slate/circle_slate"
+      }
+    ]
   }
 }

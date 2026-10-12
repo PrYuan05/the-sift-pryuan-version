@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "rust=0": {
+      "model": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0"
+    },
+    "rust=1": {
+      "model": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust1"
+    },
+    "rust=2": {
+      "model": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust2"
+    },
+    "rust=3": {
+      "model": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust3"
+    }
+  }
+}

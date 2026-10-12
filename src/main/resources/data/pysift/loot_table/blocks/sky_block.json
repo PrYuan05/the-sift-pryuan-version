@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:sky_block",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:sky_block",
+              "properties": [
+                "cloud"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/sky_block"
+}

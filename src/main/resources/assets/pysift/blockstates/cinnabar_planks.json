@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/cinnabar_planks"
-    }
+    "": [
+      {
+        "model": "pysift:block/cinnabar_planks/cinnabar_planks"
+      }
+    ]
   }
 }

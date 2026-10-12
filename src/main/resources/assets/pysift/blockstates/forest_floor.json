@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "moss=0": {
+      "model": "pysift:block/forest_floor/forest_floor_moss0"
+    },
+    "moss=1": {
+      "model": "pysift:block/forest_floor/forest_floor_moss1"
+    },
+    "moss=2": {
+      "model": "pysift:block/forest_floor/forest_floor_moss2"
+    },
+    "moss=3": {
+      "model": "pysift:block/forest_floor/forest_floor_moss3"
+    }
+  }
+}

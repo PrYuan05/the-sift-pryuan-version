@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:wilting_foliage",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:wilting_foliage",
+              "properties": [
+                "wither"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/wilting_foliage"
+}

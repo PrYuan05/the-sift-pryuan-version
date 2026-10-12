@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_f"
+  }
+}

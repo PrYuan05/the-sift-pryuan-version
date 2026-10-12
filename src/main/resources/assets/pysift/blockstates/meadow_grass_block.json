@@ -1,7 +1,16 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/meadow_grass_block"
+    "grass_cover=0": {
+      "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover0"
+    },
+    "grass_cover=1": {
+      "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover1"
+    },
+    "grass_cover=2": {
+      "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover2"
+    },
+    "grass_cover=3": {
+      "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover3"
     }
   }
 }

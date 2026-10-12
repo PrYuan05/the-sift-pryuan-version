@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/veined_crimson_stone/veined_crimson_stone_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/veined_crimson_stone/veined_crimson_stone_b",
+        "weight": 1
+      }
+    ]
+  }
+}

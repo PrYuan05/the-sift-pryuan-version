@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/teal_water_block"
-    }
+    "": [
+      {
+        "model": "pysift:block/teal_water_block/teal_water_block"
+      }
+    ]
   }
 }

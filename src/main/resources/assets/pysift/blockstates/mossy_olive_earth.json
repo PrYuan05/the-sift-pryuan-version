@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "moss=0": {
+      "model": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss0"
+    },
+    "moss=1": {
+      "model": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss1"
+    },
+    "moss=2": {
+      "model": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss2"
+    },
+    "moss=3": {
+      "model": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss3"
+    }
+  }
+}

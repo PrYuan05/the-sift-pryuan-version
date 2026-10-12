@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "wither=0": {
+      "model": "pysift:block/wilting_foliage/wilting_foliage_wither0"
+    },
+    "wither=1": {
+      "model": "pysift:block/wilting_foliage/wilting_foliage_wither1"
+    },
+    "wither=2": {
+      "model": "pysift:block/wilting_foliage/wilting_foliage_wither2"
+    },
+    "wither=3": {
+      "model": "pysift:block/wilting_foliage/wilting_foliage_wither3"
+    }
+  }
+}

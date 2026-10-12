@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/rose_quartz_ore"
-    }
+    "": [
+      {
+        "model": "pysift:block/rose_quartz_ore/rose_quartz_ore"
+      }
+    ]
   }
 }

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "pysift:block/custom_ridge_stone_03"
-  }
-}

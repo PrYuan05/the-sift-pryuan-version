@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/dark_stone/dark_stone"
+      }
+    ]
+  }
+}

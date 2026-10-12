@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/void_stone/void_stone_g",
+        "weight": 1
+      }
+    ]
+  }
+}

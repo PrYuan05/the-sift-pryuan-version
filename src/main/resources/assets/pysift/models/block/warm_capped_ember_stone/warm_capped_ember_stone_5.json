@@ -1,0 +1,8 @@
+{
+  "parent": "pysift:block/templates/cube_bottom_top_vflip",
+  "textures": {
+    "top": "pysift:block/patina_ore/patina_ore_oxidation0",
+    "bottom": "pysift:block/ember_stone/ember_stone_heat3_a",
+    "side": "pysift:block/ember_stone/ember_stone_heat3_c"
+  }
+}

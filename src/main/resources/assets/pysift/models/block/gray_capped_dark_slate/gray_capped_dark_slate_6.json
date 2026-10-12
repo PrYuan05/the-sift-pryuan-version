@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/circle_slate/circle_slate",
+    "bottom": "pysift:block/stone_bricks/stone_bricks_b",
+    "side": "pysift:block/dark_slate/dark_slate_m"
+  }
+}

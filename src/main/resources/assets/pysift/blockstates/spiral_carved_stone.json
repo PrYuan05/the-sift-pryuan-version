@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/spiral_carved_stone"
-    }
+    "": [
+      {
+        "model": "pysift:block/spiral_carved_stone/spiral_carved_stone"
+      }
+    ]
   }
 }

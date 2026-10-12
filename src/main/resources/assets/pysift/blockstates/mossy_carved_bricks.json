@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "moss=0": {
+      "model": "pysift:block/mossy_carved_bricks/mossy_carved_bricks_moss0"
+    },
+    "moss=1": [
+      {
+        "model": "pysift:block/mossy_carved_bricks/mossy_carved_bricks_moss1_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/mossy_carved_bricks/mossy_carved_bricks_moss1_b",
+        "weight": 1
+      }
+    ]
+  }
+}

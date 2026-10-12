@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/concentric_stone"
-    }
+    "": [
+      {
+        "model": "pysift:block/concentric_stone/concentric_stone"
+      }
+    ]
   }
 }

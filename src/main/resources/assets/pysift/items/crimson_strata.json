@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/crimson_strata/crimson_strata_a"
+        },
+        "when": "rose"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/crimson_strata/crimson_strata_g"
+        },
+        "when": "mottled"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/crimson_strata/crimson_strata_j"
+        },
+        "when": "crimson"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/crimson_strata/crimson_strata_m"
+        },
+        "when": "plum"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/crimson_strata"
+    }
+  }
+}

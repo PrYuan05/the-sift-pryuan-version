@@ -69,6 +69,7 @@ public class ModItems {
             .displayItems((params, output) -> {
                 for (net.minecraft.world.level.block.Block block : ModBlocks.ALL_BLOCKS) {
                     output.accept(block);
+                    output.acceptAll(ModBlocks.stateVariantStacks(block));
                 }
             })
             .build();

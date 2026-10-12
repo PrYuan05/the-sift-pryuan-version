@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_e",
+        "weight": 1
+      }
+    ]
+  }
+}

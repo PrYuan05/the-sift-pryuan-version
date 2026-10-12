@@ -1,0 +1,78 @@
+{
+  "variants": {
+    "vein=0": [
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_d",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_f",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_g",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_h",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_i",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_j",
+        "weight": 1
+      }
+    ],
+    "vein=1": [
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein1_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein1_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein1_k",
+        "weight": 1
+      }
+    ],
+    "vein=2": [
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_d",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_e",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_l",
+        "weight": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/grooved_stone_pillar/grooved_stone_pillar_top",
+    "side": "pysift:block/grooved_stone_pillar/grooved_stone_pillar_side"
+  }
+}

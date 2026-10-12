@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/stone_variant/stone_variant"
+      }
+    ]
+  }
+}

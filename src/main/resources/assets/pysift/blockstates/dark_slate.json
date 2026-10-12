@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "fade=0": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_k",
+        "weight": 1
+      }
+    ],
+    "fade=1": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_o",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/dark_slate/dark_slate_p",
+        "weight": 1
+      }
+    ],
+    "fade=2": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_r",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/dark_slate/dark_slate_s",
+        "weight": 1
+      }
+    ],
+    "fade=3": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_t",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/dark_slate/dark_slate_u",
+        "weight": 1
+      }
+    ]
+  }
+}

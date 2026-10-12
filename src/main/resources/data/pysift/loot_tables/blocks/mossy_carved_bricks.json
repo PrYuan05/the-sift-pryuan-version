@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:mossy_carved_bricks",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:mossy_carved_bricks",
+              "properties": [
+                "moss"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/mossy_carved_bricks"
+}

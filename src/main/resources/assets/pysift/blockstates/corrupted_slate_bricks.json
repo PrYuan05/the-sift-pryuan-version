@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "corruption=0": {
+      "model": "pysift:block/corrupted_slate_bricks/corrupted_slate_bricks_corruption0"
+    },
+    "corruption=1": [
+      {
+        "model": "pysift:block/corrupted_slate_bricks/corrupted_slate_bricks_corruption1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate_bricks/corrupted_slate_bricks_corruption2_b",
+        "weight": 1
+      }
+    ],
+    "corruption=2": {
+      "model": "pysift:block/corrupted_slate_bricks/corrupted_slate_bricks_corruption2_a"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:glyph_block",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:glyph_block",
+              "properties": [
+                "corruption"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/glyph_block"
+}

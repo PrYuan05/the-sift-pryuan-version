@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:magma_vein_slate",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:magma_vein_slate",
+              "properties": [
+                "vein"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/magma_vein_slate"
+}

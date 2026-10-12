@@ -1,16 +1,22 @@
 {
   "variants": {
-    "axis=y": {
-      "model": "pysift:block/umber_log"
-    },
-    "axis=z": {
-      "model": "pysift:block/umber_log_horizontal",
-      "x": 90
-    },
-    "axis=x": {
-      "model": "pysift:block/umber_log_horizontal",
-      "x": 90,
-      "y": 90
-    }
+    "axis=y": [
+      {
+        "model": "pysift:block/umber_log/umber_log"
+      }
+    ],
+    "axis=x": [
+      {
+        "model": "pysift:block/umber_log/umber_log",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "pysift:block/umber_log/umber_log",
+        "x": 90
+      }
+    ]
   }
 }

@@ -1,0 +1,51 @@
+{
+  "variants": {
+    "stone=0": {
+      "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone0"
+    },
+    "stone=1": {
+      "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone1"
+    },
+    "stone=2": [
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone2_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone2_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone2_c",
+        "weight": 1
+      }
+    ],
+    "stone=3": [
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone3_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone3_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone3_c",
+        "weight": 1
+      }
+    ],
+    "stone=4": [
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone4_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone4_b",
+        "weight": 1
+      }
+    ],
+    "stone=5": {
+      "model": "pysift:block/cobbled_dirt/cobbled_dirt_stone5"
+    }
+  }
+}
