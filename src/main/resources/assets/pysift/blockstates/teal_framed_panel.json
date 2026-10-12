@@ -1,7 +1,25 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/teal_framed_panel"
+    "frame=0": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame0"
+    },
+    "frame=1": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame1"
+    },
+    "frame=2": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame2"
+    },
+    "frame=3": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame3"
+    },
+    "frame=4": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame4"
+    },
+    "frame=5": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame5"
+    },
+    "frame=6": {
+      "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame6"
     }
   }
 }

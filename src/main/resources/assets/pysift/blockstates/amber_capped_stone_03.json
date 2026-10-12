@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/amber_capped_stone_03"
+      "model": "pysift:block/amber_capped_stone_03/amber_capped_stone_03"
     }
   }
 }

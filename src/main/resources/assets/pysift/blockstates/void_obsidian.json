@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/void_obsidian"
-    }
+    "": [
+      {
+        "model": "pysift:block/void_obsidian/void_obsidian"
+      }
+    ]
   }
 }

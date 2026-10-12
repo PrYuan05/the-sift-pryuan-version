@@ -1,6 +1,62 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "pysift:item/teal_framed_panel"
+    "type": "minecraft:select",
+    "block_state_property": "frame",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame3"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame4"
+        },
+        "when": "4"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame5"
+        },
+        "when": "5"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_framed_panel/teal_framed_panel_frame6"
+        },
+        "when": "6"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/teal_framed_panel"
+    }
   }
 }

@@ -1,6 +1,41 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "pysift:item/meadow_grass_block"
+    "type": "minecraft:select",
+    "block_state_property": "grass_cover",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover3"
+        },
+        "when": "3"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/meadow_grass_block"
+    }
   }
 }

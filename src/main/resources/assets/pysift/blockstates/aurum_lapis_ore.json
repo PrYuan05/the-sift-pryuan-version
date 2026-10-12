@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/aurum_lapis_ore"
-    }
+    "": [
+      {
+        "model": "pysift:block/aurum_lapis_ore/aurum_lapis_ore"
+      }
+    ]
   }
 }

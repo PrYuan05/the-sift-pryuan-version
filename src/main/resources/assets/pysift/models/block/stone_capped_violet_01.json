@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/sift_stone_capped_violet_01_top",
-    "bottom": "pysift:block/sift_stone_capped_violet_01_bottom",
-    "side": "pysift:block/sift_stone_capped_violet_01_side"
-  }
-}

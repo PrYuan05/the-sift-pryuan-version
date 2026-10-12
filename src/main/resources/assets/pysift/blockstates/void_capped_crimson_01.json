@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/void_capped_crimson_01"
+      "model": "pysift:block/void_capped_crimson_01/void_capped_crimson_01"
     }
   }
 }

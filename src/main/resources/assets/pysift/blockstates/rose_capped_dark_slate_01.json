@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/rose_capped_dark_slate_01"
+      "model": "pysift:block/rose_capped_dark_slate_01/rose_capped_dark_slate_01"
     }
   }
 }

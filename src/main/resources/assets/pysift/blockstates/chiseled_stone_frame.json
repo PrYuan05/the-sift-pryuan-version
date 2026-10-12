@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/chiseled_stone_frame"
-    }
+    "": [
+      {
+        "model": "pysift:block/chiseled_stone_frame/chiseled_stone_frame"
+      }
+    ]
   }
 }

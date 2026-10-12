@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/dense_foliage_block"
-    }
+    "": [
+      {
+        "model": "pysift:block/dense_foliage_block/dense_foliage_block"
+      }
+    ]
   }
 }

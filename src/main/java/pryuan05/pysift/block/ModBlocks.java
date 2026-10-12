@@ -1,338 +1,294 @@
 package pryuan05.pysift.block;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import pryuan05.pysift.PySift;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
+/**
+ * The Sift 方塊註冊。方塊定義來自 blockstate_restructure 的 REGISTRY.md（layered_strata 已拆成 18 個獨立方塊）。
+ * 狀態屬性的名稱與取值範圍必須與 assets/pysift/blockstates/*.json 一致；挖掘工具由 mineable 標籤決定。
+ */
 public class ModBlocks {
     public static final List<Block> ALL_BLOCKS = new ArrayList<>();
+    public static final Map<String, Block> BY_NAME = new LinkedHashMap<>();
 
-    public static Block register(String name, BlockBehaviour.Properties properties) {
-        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
-        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
-        Block block = new Block(properties.setId(blockKey));
+    /** 沿用原 295 款方塊的六種材質組合；各方塊的材質依其貼圖對應的舊方塊多數決而來。 */
+    enum Mat {
+        STONE(1.5f, 6.0f, SoundType.STONE),
+        DEEPSLATE(3.0f, 6.0f, SoundType.DEEPSLATE),
+        WOOD(2.0f, 3.0f, SoundType.WOOD),
+        GRAVEL(0.5f, 0.5f, SoundType.GRAVEL),
+        SAND(0.5f, 0.5f, SoundType.SAND),
+        GRASS(0.6f, 0.6f, SoundType.GRASS);
+
+        private final float destroyTime;
+        private final float explosionResistance;
+        private final SoundType sound;
+
+        Mat(float destroyTime, float explosionResistance, SoundType sound) {
+            this.destroyTime = destroyTime;
+            this.explosionResistance = explosionResistance;
+            this.sound = sound;
+        }
+
+        BlockBehaviour.Properties properties() {
+            return BlockBehaviour.Properties.of().destroyTime(destroyTime).explosionResistance(explosionResistance).sound(sound);
+        }
+    }
+
+    record Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties) {
+        Def intProp(String property, int min, int max) {
+            return with(IntegerProperty.create(property, min, max));
+        }
+
+        <T extends Enum<T> & StringRepresentable> Def enumProp(String property, Class<T> type) {
+            return with(EnumProperty.create(property, type));
+        }
+
+        /** 色調標籤：tone 屬性只開放列出的值，順序即 blockstate 與創造模式分頁的順序，第一個為預設。 */
+        Def tones(String... names) {
+            return with(EnumProperty.create("tone", SiftStateProperties.Tone.class,
+                    Arrays.stream(names).map(n -> SiftStateProperties.Tone.valueOf(n.toUpperCase(Locale.ROOT))).toList()));
+        }
+
+        private Def with(Property<?> property) {
+            List<Property<?>> list = new ArrayList<>(properties);
+            list.add(property);
+            return new Def(name, mat, shape, List.copyOf(list));
+        }
+    }
+
+    private static Def block(String name, Mat mat) {
+        return new Def(name, mat, SiftStateBlock.Shape.CUBE, List.of());
+    }
+
+    /** 柱狀方塊：RotatedPillarBlock，具 axis=x|y|z。 */
+    private static Def pillar(String name, Mat mat) {
+        return new Def(name, mat, SiftStateBlock.Shape.PILLAR, List.of());
+    }
+
+    /** 六向可旋轉的複合面方塊（草方塊型），具 facing，頂面朝向 facing。 */
+    private static Def facing(String name, Mat mat) {
+        return new Def(name, mat, SiftStateBlock.Shape.FACING, List.of());
+    }
+
+    private static final List<Def> DEFS = List.of(
+            // ===== 遞增／複合方塊 =====
+            block("rune_slate", Mat.DEEPSLATE).intProp("charge", 0, 2),
+            block("aurum_ore", Mat.STONE).intProp("richness", 0, 1),
+            block("patina_ore", Mat.STONE).intProp("oxidation", 0, 1),
+            block("crimson_vein_stone", Mat.STONE).intProp("crimson_spread", 0, 4),
+            block("amber_vein_stone", Mat.STONE).intProp("amber_spread", 0, 3),
+            block("ember_stone", Mat.STONE).intProp("heat", 0, 4),
+            block("abyssal_strata", Mat.STONE).intProp("depth", 0, 2),
+            block("silted_strata", Mat.STONE).intProp("silt", 0, 2),
+            block("lichen_stone", Mat.DEEPSLATE).intProp("lichen", 0, 4),
+            block("bleached_sandstone", Mat.STONE).intProp("bleach", 0, 4),
+            block("banded_mudstone", Mat.STONE).intProp("banding", 0, 3),
+            block("cracked_sandstone", Mat.SAND).intProp("crack", 0, 3),
+            block("bleached_clay", Mat.STONE).intProp("bleach", 0, 2),
+            block("ash_marble", Mat.STONE).intProp("veining", 0, 3),
+            block("emerald_ore", Mat.STONE).intProp("density", 0, 1).enumProp("host", SiftStateProperties.Host.class),
+            block("glyph_block", Mat.STONE).intProp("corruption", 0, 3),
+            block("sky_block", Mat.STONE).intProp("cloud", 0, 2),
+            block("wilting_foliage", Mat.GRAVEL).intProp("wither", 0, 3),
+            block("teal_deep_block", Mat.STONE).intProp("depth", 0, 2),
+            block("rusted_dark_cobble", Mat.STONE).intProp("rust", 0, 3),
+            block("corrupted_slate", Mat.DEEPSLATE).intProp("corruption", 0, 3),
+            block("corrupted_slate_bricks", Mat.DEEPSLATE).intProp("corruption", 0, 2),
+            block("magma_vein_slate", Mat.STONE).intProp("vein", 0, 2),
+            block("frost_veined_stone", Mat.STONE).enumProp("tint", SiftStateProperties.Tint.class).intProp("veins", 0, 2), // TODO: verify — 未繪製的 4 種 tint/veins 組合暫借 tint=none,veins=0 的模型
+            block("cobbled_dirt", Mat.GRAVEL).intProp("stone", 0, 5),
+            block("mossy_cobblestone", Mat.STONE).intProp("moss", 0, 2),
+            block("mossy_carved_bricks", Mat.STONE).intProp("moss", 0, 1),
+            block("mossy_smooth_stone", Mat.STONE).intProp("moss", 0, 1),
+            block("mossy_olive_earth", Mat.STONE).intProp("moss", 0, 3),
+            block("forest_floor", Mat.GRAVEL).intProp("moss", 0, 3),
+            block("meadow_grass_block", Mat.GRASS).intProp("grass_cover", 0, 3), // TODO: verify texture pairing — grass_cover=1、2 的側面為推測配對
+
+            // ===== 原木與柱狀 =====
+            pillar("amber_log", Mat.WOOD),
+            pillar("umber_log", Mat.WOOD),
+            pillar("peeling_log", Mat.WOOD).intProp("peel", 0, 2), // TODO: verify texture pairing — 三階共用的頂面為推測配對
+            pillar("grooved_stone_pillar", Mat.STONE),
+
+            // ===== 覆蓋石（由 layered_strata 拆分，cube_bottom_top） =====
+            block("amber_capped_stone_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("amber_capped_stone_02", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("amber_capped_stone_03", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_crimson_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_dark_slate_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_dark_slate_02", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_violet_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("crimson_capped_void_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("dark_slate_capped_ash_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("dark_slate_capped_rose_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("rose_capped_dark_slate_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("rose_capped_stone_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_amber_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_amber_02", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_amber_03", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_rose_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_violet_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("void_capped_crimson_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+
+            // ===== 帶狀貼圖抽出的複合面方塊（facing 六向可旋轉；柱狀為 axis） =====
+            facing("teal_capped_abyssal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 abyssal_strata_depth0_b）
+            facing("crimson_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_b）
+            facing("crimson_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_c）
+            facing("rose_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_e）
+            facing("rose_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_f）
+            facing("teal_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_h）
+            facing("violet_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_l）
+            facing("teal_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_b）
+            facing("teal_capped_dark_slate_2", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_c）
+            facing("olive_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_f）
+            pillar("dark_slate_pillar", Mat.DEEPSLATE), // TODO: verify texture pairing — 端面為色彩相近的推測配對（來源 dark_slate_l）
+            facing("gray_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_m）
+            facing("violet_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_q）
+            facing("crimson_capped_ember_stone", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 ember_stone_heat3_b）
+            facing("warm_capped_ember_stone", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 ember_stone_heat3_c）
+            facing("olive_capped_forest_floor", Mat.GRAVEL), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 forest_floor_moss1）
+            facing("crimson_capped_gray_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_a）
+            facing("teal_capped_gray_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_h）
+            facing("teal_capped_gray_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_i）
+            facing("olive_capped_mossy_olive_earth", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 mossy_olive_earth_moss2）
+            facing("gray_capped_sky_block", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 sky_block_cloud2）
+            facing("teal_capped_teal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_c）
+            facing("crimson_capped_violet_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_b）
+            facing("crimson_capped_violet_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_c）
+
+            // ===== 隨機池回饋第二輪：新方塊 =====
+            block("varied_dark_slate", Mat.DEEPSLATE).tones("gray", "mottled", "violet"),
+            block("framed_dark_slate", Mat.DEEPSLATE),
+            block("blotched_dark_slate", Mat.DEEPSLATE),
+            block("umber_void_stone", Mat.STONE),
+            block("void_stone_bricks", Mat.STONE),
+            block("speckled_void_stone", Mat.STONE),
+            facing("crimson_capped_crimson_strata_3", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_i，rot90）
+            facing("teal_capped_teal_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_g，rot90）
+            facing("gray_capped_void_stone", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 void_stone_i，none）
+            pillar("void_stone_pillar", Mat.STONE), // TODO: verify texture pairing — 端面為色彩相近的推測配對（來源 void_stone_h，側面上下翻轉）
+
+            // ===== 連接紋理邊框（非遞增） =====
+            block("teal_framed_panel", Mat.STONE).intProp("frame", 0, 6),
+
+            // ===== 隨機變體池（weighted 多模型，無狀態屬性） =====
+            block("dark_slate", Mat.DEEPSLATE).intProp("fade", 0, 3), // k → o,p → r,s → t,u：紫色漸少、灰綠漸多
+            block("crimson_strata", Mat.STONE).tones("rose", "mottled", "crimson", "plum"),
+            block("gray_strata", Mat.STONE).tones("teal", "lavender", "violet", "warm"),
+            block("void_stone", Mat.STONE).tones("dark", "rusty", "olive"),
+            block("teal_strata", Mat.STONE).tones("pale", "cyan"),
+            block("violet_strata", Mat.STONE).tones("dusk", "violet", "slate"),
+            facing("edged_stone", Mat.STONE).tones("olive", "warm").intProp("edge", 0, 3), // TODO: warm 的 edge=1~3 尚無專屬貼圖，暫用 e
+            block("smooth_stone", Mat.STONE).tones("light", "warm", "blue"),
+            block("stone_bricks", Mat.STONE).tones("smooth", "rough", "paneled", "dark"),
+            block("ridge_stone", Mat.STONE),
+            block("rich_dirt", Mat.GRAVEL),
+            block("rose_strata", Mat.STONE).tones("violet", "rose"),
+            block("veined_crimson_stone", Mat.STONE),
+            block("veined_teal_stone", Mat.STONE).tones("teal", "mottled"),
+            block("violet_marble", Mat.STONE),
+            block("argent_ore", Mat.STONE),
+            block("aurum_lapis_ore", Mat.STONE),
+            block("circle_slate", Mat.DEEPSLATE),
+            block("framed_slate", Mat.DEEPSLATE),
+            block("labyrinth_marble", Mat.STONE),
+            block("labyrinth_marble_core", Mat.STONE),
+            block("red_sculk_vein_bottom", Mat.STONE),
+            block("rose_quartz_ore", Mat.STONE),
+            block("spiral_carved_stone", Mat.STONE),
+            block("teal_water_block", Mat.STONE),
+            block("violet_solid_block", Mat.STONE),
+            block("void_obsidian", Mat.STONE),
+            block("amber_sand", Mat.SAND),
+            block("chiseled_stone_frame", Mat.STONE),
+            block("cinnabar_planks", Mat.WOOD),
+            block("concentric_stone", Mat.STONE),
+            block("dark_stone", Mat.STONE),
+            block("dense_foliage_block", Mat.GRASS),
+            block("honey_planks", Mat.WOOD),
+            block("meander_stone_bricks", Mat.STONE),
+            block("pale_sand", Mat.SAND),
+            block("rosewood_planks", Mat.WOOD),
+            block("stone_variant", Mat.STONE),
+            block("walnut_planks", Mat.WOOD)
+    );
+
+    static {
+        for (Def def : DEFS) {
+            register(def);
+        }
+    }
+
+    private static Block register(Def def) {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(def.name()));
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(def.name()));
+        Block block = SiftStateBlock.create(def.mat().properties().setId(blockKey), def.shape(), def.properties());
         Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
         Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
         ALL_BLOCKS.add(block);
+        BY_NAME.put(def.name(), block);
         return block;
     }
 
-    public static Block registerPillar(String name, BlockBehaviour.Properties properties) {
-        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
-        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
-        Block block = new RotatedPillarBlock(properties.setId(blockKey));
-        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
-        Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
-        ALL_BLOCKS.add(block);
-        return block;
+    /**
+     * 創造模式分頁用：預設狀態以外的每個狀態（不含 axis、facing 這類朝向屬性）各一個物品，以 block_state 元件區分。
+     * 放置時 BlockItem 會套用該元件；掉落表以 copy_state 保留當下階段。
+     */
+    public static List<ItemStack> stateVariantStacks(Block block) {
+        List<ItemStack> stacks = new ArrayList<>();
+        BlockState defaultState = block.defaultBlockState();
+        for (BlockState state : block.getStateDefinition().getPossibleStates()) {
+            if (state == defaultState) {
+                continue;
+            }
+            if (state.hasProperty(RotatedPillarBlock.AXIS) && state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
+                continue;
+            }
+            if (state.hasProperty(SiftStateBlock.Facing.FACING) && state.getValue(SiftStateBlock.Facing.FACING) != Direction.UP) {
+                continue;
+            }
+            BlockItemStateProperties stateProperties = BlockItemStateProperties.EMPTY;
+            for (Property<?> property : state.getProperties()) {
+                if (property != RotatedPillarBlock.AXIS && property != SiftStateBlock.Facing.FACING) {
+                    stateProperties = withValue(stateProperties, property, state);
+                }
+            }
+            ItemStack stack = new ItemStack(block);
+            stack.set(DataComponents.BLOCK_STATE, stateProperties);
+            stacks.add(stack);
+        }
+        return stacks;
     }
 
-    public static final Block AMBER_CAPPED_STONE_01 = register("amber_capped_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_CAPPED_STONE_02 = register("amber_capped_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_CAPPED_STONE_03 = register("amber_capped_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_01 = register("amber_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_02 = register("amber_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_03 = register("amber_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_04 = register("amber_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_05 = register("amber_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_06 = register("amber_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_07 = register("amber_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_STRATA_08 = register("amber_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ARGENT_ORE = register("argent_ore", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_CAPPED_CRIMSON_01 = register("ash_capped_crimson_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_CAPPED_DARK_SLATE_01 = register("ash_capped_dark_slate_01", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block ASH_CAPPED_DARK_SLATE_02 = register("ash_capped_dark_slate_02", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block ASH_CAPPED_VIOLET_01 = register("ash_capped_violet_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_MARBLE_01 = register("ash_marble_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_MARBLE_02 = register("ash_marble_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_MARBLE_03 = register("ash_marble_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_MARBLE_04 = register("ash_marble_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_STONE_01 = register("ash_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_STONE_02 = register("ash_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_STONE_03 = register("ash_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_STONE_04 = register("ash_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ASH_STONE_05 = register("ash_stone_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AURUM_LAPIS_ORE = register("aurum_lapis_ore", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AURUM_ORE_A = register("aurum_ore_a", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AURUM_ORE_B = register("aurum_ore_b", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CIRCLE_SLATE = register("circle_slate", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block CRIMSON_CAPPED_VOID_01 = register("crimson_capped_void_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_01 = register("crimson_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_02 = register("crimson_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_03 = register("crimson_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_04 = register("crimson_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_05 = register("crimson_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_06 = register("crimson_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_07 = register("crimson_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_08 = register("crimson_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_09 = register("crimson_strata_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_10 = register("crimson_strata_10", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_11 = register("crimson_strata_11", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_12 = register("crimson_strata_12", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_13 = register("crimson_strata_13", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_14 = register("crimson_strata_14", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_15 = register("crimson_strata_15", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_16 = register("crimson_strata_16", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_17 = register("crimson_strata_17", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_18 = register("crimson_strata_18", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_19 = register("crimson_strata_19", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_20 = register("crimson_strata_20", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_21 = register("crimson_strata_21", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_22 = register("crimson_strata_22", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_23 = register("crimson_strata_23", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_24 = register("crimson_strata_24", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_25 = register("crimson_strata_25", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_26 = register("crimson_strata_26", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_27 = register("crimson_strata_27", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_28 = register("crimson_strata_28", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_29 = register("crimson_strata_29", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_30 = register("crimson_strata_30", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_31 = register("crimson_strata_31", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_32 = register("crimson_strata_32", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_33 = register("crimson_strata_33", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_34 = register("crimson_strata_34", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_35 = register("crimson_strata_35", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CRIMSON_STRATA_36 = register("crimson_strata_36", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block DARK_SLATE_01 = register("dark_slate_01", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_02 = register("dark_slate_02", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_03 = register("dark_slate_03", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_04 = register("dark_slate_04", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_05 = register("dark_slate_05", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_06 = register("dark_slate_06", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_07 = register("dark_slate_07", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_08 = register("dark_slate_08", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_09 = register("dark_slate_09", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_10 = register("dark_slate_10", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_11 = register("dark_slate_11", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_12 = register("dark_slate_12", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_13 = register("dark_slate_13", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_14 = register("dark_slate_14", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_15 = register("dark_slate_15", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_16 = register("dark_slate_16", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_17 = register("dark_slate_17", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_18 = register("dark_slate_18", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_19 = register("dark_slate_19", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_20 = register("dark_slate_20", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_21 = register("dark_slate_21", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_22 = register("dark_slate_22", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_23 = register("dark_slate_23", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_24 = register("dark_slate_24", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_25 = register("dark_slate_25", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_26 = register("dark_slate_26", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_27 = register("dark_slate_27", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_28 = register("dark_slate_28", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_29 = register("dark_slate_29", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_30 = register("dark_slate_30", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_31 = register("dark_slate_31", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_32 = register("dark_slate_32", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_33 = register("dark_slate_33", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_34 = register("dark_slate_34", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_35 = register("dark_slate_35", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_36 = register("dark_slate_36", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_37 = register("dark_slate_37", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_CAPPED_ASH_01 = register("dark_slate_capped_ash_01", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DARK_SLATE_CAPPED_ROSE_01 = register("dark_slate_capped_rose_01", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DIAMOND_SLATE_A = register("diamond_slate_a", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block DIAMOND_SLATE_B = register("diamond_slate_b", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block EMERALD_MARBLE_01 = register("emerald_marble_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EMERALD_MARBLE_02 = register("emerald_marble_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EMERALD_SANDSTONE_01 = register("emerald_sandstone_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block EMERALD_SANDSTONE_02 = register("emerald_sandstone_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block FRAMED_SLATE = register("framed_slate", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block GILDED_RUNE_SLATE = register("gilded_rune_slate", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block GLYPH_BLOCK_01 = register("glyph_block_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_BLOCK_02 = register("glyph_block_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_BLOCK_03 = register("glyph_block_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_BLOCK_04 = register("glyph_block_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_VEINED_BLOCK_01 = register("glyph_veined_block_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_VEINED_BLOCK_02 = register("glyph_veined_block_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GLYPH_VEINED_BLOCK_03 = register("glyph_veined_block_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_01 = register("gray_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_02 = register("gray_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_03 = register("gray_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_04 = register("gray_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_05 = register("gray_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_06 = register("gray_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_07 = register("gray_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_08 = register("gray_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_09 = register("gray_strata_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_10 = register("gray_strata_10", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_11 = register("gray_strata_11", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_12 = register("gray_strata_12", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_13 = register("gray_strata_13", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_14 = register("gray_strata_14", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_15 = register("gray_strata_15", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block GRAY_STRATA_16 = register("gray_strata_16", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block LABYRINTH_MARBLE = register("labyrinth_marble", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block LABYRINTH_MARBLE_CORE = register("labyrinth_marble_core", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block OCHRE_STRATA_01 = register("ochre_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block PATINA_ORE_A = register("patina_ore_a", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block PATINA_ORE_B = register("patina_ore_b", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block RADIANT_RUNE_SLATE = register("radiant_rune_slate", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block RED_SCULK_VEIN_BOTTOM = register("red_sculk_vein_bottom", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_CAPPED_DARK_SLATE_01 = register("rose_capped_dark_slate_01", BlockBehaviour.Properties.of().destroyTime(3.0f).explosionResistance(6.0f).sound(SoundType.DEEPSLATE));
-    public static final Block ROSE_CAPPED_STONE_01 = register("rose_capped_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_QUARTZ_ORE = register("rose_quartz_ore", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_01 = register("rose_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_02 = register("rose_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_03 = register("rose_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_04 = register("rose_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_05 = register("rose_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_06 = register("rose_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_07 = register("rose_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_08 = register("rose_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSE_STRATA_09 = register("rose_strata_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SKY_BLOCK_01 = register("sky_block_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SKY_BLOCK_02 = register("sky_block_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SKY_BLOCK_03 = register("sky_block_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SPIRAL_CARVED_STONE = register("spiral_carved_stone", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_CAPPED_AMBER_01 = register("stone_capped_amber_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_CAPPED_AMBER_02 = register("stone_capped_amber_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_CAPPED_AMBER_03 = register("stone_capped_amber_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_CAPPED_ROSE_01 = register("stone_capped_rose_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_CAPPED_VIOLET_01 = register("stone_capped_violet_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_BLOCK_A = register("teal_block_a", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_BLOCK_B = register("teal_block_b", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_FRAMED_PANEL = register("teal_framed_panel", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_SOLID_BLOCK = register("teal_solid_block", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_01 = register("teal_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_02 = register("teal_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_03 = register("teal_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_04 = register("teal_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_05 = register("teal_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_06 = register("teal_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_07 = register("teal_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_08 = register("teal_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_09 = register("teal_strata_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_10 = register("teal_strata_10", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_11 = register("teal_strata_11", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_12 = register("teal_strata_12", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_13 = register("teal_strata_13", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_14 = register("teal_strata_14", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_15 = register("teal_strata_15", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_16 = register("teal_strata_16", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_STRATA_17 = register("teal_strata_17", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block TEAL_WATER_BLOCK = register("teal_water_block", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VEINED_CRIMSON_STONE_01 = register("veined_crimson_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VEINED_CRIMSON_STONE_02 = register("veined_crimson_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VEINED_TEAL_STONE_01 = register("veined_teal_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VEINED_TEAL_STONE_02 = register("veined_teal_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_MARBLE_01 = register("violet_marble_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_MARBLE_02 = register("violet_marble_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_SOLID_BLOCK = register("violet_solid_block", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_01 = register("violet_strata_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_02 = register("violet_strata_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_03 = register("violet_strata_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_04 = register("violet_strata_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_05 = register("violet_strata_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_06 = register("violet_strata_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_07 = register("violet_strata_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_08 = register("violet_strata_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_09 = register("violet_strata_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_10 = register("violet_strata_10", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VIOLET_STRATA_11 = register("violet_strata_11", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_CAPPED_CRIMSON_01 = register("void_capped_crimson_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_OBSIDIAN = register("void_obsidian", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_01 = register("void_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_02 = register("void_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_03 = register("void_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_04 = register("void_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_05 = register("void_stone_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_06 = register("void_stone_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_07 = register("void_stone_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_08 = register("void_stone_08", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_09 = register("void_stone_09", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_10 = register("void_stone_10", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_11 = register("void_stone_11", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_12 = register("void_stone_12", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block VOID_STONE_13 = register("void_stone_13", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block AMBER_LOG = registerPillar("amber_log", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block AMBER_SAND = register("amber_sand", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block CHISELED_STONE_FRAME = register("chiseled_stone_frame", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block CINNABAR_PLANKS = register("cinnabar_planks", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block COBBLED_DIRT_01 = register("cobbled_dirt_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_02 = register("cobbled_dirt_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_03 = register("cobbled_dirt_03", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_04 = register("cobbled_dirt_04", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_05 = register("cobbled_dirt_05", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_06 = register("cobbled_dirt_06", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_07 = register("cobbled_dirt_07", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_08 = register("cobbled_dirt_08", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block COBBLED_DIRT_09 = register("cobbled_dirt_09", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block CONCENTRIC_STONE = register("concentric_stone", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block DARK_STONE_01 = register("dark_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block DARK_STONE_02 = register("dark_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block DENSE_FOLIAGE_BLOCK = register("dense_foliage_block", BlockBehaviour.Properties.of().destroyTime(0.6f).explosionResistance(0.6f).sound(SoundType.GRASS));
-    public static final Block EDGED_STONE_01 = register("edged_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EDGED_STONE_02 = register("edged_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EDGED_STONE_03 = register("edged_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EDGED_STONE_04 = register("edged_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block EDGED_STONE_05 = register("edged_stone_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block FOREST_FLOOR_01 = register("forest_floor_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_02 = register("forest_floor_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_03 = register("forest_floor_03", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_04 = register("forest_floor_04", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_05 = register("forest_floor_05", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_06 = register("forest_floor_06", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_07 = register("forest_floor_07", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block FOREST_FLOOR_08 = register("forest_floor_08", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block GRASSY_DIRT_PATCH_A = register("grassy_dirt_patch_a", BlockBehaviour.Properties.of().destroyTime(0.6f).explosionResistance(0.6f).sound(SoundType.GRASS));
-    public static final Block GRASSY_DIRT_PATCH_B = register("grassy_dirt_patch_b", BlockBehaviour.Properties.of().destroyTime(0.6f).explosionResistance(0.6f).sound(SoundType.GRASS));
-    public static final Block GROOVED_STONE_PILLAR = registerPillar("grooved_stone_pillar", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block HONEY_PLANKS = register("honey_planks", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block MEADOW_GRASS_BLOCK = register("meadow_grass_block", BlockBehaviour.Properties.of().destroyTime(0.6f).explosionResistance(0.6f).sound(SoundType.GRASS));
-    public static final Block MEANDER_STONE_BRICKS = register("meander_stone_bricks", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block MOSSY_STONE_01 = register("mossy_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block MOSSY_STONE_02 = register("mossy_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block MOSSY_STONE_03 = register("mossy_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block MOSSY_STONE_04 = register("mossy_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block MOSSY_STONE_05 = register("mossy_stone_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block OLIVE_EARTH_01 = register("olive_earth_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block OLIVE_EARTH_02 = register("olive_earth_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block PALE_SAND = register("pale_sand", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block PALE_STREAK_LOG_A = register("pale_streak_log_a", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block PALE_STREAK_LOG_B = register("pale_streak_log_b", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block RICH_DIRT_01 = register("rich_dirt_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block RICH_DIRT_02 = register("rich_dirt_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block RICH_DIRT_03 = register("rich_dirt_03", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.GRAVEL));
-    public static final Block RIDGE_STONE_01 = register("ridge_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block RIDGE_STONE_02 = register("ridge_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block RIDGE_STONE_03 = register("ridge_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block RIDGE_STONE_04 = register("ridge_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block ROSEWOOD_PLANKS = register("rosewood_planks", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block RUSSET_LOG = registerPillar("russet_log", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block SANDY_STONE_01 = register("sandy_stone_01", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block SANDY_STONE_02 = register("sandy_stone_02", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block SANDY_STONE_03 = register("sandy_stone_03", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block SANDY_STONE_04 = register("sandy_stone_04", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block SANDY_STONE_05 = register("sandy_stone_05", BlockBehaviour.Properties.of().destroyTime(0.5f).explosionResistance(0.5f).sound(SoundType.SAND));
-    public static final Block SMOOTH_STONE_01 = register("smooth_stone_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_02 = register("smooth_stone_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_03 = register("smooth_stone_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_04 = register("smooth_stone_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_05 = register("smooth_stone_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_06 = register("smooth_stone_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block SMOOTH_STONE_07 = register("smooth_stone_07", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_01 = register("stone_bricks_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_02 = register("stone_bricks_02", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_03 = register("stone_bricks_03", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_04 = register("stone_bricks_04", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_05 = register("stone_bricks_05", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_BRICKS_06 = register("stone_bricks_06", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block STONE_VARIANT_01 = register("stone_variant_01", BlockBehaviour.Properties.of().destroyTime(1.5f).explosionResistance(6.0f).sound(SoundType.STONE));
-    public static final Block UMBER_LOG = registerPillar("umber_log", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
-    public static final Block WALNUT_PLANKS = register("walnut_planks", BlockBehaviour.Properties.of().destroyTime(2.0f).explosionResistance(3.0f).sound(SoundType.WOOD));
+    private static <T extends Comparable<T>> BlockItemStateProperties withValue(BlockItemStateProperties stateProperties, Property<T> property, BlockState state) {
+        return stateProperties.with(property, state);
+    }
 
     public static void registerModBlocks() {
         PySift.LOGGER.info("Successfully registered {} Sift Blocks for {}", ALL_BLOCKS.size(), PySift.MOD_ID);

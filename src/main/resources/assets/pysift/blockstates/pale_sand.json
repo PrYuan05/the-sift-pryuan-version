@@ -1,7 +1,9 @@
 {
   "variants": {
-    "": {
-      "model": "pysift:block/pale_sand"
-    }
+    "": [
+      {
+        "model": "pysift:block/pale_sand/pale_sand"
+      }
+    ]
   }
 }
