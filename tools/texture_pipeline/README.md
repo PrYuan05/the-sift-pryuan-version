@@ -5,7 +5,7 @@
 | 工具 | 用途 | 會不會改檔 |
 | :-- | :-- | :-- |
 | `verify.py` | 檢查 Java 方塊表、blockstate、模型、貼圖、物品、掉落表、標籤、語言檔是否一致，並檢查隨機池色系一致性與 PNG 來源 | 只讀，有錯誤時 exit 1 |
-| `recolor.py scan` | 找出色系不一致（調色盤距離 > 9）的隨機池或階段，選出參考貼圖，產生改色預覽 | 只寫 `build/texture_pipeline/out/` |
+| `recolor.py scan [--threshold N]` | 找出色系不一致（調色盤距離 > N，預設 9）的隨機池或階段，選出參考貼圖，產生改色預覽 | 只寫 `build/texture_pipeline/out/` |
 | `recolor.py apply [block[:state] ...]` | 依 `recolor_plan.json` 改色，先備份再記錄到 manifest | 改 PNG |
 | `recolor.py revert <block[:state]\|all>` | 從備份還原，並移除 manifest 記錄 | 改 PNG |
 | `tone_groups.py`、`directional_scan.py` | 色調分群、帶狀貼圖偵測（產生對照圖與提案） | 只寫 `<out_dir>` |

@@ -1,7 +1,7 @@
 """Unify the colour tone of incoherent random pools / stages by remapping textures onto a reference palette.
 
-  python -I tools/texture_pipeline/recolor.py <project> scan
-      read-only: find pools whose palette distance > COHERENCE_TH, pick a reference (medoid unless overridden),
+  python -I tools/texture_pipeline/recolor.py <project> scan [--threshold N]
+      read-only: find pools whose palette distance > N (default COHERENCE_TH), pick a reference (medoid unless overridden),
       preview the remap -> build/texture_pipeline/out/recolor_plan.json + recolor_review.png
   python -I tools/texture_pipeline/recolor.py <project> apply [block[:state] ...]
       apply recolor_plan.json (optionally only the listed pools); backs up to .texture_backups/, logs the manifest
@@ -77,7 +77,7 @@ def texture_usage():
     return use
 
 
-def scan():
+def scan(threshold=COHERENCE_TH):
     ov = lj(OVERRIDES) if OVERRIDES.exists() else {}
     exclude, refs = set(ov.get("exclude", [])), ov.get("reference", {})
     skip_targets, allow_shared = ov.get("skip_targets", {}), set(ov.get("allow_shared", []))
@@ -92,7 +92,7 @@ def scan():
             continue
         texs = [tex(r) for r in dict.fromkeys(refs_in_pool)]
         worst = max(pdist(a.pal, b.pal) for a in texs for b in texs)
-        if worst <= COHERENCE_TH:
+        if worst <= threshold:
             continue
         chosen = next((v for k, v in refs.items() if matches(k, block, state)), None)
         if chosen:
@@ -232,7 +232,7 @@ def record(pool, ref_name, backup_dir):
 
 cmd = sys.argv[2] if len(sys.argv) > 2 else "scan"
 if cmd == "scan":
-    scan()
+    scan(float(sys.argv[sys.argv.index("--threshold") + 1]) if "--threshold" in sys.argv else COHERENCE_TH)
 elif cmd == "apply":
     apply(sys.argv[3:])
 elif cmd == "revert":
