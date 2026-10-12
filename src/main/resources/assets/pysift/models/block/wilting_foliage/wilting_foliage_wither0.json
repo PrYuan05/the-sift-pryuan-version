@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/wilting_foliage/wilting_foliage_wither0"
+  }
+}

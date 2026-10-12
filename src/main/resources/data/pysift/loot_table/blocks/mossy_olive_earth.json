@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:mossy_olive_earth",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:mossy_olive_earth",
+              "properties": [
+                "moss"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/mossy_olive_earth"
+}

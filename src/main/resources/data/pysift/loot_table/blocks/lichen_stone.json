@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:lichen_stone",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:lichen_stone",
+              "properties": [
+                "lichen"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/lichen_stone"
+}

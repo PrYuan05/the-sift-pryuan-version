@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:cobbled_dirt",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:cobbled_dirt",
+              "properties": [
+                "stone"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/cobbled_dirt"
+}

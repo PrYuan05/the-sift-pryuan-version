@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "tone=light": [
+      {
+        "model": "pysift:block/smooth_stone/smooth_stone_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/smooth_stone/smooth_stone_d",
+        "weight": 1
+      }
+    ],
+    "tone=warm": [
+      {
+        "model": "pysift:block/smooth_stone/smooth_stone_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/smooth_stone/smooth_stone_e",
+        "weight": 1
+      }
+    ],
+    "tone=blue": [
+      {
+        "model": "pysift:block/smooth_stone/smooth_stone_b",
+        "weight": 1
+      }
+    ]
+  }
+}

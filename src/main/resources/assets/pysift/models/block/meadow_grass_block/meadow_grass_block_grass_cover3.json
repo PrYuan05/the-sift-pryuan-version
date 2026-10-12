@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover3_top",
+    "side": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover3_side",
+    "bottom": "pysift:block/meadow_grass_block/meadow_grass_block_grass_cover3_bottom"
+  }
+}

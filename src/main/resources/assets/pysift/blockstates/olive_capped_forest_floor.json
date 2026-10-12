@@ -1,0 +1,304 @@
+{
+  "variants": {
+    "facing=up": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1
+      }
+    ],
+    "facing=down": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1,
+        "x": 180
+      }
+    ],
+    "facing=north": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_2",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_3",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_4",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_5",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_6",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_7",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_8",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_9",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      }
+    ]
+  }
+}

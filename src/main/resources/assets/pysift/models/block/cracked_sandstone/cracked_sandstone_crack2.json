@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/cracked_sandstone/cracked_sandstone_crack2"
+  }
+}

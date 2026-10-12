@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/rose_quartz_ore/rose_quartz_ore"
+  }
+}

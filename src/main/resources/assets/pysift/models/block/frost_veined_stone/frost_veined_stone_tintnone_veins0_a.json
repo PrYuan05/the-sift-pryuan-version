@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a"
+  }
+}

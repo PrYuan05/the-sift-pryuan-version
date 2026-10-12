@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/void_stone/void_stone_g",
+    "bottom": "pysift:block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_bottom",
+    "side": "pysift:block/dark_slate/dark_slate_m"
+  }
+}

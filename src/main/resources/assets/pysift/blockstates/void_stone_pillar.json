@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "axis=y": [
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_3",
+        "weight": 1
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_2",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_3",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "axis=x": [
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/void_stone_pillar/void_stone_pillar_3",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ]
+  }
+}

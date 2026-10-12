@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/rose_strata/rose_strata_a"
+        },
+        "when": "violet"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/rose_strata/rose_strata_b"
+        },
+        "when": "rose"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/rose_strata"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "oxidation=0": {
+      "model": "pysift:block/patina_ore/patina_ore_oxidation0"
+    },
+    "oxidation=1": {
+      "model": "pysift:block/patina_ore/patina_ore_oxidation1"
+    }
+  }
+}

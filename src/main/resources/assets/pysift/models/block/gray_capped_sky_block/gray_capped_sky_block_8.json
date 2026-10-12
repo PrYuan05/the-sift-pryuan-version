@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/labyrinth_marble_core/labyrinth_marble_core",
+    "bottom": "pysift:block/sky_block/sky_block_cloud0",
+    "side": "pysift:block/sky_block/sky_block_cloud2"
+  }
+}

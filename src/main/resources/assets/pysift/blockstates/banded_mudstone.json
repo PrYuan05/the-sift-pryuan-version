@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "banding=0": {
+      "model": "pysift:block/banded_mudstone/banded_mudstone_banding0"
+    },
+    "banding=1": {
+      "model": "pysift:block/banded_mudstone/banded_mudstone_banding1"
+    },
+    "banding=2": {
+      "model": "pysift:block/banded_mudstone/banded_mudstone_banding2"
+    },
+    "banding=3": {
+      "model": "pysift:block/banded_mudstone/banded_mudstone_banding3"
+    }
+  }
+}

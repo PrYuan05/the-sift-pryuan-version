@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "silt=0": [
+      {
+        "model": "pysift:block/silted_strata/silted_strata_silt0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/silted_strata/silted_strata_silt0_b",
+        "weight": 1
+      }
+    ],
+    "silt=1": {
+      "model": "pysift:block/silted_strata/silted_strata_silt1"
+    },
+    "silt=2": {
+      "model": "pysift:block/silted_strata/silted_strata_silt2"
+    }
+  }
+}

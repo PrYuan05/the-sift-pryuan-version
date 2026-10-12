@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:cracked_sandstone",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:cracked_sandstone",
+              "properties": [
+                "crack"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/cracked_sandstone"
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:corrupted_slate",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:corrupted_slate",
+              "properties": [
+                "corruption"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/corrupted_slate"
+}

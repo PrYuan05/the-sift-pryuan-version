@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "veining=0": {
+      "model": "pysift:block/ash_marble/ash_marble_veining0"
+    },
+    "veining=1": {
+      "model": "pysift:block/ash_marble/ash_marble_veining1"
+    },
+    "veining=2": {
+      "model": "pysift:block/ash_marble/ash_marble_veining2"
+    },
+    "veining=3": {
+      "model": "pysift:block/ash_marble/ash_marble_veining3"
+    }
+  }
+}

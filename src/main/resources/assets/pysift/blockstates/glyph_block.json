@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "corruption=0": [
+      {
+        "model": "pysift:block/glyph_block/glyph_block_corruption0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/glyph_block/glyph_block_corruption0_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/glyph_block/glyph_block_corruption0_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/glyph_block/glyph_block_corruption0_d",
+        "weight": 1
+      }
+    ],
+    "corruption=1": {
+      "model": "pysift:block/glyph_block/glyph_block_corruption1"
+    },
+    "corruption=2": {
+      "model": "pysift:block/glyph_block/glyph_block_corruption2"
+    },
+    "corruption=3": {
+      "model": "pysift:block/glyph_block/glyph_block_corruption3"
+    }
+  }
+}

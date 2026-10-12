@@ -1,0 +1,212 @@
+{
+  "variants": {
+    "facing=up,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a"
+    },
+    "facing=up,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b"
+    },
+    "facing=up,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c"
+    },
+    "facing=up,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d"
+    },
+    "facing=up,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a"
+    },
+    "facing=up,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e"
+    },
+    "facing=up,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e"
+    },
+    "facing=up,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e"
+    },
+    "facing=down,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 180
+    },
+    "facing=down,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b",
+      "x": 180
+    },
+    "facing=down,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c",
+      "x": 180
+    },
+    "facing=down,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d",
+      "x": 180
+    },
+    "facing=down,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 180
+    },
+    "facing=down,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 180
+    },
+    "facing=down,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 180
+    },
+    "facing=down,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 180
+    },
+    "facing=north,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90
+    },
+    "facing=north,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b",
+      "x": 90
+    },
+    "facing=north,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c",
+      "x": 90
+    },
+    "facing=north,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d",
+      "x": 90
+    },
+    "facing=north,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90
+    },
+    "facing=north,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90
+    },
+    "facing=north,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90
+    },
+    "facing=north,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90
+    },
+    "facing=south,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west,tone=olive,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=olive,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_b",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=olive,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_c",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=olive,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_d",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=warm,edge=0": {
+      "model": "pysift:block/edged_stone/edged_stone_a",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=warm,edge=1": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=warm,edge=2": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,tone=warm,edge=3": {
+      "model": "pysift:block/edged_stone/edged_stone_e",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

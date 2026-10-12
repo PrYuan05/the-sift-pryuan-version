@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "tone=dark": [
+      {
+        "model": "pysift:block/void_stone/void_stone_c",
+        "weight": 1
+      }
+    ],
+    "tone=rusty": [
+      {
+        "model": "pysift:block/void_stone/void_stone_f",
+        "weight": 1
+      }
+    ],
+    "tone=olive": [
+      {
+        "model": "pysift:block/void_stone/void_stone_e",
+        "weight": 1
+      }
+    ]
+  }
+}

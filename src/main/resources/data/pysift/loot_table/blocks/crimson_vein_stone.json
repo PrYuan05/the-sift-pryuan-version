@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:crimson_vein_stone",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:crimson_vein_stone",
+              "properties": [
+                "crimson_spread"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/crimson_vein_stone"
+}

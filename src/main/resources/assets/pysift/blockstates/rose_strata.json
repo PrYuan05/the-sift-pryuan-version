@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tone=violet": [
+      {
+        "model": "pysift:block/rose_strata/rose_strata_a",
+        "weight": 1
+      }
+    ],
+    "tone=rose": [
+      {
+        "model": "pysift:block/rose_strata/rose_strata_b",
+        "weight": 1
+      }
+    ]
+  }
+}

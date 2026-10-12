@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/peeling_log/peeling_log_peel2_top",
+    "side": "pysift:block/peeling_log/peeling_log_peel2_side"
+  }
+}

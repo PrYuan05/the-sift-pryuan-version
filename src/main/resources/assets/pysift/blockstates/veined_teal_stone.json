@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "tone=teal": [
+      {
+        "model": "pysift:block/veined_teal_stone/veined_teal_stone_a",
+        "weight": 1
+      }
+    ],
+    "tone=mottled": [
+      {
+        "model": "pysift:block/veined_teal_stone/veined_teal_stone_b",
+        "weight": 1
+      }
+    ]
+  }
+}

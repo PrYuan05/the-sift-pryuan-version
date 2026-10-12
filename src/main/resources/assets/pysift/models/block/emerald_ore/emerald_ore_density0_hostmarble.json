@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/emerald_ore/emerald_ore_density0_hostmarble"
+  }
+}

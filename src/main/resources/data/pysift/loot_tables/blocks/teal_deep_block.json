@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:teal_deep_block",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:teal_deep_block",
+              "properties": [
+                "depth"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/teal_deep_block"
+}

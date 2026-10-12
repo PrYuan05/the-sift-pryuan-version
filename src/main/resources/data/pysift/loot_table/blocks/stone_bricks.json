@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:stone_bricks",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:stone_bricks",
+              "properties": [
+                "tone"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/stone_bricks"
+}

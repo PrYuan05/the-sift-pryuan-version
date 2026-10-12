@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/patina_ore/patina_ore_oxidation1"
+  }
+}

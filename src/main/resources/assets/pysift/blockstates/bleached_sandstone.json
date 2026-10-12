@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "bleach=0": {
+      "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0"
+    },
+    "bleach=1": {
+      "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach1"
+    },
+    "bleach=2": {
+      "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach2"
+    },
+    "bleach=3": {
+      "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach3"
+    },
+    "bleach=4": {
+      "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach4"
+    }
+  }
+}

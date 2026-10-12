@@ -1,0 +1,8 @@
+{
+  "parent": "pysift:block/templates/cube_bottom_top_vflip",
+  "textures": {
+    "top": "pysift:block/teal_strata/teal_strata_g",
+    "bottom": "pysift:block/dark_slate/dark_slate_e",
+    "side": "pysift:block/dark_slate/dark_slate_b"
+  }
+}

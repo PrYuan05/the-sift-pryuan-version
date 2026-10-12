@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss2"
+  }
+}

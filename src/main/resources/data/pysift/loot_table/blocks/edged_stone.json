@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:edged_stone",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:edged_stone",
+              "properties": [
+                "tone",
+                "edge"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/edged_stone"
+}

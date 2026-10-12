@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:abyssal_strata",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:abyssal_strata",
+              "properties": [
+                "depth"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/abyssal_strata"
+}

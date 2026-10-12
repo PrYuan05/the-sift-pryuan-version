@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "richness=0": {
+      "model": "pysift:block/aurum_ore/aurum_ore_richness0"
+    },
+    "richness=1": {
+      "model": "pysift:block/aurum_ore/aurum_ore_richness1"
+    }
+  }
+}

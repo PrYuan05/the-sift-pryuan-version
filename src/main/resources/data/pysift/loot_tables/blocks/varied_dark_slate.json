@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:varied_dark_slate",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:varied_dark_slate",
+              "properties": [
+                "tone"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/varied_dark_slate"
+}

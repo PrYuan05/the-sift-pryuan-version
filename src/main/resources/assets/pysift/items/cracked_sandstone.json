@@ -1,0 +1,41 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "crack",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack0"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack1"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack2"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack3"
+        },
+        "when": "3"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/cracked_sandstone"
+    }
+  }
+}

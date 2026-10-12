@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "amber_spread=0": {
+      "model": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0"
+    },
+    "amber_spread=1": {
+      "model": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread1"
+    },
+    "amber_spread=2": {
+      "model": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread2"
+    },
+    "amber_spread=3": {
+      "model": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread3"
+    }
+  }
+}

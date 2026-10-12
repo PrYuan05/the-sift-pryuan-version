@@ -1,0 +1,48 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "heat",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/ember_stone/ember_stone_heat0_a"
+        },
+        "when": "0"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/ember_stone/ember_stone_heat1_a"
+        },
+        "when": "1"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/ember_stone/ember_stone_heat2_a"
+        },
+        "when": "2"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/ember_stone/ember_stone_heat3_a"
+        },
+        "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/ember_stone/ember_stone_heat4"
+        },
+        "when": "4"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/ember_stone"
+    }
+  }
+}

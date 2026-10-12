@@ -1,0 +1,84 @@
+{
+  "variants": {
+    "tint=none,veins=0": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ],
+    "tint=violet,veins=1": {
+      "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintviolet_veins1"
+    },
+    "tint=violet,veins=2": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintviolet_veins2_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintviolet_veins2_b",
+        "weight": 1
+      }
+    ],
+    "tint=crimson,veins=1": {
+      "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintcrimson_veins1"
+    },
+    "tint=crimson,veins=2": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintcrimson_veins2_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintcrimson_veins2_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintcrimson_veins2_c",
+        "weight": 1
+      }
+    ],
+    "tint=violet,veins=0": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ],
+    "tint=crimson,veins=0": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ],
+    "tint=none,veins=1": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ],
+    "tint=none,veins=2": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ]
+  }
+}

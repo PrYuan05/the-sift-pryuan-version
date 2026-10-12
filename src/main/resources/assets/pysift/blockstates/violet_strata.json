@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "tone=dusk": [
+      {
+        "model": "pysift:block/violet_strata/violet_strata_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/violet_strata/violet_strata_d",
+        "weight": 1
+      }
+    ],
+    "tone=violet": [
+      {
+        "model": "pysift:block/violet_strata/violet_strata_f",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/violet_strata/violet_strata_g",
+        "weight": 1
+      }
+    ],
+    "tone=slate": [
+      {
+        "model": "pysift:block/violet_strata/violet_strata_e",
+        "weight": 1
+      }
+    ]
+  }
+}

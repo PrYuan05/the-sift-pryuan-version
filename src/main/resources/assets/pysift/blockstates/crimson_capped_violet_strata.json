@@ -1,0 +1,112 @@
+{
+  "variants": {
+    "facing=up": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1
+      }
+    ],
+    "facing=down": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1,
+        "x": 180
+      }
+    ],
+    "facing=north": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "facing=south": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      }
+    ],
+    "facing=east": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "facing=west": [
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_2",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/crimson_capped_violet_strata/crimson_capped_violet_strata_3",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      }
+    ]
+  }
+}

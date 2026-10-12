@@ -1,0 +1,31 @@
+{
+  "variants": {
+    "depth=0": [
+      {
+        "model": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/abyssal_strata/abyssal_strata_depth0_c",
+        "weight": 1
+      }
+    ],
+    "depth=1": [
+      {
+        "model": "pysift:block/abyssal_strata/abyssal_strata_depth1_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/abyssal_strata/abyssal_strata_depth1_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/teal_strata/teal_strata_d",
+        "weight": 1
+      }
+    ],
+    "depth=2": {
+      "model": "pysift:block/abyssal_strata/abyssal_strata_depth2"
+    }
+  }
+}

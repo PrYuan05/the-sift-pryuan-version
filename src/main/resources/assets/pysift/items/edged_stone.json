@@ -1,0 +1,97 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "when": "olive",
+        "model": {
+          "type": "minecraft:select",
+          "block_state_property": "edge",
+          "property": "minecraft:block_state",
+          "cases": [
+            {
+              "when": "0",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_a"
+              }
+            },
+            {
+              "when": "1",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_b"
+              }
+            },
+            {
+              "when": "2",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_c"
+              }
+            },
+            {
+              "when": "3",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_d"
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "pysift:item/edged_stone"
+          }
+        }
+      },
+      {
+        "when": "warm",
+        "model": {
+          "type": "minecraft:select",
+          "block_state_property": "edge",
+          "property": "minecraft:block_state",
+          "cases": [
+            {
+              "when": "0",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_a"
+              }
+            },
+            {
+              "when": "1",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_e"
+              }
+            },
+            {
+              "when": "2",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_e"
+              }
+            },
+            {
+              "when": "3",
+              "model": {
+                "type": "minecraft:model",
+                "model": "pysift:block/edged_stone/edged_stone_e"
+              }
+            }
+          ],
+          "fallback": {
+            "type": "minecraft:model",
+            "model": "pysift:item/edged_stone"
+          }
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/edged_stone"
+    }
+  }
+}

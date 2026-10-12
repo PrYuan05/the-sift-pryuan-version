@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:ember_stone",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:ember_stone",
+              "properties": [
+                "heat"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/ember_stone"
+}

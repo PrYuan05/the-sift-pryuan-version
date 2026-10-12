@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "density=0,host=marble": {
+      "model": "pysift:block/emerald_ore/emerald_ore_density0_hostmarble"
+    },
+    "density=0,host=sandstone": {
+      "model": "pysift:block/emerald_ore/emerald_ore_density0_hostsandstone"
+    },
+    "density=1,host=marble": {
+      "model": "pysift:block/emerald_ore/emerald_ore_density1_hostmarble"
+    },
+    "density=1,host=sandstone": {
+      "model": "pysift:block/emerald_ore/emerald_ore_density1_hostsandstone"
+    }
+  }
+}

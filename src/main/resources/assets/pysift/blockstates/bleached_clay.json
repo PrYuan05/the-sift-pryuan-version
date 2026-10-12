@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "bleach=0": {
+      "model": "pysift:block/bleached_clay/bleached_clay_bleach0"
+    },
+    "bleach=1": {
+      "model": "pysift:block/bleached_clay/bleached_clay_bleach1"
+    },
+    "bleach=2": {
+      "model": "pysift:block/bleached_clay/bleached_clay_bleach2"
+    }
+  }
+}

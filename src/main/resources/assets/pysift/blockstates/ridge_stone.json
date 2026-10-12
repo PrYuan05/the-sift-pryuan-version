@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/ridge_stone/ridge_stone_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/ridge_stone/ridge_stone_b",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/ridge_stone/ridge_stone_c",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/ridge_stone/ridge_stone_d",
+        "weight": 1
+      }
+    ]
+  }
+}

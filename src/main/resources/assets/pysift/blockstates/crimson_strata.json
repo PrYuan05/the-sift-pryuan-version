@@ -1,0 +1,40 @@
+{
+  "variants": {
+    "tone=rose": [
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_d",
+        "weight": 1
+      }
+    ],
+    "tone=mottled": [
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_g",
+        "weight": 1
+      }
+    ],
+    "tone=crimson": [
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_j",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_k",
+        "weight": 1
+      }
+    ],
+    "tone=plum": [
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_m",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_strata/crimson_strata_n",
+        "weight": 1
+      }
+    ]
+  }
+}

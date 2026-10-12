@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "moss=0": {
+      "model": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss0"
+    },
+    "moss=1": {
+      "model": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss1"
+    },
+    "moss=2": {
+      "model": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss2"
+    }
+  }
+}

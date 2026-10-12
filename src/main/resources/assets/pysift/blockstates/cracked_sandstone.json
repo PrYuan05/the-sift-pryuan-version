@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "crack=0": {
+      "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack0"
+    },
+    "crack=1": {
+      "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack1"
+    },
+    "crack=2": {
+      "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack2"
+    },
+    "crack=3": {
+      "model": "pysift:block/cracked_sandstone/cracked_sandstone_crack3"
+    }
+  }
+}

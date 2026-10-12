@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_strata/teal_strata_e"
+        },
+        "when": "pale"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/teal_strata/teal_strata_a"
+        },
+        "when": "cyan"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/teal_strata"
+    }
+  }
+}

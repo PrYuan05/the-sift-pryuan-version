@@ -1,0 +1,32 @@
+{
+  "variants": {
+    "tone=smooth": [
+      {
+        "model": "pysift:block/stone_bricks/stone_bricks_d",
+        "weight": 1
+      }
+    ],
+    "tone=rough": [
+      {
+        "model": "pysift:block/stone_bricks/stone_bricks_c",
+        "weight": 1
+      }
+    ],
+    "tone=paneled": [
+      {
+        "model": "pysift:block/stone_bricks/stone_bricks_e",
+        "weight": 1
+      }
+    ],
+    "tone=dark": [
+      {
+        "model": "pysift:block/stone_bricks/stone_bricks_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/stone_bricks/stone_bricks_b",
+        "weight": 1
+      }
+    ]
+  }
+}

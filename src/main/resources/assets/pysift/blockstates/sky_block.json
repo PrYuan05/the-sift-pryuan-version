@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "cloud=0": {
+      "model": "pysift:block/sky_block/sky_block_cloud0"
+    },
+    "cloud=1": {
+      "model": "pysift:block/sky_block/sky_block_cloud1"
+    },
+    "cloud=2": {
+      "model": "pysift:block/sky_block/sky_block_cloud2"
+    }
+  }
+}
