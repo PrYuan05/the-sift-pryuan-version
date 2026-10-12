@@ -1,0 +1,144 @@
+{
+  "entries": [
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_c.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "ddc8a3336787df47782c4b3fc72f12e47f196cc2",
+      "sha1_after": "58dd38d0ed98109d83593b88caaee24560128120",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_c.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_d.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "23a068d738fd3d0dce3908fc424507ee3aa18c1a",
+      "sha1_after": "7622b0e6d1d902c0a098aab18136b33818d908b1",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_d.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_f.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "07e916aa8c43bd44f1baf018d99b60a6397b6ac1",
+      "sha1_after": "fceb68d3ddcdad4e60b963eb448e3890a0faf3e0",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_f.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_g.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "06e9660b00002b3fd9fdaa7846b37748ce7cce0a",
+      "sha1_after": "586e7d90ce806a2ed684bc870c74b2ed55a48b58",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_g.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_h.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "65a623d1af55f48f59d366e8063e36f11c2985b0",
+      "sha1_after": "ad7cdd1ceebe63d36eabd803b29a47e565781783",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_h.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_i.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "fef76a3e4ffb8eb7285b8d1b12bdef54de9a61a3",
+      "sha1_after": "da30694d421ec7a68f12847fc9b6347976bce891",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_i.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein0_j.png",
+      "pool": "magma_vein_slate:vein=0",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
+      "mode": "palette",
+      "sha1_before": "0289a9615a5e3b87c894eae2466038426de60bed",
+      "sha1_after": "0bc07c595141684a603bc92eec90bb418fe74eb4",
+      "backup": ".texture_backups/20261013-0330_before_magma_recolor/magma_vein_slate_vein0_j.png",
+      "date": "recorded 20261013-033611"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein1_a.png",
+      "pool": "magma_vein_slate:vein=1",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein1_b",
+      "mode": "palette",
+      "sha1_before": "7572e9cba0b9eb9486997008565817752865aa11",
+      "sha1_after": "2bf34a1a950a82f3d07a3ccbe7cb53c402ea79dd",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein1_a.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein1_k.png",
+      "pool": "magma_vein_slate:vein=1",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein1_b",
+      "mode": "palette",
+      "sha1_before": "ad2b623f3223847efbda71084d51dd327b841251",
+      "sha1_after": "19e3169e94190c94378e891d72f3c9297a65760d",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein1_k.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein2_a.png",
+      "pool": "magma_vein_slate:vein=2",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+      "mode": "palette",
+      "sha1_before": "fcdd8f2eaf24f38274e8052c0b26f6d72e1e0d08",
+      "sha1_after": "51bbee9854037a3e9128a769c571f4aac3198703",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein2_a.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein2_b.png",
+      "pool": "magma_vein_slate:vein=2",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+      "mode": "palette",
+      "sha1_before": "a8a1e07b51bafe831063bf96a57139602b507483",
+      "sha1_after": "8f57a3e93eec7c553e1b5984e684c1fac4d4865d",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein2_b.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein2_d.png",
+      "pool": "magma_vein_slate:vein=2",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+      "mode": "palette",
+      "sha1_before": "cfcffab4bc87c60080a58aefc99d6712b710f877",
+      "sha1_after": "8239dd5b2f572349b2b4b0ef4d93f7a1e2d475fd",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein2_d.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein2_e.png",
+      "pool": "magma_vein_slate:vein=2",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+      "mode": "palette",
+      "sha1_before": "ba74e22bef46331f82f5b25bc4fd78d8dc0be819",
+      "sha1_after": "22d4889443c58403d30c639cb29b418368b00a2b",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein2_e.png",
+      "date": "20261013-033816"
+    },
+    {
+      "file": "textures/block/magma_vein_slate/magma_vein_slate_vein2_l.png",
+      "pool": "magma_vein_slate:vein=2",
+      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein2_c",
+      "mode": "palette",
+      "sha1_before": "ace377535075f845ac9b1045442e0ee352587847",
+      "sha1_after": "16e97ec959faddc990d7665a0b008f431989c81d",
+      "backup": ".texture_backups/20261013-033816_recolor/textures/block/magma_vein_slate/magma_vein_slate_vein2_l.png",
+      "date": "20261013-033816"
+    }
+  ]
+}
