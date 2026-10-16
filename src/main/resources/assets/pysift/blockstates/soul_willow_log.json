@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=y": {
+      "model": "pysift:block/vegetation/soul_willow_log"
+    },
+    "axis=z": {
+      "model": "pysift:block/vegetation/soul_willow_log",
+      "x": 90
+    },
+    "axis=x": {
+      "model": "pysift:block/vegetation/soul_willow_log",
+      "x": 90,
+      "y": 90
+    }
+  }
+}

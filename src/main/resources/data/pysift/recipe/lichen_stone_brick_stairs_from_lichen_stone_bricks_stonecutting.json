@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:lichen_stone_bricks",
+  "result": {
+    "id": "pysift:lichen_stone_brick_stairs"
+  }
+}

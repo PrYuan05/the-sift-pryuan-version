@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/lichen_stone_slab/lichen_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/lichen_stone/lichen_stone_lichen0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/lichen_stone_slab/lichen_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

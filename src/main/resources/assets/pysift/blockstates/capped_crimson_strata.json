@@ -1,0 +1,156 @@
+{
+  "variants": {
+    "facing=up,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1
+      }
+    ],
+    "facing=down,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1,
+        "x": 180
+      }
+    ],
+    "facing=north,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "facing=south,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      }
+    ],
+    "facing=east,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "facing=west,tone=teal": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_2",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      }
+    ],
+    "facing=up,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1
+      }
+    ],
+    "facing=down,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1,
+        "x": 180
+      }
+    ],
+    "facing=north,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1,
+        "x": 90
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1,
+        "x": 90
+      }
+    ],
+    "facing=south,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      }
+    ],
+    "facing=east,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "facing=west,tone=rose": [
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_2",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+{
+	"variants": {
+		"": [
+			{
+				"model": "pysift:block/vegetation/abyss_grass",
+				"weight": 2
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass",
+				"weight": 2,
+				"y": 90
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass",
+				"weight": 2,
+				"y": 180
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass",
+				"weight": 2,
+				"y": 270
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s80",
+				"weight": 1
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s80",
+				"weight": 1,
+				"y": 90
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s80",
+				"weight": 1,
+				"y": 180
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s80",
+				"weight": 1,
+				"y": 270
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s120",
+				"weight": 1
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s120",
+				"weight": 1,
+				"y": 90
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s120",
+				"weight": 1,
+				"y": 180
+			},
+			{
+				"model": "pysift:block/vegetation/abyss_grass_s120",
+				"weight": 1,
+				"y": 270
+			}
+		]
+	}
+}

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/umber_void_stone_slab/umber_void_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/void_stone/void_stone_a",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/umber_void_stone_slab/umber_void_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

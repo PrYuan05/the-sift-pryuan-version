@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "pysift:block/stone_variant_bricks/stone_variant_bricks"
+  }
+}

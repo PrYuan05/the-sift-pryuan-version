@@ -8,16 +8,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pysift:violet_strata",
-          "modifier": [
-            {
-              "type": "minecraft:copy_state",
-              "block": "pysift:violet_strata",
-              "properties": [
-                "tone"
-              ]
-            }
-          ]
+          "name": "pysift:violet_strata"
         }
       ],
       "rolls": 1

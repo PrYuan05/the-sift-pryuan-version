@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/wilting_foliage/wilting_foliage_wither0",
-    "bottom": "pysift:block/amber_capped_stone_03/amber_capped_stone_03_top",
-    "side": "pysift:block/forest_floor/forest_floor_moss1"
-  }
-}

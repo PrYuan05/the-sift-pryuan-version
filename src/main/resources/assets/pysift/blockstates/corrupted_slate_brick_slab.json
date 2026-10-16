@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/corrupted_slate_brick_slab/corrupted_slate_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/corrupted_slate_bricks/corrupted_slate_bricks_corruption0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/corrupted_slate_brick_slab/corrupted_slate_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/smooth_stone_bricks/smooth_stone_bricks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0"
+  }
+}

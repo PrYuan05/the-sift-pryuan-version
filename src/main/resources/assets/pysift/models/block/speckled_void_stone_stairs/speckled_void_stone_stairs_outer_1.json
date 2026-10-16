@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/void_stone/void_stone_g",
+    "top": "pysift:block/void_stone/void_stone_g",
+    "side": "pysift:block/void_stone/void_stone_g"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:mossy_smooth_stone",
+  "result": {
+    "id": "pysift:chiseled_mossy_smooth_stone_bricks"
+  }
+}

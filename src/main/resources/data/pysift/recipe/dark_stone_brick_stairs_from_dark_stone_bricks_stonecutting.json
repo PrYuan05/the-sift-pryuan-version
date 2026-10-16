@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:dark_stone_bricks",
+  "result": {
+    "id": "pysift:dark_stone_brick_stairs"
+  }
+}

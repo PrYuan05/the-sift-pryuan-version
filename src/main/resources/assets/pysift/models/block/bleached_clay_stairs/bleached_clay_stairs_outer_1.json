@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/bleached_clay/bleached_clay_bleach0",
+    "top": "pysift:block/bleached_clay/bleached_clay_bleach0",
+    "side": "pysift:block/bleached_clay/bleached_clay_bleach0"
+  }
+}

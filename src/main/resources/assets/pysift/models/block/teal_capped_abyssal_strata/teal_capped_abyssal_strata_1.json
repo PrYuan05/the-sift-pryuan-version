@@ -2,7 +2,7 @@
   "parent": "pysift:block/templates/cube_bottom_top_vflip",
   "textures": {
     "top": "pysift:block/abyssal_strata/abyssal_strata_depth2",
-    "bottom": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
+    "bottom": "pysift:block/teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom",
     "side": "pysift:block/abyssal_strata/abyssal_strata_depth0_b"
   }
 }

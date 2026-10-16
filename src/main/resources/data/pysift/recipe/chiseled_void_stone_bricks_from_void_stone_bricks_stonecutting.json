@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:void_stone_bricks",
+  "result": {
+    "id": "pysift:chiseled_void_stone_bricks"
+  }
+}

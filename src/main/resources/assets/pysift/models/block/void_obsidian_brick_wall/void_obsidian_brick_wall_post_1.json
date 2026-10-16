@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "pysift:block/void_obsidian_bricks/void_obsidian_bricks"
+  }
+}

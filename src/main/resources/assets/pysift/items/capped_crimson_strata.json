@@ -1,0 +1,27 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "block_state_property": "tone",
+    "property": "minecraft:block_state",
+    "cases": [
+      {
+        "when": "teal",
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_teal_1"
+        }
+      },
+      {
+        "when": "rose",
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/capped_crimson_strata"
+    }
+  }
+}

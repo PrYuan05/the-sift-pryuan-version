@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_trapdoor_top",
+  "textures": {
+    "texture": "pysift:block/soul_willow/soul_willow_trapdoor"
+  }
+}

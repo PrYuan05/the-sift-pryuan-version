@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/dark_slate/dark_slate_k",
+    "top": "pysift:block/dark_slate/dark_slate_k",
+    "side": "pysift:block/dark_slate/dark_slate_k"
+  }
+}

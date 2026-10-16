@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks"
+  }
+}

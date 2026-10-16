@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:bleached_sandstone",
+  "result": {
+    "id": "pysift:chiseled_bleached_sandstone_bricks"
+  }
+}

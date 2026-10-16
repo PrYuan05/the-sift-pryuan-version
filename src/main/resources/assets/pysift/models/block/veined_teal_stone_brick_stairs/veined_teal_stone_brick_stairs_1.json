@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/veined_teal_stone_bricks/veined_teal_stone_bricks",
+    "top": "pysift:block/veined_teal_stone_bricks/veined_teal_stone_bricks",
+    "side": "pysift:block/veined_teal_stone_bricks/veined_teal_stone_bricks"
+  }
+}

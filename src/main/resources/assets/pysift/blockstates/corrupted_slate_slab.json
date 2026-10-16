@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/corrupted_slate_slab/corrupted_slate_slab_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate_slab/corrupted_slate_slab_2",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate/corrupted_slate_corruption0_b",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/corrupted_slate_slab/corrupted_slate_slab_top_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/corrupted_slate_slab/corrupted_slate_slab_top_2",
+        "weight": 1
+      }
+    ]
+  }
+}

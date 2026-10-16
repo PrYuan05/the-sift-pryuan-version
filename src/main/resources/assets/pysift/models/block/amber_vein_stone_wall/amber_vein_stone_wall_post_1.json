@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0"
+  }
+}

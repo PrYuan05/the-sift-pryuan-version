@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/ash_marble_bricks/ash_marble_bricks"
+  }
+}

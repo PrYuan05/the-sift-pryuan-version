@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "pysift:block/vegetation/soul_willow_leaves_pale"
+  }
+}

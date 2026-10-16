@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:item/soul_willow_sapling",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -8399160
+      }
+    ]
+  }
+}

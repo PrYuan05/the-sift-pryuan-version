@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pysift:block/soul_willow_pressure_plate"
+    },
+    "powered=true": {
+      "model": "pysift:block/soul_willow_pressure_plate_down"
+    }
+  }
+}

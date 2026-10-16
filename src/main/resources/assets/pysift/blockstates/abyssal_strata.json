@@ -2,6 +2,12 @@
   "variants": {
     "depth=0": [
       {
+        "model": "pysift:block/abyssal_strata/abyssal_strata_depth0_d",
+        "weight": 1
+      }
+    ],
+    "depth=1": [
+      {
         "model": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
         "weight": 1
       },
@@ -10,7 +16,7 @@
         "weight": 1
       }
     ],
-    "depth=1": [
+    "depth=2": [
       {
         "model": "pysift:block/abyssal_strata/abyssal_strata_depth1_a",
         "weight": 1
@@ -24,7 +30,7 @@
         "weight": 1
       }
     ],
-    "depth=2": {
+    "depth=3": {
       "model": "pysift:block/abyssal_strata/abyssal_strata_depth2"
     }
   }

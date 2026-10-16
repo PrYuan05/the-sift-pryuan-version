@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:banded_mudstone_bricks",
+  "result": {
+    "count": 2,
+    "id": "pysift:banded_mudstone_brick_slab"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_fence_gate_open",
+  "textures": {
+    "texture": "pysift:block/soul_willow/soul_willow_planks"
+  }
+}

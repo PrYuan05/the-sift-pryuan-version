@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:void_stone",
+  "result": {
+    "id": "pysift:void_stone_wall"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/silted_strata_brick_slab/silted_strata_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/silted_strata_bricks/silted_strata_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/silted_strata_brick_slab/silted_strata_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

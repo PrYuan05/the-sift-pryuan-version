@@ -1,0 +1,99 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"cross": "minecraft:block/fern",
+		"particle": "minecraft:block/fern"
+	},
+	"elements": [
+		{
+			"from": [
+				2.24,
+				0.0,
+				8.0
+			],
+			"to": [
+				13.76,
+				12.8,
+				8.0
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					6.4,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"from": [
+				8.0,
+				0.0,
+				2.24
+			],
+			"to": [
+				8.0,
+				12.8,
+				13.76
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					6.4,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			}
+		}
+	]
+}

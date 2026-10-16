@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_j"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/crimson_strata/crimson_strata_a",
+    "top": "pysift:block/crimson_strata/crimson_strata_a",
+    "side": "pysift:block/crimson_strata/crimson_strata_a"
+  }
+}

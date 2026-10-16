@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_g",
+    "top": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_g",
+    "side": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_g"
+  }
+}

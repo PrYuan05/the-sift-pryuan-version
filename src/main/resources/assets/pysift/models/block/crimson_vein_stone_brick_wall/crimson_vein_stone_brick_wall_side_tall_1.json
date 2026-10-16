@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks"
+  }
+}

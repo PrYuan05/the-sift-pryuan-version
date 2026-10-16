@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/teal_strata/teal_strata_e",
+    "top": "pysift:block/teal_strata/teal_strata_e",
+    "side": "pysift:block/teal_strata/teal_strata_e"
+  }
+}

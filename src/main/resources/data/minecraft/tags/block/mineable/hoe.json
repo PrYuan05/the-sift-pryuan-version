@@ -1,12 +1,10 @@
 {
   "replace": false,
   "values": [
-    "pysift:red_sculk",
-    "pysift:red_sculk_catalyst",
-    "pysift:red_sculk_sensor",
-    "pysift:red_sculk_shrieker",
-    "pysift:red_sculk_vein_block",
-    "pysift:sculk_tendril_block",
-    "pysift:sift_spore_growth"
+    "pysift:soul_willow_leaves",
+    "pysift:soul_willow_leaves_pale",
+    "pysift:glowing_soul_willow_leaves",
+    "pysift:soul_willow_vine",
+    "pysift:glowing_soul_willow_vine"
   ]
 }

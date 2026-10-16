@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "pysift:block/framed_slate/framed_slate",
-    "bottom": "pysift:block/rune_slate/rune_slate_charge0_a",
+    "top": "pysift:block/void_stone/void_stone_f",
+    "bottom": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust1",
     "side": "pysift:block/void_stone/void_stone_i"
   }
 }

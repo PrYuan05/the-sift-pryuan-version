@@ -1,0 +1,7 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:item/tall_ember_grass",
+    "tints": [{"type": "minecraft:constant", "value": -479068}]
+  }
+}

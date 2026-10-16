@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/umber_void_stone_bricks/chiseled_umber_void_stone_bricks"
+  }
+}

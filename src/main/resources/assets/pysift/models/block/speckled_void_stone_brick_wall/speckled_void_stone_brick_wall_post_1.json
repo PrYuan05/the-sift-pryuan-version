@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "pysift:block/speckled_void_stone_bricks/speckled_void_stone_bricks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/soul_willow_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/soul_willow_planks"
+    },
+    "type=top": {
+      "model": "pysift:block/soul_willow_slab_top"
+    }
+  }
+}

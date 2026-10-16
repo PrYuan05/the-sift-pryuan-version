@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/lichen_stone_bricks/chiseled_lichen_stone_bricks"
+  }
+}

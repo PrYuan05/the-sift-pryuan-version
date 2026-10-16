@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks"
+  }
+}

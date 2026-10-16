@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "pysift:block/vegetation/tall_ember_grass_top"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/ember_stone_bricks/ember_stone_bricks",
+    "top": "pysift:block/ember_stone_bricks/ember_stone_bricks",
+    "side": "pysift:block/ember_stone_bricks/ember_stone_bricks"
+  }
+}

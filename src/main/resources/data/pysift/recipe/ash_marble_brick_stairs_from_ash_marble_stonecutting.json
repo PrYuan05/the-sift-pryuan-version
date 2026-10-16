@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ash_marble",
+  "result": {
+    "id": "pysift:ash_marble_brick_stairs"
+  }
+}

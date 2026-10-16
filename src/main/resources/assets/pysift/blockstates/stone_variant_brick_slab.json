@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/stone_variant_brick_slab/stone_variant_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/stone_variant_bricks/stone_variant_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/stone_variant_brick_slab/stone_variant_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

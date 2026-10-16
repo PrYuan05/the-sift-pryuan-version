@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/mossy_cobblestone_bricks/mossy_cobblestone_bricks",
+    "top": "pysift:block/mossy_cobblestone_bricks/mossy_cobblestone_bricks",
+    "side": "pysift:block/mossy_cobblestone_bricks/mossy_cobblestone_bricks"
+  }
+}

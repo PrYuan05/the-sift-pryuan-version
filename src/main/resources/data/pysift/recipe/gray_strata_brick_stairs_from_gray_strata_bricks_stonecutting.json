@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:gray_strata_bricks",
+  "result": {
+    "id": "pysift:gray_strata_brick_stairs"
+  }
+}

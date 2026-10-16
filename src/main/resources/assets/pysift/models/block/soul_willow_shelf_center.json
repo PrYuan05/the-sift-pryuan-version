@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_shelf_center",
+  "textures": {
+    "all": "pysift:block/soul_willow/soul_willow_shelf",
+    "particle": "pysift:block/soul_willow/stripped_soul_willow_log"
+  }
+}

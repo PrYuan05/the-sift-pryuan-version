@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/stone_variant_bricks/stone_variant_bricks",
+    "top": "pysift:block/stone_variant_bricks/stone_variant_bricks",
+    "side": "pysift:block/stone_variant_bricks/stone_variant_bricks"
+  }
+}

@@ -13,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,11 +25,13 @@ import net.minecraft.world.level.block.state.properties.Property;
 import pryuan05.pysift.PySift;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * The Sift 方塊註冊。方塊定義來自 blockstate_restructure 的 REGISTRY.md（layered_strata 已拆成 18 個獨立方塊）。
@@ -104,7 +109,7 @@ public class ModBlocks {
             block("crimson_vein_stone", Mat.STONE).intProp("crimson_spread", 0, 4),
             block("amber_vein_stone", Mat.STONE).intProp("amber_spread", 0, 3),
             block("ember_stone", Mat.STONE).intProp("heat", 0, 4),
-            block("abyssal_strata", Mat.STONE).intProp("depth", 0, 2),
+            block("abyssal_strata", Mat.STONE).intProp("depth", 0, 3),
             block("silted_strata", Mat.STONE).intProp("silt", 0, 2),
             block("lichen_stone", Mat.DEEPSLATE).intProp("lichen", 0, 4),
             block("bleached_sandstone", Mat.STONE).intProp("bleach", 0, 4),
@@ -161,8 +166,7 @@ public class ModBlocks {
             facing("crimson_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_b）
             facing("crimson_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_c）
             facing("rose_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_e）
-            facing("rose_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_f）
-            facing("teal_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_h）
+            facing("capped_crimson_strata", Mat.STONE).tones("teal", "rose"), // 由 teal_capped_crimson_strata（teal）與 rose_capped_crimson_strata_2（rose）合併
             facing("violet_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_l）
             facing("teal_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_b）
             facing("teal_capped_dark_slate_2", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_c）
@@ -198,18 +202,17 @@ public class ModBlocks {
             block("teal_framed_panel", Mat.STONE).intProp("frame", 0, 6),
 
             // ===== 隨機變體池（weighted 多模型，無狀態屬性） =====
-            block("dark_slate", Mat.DEEPSLATE).intProp("fade", 0, 3), // k → o,p → r,s → t,u：紫色漸少、灰綠漸多
+            block("dark_slate", Mat.DEEPSLATE).intProp("fade", 0, 4), // k → o,p → r,s → t,u：紫色漸少、灰綠漸多；4 = v，純灰無紫
             block("crimson_strata", Mat.STONE).tones("rose", "mottled", "crimson", "plum"),
             block("gray_strata", Mat.STONE).tones("teal", "lavender", "violet", "warm"),
             block("void_stone", Mat.STONE).tones("dark", "rusty", "olive"),
             block("teal_strata", Mat.STONE).tones("pale", "cyan"),
-            block("violet_strata", Mat.STONE).tones("dusk", "violet", "slate"),
+            block("violet_strata", Mat.STONE), // 只留 slate 色調；rose_strata 併入為隨機變體 h、i
             facing("edged_stone", Mat.STONE).tones("olive", "warm").intProp("edge", 0, 3), // TODO: warm 的 edge=1~3 尚無專屬貼圖，暫用 e
             block("smooth_stone", Mat.STONE).tones("light", "warm", "blue"),
             block("stone_bricks", Mat.STONE).tones("smooth", "rough", "paneled", "dark"),
             block("ridge_stone", Mat.STONE),
             block("rich_dirt", Mat.GRAVEL),
-            block("rose_strata", Mat.STONE).tones("violet", "rose"),
             block("veined_crimson_stone", Mat.STONE),
             block("veined_teal_stone", Mat.STONE).tones("teal", "mottled"),
             block("violet_marble", Mat.STONE),
@@ -239,10 +242,105 @@ public class ModBlocks {
             block("walnut_planks", Mat.WOOD)
     );
 
+    /**
+     * 建材組：每種石頭都有石磚、浮雕石磚，以及石頭與石磚各自的半磚、階梯、牆。
+     * 資源由 tools/texture_pipeline/building_sets.py 產生；若 <石頭>_bricks 已存在（corrupted_slate），直接沿用為該石頭的石磚。
+     * 半磚、階梯、牆使用石頭預設狀態（第一個 tone / 第 0 階）的貼圖。
+     */
+    private static final List<String> BUILDING_SETS = List.of(
+            "crimson_vein_stone",
+            "amber_vein_stone",
+            "ember_stone",
+            "abyssal_strata",
+            "silted_strata",
+            "lichen_stone",
+            "bleached_sandstone",
+            "banded_mudstone",
+            "bleached_clay",
+            "ash_marble",
+            "teal_deep_block",
+            "rusted_dark_cobble",
+            "corrupted_slate",
+            "magma_vein_slate",
+            "frost_veined_stone",
+            "mossy_cobblestone",
+            "mossy_smooth_stone",
+            "mossy_olive_earth",
+            "varied_dark_slate",
+            "blotched_dark_slate",
+            "umber_void_stone",
+            "speckled_void_stone",
+            "dark_slate",
+            "crimson_strata",
+            "gray_strata",
+            "void_stone",
+            "teal_strata",
+            "violet_strata",
+            "smooth_stone",
+            "ridge_stone",
+            "veined_crimson_stone",
+            "veined_teal_stone",
+            "violet_marble",
+            "violet_solid_block",
+            "void_obsidian",
+            "dark_stone",
+            "stone_variant"
+    );
+
+    /** 石頭 → 它的建材組（創造模式分頁依序排在石頭之後、自成一列）。 */
+    public static final Map<Block, List<Block>> SET_OF = new LinkedHashMap<>();
+    /** 建材組成員 → 所屬石頭，用來讓整組排在同一列，並跳過逐狀態展開。 */
+    public static final Map<Block, Block> SET_BASE = new HashMap<>();
+    private static final Map<String, Mat> MAT_OF = new HashMap<>();
+
     static {
         for (Def def : DEFS) {
             register(def);
         }
+        for (String base : BUILDING_SETS) {
+            registerBuildingSet(base);
+        }
+    }
+
+    private static void registerBuildingSet(String base) {
+        Block stone = BY_NAME.get(base);
+        Mat mat = MAT_OF.get(base);
+        List<Block> set = new ArrayList<>();
+        Block bricks = BY_NAME.get(base + "_bricks");
+        if (bricks == null) {
+            bricks = registerSimple(base + "_bricks", mat, Block::new);
+            set.add(bricks);
+        }
+        Block brickBase = bricks;
+        set.add(registerSimple("chiseled_" + base + "_bricks", mat, Block::new));
+        set.add(registerSimple(base + "_slab", mat, SlabBlock::new));
+        set.add(registerSimple(base + "_stairs", mat, p -> new StairBlock(stone.defaultBlockState(), p)));
+        set.add(registerSimple(base + "_wall", mat, p -> new WallBlock(p.forceSolidOn())));
+        set.add(registerSimple(base + "_brick_slab", mat, SlabBlock::new));
+        set.add(registerSimple(base + "_brick_stairs", mat, p -> new StairBlock(brickBase.defaultBlockState(), p)));
+        set.add(registerSimple(base + "_brick_wall", mat, p -> new WallBlock(p.forceSolidOn())));
+        SET_OF.put(stone, set);
+        for (Block member : set) {
+            SET_BASE.put(member, stone);
+        }
+    }
+
+    private static Block registerSimple(String name, Mat mat, Function<BlockBehaviour.Properties, Block> factory) {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
+        Block block = factory.apply(mat.properties().setId(blockKey));
+        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+        Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
+        ALL_BLOCKS.add(block);
+        BY_NAME.put(name, block);
+        return block;
+    }
+
+    /** 創造模式分頁的「列」：建材組整組共用一列，其他方塊各自一列。 */
+    public static Object rowKey(ItemStack stack) {
+        Block block = Block.byItem(stack.getItem());
+        Block base = SET_BASE.get(block);
+        return base != null ? "set:" + BuiltInRegistries.BLOCK.getKey(base) : stack.getItem();
     }
 
     private static Block register(Def def) {
@@ -253,6 +351,7 @@ public class ModBlocks {
         Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
         ALL_BLOCKS.add(block);
         BY_NAME.put(def.name(), block);
+        MAT_OF.put(def.name(), def.mat());
         return block;
     }
 
@@ -288,6 +387,23 @@ public class ModBlocks {
 
     private static <T extends Comparable<T>> BlockItemStateProperties withValue(BlockItemStateProperties stateProperties, Property<T> property, BlockState state) {
         return stateProperties.with(property, state);
+    }
+
+    /** 篩靈界傳送門：不在 ALL_BLOCKS（不進方塊分頁），由 Singer 儀式或返回門產生；物品只用於創造模式／指令測試。 */
+    public static final Block SIFT_PORTAL = registerPortal();
+
+    private static Block registerPortal() {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id("sift_portal"));
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id("sift_portal"));
+        Block block = new SiftPortalBlock(BlockBehaviour.Properties.of()
+                .noCollision()
+                .strength(-1.0f, 3600000.0f)
+                .noLootTable()
+                .lightLevel(state -> 15)
+                .setId(blockKey));
+        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+        Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
+        return block;
     }
 
     public static void registerModBlocks() {

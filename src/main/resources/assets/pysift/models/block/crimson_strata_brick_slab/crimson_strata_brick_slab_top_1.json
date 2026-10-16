@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/crimson_strata_bricks/crimson_strata_bricks",
+    "top": "pysift:block/crimson_strata_bricks/crimson_strata_bricks",
+    "side": "pysift:block/crimson_strata_bricks/crimson_strata_bricks"
+  }
+}

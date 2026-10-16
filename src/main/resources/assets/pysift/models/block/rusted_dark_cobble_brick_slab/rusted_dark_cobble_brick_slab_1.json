@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks",
+    "top": "pysift:block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks",
+    "side": "pysift:block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks"
+  }
+}

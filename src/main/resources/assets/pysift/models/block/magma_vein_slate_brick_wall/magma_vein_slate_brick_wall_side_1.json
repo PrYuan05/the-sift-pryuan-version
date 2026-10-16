@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks"
+  }
+}

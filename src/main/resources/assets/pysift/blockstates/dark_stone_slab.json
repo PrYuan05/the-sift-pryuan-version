@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/dark_stone_slab/dark_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/dark_stone/dark_stone",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/dark_stone_slab/dark_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

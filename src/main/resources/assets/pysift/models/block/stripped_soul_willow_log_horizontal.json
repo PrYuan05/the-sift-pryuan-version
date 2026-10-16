@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "pysift:block/soul_willow/stripped_soul_willow_log_top",
+    "side": "pysift:block/soul_willow/stripped_soul_willow_log"
+  }
+}

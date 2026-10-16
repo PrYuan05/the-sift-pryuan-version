@@ -12,30 +12,6 @@
       {
         "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_3",
         "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
-        "weight": 1
       }
     ],
     "facing=down": [
@@ -51,36 +27,6 @@
       },
       {
         "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_3",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
         "weight": 1,
         "x": 180
       }
@@ -100,36 +46,6 @@
         "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_3",
         "weight": 1,
         "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
-        "weight": 1,
-        "x": 90
       }
     ],
     "facing=south": [
@@ -147,42 +63,6 @@
       },
       {
         "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_3",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
         "weight": 1,
         "x": 90,
         "y": 180
@@ -206,42 +86,6 @@
         "weight": 1,
         "x": 90,
         "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
-        "weight": 1,
-        "x": 90,
-        "y": 90
       }
     ],
     "facing=west": [
@@ -259,42 +103,6 @@
       },
       {
         "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_3",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_4",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_5",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_6",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_7",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_8",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_9",
         "weight": 1,
         "x": 90,
         "y": 270

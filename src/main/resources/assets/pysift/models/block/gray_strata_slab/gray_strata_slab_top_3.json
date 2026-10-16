@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/gray_strata/gray_strata_j",
+    "top": "pysift:block/gray_strata/gray_strata_j",
+    "side": "pysift:block/gray_strata/gray_strata_j"
+  }
+}

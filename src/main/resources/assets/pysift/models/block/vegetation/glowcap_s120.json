@@ -1,0 +1,95 @@
+{
+	"ambientocclusion": false,
+	"textures": {
+		"cross": "pysift:block/vegetation/glowcap",
+		"particle": "pysift:block/vegetation/glowcap"
+	},
+	"elements": [
+		{
+			"from": [
+				-0.64,
+				0.0,
+				8.0
+			],
+			"to": [
+				16.64,
+				19.2,
+				8.0
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					9.6,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			}
+		},
+		{
+			"from": [
+				8.0,
+				0.0,
+				-0.64
+			],
+			"to": [
+				8.0,
+				19.2,
+				16.64
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					9.6,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			}
+		}
+	]
+}

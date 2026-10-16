@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/bleached_sandstone_bricks/bleached_sandstone_bricks"
+  }
+}

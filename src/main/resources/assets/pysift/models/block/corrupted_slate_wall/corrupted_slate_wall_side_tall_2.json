@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "pysift:block/corrupted_slate/corrupted_slate_corruption0_b"
+  }
+}

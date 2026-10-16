@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:item/humus_grass",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -9455510
+      }
+    ]
+  }
+}

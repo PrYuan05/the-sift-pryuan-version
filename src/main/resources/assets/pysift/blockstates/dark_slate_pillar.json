@@ -8,10 +8,6 @@
       {
         "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
         "weight": 1
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_3",
-        "weight": 1
       }
     ],
     "axis=z": [
@@ -22,11 +18,6 @@
       },
       {
         "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_3",
         "weight": 1,
         "x": 90
       }
@@ -40,12 +31,6 @@
       },
       {
         "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_3",
         "weight": 1,
         "x": 90,
         "y": 90

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/bleached_sandstone_slab/bleached_sandstone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/bleached_sandstone_slab/bleached_sandstone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

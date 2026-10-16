@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/magma_vein_slate_brick_slab/magma_vein_slate_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/magma_vein_slate_brick_slab/magma_vein_slate_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

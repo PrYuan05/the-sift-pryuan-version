@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/speckled_void_stone_bricks/speckled_void_stone_bricks",
+    "top": "pysift:block/speckled_void_stone_bricks/speckled_void_stone_bricks",
+    "side": "pysift:block/speckled_void_stone_bricks/speckled_void_stone_bricks"
+  }
+}

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "pysift:block/teal_strata/teal_strata_a",
-    "bottom": "pysift:block/amber_capped_stone_01/amber_capped_stone_01_bottom",
+    "top": "pysift:block/teal_strata/teal_strata_b",
+    "bottom": "pysift:block/crimson_strata/crimson_strata_d",
     "side": "pysift:block/dark_slate/dark_slate_c"
   }
 }

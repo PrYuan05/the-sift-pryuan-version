@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "pysift:block/vegetation/puff_grass_bottom"
+    },
+    "half=upper": {
+      "model": "pysift:block/vegetation/puff_grass_top"
+    }
+  }
+}

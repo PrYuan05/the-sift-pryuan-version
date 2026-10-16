@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/ridge_stone/ridge_stone_d",
+    "top": "pysift:block/ridge_stone/ridge_stone_d",
+    "side": "pysift:block/ridge_stone/ridge_stone_d"
+  }
+}

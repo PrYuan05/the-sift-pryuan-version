@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_3",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/gray_strata/gray_strata_d",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_e",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata/gray_strata_j",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_top_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_top_2",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/gray_strata_slab/gray_strata_slab_top_3",
+        "weight": 1
+      }
+    ]
+  }
+}

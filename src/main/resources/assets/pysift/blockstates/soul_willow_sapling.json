@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "stage=0": {
+      "model": "pysift:block/vegetation/soul_willow_sapling"
+    },
+    "stage=1": {
+      "model": "pysift:block/vegetation/soul_willow_sapling"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/bleached_clay/bleached_clay_bleach0"
+  }
+}

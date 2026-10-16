@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:umber_void_stone_bricks",
+  "result": {
+    "id": "pysift:umber_void_stone_brick_wall"
+  }
+}

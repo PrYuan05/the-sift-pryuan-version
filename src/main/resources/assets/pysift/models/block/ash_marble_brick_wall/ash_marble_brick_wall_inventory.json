@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/ash_marble_bricks/ash_marble_bricks"
+  }
+}

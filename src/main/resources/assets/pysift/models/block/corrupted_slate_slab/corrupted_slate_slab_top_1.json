@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
+    "top": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
+    "side": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a"
+  }
+}

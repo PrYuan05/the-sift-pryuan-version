@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "top": "pysift:block/abyssal_strata/abyssal_strata_depth2",
-    "bottom": "pysift:block/teal_strata/teal_strata_d",
+    "bottom": "pysift:block/abyssal_strata/abyssal_strata_depth1_a",
     "side": "pysift:block/teal_strata/teal_strata_c"
   }
 }

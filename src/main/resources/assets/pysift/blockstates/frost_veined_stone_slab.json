@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/frost_veined_stone_slab/frost_veined_stone_slab_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone_slab/frost_veined_stone_slab_2",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/frost_veined_stone_slab/frost_veined_stone_slab_top_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/frost_veined_stone_slab/frost_veined_stone_slab_top_2",
+        "weight": 1
+      }
+    ]
+  }
+}

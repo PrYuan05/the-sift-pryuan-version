@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:meadow_grass_block",
+    "pysift:rich_dirt",
+    "pysift:forest_floor",
+    "pysift:ash_capped_crimson_01",
+    "pysift:crimson_strata",
+    "pysift:ash_capped_violet_01",
+    "pysift:violet_strata",
+    "pysift:crimson_capped_void_01",
+    "pysift:crimson_capped_crimson_strata_3",
+    "pysift:sift_pink_loam",
+    "pysift:amber_sand",
+    "pysift:pale_sand",
+    "pysift:crimson_capped_crimson_strata_2",
+    "pysift:violet_capped_dark_slate",
+    "pysift:capped_crimson_strata",
+    "pysift:abyssal_strata",
+    "pysift:dark_slate",
+    "pysift:silted_strata"
+  ]
+}

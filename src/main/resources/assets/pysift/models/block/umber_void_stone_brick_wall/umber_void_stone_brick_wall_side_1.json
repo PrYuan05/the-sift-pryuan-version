@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/umber_void_stone_bricks/umber_void_stone_bricks"
+  }
+}

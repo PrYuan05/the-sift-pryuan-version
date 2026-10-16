@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side_tall",
+  "textures": {
+    "wall": "pysift:block/banded_mudstone_bricks/banded_mudstone_bricks"
+  }
+}

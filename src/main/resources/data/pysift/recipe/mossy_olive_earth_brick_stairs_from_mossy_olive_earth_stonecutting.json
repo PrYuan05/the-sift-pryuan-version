@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:mossy_olive_earth",
+  "result": {
+    "id": "pysift:mossy_olive_earth_brick_stairs"
+  }
+}

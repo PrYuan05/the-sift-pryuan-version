@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/dark_slate/dark_slate_e",
+    "top": "pysift:block/dark_slate/dark_slate_e",
+    "side": "pysift:block/dark_slate/dark_slate_e"
+  }
+}

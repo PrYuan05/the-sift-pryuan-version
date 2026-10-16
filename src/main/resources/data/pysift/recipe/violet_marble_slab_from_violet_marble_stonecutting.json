@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:violet_marble",
+  "result": {
+    "count": 2,
+    "id": "pysift:violet_marble_slab"
+  }
+}

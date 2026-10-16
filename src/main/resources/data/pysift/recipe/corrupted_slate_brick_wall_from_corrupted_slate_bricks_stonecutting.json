@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:corrupted_slate_bricks",
+  "result": {
+    "id": "pysift:corrupted_slate_brick_wall"
+  }
+}

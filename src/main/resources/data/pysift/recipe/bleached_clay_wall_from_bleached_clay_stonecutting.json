@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:bleached_clay",
+  "result": {
+    "id": "pysift:bleached_clay_wall"
+  }
+}

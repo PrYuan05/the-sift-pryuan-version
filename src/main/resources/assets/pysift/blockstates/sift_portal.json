@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "pysift:block/sift_portal"
+    },
+    "axis=z": {
+      "model": "pysift:block/sift_portal_ew"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ash_marble",
+  "result": {
+    "count": 2,
+    "id": "pysift:ash_marble_slab"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:stone_variant_bricks",
+  "result": {
+    "id": "pysift:chiseled_stone_variant_bricks"
+  }
+}

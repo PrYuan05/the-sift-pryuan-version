@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a"
+  }
+}

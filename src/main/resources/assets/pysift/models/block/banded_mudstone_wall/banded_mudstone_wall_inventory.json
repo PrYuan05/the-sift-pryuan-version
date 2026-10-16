@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/banded_mudstone/banded_mudstone_banding0"
+  }
+}

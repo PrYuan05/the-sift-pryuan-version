@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:crimson_strata",
+  "result": {
+    "id": "pysift:crimson_strata_brick_stairs"
+  }
+}

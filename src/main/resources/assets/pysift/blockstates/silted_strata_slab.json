@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/silted_strata_slab/silted_strata_slab_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/silted_strata_slab/silted_strata_slab_2",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/silted_strata/silted_strata_silt0_a",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/silted_strata/silted_strata_silt0_b",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/silted_strata_slab/silted_strata_slab_top_1",
+        "weight": 1
+      },
+      {
+        "model": "pysift:block/silted_strata_slab/silted_strata_slab_top_2",
+        "weight": 1
+      }
+    ]
+  }
+}

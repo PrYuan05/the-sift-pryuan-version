@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/ember_stone_slab/ember_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/ember_stone/ember_stone_heat0_a",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/ember_stone_slab/ember_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

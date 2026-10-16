@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks"
+  }
+}

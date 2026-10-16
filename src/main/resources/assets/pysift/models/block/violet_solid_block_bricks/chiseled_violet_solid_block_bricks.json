@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/violet_solid_block_bricks/chiseled_violet_solid_block_bricks"
+  }
+}

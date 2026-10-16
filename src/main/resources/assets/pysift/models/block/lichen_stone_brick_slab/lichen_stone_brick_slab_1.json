@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/lichen_stone_bricks/lichen_stone_bricks",
+    "top": "pysift:block/lichen_stone_bricks/lichen_stone_bricks",
+    "side": "pysift:block/lichen_stone_bricks/lichen_stone_bricks"
+  }
+}

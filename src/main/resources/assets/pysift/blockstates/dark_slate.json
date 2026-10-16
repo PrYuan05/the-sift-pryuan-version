@@ -35,6 +35,11 @@
         "model": "pysift:block/dark_slate/dark_slate_u",
         "weight": 1
       }
+    ],
+    "fade=4": [
+      {
+        "model": "pysift:block/dark_slate/dark_slate_v"
+      }
     ]
   }
 }

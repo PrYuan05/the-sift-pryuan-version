@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ember_stone_bricks",
+  "result": {
+    "id": "pysift:chiseled_ember_stone_bricks"
+  }
+}

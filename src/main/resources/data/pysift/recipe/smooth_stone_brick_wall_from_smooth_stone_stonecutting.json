@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:smooth_stone",
+  "result": {
+    "id": "pysift:smooth_stone_brick_wall"
+  }
+}

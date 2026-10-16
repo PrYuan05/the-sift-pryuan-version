@@ -2,7 +2,7 @@
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
     "top": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
-    "bottom": "pysift:block/dark_slate_capped_rose_01/dark_slate_capped_rose_01_bottom",
+    "bottom": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_h",
     "side": "pysift:block/violet_strata/violet_strata_c"
   }
 }

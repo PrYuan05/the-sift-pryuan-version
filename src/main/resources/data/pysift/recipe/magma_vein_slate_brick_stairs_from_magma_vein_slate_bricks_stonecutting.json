@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:magma_vein_slate_bricks",
+  "result": {
+    "id": "pysift:magma_vein_slate_brick_stairs"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/bleached_sandstone_bricks/bleached_sandstone_bricks",
+    "top": "pysift:block/bleached_sandstone_bricks/bleached_sandstone_bricks",
+    "side": "pysift:block/bleached_sandstone_bricks/bleached_sandstone_bricks"
+  }
+}

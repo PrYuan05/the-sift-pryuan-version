@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:golden_bloom",
+    "pysift:sun_bloom",
+    "pysift:rose_bloom",
+    "pysift:dusk_bloom"
+  ]
+}

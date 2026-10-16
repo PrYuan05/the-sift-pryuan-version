@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/lichen_stone/lichen_stone_lichen0",
+    "top": "pysift:block/lichen_stone/lichen_stone_lichen0",
+    "side": "pysift:block/lichen_stone/lichen_stone_lichen0"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/veined_teal_stone/veined_teal_stone_a"
+  }
+}

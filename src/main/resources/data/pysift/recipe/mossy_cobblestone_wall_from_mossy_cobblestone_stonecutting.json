@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:mossy_cobblestone",
+  "result": {
+    "id": "pysift:mossy_cobblestone_wall"
+  }
+}

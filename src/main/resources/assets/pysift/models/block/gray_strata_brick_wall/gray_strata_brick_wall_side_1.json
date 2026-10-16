@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/gray_strata_bricks/gray_strata_bricks"
+  }
+}
