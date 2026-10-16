@@ -2,19 +2,16 @@ package pryuan05.pysift.entity.mob;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.PysiftMonsterEntity;
 
-public class SproutEntity extends PysiftMonsterEntity {
+/** Sprout：蟲群幼體，行為見 {@link PysiftSwarmEntity}；也會由 Nester 召喚。 */
+public class SproutEntity extends PysiftSwarmEntity {
     public SproutEntity(EntityType<? extends PysiftMonsterEntity> entityType, Level level) {
         super(entityType, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return PysiftMonsterEntity.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 10.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.ATTACK_DAMAGE, 2.5);
+        return PysiftSwarmEntity.createSwarmAttributes();
     }
 }

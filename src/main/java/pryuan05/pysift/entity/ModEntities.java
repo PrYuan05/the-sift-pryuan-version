@@ -10,6 +10,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import pryuan05.pysift.PySift;
 import pryuan05.pysift.entity.mob.*;
+import pryuan05.pysift.entity.projectile.DartEntity;
+import pryuan05.pysift.entity.projectile.ThrownRockEntity;
 
 public class ModEntities {
     // 1. Friendly & Neutral Mobs
@@ -17,13 +19,13 @@ public class ModEntities {
             "blub", BlubEntity::new, MobCategory.CREATURE, 0.8f, 0.8f
     );
     public static final EntityType<EchoGolemEntity> ECHO_GOLEM = register(
-            "echo_golem", EchoGolemEntity::new, MobCategory.CREATURE, 1.2f, 1.8f
+            "echo_golem", EchoGolemEntity::new, MobCategory.CREATURE, 1.4f, 2.6f
     );
     public static final EntityType<SingerEntity> SINGER = register(
-            "singer", SingerEntity::new, MobCategory.CREATURE, 1.0f, 1.5f
+            "singer", SingerEntity::new, MobCategory.CREATURE, 1.0f, 2.7f
     );
     public static final EntityType<NuzzleEntity> NUZZLE = register(
-            "nuzzle", NuzzleEntity::new, MobCategory.CREATURE, 0.7f, 0.7f
+            "nuzzle", NuzzleEntity::new, MobCategory.CREATURE, 1.0f, 1.3f
     );
     public static final EntityType<LootkinEntity> LOOTKIN = register(
             "lootkin", LootkinEntity::new, MobCategory.CREATURE, 0.6f, 0.8f
@@ -31,67 +33,75 @@ public class ModEntities {
 
     // 2. Aerial & Ranged Mobs
     public static final EntityType<FuseflyEntity> FUSEFLY = register(
-            "fusefly", FuseflyEntity::new, MobCategory.MONSTER, 0.6f, 0.6f
+            "fusefly", FuseflyEntity::new, MobCategory.MONSTER, 0.6f, 1.0f
     );
     public static final EntityType<DartbackEntity> DARTBACK = register(
-            "dartback", DartbackEntity::new, MobCategory.MONSTER, 0.9f, 1.2f
+            "dartback", DartbackEntity::new, MobCategory.MONSTER, 0.6f, 0.53f
     );
     public static final EntityType<HurlerEntity> HURLER = register(
-            "hurler", HurlerEntity::new, MobCategory.MONSTER, 1.0f, 1.6f
+            "hurler", HurlerEntity::new, MobCategory.MONSTER, 1.0f, 1.0f
     );
     public static final EntityType<PollinatorEntity> POLLINATOR = register(
-            "pollinator", PollinatorEntity::new, MobCategory.CREATURE, 0.7f, 0.7f
+            "pollinator", PollinatorEntity::new, MobCategory.CREATURE, 0.8f, 1.5f
     );
 
     // 3. Hive & Minion Mobs
     public static final EntityType<NesterEntity> NESTER = register(
-            "nester", NesterEntity::new, MobCategory.MONSTER, 1.2f, 1.4f
+            "nester", NesterEntity::new, MobCategory.MONSTER, 0.6f, 1.08f
     );
     public static final EntityType<SeedlingEntity> SEEDLING = register(
-            "seedling", SeedlingEntity::new, MobCategory.MONSTER, 0.5f, 0.5f
+            "seedling", SeedlingEntity::new, MobCategory.MONSTER, 0.6f, 0.8f
     );
     public static final EntityType<SproutEntity> SPROUT = register(
-            "sprout", SproutEntity::new, MobCategory.MONSTER, 0.6f, 0.6f
+            "sprout", SproutEntity::new, MobCategory.MONSTER, 0.7f, 1.6f
     );
 
     // 4. Wild Predators & Guards
     public static final EntityType<StalkerEntity> STALKER = register(
-            "stalker", StalkerEntity::new, MobCategory.MONSTER, 0.8f, 1.8f
+            "stalker", StalkerEntity::new, MobCategory.MONSTER, 0.8f, 1.3f
     );
     public static final EntityType<ScavengerEntity> SCAVENGER = register(
-            "scavenger", ScavengerEntity::new, MobCategory.MONSTER, 0.9f, 1.4f
+            "scavenger", ScavengerEntity::new, MobCategory.MONSTER, 1.0f, 1.6f
     );
     public static final EntityType<SlabberEntity> SLABBER = register(
-            "slabber", SlabberEntity::new, MobCategory.MONSTER, 1.2f, 1.0f
+            "slabber", SlabberEntity::new, MobCategory.CREATURE, 1.4f, 1.7f
     );
     public static final EntityType<PrickleEntity> PRICKLE = register(
-            "prickle", PrickleEntity::new, MobCategory.MONSTER, 0.8f, 0.8f
+            "prickle", PrickleEntity::new, MobCategory.MONSTER, 0.6f, 0.8f
     );
     public static final EntityType<SentinelEntity> SENTINEL = register(
-            "sentinel", SentinelEntity::new, MobCategory.MONSTER, 1.4f, 2.2f
+            "sentinel", SentinelEntity::new, MobCategory.MONSTER, 0.6f, 0.89f   // 模型原尺寸；SCALE 2.02 → 1.2 × 1.8 格
     );
     public static final EntityType<TunerEntity> TUNER = register(
-            "tuner", TunerEntity::new, MobCategory.MONSTER, 0.8f, 1.4f
+            "tuner", TunerEntity::new, MobCategory.MONSTER, 0.7f, 1.3f
     );
     public static final EntityType<BloombudEntity> BLOOMBUD = register(
-            "bloombud", BloombudEntity::new, MobCategory.MONSTER, 0.8f, 1.2f
+            "bloombud", BloombudEntity::new, MobCategory.MONSTER, 0.9f, 2.4f
     );
     public static final EntityType<RoamrootEntity> ROAMROOT = register(
-            "roamroot", RoamrootEntity::new, MobCategory.MONSTER, 0.9f, 1.1f
+            "roamroot", RoamrootEntity::new, MobCategory.MONSTER, 1.1f, 2.4f
     );
     public static final EntityType<WobbleEntity> WOBBLE = register(
-            "wobble", WobbleEntity::new, MobCategory.MONSTER, 0.7f, 1.0f
+            "wobble", WobbleEntity::new, MobCategory.MONSTER, 0.8f, 0.85f
     );
 
     // 5. Boss Mobs
     public static final EntityType<HarmonizerEntity> HARMONIZER = register(
-            "harmonizer", HarmonizerEntity::new, MobCategory.MONSTER, 2.0f, 2.8f
+            "harmonizer", HarmonizerEntity::new, MobCategory.MONSTER, 2.4f, 3.8f
     );
     public static final EntityType<MonarchEntity> MONARCH = register(
-            "monarch", MonarchEntity::new, MobCategory.MONSTER, 2.2f, 3.2f
+            "monarch", MonarchEntity::new, MobCategory.MONSTER, 1.2f, 3.6f
     );
     public static final EntityType<SculkMonstrosityEntity> SCULK_MONSTROSITY = register(
-            "sculk_monstrosity", SculkMonstrosityEntity::new, MobCategory.MONSTER, 2.5f, 3.5f
+            "sculk_monstrosity", SculkMonstrosityEntity::new, MobCategory.MONSTER, 3.2f, 4.25f
+    );
+
+    // 5. Projectiles（外觀沿用原版渲染器）
+    public static final EntityType<DartEntity> DART = register(
+            "dart", DartEntity::new, MobCategory.MISC, 0.5f, 0.5f
+    );
+    public static final EntityType<ThrownRockEntity> THROWN_ROCK = register(
+            "thrown_rock", ThrownRockEntity::new, MobCategory.MISC, 0.4f, 0.4f
     );
 
     private static <T extends Entity> EntityType<T> register(
