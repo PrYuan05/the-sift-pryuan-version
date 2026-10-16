@@ -1,0 +1,30 @@
+{
+  "type": "pysift:boss_arena",
+  "boss": "pysift:monarch",
+  "radius": 15,
+  "pillar_height": 8,
+  "pillar_count": 10,
+  "floor": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "pysift:bleached_sandstone_bricks",
+        "weight": 1
+      },
+      {
+        "data": "pysift:chiseled_bleached_sandstone_bricks",
+        "weight": 1
+      },
+      {
+        "data": "pysift:bleached_sandstone_bricks",
+        "weight": 1
+      }
+    ]
+  },
+  "wall": {
+    "id": "pysift:bleached_sandstone_brick_wall"
+  },
+  "pillar": {
+    "id": "pysift:chiseled_bleached_sandstone_bricks"
+  }
+}

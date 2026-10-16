@@ -1,0 +1,36 @@
+{
+  "type": "pysift:strata_spire",
+  "tiers": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 3,
+    "max_inclusive": 6
+  },
+  "radius": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 10,
+    "max_inclusive": 16
+  },
+  "cap_steps": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 1,
+    "max_inclusive": 3
+  },
+  "top": {
+    "id": "pysift:amber_sand"
+  },
+  "body": [
+    {
+      "id": "pysift:bleached_sandstone",
+      "properties": {
+        "bleach": "0"
+      }
+    }
+  ],
+  "band": {
+    "id": "pysift:cracked_sandstone",
+    "properties": {
+      "crack": "0"
+    }
+  },
+  "band_every": 3
+}

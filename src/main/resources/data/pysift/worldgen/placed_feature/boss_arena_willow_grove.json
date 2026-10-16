@@ -1,0 +1,22 @@
+{
+  "feature": "pysift:boss_arena_willow_grove",
+  "placement": [
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 160
+    },
+    {
+      "type": "minecraft:offset",
+      "x": 8,
+      "y": 0,
+      "z": 8
+    },
+    {
+      "type": "minecraft:heightmap",
+      "heightmap": "WORLD_SURFACE_WG"
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

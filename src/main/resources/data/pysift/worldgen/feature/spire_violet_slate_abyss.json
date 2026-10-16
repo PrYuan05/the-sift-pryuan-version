@@ -1,0 +1,32 @@
+{
+  "type": "pysift:strata_spire",
+  "tiers": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 3,
+    "max_inclusive": 7
+  },
+  "radius": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 10,
+    "max_inclusive": 17
+  },
+  "cap_steps": {
+    "type": "minecraft:uniform",
+    "min_inclusive": 1,
+    "max_inclusive": 3
+  },
+  "top": {
+    "id": "pysift:violet_capped_dark_slate",
+    "properties": {
+      "facing": "up"
+    }
+  },
+  "body": [
+    {
+      "id": "pysift:dark_slate",
+      "properties": {
+        "fade": "0"
+      }
+    }
+  ]
+}

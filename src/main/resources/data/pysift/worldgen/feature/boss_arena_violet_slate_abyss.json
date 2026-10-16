@@ -1,0 +1,52 @@
+{
+  "type": "pysift:boss_arena",
+  "boss": "pysift:sculk_monstrosity",
+  "radius": 16,
+  "pillar_height": 10,
+  "pillar_count": 8,
+  "floor": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": {
+          "id": "pysift:corrupted_slate_bricks",
+          "properties": {
+            "corruption": "0"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "id": "pysift:corrupted_slate_bricks",
+          "properties": {
+            "corruption": "1"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": {
+          "id": "pysift:corrupted_slate_bricks",
+          "properties": {
+            "corruption": "2"
+          }
+        },
+        "weight": 1
+      },
+      {
+        "data": "pysift:dark_slate_bricks",
+        "weight": 1
+      }
+    ]
+  },
+  "wall": {
+    "id": "pysift:dark_slate_brick_wall"
+  },
+  "pillar": {
+    "id": "pysift:dark_slate_pillar",
+    "properties": {
+      "axis": "y"
+    }
+  }
+}

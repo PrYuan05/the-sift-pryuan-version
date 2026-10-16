@@ -1,15 +1,43 @@
 package pryuan05.pysift;
 
+import pryuan05.pysift.client.VanillaGlowLayer;
+import pryuan05.pysift.entity.mob.SculkMonstrosityEntity;
+import pryuan05.pysift.entity.mob.SentinelEntity;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
+import pryuan05.pysift.block.entity.ModBlockEntities;
+import pryuan05.pysift.client.render.SiftPortalBlockEntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.TippableArrowRenderer;
+import net.minecraft.world.entity.Entity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import pryuan05.pysift.client.PysiftUniversalGeoRenderer;
+import pryuan05.pysift.client.EchoGolemRenderer;
+import pryuan05.pysift.client.SiftClientVisuals;
+import pryuan05.pysift.client.SlabberRenderer;
+import pryuan05.pysift.client.SiftPortalTransition;
+import pryuan05.pysift.client.SoulDeprivationVision;
+import pryuan05.pysift.client.SoulWillowWoodClient;
+import pryuan05.pysift.client.particle.SoulParticlesClient;
+import pryuan05.pysift.client.SoulFireShoulderLayer;
 import pryuan05.pysift.entity.ModEntities;
 
 public class PySiftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        SiftClientVisuals.register();
+        SoulDeprivationVision.register();   // 靈魂剝奪：伏聆色調的視野後製
+        SiftPortalTransition.register();     // 篩靈界傳送門的過場動畫
+        // 篩靈界傳送門：大面積珠光流光 + 邊緣破曉聖光
+        BlockEntityRendererRegistry.register(ModBlockEntities.SIFT_PORTAL, context -> new SiftPortalBlockEntityRenderer());
+        SoulWillowWoodClient.register();
+        SoulParticlesClient.register();
+        // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器
+        EntityRendererRegistry.register(ModEntities.DART, context -> castRenderer(new TippableArrowRenderer(context)));
+        EntityRendererRegistry.register(ModEntities.THROWN_ROCK, ThrownItemRenderer::new);
         EntityRendererRegistry.register(ModEntities.BLUB, context -> new PysiftUniversalGeoRenderer<>(context, "blub"));
-        EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, context -> new PysiftUniversalGeoRenderer<>(context, "echo_golem"));
+        EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, EchoGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
         EntityRendererRegistry.register(ModEntities.NUZZLE, context -> new PysiftUniversalGeoRenderer<>(context, "nuzzle"));
         EntityRendererRegistry.register(ModEntities.LOOTKIN, context -> new PysiftUniversalGeoRenderer<>(context, "lootkin"));
@@ -22,8 +50,10 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SPROUT, context -> new PysiftUniversalGeoRenderer<>(context, "sprout"));
         EntityRendererRegistry.register(ModEntities.STALKER, context -> new PysiftUniversalGeoRenderer<>(context, "stalker"));
         EntityRendererRegistry.register(ModEntities.SCAVENGER, context -> new PysiftUniversalGeoRenderer<>(context, "scavenger"));
-        EntityRendererRegistry.register(ModEntities.SLABBER, context -> new PysiftUniversalGeoRenderer<>(context, "slabber"));
+        EntityRendererRegistry.register(ModEntities.SLABBER, SlabberRenderer::new);
         EntityRendererRegistry.register(ModEntities.PRICKLE, context -> new PysiftUniversalGeoRenderer<>(context, "prickle"));
+        // Sentinel 的模型只有 0.89 格高，放大由實體的 SCALE 屬性負責（SentinelEntity.SCALE），和其他放大的生物一樣；
+        // 先前用 renderer.withScale 放大時整隻畫成全黑。
         EntityRendererRegistry.register(ModEntities.SENTINEL, context -> new PysiftUniversalGeoRenderer<>(context, "sentinel"));
         EntityRendererRegistry.register(ModEntities.TUNER, context -> new PysiftUniversalGeoRenderer<>(context, "tuner"));
         EntityRendererRegistry.register(ModEntities.BLOOMBUD, context -> new PysiftUniversalGeoRenderer<>(context, "bloombud"));
@@ -31,6 +61,15 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.WOBBLE, context -> new PysiftUniversalGeoRenderer<>(context, "wobble"));
         EntityRendererRegistry.register(ModEntities.HARMONIZER, context -> new PysiftUniversalGeoRenderer<>(context, "harmonizer"));
         EntityRendererRegistry.register(ModEntities.MONARCH, context -> new PysiftUniversalGeoRenderer<>(context, "monarch"));
-        EntityRendererRegistry.register(ModEntities.SCULK_MONSTROSITY, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_monstrosity"));
+        EntityRendererRegistry.register(ModEntities.SCULK_MONSTROSITY, context -> new PysiftUniversalGeoRenderer<SculkMonstrosityEntity>(context, "sculk_monstrosity")
+                .withRenderLayer(VanillaGlowLayer::new)     // 眼睛、青點：sculk_monstrosity_glowmask.png
+                .withRenderLayer(renderer -> new SoulFireShoulderLayer<>(context, renderer, 1.25f,
+                        "shoulder_flame_right", "shoulder_flame_left")));   // 肩上：原版靈魂火方塊（原版貼圖與動畫）
+    }
+
+    /** DartEntity 繼承 Arrow，原版箭矢渲染器可以直接畫它；只是泛型上需要轉型。 */
+    @SuppressWarnings("unchecked")
+    private static <T extends Entity> EntityRenderer<T, ?> castRenderer(EntityRenderer<?, ?> renderer) {
+        return (EntityRenderer<T, ?>) renderer;
     }
 }

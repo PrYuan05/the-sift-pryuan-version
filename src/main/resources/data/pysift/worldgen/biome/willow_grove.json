@@ -1,0 +1,112 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "creature": [
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 4,
+                "min_inclusive": 2
+              },
+              "weight": 40
+            },
+            {
+              "type": "pysift:nuzzle",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:pollinator",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:slabber",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 25
+            }
+          ],
+          "monster": [
+            {
+              "type": "pysift:roamroot",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 8
+            },
+            {
+              "type": "pysift:bloombud",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/sky_color": "#8a7aa8",
+    "minecraft:visual/fog_color": "#d8bece"
+  },
+  "carvers": [],
+  "downfall": 0.8,
+  "effects": {
+    "water_color": "#7fd0d6"
+  },
+  "features": [
+    [],
+    [
+      "pysift:spirit_pond_willow_grove"
+    ],
+    [
+      "pysift:spire_willow_grove",
+      "pysift:boss_arena_willow_grove"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "pysift:soul_willows_giant",
+      "pysift:soul_willows",
+      "pysift:patch_grove_ember_grass",
+      "pysift:patch_grove_abyss_grass",
+      "pysift:patch_grove_puff_grass",
+      "pysift:patch_humus_grass",
+      "pysift:patch_tall_humus_grass",
+      "pysift:patch_humus_fern",
+      "pysift:patch_humus_bush",
+      "pysift:patch_grove_glowcap",
+      "pysift:patch_sun_bloom",
+      "pysift:patch_rose_bloom",
+      "pysift:patch_grove_dusk_bloom",
+      "pysift:patch_golden_bloom"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "temperature": 0.7
+}

@@ -1,0 +1,33 @@
+{
+  "type": "pysift:boss_arena",
+  "boss": "pysift:harmonizer",
+  "radius": 13,
+  "pillar_height": 6,
+  "pillar_count": 8,
+  "floor": {
+    "type": "minecraft:weighted",
+    "entries": [
+      {
+        "data": "pysift:abyssal_strata_bricks",
+        "weight": 1
+      },
+      {
+        "data": "pysift:chiseled_abyssal_strata_bricks",
+        "weight": 1
+      }
+    ]
+  },
+  "wall": {
+    "id": "pysift:abyssal_strata_brick_wall"
+  },
+  "pillar": {
+    "id": "pysift:abyssal_strata_bricks"
+  },
+  "moat": {
+    "id": "pysift:spirit_liquid",
+    "properties": {
+      "level": "0"
+    }
+  },
+  "moat_width": 4
+}

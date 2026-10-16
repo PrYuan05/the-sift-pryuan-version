@@ -1,0 +1,83 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "monster": [
+            {
+              "type": "pysift:scavenger",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 30
+            },
+            {
+              "type": "pysift:hurler",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:wobble",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 25
+            }
+          ],
+          "creature": [
+            {
+              "type": "pysift:lootkin",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 6
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/sky_color": "#c98a5a",
+    "minecraft:visual/fog_color": "#cbac9f"
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#6fb0c0"
+  },
+  "features": [
+    [],
+    [
+      "pysift:spirit_pond_amber_dunes"
+    ],
+    [
+      "pysift:spire_amber_dunes",
+      "pysift:boss_arena_amber_dunes"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "pysift:patch_dune_tall_ember_grass",
+      "pysift:patch_dune_ember_grass",
+      "pysift:patch_dune_golden_bloom"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 2.0
+}

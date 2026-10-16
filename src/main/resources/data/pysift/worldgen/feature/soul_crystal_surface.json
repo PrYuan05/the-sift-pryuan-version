@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:ore",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 5,
+  "targets": [
+    {
+      "state": "pysift:soul_crystal_block",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:violet_capped_dark_slate"
+      }
+    },
+    {
+      "state": "pysift:soul_crystal_block",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:dark_slate"
+      }
+    },
+    {
+      "state": "pysift:soul_crystal_block",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:void_stone"
+      }
+    },
+    {
+      "state": "pysift:soul_crystal_block",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:corrupted_slate"
+      }
+    }
+  ]
+}

@@ -3,7 +3,15 @@
 	"package": "pryuan05.pysift.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ExampleClientMixin"
+		"ExampleClientMixin",
+		"CreativeModeInventoryScreenMixin",
+		"FluidRendererMixin",
+		"PostPassMixin",
+		"EntityRenderStateMixin",
+		"EntityRendererMixin",
+		"FlameFeatureRendererMixin",
+		"ScreenEffectRendererMixin",
+		"HudMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

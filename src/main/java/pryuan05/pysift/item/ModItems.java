@@ -8,7 +8,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
@@ -22,6 +24,8 @@ public class ModItems {
     // Core Materials
     public static final Item CHAROITE = registerItem("charoite", Item::new);
     public static final Item SIFTITE_INGOT = registerItem("siftite_ingot", Item::new);
+    /** 靈魂解藥：解除靈魂剝奪、歸還被抽走的血量（SoulAntidoteItem）。 */
+    public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
 
     // 24 Spawn Eggs
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);
@@ -63,16 +67,45 @@ public class ModItems {
             PySift.id("pysift_blocks")
     );
 
+    /**
+     * 世界生成沒有用到的方塊（由 tools/worldgen/unused_blocks.py 產生，改了 build_the_sift.py 後重跑）。
+     * 這些方塊（與它們的建材組）不放在主方塊分頁，改放在 UNUSED_BLOCKS_TAB。
+     */
+    public static final TagKey<Block> NOT_IN_WORLDGEN = TagKey.create(Registries.BLOCK, PySift.id("not_in_worldgen"));
+
     public static final CreativeModeTab BLOCKS_TAB = FabricCreativeModeTab.builder()
             .icon(() -> new ItemStack(ModBlocks.ALL_BLOCKS.isEmpty() ? net.minecraft.world.item.Items.STONE : ModBlocks.ALL_BLOCKS.get(0)))
             .title(Component.translatable("itemGroup.pysift.pysift_blocks"))
-            .displayItems((params, output) -> {
-                for (net.minecraft.world.level.block.Block block : ModBlocks.ALL_BLOCKS) {
-                    output.accept(block);
-                    output.acceptAll(ModBlocks.stateVariantStacks(block));
-                }
-            })
+            .displayItems((params, output) -> acceptBlocks(output, false))
             .build();
+
+    public static final ResourceKey<CreativeModeTab> UNUSED_BLOCKS_TAB_KEY = ResourceKey.create(
+            BuiltInRegistries.CREATIVE_MODE_TAB.key(),
+            PySift.id("pysift_unused_blocks")
+    );
+
+    public static final CreativeModeTab UNUSED_BLOCKS_TAB = FabricCreativeModeTab.builder()
+            .icon(() -> new ItemStack(net.minecraft.world.item.Items.STRUCTURE_VOID))
+            .title(Component.translatable("itemGroup.pysift.pysift_unused_blocks"))
+            .displayItems((params, output) -> acceptBlocks(output, true))
+            .build();
+
+    /** 依 ModBlocks 的順序列出方塊（各狀態、建材組緊跟在石頭後面）；unused 決定列出生成用到的還是沒用到的。 */
+    private static void acceptBlocks(CreativeModeTab.Output output, boolean unused) {
+        for (Block block : ModBlocks.ALL_BLOCKS) {
+            if (ModBlocks.SET_BASE.containsKey(block)) {
+                continue;   // building-set members are listed right after their stone
+            }
+            if (block.defaultBlockState().is(NOT_IN_WORLDGEN) != unused) {
+                continue;
+            }
+            output.accept(block);
+            output.acceptAll(ModBlocks.stateVariantStacks(block));
+            for (Block member : ModBlocks.SET_OF.getOrDefault(block, java.util.List.of())) {
+                output.accept(member);
+            }
+        }
+    }
 
     public static final ResourceKey<CreativeModeTab> ITEMS_TAB_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
@@ -86,6 +119,7 @@ public class ModItems {
                 // Materials
                 output.accept(CHAROITE);
                 output.accept(SIFTITE_INGOT);
+                output.accept(SOUL_ANTIDOTE);
                 // Spawn Eggs
                 for (Item egg : SPAWN_EGGS) {
                     output.accept(egg);
@@ -108,6 +142,7 @@ public class ModItems {
     public static void registerModItems() {
         PySift.LOGGER.info("Registering Items and Creative Tabs for {}", PySift.MOD_ID);
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, BLOCKS_TAB_KEY, BLOCKS_TAB);
+        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, UNUSED_BLOCKS_TAB_KEY, UNUSED_BLOCKS_TAB);
         Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEMS_TAB_KEY, ITEMS_TAB);
     }
 }

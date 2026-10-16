@@ -1,0 +1,90 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "monster": [
+            {
+              "type": "pysift:sentinel",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:stalker",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 30
+            },
+            {
+              "type": "pysift:tuner",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 15
+            }
+          ],
+          "creature": [
+            {
+              "type": "pysift:echo_golem",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:visual/sky_color": "#2e2838",
+    "minecraft:visual/fog_color": "#8d858f"
+  },
+  "carvers": [],
+  "downfall": 0.2,
+  "effects": {
+    "water_color": "#4a3d6b"
+  },
+  "features": [
+    [],
+    [
+      "pysift:spirit_pond_violet_slate_abyss"
+    ],
+    [
+      "pysift:spire_violet_slate_abyss",
+      "pysift:boss_arena_violet_slate_abyss"
+    ],
+    [],
+    [],
+    [],
+    [
+      "pysift:soul_crystal_surface",
+      "pysift:soul_crystal_buried"
+    ],
+    [],
+    [],
+    [
+      "pysift:patch_abyss_grass",
+      "pysift:patch_violet_ember_grass",
+      "pysift:patch_violet_puff_grass",
+      "pysift:patch_glowcap",
+      "pysift:patch_bone_spire",
+      "pysift:patch_dusk_bloom",
+      "pysift:patch_violet_golden_bloom"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 0.3
+}

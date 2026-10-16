@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:simple_block",
+  "to_place": {
+    "id": "pysift:tall_ember_grass",
+    "properties": {
+      "half": "lower"
+    }
+  }
+}
