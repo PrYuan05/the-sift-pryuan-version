@@ -1,5 +1,6 @@
 {
   "type": "pysift:boss_arena",
+  "arena_type": "sculk_monstrosity",
   "boss": "pysift:sculk_monstrosity",
   "radius": 16,
   "pillar_height": 10,

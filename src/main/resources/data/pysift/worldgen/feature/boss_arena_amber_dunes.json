@@ -1,5 +1,6 @@
 {
   "type": "pysift:boss_arena",
+  "arena_type": "monarch",
   "boss": "pysift:monarch",
   "radius": 15,
   "pillar_height": 8,

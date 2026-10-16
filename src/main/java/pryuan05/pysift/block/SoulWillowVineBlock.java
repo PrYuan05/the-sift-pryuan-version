@@ -76,20 +76,40 @@ public class SoulWillowVineBlock extends Block {
     @Override
     protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         BlockState above = level.getBlockState(pos.above());
-        return above.is(SUPPORTS) || above.getBlock() instanceof SoulWillowVineBlock;
+        if (above.is(SUPPORTS) || above.getBlock() instanceof SoulWillowVineBlock) {
+            return true;
+        }
+        if (above.isFaceSturdy(level, pos.above(), Direction.DOWN)) {
+            return true;
+        }
+        // Can also survive if at least one enabled side is supported by a sturdy wall/cliff
+        for (Map.Entry<Direction, BooleanProperty> entry : SIDES.entrySet()) {
+            if (state.getValue(entry.getValue())) {
+                Direction dir = entry.getKey();
+                BlockPos neighborPos = pos.relative(dir);
+                if (level.getBlockState(neighborPos).isFaceSturdy(level, neighborPos, dir.getOpposite())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
-     * 玩家手動放置：接在上一段垂藤下面時延續它的漸層（往下越淡）和它有的面；
-     * 直接掛在葉子下時，只在那片葉子朝外（旁邊不是靈魂柳葉）的面長藤，四周都是葉子時四面都長。
+     * 玩家手動放置：
+     * 1. 接在上一段垂藤下面時延續它的漸層與面屬性；
+     * 2. 點擊方塊側面（懸崖／牆面）時，將貼著該牆面的面開啟；
+     * 3. 掛在天花板或樹葉下時，朝外的面開啟。
      */
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelReader level = context.getLevel();
         BlockPos pos = context.getClickedPos();
+        Direction clickedFace = context.getClickedFace();
         BlockState above = level.getBlockState(pos.above());
         boolean tip = !(level.getBlockState(pos.below()).getBlock() instanceof SoulWillowVineBlock);
         BlockState state = defaultBlockState().setValue(TIP, tip);
+
         if (above.getBlock() instanceof SoulWillowVineBlock) {
             state = state.setValue(SHADE, Math.min(2, above.getValue(SHADE) + 1));
             for (BooleanProperty side : SIDES.values()) {
@@ -97,6 +117,23 @@ public class SoulWillowVineBlock extends Block {
             }
             return state;
         }
+
+        // 點擊方塊側面時：優先貼在該方向的牆面
+        if (clickedFace.getAxis().isHorizontal()) {
+            boolean any = false;
+            for (Map.Entry<Direction, BooleanProperty> e : SIDES.entrySet()) {
+                Direction dir = e.getKey();
+                BlockPos neighborPos = pos.relative(dir);
+                boolean sturdy = level.getBlockState(neighborPos).isFaceSturdy(level, neighborPos, dir.getOpposite());
+                state = state.setValue(e.getValue(), sturdy);
+                any |= sturdy;
+            }
+            if (any) {
+                return state;
+            }
+        }
+
+        // 掛在樹葉或天花板下方
         boolean any = false;
         for (Map.Entry<Direction, BooleanProperty> e : SIDES.entrySet()) {
             boolean outward = !level.getBlockState(pos.above().relative(e.getKey())).is(SUPPORTS);

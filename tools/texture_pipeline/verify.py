@@ -101,7 +101,7 @@ for bid in set_ids + veg_ids:   # vanilla-style blockstates: only check that eve
                 continue
             used_models.add(mf)
             for t in lj(mf).get("textures", {}).values():
-                if not t.startswith("minecraft:"):
+                if not t.startswith(("minecraft:", "#")):   # "#x" 是同模型內另一個貼圖變數
                     tf = res_path(ASSETS, t, "textures", ".png")
                     (used_tex.add(tf) if tf.exists() else missing_tex.append((bid, t)))
 out["java_vs_blockstate_property_mismatch"] = prop_mismatch

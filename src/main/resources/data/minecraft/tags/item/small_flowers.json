@@ -4,6 +4,7 @@
     "pysift:golden_bloom",
     "pysift:sun_bloom",
     "pysift:rose_bloom",
-    "pysift:dusk_bloom"
+    "pysift:dusk_bloom",
+    "pysift:clustered_yellow_flowers"
   ]
 }

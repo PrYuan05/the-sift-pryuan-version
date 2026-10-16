@@ -12,6 +12,8 @@ import pryuan05.pysift.PySift;
 import pryuan05.pysift.entity.mob.*;
 import pryuan05.pysift.entity.projectile.DartEntity;
 import pryuan05.pysift.entity.projectile.ThrownRockEntity;
+import pryuan05.pysift.entity.projectile.SculkCubeEntity;
+import pryuan05.pysift.entity.projectile.MonarchFeatherEntity;
 
 public class ModEntities {
     // 1. Friendly & Neutral Mobs
@@ -102,6 +104,12 @@ public class ModEntities {
     );
     public static final EntityType<ThrownRockEntity> THROWN_ROCK = register(
             "thrown_rock", ThrownRockEntity::new, MobCategory.MISC, 0.4f, 0.4f
+    );
+    public static final EntityType<SculkCubeEntity> SCULK_CUBE = register(
+            "sculk_cube", SculkCubeEntity::new, MobCategory.MISC, 0.8f, 0.8f
+    );
+    public static final EntityType<MonarchFeatherEntity> MONARCH_FEATHER = register(
+            "monarch_feather", MonarchFeatherEntity::new, MobCategory.MISC, 0.4f, 0.4f
     );
 
     private static <T extends Entity> EntityType<T> register(

@@ -22,7 +22,7 @@ import pryuan05.pysift.entity.mob.SingerEntity;
  * <ol>
  *   <li>在強化深板岩附近（16 格內）吹響山羊角：24 格內沒有歌者時，在玩家面前召喚一隻（幽匿靈魂粒子、催發體綻放聲）。</li>
  *   <li>手持迴音碎片、靈魂沙、靈魂土或山羊角右鍵歌者：歌者共鳴（音爆 + 信標啟動聲、粒子束），
- *       以 BFS 把周圍 16 格內封閉的強化深板岩框架內部整片填成傳送門；找不到封閉框架時，在歌者前方 3 格蓋一座 4×5 測試門。</li>
+ *       以 BFS 把周圍 16 格內封閉的強化深板岩框架內部整片填成傳送門；找不到封閉框架時，在歌者前方 3 格召喚無邊框裂隙型傳送門。</li>
  * </ol>
  */
 public final class SiftPortalRitual {
@@ -67,6 +67,7 @@ public final class SiftPortalRitual {
             return;
         }
         singer.snapTo(spot.getX() + 0.5, spot.getY(), spot.getZ() + 0.5, player.getYRot() + 180, 0);
+        singer.startEmerging();   // 從地底爬出
         level.addFreshEntity(singer);
         level.sendParticles(ParticleTypes.SCULK_SOUL, singer.getX(), singer.getY() + 1, singer.getZ(), 24, 0.6, 0.8, 0.6, 0.04);
         singer.playSound(SoundEvents.SCULK_CATALYST_BLOOM, 2.0f, 1.0f);
@@ -90,14 +91,19 @@ public final class SiftPortalRitual {
             }
             target = new Vec3(x / filled.size(), y / filled.size(), z / filled.size());
         } else {
-            // 平地測試：歌者前方 3 格蓋一座外框 4×5 的門，門面朝向歌者
+            // 歌者前方 3 格召喚無邊框裂隙型傳送門（中央 5×3 主要進入區 + 邊緣擴散光塊），門面面向歌者
             Vec3 fwd = Vec3.directionFromRotation(0, singer.getYRot());
             Direction facing = Direction.getApproximateNearest(fwd.x, 0, fwd.z);
             Direction.Axis axis = facing.getAxis() == Direction.Axis.Z ? Direction.Axis.X : Direction.Axis.Z;
-            Direction along = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
             BlockPos centre = singer.blockPosition().relative(facing, 3);
-            BlockPos base = centre.relative(along, -2).below(1);
-            SiftPortalBlock.buildFrame(level, base, axis, 4, 5);
+            for (int dy = 1; dy >= -2; dy--) {
+                BlockPos test = centre.above(dy);
+                if (level.getBlockState(test.below()).isSolid() && SiftPortalBlock.canPortalReplace(level.getBlockState(test))) {
+                    centre = test;
+                    break;
+                }
+            }
+            SiftPortalBlock.buildRiftPortal(level, centre, axis);
             target = Vec3.atCenterOf(centre.above(1));
         }
         // 粒子束：從歌者到門中心

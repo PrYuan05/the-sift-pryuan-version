@@ -22,8 +22,11 @@ public class ChargeGoal extends TimedSkillGoal {
     private final double speed;
     private final float damage;
     private final double knockback;
-    private Vec3 direction;
-    private boolean finished;
+    protected Vec3 direction;
+    /** 衝刺已結束（撞到人、撞牆或衝滿時間）。 */
+    protected boolean finished;
+    /** 衝刺結束時是命中後第幾 tick（子類別用來接後續招式）。 */
+    protected int stoppedAt;
 
     public ChargeGoal(PysiftGeoEntity mob, String animation, int windUpTicks, int dashTicks, int recoverTicks, int cooldownTicks,
                       double minRange, double maxRange, double speed, float damage, double knockback) {
@@ -38,6 +41,7 @@ public class ChargeGoal extends TimedSkillGoal {
     protected void onStart() {
         direction = null;
         finished = false;
+        stoppedAt = 0;
         mob.playSound(SoundEvents.RAVAGER_STEP, 1.5f, 0.6f);
     }
 
@@ -63,6 +67,7 @@ public class ChargeGoal extends TimedSkillGoal {
         }
         if (ticks > dashTicks) {
             finished = true;
+            stoppedAt = ticks;
             return;
         }
         float yaw = (float) (Mth.atan2(direction.z, direction.x) * Mth.RAD_TO_DEG) - 90.0f;
@@ -80,10 +85,12 @@ public class ChargeGoal extends TimedSkillGoal {
                 victim.push(direction.x * knockback, 0.35 + knockback * 0.15, direction.z * knockback);
                 victim.needsSync = true;
             }
+            stoppedAt = ticks;
             stop(level, SoundEvents.PLAYER_ATTACK_KNOCKBACK);
             return;
         }
         if (mob.horizontalCollision) {
+            stoppedAt = ticks;
             stop(level, SoundEvents.ANVIL_LAND);
             level.sendParticles(ParticleTypes.EXPLOSION, mob.getX() + direction.x * mob.getBbWidth() * 0.5,
                     mob.getY(0.5), mob.getZ() + direction.z * mob.getBbWidth() * 0.5, 1, 0, 0, 0, 0);

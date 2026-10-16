@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -26,6 +27,7 @@ import java.util.List;
 /**
  * 泥板獸：背上種的花用那種花本身的方塊模型畫在 flower_1~5 骨骼上（所以每種花長得不一樣），
  * 生長階段 0/1/2/3 依序顯示 1/2/3/5 朵。舊模型的 mushrooms 骨骼一律隱藏（背是光禿的土）。
+ * 幼年個體頭部比例放大、隱藏花朵，展現可愛幼態。
  */
 public class SlabberRenderer extends PysiftUniversalGeoRenderer<SlabberEntity> {
     private static final int[] FLOWERS_PER_STAGE = {1, 2, 3, 5};
@@ -35,6 +37,13 @@ public class SlabberRenderer extends PysiftUniversalGeoRenderer<SlabberEntity> {
     public SlabberRenderer(EntityRendererProvider.Context context) {
         super(context, "slabber");
         withRenderLayer(new FlowerLayer(context, this));
+    }
+
+    /** GeckoLib 只套用屬性縮放（renderState.scale），不含幼年縮放，所以這裡手動縮小幼年個體。 */
+    @Override
+    public void scaleModelForRender(RenderPassInfo<EntityRenderState> renderPass, float widthScale, float heightScale) {
+        float age = renderPass.renderState() instanceof LivingEntityRenderState living && living.isBaby ? 0.55f : 1.0f;
+        super.scaleModelForRender(renderPass, widthScale * age, heightScale * age);
     }
 
     @Override
@@ -50,6 +59,9 @@ public class SlabberRenderer extends PysiftUniversalGeoRenderer<SlabberEntity> {
 
         @Override
         protected List<RenderData> getRelevantBones(SlabberEntity slabber, Void relatedObject, EntityRenderState state, float partialTick) {
+            if (slabber.isBaby()) {
+                return List.of();
+            }
             ItemStack flower = slabber.getFlower();
             if (flower.isEmpty() || !(flower.getItem() instanceof BlockItem blockItem)) {
                 return List.of();

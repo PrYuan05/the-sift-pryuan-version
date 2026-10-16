@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/vegetation/clustered_yellow_flowers"
+      },
+      {
+        "model": "pysift:block/vegetation/clustered_yellow_flowers",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/vegetation/clustered_yellow_flowers",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/vegetation/clustered_yellow_flowers",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 {
   "type": "pysift:boss_arena",
+  "arena_type": "harmonizer",
   "boss": "pysift:harmonizer",
   "radius": 13,
   "pillar_height": 6,

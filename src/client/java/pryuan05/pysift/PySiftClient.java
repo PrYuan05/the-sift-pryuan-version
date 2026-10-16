@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import pryuan05.pysift.client.PysiftUniversalGeoRenderer;
 import pryuan05.pysift.client.EchoGolemRenderer;
+import pryuan05.pysift.client.MonarchRenderer;
 import pryuan05.pysift.client.SiftClientVisuals;
 import pryuan05.pysift.client.SlabberRenderer;
 import pryuan05.pysift.client.SiftPortalTransition;
@@ -36,6 +37,9 @@ public class PySiftClient implements ClientModInitializer {
         // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器
         EntityRendererRegistry.register(ModEntities.DART, context -> castRenderer(new TippableArrowRenderer(context)));
         EntityRendererRegistry.register(ModEntities.THROWN_ROCK, ThrownItemRenderer::new);
+        // Boss 招式的投射物：放大的幽匿塊（滾動方塊）、發光羽毛
+        EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new ThrownItemRenderer<>(context, 3.0f, false));
+        EntityRendererRegistry.register(ModEntities.MONARCH_FEATHER, context -> new ThrownItemRenderer<>(context, 1.5f, true));
         EntityRendererRegistry.register(ModEntities.BLUB, context -> new PysiftUniversalGeoRenderer<>(context, "blub"));
         EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, EchoGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
@@ -60,7 +64,7 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.ROAMROOT, context -> new PysiftUniversalGeoRenderer<>(context, "roamroot"));
         EntityRendererRegistry.register(ModEntities.WOBBLE, context -> new PysiftUniversalGeoRenderer<>(context, "wobble"));
         EntityRendererRegistry.register(ModEntities.HARMONIZER, context -> new PysiftUniversalGeoRenderer<>(context, "harmonizer"));
-        EntityRendererRegistry.register(ModEntities.MONARCH, context -> new PysiftUniversalGeoRenderer<>(context, "monarch"));
+        EntityRendererRegistry.register(ModEntities.MONARCH, MonarchRenderer::new);   // 分身半透明
         EntityRendererRegistry.register(ModEntities.SCULK_MONSTROSITY, context -> new PysiftUniversalGeoRenderer<SculkMonstrosityEntity>(context, "sculk_monstrosity")
                 .withRenderLayer(VanillaGlowLayer::new)     // 眼睛、青點：sculk_monstrosity_glowmask.png
                 .withRenderLayer(renderer -> new SoulFireShoulderLayer<>(context, renderer, 1.25f,

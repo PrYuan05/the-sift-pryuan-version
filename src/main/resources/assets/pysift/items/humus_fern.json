@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:item/humus_fern",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -11558790
-      }
-    ]
+    "model": "pysift:item/humus_fern"
   }
 }

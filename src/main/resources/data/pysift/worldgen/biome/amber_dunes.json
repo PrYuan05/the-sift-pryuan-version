@@ -48,8 +48,8 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/sky_color": "#c98a5a",
-    "minecraft:visual/fog_color": "#cbac9f"
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc"
   },
   "carvers": [],
   "downfall": 0.0,
@@ -74,7 +74,12 @@
     [
       "pysift:patch_dune_tall_ember_grass",
       "pysift:patch_dune_ember_grass",
-      "pysift:patch_dune_golden_bloom"
+      "pysift:patch_dune_golden_bloom",
+      "pysift:patch_yellow_short_grass",
+      "pysift:patch_dune_agave_rosette",
+      "pysift:patch_olive_forked_stalk",
+      "pysift:patch_clustered_yellow_flowers",
+      "pysift:cliff_vines_amber_dunes"
     ],
     []
   ],

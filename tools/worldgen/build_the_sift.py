@@ -42,6 +42,11 @@ FOG_PALE = (0xE8, 0xDE, 0xE4)      # biome fog colours are blended this far towa
 FOG_PALE_MIX = 0.55                # ... (0 = biome colour as written, 1 = all pale)
 
 
+# ---- sky (user: mint-teal sky like the reference video); every biome uses the same sky and horizon fog ----
+SKY_COLOR = "#5cd6c6"     # main sky dome
+SKY_FOG = "#8fe2cc"       # horizon / distance fog: a lighter, slightly greener mint
+
+
 def pale_fog(hex_colour):
     c = [int(hex_colour[i:i + 2], 16) for i in (1, 3, 5)]
     return "#" + "".join(f"{round(a + (b - a) * FOG_PALE_MIX):02x}" for a, b in zip(c, FOG_PALE))
@@ -55,8 +60,8 @@ wj(D / "dimension_type/the_sift.json", {
         "minecraft:gameplay/straw_bed_rule": {"can_set_spawn": "never", "can_sleep": "never", "destroy_on_use": True},
         "minecraft:gameplay/respawn_anchor_works": True,
         "minecraft:gameplay/sky_light_level": 8.0,
-        "minecraft:visual/sky_light_factor": 0.55,
-        "minecraft:visual/sky_light_color": "#c79a8a",
+        "minecraft:visual/sky_light_factor": 0.85,     # user: brighter sunlight (was 0.55)
+        "minecraft:visual/sky_light_color": "#f2e4dc",   # near-white warm light (was #c79a8a, dim rose)
         "minecraft:visual/ambient_light_color": "#2a1f24",
         "minecraft:visual/star_brightness": 0.25,
         "minecraft:visual/cloud_color": "#cc6a4a5a",
@@ -114,6 +119,14 @@ def patch(name, plant, patches, tries, noisy=True, **props):
     return f"pysift:{name}"
 
 
+def carpet_patch(name, patches, tries):
+    """珊瑚落葉地毯：像原版 flower_cherry，四個方向 x 2~4 層隨機。"""
+    pid = patch(name, "coral_leaf_carpet", patches, tries, facing="north", flower_amount=4)
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:simple_block", "to_place": {"type": "minecraft:weighted", "entries": [
+        {"data": state("coral_leaf_carpet", facing=f, flower_amount=a), "weight": 1} for a in (2, 3, 4) for f in ("north", "east", "south", "west")]}})
+    return pid
+
+
 # ---- soul willow (SoulWillowTrunkPlacer / FoliagePlacer / VineDecorator) ----
 # Two configured features from the same code, only the JSON differs:
 #   soul_willow       : the common tree. 2x2 trunk, 8-10 tall, crown 3-5 thick, few short buttress roots
@@ -167,6 +180,32 @@ def trees(name, feature, frequency):
     return f"pysift:{name}"
 
 
+def cliff_vines(name, tries=48, min_len=3, max_len=7, glow_chance=0.15, count=6, min_y=40, max_y=120):
+    wj(D / f"worldgen/feature/{name}.json", {
+        "type": "pysift:cliff_vines",
+        "tries": tries,
+        "min_length": min_len,
+        "max_length": max_len,
+        "glow_chance": glow_chance,
+        "xz_spread": 8,
+        "y_spread": 16,
+    })
+    wj(D / f"worldgen/placed_feature/{name}.json", {
+        "feature": f"pysift:{name}",
+        "placement": [
+            {"type": "minecraft:count", "count": count},
+            {"type": "minecraft:in_square"},
+            {"type": "minecraft:height_range", "height": {
+                "type": "minecraft:uniform",
+                "min_inclusive": {"absolute": min_y},
+                "max_inclusive": {"absolute": max_y}
+            }},
+            {"type": "minecraft:biome"}
+        ]
+    })
+    return f"pysift:{name}"
+
+
 VEGETATION = {
     # ember_grass / abyss_grass / puff_grass are coloured by the floor under them (client FloorTint), so the same plant
     # is orange on crimson rock, teal on violet rock, pink on pink loam (reference video, The Sift 6:34 on).
@@ -176,14 +215,27 @@ VEGETATION = {
                               patch("patch_canyon_puff_grass", "puff_grass", 2, (6, 14), half="lower"),
                               patch("patch_canyon_abyss_grass", "abyss_grass", 3, (10, 24)),
                               patch("patch_sun_bloom_canyon", "sun_bloom", 2, (6, 12)),
-                              patch("patch_golden_bloom_sparse", "golden_bloom", 2, (6, 12))],
+                              patch("patch_golden_bloom_sparse", "golden_bloom", 2, (6, 12)),
+                              # 裂隙植被（使用者提供的 rift_dimension_flora_assets）
+                              patch("patch_crimson_short_sprouts", "crimson_short_sprouts", 4, (16, 32)),
+                              carpet_patch("patch_canyon_coral_leaf_carpet", 2, (6, 12)),
+                              patch("patch_orange_rift_grass", "orange_rift_grass", 3, (12, 24)),
+                              patch("patch_orange_tall_rift_grass", "orange_tall_rift_grass", 2, (6, 12), half="lower"),
+                              patch("patch_canyon_agave_rosette", "agave_rosette", 1, (2, 5)),
+                              cliff_vines("cliff_vines_crimson_canyon", tries=54, min_len=3, max_len=8, glow_chance=0.10, count=9)],
     "violet_slate_abyss": [patch("patch_abyss_grass", "abyss_grass", 12, (48, 80)),
                            patch("patch_violet_ember_grass", "ember_grass", 4, (16, 32)),
                            patch("patch_violet_puff_grass", "puff_grass", 4, (10, 20), half="lower"),
                            patch("patch_glowcap", "glowcap", 3, (6, 12)),
                            patch("patch_bone_spire", "bone_spire", 2, (4, 10)),
                            patch("patch_dusk_bloom", "dusk_bloom", 2, (6, 12)),
-                           patch("patch_violet_golden_bloom", "golden_bloom", 1, (4, 8))],
+                           patch("patch_violet_golden_bloom", "golden_bloom", 1, (4, 8)),
+                           patch("patch_curled_fern_blue", "curled_fern_blue", 3, (8, 16)),
+                           patch("patch_tall_glow_grass", "tall_glow_grass", 3, (8, 16), half="lower"),
+                           patch("patch_curled_fern_white", "curled_fern_white", 2, (6, 12)),
+                           patch("patch_giant_canopy_blue", "giant_canopy_blue", 1, (2, 5)),
+                           patch("patch_giant_canopy_white", "giant_canopy_white", 1, (2, 4)),
+                           cliff_vines("cliff_vines_violet_abyss", tries=48, min_len=3, max_len=7, glow_chance=0.35, count=7)],
     "willow_grove": [trees("soul_willows_giant", SOUL_WILLOW_GIANT, {"type": "minecraft:rarity_filter", "chance": 16}),
                      trees("soul_willows", SOUL_WILLOW, {"type": "minecraft:count", "count": uniform(1, 2)}),
                      patch("patch_grove_ember_grass", "ember_grass", 8, (32, 56)),
@@ -197,10 +249,22 @@ VEGETATION = {
                      patch("patch_sun_bloom", "sun_bloom", 2, (6, 12)),
                      patch("patch_rose_bloom", "rose_bloom", 2, (6, 12)),
                      patch("patch_grove_dusk_bloom", "dusk_bloom", 1, (4, 10)),
-                     patch("patch_golden_bloom", "golden_bloom", 2, (6, 12))],
+                     patch("patch_golden_bloom", "golden_bloom", 2, (6, 12)),
+                     patch("patch_mint_rift_grass", "mint_rift_grass", 4, (16, 32)),
+                     patch("patch_grove_tall_glow_grass", "tall_glow_grass", 2, (6, 12), half="lower"),
+                     carpet_patch("patch_coral_leaf_carpet", 3, (8, 16)),
+                     patch("patch_curled_fern_pink", "curled_fern_pink", 2, (6, 12)),
+                     patch("patch_giant_canopy_green", "giant_canopy_green", 1, (2, 5)),
+                     patch("patch_grove_clustered_yellow_flowers", "clustered_yellow_flowers", 1, (4, 8)),
+                     cliff_vines("cliff_vines_willow_grove", tries=64, min_len=4, max_len=9, glow_chance=0.18, count=12)],
     "amber_dunes": [patch("patch_dune_tall_ember_grass", "tall_ember_grass", 2, (6, 12), half="lower"),
                     patch("patch_dune_ember_grass", "ember_grass", 3, (10, 20)),
-                    patch("patch_dune_golden_bloom", "golden_bloom", 1, (4, 8))],
+                    patch("patch_dune_golden_bloom", "golden_bloom", 1, (4, 8)),
+                    patch("patch_yellow_short_grass", "yellow_short_grass", 4, (12, 24)),
+                    patch("patch_dune_agave_rosette", "agave_rosette", 1, (2, 5)),
+                    patch("patch_olive_forked_stalk", "olive_forked_stalk", 1, (2, 5)),
+                    patch("patch_clustered_yellow_flowers", "clustered_yellow_flowers", 1, (4, 8)),
+                    cliff_vines("cliff_vines_amber_dunes", tries=32, min_len=2, max_len=5, glow_chance=0.08, count=3)],
 }
 
 # ---- strata mesas (pysift:strata_spire, StrataSpireFeature.java) ----
@@ -251,7 +315,7 @@ SPIRE_FEATURES = {b: [spire(b, c)] for b, c in SPIRES.items()}
 
 # ---- boss arenas (pysift:boss_arena, BossArenaFeature.java): one boss per arena, spawned at world generation ----
 # Placed at the chunk centre (the arena reaches 22 blocks out); after the spires in the same step, so it flattens them.
-ARENA_RARITY = 160    # about one arena per this many chunks of the biome
+ARENA_RARITY = 900    # about one arena per this many chunks of the biome (substantially reduced)
 ARENAS = {
     "amber_dunes": dict(boss="monarch", radius=15, pillar_height=8, pillar_count=10,         # sandstone throne ruin
                         floor=weighted(state("bleached_sandstone_bricks"), state("chiseled_bleached_sandstone_bricks"),
@@ -271,7 +335,7 @@ ARENAS = {
 def arena(biome_name, c):
     name = "boss_arena_" + biome_name
     as_provider = lambda st: st if isinstance(st, dict) and "type" in st else ({"id": st} if isinstance(st, str) else st)
-    feature = {"type": "pysift:boss_arena", "boss": f"pysift:{c['boss']}", "radius": c["radius"],
+    feature = {"type": "pysift:boss_arena", "arena_type": c["boss"], "boss": f"pysift:{c['boss']}", "radius": c["radius"],
                "pillar_height": c["pillar_height"], "pillar_count": c["pillar_count"],
                "floor": as_provider(c["floor"]), "wall": as_provider(c["wall"]), "pillar": as_provider(c["pillar"])}
     if "moat" in c:
@@ -355,7 +419,7 @@ ORE_FEATURES = {"violet_slate_abyss": [
 
 def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
     wj(D / f"worldgen/biome/{name}.json", {
-        "attributes": {**spawn_attr, "minecraft:visual/sky_color": sky, "minecraft:visual/fog_color": pale_fog(fog)},
+        "attributes": {**spawn_attr, "minecraft:visual/sky_color": SKY_COLOR, "minecraft:visual/fog_color": SKY_FOG},
         "carvers": [],
         "downfall": downfall,
         "effects": {"water_color": water},

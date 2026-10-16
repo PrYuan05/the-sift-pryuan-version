@@ -19,7 +19,9 @@ import pryuan05.pysift.item.ModItems;
 import pryuan05.pysift.worldgen.SoulWillowFoliagePlacer;
 import pryuan05.pysift.worldgen.SoulWillowTrunkPlacer;
 import pryuan05.pysift.worldgen.SoulWillowVineDecorator;
+import pryuan05.pysift.command.BossLocateCommand;
 import pryuan05.pysift.worldgen.BossArenaFeature;
+import pryuan05.pysift.worldgen.CliffVinesFeature;
 import pryuan05.pysift.worldgen.StrataSpireFeature;
 
 public class PySift implements ModInitializer {
@@ -46,10 +48,12 @@ public class PySift implements ModInitializer {
         SoulWillowFoliagePlacer.register();
         SoulWillowVineDecorator.register();
         StrataSpireFeature.register();
+        CliffVinesFeature.register();
         BossArenaFeature.register();
         ModEntities.registerModEntities();
         ModItems.registerModItems();
         SiftPortalRitual.register();
+        BossLocateCommand.register();
         LOGGER.info("The Sift initialized successfully!");
     }
 }

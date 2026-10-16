@@ -5,18 +5,27 @@ import com.geckolib.animatable.instance.AnimatableInstanceCache;
 import com.geckolib.animatable.manager.AnimatableManager;
 import com.geckolib.animation.AnimationController;
 import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
 import com.geckolib.util.GeckoLibUtil;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
@@ -78,6 +87,36 @@ public class SlabberEntity extends Animal implements GeoEntity {
         return stack.is(SoulCrystal.SOUL_CRYSTAL_BLOCK_ITEM);
     }
 
+    private static boolean isFlowerItem(ItemStack stack) {
+        if (stack.is(FLOWERS)) {
+            return true;
+        }
+        if (stack.getItem() instanceof BlockItem bi) {
+            return bi.getBlock() instanceof FlowerBlock || bi.getBlock() instanceof BushBlock;
+        }
+        return false;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.SNIFFER_IDLE;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.SNIFFER_HURT;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.SNIFFER_DEATH;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.SNIFFER_STEP, 0.15f, 1.0f);
+    }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -128,10 +167,20 @@ public class SlabberEntity extends Animal implements GeoEntity {
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (this.isBaby()) {
+            if (isFoodItem(stack)) {
+                this.usePlayerItem(player, hand, stack);
+                this.ageUp(getSpeedUpSecondsWhenFeeding(-this.age), true);
+                this.triggerAnim("skill", "eat");
+                this.playSound(SoundEvents.SNIFFER_EAT, 1.0f, 1.2f);
+                return InteractionResult.SUCCESS;
+            }
             return super.mobInteract(player, hand);
         }
+        if (stack.is(Items.BUCKET)) {
+            return InteractionResult.PASS; // 泥板獸不是乳牛，不能擠奶
+        }
         boolean bare = getFlower().isEmpty();
-        if (bare && stack.is(FLOWERS)) {                                   // 種花
+        if (bare && isFlowerItem(stack)) {                                 // 種花
             if (this.level() instanceof ServerLevel level) {
                 setFlower(stack, 0);
                 stack.consume(1, player);
@@ -158,6 +207,14 @@ public class SlabberEntity extends Animal implements GeoEntity {
             }
             return InteractionResult.SUCCESS;
         }
+        if (isFoodItem(stack)) {
+            InteractionResult res = super.mobInteract(player, hand);
+            if (res.consumesAction()) {
+                this.triggerAnim("skill", "eat");
+                this.playSound(SoundEvents.SNIFFER_EAT, 1.0f, 1.0f);
+            }
+            return res;
+        }
         return super.mobInteract(player, hand);   // 繁殖（靈魂晶塊）；不能擠奶
     }
 
@@ -166,6 +223,10 @@ public class SlabberEntity extends Animal implements GeoEntity {
         super.customServerAiStep(level);
         if (!getFlower().isEmpty() && getGrowth() < MAX_GROWTH && ++growTimer >= GROW_TICKS) {
             setFlower(getFlower(), getGrowth() + 1);
+        }
+        // 閒置時有機率低頭聞嗅地面花草或靈魂土壤
+        if (this.random.nextInt(250) == 0 && this.getDeltaMovement().horizontalDistanceSqr() < 1.0e-4) {
+            this.triggerAnim("skill", "sniff");
         }
     }
 
@@ -186,6 +247,20 @@ public class SlabberEntity extends Animal implements GeoEntity {
         growTimer = input.getIntOr("FlowerTimer", 0);
     }
 
+    @Override
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        if (source.is(DamageTypeTags.IS_PROJECTILE)) {
+            this.triggerAnim("skill", "deflect");
+            level.playSound(null, this, SoundEvents.SHIELD_BLOCK, SoundSource.NEUTRAL, 1.0f, 0.8f);
+            level.sendParticles(ParticleTypes.CRIT, this.getX(), this.getY() + this.getBbHeight() * 0.8, this.getZ(), 8, 0.2, 0.2, 0.2, 0.1);
+            return super.hurtServer(level, source, amount * 0.25f);
+        }
+        if (source.getEntity() != null) {
+            this.triggerAnim("skill", "deflect");
+        }
+        return super.hurtServer(level, source, amount);
+    }
+
     // ---------------------------------------------------------------- GeckoLib
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
@@ -193,6 +268,12 @@ public class SlabberEntity extends Animal implements GeoEntity {
                 state.setAndContinue(state.isMoving()
                         ? RawAnimation.begin().thenLoop("animation.slabber.walk")
                         : RawAnimation.begin().thenLoop("animation.slabber.idle"))));
+
+        AnimationController<SlabberEntity> skill = new AnimationController<>("skill", 2, state -> PlayState.STOP);
+        skill.triggerableAnim("deflect", RawAnimation.begin().thenPlay("animation.slabber.deflect"));
+        skill.triggerableAnim("sniff", RawAnimation.begin().thenPlay("animation.slabber.sniff"));
+        skill.triggerableAnim("eat", RawAnimation.begin().thenPlay("animation.slabber.eat"));
+        controllers.add(skill);
     }
 
     @Override

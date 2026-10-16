@@ -1,0 +1,9 @@
+{
+  "type": "pysift:cliff_vines",
+  "tries": 64,
+  "min_length": 4,
+  "max_length": 9,
+  "glow_chance": 0.18,
+  "xz_spread": 8,
+  "y_spread": 16
+}

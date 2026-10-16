@@ -1,4 +1,5 @@
 {
+	"format_version": "26.3",
 	"ambientocclusion": false,
 	"textures": {
 		"cross": "pysift:block/vegetation/glowcap",
@@ -46,7 +47,8 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"light_emission": 10
 		},
 		{
 			"from": [
@@ -89,7 +91,180 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"light_emission": 10
+		},
+		{
+			"from": [
+				-0.4,
+				0.0,
+				13.04
+			],
+			"to": [
+				16.4,
+				18.0,
+				13.04
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					0.0,
+					13.04
+				],
+				"axis": "x",
+				"angle": -10.0
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"light_emission": 10
+		},
+		{
+			"from": [
+				-0.4,
+				0.0,
+				2.96
+			],
+			"to": [
+				16.4,
+				18.0,
+				2.96
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					8.0,
+					0.0,
+					2.96
+				],
+				"axis": "x",
+				"angle": 10.0
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"light_emission": 10
+		},
+		{
+			"from": [
+				13.04,
+				0.0,
+				-0.4
+			],
+			"to": [
+				13.04,
+				18.0,
+				16.4
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					13.04,
+					0.0,
+					8.0
+				],
+				"axis": "z",
+				"angle": 10.0
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"light_emission": 10
+		},
+		{
+			"from": [
+				2.96,
+				0.0,
+				-0.4
+			],
+			"to": [
+				2.96,
+				18.0,
+				16.4
+			],
+			"shade": false,
+			"rotation": {
+				"origin": [
+					2.96,
+					0.0,
+					8.0
+				],
+				"axis": "z",
+				"angle": -10.0
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"light_emission": 10
 		}
 	]
 }

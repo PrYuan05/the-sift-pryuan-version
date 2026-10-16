@@ -12,12 +12,16 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.IntProvider;
 import net.minecraft.util.valueproviders.IntProviders;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import pryuan05.pysift.PySift;
+import pryuan05.pysift.block.ModVegetation;
+import pryuan05.pysift.block.SoulWillowVineBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +112,57 @@ public record StrataSpireFeature(IntProvider tiers, IntProvider radius, IntProvi
                 }
             }
         }
+        drapeCliffVines(level, random, origin, reach, tiers);
         return true;
+    }
+
+    /** 在台地階梯懸崖側面垂掛藤蔓，增加繁盛感與生機。 */
+    private void drapeCliffVines(WorldGenLevel level, RandomSource random, BlockPos origin, int reach, List<Tier> tiers) {
+        BlockPos.MutableBlockPos wallPos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos vinePos = new BlockPos.MutableBlockPos();
+        for (int dx = -reach; dx <= reach; dx++) {
+            for (int dz = -reach; dz <= reach; dz++) {
+                for (int i = 1; i < tiers.size(); i++) {
+                    if (!tiers.get(i).contains(dx, dz)) {
+                        break;
+                    }
+                    for (Direction dir : Direction.Plane.HORIZONTAL) {
+                        int nx = dx + dir.getStepX();
+                        int nz = dz + dir.getStepZ();
+                        if (!tiers.get(i).contains(nx, nz) && random.nextFloat() < 0.15F) {
+                            int startH = i * TIER_HEIGHT + TIER_HEIGHT - 1;
+                            wallPos.set(origin.getX() + dx, origin.getY() + startH, origin.getZ() + dz);
+                            vinePos.set(origin.getX() + nx, origin.getY() + startH, origin.getZ() + nz);
+                            if (level.getBlockState(vinePos).isAir() && level.getBlockState(wallPos).isSolidRender()) {
+                                Block vineBlock = random.nextFloat() < 0.12F ? ModVegetation.GLOWING_SOUL_WILLOW_VINE : ModVegetation.SOUL_WILLOW_VINE;
+                                Direction faceOnWall = dir.getOpposite();
+                                int maxLen = Math.min(3 + random.nextInt(3), startH + 1);
+                                for (int step = 0; step < maxLen; step++) {
+                                    BlockPos currentVine = vinePos.below(step);
+                                    if (!level.getBlockState(currentVine).isAir()) {
+                                        break;
+                                    }
+                                    boolean tip = (step == maxLen - 1) || !level.getBlockState(currentVine.below()).isAir();
+                                    int shade = step == 0 ? 0 : (step == maxLen - 1 ? 2 : 1);
+                                    BlockState state = vineBlock.defaultBlockState()
+                                            .setValue(SoulWillowVineBlock.TIP, tip)
+                                            .setValue(SoulWillowVineBlock.SHADE, shade)
+                                            .setValue(SoulWillowVineBlock.NORTH, false)
+                                            .setValue(SoulWillowVineBlock.EAST, false)
+                                            .setValue(SoulWillowVineBlock.SOUTH, false)
+                                            .setValue(SoulWillowVineBlock.WEST, false)
+                                            .setValue(SoulWillowVineBlock.SIDES.get(faceOnWall), true);
+                                    setBlock(level, currentVine, state);
+                                    if (tip) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /** 由下而上的每層半徑：主體不變或內縮，塔頂逐階內縮。 */

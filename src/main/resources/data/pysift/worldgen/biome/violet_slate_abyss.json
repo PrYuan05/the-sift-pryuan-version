@@ -48,8 +48,8 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/sky_color": "#2e2838",
-    "minecraft:visual/fog_color": "#8d858f"
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc"
   },
   "carvers": [],
   "downfall": 0.2,
@@ -81,7 +81,13 @@
       "pysift:patch_glowcap",
       "pysift:patch_bone_spire",
       "pysift:patch_dusk_bloom",
-      "pysift:patch_violet_golden_bloom"
+      "pysift:patch_violet_golden_bloom",
+      "pysift:patch_curled_fern_blue",
+      "pysift:patch_curled_fern_white",
+      "pysift:patch_giant_canopy_blue",
+      "pysift:patch_giant_canopy_white",
+      "pysift:cliff_vines_violet_abyss",
+      "pysift:patch_tall_glow_grass"
     ],
     []
   ],

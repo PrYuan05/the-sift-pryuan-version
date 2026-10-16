@@ -67,6 +67,13 @@ public final class SoulWillowWood {
 
     private static final ResourceKey<ContextIntProvider> FUEL_BLOCK = ContextIntProviders.COOKING_TIME_WOOD_BLOCKS;
 
+    // ===== 引入 ModVegetation 中已註冊的樹幹、樹葉與樹苗，使木材套裝對外引用完整 =====
+    public static final Block SOUL_WILLOW_LOG = ModVegetation.SOUL_WILLOW_LOG;
+    public static final Block SOUL_WILLOW_LEAVES = ModVegetation.SOUL_WILLOW_LEAVES;
+    public static final Block SOUL_WILLOW_LEAVES_PALE = ModVegetation.SOUL_WILLOW_LEAVES_PALE;
+    public static final Block GLOWING_SOUL_WILLOW_LEAVES = ModVegetation.GLOWING_SOUL_WILLOW_LEAVES;
+    public static final Block SOUL_WILLOW_SAPLING = ModVegetation.SOUL_WILLOW_SAPLING;
+
     public static final Block SOUL_WILLOW_WOOD = block("soul_willow_wood", RotatedPillarBlock::new, Blocks.OAK_WOOD, FUEL_BLOCK);
     public static final Block STRIPPED_SOUL_WILLOW_LOG = block("stripped_soul_willow_log", RotatedPillarBlock::new, Blocks.STRIPPED_OAK_LOG, FUEL_BLOCK);
     public static final Block STRIPPED_SOUL_WILLOW_WOOD = block("stripped_soul_willow_wood", RotatedPillarBlock::new, Blocks.STRIPPED_OAK_WOOD, FUEL_BLOCK);

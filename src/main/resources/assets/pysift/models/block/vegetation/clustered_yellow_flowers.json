@@ -1,0 +1,389 @@
+{
+	"credit": "Designed for Minecraft Modding - Clustered Flowers",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "#flower",
+		"stem": "pysift:block/vegetation/yellow_flower_stem",
+		"flower": "pysift:block/vegetation/yellow_flower_head"
+	},
+	"elements": [
+		{
+			"name": "stem_1_cross_a",
+			"from": [
+				3,
+				0,
+				4
+			],
+			"to": [
+				7,
+				9,
+				4
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					5,
+					0,
+					4
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						4,
+						9
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						4,
+						9
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "stem_1_cross_b",
+			"from": [
+				5,
+				0,
+				2
+			],
+			"to": [
+				5,
+				9,
+				6
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					5,
+					0,
+					4
+				]
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						4,
+						9
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						4,
+						9
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "flower_head_1",
+			"from": [
+				1,
+				9,
+				0
+			],
+			"to": [
+				9,
+				9,
+				8
+			],
+			"rotation": {
+				"angle": 22.5,
+				"axis": "x",
+				"origin": [
+					5,
+					9,
+					4
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						0,
+						0,
+						8,
+						8
+					],
+					"texture": "#flower"
+				},
+				"down": {
+					"uv": [
+						0,
+						8,
+						8,
+						0
+					],
+					"texture": "#flower"
+				}
+			}
+		},
+		{
+			"name": "stem_2_cross_a",
+			"from": [
+				9,
+				0,
+				11
+			],
+			"to": [
+				13,
+				12,
+				11
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					11,
+					0,
+					11
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						4,
+						12
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						4,
+						12
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "stem_2_cross_b",
+			"from": [
+				11,
+				0,
+				9
+			],
+			"to": [
+				11,
+				12,
+				13
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					11,
+					0,
+					11
+				]
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						4,
+						12
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						4,
+						12
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "flower_head_2",
+			"from": [
+				7,
+				12,
+				7
+			],
+			"to": [
+				15,
+				12,
+				15
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					11,
+					12,
+					11
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						0,
+						0,
+						8,
+						8
+					],
+					"texture": "#flower"
+				},
+				"down": {
+					"uv": [
+						0,
+						8,
+						8,
+						0
+					],
+					"texture": "#flower"
+				}
+			}
+		},
+		{
+			"name": "stem_3_cross_a",
+			"from": [
+				8,
+				0,
+				5
+			],
+			"to": [
+				12,
+				7,
+				5
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					10,
+					0,
+					5
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						4,
+						7
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						4,
+						7
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "stem_3_cross_b",
+			"from": [
+				10,
+				0,
+				3
+			],
+			"to": [
+				10,
+				7,
+				7
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					10,
+					0,
+					5
+				]
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						4,
+						7
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						4,
+						7
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "flower_head_3",
+			"from": [
+				6,
+				7,
+				1
+			],
+			"to": [
+				14,
+				7,
+				9
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "x",
+				"origin": [
+					10,
+					7,
+					5
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						8,
+						0,
+						16,
+						8
+					],
+					"texture": "#flower"
+				},
+				"down": {
+					"uv": [
+						8,
+						8,
+						16,
+						0
+					],
+					"texture": "#flower"
+				}
+			}
+		}
+	]
+}

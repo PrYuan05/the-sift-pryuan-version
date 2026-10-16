@@ -64,8 +64,8 @@
       },
       "modifier": "overlay"
     },
-    "minecraft:visual/sky_color": "#5a1f33",
-    "minecraft:visual/fog_color": "#9a838e"
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc"
   },
   "carvers": [],
   "downfall": 0.0,
@@ -92,7 +92,13 @@
       "pysift:patch_canyon_puff_grass",
       "pysift:patch_canyon_abyss_grass",
       "pysift:patch_sun_bloom_canyon",
-      "pysift:patch_golden_bloom_sparse"
+      "pysift:patch_golden_bloom_sparse",
+      "pysift:patch_crimson_short_sprouts",
+      "pysift:patch_orange_rift_grass",
+      "pysift:patch_orange_tall_rift_grass",
+      "pysift:patch_canyon_agave_rosette",
+      "pysift:cliff_vines_crimson_canyon",
+      "pysift:patch_canyon_coral_leaf_carpet"
     ],
     []
   ],

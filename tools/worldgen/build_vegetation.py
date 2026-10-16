@@ -23,16 +23,18 @@ TEXTURES = {
     "soul_willow_vine": "pysift:block/vegetation/soul_willow_vine",          # + _<shade> (0 / 1 / 2)
     "soul_willow_vine_tip": "pysift:block/vegetation/soul_willow_vine_tip",  # + _<shade>; wispier end piece
     "grass": "minecraft:block/short_grass",
+    "ember_grass": "pysift:block/vegetation/ember_grass",
+    "tall_ember_grass_bottom": "pysift:block/vegetation/tall_ember_grass_bottom",
+    "tall_ember_grass_top": "pysift:block/vegetation/tall_ember_grass_top",
     "tall_grass_bottom": "minecraft:block/tall_grass_bottom",
     "tall_grass_top": "minecraft:block/tall_grass_top",
     "fern": "minecraft:block/fern",
     "bush": "minecraft:block/bush",
-    "golden_bloom": "minecraft:block/dandelion",
+    "golden_bloom": "pysift:block/vegetation/golden_bloom",
     "spirit_liquid": "minecraft:block/water_still",
-    "sun_bloom_petals": "minecraft:block/sunflower_front",
-    "rose_bloom_petals": "minecraft:block/spore_blossom",
-    "dusk_bloom_petals": "minecraft:block/cactus_flower",
-    "big_flower_leaves": "minecraft:block/fern",
+    "sun_bloom": "pysift:block/vegetation/sun_bloom",
+    "rose_bloom": "pysift:block/vegetation/rose_bloom",
+    "dusk_bloom": "pysift:block/vegetation/dusk_bloom",
     "soul_willow_sapling": "minecraft:block/pale_oak_sapling",
     "sift_pink_loam": "pysift:block/vegetation/sift_pink_loam",   # make_pink_loam.py
     "abyss_grass": "pysift:block/vegetation/abyss_grass",         # make_abyss_grass.py (grey blades, FloorTint)
@@ -53,8 +55,8 @@ BLOCKS = {
     "glowing_soul_willow_vine": ("vine", ("soul_willow_vine", "soul_willow_vine_tip"), "發光靈魂柳垂藤"),
     "soul_willow_sapling": ("sapling", ("soul_willow_sapling",), "靈魂柳樹苗"),
     "sift_pink_loam": ("cube", ("sift_pink_loam",), "粉壤土"),
-    "ember_grass": ("cross", ("grass",), "餘燼草"),
-    "tall_ember_grass": ("tall", ("tall_grass_bottom", "tall_grass_top"), "高餘燼草"),
+    "ember_grass": ("cross", ("ember_grass",), "餘燼草"),
+    "tall_ember_grass": ("tall", ("tall_ember_grass_bottom", "tall_ember_grass_top"), "高餘燼草"),
     "humus_grass": ("cross", ("grass",), "腐殖草"),
     "tall_humus_grass": ("tall", ("tall_grass_bottom", "tall_grass_top"), "高腐殖草"),
     "humus_fern": ("cross", ("fern",), "腐殖蕨"),
@@ -64,9 +66,9 @@ BLOCKS = {
     "bone_spire": ("cross", ("bone_spire",), "骨刺"),
     "puff_grass": ("tall", ("puff_grass_bottom", "puff_grass_top"), "蓬鬆草"),
     "golden_bloom": ("flower", ("golden_bloom",), "金綻花"),
-    "sun_bloom": ("big_flower", ("sun_bloom_petals", "big_flower_leaves"), "陽綻花"),
-    "rose_bloom": ("big_flower", ("rose_bloom_petals", "big_flower_leaves"), "玫綻花"),
-    "dusk_bloom": ("big_flower", ("dusk_bloom_petals", "big_flower_leaves"), "暮綻花"),
+    "sun_bloom": ("big_flower", ("sun_bloom",), "陽綻花"),
+    "rose_bloom": ("big_flower", ("rose_bloom",), "玫綻花"),
+    "dusk_bloom": ("big_flower", ("dusk_bloom",), "暮綻花"),
 }
 TAGS = {  # vanilla tag -> entries to add
     "block/mineable/axe": ["soul_willow_log"],
@@ -123,6 +125,138 @@ def model(name, parent, textures):
     return f"pysift:block/vegetation/{name}"
 
 
+def _face(tinted, uv=(0, 0, 16, 16), tex_ref="#cross"):
+    d = {"uv": list(uv), "texture": tex_ref}
+    if tinted:
+        d["tintindex"] = 0
+    return d
+
+
+def _plane(frm, to, faces, rotation, tinted, light_emission=0):
+    el = {"from": list(frm), "to": list(to), "shade": False, "rotation": rotation,
+          "faces": {f: _face(tinted) for f in faces}}
+    if light_emission:
+        el["light_emission"] = light_emission
+    return el
+
+
+def lush_tuft_elements(tinted):
+    """8-plane volumetric 3D grass tuft: 4 inner angled blades + 4 outer perimeter flaring blades."""
+    f = _face(tinted)
+    ns = {"north": f, "south": f}
+    return [
+        {"from": [0, 0, 13], "to": [16, 15, 13], "shade": False,
+         "rotation": {"x": 5, "y": -56, "z": 0, "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 3], "to": [16, 15, 3], "shade": False,
+         "rotation": {"x": 175, "y": -34, "z": -180, "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 3], "to": [16, 15, 3], "shade": False,
+         "rotation": {"x": -7, "y": -56, "z": 0, "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 13], "to": [16, 15, 13], "shade": False,
+         "rotation": {"x": -175, "y": -34, "z": -180, "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 14.5], "to": [16, 14, 14.5], "shade": False,
+         "rotation": {"angle": 12.5, "axis": "x", "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 1.5], "to": [16, 14, 1.5], "shade": False,
+         "rotation": {"x": 0, "y": -90, "z": -12.5, "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 1.5], "to": [16, 14, 1.5], "shade": False,
+         "rotation": {"angle": -12.5, "axis": "x", "origin": [8, 7, 8]}, "faces": ns},
+        {"from": [0, 0, 14.5], "to": [16, 14, 14.5], "shade": False,
+         "rotation": {"x": 0, "y": -90, "z": 12.5, "origin": [8, 7, 8]}, "faces": ns},
+    ]
+
+
+def lush_fern_elements(tinted):
+    """10-plane spreading 3D fern rosette: 2 upright centre fronds + 4 mid-angle fronds + 4 low wide-flaring basal fronds."""
+    return [
+        _plane([0.8, 0, 8], [15.2, 16, 8], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted),
+        _plane([8, 0, 0.8], [8, 16, 15.2], ("east", "west"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted),
+        # 4 mid-tier outward-leaning fronds (22.5 deg)
+        _plane([1, 0, 12], [15, 15, 12], ("north", "south"),
+               {"origin": [8, 0, 12], "axis": "x", "angle": -22.5}, tinted),
+        _plane([1, 0, 4], [15, 15, 4], ("north", "south"),
+               {"origin": [8, 0, 4], "axis": "x", "angle": 22.5}, tinted),
+        _plane([12, 0, 1], [12, 15, 15], ("east", "west"),
+               {"origin": [12, 0, 8], "axis": "z", "angle": 22.5}, tinted),
+        _plane([4, 0, 1], [4, 15, 15], ("east", "west"),
+               {"origin": [4, 0, 8], "axis": "z", "angle": -22.5}, tinted),
+        # 4 outer wide-arching basal fronds (35 deg)
+        _plane([0, 0, 13.5], [16, 13, 13.5], ("north", "south"),
+               {"origin": [8, 0, 13.5], "axis": "x", "angle": -35}, tinted),
+        _plane([0, 0, 2.5], [16, 13, 2.5], ("north", "south"),
+               {"origin": [8, 0, 2.5], "axis": "x", "angle": 35}, tinted),
+        _plane([13.5, 0, 0], [13.5, 13, 16], ("east", "west"),
+               {"origin": [13.5, 0, 8], "axis": "z", "angle": 35}, tinted),
+        _plane([2.5, 0, 0], [2.5, 13, 16], ("east", "west"),
+               {"origin": [2.5, 0, 8], "axis": "z", "angle": -35}, tinted),
+    ]
+
+
+def lush_bush_elements(tinted):
+    """10-plane dense 3D shrub: 8-plane tuft + 2 tilted canopy planes filling the top silhouette."""
+    return lush_tuft_elements(tinted) + [
+        _plane([1, 1, 8], [15, 16, 8], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "x", "angle": 22.5}, tinted),
+        _plane([8, 1, 1], [8, 16, 15], ("east", "west"),
+               {"origin": [8, 8, 8], "axis": "z", "angle": -22.5}, tinted),
+    ]
+
+
+def lush_cluster_elements(tinted, light_emission=0, tilt=12.5):
+    """6-plane 3D cluster for mushrooms (glowcap), coral spikes (bone_spire), and bushy saplings."""
+    return [
+        _plane([0.8, 0, 8], [15.2, 16, 8], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted, light_emission),
+        _plane([8, 0, 0.8], [8, 16, 15.2], ("east", "west"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted, light_emission),
+        _plane([1, 0, 12.2], [15, 15, 12.2], ("north", "south"),
+               {"origin": [8, 0, 12.2], "axis": "x", "angle": -tilt}, tinted, light_emission),
+        _plane([1, 0, 3.8], [15, 15, 3.8], ("north", "south"),
+               {"origin": [8, 0, 3.8], "axis": "x", "angle": tilt}, tinted, light_emission),
+        _plane([12.2, 0, 1], [12.2, 15, 15], ("east", "west"),
+               {"origin": [12.2, 0, 8], "axis": "z", "angle": tilt}, tinted, light_emission),
+        _plane([3.8, 0, 1], [3.8, 15, 15], ("east", "west"),
+               {"origin": [3.8, 0, 8], "axis": "z", "angle": -tilt}, tinted, light_emission),
+    ]
+
+
+def lush_tall_elements(tinted, is_top):
+    """8-plane 3D double-high plant half: 4 vertical crossed planes (seamless across lower/upper boundary)
+    + 4 outer flaring planes (basal tuft on bottom, arching plumes on top)."""
+    core = [
+        _plane([0.8, 0, 8], [15.2, 16, 8], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted),
+        _plane([8, 0, 0.8], [8, 16, 15.2], ("east", "west"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}, tinted),
+        _plane([1, 0, 11.8], [15, 16, 11.8], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": -22.5}, tinted),
+        _plane([1, 0, 4.2], [15, 16, 4.2], ("north", "south"),
+               {"origin": [8, 8, 8], "axis": "y", "angle": 22.5}, tinted),
+    ]
+    z_pos, z_neg, h, ang = (13.5, 2.5, 15, 10.0) if is_top else (14.2, 1.8, 16, 12.5)
+    outer = [
+        _plane([0, 0, z_pos], [16, h, z_pos], ("north", "south"),
+               {"origin": [8, 0, z_pos], "axis": "x", "angle": -ang}, tinted),
+        _plane([0, 0, z_neg], [16, h, z_neg], ("north", "south"),
+               {"origin": [8, 0, z_neg], "axis": "x", "angle": ang}, tinted),
+        _plane([z_pos, 0, 0], [z_pos, h, 16], ("east", "west"),
+               {"origin": [z_pos, 0, 8], "axis": "z", "angle": ang}, tinted),
+        _plane([z_neg, 0, 0], [z_neg, h, 16], ("east", "west"),
+               {"origin": [z_neg, 0, 8], "axis": "z", "angle": -ang}, tinted),
+    ]
+    return core + outer
+
+
+def lush_model(name, texture_ref, elements):
+    wj(A / f"models/block/vegetation/{name}.json", {
+        "format_version": "26.3",
+        "ambientocclusion": False,
+        "textures": {"cross": texture_ref, "particle": texture_ref},
+        "elements": elements,
+    })
+    return f"pysift:block/vegetation/{name}"
+
+
 def item(name, model_ref):
     m = {"type": "minecraft:model", "model": model_ref}
     if name in TINT or name in FLOOR:
@@ -144,8 +278,8 @@ def loot(name, pools):
 SHEARS = {"type": "minecraft:any_of", "terms": ["minecraft:tool/can_shear", "minecraft:tool/can_silk_touch"]}
 self_drop = lambda name, cond: [{"condition": cond, "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}], "rolls": 1}]
 
-# hand-made by the user: models, item models and textures are edited directly; do not regenerate them
-CUSTOM = {"rose_bloom", "dusk_bloom", "sun_bloom", "golden_bloom", "abyss_grass", "tall_ember_grass", "ember_grass"}
+# hand-made 3D Blockbench models by the user: models, item models and textures are edited directly; do not overwrite them
+CUSTOM = {"rose_bloom", "dusk_bloom", "sun_bloom", "golden_bloom", "abyss_grass", "ember_grass"}
 
 for name, (kind, keys, zh) in BLOCKS.items():
     if name in CUSTOM:
@@ -199,12 +333,23 @@ for name, (kind, keys, zh) in BLOCKS.items():
         item(name, f"pysift:item/{name}")
         loot(name, self_drop(name, {"type": "minecraft:survives_explosion"}))
     elif kind == "sapling":
-        m = model(name, cross_parent, {"cross": tex(keys[0])})
-        wj(A / f"blockstates/{name}.json", {"variants": {"stage=0": {"model": m}, "stage=1": {"model": m}}})
+        m = lush_model(name, tex(keys[0]), lush_cluster_elements(tinted, tilt=10.0))
+        rot_variants = [{"model": m, **({"y": y} if y else {})} for y in (0, 90, 180, 270)]
+        wj(A / f"blockstates/{name}.json", {"variants": {"stage=0": rot_variants, "stage=1": rot_variants}})
         generated_item(name, tex(keys[0]))
         loot(name, self_drop(name, {"type": "minecraft:survives_explosion"}))
     elif kind in ("cross", "flower"):
-        m = model(name, cross_parent, {"cross": tex(keys[0])})
+        if name == "humus_fern":
+            elems = lush_fern_elements(tinted)
+        elif name == "humus_bush":
+            elems = lush_bush_elements(tinted)
+        elif name == "glowcap":
+            elems = lush_cluster_elements(tinted, light_emission=10, tilt=10.0)
+        elif name == "bone_spire":
+            elems = lush_cluster_elements(tinted, tilt=12.5)
+        else:
+            elems = lush_tuft_elements(tinted)
+        m = lush_model(name, tex(keys[0]), elems)
         wj(A / f"blockstates/{name}.json", {"variants": {"": {"model": m}}})
         generated_item(name, tex(keys[0]))
         loot(name, self_drop(name, SHEARS if kind == "cross" else {"type": "minecraft:survives_explosion"}))
@@ -219,8 +364,8 @@ for name, (kind, keys, zh) in BLOCKS.items():
             wj(A / f"items/{name}.json", item_def)
         loot(name, self_drop(name, {"type": "minecraft:survives_explosion"}))
     elif kind == "tall":
-        lower = model(f"{name}_bottom", cross_parent, {"cross": tex(keys[0])})
-        upper = model(f"{name}_top", cross_parent, {"cross": tex(keys[1])})
+        lower = lush_model(f"{name}_bottom", tex(keys[0]), lush_tall_elements(tinted, is_top=False))
+        upper = lush_model(f"{name}_top", tex(keys[1]), lush_tall_elements(tinted, is_top=True))
         wj(A / f"blockstates/{name}.json", {"variants": {"half=lower": {"model": lower}, "half=upper": {"model": upper}}})
         generated_item(name, tex(keys[1]))
         loot(name, [{"condition": {"type": "minecraft:all_of", "terms": [
@@ -255,7 +400,8 @@ wj(A / "models/block/vegetation/template_vine_side.json", {
 
 # ---- pysift tag: blocks a soul willow vine can hang from (SoulWillowVineBlock.SUPPORTS) ----
 wj(D / "pysift/tags/block/soul_willow_vine_supports.json", {"replace": False, "values": [
-    "pysift:soul_willow_leaves", "pysift:soul_willow_leaves_pale", "pysift:glowing_soul_willow_leaves"]})
+    "pysift:soul_willow_leaves", "pysift:soul_willow_leaves_pale", "pysift:glowing_soul_willow_leaves",
+    "#minecraft:leaves", "#minecraft:supports_vegetation"]})
 
 # ---- spirit liquid: block (no item, no loot), bucket ----
 wj(A / "models/block/vegetation/spirit_liquid.json", {"textures": {"particle": tex("spirit_liquid")}})

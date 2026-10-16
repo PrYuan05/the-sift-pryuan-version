@@ -4,7 +4,7 @@
       "model": "pysift:block/sift_portal"
     },
     "axis=z": {
-      "model": "pysift:block/sift_portal_ew"
+      "model": "pysift:block/sift_portal"
     }
   }
 }

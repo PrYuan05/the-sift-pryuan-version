@@ -27,6 +27,8 @@ import java.util.List;
  *       是否已進入二階段記在屬性修飾器上（隨存檔保存），重新載入後不會重複召喚。</li>
  *   <li>脫戰回血：沒有目標時每秒回復 2% 最大生命，避免被遠程慢慢磨死後拉開距離回補。</li>
  *   <li>守場：有競技場中心（{@link #setArena}）時，沒有目標且離中心超過 ARENA_LEASH 格就走回去。</li>
+ *   <li>死亡演出（{@link #deathTick}）：屍體留 {@link #DEATH_TICKS} tick 播完 3 秒的 death 動畫，
+ *       期間靈魂從身上逸散、倒地時揚起塵土、最後化成一團靈魂火消失。</li>
  * </ul>
  */
 public final class BossMechanics {
@@ -38,6 +40,8 @@ public final class BossMechanics {
     private static final int ARENA_LEASH = 20;
     /** 二階段的技能冷卻倍率。 */
     public static final double PHASE_TWO_COOLDOWN = 0.65;
+    /** Boss 死亡演出長度（tick），要和各 Boss 的 animation.&lt;id&gt;.death（3.0 秒）一致。 */
+    public static final int DEATH_TICKS = 60;
 
     private BossMechanics() {
     }
@@ -68,6 +72,36 @@ public final class BossMechanics {
         if (boss.getTarget() == null && boss.hasHome() && !boss.isWithinHome() && boss.getNavigation().isDone()) {
             BlockPos home = boss.getHomePosition();
             boss.getNavigation().moveTo(home.getX() + 0.5, home.getY(), home.getZ() + 0.5, 1.0);
+        }
+    }
+
+    /**
+     * 死亡演出，每 tick 呼叫一次（各 Boss 的 onDeathTick）。
+     * @param impactTick death 動畫中身體砸到地面的那一刻（tick），在這裡揚起塵土並播放落地聲
+     */
+    public static void deathTick(Mob boss, ServerLevel level, int deathTime, int impactTick) {
+        double w = boss.getBbWidth() * 0.5;
+        double h = boss.getBbHeight();
+        if (deathTime == 1) {
+            boss.playSound(SoundEvents.WITHER_DEATH, 1.5f, 1.6f);
+            level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, boss.getX(), boss.getY(0.5), boss.getZ(), 40, w, h * 0.4, w, 0.08);
+        }
+        // 靈魂逸散：越接近消失越多
+        int souls = 1 + deathTime * 4 / DEATH_TICKS;
+        level.sendParticles(ParticleTypes.SOUL, boss.getX(), boss.getY(0.4), boss.getZ(), souls, w, h * 0.3, w, 0.03);
+        if (deathTime % 10 == 0 && deathTime < impactTick) {
+            boss.playSound(SoundEvents.SOUL_ESCAPE.value(), 2.0f, 0.6f);
+        }
+        if (deathTime == impactTick) {
+            boss.playSound(SoundEvents.GENERIC_BIG_FALL, 2.5f, 0.6f);
+            boss.playSound(SoundEvents.RAVAGER_STUNNED, 1.5f, 0.6f);
+            level.sendParticles(ParticleTypes.CAMPFIRE_COSY_SMOKE, boss.getX(), boss.getY() + 0.2, boss.getZ(), 30, w * 1.4, 0.2, w * 1.4, 0.02);
+            level.sendParticles(ParticleTypes.POOF, boss.getX(), boss.getY() + 0.3, boss.getZ(), 40, w * 1.6, 0.2, w * 1.6, 0.08);
+        }
+        if (deathTime == DEATH_TICKS - 2) {
+            boss.playSound(SoundEvents.SOUL_ESCAPE.value(), 3.0f, 0.4f);
+            level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, boss.getX(), boss.getY(0.3), boss.getZ(), 80, w, h * 0.3, w, 0.15);
+            level.sendParticles(ParticleTypes.SCULK_SOUL, boss.getX(), boss.getY(0.3), boss.getZ(), 30, w, h * 0.3, w, 0.1);
         }
     }
 

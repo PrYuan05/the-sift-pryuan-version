@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/nether_portal_ew",
-  "textures": {
-    "particle": "pysift:block/sift_portal",
-    "portal": "pysift:block/sift_portal"
-  }
-}

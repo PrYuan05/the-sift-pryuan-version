@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/vegetation/olive_forked_stalk"
+      },
+      {
+        "model": "pysift:block/vegetation/olive_forked_stalk",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/vegetation/olive_forked_stalk",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/vegetation/olive_forked_stalk",
+        "y": 270
+      }
+    ]
+  }
+}

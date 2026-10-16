@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import pryuan05.pysift.entity.PysiftMonsterEntity;
 
@@ -28,6 +29,8 @@ import pryuan05.pysift.entity.PysiftMonsterEntity;
  * 引信飛蟲（飛行）。活著時飛著追咬目標（動畫 attack，2 點傷害）；
  * 死亡時身體膨脹成約 0.9 格的方塊（動畫 death，約 1 秒），在死亡第 18 tick 爆開：半徑 4 格 12 點魔法傷害並強力擊退，
  * 不破壞方塊。致命一擊不會把它打飛，死亡期間停在原地懸空，所以近身打死它一定會被炸到，最好從遠處解決。
+ * 爆炸範圍看得到也對得上：引信期間在半徑 4 格的球面上閃出警示環（自身高度一圈、地面一圈），
+ * 爆炸的火光與電花都只畫在這個球裡；身體任何一部分碰到球（碰撞箱與球相交）就會受傷。
  */
 public class FuseflyEntity extends PysiftMonsterEntity {
     private static final double BLAST_RADIUS = 4.0;
@@ -101,16 +104,51 @@ public class FuseflyEntity extends PysiftMonsterEntity {
                 this.playSound(SoundEvents.CREEPER_PRIMED, 1.0f, 1.6f);
             } else if (this.deathTime < BLAST_DEATH_TICK) {
                 level.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY(0.5), this.getZ(), 3, 0.2, 0.2, 0.2, 0.05);
+                if (this.deathTime % 3 == 0) {
+                    warningRings(level);
+                }
             } else if (this.deathTime == BLAST_DEATH_TICK) {
                 blast(level);
             }
         }
     }
 
+    private Vec3 blastCenter() {
+        return this.position().add(0, this.getBbHeight() / 2, 0);
+    }
+
+    /** 引信警示：爆炸球面在自身高度的一圈，以及球面與地面相交的一圈（地面在 4 格內時）。 */
+    private void warningRings(ServerLevel level) {
+        Vec3 c = blastCenter();
+        ring(level, c.x, c.y, c.z, BLAST_RADIUS);
+        int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING, (int) Math.floor(c.x), (int) Math.floor(c.z));
+        double dy = c.y - groundY;
+        if (dy >= 0 && dy < BLAST_RADIUS) {
+            ring(level, c.x, groundY + 0.1, c.z, Math.sqrt(BLAST_RADIUS * BLAST_RADIUS - dy * dy));
+        }
+    }
+
+    private static void ring(ServerLevel level, double x, double y, double z, double r) {
+        int points = Math.max(12, (int) (r * 7));
+        for (int i = 0; i < points; i++) {
+            double a = Math.PI * 2 * i / points;
+            level.sendParticles(ParticleTypes.ELECTRIC_SPARK, x + Math.cos(a) * r, y, z + Math.sin(a) * r, 1, 0, 0, 0, 0);
+        }
+    }
+
+    /** 碰撞箱上離爆炸中心最近的點是否在爆炸球內。 */
+    private static boolean touchesBlast(LivingEntity e, Vec3 c) {
+        var box = e.getBoundingBox();
+        double x = Math.clamp(c.x, box.minX, box.maxX);
+        double y = Math.clamp(c.y, box.minY, box.maxY);
+        double z = Math.clamp(c.z, box.minZ, box.maxZ);
+        return c.distanceToSqr(x, y, z) <= BLAST_RADIUS * BLAST_RADIUS;
+    }
+
     private void blast(ServerLevel level) {
-        Vec3 c = this.position().add(0, this.getBbHeight() / 2, 0);
+        Vec3 c = blastCenter();
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(BLAST_RADIUS),
-                e -> e != this && e.isAlive() && !(e instanceof Enemy) && e.distanceToSqr(c) <= BLAST_RADIUS * BLAST_RADIUS)) {
+                e -> e != this && e.isAlive() && !(e instanceof Enemy) && touchesBlast(e, c))) {
             if (e.hurtServer(level, this.damageSources().indirectMagic(this, this), BLAST_DAMAGE)) {
                 Vec3 away = e.position().subtract(c).multiply(1, 0, 1);
                 Vec3 dir = away.lengthSqr() < 1.0E-4 ? Vec3.ZERO : away.normalize();
@@ -118,9 +156,22 @@ public class FuseflyEntity extends PysiftMonsterEntity {
                 e.needsSync = true;
             }
         }
-        level.sendParticles(ParticleTypes.EXPLOSION_EMITTER, c.x, c.y, c.z, 1, 0, 0, 0, 0.0);
-        level.sendParticles(ParticleTypes.EXPLOSION, c.x, c.y, c.z, 8, 1.2, 1.0, 1.2, 0.0);
-        level.sendParticles(ParticleTypes.ELECTRIC_SPARK, c.x, c.y, c.z, 40, BLAST_RADIUS * 0.5, 0.6, BLAST_RADIUS * 0.5, 0.4);
+        // 視覺效果只畫在爆炸球內：原版 EXPLOSION_EMITTER 會在中心外 ±4 格的立方體裡亂數炸開，看起來比傷害範圍大，所以不用
+        var random = this.getRandom();
+        level.sendParticles(ParticleTypes.EXPLOSION, c.x, c.y, c.z, 1, 0, 0, 0, 0);
+        for (int i = 0; i < 14; i++) {                       // 火光：均勻散在球內（半徑留 1 格給粒子本身的大小）
+            Vec3 d = new Vec3(random.nextGaussian(), random.nextGaussian(), random.nextGaussian()).normalize()
+                    .scale((BLAST_RADIUS - 1.0) * Math.cbrt(random.nextDouble()));
+            level.sendParticles(ParticleTypes.EXPLOSION, c.x + d.x, c.y + d.y, c.z + d.z, 1, 0, 0, 0, 0);
+        }
+        int shell = 90;                                       // 電花：均勻鋪在半徑 4 的球面上（費波那契球）
+        for (int i = 0; i < shell; i++) {
+            double y = 1 - 2.0 * (i + 0.5) / shell;
+            double r = Math.sqrt(1 - y * y);
+            double a = i * Math.PI * (3 - Math.sqrt(5));
+            level.sendParticles(ParticleTypes.ELECTRIC_SPARK, c.x + Math.cos(a) * r * BLAST_RADIUS, c.y + y * BLAST_RADIUS,
+                    c.z + Math.sin(a) * r * BLAST_RADIUS, 1, 0, 0, 0, 0);
+        }
         this.playSound(SoundEvents.GENERIC_EXPLODE.value(), 2.0f, 1.3f);
     }
 }

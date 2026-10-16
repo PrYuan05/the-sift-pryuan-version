@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/nether_portal_ns",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "particle": "pysift:block/sift_portal",
-    "portal": "pysift:block/sift_portal"
+    "all": "pysift:block/sift_portal"
   }
 }

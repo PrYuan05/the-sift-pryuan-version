@@ -1,0 +1,219 @@
+{
+	"credit": "Designed for Minecraft Modding - Rift Canopy Plant",
+	"ambientocclusion": false,
+	"texture_size": [
+		32,
+		32
+	],
+	"textures": {
+		"particle": "#cap",
+		"stem": "pysift:block/vegetation/canopy_stem_green",
+		"cap": "pysift:block/vegetation/canopy_leaf_green"
+	},
+	"elements": [
+		{
+			"name": "lower_stem",
+			"from": [
+				7,
+				0,
+				7
+			],
+			"to": [
+				9,
+				10,
+				9
+			],
+			"rotation": {
+				"angle": 22.5,
+				"axis": "z",
+				"origin": [
+					8,
+					0,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						2,
+						10
+					],
+					"texture": "#stem"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						2,
+						10
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						2,
+						10
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						2,
+						10
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "lower_leaf_blade",
+			"from": [
+				0,
+				8,
+				0
+			],
+			"to": [
+				16,
+				8.5,
+				16
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "x",
+				"origin": [
+					8,
+					8,
+					8
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cap"
+				},
+				"down": {
+					"uv": [
+						0,
+						16,
+						16,
+						0
+					],
+					"texture": "#cap"
+				}
+			}
+		},
+		{
+			"name": "upper_stem",
+			"from": [
+				5,
+				9,
+				7.5
+			],
+			"to": [
+				6.5,
+				16,
+				9
+			],
+			"rotation": {
+				"angle": -22.5,
+				"axis": "z",
+				"origin": [
+					6,
+					9,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						2,
+						0,
+						3.5,
+						7
+					],
+					"texture": "#stem"
+				},
+				"east": {
+					"uv": [
+						2,
+						0,
+						3.5,
+						7
+					],
+					"texture": "#stem"
+				},
+				"south": {
+					"uv": [
+						2,
+						0,
+						3.5,
+						7
+					],
+					"texture": "#stem"
+				},
+				"west": {
+					"uv": [
+						2,
+						0,
+						3.5,
+						7
+					],
+					"texture": "#stem"
+				}
+			}
+		},
+		{
+			"name": "upper_leaf_blade",
+			"from": [
+				0,
+				15,
+				0
+			],
+			"to": [
+				16,
+				15.5,
+				16
+			],
+			"rotation": {
+				"angle": 22.5,
+				"axis": "z",
+				"origin": [
+					8,
+					15,
+					8
+				]
+			},
+			"faces": {
+				"up": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cap"
+				},
+				"down": {
+					"uv": [
+						0,
+						16,
+						16,
+						0
+					],
+					"texture": "#cap"
+				}
+			}
+		}
+	]
+}

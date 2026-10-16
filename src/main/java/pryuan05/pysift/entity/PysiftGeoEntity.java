@@ -56,6 +56,38 @@ public abstract class PysiftGeoEntity extends PathfinderMob implements GeoEntity
         return false;
     }
 
+    /**
+     * 死亡動畫長度（tick）。原版 20 tick 就移除屍體；回傳更長的值時，屍體會留到動畫播完才消失，
+     * 客戶端也不再套用原版的倒地翻轉與紅色受傷色（見 PysiftUniversalGeoRenderer），讓 death 動畫完整呈現。
+     */
+    public int deathDuration() {
+        return 20;
+    }
+
+    /** 死亡期間每 tick 在伺服器端呼叫一次（deathTime 從 1 開始），用來放粒子與音效。 */
+    protected void onDeathTick(ServerLevel level) {
+    }
+
+    @Override
+    protected void tickDeath() {
+        int duration = deathDuration();
+        if (duration <= 20) {
+            super.tickDeath();
+            return;
+        }
+        this.deathTime++;
+        if (this.level() instanceof ServerLevel level) {
+            if (this.deathTime == 1 && !skillAnimations().isEmpty()) {
+                this.stopTriggeredAnim("skill", null);   // 技能動畫別蓋過死亡動畫
+            }
+            onDeathTick(level);
+            if (this.deathTime >= duration && !this.isRemoved()) {
+                level.broadcastEntityEvent(this, (byte) 60);   // 原版的消失煙霧
+                this.remove(RemovalReason.KILLED);
+            }
+        }
+    }
+
     /** 一般近戰命中時要播放的可觸發動畫（需同時列在 {@link #skillAnimations()}）；null 表示不播放。 */
     protected String meleeAnimation() {
         return null;
@@ -71,6 +103,11 @@ public abstract class PysiftGeoEntity extends PathfinderMob implements GeoEntity
         return hit;
     }
 
+    /** 不為 null 時，移動動畫控制器改播這個動畫並停在最後一格（例如出生時從地底爬出）；兩端都會呼叫，要用同步資料判斷。 */
+    protected String heldMovementAnimation() {
+        return null;
+    }
+
     protected String anim(String name) {
         return "animation." + getEntityIdName() + "." + name;
     }
@@ -78,6 +115,10 @@ public abstract class PysiftGeoEntity extends PathfinderMob implements GeoEntity
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>("movement", 5, state -> {
+            String held = heldMovementAnimation();
+            if (held != null) {
+                return state.setAndContinue(RawAnimation.begin().thenPlayAndHold(anim(held)));
+            }
             if (hasDeathAnimation() && isDeadOrDying()) {
                 return state.setAndContinue(RawAnimation.begin().thenPlayAndHold(anim("death")));
             }
