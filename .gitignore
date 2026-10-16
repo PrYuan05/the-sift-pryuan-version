@@ -44,3 +44,10 @@ replay_*.log
 
 # texture pipeline backups (see tools/texture_pipeline)
 .texture_backups/
+
+# headless worldgen test server (tools/worldgen/devserver.py)
+run-server/
+
+# python
+__pycache__/
+*.pyc

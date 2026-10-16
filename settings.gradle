@@ -7,6 +7,16 @@ pluginManagement {
 		mavenCentral()
 		gradlePluginPortal()
 	}
+	// Load Loom straight from its module (net.fabricmc:fabric-loom) instead of the plugin marker. With a fixed
+	// version (not -SNAPSHOT) Gradle uses the cached jar and never has to go online to check for a newer snapshot,
+	// which fails on this machine (HTTPS interception -> PKIX errors).
+	resolutionStrategy {
+		eachPlugin {
+			if (requested.id.id == 'net.fabricmc.fabric-loom') {
+				useModule("net.fabricmc:fabric-loom:${requested.version}")
+			}
+		}
+	}
 }
 
 // Should match your modid

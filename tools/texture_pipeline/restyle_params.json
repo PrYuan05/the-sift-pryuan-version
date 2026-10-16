@@ -1,0 +1,16 @@
+{
+  "_doc": "Parameters for restyle.py (modern-vanilla look). k_min/k_max: palette size per unit. contrast: L is compressed around the unit mean by this factor. l_min/l_max: no pure black/white. warm_shift/cool_shift: b (and a for highlights) offset at the light/dark ends. chroma: saturation multiplier. denoise_passes: isolated-pixel clean-up passes (a pixel with fewer than min_same of its 8 neighbours in its colour takes the majority neighbour colour). soft_edge: put the middle palette step between light and dark regions that touch directly. seam_delta: luminance jump across the tile edge that gets blended. exclude_units: unit names to leave untouched.",
+  "k_min": 5,
+  "k_max": 7,
+  "contrast": 0.8,
+  "l_min": 14,
+  "l_max": 90,
+  "warm_shift": 2.0,
+  "cool_shift": 2.0,
+  "chroma": 1.08,
+  "denoise_passes": 2,
+  "min_same": 2,
+  "soft_edge": true,
+  "seam_delta": 20,
+  "exclude_units": []
+}

@@ -56,13 +56,13 @@
 | 系統模組 | 狀態 | 完成度 | 現狀摘要與檔案指針 |
 | :--- | :---: | :---: | :--- |
 | **基礎骨架 (Core)** | ✅ 完成 | 100% | Fabric 26.3 環境、生命週期初始化、混淆映射校驗皆已通過。 |
-| **生物系統 (Entities)** | 🟡 基礎完成 | 80% | 24 款 Sift 獨特生物皆已註冊、GeckoLib 5 骨骼模型 (`.geo.json`) 與動畫綁定完成；待補強進階 AI Goal 與專屬技能。 |
-| **物品與材料 (Items)** | 🟡 基礎完成 | 85% | 24 款生怪蛋、`charoite` (紫龍晶系列)、`siftite_ingot` (篩金石錠)、雙創造模式分頁 (`pysift_blocks`, `pysift_items`)。 |
-| **方塊系統 (Blocks) — 原始分支** | 🟢 穩定可用 | 100% | 295 款獨立編號方塊在主程式庫正常運作，包含柱體原木、覆蓋石與地層岩。 |
-| **方塊系統 (Blocks) — 視覺整合** | 🟢 獨立交付 | 100% | 已於獨立目錄 [`sift_visual_corrected/`](file:///c:/Users/hoeyl/Documents/Minecraft%20Modding/the-sift-pryuan-version/sift_visual_corrected/) 完成 81 款家族整合、9 張貼圖垂直糾偏、單調漸進狀態重排，並通過自動化檢驗。 |
-| **戰鬥與行為 AI** | 🔴 待實作 | 20% | 生物目前僅具備基本移動、看視或被動攻擊行為，待建立技能邏輯與彈射物。 |
-| **維度與地貌 (Dimension)** | 🔴 待實作 | 10% | The Sift 維度世界生成器、自訂生物群系 (Biomes)、地層沉積規則尚未掛載。 |
-| **音效與粒子 (Audio/FX)** | 🔴 待實作 | 15% | 目前使用原版音效群（石頭、深板岩、木頭、泥土），專屬環境音與生物音效待補。 |
+| **方塊系統與建材組 (Blocks)** | ✅ 完成 | 100% | 核心狀態重構已合併（PR #1, #2）；新增 38 組石材建材組（磚、浮雕磚、半磚、階梯、牆與切石機配方）、靈柳木建材組、植被與靈魂晶塊，共 461 個註冊方塊，通過 `verify.py` 零錯誤檢驗。 |
+| **生物系統與戰鬥 AI (Entities & AI)** | 🟢 實作完成（待實機微調） | 95% | 24 款 Sift 生物（共 25 個類別）與 2 款投射物皆已實作專屬 AI、技能動畫與互動機制；包含 11 個通用技能 Goal（`entity/ai/`）與三隻 Boss 的二階段狂暴／援軍／守場機制（`BossMechanics.java`）。 |
+| **物品與創造分頁 (Items & Tabs)** | ✅ 完成 | 100% | 24 款生怪蛋、`charoite`、`siftite_ingot`、`soul_antidote`（靈魂解藥）、`spirit_liquid_bucket`；創造分頁依世界生成使用與否拆分為 `pysift_blocks`（27 種核心生成方塊及其建材）與 `pysift_unused_blocks`（115 種未生成方塊），另設 `pysift_items`。 |
+| **維度與地貌 (The Sift Dimension)** | 🟢 實作完成（待實機驗證） | 90% | `pysift:the_sift` 維度與 4 個自訂生態系（赤紅沉積峽谷、紫晶深板岩區、柳絮林地、琥珀沙丘）；平緩地形搭配淺池、圓形分層桌山（`StrataSpireFeature`）、Boss 競技場（`BossArenaFeature`）與巨型靈柳（`SoulWillowTrunkPlacer` / `SoulWillowFoliagePlacer` / `SoulWillowVineDecorator`）。 |
+| **靈液與靈魂剝奪 (Fluid & Effects)** | 🟢 實作完成（待實機驗證） | 95% | `spirit_liquid` 流體與 `soul_deprivation` 效果；包含 80% 血量抽離、受傷觸發靈魂碎裂（鎖定最大生命上限）、靈魂解藥復原、幽匿風格視覺後處理（`SoulDeprivationVision`）與靈魂火愛心 HUD。 |
+| **傳送門與開門儀式 (Portal)** | 🟢 實作完成（待實機驗證） | 90% | `sift_portal` 方塊與 `SiftPortalRitual`（強化深板岩旁吹山羊角召喚歌者，手持迴音碎片／靈魂沙／靈魂晶塊右鍵歌者共鳴開門），含跨方塊大畫布渲染器（`SiftPortalBlockEntityRenderer`）與 2 秒傳送過場動畫（`SiftPortalTransition`）。 |
+| **音效與粒子 (Audio/FX)** | 🟡 基礎完成 | 60% | 已實作靈魂光點與靈魂軌跡粒子（`ModParticles`）、各技能與儀式之原版音效組合；自訂專屬環境音檔與生物獨立音效待日後擴充。 |
 
 ---
 
@@ -71,37 +71,62 @@
 ### 3.1 Java 原始碼結構
 ```text
 src/main/java/pryuan05/pysift/
-├── PySift.java                        # 主模組入口，集中呼叫各模組 register()
+├── PySift.java                        # 主模組入口，集中呼叫各子系統 register()
 ├── block/
-│   └── ModBlocks.java                 # 方塊註冊主類別，維護 ALL_BLOCKS 清單
+│   ├── ModBlocks.java                 # 核心方塊、38 組建材組與 SIFT_PORTAL 註冊
+│   ├── ModVegetation.java             # 生態系植被方塊註冊
+│   ├── SoulWillowWood.java            # 靈柳木建材組（原木、木板、門、活板門、告示牌、書架等）
+│   ├── SoulWillowVineBlock.java       # 靈柳垂藤邏輯
+│   ├── SoulCrystal.java               # 靈魂晶塊方塊與物品
+│   ├── SiftPortalBlock.java           # 篩靈界傳送門方塊、跨維度傳送與框架 BFS
+│   ├── SiftPortalRitual.java          # 山羊角召喚歌者與共鳴開門儀式
+│   ├── SiftStateBlock.java            # 動態狀態方塊建構器
+│   ├── SiftStateProperties.java       # 自訂方塊狀態列舉（Tone, Host, Tint）
+│   └── entity/                        # 方塊實體（SiftPortalBlockEntity）
+├── fluid/
+│   ├── ModFluids.java                 # 靈液（spirit_liquid）流體、方塊與桶註冊
+│   └── SpiritFluid.java               # 靈液流動與接觸觸發靈魂剝奪邏輯
+├── effect/
+│   ├── ModEffects.java                # 靈魂剝奪（soul_deprivation）狀態效果
+│   └── SoulBurn.java                  # 血量抽離、靈魂碎裂、解藥復原與資料同步附件
 ├── item/
-│   └── ModItems.java                  # 物品註冊、生怪蛋清單、創造模式分頁定義
-├── entity/
-│   ├── ModEntities.java               # 24 款實體類型註冊、屬性綁定 (Attributes)
-│   ├── PysiftGeoEntity.java           # GeckoLib 5 實體抽象介面
-│   ├── PysiftMonsterEntity.java       # 怪物基底類別
-│   ├── PysiftAnimalEntity.java        # 動物/被動生物基底類別
-│   └── mob/                           # 24 款具體生物邏輯類別
-│       ├── BlubEntity.java
-│       ├── EchoGolemEntity.java
-│       ├── SculptMonstrosityEntity.java
-│       └── ... (其餘 21 款)
+│   ├── ModItems.java                  # 物品註冊、24 款生怪蛋、三創造模式分頁定義
+│   └── SoulAntidoteItem.java          # 靈魂解藥物品邏輯
+├── particle/
+│   └── ModParticles.java              # 靈魂光點與軌跡粒子註冊
+├── worldgen/
+│   ├── SoulWillowTrunkPlacer.java     # 巨型靈柳扭曲樹幹生成器
+│   ├── SoulWillowFoliagePlacer.java   # 巨型靈柳雲朵樹冠生成器
+│   ├── SoulWillowVineDecorator.java   # 靈柳外圍垂藤裝飾器
+│   ├── StrataSpireFeature.java        # 圓形分層地層桌山特徵
+│   └── BossArenaFeature.java          # Boss 競技場結構生成與守場綁定
+└── entity/
+    ├── ModEntities.java               # 24 款生物與 2 款投射物註冊、屬性綁定
+    ├── BossMechanics.java             # 三大 Boss 共用二階段狂暴、召喚援軍、脫戰回血與守場
+    ├── PysiftGeoEntity.java           # GeckoLib 5 實體基底與技能動畫觸發封裝
+    ├── PysiftMonsterEntity.java       # 敵對怪物基底類別
+    ├── PysiftAnimalEntity.java        # 被動／友善生物基底類別
+    ├── ai/                            # 11 個通用技能與戰術 AI Goal（砸地、音波、衝撞、共鳴環等）
+    ├── projectile/                    # DartEntity（尖刺飛鏢）、ThrownRockEntity（投擲碎石）
+    └── mob/                           # 24 款具體生物邏輯類別（共 25 個 class 含 PysiftSwarmEntity）
 src/client/java/pryuan05/pysift/
-├── PySiftClient.java                  # 客戶端入口，註冊 GeckoLib EntityRenderer
+├── PySiftClient.java                  # 客戶端入口，註冊實體／方塊實體渲染器、粒子與視覺效果
 └── client/
     ├── PysiftUniversalGeoModel.java   # 通用動態路徑 GeckoLib 5 模型配接器
-    └── PysiftUniversalGeoRenderer.java# 通用動態渲染器
+    ├── PysiftUniversalGeoRenderer.java# 通用動態渲染器（含發光層與死亡旋轉控制）
+    ├── SlabberRenderer.java           # 泥板獸背部花朵渲染器
+    ├── SoulDeprivationVision.java     # 靈魂剝奪之幽匿視覺後處理
+    ├── SiftPortalTransition.java      # 傳送門過場動畫
+    └── render/                        # SiftPortalBlockEntityRenderer 大畫布流光渲染器
 ```
 
 ### 3.2 資源結構現狀
-- **生物資產**：
-  - 幾何模型：`src/main/resources/assets/pysift/geo/entity/*.geo.json`（共 24 款）
-  - 動畫設定：`src/main/resources/assets/pysift/animations/entity/*.animation.json`（共 24 款）
+- **生物資產（GeckoLib 5 標準路徑）**：
+  - 幾何模型：`src/main/resources/assets/pysift/geckolib/models/entity/*.geo.json`
+  - 動畫設定：`src/main/resources/assets/pysift/geckolib/animations/entity/*.animation.json`
   - 實體貼圖：`src/main/resources/assets/pysift/textures/entity/*.png`
-- **現行方塊資產 (主分支)**：
-  - 存放於 `src/main/resources/assets/pysift/`（295 款方塊各自具備獨立 blockstates 與模型）。
-- **校正後方塊資產 (交付與整併候選)**：
-  - 存放於專案根目錄 [`sift_visual_corrected/`](file:///c:/Users/hoeyl/Documents/Minecraft%20Modding/the-sift-pryuan-version/sift_visual_corrected/)，內含 81 款整合 Blockstates、299 款模型、343 張校正貼圖及 5 份對照報告。
+- **方塊與世界生成資產**：
+  - 存放於 `src/main/resources/assets/pysift/` 與 `src/main/resources/data/pysift/`（共 461 個註冊方塊，含建材組、切石配方、4 個生態系與 `the_sift` 維度配置）。
 
 ---
 
@@ -110,59 +135,47 @@ src/client/java/pryuan05/pysift/
 ### 4.1 方塊新增與重構流程
 ```mermaid
 flowchart TD
-    A["取得貼圖圖集 (Atlas/PNG)"] --> B["視覺方向檢測 (淺上深下原則)"]
-    B --> C["判定方塊類型 (Pillar / Progressive / Random / Single)"]
-    C --> D["產出 models/block/*.json"]
-    D --> E["產出 blockstates/*.json 與 items/*.json"]
-    E --> F["撰寫 ModBlocks.java (Mojang Mappings 註冊)"]
-    F --> G["配置 loot_table/*.json 與 mineable tags"]
-    G --> H["執行 ./gradlew compileJava 驗證編譯"]
+    A["取得貼圖圖集 (Atlas/PNG)"] --> B["視覺方向與色調分群 (recolor.py / refit_faces.py)"]
+    B --> C["判定方塊類型 (Pillar / Facing / Progressive / Tone / Building Set)"]
+    C --> D["產出 models/block/*.json 與 blockstates/*.json"]
+    D --> E["產出 items/*.json、loot_table 與 mineable / blocks_motion_no_leaves 標籤"]
+    E --> F["撰寫 ModBlocks.java / 專用類別註冊"]
+    F --> G["執行 python -I tools/texture_pipeline/verify.py . 與 ./gradlew compileJava"]
 ```
 
 ### 4.2 生物新增與動畫配接流程
-1. **模型與動畫準備**：在 Blockbench 中匯出為 GeckoLib 5 規範之 `.geo.json` 與 `.animation.json`，放入 `assets/pysift/geo/entity/` 與 `animations/entity/`。
+1. **模型與動畫準備**：在 Blockbench 中匯出為 GeckoLib 5 規範之 `.geo.json` 與 `.animation.json`，放入 `assets/pysift/geckolib/models/entity/` 與 `assets/pysift/geckolib/animations/entity/`。
 2. **實體邏輯實作**：
-   - 繼承 `PysiftMonsterEntity` 或 `PysiftAnimalEntity`。
-   - 實作 `GeoEntity` 介面，註冊動畫控制器（`idle`, `walk`, `attack` 等）。
+   - 繼承 `PysiftMonsterEntity`、`PysiftAnimalEntity` 或 `PysiftGeoEntity`。
+   - 覆寫 `skillAnimations()`、`meleeAnimation()`、`hasDeathAnimation()` 並搭配 `entity/ai/` 下的 `TimedSkillGoal` 子類別觸發技能與動畫。
 3. **註冊實體與生怪蛋**：
    - 在 `ModEntities.java` 宣告 `EntityType.Builder` 並加入 `FabricDefaultAttributeRegistry`。
    - 在 `ModItems.java` 註冊對應之 `SpawnEggItem`。
 4. **客戶端渲染器註冊**：
-   - 在 `PySiftClient.java` 中將新實體類型綁定至 `PysiftUniversalGeoRenderer`。
+   - 在 `PySiftClient.java` 中將新實體類型綁定至 `PysiftUniversalGeoRenderer`（或專用渲染器如 `SlabberRenderer`）。
 
 ---
 
-## 五、Claude Code 協同工作指引與待辦任務 (Tasks for Claude Code)
+## 五、待辦與後續驗收任務 (Pending Tasks)
 
-### 優先任務清單 (Priority Roadmap)
-
-#### 1. 【方塊系統】決定整合方案並合併資源
-- **現狀**：主代碼目前使用 295 款獨立方塊；而 [`sift_visual_corrected/`](file:///c:/Users/hoeyl/Documents/Minecraft%20Modding/the-sift-pryuan-version/sift_visual_corrected/) 已就緒 81 款核心方塊的解決方案。
-- **Claude Code 待辦**：
-  - 與使用者溝通是否採納「81 款核心家族方案」（減少 72% Registry 佔用，隨機變體自然分佈，物品欄乾淨）。
-  - 若採納，執行腳本將 `sift_visual_corrected/assets/sift/` 複製到 `src/main/resources/assets/pysift/`，並同步替換 `ModBlocks.java`。
-
-#### 2. 【生物系統】進階 AI 與攻擊機制實作
-- **現狀**：目前 24 款生物已具有模型與渲染，但行為多為空白或原版預設。
-- **Claude Code 待辦**：
-  - 為主要 Boss / 菁英怪（例如 `SculkMonstrosity`、`EchoGolem`、`Harmonizer`、`Monarch`）實作專屬攻擊目標、近戰砸地與遠程音波攻擊邏輯。
-  - 綁定實體受到攻擊與釋放技能時觸發對應的 GeckoLib 動畫狀態。
-
-#### 3. 【維度系統】The Sift 維度建立
-- **Claude Code 待辦**：
-  - 建立 `data/pysift/dimension/the_sift.json` 與 `dimension_type/the_sift.json`。
-  - 設計自訂 Biomes（如赤紅沉積地層區、紫晶深板岩區、林地腐殖帶），引用上述方塊填入地表與地下地層。
+1. **遊戲內實機驗證 (In-Game Verification)**：
+   - 進入測試世界檢查：`pysift:the_sift` 維度平緩地形與桌山密度、巨型靈柳樹葉不腐爛與外圍垂藤密度、傳送門開門儀式與 2 秒過場動畫、靈液與靈魂剝奪視覺效果。
+   - 測試 24 款生物與 3 隻 Boss 在競技場中的戰鬥數值、碰撞箱與動畫流暢度。
+2. **生態系尺度評估 (Biome Spacing)**：
+   - 目前生態系間距約 800–2,300 格，視實機探索體驗決定是否在 `tools/worldgen/build_the_sift.py` 縮小生物群系尺度。
+3. **專屬音效與細節打磨 (Audio & Polish)**：
+   - 視需求為主要生物與環境補充自訂音效資源。
 
 ---
 
 ## 六、常用除錯與驗證指令
 
 ```powershell
-# 1. 執行資產與模型自動校驗
-python sift_visual_corrected/scripts/validate_assets.py
+# 1. 執行方塊資源、標籤與貼圖一致性自動檢驗
+python -I tools/texture_pipeline/verify.py .
 
-# 2. 僅編譯 Java 程式碼（快速檢查型別與語法）
-.\gradlew.bat compileJava
+# 2. 編譯主程式與客戶端 Java 程式碼（快速檢查型別與語法）
+.\gradlew.bat compileJava compileClientJava
 
 # 3. 完整建置模組 Jar
 .\gradlew.bat build -x test

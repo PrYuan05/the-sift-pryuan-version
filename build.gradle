@@ -24,6 +24,16 @@ loom {
 			sourceSet sourceSets.client
 		}
 	}
+
+	runs {
+		// Headless server for worldgen tests (tools/worldgen/devserver.py); separate dir so it never touches the client's run/
+		siftTestServer {
+			server()
+			name "Sift Test Server"
+			runDir "run-server"
+			ideConfigGenerated false
+		}
+	}
 }
 
 dependencies {

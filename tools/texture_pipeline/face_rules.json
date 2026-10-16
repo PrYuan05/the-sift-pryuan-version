@@ -1,0 +1,91 @@
+{
+  "_doc": "Rules for refit_faces.py. Only the blocks below are refitted (composite blocks made by the pipeline); original logs/pillars keep their hand-picked faces. Face candidates come from cube_all textures of blocks NOT in exclude_sources (patterned, planks, ores, bricks, frames...). top/bottom must be within max_band_delta (mean CIELAB difference to the side band) and the variants of one face within max_pool_spread (palette distance) of each other.",
+  "skip_blocks": [
+    "amber_log",
+    "umber_log",
+    "peeling_log",
+    "grooved_stone_pillar",
+    "edged_stone",
+    "capped_crimson_strata"
+  ],
+  "exclude_sources": [
+    "framed_slate",
+    "circle_slate",
+    "labyrinth_marble",
+    "labyrinth_marble_core",
+    "spiral_carved_stone",
+    "chiseled_stone_frame",
+    "concentric_stone",
+    "meander_stone_bricks",
+    "teal_framed_panel",
+    "glyph_block",
+    "rune_slate",
+    "cinnabar_planks",
+    "honey_planks",
+    "rosewood_planks",
+    "walnut_planks",
+    "argent_ore",
+    "aurum_ore",
+    "aurum_lapis_ore",
+    "rose_quartz_ore",
+    "emerald_ore",
+    "patina_ore",
+    "stone_bricks",
+    "void_stone_bricks",
+    "corrupted_slate_bricks",
+    "mossy_carved_bricks",
+    "framed_dark_slate",
+    "sky_block",
+    "teal_water_block",
+    "red_sculk_vein_bottom",
+    "dense_foliage_block"
+  ],
+  "max_band_delta": 5.0,
+  "max_pool_spread": 4.0,
+  "max_variants": 3,
+  "orientation": {
+    "teal_capped_teal_strata_2": "rot90"
+  },
+  "_doc_orientation": "orientation: per-block side transform (none / vflip / rot90 / rot270). Blocks not listed keep their current orientation; the automatic drip score is only reported.",
+  "allow_sources": {
+    "gray_capped_sky_block": [
+      "sky_block"
+    ]
+  },
+  "_doc_allow_sources": "allow_sources: extra source blocks a specific composite block may borrow faces from, even if excluded globally.",
+  "generated_faces": {
+    "teal_capped_abyssal_strata": {
+      "bottom": "pysift:block/teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom"
+    },
+    "rose_capped_crimson_strata": {
+      "top": "pysift:block/rose_capped_crimson_strata/rose_capped_crimson_strata_top"
+    },
+    "gray_capped_dark_slate": {
+      "bottom": "pysift:block/gray_capped_dark_slate/gray_capped_dark_slate_bottom"
+    },
+    "violet_capped_dark_slate": {
+      "bottom": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom"
+    },
+    "warm_capped_ember_stone": {
+      "top": "pysift:block/warm_capped_ember_stone/warm_capped_ember_stone_top"
+    },
+    "olive_capped_forest_floor": {
+      "bottom": "pysift:block/olive_capped_forest_floor/olive_capped_forest_floor_bottom"
+    },
+    "teal_capped_gray_strata": {
+      "bottom": "pysift:block/teal_capped_gray_strata/teal_capped_gray_strata_bottom"
+    },
+    "teal_capped_gray_strata_2": {
+      "bottom": "pysift:block/teal_capped_gray_strata_2/teal_capped_gray_strata_2_bottom"
+    },
+    "olive_capped_mossy_olive_earth": {
+      "top": "pysift:block/olive_capped_mossy_olive_earth/olive_capped_mossy_olive_earth_top"
+    },
+    "gray_capped_sky_block": {
+      "top": "pysift:block/gray_capped_sky_block/gray_capped_sky_block_top"
+    },
+    "teal_capped_teal_strata_2": {
+      "top": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_top"
+    }
+  }
+}

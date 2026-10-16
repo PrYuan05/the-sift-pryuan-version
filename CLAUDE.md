@@ -4,7 +4,7 @@
 
 ## 環境（不可擅自更改版本）
 - Minecraft `26.3`、Java `25`（JDK：`C:/Users/hoeyl/.jdks/ms-25.0.4.1`，已寫在 `gradle.properties`）
-- Fabric Loader `0.19.5`、Fabric Loom `1.18.4`（`1.18-SNAPSHOT`）、fabric-api `0.162.0+26.3`
+- Fabric Loader `0.19.5`、Fabric Loom `1.18.4`（固定版本，`settings.gradle` 直接載入 `net.fabricmc:fabric-loom` 模組；不要改回 `1.18-SNAPSHOT`，這台電腦的 HTTPS 被攔截，SNAPSHOT 每次都要上網檢查而失敗）、fabric-api `0.162.0+26.3`
 - GeckoLib 5：`com.geckolib:geckolib-fabric-26.3:5.5.7`
 
 ## 映射：只用 Mojang 官方映射，禁止 Yarn 命名
@@ -39,16 +39,19 @@ Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
    `{"model":{"type":"minecraft:model","model":"pysift:item/<name>"}}`
 4. `data/pysift/loot_table/blocks/<name>.json`（並保留複數 `loot_tables/blocks/` 相容）
 5. `data/minecraft/tags/block/mineable/<tool>.json` 加入方塊 ID
+   - **實心方塊還要加進 `#minecraft:blocks_motion_no_leaves`**（26.3 的 heightmap 只看這個標籤）。漏掉的話，樹木、地表生成、生物生成都會把這些方塊當成空氣，例如樹會被放到世界底部然後靜默失敗。`tools/worldgen/build_vegetation.py` 會自動把所有非植物、非流體、非 slab/stairs/wall 的 pysift 方塊加進去，新增方塊後重跑一次即可。
 6. `assets/pysift/lang/` 語系檔
 7. Java 註冊（`ModBlocks.java`）
 
 ## 程式結構
-- `PySift.java`：入口，依序呼叫 `ModBlocks` → `ModEntities` → `ModItems` 的 register
-- `block/ModBlocks.java`：方塊註冊、`ALL_BLOCKS`
-- `item/ModItems.java`：物品、生怪蛋、創造模式分頁（`pysift_blocks`, `pysift_items`）
-- `entity/`：`ModEntities`、`PysiftMonsterEntity` / `PysiftAnimalEntity` 基底、`mob/` 下 24 款生物
-- `src/client/java/pryuan05/pysift/`：`PySiftClient`、`client/PysiftUniversalGeoModel` / `PysiftUniversalGeoRenderer`
-- 生物資源：`assets/pysift/geo/entity/`、`animations/entity/`、`textures/entity/`
+- `PySift.java`：主入口，註冊狀態效果、靈魂灼燒、方塊、流體、植被、靈柳木組、靈魂晶塊、粒子、世界生成特徵、實體、物品與傳送門儀式
+- `block/`：`ModBlocks`（核心方塊與 38 組建材組、`SIFT_PORTAL`）、`ModVegetation`（植被）、`SoulWillowWood`（靈柳木建材組）、`SoulCrystal`、`SiftPortalBlock`、`SiftPortalRitual`
+- `fluid/` & `effect/`：`ModFluids`（靈液 `spirit_liquid`）、`ModEffects`（靈魂剝奪 `soul_deprivation`）、`SoulBurn`（血量抽離、靈魂碎裂與解藥機制）
+- `worldgen/`：`SoulWillowTrunkPlacer`、`SoulWillowFoliagePlacer`、`SoulWillowVineDecorator`、`StrataSpireFeature`、`BossArenaFeature`（維度與 4 個生態系 JSON 由 `tools/worldgen/build_the_sift.py` 產生）
+- `item/ModItems.java`：核心材料、靈魂解藥、24 款生怪蛋、三個創造模式分頁（`pysift_blocks`、`pysift_unused_blocks`、`pysift_items`）
+- `entity/`：`ModEntities`、`BossMechanics`、`ai/`（11 個技能與戰術 Goal）、`projectile/`（飛鏢、投石）、`mob/`（24 款生物，共 25 個類別含 `PysiftSwarmEntity`）
+- `src/client/java/pryuan05/pysift/`：`PySiftClient`、`client/`（`PysiftUniversalGeoModel`、`PysiftUniversalGeoRenderer`、`SlabberRenderer`、`SiftPortalBlockEntityRenderer`、`SiftPortalTransition`、`SoulDeprivationVision` 等）
+- 生物資源：`assets/pysift/geckolib/models/entity/`、`assets/pysift/geckolib/animations/entity/`、`assets/pysift/textures/entity/`
 
 ## 驗證（每次修改後至少跑 compileJava）
 ```powershell

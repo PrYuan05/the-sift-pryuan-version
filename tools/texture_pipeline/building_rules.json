@@ -1,0 +1,12 @@
+{
+  "_doc": "Rules for building_sets.py. Every STONE / DEEPSLATE block registered with block(...) gets a building set unless it is listed in exclude (ores, carved / framed patterns, blocks that already are bricks, non-stone). Composite blocks (facing / pillar) and the capped stones (*_capped_*) are skipped automatically. include: extra blocks to force in. Slabs, stairs and walls of a block with tones or stages use its DEFAULT state (first tone / stage 0) textures, random variants kept.",
+  "exclude": [
+    "argent_ore", "aurum_ore", "aurum_lapis_ore", "rose_quartz_ore", "emerald_ore", "patina_ore",
+    "framed_dark_slate", "framed_slate", "circle_slate", "labyrinth_marble", "labyrinth_marble_core",
+    "spiral_carved_stone", "chiseled_stone_frame", "concentric_stone", "meander_stone_bricks",
+    "teal_framed_panel", "glyph_block", "rune_slate", "teal_water_block", "red_sculk_vein_bottom",
+    "stone_bricks", "void_stone_bricks", "corrupted_slate_bricks", "mossy_carved_bricks",
+    "sky_block"
+  ],
+  "include": []
+}
