@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_glowcap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:glowcap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:soul_antidote"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_glowcap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:soul_antidote"
+    ]
+  }
+}

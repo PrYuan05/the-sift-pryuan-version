@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:glass_bottle",
+    "pysift:glowcap",
+    "pysift:golden_bloom",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "id": "pysift:soul_antidote"
+  }
+}

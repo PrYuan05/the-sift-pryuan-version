@@ -3,15 +3,16 @@
 	"id": "pysift",
 	"version": "${version}",
 	"name": "The Sift PrYuan's Version",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A new dimension of layered strata, soul willows and glowing spirit liquid, guarded by three bosses. Open the way from an Ancient City, explore four biomes and fight 26 new creatures.",
 	"authors": [
-		"Me!"
+		"PrYuan05"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/PrYuan05/the-sift-pryuan-version",
+		"sources": "https://github.com/PrYuan05/the-sift-pryuan-version",
+		"issues": "https://github.com/PrYuan05/the-sift-pryuan-version/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/pysift/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -33,6 +34,7 @@
 		"fabricloader": ">=0.19.5",
 		"minecraft": "~26.3",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"geckolib": ">=5.5.7"
 	}
 }
