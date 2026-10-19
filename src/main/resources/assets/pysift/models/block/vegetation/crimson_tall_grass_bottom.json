@@ -1,0 +1,6 @@
+{
+	"parent": "pysift:block/vegetation/dense_rift_foliage_template",
+	"textures": {
+		"cross": "pysift:block/vegetation/crimson_tall_grass_bottom"
+	}
+}

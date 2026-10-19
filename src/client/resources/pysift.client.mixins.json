@@ -11,7 +11,8 @@
 		"EntityRendererMixin",
 		"FlameFeatureRendererMixin",
 		"ScreenEffectRendererMixin",
-		"HudMixin"
+		"HudMixin",
+		"SodiumFluidRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

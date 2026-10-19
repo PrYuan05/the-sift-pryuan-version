@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "top": "pysift:block/ember_stone/ember_stone_heat2_a",
+    "top": "pysift:block/sift_ground/grove_top",
     "bottom": "pysift:block/teal_strata/teal_strata_a",
     "side": "pysift:block/crimson_strata/crimson_strata_c"
   }

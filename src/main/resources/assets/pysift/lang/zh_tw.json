@@ -1016,5 +1016,20 @@
   "block.pysift.tall_glow_grass": "高發光草",
   "item.pysift.tall_glow_grass": "高發光草",
   "block.pysift.coral_leaf_carpet": "珊瑚落葉",
-  "item.pysift.coral_leaf_carpet": "珊瑚落葉"
+  "item.pysift.coral_leaf_carpet": "珊瑚落葉",
+  "entity.pysift.hunter": "獵人",
+  "entity.pysift.trapper": "陷阱師",
+  "entity.pysift.trapper_net": "陷阱師的網",
+  "entity.pysift.soul_snare": "靈魂陷阱",
+  "item.pysift.hunter_spawn_egg": "獵人生怪蛋",
+  "item.pysift.trapper_spawn_egg": "陷阱師生怪蛋",
+  "effect.pysift.ensnared": "定身",
+  "block.pysift.crimson_short_grass": "柔和赤紅短草",
+  "item.pysift.crimson_short_grass": "柔和赤紅短草",
+  "block.pysift.crimson_tall_grass": "柔和赤紅高草",
+  "item.pysift.crimson_tall_grass": "柔和赤紅高草",
+  "item.pysift.hurler_rock": "投石",
+  "item.pysift.monarch_feather": "君王羽刃",
+  "item.pysift.trapper_net": "陷阱師的網",
+  "entity.pysift.hunter_javelin": "靈魂標槍"
 }

@@ -8,7 +8,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "519cc1416a2ed6d33fec7db44bc9a20783996b86",
+      "sha1_after": "2f3f068cde22ae15dd19aa00e3d7a15552f8457a",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -20,7 +20,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "063f56cc8eddd1e7f0767e1bdfe9db7ff32d7ea0",
+      "sha1_after": "a586caa759bc56f771ffe8e89e177703cbda3e1c",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -210,15 +210,25 @@
     },
     {
       "file": "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
-      "pool": "capped_crimson_strata:rose_top",
-      "reference": "top band of pysift:block/crimson_strata/crimson_strata_f (vflip)",
-      "source": "pysift:block/dark_slate/dark_slate_d",
-      "mode": "generated",
-      "method": "rank",
-      "sha1_before": null,
-      "sha1_after": "88d0c0ca37878a5206d7bf256abbd6cf3f1830b6",
-      "backup": null,
-      "date": "20261013-040934"
+      "pool": "capped_crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "88d0c0ca37878a5206d7bf256abbd6cf3f1830b6",
+      "sha1_after": "3ec0ba108f68eb932f2ea54b27f6aa17a8eb4571",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
+      "date": "20261018-175357",
+      "previous": {
+        "file": "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
+        "pool": "capped_crimson_strata:rose_top",
+        "reference": "top band of pysift:block/crimson_strata/crimson_strata_f (vflip)",
+        "source": "pysift:block/dark_slate/dark_slate_d",
+        "mode": "generated",
+        "method": "rank",
+        "sha1_before": null,
+        "sha1_after": "88d0c0ca37878a5206d7bf256abbd6cf3f1830b6",
+        "backup": null,
+        "date": "20261013-040934"
+      }
     },
     {
       "file": "textures/block/capped_crimson_strata/capped_crimson_strata_teal_top.png",
@@ -228,7 +238,7 @@
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,
-      "sha1_after": "262575efce60696d41c50fb8147f93dd7cc2499b",
+      "sha1_after": "2fc11c242ce209b56ae35fe97d3f973515877775",
       "backup": null,
       "date": "20261013-040934"
     },
@@ -245,24 +255,174 @@
       "date": "20261013-085205"
     },
     {
+      "file": "textures/block/crimson_capped_void_01/crimson_capped_void_01_side.png",
+      "pool": "crimson_capped_void_01:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "3ac0033dfc6b8e0711320b2e4514a2f9418c5e77",
+      "sha1_after": "13c90a0a2e96aefe6ae922fd67e75fd98e87454c",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_capped_void_01/crimson_capped_void_01_side.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png",
+      "pool": "crimson_capped_void_01:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
+      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png",
+      "date": "20261018-175357"
+    },
+    {
       "file": "textures/block/crimson_strata/crimson_strata_a.png",
-      "pool": "crimson_strata:tone",
-      "reference": "pysift:block/crimson_strata/crimson_strata_d",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "7bd310d10b8b75709b625bc73649a6a3a771a5f8",
-      "sha1_after": "74b32fd4ca9076603d5875fb5b04dee73dd3c7ec",
+      "sha1_after": "d5508dac2ee590c4e8ffef2f722baa5b2be1d1ea",
       "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata/crimson_strata_a.png",
-      "date": "20261014-011458"
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_b.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "cbc9be879b4eeff27a7f4a56db1aaae9e0424532",
+      "sha1_after": "cd70656359468514daad51fa8b3db3303b927486",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_b.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_c.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "8522e4f0eda1e935179dd4b48413d786005c6b40",
+      "sha1_after": "1c7ad40f3d91cf015b611e0f380a4b4ef08ecbc7",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_c.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_d.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "91473b390ee525c19b8c57ed455e845727f3b6de",
+      "sha1_after": "2f2d86d1d3b1fe0a401583bf69b40b0b4e6fd5bc",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_d.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_e.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "24e19fd352c0e7f297789d6ca891b1e8b01d7b48",
+      "sha1_after": "1fef6a963287816c98227d8989c1f3d1b5683d7e",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_e.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_f.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "114773742acee0a59213b71d50855a9976cd8f24",
+      "sha1_after": "809f0b553e34ea7364f0cedfb4f212f7468df154",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_f.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_g.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "43b18764113b9fb83a0e611ac12f7309cc198c3b",
+      "sha1_after": "3908c97ed210a0be982566c0c8106379dc7b8a41",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_g.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_h.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "7219d67369c9ca478663c4cc061b5828d18ed1d9",
+      "sha1_after": "1b996e7be0690efc9f03787843b93e63053d0cb8",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_h.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_i.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "38e7d54c82b013b57acb84bdefa55f739ca3cd60",
+      "sha1_after": "8b38c5c6c28b4685694f571a6153154da35c85a7",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_i.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_j.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "2ac9dc31822471b75e1142ac33dccaa836d28355",
+      "sha1_after": "897d0fdb49e845c2dbb5b595e84b572e16d3bd09",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_j.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_k.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "fff05bb2a3f1e6c193942466ffd301ee87c00bac",
+      "sha1_after": "0149dbce038f279e780a0334cb856dfc5198fa58",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_k.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_l.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "df61f0cfb54b4ea026cead73fed8e5b6713cb142",
+      "sha1_after": "434056eb7c1935eef0954b45f4a9c2ae1b803694",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_l.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_m.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "5f8033288ff5f21c1c54a57d756650ea1b38cabf",
+      "sha1_after": "8f207f4f71082caddb406b3c7a426f8133a74e10",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_m.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_strata/crimson_strata_n.png",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "ecd0078dc0a17892326af8f6d83bc7fed2aa7ae1",
+      "sha1_after": "36d48387993ea868c9bb8a72c7da01d347c53d7e",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_n.png",
+      "date": "20261018-175357"
     },
     {
       "file": "textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
-      "pool": "crimson_strata:tone",
-      "reference": "pysift:block/crimson_strata/crimson_strata_d",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "63319e2ca5f9e507d92803176fa0363fb04b68c8",
-      "sha1_after": "543de831d52522491870e0932a1ec2075faff17b",
+      "sha1_after": "543887335c83e134854f631defd2239fb4aae171",
       "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
-      "date": "20261014-011458",
+      "date": "20261018-175357",
       "previous": {
         "file": "textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
         "pool": "crimson_strata:chiseled",
@@ -278,13 +438,13 @@
     },
     {
       "file": "textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
-      "pool": "crimson_strata:tone",
-      "reference": "pysift:block/crimson_strata/crimson_strata_d",
+      "pool": "crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "329bbf8045c45d21e996918e496a544309d92daf",
-      "sha1_after": "33b7c2769f9d6a4253c24fd58266ac09bd3180e8",
+      "sha1_after": "862f6ef0eac6164c0f793479ccb306d63ded177a",
       "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
-      "date": "20261014-011458",
+      "date": "20261018-175357",
       "previous": {
         "file": "textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
         "pool": "crimson_strata:bricks",
@@ -297,6 +457,56 @@
         "backup": null,
         "date": "20261013-085205"
       }
+    },
+    {
+      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
+      "pool": "crimson_vein_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "0e26511f258c79fd4cb1e3580bc3f6f68413f56f",
+      "sha1_after": "abd47e378136b945ee6cc34a845d1e2d589a6fc6",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
+      "pool": "crimson_vein_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "791e64fc5f559ec265faa79b57e48a78b27d7193",
+      "sha1_after": "8450a36dd51602aae88a6dc4728be5863a213f70",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
+      "pool": "crimson_vein_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "44cc3552ba6ec312e6c884b7d7242ce1c97e4da5",
+      "sha1_after": "63ae34f6bff93ce144f83351624ec8fdb188fd1f",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
+      "pool": "crimson_vein_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "9d32e4726fd44680f6efeadd7e4f3d55568e7e06",
+      "sha1_after": "bc1ab9e1dbb3aee74b632334872f2f93f3f3d921",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
+      "pool": "crimson_vein_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
+      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
+      "date": "20261018-175357"
     },
     {
       "file": "textures/block/crimson_vein_stone_bricks/chiseled_crimson_vein_stone_bricks.png",
@@ -331,6 +541,26 @@
       "sha1_after": "98a78d41b76eb5d247da3d51b84e31743bfc7dc7",
       "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_a.png",
       "date": "20261014-011457"
+    },
+    {
+      "file": "textures/block/dark_slate/dark_slate_b.png",
+      "pool": "dark_slate:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "ed24586765e0e11ba52f64fa5e89a9f4ebd55558",
+      "sha1_after": "dc5199c99eb12b263a8dec6ae0c69d51a0157ff5",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/dark_slate/dark_slate_b.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/dark_slate/dark_slate_c.png",
+      "pool": "dark_slate:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "def3ae739ffa5180b35e69025fd3a52678088812",
+      "sha1_after": "ac9d56f1a6f34c1714b0e64ac1a1a68e037d7433",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/dark_slate/dark_slate_c.png",
+      "date": "20261018-175357"
     },
     {
       "file": "textures/block/dark_slate/dark_slate_k.png",
@@ -566,28 +796,108 @@
       "date": "20261013-085205"
     },
     {
+      "file": "textures/block/ember_stone/ember_stone_heat0_a.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
+      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat0_a.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/ember_stone/ember_stone_heat1_a.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "11f70971f978581de5c0fb3d1cfe14a0ad15e4f1",
+      "sha1_after": "d5daeade82477be3f61549211d27ca459f5b724d",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat1_a.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/ember_stone/ember_stone_heat2_a.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "ce412026e955a6852986e182648ad7d7031b9344",
+      "sha1_after": "b9542cc6312f4b4325a3c346fc415c2e3fbe8f5f",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat2_a.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/ember_stone/ember_stone_heat2_b.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "35783d80ffc0f522157ac66f3a83a03bfe262565",
+      "sha1_after": "33752fb95889f521939b9df75c43443ea3b0e417",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat2_b.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/ember_stone/ember_stone_heat3_a.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "dcd7b94ac9b52c0511380e16c85435bebef8ba10",
+      "sha1_after": "8d8316f4610466d0278c5a361b546c8ac9abedbb",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat3_a.png",
+      "date": "20261018-175357"
+    },
+    {
+      "file": "textures/block/ember_stone/ember_stone_heat3_b.png",
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "f64dbcd26d33007472fee5e0eb6e013482050c41",
+      "sha1_after": "52a25aaa1d0cce795164fb0fad8601ab5aeacad4",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat3_b.png",
+      "date": "20261018-175357"
+    },
+    {
       "file": "textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
-      "pool": "ember_stone:chiseled",
-      "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
-      "source": "pysift:block/ember_stone/ember_stone_heat0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "63d86ea8061a1e4d08e5b9556a8c2cb1e693aa4c",
-      "backup": null,
-      "date": "20261013-085205"
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "63d86ea8061a1e4d08e5b9556a8c2cb1e693aa4c",
+      "sha1_after": "e92b54284ed8825cb1730987c67150f71f76158b",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
+      "date": "20261018-175357",
+      "previous": {
+        "file": "textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
+        "pool": "ember_stone:chiseled",
+        "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
+        "source": "pysift:block/ember_stone/ember_stone_heat0_a",
+        "mode": "generated",
+        "method": "building_set",
+        "sha1_before": null,
+        "sha1_after": "63d86ea8061a1e4d08e5b9556a8c2cb1e693aa4c",
+        "backup": null,
+        "date": "20261013-085205"
+      }
     },
     {
       "file": "textures/block/ember_stone_bricks/ember_stone_bricks.png",
-      "pool": "ember_stone:bricks",
-      "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
-      "source": "pysift:block/ember_stone/ember_stone_heat0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "a980aa0c14b6c8f77f8539f6443bdcdbb09070d0",
-      "backup": null,
-      "date": "20261013-085205"
+      "pool": "ember_stone:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "a980aa0c14b6c8f77f8539f6443bdcdbb09070d0",
+      "sha1_after": "e83eaac83b3476d94db666b70e74dd2707b0875d",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone_bricks/ember_stone_bricks.png",
+      "date": "20261018-175357",
+      "previous": {
+        "file": "textures/block/ember_stone_bricks/ember_stone_bricks.png",
+        "pool": "ember_stone:bricks",
+        "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
+        "source": "pysift:block/ember_stone/ember_stone_heat0_a",
+        "mode": "generated",
+        "method": "building_set",
+        "sha1_before": null,
+        "sha1_after": "a980aa0c14b6c8f77f8539f6443bdcdbb09070d0",
+        "backup": null,
+        "date": "20261013-085205"
+      }
     },
     {
       "file": "textures/block/frost_veined_stone/frost_veined_stone_tintcrimson_veins2_b.png",
@@ -666,6 +976,16 @@
       "sha1_after": "198fd3b43ee5a0ff332ac7131ad26e4dea8e6ac8",
       "backup": null,
       "date": "20261013-040934"
+    },
+    {
+      "file": "textures/block/gray_strata/gray_strata_a.png",
+      "pool": "gray_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/grove_top",
+      "mode": "tone",
+      "sha1_before": "e90a7d3a7484b6d1c2e4beefde97a9ad287b99cf",
+      "sha1_after": "a01cdad7aeb0e21e095c50389c0809014194a319",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/gray_strata/gray_strata_a.png",
+      "date": "20261018-175357"
     },
     {
       "file": "textures/block/gray_strata/gray_strata_d.png",
@@ -1031,15 +1351,25 @@
     },
     {
       "file": "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
-      "pool": "rose_capped_crimson_strata:top",
-      "reference": "top band of pysift:block/crimson_strata/crimson_strata_e (vflip)",
-      "source": "pysift:block/dark_slate/dark_slate_d",
-      "mode": "generated",
-      "method": "rank",
-      "sha1_before": null,
-      "sha1_after": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
-      "backup": null,
-      "date": "20261013-040934"
+      "pool": "rose_capped_crimson_strata:stage2_pink",
+      "reference": "pysift:block/sift_ground/canyon_top_b",
+      "mode": "tone",
+      "sha1_before": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
+      "sha1_after": "386630ba09fa3970ec6cc5fca62666968b3ab6ce",
+      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
+      "date": "20261018-175357",
+      "previous": {
+        "file": "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
+        "pool": "rose_capped_crimson_strata:top",
+        "reference": "top band of pysift:block/crimson_strata/crimson_strata_e (vflip)",
+        "source": "pysift:block/dark_slate/dark_slate_d",
+        "mode": "generated",
+        "method": "rank",
+        "sha1_before": null,
+        "sha1_after": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
+        "backup": null,
+        "date": "20261013-040934"
+      }
     },
     {
       "file": "textures/block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_bottom.png",
@@ -1103,7 +1433,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "f7a95fefd0dae6c0a10441b4c0753e11e77a504d",
+      "sha1_after": "da8dcce31a25bc590fb75a5888a76f01b302767d",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1115,7 +1445,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "1cc76726b15b7cc79011713292ba90047f3f0aa5",
+      "sha1_after": "be3f72065359928fe949f5929b217529327afa7c",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1209,7 +1539,7 @@
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,
-      "sha1_after": "00d7c4147edd408edcfada550656c4b85103a3da",
+      "sha1_after": "7ee32b064355794aa92af1292ecdf7933cf38330",
       "backup": null,
       "date": "20261013-040934"
     },
@@ -1221,7 +1551,7 @@
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,
-      "sha1_after": "20efa23e4dad8e6854a4ea3e7a7b81f3df2ff4cc",
+      "sha1_after": "b4cf3690d861a6396652df72e8eb44b125ae73e5",
       "backup": null,
       "date": "20261013-040934"
     },
@@ -1233,7 +1563,7 @@
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,
-      "sha1_after": "d197e01aa604f08e8d13b93ca5942cd1e25768a0",
+      "sha1_after": "8c6b74640e1ac859d7e2812ea091f8247b57c791",
       "backup": null,
       "date": "20261013-040934"
     },
@@ -1245,7 +1575,7 @@
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,
-      "sha1_after": "de3fdceeedc8f31ecfdebfe4627cea62ec67fb13",
+      "sha1_after": "9ca11a27dfc48c7d4ebd35e6a7ed3d4d2a5636c2",
       "backup": null,
       "date": "20261013-040934"
     },
@@ -1281,7 +1611,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "5bbe748806e93d1ceb91411bcfbcf5698cd78e36",
+      "sha1_after": "97706b2b69124ca86ca1f3090e0a793f0a838a62",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1293,7 +1623,7 @@
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
-      "sha1_after": "4bf28a230304ea1d45bf6567dfb40ed94649d7f2",
+      "sha1_after": "7762dd7430b6cfbcc641d22560031758d476e2a3",
       "backup": null,
       "date": "20261013-085205"
     },

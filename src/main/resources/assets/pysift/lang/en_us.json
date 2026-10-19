@@ -1016,5 +1016,20 @@
   "block.pysift.tall_glow_grass": "Tall Glow Grass",
   "item.pysift.tall_glow_grass": "Tall Glow Grass",
   "block.pysift.coral_leaf_carpet": "Coral Leaf Carpet",
-  "item.pysift.coral_leaf_carpet": "Coral Leaf Carpet"
+  "item.pysift.coral_leaf_carpet": "Coral Leaf Carpet",
+  "entity.pysift.hunter": "Hunter",
+  "entity.pysift.trapper": "Trapper",
+  "entity.pysift.trapper_net": "Trapper Net",
+  "entity.pysift.soul_snare": "Soul Snare",
+  "item.pysift.hunter_spawn_egg": "Hunter Spawn Egg",
+  "item.pysift.trapper_spawn_egg": "Trapper Spawn Egg",
+  "effect.pysift.ensnared": "Ensnared",
+  "block.pysift.crimson_short_grass": "Soft Crimson Short Grass",
+  "item.pysift.crimson_short_grass": "Soft Crimson Short Grass",
+  "block.pysift.crimson_tall_grass": "Soft Crimson Tall Grass",
+  "item.pysift.crimson_tall_grass": "Soft Crimson Tall Grass",
+  "item.pysift.hurler_rock": "Hurler Rock",
+  "item.pysift.monarch_feather": "Monarch Feather Blade",
+  "item.pysift.trapper_net": "Trapper Net",
+  "entity.pysift.hunter_javelin": "Soul Javelin"
 }

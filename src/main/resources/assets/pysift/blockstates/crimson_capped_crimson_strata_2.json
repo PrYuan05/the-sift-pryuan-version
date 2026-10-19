@@ -4,11 +4,20 @@
       {
         "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1",
         "weight": 1
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
+        "weight": 1
       }
     ],
     "facing=down": [
       {
         "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1",
+        "weight": 1,
+        "x": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
         "weight": 1,
         "x": 180
       }
@@ -18,11 +27,22 @@
         "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1",
         "weight": 1,
         "x": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
+        "weight": 1,
+        "x": 90
       }
     ],
     "facing=south": [
       {
         "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1",
+        "weight": 1,
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
         "weight": 1,
         "x": 90,
         "y": 180
@@ -34,11 +54,23 @@
         "weight": 1,
         "x": 90,
         "y": 90
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
+        "weight": 1,
+        "x": 90,
+        "y": 90
       }
     ],
     "facing=west": [
       {
         "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1",
+        "weight": 1,
+        "x": 90,
+        "y": 270
+      },
+      {
+        "model": "pysift:block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2",
         "weight": 1,
         "x": 90,
         "y": 270

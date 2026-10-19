@@ -31,6 +31,15 @@
                 "min_inclusive": 1
               },
               "weight": 15
+            },
+            {
+              "type": "pysift:hunter",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
             }
           ],
           "creature": [

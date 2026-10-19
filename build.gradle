@@ -13,6 +13,18 @@ repositories {
 		name = 'GeckoLib'
 		url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
 	}
+	// Sodium: compile-only, for the optional spirit liquid mixin on Sodium's fluid renderer (SodiumFluidRendererMixin)
+	exclusiveContent {
+		forRepository {
+			maven {
+				name = 'Modrinth'
+				url = 'https://api.modrinth.com/maven'
+			}
+		}
+		filter {
+			includeGroup 'maven.modrinth'
+		}
+	}
 }
 
 loom {
@@ -45,6 +57,9 @@ dependencies {
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
 	implementation "com.geckolib:geckolib-fabric-${project.minecraft_version}:5.5.7"
+
+	// Not shipped or required: only lets SodiumFluidRendererMixin compile (it applies only when Sodium is installed)
+	clientCompileOnly "maven.modrinth:sodium:mc26.3-0.9.2-fabric"
 }
 
 processResources {

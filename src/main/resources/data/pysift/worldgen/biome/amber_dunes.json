@@ -31,6 +31,15 @@
                 "min_inclusive": 1
               },
               "weight": 25
+            },
+            {
+              "type": "pysift:trapper",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
             }
           ],
           "creature": [

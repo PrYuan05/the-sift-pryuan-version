@@ -21,40 +21,40 @@
 				"y": 270
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s80",
+				"model": "pysift:block/vegetation/humus_grass_s120",
 				"weight": 1
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s80",
+				"model": "pysift:block/vegetation/humus_grass_s120",
 				"weight": 1,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s80",
+				"model": "pysift:block/vegetation/humus_grass_s120",
 				"weight": 1,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s80",
+				"model": "pysift:block/vegetation/humus_grass_s120",
 				"weight": 1,
 				"y": 270
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s120",
+				"model": "pysift:block/vegetation/humus_grass_s134",
 				"weight": 1
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s120",
+				"model": "pysift:block/vegetation/humus_grass_s134",
 				"weight": 1,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s120",
+				"model": "pysift:block/vegetation/humus_grass_s134",
 				"weight": 1,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/humus_grass_s120",
+				"model": "pysift:block/vegetation/humus_grass_s134",
 				"weight": 1,
 				"y": 270
 			}

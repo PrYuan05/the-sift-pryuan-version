@@ -1,7 +1,7 @@
 {
   "parent": "pysift:block/templates/cube_bottom_top_rot90",
   "textures": {
-    "top": "pysift:block/ember_stone/ember_stone_heat0_a",
+    "top": "pysift:block/sift_ground/canyon_top_d",
     "bottom": "pysift:block/silted_strata/silted_strata_silt0_b",
     "side": "pysift:block/crimson_strata/crimson_strata_i"
   }

@@ -138,6 +138,10 @@ public final class ModVegetation {
     /** 珊瑚落葉地毯：像粉紅花瓣，可疊 1~4 層。 */
     public static final Block CORAL_LEAF_CARPET = register("coral_leaf_carpet", p -> new FlowerBedBlock(p, 3), Blocks.PINK_PETALS, false);
 
+    // ===== 影片風格柔和草地與短草／高草（額外方塊） =====
+    public static final Block CRIMSON_SHORT_GRASS = register("crimson_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block CRIMSON_TALL_GRASS = register("crimson_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+
     private ModVegetation() {
     }
 

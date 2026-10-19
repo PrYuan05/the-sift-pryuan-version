@@ -32,6 +32,8 @@
     "pysift:giant_canopy_white",
     "pysift:clustered_yellow_flowers",
     "pysift:tall_glow_grass",
-    "pysift:coral_leaf_carpet"
+    "pysift:coral_leaf_carpet",
+    "pysift:crimson_short_grass",
+    "pysift:crimson_tall_grass"
   ]
 }

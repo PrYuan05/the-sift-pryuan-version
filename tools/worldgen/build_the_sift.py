@@ -437,13 +437,13 @@ biome("crimson_strata_canyon", 2.0, 0.0, False, "#5a1f33", "#3a1426", "#7a3b55",
       spawns(monster=[("dartback", 50, 1, 3), ("fusefly", 40, 1, 2), ("prickle", 30, 1, 2),
                       ("nester", 8, 1, 1), ("seedling", 15, 2, 4), ("sprout", 15, 2, 3)]))
 biome("violet_slate_abyss", 0.3, 0.2, False, "#2e2838", "#1d1828", "#4a3d6b",
-      spawns(monster=[("sentinel", 20, 1, 1), ("stalker", 30, 1, 2), ("tuner", 15, 1, 1)],
+      spawns(monster=[("sentinel", 20, 1, 1), ("stalker", 30, 1, 2), ("tuner", 15, 1, 1), ("hunter", 10, 1, 1)],
              creature=[("echo_golem", 10, 1, 1)]))          # each Echo Golem brings 1-2 Singers (EchoGolemEntity)
 biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
       spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3)],
              monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
-      spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2)],
+      spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
              creature=[("lootkin", 6, 1, 1)]))
 
 # ---- material (surface) rule ----

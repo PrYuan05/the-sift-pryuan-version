@@ -6,7 +6,9 @@
     "peeling_log",
     "grooved_stone_pillar",
     "edged_stone",
-    "capped_crimson_strata"
+    "capped_crimson_strata",
+    "crimson_capped_crimson_strata_2",
+    "crimson_capped_crimson_strata_3"
   ],
   "exclude_sources": [
     "framed_slate",

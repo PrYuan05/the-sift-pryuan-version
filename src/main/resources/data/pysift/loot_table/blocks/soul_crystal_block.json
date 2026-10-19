@@ -1,18 +1,5 @@
 {
   "type": "minecraft:block",
-  "pools": [
-    {
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      },
-      "entries": [
-        {
-          "type": "minecraft:item",
-          "name": "pysift:soul_crystal_block"
-        }
-      ],
-      "rolls": 1
-    }
-  ],
+  "pools": [],
   "random_sequence": "pysift:blocks/soul_crystal_block"
 }
