@@ -20,10 +20,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 import pryuan05.pysift.entity.ModEntities;
+import pryuan05.pysift.item.ModItems;
 
 /**
  * Monarch 的羽毛彈：先在原地懸停並閃著微光（{@code armTicks}，預設 5 秒），時間到後射向最近的玩家，
- * 命中造成 {@link #DAMAGE} 點傷害；碰到方塊或飛行 4 秒後消失。外觀為發光的羽毛物品。
+ * 命中造成 {@link #DAMAGE} 點傷害；碰到方塊或飛行 4 秒後消失。外觀為使用者畫的羽刃（物品 monarch_feather），發光。
  */
 public class MonarchFeatherEntity extends ThrowableItemProjectile {
     private static final EntityDataAccessor<Boolean> DATA_ARMED = SynchedEntityData.defineId(MonarchFeatherEntity.class, EntityDataSerializers.BOOLEAN);
@@ -36,7 +37,7 @@ public class MonarchFeatherEntity extends ThrowableItemProjectile {
     }
 
     public MonarchFeatherEntity(Level level, LivingEntity owner, Vec3 at, int armTicks) {
-        super(ModEntities.MONARCH_FEATHER, owner, level, new ItemStack(Items.FEATHER));
+        super(ModEntities.MONARCH_FEATHER, owner, level, new ItemStack(ModItems.MONARCH_FEATHER));
         this.setPos(at.x, at.y, at.z);
         this.setDeltaMovement(Vec3.ZERO);
         this.armTicks = armTicks;
@@ -50,7 +51,7 @@ public class MonarchFeatherEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return Items.FEATHER;
+        return ModItems.MONARCH_FEATHER;
     }
 
     @Override

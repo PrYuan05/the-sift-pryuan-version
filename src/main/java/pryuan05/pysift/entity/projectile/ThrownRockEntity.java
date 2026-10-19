@@ -17,9 +17,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import pryuan05.pysift.entity.ModEntities;
+import pryuan05.pysift.item.ModItems;
 
 /**
- * Hurler 投出的碎石。落地或命中時在半徑 {@link #RADIUS} 內造成鈍擊傷害並往外擊退（不傷害敵對生物）。外觀為鵝卵石物品。
+ * Hurler 投出的碎石。落地或命中時在半徑 {@link #RADIUS} 內造成鈍擊傷害並往外擊退（不傷害敵對生物）。外觀為使用者畫的碎岩（物品 hurler_rock）。
  */
 public class ThrownRockEntity extends ThrowableItemProjectile {
     private static final double RADIUS = 2.0;
@@ -30,13 +31,13 @@ public class ThrownRockEntity extends ThrowableItemProjectile {
     }
 
     public ThrownRockEntity(Level level, LivingEntity owner, float damage) {
-        super(ModEntities.THROWN_ROCK, owner, level, new ItemStack(Items.COBBLESTONE));
+        super(ModEntities.THROWN_ROCK, owner, level, new ItemStack(ModItems.HURLER_ROCK));
         this.damage = damage;
     }
 
     @Override
     protected Item getDefaultItem() {
-        return Items.COBBLESTONE;
+        return ModItems.HURLER_ROCK;
     }
 
     @Override

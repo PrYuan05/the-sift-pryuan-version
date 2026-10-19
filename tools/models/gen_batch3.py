@@ -26,7 +26,7 @@ def hx(h):
 
 # ------------------------------------------------------------------ tall glow grass
 def glow_models():
-    bottom, top = g.tall_tuft(131, 9)
+    bottom, top = g.tall_tuft(131, 13)
     rnd = random.Random(17)
     for _ in range(3):   # 上半格的發光點
         a = rnd.uniform(0, math.tau)

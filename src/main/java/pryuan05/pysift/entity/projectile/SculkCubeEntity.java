@@ -1,5 +1,11 @@
 package pryuan05.pysift.entity.projectile;
 
+import com.geckolib.animatable.GeoEntity;
+import com.geckolib.animatable.instance.AnimatableInstanceCache;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,9 +29,13 @@ import pryuan05.pysift.entity.ModEntities;
 
 /**
  * 幽匿方塊（Sculk Monstrosity 的「幽匿方塊彈幕」）：從 Boss 身邊彈出後落地，沿地面朝最近的玩家滾動，
- * 撞到人造成 {@link #DAMAGE} 點傷害並擊退後碎裂；撞牆、或滾了 6 秒還沒撞到人也會碎裂。外觀為放大的幽匿塊物品。
+ * 撞到人造成 {@link #DAMAGE} 點傷害並擊退後碎裂；撞牆、或滾了 6 秒還沒撞到人也會碎裂。
+ * 外觀為 GeckoLib 模型 sculk_cube（tools/entity/build_sift_creatures.py）：彈出時微微脈動（idle），落地後翻滾前進、前方的石牙開闔（roll）。
  */
-public class SculkCubeEntity extends ThrowableItemProjectile {
+public class SculkCubeEntity extends ThrowableItemProjectile implements GeoEntity {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.sculk_cube.idle");
+    private static final RawAnimation ROLL = RawAnimation.begin().thenLoop("animation.sculk_cube.roll");
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final float DAMAGE = 7.0f;
     private static final double ROLL_SPEED = 0.32;
     private static final int LIFETIME = 120;
@@ -105,5 +115,17 @@ public class SculkCubeEntity extends ThrowableItemProjectile {
         level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 0.3, this.getZ(), 3, 0.2, 0.2, 0.2, 0.02);
         this.playSound(SoundEvents.SCULK_BLOCK_BREAK, 1.0f, 0.8f);
         this.discard();
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        // 和伺服器端一樣：彈出約 12 tick 後（或落地後）開始滾
+        controllers.add(new AnimationController<>("roll", 4,
+                state -> state.setAndContinue(this.onGround() || this.tickCount > 12 ? ROLL : IDLE)));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
     }
 }

@@ -27,6 +27,11 @@ public class ModItems {
     /** 靈魂解藥：解除靈魂剝奪、歸還被抽走的血量（SoulAntidoteItem）。 */
     public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
 
+    // 投擲物的外觀物品（使用者繪製的圖示；不放進創造模式分頁）
+    public static final Item HURLER_ROCK = registerItem("hurler_rock", Item::new);
+    public static final Item MONARCH_FEATHER = registerItem("monarch_feather", Item::new);
+    public static final Item TRAPPER_NET = registerItem("trapper_net", Item::new);
+
     // 24 Spawn Eggs
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);
     public static final Item ECHO_GOLEM_SPAWN_EGG = registerSpawnEgg("echo_golem_spawn_egg", ModEntities.ECHO_GOLEM);
@@ -42,6 +47,8 @@ public class ModItems {
     public static final Item SPROUT_SPAWN_EGG = registerSpawnEgg("sprout_spawn_egg", ModEntities.SPROUT);
     public static final Item STALKER_SPAWN_EGG = registerSpawnEgg("stalker_spawn_egg", ModEntities.STALKER);
     public static final Item SCAVENGER_SPAWN_EGG = registerSpawnEgg("scavenger_spawn_egg", ModEntities.SCAVENGER);
+    public static final Item HUNTER_SPAWN_EGG = registerSpawnEgg("hunter_spawn_egg", ModEntities.HUNTER);
+    public static final Item TRAPPER_SPAWN_EGG = registerSpawnEgg("trapper_spawn_egg", ModEntities.TRAPPER);
     public static final Item SLABBER_SPAWN_EGG = registerSpawnEgg("slabber_spawn_egg", ModEntities.SLABBER);
     public static final Item PRICKLE_SPAWN_EGG = registerSpawnEgg("prickle_spawn_egg", ModEntities.PRICKLE);
     public static final Item SENTINEL_SPAWN_EGG = registerSpawnEgg("sentinel_spawn_egg", ModEntities.SENTINEL);
@@ -56,7 +63,7 @@ public class ModItems {
     public static final Item[] SPAWN_EGGS = new Item[] {
             BLUB_SPAWN_EGG, ECHO_GOLEM_SPAWN_EGG, SINGER_SPAWN_EGG, NUZZLE_SPAWN_EGG, LOOTKIN_SPAWN_EGG,
             FUSEFLY_SPAWN_EGG, DARTBACK_SPAWN_EGG, HURLER_SPAWN_EGG, POLLINATOR_SPAWN_EGG, NESTER_SPAWN_EGG,
-            SEEDLING_SPAWN_EGG, SPROUT_SPAWN_EGG, STALKER_SPAWN_EGG, SCAVENGER_SPAWN_EGG, SLABBER_SPAWN_EGG,
+            SEEDLING_SPAWN_EGG, SPROUT_SPAWN_EGG, STALKER_SPAWN_EGG, SCAVENGER_SPAWN_EGG, HUNTER_SPAWN_EGG, TRAPPER_SPAWN_EGG, SLABBER_SPAWN_EGG,
             PRICKLE_SPAWN_EGG, SENTINEL_SPAWN_EGG, TUNER_SPAWN_EGG, BLOOMBUD_SPAWN_EGG, ROAMROOT_SPAWN_EGG,
             WOBBLE_SPAWN_EGG, HARMONIZER_SPAWN_EGG, MONARCH_SPAWN_EGG, SCULK_MONSTROSITY_SPAWN_EGG
     };

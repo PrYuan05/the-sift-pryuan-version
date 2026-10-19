@@ -8,7 +8,7 @@ import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.ModEntities;
 
 /**
- * 尖刺飛鏢（Dartback 背刺、Prickle 的尖刺環）。外觀沿用原版箭矢渲染器，不能撿起。
+ * 尖刺飛鏢（Dartback 背刺、Prickle 的尖刺環）。外觀是使用者畫的尖刺（SiftArrowRenderer，貼圖 sift_dart），不能撿起。
  */
 public class DartEntity extends Arrow {
     public DartEntity(EntityType<? extends Arrow> entityType, Level level) {

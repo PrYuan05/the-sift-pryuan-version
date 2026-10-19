@@ -8,6 +8,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import pryuan05.pysift.PySift;
 
 public final class ModEffects {
@@ -20,6 +22,15 @@ public final class ModEffects {
      */
     public static final Holder<MobEffect> SOUL_DEPRIVATION = Registry.registerForHolder(
             BuiltInRegistries.MOB_EFFECT, PySift.id("soul_deprivation"), new SoulDeprivationEffect());
+
+    /** 定身（Trapper 的靈魂陷阱、網子）：移動速度與跳躍力歸零，只能原地轉身與攻擊。 */
+    public static final Holder<MobEffect> ENSNARED = Registry.registerForHolder(
+            BuiltInRegistries.MOB_EFFECT, PySift.id("ensnared"), new MobEffect(MobEffectCategory.HARMFUL, 0xF07AB0) {
+            }
+                    .addAttributeModifier(Attributes.MOVEMENT_SPEED, PySift.id("ensnared_speed"), -1.0,
+                            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL)
+                    .addAttributeModifier(Attributes.JUMP_STRENGTH, PySift.id("ensnared_jump"), -1.0,
+                            AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
     private ModEffects() {
     }

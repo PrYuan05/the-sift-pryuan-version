@@ -119,14 +119,32 @@ def twig(x0, z0, y0, h, lean, yaw):
     return box((x0 - 0.5, y0, z0 - 0.5), (x0 + 0.5, y0 + h, z0 + 0.5), (lean, yaw, 0), (x0, y0, z0), faces)
 
 
-def tuft(seed, n, h1r, h2r, lean1r, lean2r, radius, w=3.0):
+def spread_bases(rnd, n, margin=1.5):
+    """根部位置鋪滿整格底部：k x k 網格（k = ceil(sqrt(n))）每格最多一株，加隨機偏移；回傳 [(x, z, yaw)]。
+    yaw 讓葉子朝遠離方塊中心的方向斜（靠邊的往外倒），正中間那格方向隨機。"""
+    k = math.ceil(math.sqrt(n))
+    step = (16 - 2 * margin) / k
+    cells = [(margin + step * (i + 0.5), margin + step * (j + 0.5)) for i in range(k) for j in range(k)]
+    rnd.shuffle(cells)
+    picks = cells[:n]
+    jitter = step * 0.45
+    out = []
+    for cx, cz in picks:
+        x = min(16 - margin, max(margin, cx + rnd.uniform(-jitter, jitter)))
+        z = min(16 - margin, max(margin, cz + rnd.uniform(-jitter, jitter)))
+        if abs(x - 8) < 1.5 and abs(z - 8) < 1.5:
+            yaw = rnd.uniform(0, 360)
+        else:
+            yaw = math.degrees(math.atan2(z - 8, x - 8)) - 90 + rnd.uniform(-45, 45)
+        out.append((x, z, yaw))
+    return out
+
+
+def tuft(seed, n, h1r, h2r, lean1r, lean2r, radius=None, w=2.5):
+    """一叢短草：n 片兩段葉子，根部鋪滿整格（radius 已不使用，保留參數相容）。"""
     rnd = random.Random(seed)
     els = []
-    for i in range(n):
-        yaw = 360 * i / n + rnd.uniform(-20, 20)
-        r = rnd.uniform(0.6, radius)
-        a = math.radians(yaw + 90)
-        cx, cz = 8 + math.cos(a) * r, 8 + math.sin(a) * r
+    for i, (cx, cz, yaw) in enumerate(spread_bases(rnd, n)):
         lo, up = blade(cx, cz, yaw, rnd.uniform(*h1r), rnd.uniform(*h2r), rnd.uniform(*lean1r), rnd.uniform(*lean2r),
                        i % 3, w=w)
         els += [lo, up]
@@ -134,17 +152,13 @@ def tuft(seed, n, h1r, h2r, lean1r, lean2r, radius, w=3.0):
 
 
 def tall_tuft(seed, n):
-    """兩格高：下段（根部，幾乎直立，頂端接近 16）放下半格模型，上段放上半格模型（y 往下移 16）。"""
+    """兩格高：下段（根部，幾乎直立，頂端接近 16）放下半格模型，上段放上半格模型（y 往下移 16）。根部鋪滿整格。"""
     rnd = random.Random(seed)
     bottom, top = [], []
-    for i in range(n):
-        yaw = 360 * i / n + rnd.uniform(-25, 25)
-        r = rnd.uniform(0.6, 3.2)
-        a = math.radians(yaw + 90)
-        cx, cz = 8 + math.cos(a) * r, 8 + math.sin(a) * r
+    for i, (cx, cz, yaw) in enumerate(spread_bases(rnd, n)):
         lean1 = rnd.uniform(5, 11)
         h1 = 15.5 / math.cos(math.radians(lean1)) - rnd.uniform(0, 2.5)
-        lo, up = blade(cx, cz, yaw, h1, rnd.uniform(8, 13), lean1, rnd.uniform(12, 24), i % 3, w=3.0, split_at=16)
+        lo, up = blade(cx, cz, yaw, h1, rnd.uniform(8, 13), lean1, rnd.uniform(12, 24), i % 3, w=2.5, split_at=16)
         bottom.append(lo)
         top.append(up)
     return bottom, top
@@ -179,20 +193,20 @@ def build():
            "humus_bush": blade_texture("bush"), "tall_ember_grass": blade_texture("grass"),
            "tall_humus_grass": blade_texture("grass")}
     m = {}
-    m["ember_grass"] = (model("ember_grass", tuft(11, 9, (5, 7.5), (4.5, 7), (8, 20), (10, 24), 4.0)), "ember_grass")
-    glow = tuft(23, 8, (6, 8.5), (5.5, 8), (5, 14), (8, 18), 3.6)
+    m["ember_grass"] = (model("ember_grass", tuft(11, 15, (5, 7.5), (4.5, 7), (8, 20), (10, 24), 5.8)), "ember_grass")
+    glow = tuft(23, 13, (6, 8.5), (5.5, 8), (5, 14), (8, 18), 5.4)
     rnd = random.Random(5)
     for _ in range(3):
         a = rnd.uniform(0, math.tau)
-        glow.append(speck(8 + math.cos(a) * rnd.uniform(1.5, 4), rnd.uniform(5, 11), 8 + math.sin(a) * rnd.uniform(1.5, 4)))
+        glow.append(speck(8 + math.cos(a) * rnd.uniform(2, 5.5), rnd.uniform(5, 11), 8 + math.sin(a) * rnd.uniform(2, 5.5)))
     m["abyss_grass"] = (model("abyss_grass", glow), "abyss_grass")
-    m["humus_grass"] = (model("humus_grass", tuft(37, 9, (4.5, 6.5), (4, 6.5), (10, 22), (10, 26), 3.8)), "humus_grass")
-    m["humus_fern"] = (model("humus_fern", tuft(41, 6, (4.5, 6), (5.5, 7.5), (22, 34), (14, 26), 1.6, w=5.0)), "humus_fern")
+    m["humus_grass"] = (model("humus_grass", tuft(37, 15, (4.5, 6.5), (4, 6.5), (10, 22), (10, 26), 5.6)), "humus_grass")
+    m["humus_fern"] = (model("humus_fern", tuft(41, 10, (4.5, 6), (5.5, 7.5), (22, 34), (14, 26), 3.4, w=4.2)), "humus_fern")
     m["humus_bush"] = (model("humus_bush", bush(53)), "humus_bush")
-    b, t = tall_tuft(61, 8)
+    b, t = tall_tuft(61, 13)
     m["tall_ember_grass_bottom"] = (model("tall_ember_grass", b), "tall_ember_grass")
     m["tall_ember_grass_top"] = (model("tall_ember_grass", t), "tall_ember_grass")
-    b, t = tall_tuft(67, 8)
+    b, t = tall_tuft(67, 13)
     m["tall_humus_grass_bottom"] = (model("tall_humus_grass", b), "tall_humus_grass")
     m["tall_humus_grass_top"] = (model("tall_humus_grass", t), "tall_humus_grass")
     # 寬葉蕨的貼圖欄是 3 px，但葉子 5 px 寬：把前後面的 u 範圍拉成 0..3 不變（貼圖會被拉寬），葉緣鋸齒照樣看得到

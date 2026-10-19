@@ -14,6 +14,9 @@ import pryuan05.pysift.entity.projectile.DartEntity;
 import pryuan05.pysift.entity.projectile.ThrownRockEntity;
 import pryuan05.pysift.entity.projectile.SculkCubeEntity;
 import pryuan05.pysift.entity.projectile.MonarchFeatherEntity;
+import pryuan05.pysift.entity.projectile.TrapperNetEntity;
+import pryuan05.pysift.entity.projectile.HunterJavelinEntity;
+import pryuan05.pysift.entity.misc.SoulSnareEntity;
 
 public class ModEntities {
     // 1. Friendly & Neutral Mobs
@@ -65,6 +68,14 @@ public class ModEntities {
     public static final EntityType<ScavengerEntity> SCAVENGER = register(
             "scavenger", ScavengerEntity::new, MobCategory.MONSTER, 1.0f, 1.6f
     );
+    /** Monarch 麾下：遠程標槍手（模型約 2.1 格高）。 */
+    public static final EntityType<HunterEntity> HUNTER = register(
+            "hunter", HunterEntity::new, MobCategory.MONSTER, 0.8f, 2.1f
+    );
+    /** Monarch 麾下：佈陷阱、丟網（模型約 1.75 格高，微駝）。 */
+    public static final EntityType<TrapperEntity> TRAPPER = register(
+            "trapper", TrapperEntity::new, MobCategory.MONSTER, 0.9f, 1.75f
+    );
     public static final EntityType<SlabberEntity> SLABBER = register(
             "slabber", SlabberEntity::new, MobCategory.CREATURE, 1.4f, 1.7f
     );
@@ -111,6 +122,15 @@ public class ModEntities {
     public static final EntityType<MonarchFeatherEntity> MONARCH_FEATHER = register(
             "monarch_feather", MonarchFeatherEntity::new, MobCategory.MISC, 0.4f, 0.4f
     );
+    public static final EntityType<HunterJavelinEntity> HUNTER_JAVELIN = register(
+            "hunter_javelin", HunterJavelinEntity::new, MobCategory.MISC, 0.5f, 0.5f
+    );
+    public static final EntityType<TrapperNetEntity> TRAPPER_NET = register(
+            "trapper_net", TrapperNetEntity::new, MobCategory.MISC, 0.5f, 0.5f
+    );
+    public static final EntityType<SoulSnareEntity> SOUL_SNARE = register(
+            "soul_snare", SoulSnareEntity::new, MobCategory.MISC, 0.9f, 0.2f
+    );
 
     private static <T extends Entity> EntityType<T> register(
             String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height
@@ -139,6 +159,8 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(SPROUT, SproutEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(STALKER, StalkerEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SCAVENGER, ScavengerEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(HUNTER, HunterEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(TRAPPER, TrapperEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SLABBER, SlabberEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(PRICKLE, PrickleEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SENTINEL, SentinelEntity.createAttributes());

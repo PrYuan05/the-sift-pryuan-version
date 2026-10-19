@@ -7,9 +7,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import pryuan05.pysift.block.entity.ModBlockEntities;
 import pryuan05.pysift.client.render.SiftPortalBlockEntityRenderer;
+import pryuan05.pysift.client.render.SiftArrowRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.entity.TippableArrowRenderer;
 import net.minecraft.world.entity.Entity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import pryuan05.pysift.client.PysiftUniversalGeoRenderer;
@@ -35,11 +36,16 @@ public class PySiftClient implements ClientModInitializer {
         SoulWillowWoodClient.register();
         SoulParticlesClient.register();
         // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器
-        EntityRendererRegistry.register(ModEntities.DART, context -> castRenderer(new TippableArrowRenderer(context)));
+        EntityRendererRegistry.register(ModEntities.DART, context -> new SiftArrowRenderer<>(context, "sift_dart", 1.0f));
+        EntityRendererRegistry.register(ModEntities.HUNTER_JAVELIN, context -> new SiftArrowRenderer<>(context, "hunter_javelin", 2.0f));
         EntityRendererRegistry.register(ModEntities.THROWN_ROCK, ThrownItemRenderer::new);
         // Boss 招式的投射物：放大的幽匿塊（滾動方塊）、發光羽毛
-        EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new ThrownItemRenderer<>(context, 3.0f, false));
+        EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_cube"));
         EntityRendererRegistry.register(ModEntities.MONARCH_FEATHER, context -> new ThrownItemRenderer<>(context, 1.5f, true));
+        EntityRendererRegistry.register(ModEntities.TRAPPER_NET, context -> new ThrownItemRenderer<>(context, 1.6f, false));
+        EntityRendererRegistry.register(ModEntities.SOUL_SNARE, NoopRenderer::new);   // 陷阱沒有模型，只有偶爾的靈魂微光
+        EntityRendererRegistry.register(ModEntities.HUNTER, context -> new PysiftUniversalGeoRenderer<>(context, "hunter"));
+        EntityRendererRegistry.register(ModEntities.TRAPPER, context -> new PysiftUniversalGeoRenderer<>(context, "trapper"));
         EntityRendererRegistry.register(ModEntities.BLUB, context -> new PysiftUniversalGeoRenderer<>(context, "blub"));
         EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, EchoGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
