@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "pysift:resonant_crystal",
+  "base": "pysift:dash_charm",
+  "addition": "pysift:sculk_scale",
+  "result": {
+    "id": "pysift:dash_charm",
+    "components": {
+      "pysift:awakened": true
+    }
+  }
+}

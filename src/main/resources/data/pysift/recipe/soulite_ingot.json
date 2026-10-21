@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:netherite_ingot",
+    "pysift:resonant_crystal",
+    "pysift:monarch_feather",
+    "pysift:sculk_scale",
+    "pysift:charoite",
+    "pysift:charoite",
+    "pysift:charoite",
+    "pysift:charoite"
+  ],
+  "result": {
+    "id": "pysift:soulite_ingot"
+  }
+}

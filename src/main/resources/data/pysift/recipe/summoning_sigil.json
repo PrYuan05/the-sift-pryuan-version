@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": "pysift:soul_essence",
+    "C": "pysift:charoite",
+    "I": "pysift:siftite_ingot"
+  },
+  "pattern": [
+    "ECE",
+    "CIC",
+    "ECE"
+  ],
+  "result": {
+    "id": "pysift:summoning_sigil"
+  }
+}

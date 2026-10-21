@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "H": "pysift:harmonizer_core",
+    "R": "pysift:resonant_crystal",
+    "I": "pysift:siftite_ingot"
+  },
+  "pattern": [
+    " RH",
+    " IR",
+    "I  "
+  ],
+  "result": {
+    "id": "pysift:sonic_staff"
+  }
+}

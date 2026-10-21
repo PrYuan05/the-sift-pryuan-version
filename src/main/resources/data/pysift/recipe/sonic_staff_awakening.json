@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "pysift:monarch_feather",
+  "base": "pysift:sonic_staff",
+  "addition": "pysift:sculk_scale",
+  "result": {
+    "id": "pysift:sonic_staff",
+    "components": {
+      "pysift:awakened": true
+    }
+  }
+}

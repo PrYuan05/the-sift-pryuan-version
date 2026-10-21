@@ -1,0 +1,40 @@
+{
+  "criteria": {
+    "kill": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "pysift:harmonizer"
+          }
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:harmonizer_core"
+    },
+    "title": {
+      "translate": "advancements.pysift.kill_harmonizer.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.kill_harmonizer.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "kill"
+    ]
+  ],
+  "parent": "pysift:progression/root",
+  "rewards": {
+    "experience": 100
+  }
+}

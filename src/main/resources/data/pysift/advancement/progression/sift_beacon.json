@@ -1,0 +1,41 @@
+{
+  "criteria": {
+    "beacon": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:chest_armor",
+            "components": {
+              "pysift:sift_beacon": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:sift_beacon_gem"
+    },
+    "title": {
+      "translate": "advancements.pysift.sift_beacon.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.sift_beacon.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "beacon"
+    ]
+  ],
+  "parent": "pysift:progression/awakened",
+  "rewards": {
+    "experience": 500
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "pysift:charoite",
+    "H": "pysift:harmonizer_core",
+    "M": "pysift:monarch_crown",
+    "S": "pysift:sculk_monstrosity_heart"
+  },
+  "pattern": [
+    "CCC",
+    "HMS",
+    "CCC"
+  ],
+  "result": {
+    "id": "pysift:sift_beacon_gem"
+  }
+}

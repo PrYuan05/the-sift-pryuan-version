@@ -1,0 +1,14 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "salt": 70531002,
+    "separation": 9,
+    "spacing": 28
+  },
+  "structures": [
+    {
+      "structure": "pysift:abyss_obelisk",
+      "weight": 1
+    }
+  ]
+}

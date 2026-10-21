@@ -1,0 +1,31 @@
+{
+  "criteria": {
+    "entered": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "pysift:the_sift"
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:sift_beacon_gem"
+    },
+    "title": {
+      "translate": "advancements.pysift.root.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:gui/advancements/backgrounds/end"
+  },
+  "requirements": [
+    [
+      "entered"
+    ]
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "pysift:charoite"
+  ],
+  "result": {
+    "id": "minecraft:written_book",
+    "components": {
+      "minecraft:custom_name": {
+        "translate": "book.pysift.guide.title",
+        "color": "light_purple"
+      },
+      "minecraft:written_book_content": {
+        "title": "Sift Guide",
+        "author": "PrYuan05",
+        "resolved": true,
+        "pages": [
+          {
+            "translate": "book.pysift.guide.page1"
+          },
+          {
+            "translate": "book.pysift.guide.page2"
+          },
+          {
+            "translate": "book.pysift.guide.page3"
+          },
+          {
+            "translate": "book.pysift.guide.page4"
+          },
+          {
+            "translate": "book.pysift.guide.page5"
+          },
+          {
+            "translate": "book.pysift.guide.page6"
+          },
+          {
+            "translate": "book.pysift.guide.page7"
+          },
+          {
+            "translate": "book.pysift.guide.page8"
+          },
+          {
+            "translate": "book.pysift.guide.page9"
+          },
+          {
+            "translate": "book.pysift.guide.page10"
+          },
+          {
+            "translate": "book.pysift.guide.page11"
+          }
+        ]
+      }
+    }
+  }
+}

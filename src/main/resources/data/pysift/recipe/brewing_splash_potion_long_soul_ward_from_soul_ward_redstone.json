@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:brewing",
+  "input": {
+    "item": "minecraft:splash_potion",
+    "potion_contents": {
+      "potions": "pysift:soul_ward"
+    }
+  },
+  "reagent": {
+    "item": "minecraft:redstone"
+  },
+  "output": {
+    "id": "minecraft:splash_potion",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "pysift:long_soul_ward"
+      }
+    }
+  }
+}

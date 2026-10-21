@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cross",
+	"textures": {
+		"cross": "pysift:block/vegetation/soft_dune_short_grass"
+	}
+}

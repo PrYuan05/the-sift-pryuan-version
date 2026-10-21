@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "pysift:sift_beacon_gem",
+  "base": "minecraft:copper_chestplate",
+  "addition": "pysift:charoite",
+  "result": {
+    "id": "minecraft:copper_chestplate",
+    "components": {
+      "pysift:sift_beacon": true
+    }
+  }
+}

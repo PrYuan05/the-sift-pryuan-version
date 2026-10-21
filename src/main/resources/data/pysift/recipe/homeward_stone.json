@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:soul_essence",
+    "pysift:charoite",
+    "minecraft:ender_pearl"
+  ],
+  "result": {
+    "id": "pysift:homeward_stone",
+    "count": 2
+  }
+}

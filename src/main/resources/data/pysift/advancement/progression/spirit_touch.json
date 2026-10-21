@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "deprived": {
+      "trigger": "minecraft:effects_changed",
+      "conditions": {
+        "effects": {
+          "pysift:soul_deprivation": {}
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:spirit_liquid_bucket"
+    },
+    "title": {
+      "translate": "advancements.pysift.spirit_touch.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.spirit_touch.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "deprived"
+    ]
+  ],
+  "parent": "pysift:progression/root"
+}

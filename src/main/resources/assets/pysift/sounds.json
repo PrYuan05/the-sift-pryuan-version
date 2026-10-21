@@ -1,0 +1,100 @@
+{
+  "entity.blub.idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.idle",
+    "sounds": [
+      "pysift:mob/blub/blub_idle1",
+      "pysift:mob/blub/blub_idle2",
+      "pysift:mob/blub/blub_idle3",
+      "pysift:mob/blub/blub_idle4",
+      "pysift:mob/blub/blub_idle5"
+    ]
+  },
+  "entity.blub.carapace_idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.idle",
+    "sounds": [
+      "pysift:mob/blub/carapace_idle1",
+      "pysift:mob/blub/carapace_idle2",
+      "pysift:mob/blub/carapace_idle3",
+      "pysift:mob/blub/carapace_idle4",
+      "pysift:mob/blub/carapace_idle5"
+    ]
+  },
+  "entity.blub.meadows_idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.idle",
+    "sounds": [
+      "pysift:mob/blub/meadows_idle1",
+      "pysift:mob/blub/meadows_idle2",
+      "pysift:mob/blub/meadows_idle3",
+      "pysift:mob/blub/meadows_idle4",
+      "pysift:mob/blub/meadows_idle5"
+    ]
+  },
+  "entity.blub.ravines_idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.idle",
+    "sounds": [
+      "pysift:mob/blub/ravines_idle1",
+      "pysift:mob/blub/ravines_idle2",
+      "pysift:mob/blub/ravines_idle3",
+      "pysift:mob/blub/ravines_idle4",
+      "pysift:mob/blub/ravines_idle5"
+    ]
+  },
+  "entity.blub.fungal_idle": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.idle",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_idle1",
+        "pitch": 0.85
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle2",
+        "pitch": 0.85
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle3",
+        "pitch": 0.85
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle4",
+        "pitch": 0.85
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle5",
+        "pitch": 0.85
+      }
+    ]
+  },
+  "entity.blub.jump": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.jump",
+    "sounds": [
+      "pysift:mob/blub/blub_jump1",
+      "pysift:mob/blub/blub_jump2",
+      "pysift:mob/blub/blub_jump3"
+    ]
+  },
+  "entity.blub.land": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.land",
+    "sounds": [
+      "pysift:mob/blub/blub_land1",
+      "pysift:mob/blub/blub_land2",
+      "pysift:mob/blub/blub_land3"
+    ]
+  },
+  "entity.blub.step": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.step",
+    "sounds": [
+      "pysift:mob/blub/blub_walk1",
+      "pysift:mob/blub/blub_walk2",
+      "pysift:mob/blub/blub_walk3",
+      "pysift:mob/blub/blub_walk4"
+    ]
+  }
+}

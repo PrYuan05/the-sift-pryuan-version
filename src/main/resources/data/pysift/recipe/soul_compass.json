@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "pysift:charoite",
+    "M": "minecraft:compass",
+    "S": "pysift:soul_essence"
+  },
+  "pattern": [
+    " C ",
+    "CMC",
+    " S "
+  ],
+  "result": {
+    "id": "pysift:soul_compass"
+  }
+}

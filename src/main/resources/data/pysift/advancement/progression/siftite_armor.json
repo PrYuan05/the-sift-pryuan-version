@@ -1,0 +1,40 @@
+{
+  "criteria": {
+    "armor": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "pysift:siftite_helmet",
+              "pysift:siftite_chestplate",
+              "pysift:siftite_leggings",
+              "pysift:siftite_boots"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:siftite_chestplate"
+    },
+    "title": {
+      "translate": "advancements.pysift.siftite_armor.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.siftite_armor.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "armor"
+    ]
+  ],
+  "parent": "pysift:progression/siftite"
+}
