@@ -14,9 +14,11 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.world.entity.Entity;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import pryuan05.pysift.client.PysiftUniversalGeoRenderer;
+import pryuan05.pysift.client.BlubRenderer;
 import pryuan05.pysift.client.EchoGolemRenderer;
 import pryuan05.pysift.client.MonarchRenderer;
 import pryuan05.pysift.client.SiftClientVisuals;
+import pryuan05.pysift.client.PysiftTooltips;
 import pryuan05.pysift.client.SlabberRenderer;
 import pryuan05.pysift.client.SiftPortalTransition;
 import pryuan05.pysift.client.SoulDeprivationVision;
@@ -29,6 +31,7 @@ public class PySiftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         SiftClientVisuals.register();
+        PysiftTooltips.register();   // 物品說明按住 Shift 才展開
         SoulDeprivationVision.register();   // 靈魂剝奪：伏聆色調的視野後製
         SiftPortalTransition.register();     // 篩靈界傳送門的過場動畫
         // 篩靈界傳送門：大面積珠光流光 + 邊緣破曉聖光
@@ -46,7 +49,7 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SOUL_SNARE, NoopRenderer::new);   // 陷阱沒有模型，只有偶爾的靈魂微光
         EntityRendererRegistry.register(ModEntities.HUNTER, context -> new PysiftUniversalGeoRenderer<>(context, "hunter"));
         EntityRendererRegistry.register(ModEntities.TRAPPER, context -> new PysiftUniversalGeoRenderer<>(context, "trapper"));
-        EntityRendererRegistry.register(ModEntities.BLUB, context -> new PysiftUniversalGeoRenderer<>(context, "blub"));
+        EntityRendererRegistry.register(ModEntities.BLUB, BlubRenderer::new);
         EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, EchoGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
         EntityRendererRegistry.register(ModEntities.NUZZLE, context -> new PysiftUniversalGeoRenderer<>(context, "nuzzle"));

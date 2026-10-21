@@ -1,10 +1,6 @@
 {
   "replace": false,
   "values": [
-    "pysift:ember_grass",
-    "pysift:tall_ember_grass",
-    "pysift:humus_grass",
-    "pysift:tall_humus_grass",
     "pysift:humus_fern",
     "pysift:humus_bush",
     "pysift:golden_bloom",
@@ -13,8 +9,7 @@
     "pysift:dusk_bloom",
     "pysift:soul_willow_vine",
     "pysift:glowing_soul_willow_vine",
-    "pysift:abyss_grass",
-    "pysift:glowcap",
+    "pysift:gloomcap",
     "pysift:bone_spire",
     "pysift:puff_grass",
     "pysift:crimson_short_sprouts",
@@ -34,6 +29,12 @@
     "pysift:tall_glow_grass",
     "pysift:coral_leaf_carpet",
     "pysift:crimson_short_grass",
-    "pysift:crimson_tall_grass"
+    "pysift:crimson_tall_grass",
+    "pysift:soft_violet_short_grass",
+    "pysift:soft_violet_tall_grass",
+    "pysift:soft_dune_short_grass",
+    "pysift:soft_dune_tall_grass",
+    "pysift:soft_teal_short_grass",
+    "pysift:soft_teal_tall_grass"
   ]
 }

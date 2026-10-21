@@ -74,24 +74,13 @@ public final class ModVegetation {
     public static final Block SOUL_WILLOW_SAPLING = tint(register("soul_willow_sapling",
             p -> new SaplingBlock(SOUL_WILLOW_GROWER, p), Blocks.OAK_SAPLING, false), 0xFF7FD6C8);
 
-    // ===== 赤紅沉積地層區 =====
-    public static final Block EMBER_GRASS = floorTint(register("ember_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false), 0xFFF8B0A4);
-    public static final Block TALL_EMBER_GRASS = floorTint(register("tall_ember_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true), 0xFFF8B0A4);
-
     // ===== 林地腐殖帶 =====
-    public static final Block HUMUS_GRASS = tint(register("humus_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false), 0xFF7CC79A);
-    public static final Block TALL_HUMUS_GRASS = tint(register("tall_humus_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true), 0xFF7CC79A);
     public static final Block HUMUS_FERN = tint(register("humus_fern", SiftGrassBlock::new, Blocks.FERN, false), 0xFF5DAE8C);
     public static final Block HUMUS_BUSH = tint(register("humus_bush", BushBlock::new, Blocks.BUSH, false), 0xFFC7A8E0);
 
-    // ===== 紫晶深板岩區 =====
-    /** 深淵草：與餘燼草同樣的線條狀草叢（原 abyss_fern 深淵蕨改名）。 */
-    public static final Block ABYSS_GRASS = floorTint(register("abyss_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false), 0xFF7BE0D0);
 
     // ===== 影片風格的裝飾 =====
-    /** 青色發光小蘑菇（紫區、柳林）。 */
-    public static final Block GLOWCAP = register("glowcap",
-            p -> new SiftGrassBlock(p.lightLevel(state -> 7)), Blocks.SHORT_GRASS, false);
+    // 螢光菇（glowcap）已併入幽光菇（progression/SiftFarming.GLOOMCAP），地表也改長幽光菇。
     /** 白色骨珊瑚狀尖刺（紫區）。 */
     public static final Block BONE_SPIRE = register("bone_spire", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     /** 蓬鬆草團：兩格高，顏色依地板（粉壤上粉紅、紫地層上偏青）。 */
@@ -139,8 +128,16 @@ public final class ModVegetation {
     public static final Block CORAL_LEAF_CARPET = register("coral_leaf_carpet", p -> new FlowerBedBlock(p, 3), Blocks.PINK_PETALS, false);
 
     // ===== 影片風格柔和草地與短草／高草（額外方塊） =====
+    // 柔和草：原版十字模型＋色盤上色好的貼圖（tools/worldgen/soft_grass_palette.py）；三組顏色分給不同生態域
     public static final Block CRIMSON_SHORT_GRASS = register("crimson_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     public static final Block CRIMSON_TALL_GRASS = register("crimson_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block SOFT_VIOLET_SHORT_GRASS = register("soft_violet_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SOFT_VIOLET_TALL_GRASS = register("soft_violet_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block SOFT_DUNE_SHORT_GRASS = register("soft_dune_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SOFT_DUNE_TALL_GRASS = register("soft_dune_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    /** 青色地面專用（尖柱頂 capped_crimson_strata、abyssal / silted strata）：生成時只長在這些方塊上。 */
+    public static final Block SOFT_TEAL_SHORT_GRASS = register("soft_teal_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SOFT_TEAL_TALL_GRASS = register("soft_teal_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
 
     private ModVegetation() {
     }

@@ -67,7 +67,18 @@
       "modifier": "overlay"
     },
     "minecraft:visual/sky_color": "#5cd6c6",
-    "minecraft:visual/fog_color": "#8fe2cc"
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:spore_blossom_air"
+          },
+          "probability": 0.012
+        }
+      ]
+    }
   },
   "carvers": [],
   "downfall": 0.8,
@@ -81,12 +92,15 @@
     ],
     [
       "pysift:spire_willow_grove",
-      "pysift:boss_arena_willow_grove"
+      "pysift:boss_arena_willow_grove",
+      "pysift:soul_geode"
     ],
     [],
     [],
     [],
-    [],
+    [
+      "pysift:siftite_ore"
+    ],
     [],
     [],
     [
@@ -105,12 +119,16 @@
       "pysift:patch_grove_dusk_bloom",
       "pysift:patch_golden_bloom",
       "pysift:patch_mint_rift_grass",
+      "pysift:patch_grove_tall_glow_grass",
+      "pysift:patch_coral_leaf_carpet",
       "pysift:patch_curled_fern_pink",
       "pysift:patch_giant_canopy_green",
       "pysift:patch_grove_clustered_yellow_flowers",
       "pysift:cliff_vines_willow_grove",
-      "pysift:patch_grove_tall_glow_grass",
-      "pysift:patch_coral_leaf_carpet"
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:patch_grove_teal_grass",
+      "pysift:patch_grove_tall_teal_grass"
     ],
     []
   ],

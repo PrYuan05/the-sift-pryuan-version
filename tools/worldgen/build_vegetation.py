@@ -432,6 +432,7 @@ if not icon.exists():
 # is in #minecraft:blocks_motion_no_leaves. Every full pysift block goes in, except vegetation, the fluid and blocks
 # already covered through #slabs / #stairs / #walls / #logs / #leaves.
 NON_SOLID = {b for b, (kind, _, _) in BLOCKS.items() if kind not in ("log", "cube")} | {"spirit_liquid"}
+NON_SOLID |= {"charoite_cluster"}    # progression (ModProgression): a small crystal, not a full block
 COVERED_SUFFIXES = ("_slab", "_stairs", "_wall")
 solid = sorted(f"pysift:{p.stem}" for p in (A / "blockstates").glob("*.json")
                if p.stem not in NON_SOLID and not p.stem.endswith(COVERED_SUFFIXES)

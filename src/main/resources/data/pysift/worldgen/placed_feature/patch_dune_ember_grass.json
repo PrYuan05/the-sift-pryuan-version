@@ -57,7 +57,23 @@
           },
           {
             "type": "minecraft:would_survive",
-            "state": "pysift:ember_grass"
+            "state": "pysift:soft_dune_short_grass"
+          },
+          {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_blocks",
+              "offset": [
+                0,
+                -1,
+                0
+              ],
+              "blocks": [
+                "pysift:capped_crimson_strata",
+                "pysift:abyssal_strata",
+                "pysift:silted_strata"
+              ]
+            }
           }
         ]
       }

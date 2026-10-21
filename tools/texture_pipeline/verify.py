@@ -40,6 +40,9 @@ veg_ids += wood_ids
 for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java"):
     if (_blk / _extra).exists():
         veg_ids += re.findall(r'Registries\.BLOCK, PySift\.id\("([a-z0-9_]+)"\)', (_blk / _extra).read_text(encoding="utf-8"))
+# phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)
+for _prog in sorted((_blk / "progression").glob("*.java")):
+    veg_ids += re.findall(r'register(?:Block|Plant)\("([a-z0-9_]+)"', _prog.read_text(encoding="utf-8"))
 out["vegetation_and_fluid_blocks"] = len(veg_ids)
 all_ids = ids + set_ids + veg_ids
 enum_vals = {}

@@ -62,6 +62,8 @@
 | **維度與地貌 (The Sift Dimension)** | 🟢 實作完成（待實機驗證） | 90% | `pysift:the_sift` 維度與 4 個自訂生態系（赤紅沉積峽谷、紫晶深板岩區、柳絮林地、琥珀沙丘）；平緩地形搭配淺池、圓形分層桌山（`StrataSpireFeature`）、Boss 競技場（`BossArenaFeature`）與巨型靈柳（`SoulWillowTrunkPlacer` / `SoulWillowFoliagePlacer` / `SoulWillowVineDecorator`）。 |
 | **靈液與靈魂剝奪 (Fluid & Effects)** | 🟢 實作完成（待實機驗證） | 95% | `spirit_liquid` 流體與 `soul_deprivation` 效果；包含 80% 血量抽離、受傷觸發靈魂碎裂（鎖定最大生命上限）、靈魂解藥復原、幽匿風格視覺後處理（`SoulDeprivationVision`）與靈魂火愛心 HUD。 |
 | **傳送門與開門儀式 (Portal)** | 🟢 實作完成（待實機驗證） | 90% | `sift_portal` 方塊與 `SiftPortalRitual`（強化深板岩旁吹山羊角召喚歌者，手持迴音碎片／靈魂沙／靈魂晶塊右鍵歌者共鳴開門），含跨方塊大畫布渲染器（`SiftPortalBlockEntityRenderer`）與 2 秒傳送過場動畫（`SiftPortalTransition`）。 |
+| **進度循環 (Progression)** | 🟢 實作完成（待實機驗證；貼圖為臨時圖） | 90% | 第 1 階段：篩金石礦／紫龍晶簇、篩金石工具與盔甲（套裝減輕靈魂剝奪）、22 種生物掉落、三隻 Boss 的核心與碎片、篩靈祭壇與召喚印記（重新挑戰）、音波法杖／衝刺護符／重錘與覺醒升級、篩靈信標（鑲嵌胸甲的免疫光環）、10 個成就。程式在 `progression/`，資源由 `tools/progression/build_progression.py` 產生，待繪貼圖清單在 `art_requests/progression.md`。 |
+| **世界內容 (World Content)** | 🟢 實作完成（待實機驗證） | 85% | 第 2 階段：四種結構（地層神殿、深淵方尖碑、靈柳小屋、沙丘古墓，各有戰利品箱）、地下靈魂晶洞、各生態域環境粒子。結構由 `tools/worldgen/build_structures.py` 產生（26.3 結構檔調色盤用 `id`／`properties`），晶洞與粒子在 `build_the_sift.py`。生怪平衡待實機調整。 |
 | **音效與粒子 (Audio/FX)** | 🟡 基礎完成 | 60% | 已實作靈魂光點與靈魂軌跡粒子（`ModParticles`）、各技能與儀式之原版音效組合；自訂專屬環境音檔與生物獨立音效待日後擴充。 |
 
 ---
@@ -153,6 +155,44 @@ flowchart TD
    - 在 `ModItems.java` 註冊對應之 `SpawnEggItem`。
 4. **客戶端渲染器註冊**：
    - 在 `PySiftClient.java` 中將新實體類型綁定至 `PysiftUniversalGeoRenderer`（或專用渲染器如 `SlabberRenderer`）。
+
+---
+
+## 4.5 第 1 階段：進度循環規格（Progression）
+
+> 程式：`src/main/java/pryuan05/pysift/progression/`；資源：`python -I tools/progression/build_progression.py .`
+> （先跑它，再跑 `tools/worldgen/build_the_sift.py`，因為礦石生成要用到新方塊）。臨時貼圖不會覆蓋使用者畫好的圖。
+
+| 層級 | 內容 | 實作 |
+| :-- | :-- | :-- |
+| 礦石 | 篩金石礦：所有生態域地下虛黑岩 y -40～40（每區塊約 30 個）→ 粗篩金石 → 熔煉／高爐成篩金石錠；紫龍晶簇：紫晶區地表與洞穴地面 → 2–4 紫龍晶 | `ModProgression`、`build_the_sift.py` 的 `siftite_ore` / `charoite_clusters` |
+| 生物掉落 | 22 種一般生物的掉落表；篩靈界敵對生物有機率掉靈魂精華（召喚印記材料），引信蠅掉引信粉 | `build_progression.py` 的 `MOB_DROPS` |
+| 篩金石裝備 | 工具：耐久 800、速度 7、攻擊 +2.5；盔甲 2/7/5/2、韌性 1；穿滿四件時靈魂剝奪只抽到 0.5 倍血量 | `SiftiteGear`、`SoulWard` |
+| Boss 掉落 | 每次必掉 1 顆核心（調和者核心／君王王冠／幽匿巨怪之心）＋ 2–4 碎片（共鳴音晶／君王羽刃／幽匿鱗片）＋靈魂精華、篩金石錠 | `BossRewards`、掉落表 |
+| 重新挑戰 | 篩靈祭壇放在 Boss 競技場 48 格內，手持召喚印記右鍵重新召喚該競技場的 Boss（同種 Boss 還活著時不行） | `SiftAltarBlock`、`BossArenaSavedData` |
+| Boss 武器 | 音波法杖：右鍵音爆（8 點、冷卻 3 秒）、左鍵連鎖 3 敵（各 3 點）＋靈魂剝奪；衝刺護符：二段衝刺＋留下玩家分身 10 秒；重錘：蓄力砸地擊飛＋幽匿藤蔓 2 秒後爆炸＋靈魂剝奪 | `SonicStaffItem`、`DashCharmItem`、`SculkHammerItem` |
+| 覺醒 | 鍛造台：武器＋另外兩隻 Boss 的碎片 → 覺醒版（法杖連鎖 5、寬音爆；護符 3 段衝刺並傷害路徑敵人；重錘半徑 6、7 條藤蔓） | `smithing_transform` 配方、`pysift:awakened` 元件 |
+| 終局 | 篩靈信標寶石（三核心＋6 紫龍晶）鑲嵌到任一胸甲（鍛造台）→ 穿著者 8 格內所有玩家免疫靈魂剝奪、已有的剝奪被淨化 | `SiftBeacon`、`pysift:sift_beacon` 元件 |
+| 怪物版靈魂剝奪 | 受到傷害 +30%、每秒流失約 1.25 生命 | `SoulDeprivationDamageMixin`、`ModEffects` |
+| 成就 | 進入篩靈界 → 靈液 → 解藥；篩金石 → 盔甲；擊敗三 Boss → 覺醒 → 篩靈信標 | `data/pysift/advancement/progression/` |
+| 靈髓（Soulite） | 比獄髓更強：靈髓錠＝獄髓錠＋三種 Boss 碎片＋4 紫龍晶；鍛造台用靈髓升級模板（Boss 25% 掉落、結構寶箱、可複製）把獄髓裝備升級。工具耐久 2600／速度 10／攻擊 +5；盔甲 4/9/7/4、韌性 4。劍：每 3 下音波連鎖；斧：蓄滿力長出幽匿藤蔓；鎬鏟鋤：礦石 15% 掉靈魂精華；頭盔：敵人發光；胸甲：瀕死留分身＋速度；護腿：減擊退＋幽匿荊棘；靴子：免摔落、走在靈液上；整套免疫靈魂剝奪 | `SouliteGear`、`SouliteFluidWalkMixin` |
+
+**需要多次挑戰的設計**：每次擊敗只掉一顆核心，三把武器各用掉一顆、篩靈信標再用三種各一顆 → 每隻 Boss 至少打兩次；覺醒需要另外兩隻 Boss 的碎片。
+
+## 4.6 第 3 階段計畫（使用者選定 A → B → D）
+
+| 項目 | 內容 | 狀態 / 實作 |
+| :--- | :--- | :--- |
+| A 靈魂羅盤 | 篩靈界右鍵：指向三隻 Boss 的競技場（還沒生成時改指向其生態域）或最近遺跡；蹲下右鍵切換。羅盤＋3 紫龍晶＋靈魂精華 | ✅ `SiftGuidance.SoulCompassItem`、`#pysift:soul_compass_targets` |
+| A 回程符石 | 篩靈界按住 3 秒傳回主世界重生點；靈魂精華＋紫龍晶＋終界珍珠 → 2 個 | ✅ `SiftGuidance.HomewardStoneItem` |
+| A 篩靈指南書 | 第一次進入篩靈界自動獲得（玩家附加資料 `received_guide`）；書＋紫龍晶可再合成。10 頁 | ✅ `SiftGuidance.guideBook()` |
+| B 靈莓叢 | 4 格內有靈液才會長（靈液澆灌），越熟越亮，熟了右鍵採 2～3 顆；生成在靈液池邊。靈莓可吃（10 秒靈魂守護） | ✅ `SiftFarming.SoulBerryBushBlock` |
+| B 幽光菇 | 洞穴地面的發光小菇，暗處會慢慢蔓延；碗＋2 幽光菇＋靈莓 → 幽光菇燉湯（飽食 7＋45 秒回音視界） | ✅ `SiftFarming.GloomcapBlock` |
+| B 靈魂釀造 | 原版釀造台（26.3 資料驅動配方）：粗製藥水＋靈莓 → 靈魂守護（免疫靈魂剝奪，3:00／8:00）；粗製藥水＋幽光菇 → 回音視界（32 格內敵人發光，並冒出只有自己看得到的幽匿粒子）；紅石延長，火藥／龍息轉噴濺與滯留 | ✅ `SiftFarming`、`data/pysift/recipe/brewing_*.json` |
+| B 布魯布 | 馴服後像狼一樣幫忙打架（攻擊力 4）；會叼回 8 格內的掉落物放進主人背包（主人自己丟的不撿） | ✅ `BlubEntity` |
+| B 泥板獸 | 騎乘與靈液行走：做過後依使用者要求拿掉 | ✖ 取消 |
+| B 原住民聚落 | 使用者決定不做村民型聚落 | ✖ 取消 |
+| D 世界再充實 | 地底生態域（晶洞、靈液河）、更多結構與大型地下遺跡、用未使用方塊做裝飾方塊 | 待做 |
 
 ---
 

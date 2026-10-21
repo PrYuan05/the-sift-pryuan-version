@@ -51,6 +51,15 @@
                 "min_inclusive": 1
               },
               "weight": 6
+            },
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 4,
+                "min_inclusive": 2
+              },
+              "weight": 25
             }
           ]
         }
@@ -58,7 +67,18 @@
       "modifier": "overlay"
     },
     "minecraft:visual/sky_color": "#5cd6c6",
-    "minecraft:visual/fog_color": "#8fe2cc"
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:white_ash"
+          },
+          "probability": 0.015
+        }
+      ]
+    }
   },
   "carvers": [],
   "downfall": 0.0,
@@ -72,12 +92,15 @@
     ],
     [
       "pysift:spire_amber_dunes",
-      "pysift:boss_arena_amber_dunes"
+      "pysift:boss_arena_amber_dunes",
+      "pysift:soul_geode"
     ],
     [],
     [],
     [],
-    [],
+    [
+      "pysift:siftite_ore"
+    ],
     [],
     [],
     [
@@ -88,7 +111,10 @@
       "pysift:patch_dune_agave_rosette",
       "pysift:patch_olive_forked_stalk",
       "pysift:patch_clustered_yellow_flowers",
-      "pysift:cliff_vines_amber_dunes"
+      "pysift:cliff_vines_amber_dunes",
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:patch_dune_teal_grass"
     ],
     []
   ],

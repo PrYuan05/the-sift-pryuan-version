@@ -47,6 +47,8 @@ large round mesas built of stepped two-block-high tiers.
 | **Amber Dunes** | amber and pale sand over bleached sandstone | ridged dunes, sandstone mesas, agave and oasis ponds, a boss arena |
 
 Winding paths cross most of the biomes, and plants take the colour of the ground they grow on.
+Each biome hides its own ruins with loot — a crimson **Strata Shrine**, an **Abyss Obelisk** crowned with a soul
+crystal, **Willow Huts** on stilts and half-buried **Dune Tombs** — and deep below lie glowing **soul crystal geodes**.
 
 ### Spirit Liquid and Soul Deprivation
 
@@ -77,6 +79,21 @@ Prickle · Roamroot · Scavenger · Seedling · Sentinel · Singer · Slabber ·
 
 Every boss enrages below half health (stronger, faster, calls reinforcements), heals when left alone,
 guards its arena, and has a three-second death sequence.
+
+## Progression
+
+- **Siftite** ore deep underground and **Charoite** clusters in the Violet Slate Abyss.
+- **Siftite tools and armor** (between iron and diamond); the full set halves the health Spirit Liquid drains.
+- Every boss drops a **core** and **shards**. Build a **Sift Altar** near a boss arena and use a **Summoning Sigil** to call the boss again.
+- Three boss weapons: the **Sonic Staff** (sonic boom, chain hits), the **Dash Charm** (double dash, leaves a decoy of you)
+  and the **Sculk Hammer** (charged ground slam, exploding sculk tendrils). **Awaken** each one at a smithing table with the
+  other two bosses' shards.
+- Combine all three cores into a **Sift Beacon Gem** and inlay it into a chestplate: everyone within 8 blocks is immune to
+  Soul Deprivation.
+- **Soulite**, beyond netherite: forge Soulite Ingots from netherite and all three bosses' shards, then upgrade netherite gear.
+  Every piece carries a boss power — sonic chains on the sword, exploding sculk tendrils on the axe, glowing enemies, a decoy
+  that saves you at low health, sculk thorns, walking on Spirit Liquid — and the full set makes you immune to Soul Deprivation.
+- An advancement line guides you from your first step into The Sift to the beacon.
 
 ## Blocks
 
@@ -139,6 +156,8 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | **柳絮林地** | 赤紅覆蓋地層岩、深淵地層岩 | 靈魂柳與罕見的巨型垂柳、最多池塘、滿地花草、Boss 競技場 |
 | **琥珀沙丘** | 琥珀沙、淺沙、漂白砂岩 | 稜線沙丘、砂岩圓台、龍舌蘭與綠洲池塘、Boss 競技場 |
 
+每個生態域都藏著自己的遺跡與寶箱：赤紅的**地層神殿**、頂著靈魂晶塊的**深淵方尖碑**、架在高腳上的**靈柳小屋**、半埋在沙裡的**沙丘古墓**；地底深處還有會發光的**靈魂晶洞**。
+
 ### 靈液與靈魂剝奪
 池塘裡是會發光的**靈液**，可以游泳也能用桶子裝。但碰到它會陷入**靈魂剝奪**：血量被抽到原本的五分之一；
 在這期間再受到任何傷害，被抽走的血量會**碎裂**消散，最大生命值被鎖住。水和雨都沒有用，只有**靈魂解藥**能把失去的血量拿回來。
@@ -152,6 +171,16 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 三隻 Boss：**調和者**（漂浮的觸手施法者）、**君王**（會召喚分身的戴冠劍士）、**幽匿巨怪**（巨拳與滾動幽匿方塊彈幕）。
 血量低於一半會狂暴並召喚援軍，脫戰會回血、會守住競技場，死亡時有 3 秒的倒地演出。
+
+### 進度與裝備
+- 地下的**篩金石礦**、紫晶深板岩區的**紫龍晶簇**。
+- **篩金石工具與盔甲**（介於鐵和鑽石之間），穿滿一套時靈液只抽走一半的血量。
+- 每隻 Boss 必掉**核心**與**碎片**；在 Boss 競技場附近放下**篩靈祭壇**，用**召喚印記**就能再次召喚 Boss。
+- 三把 Boss 武器：**音波法杖**（音爆、連鎖攻擊）、**衝刺護符**（二段衝刺並留下你的分身）、**重錘**（蓄力砸地、會爆炸的幽匿藤蔓）；
+  在鍛造台用另外兩隻 Boss 的碎片讓它們**覺醒**。
+- 三種核心合成**篩靈信標寶石**，鑲嵌到胸甲上，8 格內的玩家都免疫靈魂剝奪。
+- 比獄髓更強的**靈髓**：用獄髓錠加三隻 Boss 的碎片鍛造靈髓錠，再把獄髓裝備升級。每件都帶著 Boss 的能力：劍的音波連鎖、斧的爆炸幽匿藤蔓、讓敵人發光、瀕死時留下分身、幽匿荊棘、在靈液上行走；整套免疫靈魂剝奪。
+- 一條成就線，從踏進篩靈界一路引導到篩靈信標。
 
 ### 方塊
 450 種以上的方塊，多數有多種外觀階段可在創造模式分頁中挑選：地層岩、覆蓋石、板岩、砂岩、大理石與礦石；

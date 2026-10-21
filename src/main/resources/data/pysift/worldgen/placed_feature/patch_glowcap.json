@@ -57,7 +57,7 @@
           },
           {
             "type": "minecraft:would_survive",
-            "state": "pysift:glowcap"
+            "state": "pysift:gloomcap"
           }
         ]
       }

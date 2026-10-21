@@ -47,7 +47,8 @@ Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
 - `PySift.java`：主入口，註冊狀態效果、靈魂灼燒、方塊、流體、植被、靈柳木組、靈魂晶塊、粒子、世界生成特徵、實體、物品與傳送門儀式
 - `block/`：`ModBlocks`（核心方塊與 38 組建材組、`SIFT_PORTAL`）、`ModVegetation`（植被）、`SoulWillowWood`（靈柳木建材組）、`SoulCrystal`、`SiftPortalBlock`、`SiftPortalRitual`
 - `fluid/` & `effect/`：`ModFluids`（靈液 `spirit_liquid`）、`ModEffects`（靈魂剝奪 `soul_deprivation`）、`SoulBurn`（血量抽離、靈魂碎裂與解藥機制）
-- `worldgen/`：`SoulWillowTrunkPlacer`、`SoulWillowFoliagePlacer`、`SoulWillowVineDecorator`、`StrataSpireFeature`、`BossArenaFeature`（維度與 4 個生態系 JSON 由 `tools/worldgen/build_the_sift.py` 產生）
+- `progression/`：第 1 階段進度循環（`ModProgression` 礦石與材料、`SiftiteGear`、`BossRewards`、`SiftAltarBlock`、`BossWeapons` 與三把武器、`SiftBeacon`、`SoulWard`）；資源由 `tools/progression/build_progression.py` 產生，規格見 MODDING_ROADMAP 4.5
+- `worldgen/`：`SoulWillowTrunkPlacer`、`SoulWillowFoliagePlacer`、`SoulWillowVineDecorator`、`StrataSpireFeature`、`BossArenaFeature`（維度與 4 個生態系 JSON 由 `tools/worldgen/build_the_sift.py` 產生；四種結構與戰利品由 `tools/worldgen/build_structures.py` 產生，26.3 結構檔調色盤欄位是 `id`／`properties`）
 - `item/ModItems.java`：核心材料、靈魂解藥、24 款生怪蛋、三個創造模式分頁（`pysift_blocks`、`pysift_unused_blocks`、`pysift_items`）
 - `entity/`：`ModEntities`、`BossMechanics`、`ai/`（11 個技能與戰術 Goal）、`projectile/`（飛鏢、投石）、`mob/`（24 款生物，共 25 個類別含 `PysiftSwarmEntity`）
 - `src/client/java/pryuan05/pysift/`：`PySiftClient`、`client/`（`PysiftUniversalGeoModel`、`PysiftUniversalGeoRenderer`、`SlabberRenderer`、`SiftPortalBlockEntityRenderer`、`SiftPortalTransition`、`SoulDeprivationVision` 等）

@@ -51,6 +51,15 @@
                 "min_inclusive": 1
               },
               "weight": 10
+            },
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 15
             }
           ]
         }
@@ -58,7 +67,18 @@
       "modifier": "overlay"
     },
     "minecraft:visual/sky_color": "#5cd6c6",
-    "minecraft:visual/fog_color": "#8fe2cc"
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "pysift:soul_wisp"
+          },
+          "probability": 0.002
+        }
+      ]
+    }
   },
   "carvers": [],
   "downfall": 0.2,
@@ -72,14 +92,18 @@
     ],
     [
       "pysift:spire_violet_slate_abyss",
-      "pysift:boss_arena_violet_slate_abyss"
+      "pysift:boss_arena_violet_slate_abyss",
+      "pysift:soul_geode"
     ],
     [],
     [],
     [],
     [
       "pysift:soul_crystal_surface",
-      "pysift:soul_crystal_buried"
+      "pysift:soul_crystal_buried",
+      "pysift:siftite_ore",
+      "pysift:charoite_cluster_surface",
+      "pysift:charoite_cluster_cave"
     ],
     [],
     [],
@@ -92,11 +116,14 @@
       "pysift:patch_dusk_bloom",
       "pysift:patch_violet_golden_bloom",
       "pysift:patch_curled_fern_blue",
+      "pysift:patch_tall_glow_grass",
       "pysift:patch_curled_fern_white",
       "pysift:patch_giant_canopy_blue",
       "pysift:patch_giant_canopy_white",
       "pysift:cliff_vines_violet_abyss",
-      "pysift:patch_tall_glow_grass"
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:patch_violet_teal_grass"
     ],
     []
   ],

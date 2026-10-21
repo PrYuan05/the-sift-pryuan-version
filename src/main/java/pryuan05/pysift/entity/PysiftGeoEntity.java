@@ -114,10 +114,15 @@ public abstract class PysiftGeoEntity extends PathfinderMob implements GeoEntity
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>("movement", 5, state -> {
+        // 出生動畫這類「整段接管」的動畫：過場 0 tick，第一格就直接是動畫的起始姿勢
+        // （例如歌者一出生就在地底，不會先站在地面上再滑下去）；播放期間 movement 控制器暫停。
+        controllers.add(new AnimationController<>("held", 0, state -> {
             String held = heldMovementAnimation();
-            if (held != null) {
-                return state.setAndContinue(RawAnimation.begin().thenPlayAndHold(anim(held)));
+            return held != null ? state.setAndContinue(RawAnimation.begin().thenPlayAndHold(anim(held))) : PlayState.STOP;
+        }));
+        controllers.add(new AnimationController<>("movement", 5, state -> {
+            if (heldMovementAnimation() != null) {
+                return PlayState.STOP;
             }
             if (hasDeathAnimation() && isDeadOrDying()) {
                 return state.setAndContinue(RawAnimation.begin().thenPlayAndHold(anim("death")));

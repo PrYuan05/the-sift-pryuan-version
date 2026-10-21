@@ -74,7 +74,7 @@ def forked_stalk():
         for d in ("east", "west"):   # 主幹有厚度：側面也貼整欄
             faces[d]["uv"] = [u0, faces[d]["uv"][1], u0 + 3, faces[d]["uv"][3]]
         faces["up"] = {"uv": [u0, 8, u0 + 2, 10], "texture": "#0"}
-        return {"from": list(frm), "to": list(to), "shade": False, "faces": faces}
+        return {"from": list(frm), "to": list(to), "shade_direction_override": "up", "faces": faces}
     els = [stick((7, 0, 7), (9, 13, 9), 1, "base"), stick((7.25, 13, 7.25), (8.75, 15, 8.75), 2, "tip")]
     for side, y, length, up in ((-1, 5, 3, 4), (1, 8, 3, 4), (-1, 10, 2, 3), (1, 3, 2, 3)):
         x0 = 7 if side < 0 else 9

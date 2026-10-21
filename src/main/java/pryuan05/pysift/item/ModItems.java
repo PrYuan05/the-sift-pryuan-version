@@ -27,7 +27,7 @@ public class ModItems {
     /** 靈魂解藥：解除靈魂剝奪、歸還被抽走的血量（SoulAntidoteItem）。 */
     public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
 
-    // 投擲物的外觀物品（使用者繪製的圖示；不放進創造模式分頁）
+    // 投擲物的外觀物品（使用者繪製的圖示；只有君王羽刃放在物品分頁）
     public static final Item HURLER_ROCK = registerItem("hurler_rock", Item::new);
     public static final Item MONARCH_FEATHER = registerItem("monarch_feather", Item::new);
     public static final Item TRAPPER_NET = registerItem("trapper_net", Item::new);
@@ -127,6 +127,8 @@ public class ModItems {
                 output.accept(CHAROITE);
                 output.accept(SIFTITE_INGOT);
                 output.accept(SOUL_ANTIDOTE);
+                // 君王羽刃（投石、陷阱師的網只當投擲物外觀，不放進分頁）
+                output.accept(MONARCH_FEATHER);
                 // Spawn Eggs
                 for (Item egg : SPAWN_EGGS) {
                     output.accept(egg);

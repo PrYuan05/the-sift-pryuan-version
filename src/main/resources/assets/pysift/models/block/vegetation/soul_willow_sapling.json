@@ -1,276 +1,276 @@
 {
-  "format_version": "26.3",
-  "ambientocclusion": false,
-  "textures": {
-    "cross": "minecraft:block/pale_oak_sapling",
-    "particle": "minecraft:block/pale_oak_sapling"
-  },
-  "elements": [
-    {
-      "from": [
-        0.8,
-        0,
-        8
-      ],
-      "to": [
-        15.2,
-        16,
-        8
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          8,
-          8,
-          8
-        ],
-        "axis": "y",
-        "angle": 45,
-        "rescale": true
-      },
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    },
-    {
-      "from": [
-        8,
-        0,
-        0.8
-      ],
-      "to": [
-        8,
-        16,
-        15.2
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          8,
-          8,
-          8
-        ],
-        "axis": "y",
-        "angle": 45,
-        "rescale": true
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    },
-    {
-      "from": [
-        1,
-        0,
-        12.2
-      ],
-      "to": [
-        15,
-        15,
-        12.2
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          8,
-          0,
-          12.2
-        ],
-        "axis": "x",
-        "angle": -10.0
-      },
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    },
-    {
-      "from": [
-        1,
-        0,
-        3.8
-      ],
-      "to": [
-        15,
-        15,
-        3.8
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          8,
-          0,
-          3.8
-        ],
-        "axis": "x",
-        "angle": 10.0
-      },
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    },
-    {
-      "from": [
-        12.2,
-        0,
-        1
-      ],
-      "to": [
-        12.2,
-        15,
-        15
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          12.2,
-          0,
-          8
-        ],
-        "axis": "z",
-        "angle": 10.0
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    },
-    {
-      "from": [
-        3.8,
-        0,
-        1
-      ],
-      "to": [
-        3.8,
-        15,
-        15
-      ],
-      "shade": false,
-      "rotation": {
-        "origin": [
-          3.8,
-          0,
-          8
-        ],
-        "axis": "z",
-        "angle": -10.0
-      },
-      "faces": {
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#cross",
-          "tintindex": 0
-        }
-      }
-    }
-  ]
+	"format_version": "26.3",
+	"ambientocclusion": false,
+	"textures": {
+		"cross": "minecraft:block/pale_oak_sapling",
+		"particle": "minecraft:block/pale_oak_sapling"
+	},
+	"elements": [
+		{
+			"from": [
+				0.8,
+				0,
+				8
+			],
+			"to": [
+				15.2,
+				16,
+				8
+			],
+			"rotation": {
+				"origin": [
+					8,
+					8,
+					8
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				8,
+				0,
+				0.8
+			],
+			"to": [
+				8,
+				16,
+				15.2
+			],
+			"rotation": {
+				"origin": [
+					8,
+					8,
+					8
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				1,
+				0,
+				12.2
+			],
+			"to": [
+				15,
+				15,
+				12.2
+			],
+			"rotation": {
+				"origin": [
+					8,
+					0,
+					12.2
+				],
+				"axis": "x",
+				"angle": -10.0
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				1,
+				0,
+				3.8
+			],
+			"to": [
+				15,
+				15,
+				3.8
+			],
+			"rotation": {
+				"origin": [
+					8,
+					0,
+					3.8
+				],
+				"axis": "x",
+				"angle": 10.0
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				12.2,
+				0,
+				1
+			],
+			"to": [
+				12.2,
+				15,
+				15
+			],
+			"rotation": {
+				"origin": [
+					12.2,
+					0,
+					8
+				],
+				"axis": "z",
+				"angle": 10.0
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				3.8,
+				0,
+				1
+			],
+			"to": [
+				3.8,
+				15,
+				15
+			],
+			"rotation": {
+				"origin": [
+					3.8,
+					0,
+					8
+				],
+				"axis": "z",
+				"angle": -10.0
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			},
+			"shade_direction_override": "up"
+		}
+	]
 }

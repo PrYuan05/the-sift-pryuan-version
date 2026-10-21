@@ -59,13 +59,35 @@
               },
               "weight": 15
             }
+          ],
+          "creature": [
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 20
+            }
           ]
         }
       },
       "modifier": "overlay"
     },
     "minecraft:visual/sky_color": "#5cd6c6",
-    "minecraft:visual/fog_color": "#8fe2cc"
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:crimson_spore"
+          },
+          "probability": 0.012
+        }
+      ]
+    }
   },
   "carvers": [],
   "downfall": 0.0,
@@ -78,12 +100,15 @@
       "pysift:spirit_pond_crimson_strata_canyon"
     ],
     [
-      "pysift:spire_crimson_strata_canyon"
+      "pysift:spire_crimson_strata_canyon",
+      "pysift:soul_geode"
     ],
     [],
     [],
     [],
-    [],
+    [
+      "pysift:siftite_ore"
+    ],
     [],
     [],
     [
@@ -94,11 +119,15 @@
       "pysift:patch_sun_bloom_canyon",
       "pysift:patch_golden_bloom_sparse",
       "pysift:patch_crimson_short_sprouts",
+      "pysift:patch_canyon_coral_leaf_carpet",
       "pysift:patch_orange_rift_grass",
       "pysift:patch_orange_tall_rift_grass",
       "pysift:patch_canyon_agave_rosette",
       "pysift:cliff_vines_crimson_canyon",
-      "pysift:patch_canyon_coral_leaf_carpet"
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:patch_canyon_teal_grass",
+      "pysift:patch_canyon_tall_teal_grass"
     ],
     []
   ],

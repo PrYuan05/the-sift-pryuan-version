@@ -403,6 +403,9 @@
     "pysift:stone_variant_brick_slab",
     "pysift:stone_variant_brick_stairs",
     "pysift:stone_variant_brick_wall",
-    "pysift:soul_crystal_block"
+    "pysift:soul_crystal_block",
+    "pysift:siftite_ore",
+    "pysift:charoite_cluster",
+    "pysift:sift_altar"
   ]
 }

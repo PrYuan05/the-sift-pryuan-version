@@ -100,10 +100,17 @@ def provider(block, **props):
     return s if isinstance(s, dict) else {"id": s}
 
 
-def patch(name, plant, patches, tries, noisy=True, **props):
+# 青色地面：柔和青碧草只長在這些方塊上，其他柔和草不長在這些方塊上（使用者：草的顏色要符合地板）
+TEAL_FLOORS = ["pysift:capped_crimson_strata", "pysift:abyssal_strata", "pysift:silted_strata"]
+SOFT_GRASS = {"crimson_short_grass", "crimson_tall_grass", "soft_violet_short_grass", "soft_violet_tall_grass",
+              "soft_dune_short_grass", "soft_dune_tall_grass"}
+
+
+def patch(name, plant, patches, tries, noisy=True, floor_in=None, **props):
     """A plant patch: `patches` centres per chunk, `tries` placements around each centre ((lo, hi) = random per centre).
     noisy=True (default) clusters the patches like vanilla plains grass: `patches` centres where the noise is high,
-    a third of that where it is low, so every area looks a little different."""
+    a third of that where it is low, so every area looks a little different.
+    floor_in: only place on these blocks (the block below). Soft grasses (SOFT_GRASS) automatically skip TEAL_FLOORS."""
     st = state(plant, **props)
     centres = ({"type": "minecraft:noise_threshold_count", "above_noise": patches, "below_noise": max(1, patches // 3),
                 "noise_level": -0.6} if noisy else {"type": "minecraft:count", "count": patches})
@@ -115,8 +122,17 @@ def patch(name, plant, patches, tries, noisy=True, **props):
         {"type": "minecraft:count", "count": tries}, SPREAD,
         {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
             {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"},
-            {"type": "minecraft:would_survive", "state": st}]}}]})
+            {"type": "minecraft:would_survive", "state": st}] + floor_predicates(plant, floor_in)}}]})
     return f"pysift:{name}"
+
+
+def floor_predicates(plant, floor_in):
+    below = lambda blocks: {"type": "minecraft:matching_blocks", "offset": [0, -1, 0], "blocks": blocks}
+    if floor_in:
+        return [below(floor_in)]
+    if plant in SOFT_GRASS:
+        return [{"type": "minecraft:not", "predicate": below(TEAL_FLOORS)}]
+    return []
 
 
 def carpet_patch(name, patches, tries):
@@ -210,26 +226,29 @@ VEGETATION = {
     # ember_grass / abyss_grass / puff_grass are coloured by the floor under them (client FloorTint), so the same plant
     # is orange on crimson rock, teal on violet rock, pink on pink loam (reference video, The Sift 6:34 on).
     # (lo, hi) tries are random per patch centre; every patch is noise-clustered (patch() default).
-    "crimson_strata_canyon": [patch("patch_ember_grass", "ember_grass", 12, (48, 80)),
-                              patch("patch_tall_ember_grass", "tall_ember_grass", 5, (16, 32), half="lower"),
+    "crimson_strata_canyon": [patch("patch_ember_grass", "crimson_short_grass", 12, (48, 80)),
+                              patch("patch_tall_ember_grass", "crimson_tall_grass", 5, (16, 32), half="lower"),
                               patch("patch_canyon_puff_grass", "puff_grass", 2, (6, 14), half="lower"),
-                              patch("patch_canyon_abyss_grass", "abyss_grass", 3, (10, 24)),
+                              patch("patch_canyon_abyss_grass", "crimson_short_grass", 3, (10, 24)),
                               patch("patch_sun_bloom_canyon", "sun_bloom", 2, (6, 12)),
                               patch("patch_golden_bloom_sparse", "golden_bloom", 2, (6, 12)),
                               # 裂隙植被（使用者提供的 rift_dimension_flora_assets）
+                              patch("patch_canyon_teal_grass", "soft_teal_short_grass", 8, (32, 56), floor_in=TEAL_FLOORS),
+                              patch("patch_canyon_tall_teal_grass", "soft_teal_tall_grass", 4, (12, 24), half="lower", floor_in=TEAL_FLOORS),
                               patch("patch_crimson_short_sprouts", "crimson_short_sprouts", 4, (16, 32)),
                               carpet_patch("patch_canyon_coral_leaf_carpet", 2, (6, 12)),
                               patch("patch_orange_rift_grass", "orange_rift_grass", 3, (12, 24)),
                               patch("patch_orange_tall_rift_grass", "orange_tall_rift_grass", 2, (6, 12), half="lower"),
                               patch("patch_canyon_agave_rosette", "agave_rosette", 1, (2, 5)),
                               cliff_vines("cliff_vines_crimson_canyon", tries=54, min_len=3, max_len=8, glow_chance=0.10, count=9)],
-    "violet_slate_abyss": [patch("patch_abyss_grass", "abyss_grass", 12, (48, 80)),
-                           patch("patch_violet_ember_grass", "ember_grass", 4, (16, 32)),
+    "violet_slate_abyss": [patch("patch_abyss_grass", "soft_violet_short_grass", 12, (48, 80)),
+                           patch("patch_violet_ember_grass", "soft_violet_tall_grass", 4, (16, 32), half="lower"),
                            patch("patch_violet_puff_grass", "puff_grass", 4, (10, 20), half="lower"),
-                           patch("patch_glowcap", "glowcap", 3, (6, 12)),
+                           patch("patch_glowcap", "gloomcap", 3, (6, 12)),
                            patch("patch_bone_spire", "bone_spire", 2, (4, 10)),
                            patch("patch_dusk_bloom", "dusk_bloom", 2, (6, 12)),
                            patch("patch_violet_golden_bloom", "golden_bloom", 1, (4, 8)),
+                           patch("patch_violet_teal_grass", "soft_teal_short_grass", 3, (12, 24), floor_in=TEAL_FLOORS),
                            patch("patch_curled_fern_blue", "curled_fern_blue", 3, (8, 16)),
                            patch("patch_tall_glow_grass", "tall_glow_grass", 3, (8, 16), half="lower"),
                            patch("patch_curled_fern_white", "curled_fern_white", 2, (6, 12)),
@@ -238,18 +257,20 @@ VEGETATION = {
                            cliff_vines("cliff_vines_violet_abyss", tries=48, min_len=3, max_len=7, glow_chance=0.35, count=7)],
     "willow_grove": [trees("soul_willows_giant", SOUL_WILLOW_GIANT, {"type": "minecraft:rarity_filter", "chance": 16}),
                      trees("soul_willows", SOUL_WILLOW, {"type": "minecraft:count", "count": uniform(1, 2)}),
-                     patch("patch_grove_ember_grass", "ember_grass", 8, (32, 56)),
-                     patch("patch_grove_abyss_grass", "abyss_grass", 6, (24, 48)),
+                     patch("patch_grove_ember_grass", "crimson_short_grass", 8, (32, 56)),
+                     patch("patch_grove_abyss_grass", "crimson_short_grass", 6, (24, 48)),
                      patch("patch_grove_puff_grass", "puff_grass", 3, (8, 16), half="lower"),
-                     patch("patch_humus_grass", "humus_grass", 4, (16, 32)),
-                     patch("patch_tall_humus_grass", "tall_humus_grass", 2, (8, 16), half="lower"),
+                     patch("patch_humus_grass", "crimson_short_grass", 4, (16, 32)),
+                     patch("patch_tall_humus_grass", "crimson_tall_grass", 2, (8, 16), half="lower"),
                      patch("patch_humus_fern", "humus_fern", 3, (8, 16)),
                      patch("patch_humus_bush", "humus_bush", 2, (4, 10)),
-                     patch("patch_grove_glowcap", "glowcap", 2, (4, 10)),
+                     patch("patch_grove_glowcap", "gloomcap", 2, (4, 10)),
                      patch("patch_sun_bloom", "sun_bloom", 2, (6, 12)),
                      patch("patch_rose_bloom", "rose_bloom", 2, (6, 12)),
                      patch("patch_grove_dusk_bloom", "dusk_bloom", 1, (4, 10)),
                      patch("patch_golden_bloom", "golden_bloom", 2, (6, 12)),
+                     patch("patch_grove_teal_grass", "soft_teal_short_grass", 6, (24, 40), floor_in=TEAL_FLOORS),
+                     patch("patch_grove_tall_teal_grass", "soft_teal_tall_grass", 2, (8, 16), half="lower", floor_in=TEAL_FLOORS),
                      patch("patch_mint_rift_grass", "mint_rift_grass", 4, (16, 32)),
                      patch("patch_grove_tall_glow_grass", "tall_glow_grass", 2, (6, 12), half="lower"),
                      carpet_patch("patch_coral_leaf_carpet", 3, (8, 16)),
@@ -257,9 +278,10 @@ VEGETATION = {
                      patch("patch_giant_canopy_green", "giant_canopy_green", 1, (2, 5)),
                      patch("patch_grove_clustered_yellow_flowers", "clustered_yellow_flowers", 1, (4, 8)),
                      cliff_vines("cliff_vines_willow_grove", tries=64, min_len=4, max_len=9, glow_chance=0.18, count=12)],
-    "amber_dunes": [patch("patch_dune_tall_ember_grass", "tall_ember_grass", 2, (6, 12), half="lower"),
-                    patch("patch_dune_ember_grass", "ember_grass", 3, (10, 20)),
+    "amber_dunes": [patch("patch_dune_tall_ember_grass", "soft_dune_tall_grass", 2, (6, 12), half="lower"),
+                    patch("patch_dune_ember_grass", "soft_dune_short_grass", 3, (10, 20)),
                     patch("patch_dune_golden_bloom", "golden_bloom", 1, (4, 8)),
+                    patch("patch_dune_teal_grass", "soft_teal_short_grass", 2, (8, 16), floor_in=TEAL_FLOORS),
                     patch("patch_yellow_short_grass", "yellow_short_grass", 4, (12, 24)),
                     patch("patch_dune_agave_rosette", "agave_rosette", 1, (2, 5)),
                     patch("patch_olive_forked_stalk", "olive_forked_stalk", 1, (2, 5)),
@@ -408,6 +430,97 @@ def soul_crystal_ore(name, size, count, placement):
     return f"pysift:{name}"
 
 
+# ---- progression ores (ModProgression.java) ----
+def siftite_ore(name):
+    """Siftite ore in the deep stone of every biome (y -40..40), vanilla iron-like veins."""
+    targets = [{"state": "pysift:siftite_ore",
+                "target": {"predicate_type": "minecraft:block_match", "block": f"pysift:{b}"}}
+               for b in ("void_stone", "dark_slate", "abyssal_strata", "silted_strata", "bleached_sandstone")]
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:ore", "discard_chance_on_air_exposure": 0.0,
+                                               "size": 8, "targets": targets})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": 6}, {"type": "minecraft:in_square"},   # ~30 ore blocks per chunk
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:trapezoid",
+                                                       "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 40}}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+def charoite_clusters(name, count, placement):
+    """Charoite clusters standing on the floor (facing up), on the surface or on cave floors."""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:simple_block",
+                                               "to_place": provider("charoite_cluster", facing="up", waterlogged="false")})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"}, *placement,
+        {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+            {"type": "minecraft:matching_blocks", "blocks": ["minecraft:air", "minecraft:cave_air"]},
+            {"type": "minecraft:solid", "offset": [0, -1, 0]}]}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+SIFTITE_ORE = siftite_ore("siftite_ore")
+
+def soul_geode(name):
+    """Soul crystal geodes in the deep void stone (phase 2): void obsidian shell, corrupted slate, glowing soul crystal inside."""
+    wj(D / f"worldgen/feature/{name}.json", {
+        "type": "minecraft:geode",
+        "blocks": {"filling_provider": {"id": "minecraft:air"}, "inner_layer_provider": provider("soul_crystal_block"),
+                   "alternate_inner_layer_provider": provider("soul_crystal_block"),
+                   "middle_layer_provider": provider("corrupted_slate", corruption=1),
+                   "outer_layer_provider": provider("void_obsidian"),
+                   "inner_placements": [{"id": "minecraft:air"}],
+                   "cannot_replace": "#minecraft:features_cannot_replace", "invalid_blocks": "#minecraft:geode_invalid_blocks"},
+        "layers": {}, "crack": {"generate_crack_chance": 0.6},
+        "outer_wall_distance": {"type": "minecraft:uniform", "min_inclusive": 4, "max_inclusive": 6},
+        "use_alternate_layer0_chance": 0.0, "invalid_blocks_threshold": 1})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:rarity_filter", "chance": 18}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                       "min_inclusive": {"absolute": -50}, "max_inclusive": {"absolute": 25}}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+SOUL_GEODE = soul_geode("soul_geode")
+
+# ambient particles per biome (phase 2), as vanilla nether biomes do it
+AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
+           "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
+           "willow_grove": ("minecraft:spore_blossom_air", 0.012),
+           "amber_dunes": ("minecraft:white_ash", 0.015)}
+
+CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                             "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 55}}},
+              {"type": "minecraft:environment_scan", "direction_of_search": "down", "max_steps": 12,
+               "target_condition": {"type": "minecraft:solid"},
+               "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+              {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]   # from the solid floor to the air above it
+CHAROITE = [charoite_clusters("charoite_cluster_surface", 2, [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}]),
+            charoite_clusters("charoite_cluster_cave", 24, CAVE_FLOOR)]
+
+def farm_plant(name, to_place, count, placement, extra_predicates, rarity=None):
+    """Phase 3 farming plants (SiftFarming.java), placed like vanilla berry bushes / mushrooms."""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:simple_block", "to_place": to_place})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        *([{"type": "minecraft:rarity_filter", "chance": rarity}] if rarity else []),
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"}, *placement,
+        {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+            {"type": "minecraft:matching_blocks", "blocks": ["minecraft:air", "minecraft:cave_air"]},
+            {"type": "minecraft:solid", "offset": [0, -1, 0]}, *extra_predicates]}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+NEAR_SPIRIT = {"type": "minecraft:any_of", "predicates": [   # a spirit pond next to (or 2 blocks from) the bush, one lower
+    {"type": "minecraft:matching_fluids", "fluids": ["pysift:spirit_liquid", "pysift:flowing_spirit_liquid"], "offset": [dx, -1, dz]}
+    for dx in range(-2, 3) for dz in range(-2, 3) if (dx, dz) != (0, 0)]}
+FARM_FEATURES = [
+    farm_plant("soul_berry_bush_pond", provider("soul_berry_bush", age="3"), 48,
+               [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}], [NEAR_SPIRIT], rarity=2),
+    farm_plant("gloomcap_cave", provider("gloomcap"), 10, CAVE_FLOOR, []),
+]
+
 ORE_FEATURES = {"violet_slate_abyss": [
     soul_crystal_ore("soul_crystal_surface", 5, uniform(0, 1), [
         {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
@@ -419,15 +532,18 @@ ORE_FEATURES = {"violet_slate_abyss": [
 
 def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
     wj(D / f"worldgen/biome/{name}.json", {
-        "attributes": {**spawn_attr, "minecraft:visual/sky_color": SKY_COLOR, "minecraft:visual/fog_color": SKY_FOG},
+        "attributes": {**spawn_attr, "minecraft:visual/sky_color": SKY_COLOR, "minecraft:visual/fog_color": SKY_FOG,
+                       **({"minecraft:visual/ambient_particles": {"modifier": "append", "argument": [
+                           {"particle": {"type": AMBIENT[name][0]}, "probability": AMBIENT[name][1]}]}} if name in AMBIENT else {})},
         "carvers": [],
         "downfall": downfall,
         "effects": {"water_color": water},
         # step 1 = lakes (spirit ponds), step 2 = local_modifications (spires, like vanilla boulders),
         # step 9 = vegetal_decoration
         # step 6 = underground_ores
-        "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, [])] + [[], [], [], ORE_FEATURES.get(name, []), [], []]
-                    + [VEGETATION.get(name, []), []],
+        "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE]] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
+                    + (CHAROITE if name == "violet_slate_abyss" else []), [], []]
+                    + [VEGETATION.get(name, []) + FARM_FEATURES, []],
         "has_precipitation": rain,
         "temperature": temperature,
     })
@@ -435,16 +551,17 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
 
 biome("crimson_strata_canyon", 2.0, 0.0, False, "#5a1f33", "#3a1426", "#7a3b55",
       spawns(monster=[("dartback", 50, 1, 3), ("fusefly", 40, 1, 2), ("prickle", 30, 1, 2),
-                      ("nester", 8, 1, 1), ("seedling", 15, 2, 4), ("sprout", 15, 2, 3)]))
+                      ("nester", 8, 1, 1), ("seedling", 15, 2, 4), ("sprout", 15, 2, 3)],
+             creature=[("blub", 20, 2, 3)]))
 biome("violet_slate_abyss", 0.3, 0.2, False, "#2e2838", "#1d1828", "#4a3d6b",
       spawns(monster=[("sentinel", 20, 1, 1), ("stalker", 30, 1, 2), ("tuner", 15, 1, 1), ("hunter", 10, 1, 1)],
-             creature=[("echo_golem", 10, 1, 1)]))          # each Echo Golem brings 1-2 Singers (EchoGolemEntity)
+             creature=[("echo_golem", 10, 1, 1), ("blub", 15, 2, 3)]))          # each Echo Golem brings 1-2 Singers (EchoGolemEntity)
 biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
       spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3)],
              monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
       spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
-             creature=[("lootkin", 6, 1, 1)]))
+             creature=[("lootkin", 6, 1, 1), ("blub", 25, 2, 4)]))
 
 # ---- material (surface) rule ----
 ON_FLOOR, NOT_UNDERWATER = "minecraft:on_floor", "minecraft:not_underwater"

@@ -11,11 +11,13 @@ import pryuan05.pysift.block.entity.ModBlockEntities;
 import pryuan05.pysift.block.ModVegetation;
 import pryuan05.pysift.block.SoulCrystal;
 import pryuan05.pysift.block.SoulWillowWood;
+import pryuan05.pysift.progression.ModProgression;
 import pryuan05.pysift.particle.ModParticles;
 import pryuan05.pysift.effect.ModEffects;
 import pryuan05.pysift.entity.ModEntities;
 import pryuan05.pysift.fluid.ModFluids;
 import pryuan05.pysift.item.ModItems;
+import pryuan05.pysift.sound.ModSounds;
 import pryuan05.pysift.worldgen.SoulWillowFoliagePlacer;
 import pryuan05.pysift.worldgen.SoulWillowTrunkPlacer;
 import pryuan05.pysift.worldgen.SoulWillowVineDecorator;
@@ -36,6 +38,7 @@ public class PySift implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing The Sift (pysift)...");
         ModEffects.registerModEffects();
+        ModSounds.register();
         SoulBurn.register();                 // 靈魂火灼燒：靈液懲罰、靈魂碎裂、解藥
         ModBlocks.registerModBlocks();
         ModBlockEntities.registerModBlockEntities();
@@ -43,6 +46,7 @@ public class PySift implements ModInitializer {
         ModVegetation.registerModVegetation();
         SoulWillowWood.register();
         SoulCrystal.register();
+        ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具
         ModParticles.register();
         SoulWillowTrunkPlacer.register();
         SoulWillowFoliagePlacer.register();

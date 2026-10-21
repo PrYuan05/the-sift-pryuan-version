@@ -53,6 +53,16 @@ public final class ModEffects {
             if (entity.getRandom().nextInt(3) == 0) {
                 level.sendParticles(ParticleTypes.SCULK_SOUL, entity.getX(), entity.getY() + h * 0.7, entity.getZ(), 1, w, h * 0.2, w, 0.02);
             }
+            // 怪物版（Boss 武器造成）：每 4 tick 流失 0.25 點生命，約每秒 1.25 點；不觸發無敵時間，所以不會擋掉武器的傷害。
+            // 受到的傷害 +30% 在 SoulDeprivationDamageMixin。玩家的規則見 SoulBurn。
+            if (!(entity instanceof net.minecraft.world.entity.player.Player) && entity.isAlive()) {
+                pryuan05.pysift.progression.BossWeapons.markDeprived(entity);   // 身上燃起藍色靈魂火，效果結束時熄滅
+                if (entity.getHealth() > 0.25f) {
+                    entity.setHealth(entity.getHealth() - 0.25f);
+                } else {
+                    entity.hurtServer(level, level.damageSources().magic(), 1.0f);
+                }
+            }
             return true;
         }
     }

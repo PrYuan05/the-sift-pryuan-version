@@ -200,6 +200,8 @@
     "pysift:wilting_foliage",
     "pysift:sift_pink_loam",
     "pysift:sift_portal",
-    "pysift:soul_crystal_block"
+    "pysift:soul_crystal_block",
+    "pysift:siftite_ore",
+    "pysift:sift_altar"
   ]
 }

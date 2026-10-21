@@ -308,7 +308,13 @@ def texture_color(block_state, face):
                 mns, mpath = ref.split(":")
                 tex = json.loads((ROOT / f"src/main/resources/assets/{mns}/models/{mpath}.json").read_text(encoding="utf-8"))["textures"]
                 t = tex.get(face) or tex.get("all") or tex.get("side") or next(iter(tex.values()))
-                tns, tpath = t.split(":")
+                for _ in range(4):                          # follow "#side"-style references to the real texture
+                    if not t.startswith("#"):
+                        break
+                    t = tex.get(t[1:], "")
+                if not t or t.startswith("#"):
+                    break
+                tns, tpath = t.split(":") if ":" in t else ("minecraft", t)
                 png = ROOT / f"src/main/resources/assets/{tns}/textures/{tpath}.png"
                 if png.exists():
                     col = Image.open(png).convert("RGB").resize((1, 1), Image.Resampling.BOX).getpixel((0, 0))

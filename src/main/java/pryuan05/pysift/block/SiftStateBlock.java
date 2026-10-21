@@ -87,7 +87,9 @@ public class SiftStateBlock extends Block {
 
         @Override
         public BlockState getStateForPlacement(BlockPlaceContext context) {
-            return defaultBlockState().setValue(FACING, context.getClickedFace());
+            // 地面方塊：不管點哪一面放置，覆蓋層一律朝上（使用者：頂面不可以跟著放置方向轉）。
+            // FACING 屬性保留，指令或結構仍可指定其他方向。
+            return defaultBlockState().setValue(FACING, Direction.UP);
         }
 
         @Override

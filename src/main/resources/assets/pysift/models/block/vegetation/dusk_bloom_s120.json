@@ -51,7 +51,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -94,7 +94,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -137,7 +137,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -180,7 +180,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -222,7 +222,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -264,7 +264,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -306,7 +306,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -348,7 +348,7 @@
 					"texture": "#0"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		}
 	],
 	"ambientocclusion": false

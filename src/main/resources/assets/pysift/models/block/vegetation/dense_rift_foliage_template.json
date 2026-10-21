@@ -46,7 +46,8 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"name": "diag_2",
@@ -89,7 +90,8 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"name": "front_row",
@@ -131,7 +133,8 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"name": "back_row",
@@ -173,7 +176,8 @@
 					],
 					"texture": "#cross"
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		}
 	]
 }

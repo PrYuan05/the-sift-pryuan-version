@@ -1,5 +1,5 @@
 {
-	"parent": "pysift:block/vegetation/dense_rift_foliage_template",
+	"parent": "minecraft:block/cross",
 	"textures": {
 		"cross": "pysift:block/vegetation/crimson_short_grass"
 	}

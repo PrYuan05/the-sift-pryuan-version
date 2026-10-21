@@ -119,16 +119,17 @@ def cmd_clean(name):
 
 
 def cmd_flat(name):
-    """Light like vanilla plants (minecraft:block/cross): no ambient occlusion and no per-direction face shading, so
-    tilted blades are not darkened differently from each other."""
+    """Light like vanilla plants (26.3 minecraft:block/cross): no ambient occlusion and "shade_direction_override": "up" on
+    every element, so every face is lit like a top face (as bright as the ground) and tilted blades are not darkened
+    differently from each other. (The old "shade": false does not give the same result in 26.3.)"""
     path = MODELS / f"{name}.json"
     j = lj(path)
     j["ambientocclusion"] = False
     for e in j.get("elements", []):
-        e["shade"] = False
-        e.pop("shade_direction_override", None)
+        e.pop("shade", None)
+        e["shade_direction_override"] = "up"
     wj(path, j)
-    print(f"{name}: ambientocclusion off, shade off on {len(j.get('elements', []))} elements")
+    print(f"{name}: ambientocclusion off, shade_direction_override up on {len(j.get('elements', []))} elements")
 
 
 def cmd_tint(name):
@@ -161,9 +162,9 @@ def cross_elements(tinted):
     """The two diagonal planes of minecraft:block/cross (tinted_cross adds tintindex 0)."""
     face = lambda: {"uv": [0, 0, 16, 16], "texture": "#cross", **({"tintindex": 0} if tinted else {})}
     rot = lambda: {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True}
-    return [{"from": [0.8, 0, 8], "to": [15.2, 16, 8], "shade": False, "rotation": rot(),
+    return [{"from": [0.8, 0, 8], "to": [15.2, 16, 8], "shade_direction_override": "up", "rotation": rot(),
              "faces": {"north": face(), "south": face()}},
-            {"from": [8, 0, 0.8], "to": [8, 16, 15.2], "shade": False, "rotation": rot(),
+            {"from": [8, 0, 0.8], "to": [8, 16, 15.2], "shade_direction_override": "up", "rotation": rot(),
              "faces": {"east": face(), "west": face()}}]
 
 

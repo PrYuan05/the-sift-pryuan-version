@@ -1,6 +1,6 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "id": "pysift:ember_grass"
+    "id": "pysift:soft_dune_short_grass"
   }
 }

@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
+import java.util.Map;
+
 /**
  * 依腳下地板染色：讀植物下方那格（兩格高植物的上半讀下半的下方）的方塊，查 {@link FloorTints} 色表；
  * 查不到（例如種在原版方塊上、或物品）就用預設色。模型的面要有 tintindex 0 才會被染色。
@@ -18,9 +20,16 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 public final class FloorTint implements BlockTintSource {
     private static final int PATCH = 6;
     private final int fallback;
+    private final Map<String, int[]> table;
 
     public FloorTint(int fallback) {
+        this(fallback, FloorTints.COLORS);
+    }
+
+    /** 用另一張地面 → 顏色表。 */
+    public FloorTint(int fallback, Map<String, int[]> table) {
         this.fallback = fallback;
+        this.table = table;
     }
 
     @Override
@@ -34,7 +43,7 @@ public final class FloorTint implements BlockTintSource {
         if (state.hasProperty(DoublePlantBlock.HALF) && state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
             floor = floor.below();
         }
-        int[] colors = FloorTints.COLORS.get(BuiltInRegistries.BLOCK.getKey(level.getBlockState(floor).getBlock()).toString());
+        int[] colors = table.get(BuiltInRegistries.BLOCK.getKey(level.getBlockState(floor).getBlock()).toString());
         if (colors == null) {
             return this.fallback;
         }

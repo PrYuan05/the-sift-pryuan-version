@@ -57,7 +57,28 @@
           },
           {
             "type": "minecraft:would_survive",
-            "state": "pysift:ember_grass"
+            "state": {
+              "id": "pysift:soft_violet_tall_grass",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          },
+          {
+            "type": "minecraft:not",
+            "predicate": {
+              "type": "minecraft:matching_blocks",
+              "offset": [
+                0,
+                -1,
+                0
+              ],
+              "blocks": [
+                "pysift:capped_crimson_strata",
+                "pysift:abyssal_strata",
+                "pysift:silted_strata"
+              ]
+            }
           }
         ]
       }

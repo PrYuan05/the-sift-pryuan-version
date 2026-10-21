@@ -73,7 +73,7 @@ def ry(p, a):
 def box(frm, to, rot, origin, faces, light=False):
     e = {"from": [round(v, 3) for v in frm], "to": [round(v, 3) for v in to],
          "rotation": {"x": round(rot[0], 2), "y": round(rot[1], 2), "z": 0, "origin": [round(v, 3) for v in origin]},
-         "shade": False, "faces": faces}
+         "shade_direction_override": "up", "faces": faces}   # 26.3 原版植物的打光：每一面都當作朝上的面
     if light:
         e["light_emission"] = 15
     return e

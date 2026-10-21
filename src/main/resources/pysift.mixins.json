@@ -6,7 +6,9 @@
 		"ExampleMixin",
 		"FoodDataMixin",
 		"LiquidBlockMixin",
-		"LavaFluidMixin"
+		"LavaFluidMixin",
+		"SoulDeprivationDamageMixin",
+		"SouliteFluidWalkMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

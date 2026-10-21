@@ -53,7 +53,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -96,7 +96,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -138,7 +138,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -180,7 +180,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -224,7 +224,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -267,7 +267,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -310,7 +310,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -353,7 +353,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -396,7 +396,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -439,7 +439,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -482,7 +482,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -525,7 +525,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -568,7 +568,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -611,7 +611,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -654,7 +654,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -697,7 +697,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -740,7 +740,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -783,7 +783,7 @@
 					"texture": "#1"
 				}
 			},
-			"shade": false
+			"shade_direction_override": "up"
 		}
 	],
 	"groups": [

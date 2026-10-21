@@ -27,7 +27,6 @@
 					15.974
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -69,7 +68,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -92,7 +92,6 @@
 					15.54
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -134,7 +133,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -157,7 +157,6 @@
 					6.233
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -199,7 +198,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -222,7 +222,6 @@
 					11.749
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -264,7 +263,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -287,7 +287,6 @@
 					9.248
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -329,7 +328,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -352,7 +352,6 @@
 					7.29
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -394,7 +393,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -417,7 +417,6 @@
 					14.801
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -459,7 +458,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -482,7 +482,6 @@
 					13.796
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -524,7 +523,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -547,7 +547,6 @@
 					0.582
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -589,7 +588,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -612,7 +612,6 @@
 					1.036
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -654,7 +653,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -677,7 +677,6 @@
 					11.957
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -719,7 +718,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -742,7 +742,6 @@
 					6.88
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -784,7 +783,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -807,7 +807,6 @@
 					-0.661
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -849,7 +848,8 @@
 					"texture": "#0",
 					"tintindex": 0
 				}
-			}
+			},
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -872,7 +872,6 @@
 					7.447
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -929,7 +928,8 @@
 					"texture": "#0"
 				}
 			},
-			"light_emission": 15
+			"light_emission": 15,
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -952,7 +952,6 @@
 					11.795
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -1009,7 +1008,8 @@
 					"texture": "#0"
 				}
 			},
-			"light_emission": 15
+			"light_emission": 15,
+			"shade_direction_override": "up"
 		},
 		{
 			"from": [
@@ -1032,7 +1032,6 @@
 					6.068
 				]
 			},
-			"shade": false,
 			"faces": {
 				"north": {
 					"uv": [
@@ -1089,7 +1088,8 @@
 					"texture": "#0"
 				}
 			},
-			"light_emission": 15
+			"light_emission": 15,
+			"shade_direction_override": "up"
 		}
 	]
 }
