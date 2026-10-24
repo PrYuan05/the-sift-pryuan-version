@@ -61,7 +61,7 @@ import java.util.function.Consumer;
 public final class SiftGuidance {
     public static final ResourceKey<Level> THE_SIFT = ResourceKey.create(Registries.DIMENSION, PySift.id("the_sift"));
     public static final TagKey<Structure> COMPASS_STRUCTURES = TagKey.create(Registries.STRUCTURE, PySift.id("soul_compass_targets"));
-    public static final int GUIDE_PAGES = 11;
+    public static final int GUIDE_PAGES = 12;
 
     public static final DataComponentType<Integer> COMPASS_MODE = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
             PySift.id("compass_mode"), DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());

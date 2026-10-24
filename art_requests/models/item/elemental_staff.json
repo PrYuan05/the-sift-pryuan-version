@@ -1,0 +1,31 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "dungeons_content_two:custom/elemental_staff",
+    "textures": {
+      "0": "dungeons_content_two:block/elemental_staff",
+      "particle": "dungeons_content_two:item/elemental_staff"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/elemental_staff"
+      }
+    },
+    "fixed": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/elemental_staff"
+      }
+    },
+    "ground": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/elemental_staff"
+      }
+    }
+  }
+}

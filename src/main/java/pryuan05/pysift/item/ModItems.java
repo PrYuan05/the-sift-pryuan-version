@@ -23,6 +23,7 @@ import java.util.function.Function;
 public class ModItems {
     // Core Materials
     public static final Item CHAROITE = registerItem("charoite", Item::new);
+    public static final Item SUNFLOWER_SEEDS = registerItem("sunflower_seeds", Item::new);
     public static final Item SIFTITE_INGOT = registerItem("siftite_ingot", Item::new);
     /** 靈魂解藥：解除靈魂剝奪、歸還被抽走的血量（SoulAntidoteItem）。 */
     public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
@@ -125,6 +126,7 @@ public class ModItems {
             .displayItems((params, output) -> {
                 // Materials
                 output.accept(CHAROITE);
+                output.accept(SUNFLOWER_SEEDS);
                 output.accept(SIFTITE_INGOT);
                 output.accept(SOUL_ANTIDOTE);
                 // 君王羽刃（投石、陷阱師的網只當投擲物外觀，不放進分頁）

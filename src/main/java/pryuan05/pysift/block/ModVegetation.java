@@ -71,8 +71,8 @@ public final class ModVegetation {
     public static final ResourceKey<Feature> SOUL_WILLOW_GIANT = ResourceKey.create(Registries.FEATURE, PySift.id("soul_willow_giant"));
     public static final TreeGrower SOUL_WILLOW_GROWER = new TreeGrower("pysift_soul_willow",   // trees, megaTrees, flowerTrees, shortest
             WeightedList.of(SOUL_WILLOW), WeightedList.of(SOUL_WILLOW_GIANT), WeightedList.of(SOUL_WILLOW), SOUL_WILLOW);
-    public static final Block SOUL_WILLOW_SAPLING = tint(register("soul_willow_sapling",
-            p -> new SaplingBlock(SOUL_WILLOW_GROWER, p), Blocks.OAK_SAPLING, false), 0xFF7FD6C8);
+    public static final Block SOUL_WILLOW_SAPLING = register("soul_willow_sapling",
+            p -> new SaplingBlock(SOUL_WILLOW_GROWER, p), Blocks.OAK_SAPLING, false);
 
     // ===== 林地腐殖帶 =====
     public static final Block HUMUS_FERN = tint(register("humus_fern", SiftGrassBlock::new, Blocks.FERN, false), 0xFF5DAE8C);
@@ -138,6 +138,36 @@ public final class ModVegetation {
     /** 青色地面專用（尖柱頂 capped_crimson_strata、abyssal / silted strata）：生成時只長在這些方塊上。 */
     public static final Block SOFT_TEAL_SHORT_GRASS = register("soft_teal_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     public static final Block SOFT_TEAL_TALL_GRASS = register("soft_teal_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+
+    // ===== 蝭拚??啣?璊◤ (Sift Vegetation Expansion) =====
+    public static final Block CARAPACE_FLOWER = register("carapace_flower",
+            p -> new FlowerBlock(MobEffects.RESISTANCE, 5.0F, p), Blocks.DANDELION, false);
+    public static final Block CARAPACE_SHORT_GRASS = register("carapace_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SCULK_GRASS = register("sculk_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_SHORT_GRASS = register("sift_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_TALLGRASS = register("sift_tallgrass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block SIFT_ORANGE_SHORT_GRASS = register("sift_orange_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_ORANGE_TALL_GRASS = register("sift_orange_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block SIFT_RED_SHORT_GRASS = register("sift_red_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_SMALL_FLOWERS = register("sift_small_flowers",
+            p -> new FlowerBlock(MobEffects.SPEED, 5.0F, p), Blocks.DANDELION, false);
+    public static final Block SIFT_SMALL_FLOWERS_YELLOW = register("sift_small_flowers_yellow",
+            p -> new FlowerBlock(MobEffects.GLOWING, 5.0F, p), Blocks.DANDELION, false);
+    public static final Block SOUL_BUBBLE_FLOWER = register("soul_bubble_flower",
+            p -> new FlowerBlock(MobEffects.WATER_BREATHING, 5.0F, p.lightLevel(state -> 6)), Blocks.DANDELION, false);
+
+    // 蝡??方???蝺??鋡?    public static final Block CARAPACE_VINE = register("carapace_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+    public static final Block GREEN_TREE_VINE = register("green_tree_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+    public static final Block ORANGE_TREE_VINE = register("orange_tree_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+    public static final Block SOUL_VINE = register("soul_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+    public static final Block SIFT_WALL_LEAF = register("sift_wall_leaf", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+
+    // 憟璊????    public static final Block SIFT_CLEAVER_PLANT = register("sift_cleaver_plant", BushBlock::new, Blocks.BUSH, false);
+    public static final Block SIFT_SOUL_CLEAVER_PLANT = register("sift_soul_cleaver_plant", p -> new BushBlock(p.lightLevel(state -> 8)), Blocks.BUSH, false);
+    public static final Block WEAT_SMALL_PLANT = register("weat_small_plant", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block WEAT_PLANT = register("weat_plant", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block WEAT = register("weat", BushBlock::new, Blocks.BUSH, false);
+    public static final Block YELLOW_LEAF = register("yellow_leaf", BushBlock::new, Blocks.BUSH, false);
 
     private ModVegetation() {
     }

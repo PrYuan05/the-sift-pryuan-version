@@ -1,0 +1,9 @@
+{
+  "parent": "dungeons_content_two:custom/iron_lantern",
+  "textures": {
+    "all": "dungeons_content_two:block/small_lanterns",
+    "particle": "dungeons_content_two:block/iron_lantern",
+    "0": "dungeons_content_two:block/small_lanterns"
+  },
+  "render_type": "solid"
+}

@@ -1,0 +1,8 @@
+﻿{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "pysift:block/sift_small_flowers",
+    "particle": "pysift:block/sift_small_flowers"
+  },
+  "render_type": "cutout"
+}

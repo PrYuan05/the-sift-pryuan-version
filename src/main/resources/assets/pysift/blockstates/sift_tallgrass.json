@@ -1,0 +1,10 @@
+﻿{
+  "variants": {
+    "half=lower": {
+      "model": "pysift:block/sift_tallgrass_bottom"
+    },
+    "half=upper": {
+      "model": "pysift:block/sift_tallgrass"
+    }
+  }
+}

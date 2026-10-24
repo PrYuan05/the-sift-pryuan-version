@@ -1,0 +1,28 @@
+{
+  "criteria": {
+    "opened": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:music_disc_5"
+    },
+    "title": {
+      "translate": "advancements.pysift.eight_songs.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.eight_songs.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:gui/advancements/backgrounds/end"
+  },
+  "requirements": [
+    [
+      "opened"
+    ]
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "dungeons_content_two:block/sift_red_tallgrass",
+    "particle": "dungeons_content_two:block/sift_red_tallgrass"
+  },
+  "render_type": "cutout"
+}

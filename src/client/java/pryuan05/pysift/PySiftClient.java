@@ -36,6 +36,9 @@ public class PySiftClient implements ClientModInitializer {
         SiftPortalTransition.register();     // 篩靈界傳送門的過場動畫
         // 篩靈界傳送門：大面積珠光流光 + 邊緣破曉聖光
         BlockEntityRendererRegistry.register(ModBlockEntities.SIFT_PORTAL, context -> new SiftPortalBlockEntityRenderer());
+        // 八音儀式的共鳴唱片盒：升起動畫、旋轉的唱片、彩色光柱
+        BlockEntityRendererRegistry.register(pryuan05.pysift.block.RitualBlocks.RESONANT_JUKEBOX_ENTITY,
+                pryuan05.pysift.client.render.ResonantJukeboxRenderer::new);
         SoulWillowWoodClient.register();
         SoulParticlesClient.register();
         // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器

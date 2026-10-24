@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/siftsoli",
+    "up": "dungeons_content_two:block/siftsoli",
+    "north": "dungeons_content_two:block/siftsoli",
+    "east": "dungeons_content_two:block/siftsoli",
+    "south": "dungeons_content_two:block/siftsoli",
+    "west": "dungeons_content_two:block/siftsoli",
+    "particle": "dungeons_content_two:block/siftsoli"
+  },
+  "render_type": "solid"
+}

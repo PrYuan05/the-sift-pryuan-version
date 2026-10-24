@@ -20,12 +20,12 @@
     "frame": "task",
     "show_toast": false,
     "announce_to_chat": false,
-    "hidden": false,
-    "background": "minecraft:gui/advancements/backgrounds/end"
+    "hidden": false
   },
   "requirements": [
     [
       "entered"
     ]
-  ]
+  ],
+  "parent": "pysift:progression/eight_songs"
 }

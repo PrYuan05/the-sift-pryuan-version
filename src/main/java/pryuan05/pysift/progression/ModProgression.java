@@ -75,6 +75,7 @@ public final class ModProgression {
         SouliteGear.load();
         SiftGuidance.load();
         SiftFarming.load();
+        SiftFlora.load();
         // 進度相關的方塊與物品都排在「物品」分頁
         CreativeModeTabEvents.modifyOutputEvent(ModItems.ITEMS_TAB_KEY).register(output -> CREATIVE_ORDER.forEach(output::accept));
         PySift.LOGGER.info("Registered {} progression blocks / items", CREATIVE_ORDER.size());

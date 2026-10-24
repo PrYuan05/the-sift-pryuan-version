@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "dungeons_content_two:item/carapace_vine"
+  },
+  "render_type": "translucent"
+}

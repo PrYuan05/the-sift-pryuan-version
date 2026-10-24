@@ -1,0 +1,7 @@
+{
+  "parent": "dungeons_content_two:custom/greatsword",
+  "textures": {
+    "0": "dungeons_content_two:block/greatsword",
+    "particle": "dungeons_content_two:item/greatsword"
+  }
+}

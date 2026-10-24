@@ -1,0 +1,9 @@
+﻿{
+  "parent": "pysift:custom/weat",
+  "textures": {
+    "all": "pysift:block/weat",
+    "particle": "pysift:block/weat_plant",
+    "0": "pysift:block/weat"
+  },
+  "render_type": "cutout"
+}

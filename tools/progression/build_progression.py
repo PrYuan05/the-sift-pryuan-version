@@ -805,6 +805,9 @@ GUIDE = [
     ("Soul Berries grow beside Spirit Liquid; Gloomcaps glow in caves. Brew them in Awkward Potions for Soul Ward and "
      "Echo Sight. Tame a Blub with soul sand or soul soil: it fights and fetches.",
      "靈莓長在靈液旁，幽光菇長在洞穴。把它們加進粗製藥水，可以釀出靈魂守護與回音視界。拿靈魂沙或靈魂土餵布魯布就有機會馴服牠，馴服後牠會幫你打架、撿東西。"),
+    ("The eight jukeboxes at the Ancient City are the key: break one and that portal closes. To open a portal from here, "
+     "build a closed frame of Soul Crystal blocks and use an Echo Shard on it.",
+     "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。"),
 ]
 GUIDE_LANG = {f"book.pysift.guide.page{i + 1}": page for i, page in enumerate(GUIDE)}
 GUIDE_LANG.update({
@@ -1012,6 +1015,138 @@ for lang, i in (("en_us", 0), ("zh_tw", 1)):
     data = json.loads(f.read_text(encoding="utf-8"))
     for key, names in ALTAR_LANG.items():
         data[key] = names[i]
+    wj(f, data)
+
+
+# ------------------------------------------------------------------ eight-song portal ritual (SiftPortalRitual.java)
+wj(A / "blockstates/resonant_jukebox.json", {"variants": {"": {"model": "pysift:block/ritual/resonant_jukebox"}}})
+# the block itself is drawn by ResonantJukeboxRenderer; this model only gives the break particles
+wj(A / "models/block/ritual/resonant_jukebox.json", {"textures": {"particle": "minecraft:block/jukebox_side"}})
+loot("blocks/resonant_jukebox", [])                                                                 # only the disc drops
+add_tag("minecraft/tags/block/mineable/axe.json", ["pysift:resonant_jukebox"])
+adv("eight_songs", None, "minecraft:music_disc_5", ("Eight Songs", "八音共鳴"),
+    ("Fill the eight Resonant Jukeboxes and open the way to The Sift", "放滿 8 個共鳴唱片盒，開啟通往篩靈界的門"),
+    {"opened": {"trigger": "minecraft:impossible"}}, frame="goal", background="minecraft:gui/advancements/backgrounds/end")
+# the progression tree starts here now: "The Sift" (entering) hangs under it
+data = json.loads((ADV / "root.json").read_text(encoding="utf-8"))
+data["parent"] = "pysift:progression/eight_songs"
+data["display"].pop("background", None)
+wj(ADV / "root.json", data)
+
+RITUAL_LANG = {
+    "block.pysift.resonant_jukebox": ("Resonant Jukebox", "共鳴唱片盒"),
+    "message.pysift.ritual.wrong_disc": ("This jukebox is waiting for another song...", "這個唱片盒在等待另一首歌……"),
+    "message.pysift.ritual.wants": ("This jukebox is waiting for %s", "這個唱片盒在等待「%s」"),
+    "message.pysift.ritual.disc_used": ("Another jukebox is already playing that song", "另一個唱片盒已經在放這首歌了"),
+    "message.pysift.ritual.progress": ("%s / %s songs resonate", "%s / %s 首歌產生共鳴"),
+    "message.pysift.ritual.already": ("The jukeboxes are already in place - fill them with the eight songs",
+                                      "唱片盒都已經擺好了，把 8 首歌放進去吧"),
+    "message.pysift.ritual.busy": ("The Echo Golems are still at work", "迴音傀儡還在忙"),
+    "message.pysift.ritual.opened": ("The eight songs resonate - the way to The Sift is open!", "八首歌共鳴，通往篩靈界的門開啟了！"),
+    "message.pysift.ritual.closed": ("A jukebox fell silent - the portal to The Sift closes", "一個唱片盒靜了下來，通往篩靈界的門關閉了"),
+    "message.pysift.ritual.no_crystal_frame": ("Build a closed frame of Soul Crystal blocks first", "先用靈魂晶塊蓋一個封閉的框架"),
+}
+for key, names in ADV_LANG.items():
+    if "eight_songs" in key:
+        RITUAL_LANG[key] = names
+for lang, i in (("en_us", 0), ("zh_tw", 1)):
+    f = A / f"lang/{lang}.json"
+    data = json.loads(f.read_text(encoding="utf-8"))
+    for key, names in RITUAL_LANG.items():
+        data[key] = names[i]
+    wj(f, data)
+
+
+# ------------------------------------------------------------------ night-glow flora (SiftFlora.java)
+def blades(colours, seed, height, count):
+    """Grass blades on a cross texture (transparent background), dark at the root, light at the tip."""
+    rnd = random.Random(seed)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    px = img.load()
+    for _ in range(count):
+        x = rnd.randint(1, 14)
+        h = rnd.randint(height - 4, height)
+        lean = rnd.choice((-1, 0, 0, 1))
+        for i in range(h):
+            y = 15 - i
+            xx = min(15, max(0, x + (lean if i > h * 0.6 else 0)))
+            k = min(len(colours) - 1, i * len(colours) // max(1, h))
+            px[xx, y] = colours[k] + (255,)
+    return img
+
+
+def glow_dots(base, colour, seed, count):
+    """Only the glowing points (on top of the blade tips of `base`) -> drawn with light_emission 15."""
+    rnd = random.Random(seed)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    bp, px = base.load(), img.load()
+    spots = [(x, y) for x in range(16) for y in range(16) if bp[x, y][3] and (y == 0 or not bp[x, y - 1][3])]
+    for x, y in rnd.sample(spots, min(count, len(spots))):
+        px[x, y] = colour + (255,)
+    return img
+
+
+def shrub(colours, seed):
+    rnd = random.Random(seed)
+    img = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    px = img.load()
+    for y in range(3, 16):
+        for x in range(16):
+            r = ((x - 7.5) / 7.0) ** 2 + ((y - 9.5) / 6.5) ** 2 + rnd.uniform(-0.2, 0.2)
+            if r < 1.0:
+                px[x, y] = colours[min(len(colours) - 1, int((1 - r) * len(colours)))] + (255,)
+    return img
+
+
+def glow_cross_model(name):
+    """Cross model with a second, emissive cross for the glowing dots (no z-fighting: the glow planes sit 0.01 in front)."""
+    def plane(texture, z_or_x, emissive, axis):
+        if axis == "z":
+            el = {"from": [0.8, 0, z_or_x], "to": [15.2, 16, z_or_x], "rotation": {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True},
+                  "shade": False, "faces": {"north": {"uv": [0, 0, 16, 16], "texture": texture}, "south": {"uv": [0, 0, 16, 16], "texture": texture}}}
+        else:
+            el = {"from": [z_or_x, 0, 0.8], "to": [z_or_x, 16, 15.2], "rotation": {"origin": [8, 8, 8], "axis": "y", "angle": 45, "rescale": True},
+                  "shade": False, "faces": {"east": {"uv": [0, 0, 16, 16], "texture": texture}, "west": {"uv": [0, 0, 16, 16], "texture": texture}}}
+        if emissive:
+            el["light_emission"] = 15
+        return el
+    wj(A / f"models/block/progression/{name}.json", {
+        "ambientocclusion": False, "render_type": "cutout",
+        "textures": {"particle": f"pysift:block/progression/{name}", "cross": f"pysift:block/progression/{name}",
+                     "glow": f"pysift:block/progression/{name}_glow"},
+        "elements": [plane("#cross", 8, False, "z"), plane("#cross", 8, False, "x"),
+                     plane("#glow", 8.01, True, "z"), plane("#glow", 8.01, True, "x")]})
+    wj(A / f"blockstates/{name}.json", {"variants": {"": {"model": f"pysift:block/progression/{name}"}}})
+    generated_item(name, f"pysift:block/progression/{name}")
+
+
+GLOW_TEAL = [(20, 60, 60), (30, 100, 95), (50, 150, 135), (90, 200, 180)]
+FLORA = {
+    "glowshade_grass": (blades(GLOW_TEAL, 81, 9, 7), (150, 255, 245), 6,
+                        "夜光草：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）"),
+    "glowshade_tuft": (blades(GLOW_TEAL, 82, 15, 9), (150, 255, 245), 9,
+                       "夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）"),
+    "starlit_shrub": (shrub([(18, 22, 40), (28, 34, 60), (40, 48, 80)], 83), (110, 190, 255), 14,
+                      "星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點）"),
+}
+for name, (base, dot, n, desc) in FLORA.items():
+    save_placeholder(base, f"block/progression/{name}", desc)
+    save_placeholder(glow_dots(base, dot, sum(map(ord, name)), n), f"block/progression/{name}_glow", desc + "（發光層）")
+    glow_cross_model(name)
+    loot(f"blocks/{name}", [{"rolls": 1, "condition": {"type": "minecraft:match_tool", "predicate": {"items": "minecraft:shears"}},
+                              "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}])
+
+FLORA_LANG = {
+    "block.pysift.glowshade_grass": ("Glowshade Grass", "夜光草"),
+    "block.pysift.glowshade_tuft": ("Glowshade Tuft", "夜光草叢"),
+    "block.pysift.starlit_shrub": ("Starlit Shrub", "星光灌木"),
+}
+for lang, i in (("en_us", 0), ("zh_tw", 1)):
+    f = A / f"lang/{lang}.json"
+    data = json.loads(f.read_text(encoding="utf-8"))
+    for key, names in FLORA_LANG.items():
+        data[key] = names[i]
+        data[key.replace("block.", "item.", 1)] = names[i]
     wj(f, data)
 
 

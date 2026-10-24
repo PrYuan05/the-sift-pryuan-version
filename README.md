@@ -40,16 +40,35 @@ Install the mod on **both the client and the server** (it adds blocks, entities 
 
 ## Getting there
 
-The way into The Sift is hidden in an **Ancient City**:
+The way into The Sift is hidden in an **Ancient City** — and it takes eight songs to open it:
 
 1. Stand near the Reinforced Deepslate frame of the city's great portal and **blow a Goat Horn**.
-   A **Singer** answers the call and appears in front of you.
-2. Right-click the Singer while holding an **Echo Shard, Soul Sand, Soul Soil or a Goat Horn**.
-   The Singer resonates and fills the frame with a shining portal (if there is no closed frame nearby,
-   it tears a rift-shaped portal open in front of it instead).
-3. Stand in the portal for two seconds to travel. A matching portal is built on safe ground on the other side.
+   A **Singer** climbs out of the ground in front of the portal, stays there and beckons you.
+2. Right-click the Singer with an **Echo Shard**. It calls two **Echo Golems** that climb out of the ground,
+   carry eight **Resonant Jukeboxes** to the floor below the frame and set them down in a row, from left to right.
+3. Fill the jukeboxes from left to right with these eight discs (each jukebox only takes its own; a faint beam hints the colour):
 
-The first time you arrive you receive the **Sift Guidebook**, an 11-page in-game guide to everything below.
+   | Colour | Disc | Where to find it |
+   | :-- | :-- | :-- |
+   | 🔴 Red | Pigstep | Bastion Remnant |
+   | 🟠 Orange | Relic | Trail Ruins (suspicious gravel) |
+   | 🟡 Yellow | Precipice | Trial Chambers vault |
+   | 🟢 Green | Creator | Trial Chambers ominous vault |
+   | 🔵 Blue | 5 | Ancient City (disc fragments) |
+   | 🟦 Indigo | Otherside | Stronghold / Dungeon chests |
+   | 🟣 Purple | 13 | Dungeon chests / a creeper killed by a skeleton |
+   | 🩷 Pink | Tears | A Ghast killed by its own fireball |
+
+4. When all eight play, the Singer sings the finale, the beams meet in the frame and it fills with a shining portal;
+   the Singer waves goodbye and burrows back into the ground.
+   (Without a closed frame nearby, a rift-shaped portal opens in front of the Singer instead.)
+5. Stand in the portal for two seconds to travel. **The jukeboxes are the key**: break one and the portal closes
+   (its disc drops back out).
+
+**Coming home:** in The Sift, build a closed frame of **Soul Crystal** blocks and right-click it with an Echo Shard to open
+a portal back to the overworld — or use a Homeward Stone.
+
+The first time you arrive you receive the **Sift Guidebook**, a 12-page in-game guide to everything below.
 
 ## The dimension
 
@@ -82,7 +101,7 @@ Mobs suffer from it too: deprived mobs burn with blue soul fire, take 30 % more 
 
 | Item | How to use | Recipe |
 | :-- | :-- | :-- |
-| **Sift Guidebook** | given on your first visit; covers spirit liquid, ores, bosses, the altar, awakening, the beacon, Soulite, farming and pets | Book + Charoite |
+| **Sift Guidebook** | given on your first visit (12 pages); covers spirit liquid, ores, bosses, the altar, awakening, the beacon, Soulite, farming and pets | Book + Charoite |
 | **Soul Compass** | use it in The Sift: the needle points to a boss arena or the nearest ruins (it shows the distance). Sneak + use to switch target. If an arena has not been found yet, it points to that boss's biome | Compass + 3 Charoite + Soul Essence |
 | **Homeward Stone** | hold use for 3 seconds in The Sift to return to your overworld spawn point (bed / respawn anchor) | Soul Essence + Charoite + Ender Pearl → 2 |
 
@@ -229,12 +248,29 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - 用戶端與伺服器都要安裝
 
 ### 如何前往
-1. 在**遠古城市**的強化深板岩巨口附近**吹響山羊角**，會有一隻**歌者**出現在你面前。
-2. 手持**迴音碎片、靈魂沙、靈魂土或山羊角**右鍵歌者，歌者共鳴後會把框架填滿傳送門
-   （附近沒有封閉框架時，會在前方撕開一道裂隙型傳送門）。
-3. 站進傳送門兩秒即可傳送，另一側會在安全地面上生成對應的傳送門。
+通往篩靈界的路藏在**遠古城市**裡，要八首歌才能開啟：
 
-第一次抵達時會獲得 11 頁的**《篩靈指南書》**，介紹下面所有內容。
+1. 在遠古城市的強化深板岩巨口附近**吹響山羊角**，會有一隻**歌者**從傳送門前方的地底爬出來，站在原地向你招手。
+2. 手持**迴音碎片**右鍵歌者：它會召喚兩隻**迴音傀儡**從地底爬出，把 8 個**共鳴唱片盒**搬到框架下方的地面，由左到右排成一列。
+3. 由左到右依序放進下面這 8 張唱片（每個唱片盒只收自己那一張，淡淡的光柱會提示顏色）：
+
+   | 顏色 | 唱片 | 取得地點 |
+   | :-- | :-- | :-- |
+   | 🔴 紅 | Pigstep | 堡壘遺跡 |
+   | 🟠 橙 | Relic | 古跡廢墟（可疑的礫石） |
+   | 🟡 黃 | Precipice | 試煉密室的寶庫 |
+   | 🟢 綠 | Creator | 試煉密室的不祥寶庫 |
+   | 🔵 藍 | 5 | 遠古城市（唱片碎片） |
+   | 🟦 靛 | Otherside | 要塞／地牢的箱子 |
+   | 🟣 紫 | 13 | 地牢的箱子／被骷髏射死的苦力怕 |
+   | 🩷 粉 | Tears | 被自己火球打死的地獄惡魂 |
+
+4. 8 張都放好時，歌者唱出終曲，光柱匯聚到框架中，填滿發光的傳送門（附近沒有封閉框架時，會在歌者前方開出裂隙型傳送門）；歌者揮手道別後鑽回地底離開。
+5. 站進傳送門兩秒即可傳送。**唱片盒就是門的鑰匙**：打破任一個，門就會關閉，唱片會掉出來。
+
+**回家的路**：在篩靈界用**靈魂晶塊**蓋一個封閉框架，手持迴音碎片右鍵框架，就能開出回主世界的傳送門；也可以用回程符石。
+
+第一次抵達時會獲得 12 頁的**《篩靈指南書》**，介紹下面所有內容。
 
 ### 維度與生態域
 永恆的黃昏、薄荷色天空、淡淡的霧，平緩起伏的大地上有懸崖台地，以及一座座每層 2 格高、逐層內縮的大型圓台。

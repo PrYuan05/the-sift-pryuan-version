@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pysift:block/progression/starlit_shrub"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "dungeons_content_two:custom/honey_sift3",
+  "textures": {
+    "all": "dungeons_content_two:block/honey_sift",
+    "particle": "dungeons_content_two:block/honey_sift",
+    "0": "dungeons_content_two:block/honey_sift"
+  },
+  "render_type": "cutout"
+}

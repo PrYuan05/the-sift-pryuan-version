@@ -1,10 +1,14 @@
-{
-  "replace": false,
-  "values": [
-    "pysift:golden_bloom",
-    "pysift:sun_bloom",
-    "pysift:rose_bloom",
-    "pysift:dusk_bloom",
-    "pysift:clustered_yellow_flowers"
-  ]
+﻿{
+    "replace":  false,
+    "values":  [
+                   "pysift:golden_bloom",
+                   "pysift:sun_bloom",
+                   "pysift:rose_bloom",
+                   "pysift:dusk_bloom",
+                   "pysift:clustered_yellow_flowers",
+                   "pysift:carapace_flower",
+                   "pysift:sift_small_flowers",
+                   "pysift:sift_small_flowers_yellow",
+                   "pysift:soul_bubble_flower"
+               ]
 }

@@ -1,0 +1,10 @@
+{
+  "parent": "dungeons_content_two:custom/strong_deepslate_brazier_burn",
+  "textures": {
+    "all": "dungeons_content_two:block/strong_deepslate_brazier_burn",
+    "particle": "dungeons_content_two:block/chiseled_deepslate_brick_top",
+    "1": "dungeons_content_two:block/strong_deepslate_brazier_burn",
+    "2": "dungeons_content_two:block/campfire_fire"
+  },
+  "render_type": "cutout"
+}

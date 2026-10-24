@@ -1,0 +1,10 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "dungeons_content_two:block/sift_stone",
+    "bottom": "dungeons_content_two:block/sift_stone",
+    "top": "dungeons_content_two:block/sift_stone",
+    "side": "dungeons_content_two:block/sift_stone"
+  },
+  "render_type": "solid"
+}

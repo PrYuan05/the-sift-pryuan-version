@@ -37,7 +37,7 @@ wood_ids = re.findall(r'(?:block|blockOnly)\("([a-z0-9_]+)"', (_blk / "block/Sou
 wall_variants = {w for w in wood_ids if "_wall_" in w}   # no item / loot of their own (they drop the standing sign)
 veg_ids += wood_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
-for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java"):
+for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java"):
     if (_blk / _extra).exists():
         veg_ids += re.findall(r'Registries\.BLOCK, PySift\.id\("([a-z0-9_]+)"\)', (_blk / _extra).read_text(encoding="utf-8"))
 # phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)

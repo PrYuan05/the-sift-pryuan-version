@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_side",
+  "textures": {
+    "wall": "dungeons_content_two:block/red_sift_stone",
+    "particle": "dungeons_content_two:block/red_sift_stone"
+  },
+  "render_type": "solid"
+}

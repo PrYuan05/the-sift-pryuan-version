@@ -115,15 +115,18 @@
       "pysift:patch_bone_spire",
       "pysift:patch_dusk_bloom",
       "pysift:patch_violet_golden_bloom",
+      "pysift:patch_violet_teal_grass",
       "pysift:patch_curled_fern_blue",
       "pysift:patch_tall_glow_grass",
       "pysift:patch_curled_fern_white",
       "pysift:patch_giant_canopy_blue",
       "pysift:patch_giant_canopy_white",
       "pysift:cliff_vines_violet_abyss",
+      "pysift:glowshade_grass_violet",
+      "pysift:starlit_shrub_violet",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
-      "pysift:patch_violet_teal_grass"
+      "pysift:wild_rift"
     ],
     []
   ],

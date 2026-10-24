@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/forest_moss_log_side3",
+    "up": "dungeons_content_two:block/forest_moss_log_side3",
+    "north": "dungeons_content_two:block/forest_moss_log_side3",
+    "east": "dungeons_content_two:block/forest_moss_log_side3",
+    "south": "dungeons_content_two:block/forest_moss_log_side3",
+    "west": "dungeons_content_two:block/forest_moss_log_side3",
+    "particle": "dungeons_content_two:block/forest_moss_log_side3"
+  },
+  "render_type": "solid"
+}

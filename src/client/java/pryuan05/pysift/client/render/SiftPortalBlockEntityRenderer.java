@@ -46,6 +46,7 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
         state.worldZ = pos.getZ();
         state.seed = pos.asLong();
         state.time = level == null ? 0 : (level.getGameTime() + partialTick) * 0.003f;
+        state.night = pryuan05.pysift.block.SiftDayPhase.night(level);   // 夜晚：更亮、偏粉紅與金黃
         state.faceUp = !isPortal(level, pos.above());
         state.faceDown = !isPortal(level, pos.below());
         state.faceNorth = !isPortal(level, pos.north());
@@ -89,8 +90,9 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
 
         for (int li = 0; li < layers.length; li++) {
             float uo = layers[li][0], vo = layers[li][1];
-            int alpha = (int) layers[li][2];
-            int argb = (alpha << 24) | 0xFFFFFF;
+            int alpha = (int) Math.min(255, layers[li][2] * (1.0f + 0.35f * s.night));
+            int g = (int) (255 - 70 * s.night), b = (int) (255 - 35 * s.night);
+            int argb = (alpha << 24) | (255 << 16) | (g << 8) | b;
             float d = li * 0.002f;
 
             // 1. 南面 (South, Z = 1)
@@ -153,7 +155,8 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
 
     // ------------------------------------------------------------------ layer 2: inner dawn halo along borders
     private static void edgeHalo(SiftPortalRenderState s, PoseStack.Pose pose, VertexConsumer vc) {
-        float w = EDGE_WIDTH;
+        haloNight = s.night;
+        float w = EDGE_WIDTH + 0.15f * s.night;
         if (s.faceSouth) {
             float z = 1.001f;
             if (s.faceUp) halo(vc, pose, new float[]{0, 1, z}, new float[]{1, 1, z}, new float[]{1, 1 - w, z}, new float[]{0, 1 - w, z});
@@ -170,18 +173,23 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
         }
     }
 
+    private static float haloNight;
+
     private static void halo(VertexConsumer vc, PoseStack.Pose pose, float[] edgeA, float[] edgeB, float[] innerB, float[] innerA) {
         float[][] p = {edgeA, edgeB, innerB, innerA};
+        float n = haloNight;   // 夜晚：邊緣變成粉紅色，內側透出金黃（影片中夜裡浮現的門）
         for (int i = 0; i < 4; i++) {
             boolean edge = i < 2;
-            colVertex(vc, pose, p[i], 255, edge ? 246 : 230, edge ? 215 : 245, edge ? 220 : 0);
+            int g = edge ? (int) (246 - 116 * n) : (int) (230 - 10 * n);
+            int b = edge ? (int) (215 - 15 * n) : (int) (245 - 165 * n);
+            colVertex(vc, pose, p[i], 255, g, b, edge ? (int) Math.min(255, 220 + 35 * n) : (int) (90 * n));
         }
     }
 
     // ------------------------------------------------------------------ layer 3: god rays spilling out of the rim
     private static void godRays(SiftPortalRenderState s, PoseStack.Pose pose, VertexConsumer vc) {
         float breathe = (float) Math.sin(s.time * 1.5f * 60.0f + (s.seed % 1000));
-        float len = 0.85f + 0.20f * breathe;
+        float len = (0.85f + 0.20f * breathe) * (1.0f + 0.8f * s.night);   // 夜晚光芒更長
 
         if (s.faceSouth) {
             float z = 1.0f;

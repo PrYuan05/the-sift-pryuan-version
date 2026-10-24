@@ -1,0 +1,9 @@
+﻿{
+  "parent": "pysift:custom/soul_bubble_pop_flower",
+  "textures": {
+    "all": "pysift:block/soul_bubble_flower",
+    "particle": "pysift:block/soul_bubble_flower",
+    "0": "pysift:block/soul_bubble_flower"
+  },
+  "render_type": "cutout"
+}

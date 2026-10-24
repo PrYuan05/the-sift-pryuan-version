@@ -302,7 +302,218 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                 }
             }
         }
-        buildRiftPortal(level, bestCentre, bestAxis);
+        if (level.dimension() == SIFT_DIM) {
+            // 篩靈界這一端：使用者設計的到達門（依生態域色系三選一）；結構檔不在時退回程式畫的縮小版巨口
+            if (!buildArrivalPortal(level, bestCentre, bestAxis)) {
+                buildMouthFrame(level, bestCentre, bestAxis);
+            }
+        } else {
+            buildRiftPortal(level, bestCentre, bestAxis);
+        }
+    }
+
+    /**
+     * 縮小版的伏守者巨口（13 寬 × 9 高，由下往上；中央 9×5 是傳送門）：
+     * <pre>
+     *   SS.........SS   靈魂晶塊的「角」
+     *   CC#########CC
+     *   .#PPPPPPPPP#.
+     *   .#PPPPPPPPP#.
+     *   .CPPPPPPPPPC.
+     *   .#PPPPPPPPP#.
+     *   .#PPPPPPPPP#.
+     *   CC#########CC
+     *   #############   地基（取代地面）
+     * </pre>
+     * # 深色板岩磚、C 浮雕深色板岩磚、S 靈魂晶塊。baseCentre 是地面高度（站立高度）的中央；門前後一格會清空方便走進去，
+     * 地基下方懸空時往下補到實心為止。
+     */
+    private static final String[] MOUTH = {
+            "#############",
+            "CC#########CC",
+            ".#PPPPPPPPP#.",
+            ".#PPPPPPPPP#.",
+            ".CPPPPPPPPPC.",
+            ".#PPPPPPPPP#.",
+            ".#PPPPPPPPP#.",
+            "CC#########CC",
+            "SS.........SS"};
+
+    public static void buildMouthFrame(ServerLevel level, BlockPos baseCentre, Direction.Axis axis) {
+        Direction along = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
+        Direction normal = axis == Direction.Axis.X ? Direction.SOUTH : Direction.EAST;
+        BlockState brick = block("dark_slate_bricks", Blocks.DEEPSLATE_BRICKS);
+        BlockState chiseled = block("chiseled_dark_slate_bricks", Blocks.CHISELED_DEEPSLATE);
+        BlockState crystal = pryuan05.pysift.block.SoulCrystal.SOUL_CRYSTAL_BLOCK.defaultBlockState();
+        BlockState portal = ModBlocks.SIFT_PORTAL.defaultBlockState().setValue(AXIS, axis);
+        int half = MOUTH[0].length() / 2;
+        for (int row = 0; row < MOUTH.length; row++) {
+            int y = row - 1;   // 第 0 列是地基，在地面下一格
+            for (int i = 0; i < MOUTH[row].length(); i++) {
+                BlockPos p = baseCentre.relative(along, i - half).above(y);
+                char c = MOUTH[row].charAt(i);
+                BlockState state = switch (c) {
+                    case '#' -> brick;
+                    case 'C' -> chiseled;
+                    case 'S' -> crystal;
+                    case 'P' -> portal;
+                    default -> null;
+                };
+                if (state == null) {
+                    if (row > 0 && !level.getBlockState(p).isAir() && level.getBlockState(p).getDestroySpeed(level, p) >= 0) {
+                        level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);   // 輪廓外清乾淨
+                    }
+                    continue;
+                }
+                level.setBlock(p, state, Block.UPDATE_ALL);
+                if (row == 0) {   // 地基下方懸空：往下補實
+                    for (int d = 1; d <= 8 && level.getBlockState(p.below(d)).canBeReplaced(); d++) {
+                        level.setBlock(p.below(d), brick, Block.UPDATE_ALL);
+                    }
+                }
+                if (c == 'P') {   // 門前後各清一格，方便走進去
+                    for (Direction side : new Direction[]{normal, normal.getOpposite()}) {
+                        BlockPos q = p.relative(side);
+                        if (!level.getBlockState(q).isAir() && level.getBlockState(q).getDestroySpeed(level, q) >= 0) {
+                            level.setBlock(q, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 到達門的三種設計（data/pysift/structure/portal/*.nbt，由 tools/worldgen/build_portal_designs.py 從使用者在遊戲裡
+     * 蓋的門產生），依生態域的色系挑選；沒列出的生態域用 silted。
+     */
+    public static final java.util.Map<String, String> PORTAL_DESIGNS = java.util.Map.of(
+            "crimson_strata_canyon", "ember", "amber_dunes", "dune",
+            "violet_slate_abyss", "slate",
+            "willow_grove", "silted");
+    /** 每種設計的階梯石材：{整塊, 半磚}。 */
+    private static final java.util.Map<String, String[]> RAMP_BLOCKS = java.util.Map.of(
+            "ember", new String[]{"ember_stone", "ember_stone_slab"},
+            "slate", new String[]{"dark_slate", "dark_slate_slab"},
+            "silted", new String[]{"silted_strata", "silted_strata_slab"},
+            "dune", new String[]{"bleached_sandstone_bricks", "bleached_sandstone_brick_slab"});
+    /** 結構檔裡傳送門底邊中央的位置（門面沿 Z 軸）。 */
+    private static final BlockPos DESIGN_ANCHOR = new BlockPos(2, 2, 8);
+
+    /** 在 base（站立高度）蓋到達門，門底在 base 上方 2 格。成功回傳 true。 */
+    public static boolean buildArrivalPortal(ServerLevel level, BlockPos base, Direction.Axis axis) {
+        String biome = level.getBiome(base).unwrapKey().map(k -> k.identifier().getPath()).orElse("");
+        String design = PORTAL_DESIGNS.getOrDefault(biome, "silted");
+        java.util.Optional<net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate> template =
+                level.getStructureTemplateManager().get(pryuan05.pysift.PySift.id("portal/" + design));
+        if (template.isEmpty()) {
+            return false;
+        }
+        var settings = new net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings()
+                .setRotation(axis == Direction.Axis.Z ? net.minecraft.world.level.block.Rotation.NONE
+                        : net.minecraft.world.level.block.Rotation.CLOCKWISE_90);
+        BlockPos anchor = net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate
+                .calculateRelativePosition(settings, DESIGN_ANCHOR);
+        BlockPos origin = base.above(2).subtract(anchor);
+        var box = template.get().getBoundingBox(settings, origin);
+        // 先清空地面以上的範圍（門面與裝飾不會卡進地形），再放結構
+        for (BlockPos p : BlockPos.betweenClosed(box.minX(), origin.getY(), box.minZ(), box.maxX(), box.maxY(), box.maxZ())) {
+            BlockState state = level.getBlockState(p);
+            if (!state.isAir() && state.getDestroySpeed(level, p) >= 0) {
+                level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        }
+        template.get().placeInWorld(level, origin, origin, settings, level.getRandom(), Block.UPDATE_CLIENTS);
+        buildRamps(level, base.above(2), axis, design);
+        // 底下懸空：把最底層往下補到實心為止
+        for (BlockPos p : BlockPos.betweenClosed(box.minX(), origin.getY(), box.minZ(), box.maxX(), origin.getY(), box.maxZ())) {
+            BlockState bottom = level.getBlockState(p);
+            if (bottom.isAir() || !bottom.isCollisionShapeFullBlock(level, p)) {
+                continue;
+            }
+            for (int d = 1; d <= 8 && level.getBlockState(p.below(d)).canBeReplaced(); d++) {
+                level.setBlock(p.below(d), bottom, Block.UPDATE_CLIENTS);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 門前後各一道 7 格寬的緩坡，讓玩家不用跳就能走進門：先量出門前地板（設計本身的地台，或門底）最外緣的高度，
+     * 再往外每格降半格（整塊、半磚交替），直到接上地面（最多 10 格）。只填空的位置（不會破壞門本身的設計），
+     * 坡上清出 3 格高的走道，坡下懸空就補實。portalBottom：傳送門最底下那一格。
+     */
+    private static void buildRamps(ServerLevel level, BlockPos portalBottom, Direction.Axis axis, String design) {
+        String[] names = RAMP_BLOCKS.getOrDefault(design, RAMP_BLOCKS.get("silted"));
+        BlockState full = block(names[0], Blocks.STONE_BRICKS);
+        BlockState slab = block(names[1], Blocks.STONE_BRICK_SLAB);
+        Direction along = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
+        Direction normal = axis == Direction.Axis.X ? Direction.SOUTH : Direction.EAST;
+        for (Direction side : new Direction[]{normal, normal.getOpposite()}) {
+            // 門前地板的最外緣：離門 1~3 格內、高度在門底 ±2 的實心地板，取最外面那一格（以半格為單位）
+            int startD = 0, startTop = portalBottom.getY() * 2;
+            for (int d = 1; d <= 3; d++) {
+                Integer top = surfaceTop2(level, portalBottom.relative(side, d), portalBottom.getY() + 2, portalBottom.getY() - 2);
+                if (top == null || top < portalBottom.getY() * 2) {
+                    break;
+                }
+                startD = d;
+                startTop = top;
+            }
+            for (int d = startD + 1, target = startTop - 1; d <= startD + 10; d++, target--) {   // target：這一格坡面的高度（半格）
+                BlockPos centre = portalBottom.relative(side, d);
+                Integer ground = surfaceTop2(level, centre, portalBottom.getY() + 2, portalBottom.getY() - 14);
+                if (ground != null && ground >= target) {
+                    break;   // 接上地面了
+                }
+                int blockY = Math.floorDiv(target - 1, 2);
+                boolean isSlab = target % 2 != 0;   // 半格高 -> 下半磚
+                for (int u = -3; u <= 3; u++) {
+                    BlockPos stepPos = new BlockPos(centre.getX(), blockY, centre.getZ()).relative(along, u);
+                    if (level.getBlockState(stepPos).canBeReplaced()) {
+                        level.setBlock(stepPos, isSlab ? slab : full, Block.UPDATE_CLIENTS);
+                    }
+                    for (int dy = 1; dy <= 3; dy++) {   // 坡上的走道
+                        BlockPos air = stepPos.above(dy);
+                        BlockState in = level.getBlockState(air);
+                        if (!in.isAir() && !in.is(ModBlocks.SIFT_PORTAL) && in.getDestroySpeed(level, air) >= 0) {
+                            level.setBlock(air, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                        }
+                    }
+                    for (int down = 1; down <= 12 && level.getBlockState(stepPos.below(down)).canBeReplaced(); down++) {
+                        level.setBlock(stepPos.below(down), full, Block.UPDATE_CLIENTS);
+                    }
+                }
+            }
+        }
+    }
+
+    /** column 從 top 往下到 bottom，第一個能站的表面高度（半格為單位；植物這類可取代的方塊不算）；找不到回傳 null。 */
+    private static Integer surfaceTop2(ServerLevel level, BlockPos column, int top, int bottom) {
+        for (int y = top; y >= bottom; y--) {
+            BlockPos p = new BlockPos(column.getX(), y, column.getZ());
+            BlockState state = level.getBlockState(p);
+            if (state.canBeReplaced() || state.getCollisionShape(level, p).isEmpty() || state.is(ModBlocks.SIFT_PORTAL)) {
+                continue;
+            }
+            double h = state.getCollisionShape(level, p).max(Direction.Axis.Y);
+            return y * 2 + (int) Math.round(h * 2);
+        }
+        return null;
+    }
+
+    /** 結構轉 90° 時，傳送門的軸向跟著換。 */
+    @Override
+    protected BlockState rotate(BlockState state, net.minecraft.world.level.block.Rotation rotation) {
+        return switch (rotation) {
+            case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> state.setValue(AXIS, state.getValue(AXIS) == Direction.Axis.X ? Direction.Axis.Z : Direction.Axis.X);
+            default -> state;
+        };
+    }
+
+    private static BlockState block(String name, Block fallback) {
+        return net.minecraft.core.registries.BuiltInRegistries.BLOCK.getOptional(pryuan05.pysift.PySift.id(name))
+                .orElse(fallback).defaultBlockState();
     }
 
     private static int scoreRiftPlacement(ServerLevel level, BlockPos baseCentre, Direction.Axis axis) {
@@ -331,7 +542,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
      *   <li>嚴格檢查 {@link #canPortalReplace}，絕不覆蓋實心地形方塊。</li>
      * </ul>
      */
-    public static void buildRiftPortal(ServerLevel level, BlockPos baseCentre, Direction.Axis axis) {
+    public static void buildRiftPortal(net.minecraft.world.level.LevelAccessor level, BlockPos baseCentre, Direction.Axis axis) {
         Direction along = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
         BlockState portal = ModBlocks.SIFT_PORTAL.defaultBlockState().setValue(AXIS, axis);
         // 1. 中央 5×3 主要進入區域（保底確保中間 1×2 可通行，但仍只替換非實心地形）
@@ -380,16 +591,45 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
         }
     }
 
+    /** 一個封閉框架的內部（尚未填門）：內部方塊與框架所在平面的軸向。 */
+    public record Frame(List<BlockPos> interior, Direction.Axis axis) {
+        public Vec3 centre() {
+            double x = 0, y = 0, z = 0;
+            for (BlockPos p : interior) {
+                x += p.getX() + 0.5;
+                y += p.getY() + 0.5;
+                z += p.getZ() + 0.5;
+            }
+            return new Vec3(x / interior.size(), y / interior.size(), z / interior.size());
+        }
+
+        /** 框架寬度方向的正中點（世界座標，可能是半格）。用內部的最左與最右算，不受不規則形狀影響。 */
+        public double alongMiddle() {
+            boolean x = axis == Direction.Axis.X;
+            int min = interior.stream().mapToInt(p -> x ? p.getX() : p.getZ()).min().orElse(0);
+            int max = interior.stream().mapToInt(p -> x ? p.getX() : p.getZ()).max().orElse(0);
+            return (min + max + 1) / 2.0;
+        }
+
+        public int bottomY() {
+            return interior.stream().mapToInt(BlockPos::getY).min().orElse(0);
+        }
+
+        public int topY() {
+            return interior.stream().mapToInt(BlockPos::getY).max().orElse(0);
+        }
+    }
+
     /**
-     * 在 centre 周圍 radius 格內找強化深板岩框架，沿框架所在的垂直平面（X-Y 或 Z-Y）從內側做 BFS，
-     * 可穿越並取代空氣、遠古城市巨口內的幽匿脈絡（sculk_vein）與地毯方塊，以強化深板岩（或其他實心方塊）為邊界；
-     * 區域封閉且不超過 180 格時整片換成傳送門。回傳填入的方塊（找不到封閉框架時為空清單）。
+     * 在 centre 周圍 radius 格內找以 frameBlock 圍成的框架，沿框架所在的垂直平面（X-Y 或 Z-Y）從內側做 BFS，
+     * 可穿越空氣、遠古城市巨口內的幽匿脈絡（sculk_vein）與地毯方塊，以 frameBlock（或其他實心方塊）為邊界；
+     * 區域封閉且不超過 180 格時回傳該內部（不放方塊）。找不到時回傳 null。
      */
-    public static List<BlockPos> fillFrame(ServerLevel level, BlockPos centre, int radius) {
+    public static Frame findFrame(ServerLevel level, BlockPos centre, int radius, Block frameBlock) {
         Set<BlockPos> triedX = new HashSet<>();
         Set<BlockPos> triedZ = new HashSet<>();
         for (BlockPos frame : BlockPos.betweenClosed(centre.offset(-radius, -radius, -radius), centre.offset(radius, radius, radius))) {
-            if (!level.getBlockState(frame).is(Blocks.REINFORCED_DEEPSLATE)) {
+            if (!level.getBlockState(frame).is(frameBlock)) {
                 continue;
             }
             for (Direction.Axis axis : new Direction.Axis[]{Direction.Axis.X, Direction.Axis.Z}) {
@@ -400,22 +640,77 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                     if (!canPortalReplace(level.getBlockState(start)) || !tried.add(start)) {
                         continue;
                     }
-                    List<BlockPos> region = flood(level, start, axis);
+                    List<BlockPos> region = flood(level, start, axis, frameBlock);
                     if (region != null) {
-                        BlockState portal = ModBlocks.SIFT_PORTAL.defaultBlockState().setValue(AXIS, axis);
-                        for (BlockPos p : region) {
-                            level.setBlock(p, portal, Block.UPDATE_CLIENTS);
-                        }
-                        return region;
+                        return new Frame(region, axis);
                     }
                 }
             }
         }
-        return List.of();
+        return null;
     }
 
-    /** 平面 BFS：可走空氣、幽匿脈絡（sculk_vein）與地毯等可替換方塊，碰到實心方塊即為邊界；必須至少有一面碰到強化深板岩，超過上限視為不封閉（回傳 null）。 */
-    private static List<BlockPos> flood(ServerLevel level, BlockPos start, Direction.Axis axis) {
+    /** 把框架內部整片換成傳送門。 */
+    public static void fillFrame(ServerLevel level, Frame frame) {
+        BlockState portal = ModBlocks.SIFT_PORTAL.defaultBlockState().setValue(AXIS, frame.axis());
+        for (BlockPos p : frame.interior()) {
+            level.setBlock(p, portal, Block.UPDATE_CLIENTS);
+        }
+    }
+
+    /** 找強化深板岩框架並填門（舊介面）。回傳填入的方塊（找不到封閉框架時為空清單）。 */
+    public static List<BlockPos> fillFrame(ServerLevel level, BlockPos centre, int radius) {
+        Frame frame = findFrame(level, centre, radius, Blocks.REINFORCED_DEEPSLATE);
+        if (frame == null) {
+            return List.of();
+        }
+        fillFrame(level, frame);
+        return frame.interior();
+    }
+
+    /** near 附近（3 格內）有沒有傳送門方塊。 */
+    public static boolean hasPortalNear(ServerLevel level, BlockPos near) {
+        for (BlockPos p : BlockPos.betweenClosed(near.offset(-3, -3, -3), near.offset(3, 3, 3))) {
+            if (level.getBlockState(p).is(ModBlocks.SIFT_PORTAL)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** 清掉 near 附近（3 格內）那一片相連的傳送門方塊（關門）。回傳清掉幾格。 */
+    public static int clearPortal(ServerLevel level, BlockPos near) {
+        BlockPos seed = null;
+        for (BlockPos p : BlockPos.betweenClosed(near.offset(-3, -3, -3), near.offset(3, 3, 3))) {
+            if (level.getBlockState(p).is(ModBlocks.SIFT_PORTAL)) {
+                seed = p.immutable();
+                break;
+            }
+        }
+        if (seed == null) {
+            return 0;
+        }
+        Set<BlockPos> seen = new HashSet<>();
+        ArrayDeque<BlockPos> queue = new ArrayDeque<>();
+        queue.add(seed);
+        seen.add(seed);
+        while (!queue.isEmpty() && seen.size() < 600) {
+            BlockPos p = queue.poll();
+            for (Direction d : Direction.values()) {
+                BlockPos n = p.relative(d);
+                if (level.getBlockState(n).is(ModBlocks.SIFT_PORTAL) && seen.add(n)) {
+                    queue.add(n);
+                }
+            }
+        }
+        for (BlockPos p : seen) {
+            level.setBlock(p, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
+        }
+        return seen.size();
+    }
+
+    /** 平面 BFS：可走空氣、幽匿脈絡（sculk_vein）與地毯等可替換方塊，碰到實心方塊即為邊界；必須至少有一面碰到框架方塊，超過上限視為不封閉（回傳 null）。 */
+    private static List<BlockPos> flood(ServerLevel level, BlockPos start, Direction.Axis axis, Block frameBlock) {
         Direction along = axis == Direction.Axis.X ? Direction.EAST : Direction.SOUTH;
         Direction[] dirs = {Direction.UP, Direction.DOWN, along, along.getOpposite()};
         List<BlockPos> out = new ArrayList<>();
@@ -437,7 +732,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                     if (seen.add(n)) {
                         queue.add(n);
                     }
-                } else if (s.is(Blocks.REINFORCED_DEEPSLATE)) {
+                } else if (s.is(frameBlock)) {
                     touchesFrame = true;
                 }
             }

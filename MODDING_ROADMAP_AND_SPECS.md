@@ -186,6 +186,7 @@ flowchart TD
 | A 靈魂羅盤 | 篩靈界右鍵：指向三隻 Boss 的競技場（還沒生成時改指向其生態域）或最近遺跡；蹲下右鍵切換。羅盤＋3 紫龍晶＋靈魂精華 | ✅ `SiftGuidance.SoulCompassItem`、`#pysift:soul_compass_targets` |
 | A 回程符石 | 篩靈界按住 3 秒傳回主世界重生點；靈魂精華＋紫龍晶＋終界珍珠 → 2 個 | ✅ `SiftGuidance.HomewardStoneItem` |
 | A 篩靈指南書 | 第一次進入篩靈界自動獲得（玩家附加資料 `received_guide`）；書＋紫龍晶可再合成。10 頁 | ✅ `SiftGuidance.guideBook()` |
+| A0 八音開門儀式 | 遠古城市：山羊角召喚儀式歌者（固定不動）→ 迴音碎片 → 兩隻迴音傀儡擺 8 個共鳴唱片盒 → 放 8 張指定唱片（各有顏色光柱）→ 開門；唱片盒是鑰匙，打破即關門。篩靈界：靈魂晶塊框架＋迴音碎片開回程門。開發指令 `/pysift_ritual start/fill` | ✅ `SiftPortalRitual`、`ResonantJukeboxBlock`、`RitualDiscs`、`ResonantJukeboxRenderer` |
 | B 靈莓叢 | 4 格內有靈液才會長（靈液澆灌），越熟越亮，熟了右鍵採 2～3 顆；生成在靈液池邊。靈莓可吃（10 秒靈魂守護） | ✅ `SiftFarming.SoulBerryBushBlock` |
 | B 幽光菇 | 洞穴地面的發光小菇，暗處會慢慢蔓延；碗＋2 幽光菇＋靈莓 → 幽光菇燉湯（飽食 7＋45 秒回音視界） | ✅ `SiftFarming.GloomcapBlock` |
 | B 靈魂釀造 | 原版釀造台（26.3 資料驅動配方）：粗製藥水＋靈莓 → 靈魂守護（免疫靈魂剝奪，3:00／8:00）；粗製藥水＋幽光菇 → 回音視界（32 格內敵人發光，並冒出只有自己看得到的幽匿粒子）；紅石延長，火藥／龍息轉噴濺與滯留 | ✅ `SiftFarming`、`data/pysift/recipe/brewing_*.json` |

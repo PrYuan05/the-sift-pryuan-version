@@ -118,6 +118,8 @@
       "pysift:patch_rose_bloom",
       "pysift:patch_grove_dusk_bloom",
       "pysift:patch_golden_bloom",
+      "pysift:patch_grove_teal_grass",
+      "pysift:patch_grove_tall_teal_grass",
       "pysift:patch_mint_rift_grass",
       "pysift:patch_grove_tall_glow_grass",
       "pysift:patch_coral_leaf_carpet",
@@ -125,10 +127,12 @@
       "pysift:patch_giant_canopy_green",
       "pysift:patch_grove_clustered_yellow_flowers",
       "pysift:cliff_vines_willow_grove",
+      "pysift:glowshade_grass_grove",
+      "pysift:glowshade_tuft_grove",
+      "pysift:starlit_shrub_grove",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
-      "pysift:patch_grove_teal_grass",
-      "pysift:patch_grove_tall_teal_grass"
+      "pysift:wild_rift"
     ],
     []
   ],

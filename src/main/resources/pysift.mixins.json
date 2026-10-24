@@ -8,7 +8,8 @@
 		"LiquidBlockMixin",
 		"LavaFluidMixin",
 		"SoulDeprivationDamageMixin",
-		"SouliteFluidWalkMixin"
+		"SouliteFluidWalkMixin",
+		"RitualQuietShriekerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

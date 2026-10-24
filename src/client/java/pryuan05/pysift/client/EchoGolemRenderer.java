@@ -4,6 +4,7 @@ import com.geckolib.constant.dataticket.DataTicket;
 import com.geckolib.renderer.base.BoneSnapshots;
 import com.geckolib.renderer.base.GeoRenderState;
 import com.geckolib.renderer.base.RenderPassInfo;
+import com.geckolib.renderer.layer.builtin.ItemInHandGeoLayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import pryuan05.pysift.entity.mob.EchoGolemEntity;
@@ -14,6 +15,8 @@ public class EchoGolemRenderer extends PysiftUniversalGeoRenderer<EchoGolemEntit
 
     public EchoGolemRenderer(EntityRendererProvider.Context context) {
         super(context, "echo_golem");
+        // 儀式工人抱著的唱片盒（手持物品畫在 right_hand 骨骼上）
+        withRenderLayer(new ItemInHandGeoLayer<>(context, this, "right_hand", "left_hand"));
     }
 
     @Override

@@ -63,7 +63,7 @@ wj(D / "dimension_type/the_sift.json", {
         "minecraft:visual/sky_light_factor": 0.85,     # user: brighter sunlight (was 0.55)
         "minecraft:visual/sky_light_color": "#f2e4dc",   # near-white warm light (was #c79a8a, dim rose)
         "minecraft:visual/ambient_light_color": "#2a1f24",
-        "minecraft:visual/star_brightness": 0.25,
+        "minecraft:visual/star_brightness": 0.0,          # the day timeline raises it at night
         "minecraft:visual/cloud_color": "#cc6a4a5a",
         "minecraft:visual/fog_start_distance": FOG_START,
         "minecraft:visual/fog_end_distance": FOG_END,
@@ -72,7 +72,7 @@ wj(D / "dimension_type/the_sift.json", {
     "coordinate_scale": 1.0,
     "has_ceiling": False,
     "has_ender_dragon_fight": False,
-    "has_fixed_time": True,
+    "default_clock": "minecraft:overworld",           # day / night shared with the overworld (user)
     "has_skylight": True,
     "height": 384,
     "infiniburn": "#minecraft:infiniburn_overworld",
@@ -80,8 +80,50 @@ wj(D / "dimension_type/the_sift.json", {
     "min_y": -64,
     "monster_spawn_block_light_limit": 0,
     "monster_spawn_light_level": {"type": "minecraft:uniform", "max_inclusive": 7, "min_inclusive": 0},
-    "timelines": "#minecraft:in_nether",
+    "timelines": "#pysift:in_sift",
 })
+
+
+# ---- day cycle: three phases (user, reference video "New Sift footage"): morning / day / night ----
+# Multipliers on top of the biome colours (the mint sky stays the daytime look). Tick 0 = 6:00, 6000 = noon,
+# 12000 = 18:00 (dusk), 18000 = midnight. Morning 23000-3000 is warm gold-pink, day 3500-11000 unchanged,
+# dusk turns pink-violet, night 13500-22000 deep blue with bright stars and dim sky light.
+def track(points, modifier="multiply"):
+    return {"modifier": modifier, "keyframes": [{"ticks": t, "value": v} for t, v in points]}
+
+
+SIFT_DAY = {
+    "minecraft:visual/sky_color": track([(0, "#ffcf9c"), (2000, "#ffe6c8"), (3500, "#ffffff"), (11000, "#ffffff"),
+                                         (12200, "#e3a3d6"), (13500, "#2c3466"), (22000, "#2c3466"), (23300, "#cc96bc")]),
+    "minecraft:visual/fog_color": track([(0, "#ffd6b0"), (2000, "#ffeedd"), (3500, "#ffffff"), (11000, "#ffffff"),
+                                         (12200, "#e8b2dc"), (13500, "#2a325c"), (22000, "#2a325c"), (23300, "#d2a2c2")]),
+    "minecraft:visual/sky_light_color": track([(0, "#ffd8b0"), (3500, "#ffffff"), (11000, "#ffffff"), (12500, "#e8b0d0"),
+                                               (13500, "#98a4ff"), (22000, "#98a4ff"), (23300, "#e2b2c8")]),
+    "minecraft:visual/sky_light_factor": track([(0, 0.85), (3500, 1.0), (11000, 1.0), (13500, 0.3), (22000, 0.3), (23300, 0.6)]),
+    "minecraft:gameplay/sky_light_level": track([(0, 0.85), (3500, 1.0), (11000, 1.0), (13500, 0.35), (22000, 0.35), (23300, 0.6)]),
+    "minecraft:visual/cloud_color": track([(0, "#ffffeedd"), (3500, "#ffffffff"), (11000, "#ffffffff"), (12200, "#ffe0b0e0"),
+                                           (13500, "#ff2a2a4a"), (22000, "#ff2a2a4a"), (23300, "#ffd0a8c0")]),
+    "minecraft:visual/star_brightness": track([(0, 0.05), (1000, 0.0), (11500, 0.0), (13500, 0.9), (22000, 0.9), (23500, 0.2)],
+                                              "maximum"),
+}
+# sun, moon and star movement + the sunrise/sunset glow come straight from the vanilla day timeline
+try:
+    import zipfile
+    _jar = Path.home() / ".gradle/caches/fabric-loom/26.3/minecraft-common.jar"
+    with zipfile.ZipFile(_jar) as _z:
+        _vanilla_day = json.loads(_z.read("data/minecraft/timeline/day.json"))
+    for _k in ("minecraft:visual/sun_angle", "minecraft:visual/moon_angle", "minecraft:visual/star_angle",
+               "minecraft:visual/sunrise_sunset_color"):
+        if _k in _vanilla_day["tracks"]:
+            SIFT_DAY[_k] = _vanilla_day["tracks"][_k]
+except (OSError, KeyError) as _e:
+    print("warning: vanilla day timeline not found, sun and moon will not move:", _e)
+wj(D / "timeline/sift_day.json", {"clock": "minecraft:overworld", "period_ticks": 24000,
+                                  "time_markers": {"pysift:morning": {"show_in_commands": True, "ticks": 0},
+                                                   "pysift:day": {"show_in_commands": True, "ticks": 3500},
+                                                   "pysift:night": {"show_in_commands": True, "ticks": 13500}},
+                                  "tracks": SIFT_DAY})
+wj(D / "tags/timeline/in_sift.json", {"values": ["#minecraft:universal", "pysift:sift_day", "minecraft:moon"]})
 
 
 # ---- vegetation and willow features (worldgen/feature + worldgen/placed_feature) ----
@@ -486,6 +528,7 @@ SOUL_GEODE = soul_geode("soul_geode")
 
 # ambient particles per biome (phase 2), as vanilla nether biomes do it
 AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
+           "red_zone_caves": ("minecraft:crimson_spore", 0.03),
            "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
            "willow_grove": ("minecraft:spore_blossom_air", 0.012),
            "amber_dunes": ("minecraft:white_ash", 0.015)}
@@ -515,11 +558,43 @@ def farm_plant(name, to_place, count, placement, extra_predicates, rarity=None):
 NEAR_SPIRIT = {"type": "minecraft:any_of", "predicates": [   # a spirit pond next to (or 2 blocks from) the bush, one lower
     {"type": "minecraft:matching_fluids", "fluids": ["pysift:spirit_liquid", "pysift:flowing_spirit_liquid"], "offset": [dx, -1, dz]}
     for dx in range(-2, 3) for dz in range(-2, 3) if (dx, dz) != (0, 0)]}
+# the small rift portal of the old ritual now appears, very rarely, out in the wild (user; reference video at night)
+wj(D / "worldgen/feature/wild_rift.json", {"type": "pysift:wild_rift"})
+wj(D / "worldgen/placed_feature/wild_rift.json", {"feature": "pysift:wild_rift", "placement": [
+    {"type": "minecraft:rarity_filter", "chance": 600}, {"type": "minecraft:in_square"},
+    {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})
+WILD_RIFT = "pysift:wild_rift"
+
 FARM_FEATURES = [
     farm_plant("soul_berry_bush_pond", provider("soul_berry_bush", age="3"), 48,
                [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}], [NEAR_SPIRIT], rarity=2),
     farm_plant("gloomcap_cave", provider("gloomcap"), 10, CAVE_FLOOR, []),
 ]
+
+# night-glow flora (SiftFlora.java): glowshade grass in the meadows, starlit shrubs here and there
+SURFACE = [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}]
+GLOW_FEATURES = {
+    "willow_grove": [farm_plant("glowshade_grass_grove", provider("glowshade_grass"), 28, SURFACE, []),
+                     farm_plant("glowshade_tuft_grove", provider("glowshade_tuft"), 10, SURFACE, []),
+                     farm_plant("starlit_shrub_grove", provider("starlit_shrub"), 3, SURFACE, [])],
+    "violet_slate_abyss": [farm_plant("glowshade_grass_violet", provider("glowshade_grass"), 18, SURFACE, []),
+                           farm_plant("starlit_shrub_violet", provider("starlit_shrub"), 5, SURFACE, [])],
+}
+
+# red zone caves (underground biome, reference video "THE SIFT UPDATE"): crimson floors, coral-red plants, glowing
+# shrubs and charoite on the cave floors; picked by the multi-noise "depth" parameter (see the dimension below)
+RED_CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                                "min_inclusive": {"absolute": -50}, "max_inclusive": {"absolute": 30}}},
+                  {"type": "minecraft:environment_scan", "direction_of_search": "down", "max_steps": 12,
+                   "target_condition": {"type": "minecraft:solid"},
+                   "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+                  {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]
+CAVE_FEATURES = {"red_zone_caves": [
+    farm_plant("red_cave_grass", provider("crimson_short_grass"), 90, RED_CAVE_FLOOR, []),
+    farm_plant("red_cave_sprouts", provider("crimson_short_sprouts"), 50, RED_CAVE_FLOOR, []),
+    farm_plant("red_cave_shrub", provider("starlit_shrub"), 10, RED_CAVE_FLOOR, []),
+    farm_plant("red_cave_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, RED_CAVE_FLOOR, []),
+]}
 
 ORE_FEATURES = {"violet_slate_abyss": [
     soul_crystal_ore("soul_crystal_surface", 5, uniform(0, 1), [
@@ -543,7 +618,8 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
         # step 6 = underground_ores
         "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE]] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
                     + (CHAROITE if name == "violet_slate_abyss" else []), [], []]
-                    + [VEGETATION.get(name, []) + FARM_FEATURES, []],
+                    + [VEGETATION.get(name, []) + GLOW_FEATURES.get(name, []) + CAVE_FEATURES.get(name, []) + FARM_FEATURES
+                       + ([] if name in CAVE_FEATURES else [WILD_RIFT]), []],
         "has_precipitation": rain,
         "temperature": temperature,
     })
@@ -559,6 +635,9 @@ biome("violet_slate_abyss", 0.3, 0.2, False, "#2e2838", "#1d1828", "#4a3d6b",
 biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
       spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3)],
              monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2)]))
+biome("red_zone_caves", 1.2, 0.4, False, "#4a1622", "#3a1018", "#7a3b55",
+      spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1)],
+             creature=[("blub", 10, 1, 2)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
       spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
              creature=[("lootkin", 6, 1, 1), ("blub", 25, 2, 4)]))
@@ -584,8 +663,13 @@ VIOLET_PATH = state("ash_marble", veining=0)             # pale stone
 GROVE_PATH = state("cracked_sandstone", crack=0)         # warm tan
 path = lambda floor: cond(ON_FLOOR, cond(ON_PATH, block(floor)))
 
+CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0,
+           "surface_type": "ceiling"}
 wj(D / "worldgen/material_rule/the_sift.json", seq(
     "minecraft:bedrock_floor",
+    # red zone caves: crimson-capped floors over silted strata, silted strata on the ceilings
+    in_biome("red_zone_caves", seq(cond(ON_FLOOR, block(CRIMSON_TOP)), cond(WITHIN(2), block(CRIMSON_UNDER)),
+                                   cond(CEILING, block(CRIMSON_UNDER)))),
     cond({"type": "minecraft:above_preliminary_surface"}, seq(
         # crimson: capped strata on top, silted strata (silt=0) below, ragged hand-off to void_stone at depth 5-8
         in_biome("crimson_strata_canyon", seq(
@@ -768,6 +852,9 @@ wj(D / "dimension/the_sift.json", {
             point("willow_grove", [-0.3, 0.4], FULL),                   # mild
             point("crimson_strata_canyon", [0.4, 1.0], [-0.3, 1.0]),    # hot, not dry
             point("amber_dunes", [0.2, 1.0], [-1.0, -0.3]),             # hot and dry
+            {"biome": "pysift:red_zone_caves", "parameters": {           # underground, like vanilla lush caves
+                "temperature": [-0.2, 1.0], "humidity": [0.1, 1.0], "continentalness": FULL, "erosion": FULL,
+                "weirdness": FULL, "depth": [0.2, 0.9], "offset": 0.0}},
         ]},
         "settings": "pysift:the_sift",
     },

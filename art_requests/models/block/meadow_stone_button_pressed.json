@@ -1,0 +1,8 @@
+{
+  "parent": "block/button_pressed",
+  "textures": {
+    "texture": "dungeons_content_two:block/meadow_stone",
+    "particle": "dungeons_content_two:block/meadow_stone"
+  },
+  "render_type": "solid"
+}

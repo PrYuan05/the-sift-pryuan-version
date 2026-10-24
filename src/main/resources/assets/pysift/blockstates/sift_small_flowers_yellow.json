@@ -1,0 +1,7 @@
+﻿{
+  "variants": {
+    "": {
+      "model": "pysift:block/sift_small_flowers_yellow"
+    }
+  }
+}

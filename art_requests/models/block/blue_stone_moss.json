@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/blue_stone",
+    "up": "dungeons_content_two:block/sift_red_grassblock_top",
+    "north": "dungeons_content_two:block/blue_stone_moss_side",
+    "east": "dungeons_content_two:block/blue_stone_moss_side",
+    "south": "dungeons_content_two:block/blue_stone_moss_side",
+    "west": "dungeons_content_two:block/blue_stone_moss_side",
+    "particle": "dungeons_content_two:block/blue_stone"
+  },
+  "render_type": "solid"
+}

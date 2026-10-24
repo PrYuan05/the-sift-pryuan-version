@@ -1,0 +1,10 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "particle": "dungeons_content_two:block/deepslate_tilles",
+    "bottom": "dungeons_content_two:block/deepslate_tilles",
+    "top": "dungeons_content_two:block/deepslate_tilles",
+    "side": "dungeons_content_two:block/deepslate_tilles"
+  },
+  "render_type": "solid"
+}

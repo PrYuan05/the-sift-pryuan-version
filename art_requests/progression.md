@@ -56,3 +56,9 @@
 | `assets/pysift/textures/item/gloomcap_stew.png` | 幽光菇燉湯：木碗裝著藍紫色、帶青色光點的湯（物品 16x16） |
 | `assets/pysift/textures/mob_effect/soul_ward.png` | 靈魂守護效果圖示：青色護盾形的靈魂（18x18） |
 | `assets/pysift/textures/mob_effect/echo_sight.png` | 回音視界效果圖示：青色的伏聆感測波紋（18x18） |
+| `assets/pysift/textures/block/progression/glowshade_grass.png` | 夜光草：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點） |
+| `assets/pysift/textures/block/progression/glowshade_grass_glow.png` | 夜光草：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）（發光層） |
+| `assets/pysift/textures/block/progression/glowshade_tuft.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點） |
+| `assets/pysift/textures/block/progression/glowshade_tuft_glow.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）（發光層） |
+| `assets/pysift/textures/block/progression/starlit_shrub.png` | 星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點） |
+| `assets/pysift/textures/block/progression/starlit_shrub_glow.png` | 星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點）（發光層） |

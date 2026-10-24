@@ -1,0 +1,31 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "dungeons_content_two:custom/greataxe",
+    "textures": {
+      "0": "dungeons_content_two:block/greataxe",
+      "particle": "dungeons_content_two:item/greataxe"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/greataxe"
+      }
+    },
+    "fixed": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/greataxe"
+      }
+    },
+    "ground": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/greataxe"
+      }
+    }
+  }
+}

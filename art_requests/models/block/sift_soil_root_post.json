@@ -1,0 +1,8 @@
+{
+  "parent": "block/template_wall_post",
+  "textures": {
+    "wall": "dungeons_content_two:block/siftsoli",
+    "particle": "dungeons_content_two:block/siftsoli"
+  },
+  "render_type": "solid"
+}

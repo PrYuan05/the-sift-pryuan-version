@@ -27,7 +27,7 @@ def entries(v): return v if isinstance(v, list) else [v]
 
 def res_path(assets_root, ref, kind, ext):
     """'pysift:block/x' -> <assets_root>/<ns>/<kind>/block/x<ext>; assets_root is .../resources/assets."""
-    ns, path = ref.split(":", 1)
+    ns, path = ref.split(":", 1) if ":" in ref else ("minecraft", ref)   # no namespace = minecraft (as in the game)
     return Path(assets_root) / ns / kind / (path + ext)
 
 

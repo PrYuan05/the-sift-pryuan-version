@@ -1,9 +1,20 @@
 package pryuan05.pysift.entity.mob;
 
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.tags.DamageTypeTags;
+import com.geckolib.animatable.manager.AnimatableManager;
+import com.geckolib.animation.AnimationController;
+import com.geckolib.animation.RawAnimation;
+import com.geckolib.animation.object.PlayState;
+import pryuan05.pysift.block.SiftPortalRitual;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -56,6 +67,8 @@ import pryuan05.pysift.entity.ai.GroundSlamGoal;
  *   <li>契約：玩家手持迴音碎片右鍵簽約（消耗 1 個）。簽約後主人在 24 格內時，每 30 秒把採集到的靈魂產物吐向主人：
  *       每 2 份靈魂換 1 個靈魂土或靈魂沙，另有 5% 機率附贈 1 個迴音碎片；主人離開超過 16 格時會往主人走。</li>
  * </ul>
+ * <p>儀式工人（{@link #startRitualWork}）：由遠古城市的儀式歌者召喚。從地底爬出（emerge），抱著唱片盒（carry）走到位置，
+ * 彎腰放下（place），全部放完後沉回地底（sink）並消失。工人模式下不受傷、不攻擊、不做其他事。
  */
 public class EchoGolemEntity extends PysiftGeoEntity {
     private static final int MAX_SOULS = 16;
@@ -73,6 +86,15 @@ public class EchoGolemEntity extends PysiftGeoEntity {
     /** 吸收來、還沒長到頭上的靈魂晶塊。 */
     private int storedCrystals;
 
+    // ---------------------------------------------------------------- ritual worker
+    private static final EntityDataAccessor<Integer> DATA_RITUAL_PHASE = SynchedEntityData.defineId(EchoGolemEntity.class, EntityDataSerializers.INT);
+    private static final int PHASE_NONE = 0, PHASE_EMERGE = 1, PHASE_WORK = 2, PHASE_SINK = 3, PHASE_TOY = 4;
+    /** 要和 animation.echo_golem.emerge / sink 的長度一致。 */
+    private static final int EMERGE_TICKS = 50, SINK_TICKS = 40;
+    private int phaseTicks;
+    private List<BlockPos> ritualJobs = new ArrayList<>();
+    private SiftPortalRitual.Plan ritualPlan;
+
     public EchoGolemEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
     }
@@ -89,6 +111,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(0, new PlaceJukeboxGoal());
         this.goalSelector.addGoal(1, new GroundSlamGoal(this, "slam", 12, 20, 60, 2.5, 3.0, 8.0f, 0.5, e -> false));
         this.goalSelector.addGoal(1, new EchoPulseGoal(this, "pulse", 12, 22, 100, 3.5, 12.0, 5.0f, 60, 1));
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
@@ -105,7 +128,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
 
     @Override
     protected List<String> skillAnimations() {
-        return List.of("attack", "slam", "pulse", "collect");
+        return List.of("attack", "slam", "pulse", "collect", "place");
     }
 
     @Override
@@ -123,6 +146,121 @@ public class EchoGolemEntity extends PysiftGeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_CRYSTAL, true);
+        builder.define(DATA_RITUAL_PHASE, PHASE_NONE);
+    }
+
+    // ---------------------------------------------------------------- ritual worker
+    public boolean isRitualWorker() {
+        return this.entityData.get(DATA_RITUAL_PHASE) != PHASE_NONE;
+    }
+
+    /** 儀式工人與小傀儡不產生震動（不會引來伏守者）。 */
+    @Override
+    public boolean dampensVibrations() {
+        return isRitualWorker() || super.dampensVibrations();
+    }
+
+    @Override
+    public boolean isSteppingCarefully() {
+        return isRitualWorker() || super.isSteppingCarefully();
+    }
+
+    private int ritualPhase() {
+        return this.entityData.get(DATA_RITUAL_PHASE);
+    }
+
+    private void setRitualPhase(int phase, int ticks) {
+        this.entityData.set(DATA_RITUAL_PHASE, phase);
+        this.phaseTicks = ticks;
+    }
+
+    /** 由 SiftPortalRitual 呼叫：從地底爬出，然後把唱片盒放到 jobs 的每個位置。 */
+    public void startRitualWork(List<BlockPos> jobs, SiftPortalRitual.Plan plan) {
+        this.ritualJobs = new ArrayList<>(jobs);
+        this.ritualPlan = plan;
+        this.setPersistenceRequired();
+        this.setDropChance(EquipmentSlot.MAINHAND, 0.0f);
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.JUKEBOX));
+        setRitualPhase(PHASE_EMERGE, EMERGE_TICKS);
+    }
+
+    /** 歌者等太久時抱在懷裡的小傀儡：縮小、不受傷、不做事；被放下就沉回地底。 */
+    public void becomeToy() {
+        var scale = this.getAttribute(Attributes.SCALE);
+        if (scale != null) {
+            scale.setBaseValue(0.4);
+        }
+        this.setPersistenceRequired();
+        setRitualPhase(PHASE_TOY, 0);
+    }
+
+    /** 沉回地底消失（儀式工人放完、或小傀儡被放下）。 */
+    public void sinkAway() {
+        if (ritualPhase() != PHASE_SINK) {
+            this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+            setRitualPhase(PHASE_SINK, SINK_TICKS);
+            this.playSound(SoundEvents.WARDEN_DIG, 0.6f, 1.6f);
+        }
+    }
+
+    /** 抱著唱片盒時，手臂改播 carry（用戶端依同步的手持物品判斷）。 */
+    public boolean isCarryingJukebox() {
+        return ritualPhase() == PHASE_WORK && this.getMainHandItem().is(Items.JUKEBOX);
+    }
+
+    @Override
+    protected String heldMovementAnimation() {
+        int phase = ritualPhase();
+        return phase == PHASE_EMERGE ? "emerge" : phase == PHASE_SINK ? "sink" : null;
+    }
+
+    @Override
+    protected boolean isImmobile() {
+        int phase = ritualPhase();
+        return phase == PHASE_EMERGE || phase == PHASE_SINK || super.isImmobile();
+    }
+
+    @Override
+    public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
+        if (isRitualWorker() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return false;
+        }
+        return super.hurtServer(level, source, amount);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!(this.level() instanceof ServerLevel level) || !isRitualWorker()) {
+            return;
+        }
+        int phase = ritualPhase();
+        if (phase == PHASE_TOY && !this.isPassenger() && this.tickCount > 5) {
+            sinkAway();
+            return;
+        }
+        if (phase == PHASE_EMERGE || phase == PHASE_SINK) {
+            BlockState ground = level.getBlockState(this.blockPosition().below());
+            if (ground.isAir()) {
+                ground = Blocks.DEEPSLATE.defaultBlockState();
+            }
+            if (this.tickCount % 2 == 0) {
+                level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, ground), this.getX(), this.getY() + 0.1, this.getZ(),
+                        8, 0.6, 0.05, 0.6, 0.15);
+            }
+            if (this.tickCount % 8 == 0) {
+                this.playSound(ground.getSoundType().getBreakSound(), 1.0f, 0.5f);
+            }
+            if (--phaseTicks <= 0) {
+                if (phase == PHASE_EMERGE) {
+                    setRitualPhase(PHASE_WORK, 0);
+                    this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.2f, 0.7f);
+                } else {
+                    level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 0.3, this.getZ(), 20, 0.6, 0.2, 0.6, 0.02);
+                    this.discard();
+                }
+            }
+        }
     }
 
     public boolean hasCrystal() {
@@ -229,6 +367,18 @@ public class EchoGolemEntity extends PysiftGeoEntity {
     @Override
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
+        if (ritualPhase() == PHASE_TOY) {
+            output.putBoolean("RitualToy", true);
+        }
+        if (isRitualWorker() && ritualPlan != null) {
+            output.putInt("RitualPhase", ritualPhase());
+            output.putInt("RitualPhaseTicks", phaseTicks);
+            output.store("RitualJobs", BlockPos.CODEC.listOf(), ritualJobs);
+            output.store("RitualCentre", BlockPos.CODEC, ritualPlan.portalCentre());
+            output.putBoolean("RitualAxisX", ritualPlan.axisX());
+            output.putBoolean("RitualFrame", ritualPlan.frame());
+            output.store("RitualGroup", BlockPos.CODEC.listOf(), ritualPlan.group());
+        }
         if (contractOwner != null) {
             output.store("ContractOwner", UUIDUtil.CODEC, contractOwner);
         }
@@ -246,6 +396,109 @@ public class EchoGolemEntity extends PysiftGeoEntity {
         this.entityData.set(DATA_CRYSTAL, input.getBooleanOr("HasCrystal", true));
         crystalTimer = input.getIntOr("CrystalTimer", 0);
         storedCrystals = input.getIntOr("StoredCrystals", 0);
+        if (input.getBooleanOr("RitualToy", false)) {
+            setRitualPhase(PHASE_TOY, 0);
+        }
+        int phase = input.getIntOr("RitualPhase", PHASE_NONE);
+        BlockPos centre = input.read("RitualCentre", BlockPos.CODEC).orElse(null);
+        if (phase != PHASE_NONE && centre != null) {
+            ritualJobs = new ArrayList<>(input.read("RitualJobs", BlockPos.CODEC.listOf()).orElse(List.of()));
+            ritualPlan = new SiftPortalRitual.Plan(centre, input.getBooleanOr("RitualAxisX", true), input.getBooleanOr("RitualFrame", false),
+                    input.read("RitualGroup", BlockPos.CODEC.listOf()).orElse(List.of()));
+            setRitualPhase(phase, input.getIntOr("RitualPhaseTicks", 0));
+        }
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        super.registerControllers(controllers);
+        // 抱著唱片盒走路：只蓋過手臂（排在 movement 之後）
+        controllers.add(new AnimationController<EchoGolemEntity>("arms", 4, state -> isCarryingJukebox()
+                ? state.setAndContinue(RawAnimation.begin().thenLoop(anim("carry"))) : PlayState.STOP));
+    }
+
+    /** 走到下一個位置 → 彎腰（place）→ 第 12 tick 放下唱片盒 → 下一個；全部放完就沉回地底。 */
+    private class PlaceJukeboxGoal extends Goal {
+        private static final int PLACE_AT = 12, PLACE_END = 26, STUCK_LIMIT = 200;
+        private BlockPos target;
+        private int placing = -1;
+        private int walking;
+
+        PlaceJukeboxGoal() {
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP));
+        }
+
+        @Override
+        public boolean canUse() {
+            return ritualPhase() == PHASE_WORK && ritualPlan != null;
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return ritualPhase() == PHASE_WORK;
+        }
+
+        @Override
+        public void start() {
+            next();
+        }
+
+        private void next() {
+            placing = -1;
+            walking = 0;
+            target = ritualJobs.isEmpty() ? null : ritualJobs.getFirst();
+            if (target == null) {
+                setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                getNavigation().stop();
+                setRitualPhase(PHASE_SINK, SINK_TICKS);
+                playSound(SoundEvents.WARDEN_DIG, 0.8f, 1.3f);
+                return;
+            }
+            setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.JUKEBOX));
+            getNavigation().moveTo(target.getX() + 0.5, target.getY(), target.getZ() + 0.5, 1.0);
+        }
+
+        @Override
+        public void tick() {
+            if (target == null || !(level() instanceof ServerLevel level)) {
+                return;
+            }
+            getLookControl().setLookAt(Vec3.atCenterOf(target));
+            if (placing >= 0) {
+                placing++;
+                if (placing == PLACE_AT) {
+                    setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
+                    if (!level.getBlockState(target).is(pryuan05.pysift.block.RitualBlocks.RESONANT_JUKEBOX)) {
+                        SiftPortalRitual.placeJukebox(level, target, ritualPlan);
+                    }
+                    ritualJobs.removeFirst();
+                }
+                if (placing >= PLACE_END) {
+                    next();
+                }
+                return;
+            }
+            double dist = distanceToSqr(Vec3.atBottomCenterOf(target));
+            if (dist < 2.6 * 2.6) {
+                getNavigation().stop();
+                if (!SiftPortalRitual.previousSeatsReady(level, ritualPlan, target)) {
+                    walking = 0;   // 左邊的還沒放好：抱著唱片盒等
+                    return;
+                }
+                placing = 0;
+                triggerAnim("skill", "place");
+                playSound(SoundEvents.WARDEN_STEP, 0.8f, 1.2f);
+                return;
+            }
+            if (++walking > STUCK_LIMIT) {   // 走不過去：直接瞬移到旁邊
+                Vec3 beside = Vec3.atBottomCenterOf(target).add(Vec3.atLowerCornerOf(Direction.Plane.HORIZONTAL.getRandomDirection(getRandom()).getUnitVec3i()).scale(1.5));
+                level.sendParticles(ParticleTypes.SCULK_SOUL, getX(), getY() + 1, getZ(), 12, 0.4, 0.6, 0.4, 0.02);
+                teleportTo(beside.x, target.getY(), beside.z);
+                walking = 0;
+            } else if (getNavigation().isDone()) {
+                getNavigation().moveTo(target.getX() + 0.5, target.getY(), target.getZ() + 0.5, 1.0);
+            }
+        }
     }
 
     private static boolean isSoulBlock(BlockState state) {

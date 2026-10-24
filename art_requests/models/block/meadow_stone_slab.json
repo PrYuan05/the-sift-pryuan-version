@@ -1,0 +1,10 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "particle": "dungeons_content_two:block/meadow_stone",
+    "bottom": "dungeons_content_two:block/meadow_stone",
+    "top": "dungeons_content_two:block/meadow_stone",
+    "side": "dungeons_content_two:block/meadow_stone"
+  },
+  "render_type": "solid"
+}

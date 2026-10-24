@@ -1,0 +1,10 @@
+{
+  "parent": "dungeons_content_two:custom/carapace_vine",
+  "textures": {
+    "all": "dungeons_content_two:block/carapace_vine",
+    "particle": "dungeons_content_two:block/carapace_vine",
+    "0": "dungeons_content_two:block/carapace_vine",
+    "missing": "dungeons_content_two:block/carapace_vine"
+  },
+  "render_type": "cutout"
+}

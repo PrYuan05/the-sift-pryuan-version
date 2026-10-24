@@ -1,0 +1,9 @@
+{
+  "parent": "dungeons_content_two:custom/smalltray",
+  "textures": {
+    "all": "dungeons_content_two:block/smalltray",
+    "particle": "dungeons_content_two:block/smalltray",
+    "0": "dungeons_content_two:block/smalltray"
+  },
+  "render_type": "solid"
+}

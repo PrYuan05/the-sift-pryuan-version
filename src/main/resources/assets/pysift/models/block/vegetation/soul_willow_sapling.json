@@ -1,9 +1,9 @@
-{
+﻿{
 	"format_version": "26.3",
 	"ambientocclusion": false,
 	"textures": {
-		"cross": "minecraft:block/pale_oak_sapling",
-		"particle": "minecraft:block/pale_oak_sapling"
+		"cross": "pysift:block/vegetation/soul_willow_sapling",
+		"particle": "pysift:block/vegetation/soul_willow_sapling"
 	},
 	"elements": [
 		{
@@ -35,8 +35,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"south": {
 					"uv": [
@@ -45,8 +44,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"
@@ -80,8 +78,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"west": {
 					"uv": [
@@ -90,8 +87,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"
@@ -124,8 +120,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"south": {
 					"uv": [
@@ -134,8 +129,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"
@@ -168,8 +162,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"south": {
 					"uv": [
@@ -178,8 +171,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"
@@ -212,8 +204,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"west": {
 					"uv": [
@@ -222,8 +213,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"
@@ -256,8 +246,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				},
 				"west": {
 					"uv": [
@@ -266,8 +255,7 @@
 						16,
 						16
 					],
-					"texture": "#cross",
-					"tintindex": 0
+					"texture": "#cross"
 				}
 			},
 			"shade_direction_override": "up"

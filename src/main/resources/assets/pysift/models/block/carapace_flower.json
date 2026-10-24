@@ -1,0 +1,8 @@
+﻿{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "pysift:block/carapace_flower",
+    "particle": "pysift:block/carapace_flower"
+  },
+  "render_type": "cutout"
+}

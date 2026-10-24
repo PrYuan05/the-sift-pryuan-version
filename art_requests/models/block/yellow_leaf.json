@@ -1,0 +1,9 @@
+{
+  "parent": "dungeons_content_two:custom/yellow_leaf",
+  "textures": {
+    "all": "dungeons_content_two:block/yellow_leaf",
+    "particle": "dungeons_content_two:block/yellow_leaf",
+    "0": "dungeons_content_two:block/yellow_leaf"
+  },
+  "render_type": "cutout"
+}

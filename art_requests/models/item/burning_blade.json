@@ -1,0 +1,6 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "dungeons_content_two:item/burning_blade"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "dungeons_content_two:custom/hammer",
+    "textures": {
+      "0": "dungeons_content_two:block/hammer_in_hand",
+      "particle": "dungeons_content_two:item/hammer"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/hammer"
+      }
+    },
+    "fixed": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/hammer"
+      }
+    },
+    "ground": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/hammer"
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/purpur_stone",
+    "up": "dungeons_content_two:block/purpur_grass_top",
+    "north": "dungeons_content_two:block/purpur_grass_side",
+    "east": "dungeons_content_two:block/purpur_grass_side",
+    "south": "dungeons_content_two:block/purpur_grass_side",
+    "west": "dungeons_content_two:block/purpur_grass_side",
+    "particle": "dungeons_content_two:block/purpur_stone"
+  },
+  "render_type": "solid"
+}

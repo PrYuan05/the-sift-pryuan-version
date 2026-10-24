@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/chiseled_deepslate_down",
+    "up": "dungeons_content_two:block/chiseled_deepslate_down",
+    "north": "dungeons_content_two:block/chiseled_mount_down",
+    "east": "dungeons_content_two:block/chiseled_mount_down",
+    "south": "dungeons_content_two:block/chiseled_mount_down",
+    "west": "dungeons_content_two:block/chiseled_mount_down",
+    "particle": "dungeons_content_two:block/chiseled_deepslate_down"
+  },
+  "render_type": "solid"
+}

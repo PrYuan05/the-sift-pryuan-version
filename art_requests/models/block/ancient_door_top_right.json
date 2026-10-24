@@ -1,0 +1,9 @@
+{
+  "parent": "block/door_top_right",
+  "textures": {
+    "particle": "dungeons_content_two:block/ancient_door_bottom",
+    "bottom": "dungeons_content_two:block/ancient_door_bottom",
+    "top": "dungeons_content_two:block/ancient_door_top"
+  },
+  "render_type": "cutout"
+}

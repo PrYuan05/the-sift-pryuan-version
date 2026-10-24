@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/noteblock",
+    "up": "dungeons_content_two:block/noteblock",
+    "north": "dungeons_content_two:block/noteblock",
+    "east": "dungeons_content_two:block/noteblock",
+    "south": "dungeons_content_two:block/noteblock",
+    "west": "dungeons_content_two:block/noteblock",
+    "particle": "dungeons_content_two:block/noteblock"
+  },
+  "render_type": "solid"
+}

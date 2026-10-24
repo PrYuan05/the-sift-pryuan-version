@@ -107,6 +107,7 @@
       "pysift:patch_dune_tall_ember_grass",
       "pysift:patch_dune_ember_grass",
       "pysift:patch_dune_golden_bloom",
+      "pysift:patch_dune_teal_grass",
       "pysift:patch_yellow_short_grass",
       "pysift:patch_dune_agave_rosette",
       "pysift:patch_olive_forked_stalk",
@@ -114,7 +115,7 @@
       "pysift:cliff_vines_amber_dunes",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
-      "pysift:patch_dune_teal_grass"
+      "pysift:wild_rift"
     ],
     []
   ],

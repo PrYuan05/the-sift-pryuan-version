@@ -1,0 +1,9 @@
+{
+  "parent": "dungeons_content_two:custom/strong_deepslate_brazier",
+  "textures": {
+    "all": "dungeons_content_two:block/strong_deepslate_brazier",
+    "particle": "dungeons_content_two:block/chiseled_deepslate_brick_top",
+    "0": "dungeons_content_two:block/strong_deepslate_brazier"
+  },
+  "render_type": "solid"
+}

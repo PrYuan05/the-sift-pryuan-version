@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "up": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "north": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "east": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "south": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "west": "dungeons_content_two:block/chiseled_deepslate_tilles",
+    "particle": "dungeons_content_two:block/chiseled_deepslate_tilles"
+  },
+  "render_type": "solid"
+}

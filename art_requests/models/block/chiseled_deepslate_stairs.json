@@ -1,0 +1,10 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "particle": "dungeons_content_two:block/chiseled_deepslate",
+    "bottom": "dungeons_content_two:block/chiseled_deepslate",
+    "top": "dungeons_content_two:block/chiseled_deepslate",
+    "side": "dungeons_content_two:block/chiseled_deepslate"
+  },
+  "render_type": "solid"
+}

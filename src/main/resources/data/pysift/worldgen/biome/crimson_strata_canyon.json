@@ -118,6 +118,8 @@
       "pysift:patch_canyon_abyss_grass",
       "pysift:patch_sun_bloom_canyon",
       "pysift:patch_golden_bloom_sparse",
+      "pysift:patch_canyon_teal_grass",
+      "pysift:patch_canyon_tall_teal_grass",
       "pysift:patch_crimson_short_sprouts",
       "pysift:patch_canyon_coral_leaf_carpet",
       "pysift:patch_orange_rift_grass",
@@ -126,8 +128,7 @@
       "pysift:cliff_vines_crimson_canyon",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
-      "pysift:patch_canyon_teal_grass",
-      "pysift:patch_canyon_tall_teal_grass"
+      "pysift:wild_rift"
     ],
     []
   ],

@@ -1,0 +1,9 @@
+﻿{
+  "parent": "pysift:custom/yellow_leaf",
+  "textures": {
+    "all": "pysift:block/yellow_leaf",
+    "particle": "pysift:block/yellow_leaf",
+    "0": "pysift:block/yellow_leaf"
+  },
+  "render_type": "cutout"
+}

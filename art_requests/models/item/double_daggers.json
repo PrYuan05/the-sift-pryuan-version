@@ -1,0 +1,30 @@
+{
+  "loader": "forge:separate_transforms",
+  "gui_light": "front",
+  "base": {
+    "parent": "item/handheld",
+    "textures": {
+      "layer0": "dungeons_content_two:item/double_daggers1"
+    }
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/double_daggers"
+      }
+    },
+    "fixed": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/double_daggers"
+      }
+    },
+    "ground": {
+      "parent": "item/generated",
+      "textures": {
+        "layer0": "dungeons_content_two:item/double_daggers"
+      }
+    }
+  }
+}

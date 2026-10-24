@@ -1,0 +1,10 @@
+{
+  "parent": "dungeons_content_two:custom/cleaver_plant",
+  "textures": {
+    "all": "dungeons_content_two:block/cleaver_plant",
+    "particle": "dungeons_content_two:block/cleaver_plant",
+    "0": "dungeons_content_two:block/cleaver_plant",
+    "missing": "dungeons_content_two:block/cleaver_plant"
+  },
+  "render_type": "cutout"
+}

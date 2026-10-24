@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dungeons_content_two:block/sift_orange_sand_side",
+    "up": "dungeons_content_two:block/sift_orange_sand_top",
+    "north": "dungeons_content_two:block/sift_orange_sand_side",
+    "east": "dungeons_content_two:block/sift_orange_sand_side",
+    "south": "dungeons_content_two:block/sift_orange_sand_side",
+    "west": "dungeons_content_two:block/sift_orange_sand_side",
+    "particle": "dungeons_content_two:block/sift_orange_sand_side"
+  },
+  "render_type": "solid"
+}

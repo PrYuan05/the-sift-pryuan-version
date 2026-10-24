@@ -1,5 +1,66 @@
 # Changelog
 
+## v1.0.1
+
+### New: the Eight-Song Ritual (replaces the old one-click portal)
+- Blow a Goat Horn at an Ancient City portal frame: a **Singer** climbs out and stays in place.
+- The Singer beckons until you give it an **Echo Shard**; then it calls two **Echo Golems** that climb out of the ground, carry eight
+  **Resonant Jukeboxes** to the floor below the frame and set them down from left to right (all animated).
+- Fill the jukeboxes with eight discs from eight places (Pigstep, Relic, Precipice, Creator, 5, Otherside, 13, Tears);
+  left to right they shine red, orange, yellow, green, blue, indigo, purple, pink. When all eight play, the beams meet,
+  the portal opens and the Singer waves goodbye and burrows away.
+- The jukeboxes are the key: break one and the portal closes, the disc drops out.
+- In The Sift: a closed **Soul Crystal** frame + an Echo Shard opens a portal back to the overworld.
+- Singers that spawn naturally in The Sift still wander as before.
+- New advancement "Eight Songs"; the Guidebook has a 12th page.
+
+### New: day and night in The Sift
+- Three phases shared with the overworld clock: a warm gold-pink **morning**, the mint **day** and a deep-blue **night**
+  with bright stars (use `/time set pysift:morning|pysift:day|pysift:night`).
+- Portals glow brighter at night, with pink edges and a golden inner light.
+- Portals now spill light outward: soft glowing layers in front of and behind the portal, rays reaching out over the
+  frame, a glowing patch on the ground and drifting sparks. Arrival portals get gentle half-block ramps on both sides.
+
+### New: portals and places
+- Arriving in The Sift now builds a decorated **arrival portal** in the colours of the biome (ember stone, dark slate, silted strata and desert sandstone versions, designed in-game).
+- The small rift portal now appears very rarely out in the wild; it works both ways.
+- **Red Zone Caves**: a new underground biome with crimson floors, red plants, starlit shrubs and charoite.
+- **Glowshade Grass**, **Glowshade Tuft** and **Starlit Shrub**: plants with glowing tips that shed little lights at night.
+
+### Changes
+- Monarch model lowered so it no longer floats above the ground.
+- The ritual Singer appears on the exact centre of the portal (aligned with the Ancient City's central steps), stays
+  perfectly still while waiting, and plays with a tiny Echo Golem (scoop, lift overhead, one turn, put down).
+- The ritual can no longer wake the Warden.
+
+## v1.0.1（繁體中文）
+
+### 新增：八音開門儀式（取代原本一鍵開門）
+- 在遠古城市的傳送門框架附近吹山羊角：**歌者**從地底爬出並站在原地。
+- 歌者會一直招手，直到你給它**迴音碎片**：它召喚兩隻**迴音傀儡**從地底爬出，把 8 個**共鳴唱片盒**搬到框架下方的地面，由左到右放好（全程有動畫）。
+- 放入 8 張來自 8 個地方的唱片（Pigstep、Relic、Precipice、Creator、5、Otherside、13、Tears），由左到右依序是紅橙黃綠藍靛紫粉的光柱；8 張都放好時光柱匯聚、傳送門開啟，歌者揮手道別後鑽回地底。
+- 唱片盒就是鑰匙：打破任一個，門就關閉，唱片掉出來。
+- 篩靈界：用**靈魂晶塊**蓋封閉框架，拿迴音碎片右鍵，就能開出回主世界的傳送門。
+- 篩靈界自然生成的歌者照常走動。
+- 新成就「八音共鳴」；指南書增加第 12 頁。
+
+### 新增：篩靈界的日夜
+- 三個時段，跟主世界共用時鐘：暖金粉色的**晨間**、薄荷色的**日間**、星光明亮的深藍**夜間**（可用 `/time set pysift:morning|pysift:day|pysift:night`）。
+- 傳送門夜晚更亮，邊緣轉成粉紅、內側透出金黃。
+- 傳送門的光會往外擴散：門面前後的柔光、浮在框架上的外延光芒、地面光圈與往外飄的光點；到達門前後各有一道半格一階的緩坡，好走進去。
+
+### 新增：傳送門與地點
+- 抵達篩靈界時會蓋出一座依生態域色系裝飾的**到達傳送門**（余燼石、深色板岩、淤積地層岩與沙漠砂岩四種版本，在遊戲裡設計）。
+- 原本的小裂隙門改成極少數在野外生成，可雙向傳送。
+- **紅區洞穴**：新的地底生態域，赤紅地面、紅色植物、星光灌木與紫龍晶。
+- **夜光草、夜光草叢、星光灌木**：葉尖發光，入夜後會飄出小光點。
+
+### 調整
+- Monarch 模型下移，不再懸空。
+- 儀式歌者精準出現在傳送門正中央（對齊遠古城市的中央台階），等待時完全不轉頭；無聊時會和小傀儡玩（撈起、高舉、轉一圈、放下）。
+- 儀式過程不會再引來伏守者。
+
+
 ## v1.0.0 — First release (Minecraft 26.3, Fabric)
 
 The first public release of The Sift, an AI-powered Minecraft mod made by PrYuan05.

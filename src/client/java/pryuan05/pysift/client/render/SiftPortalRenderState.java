@@ -10,4 +10,6 @@ public class SiftPortalRenderState extends BlockEntityRenderState {
     public float time;
     public boolean faceUp, faceDown, faceNorth, faceSouth, faceWest, faceEast;
     public long seed;
+    /** 0 = 白天，1 = 深夜（SiftDayPhase）。 */
+    public float night;
 }
