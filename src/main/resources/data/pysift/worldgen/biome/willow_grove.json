@@ -66,6 +66,26 @@
       },
       "modifier": "overlay"
     },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.willow_grove.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.willow_grove.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.willow_grove.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.willow_grove",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
     "minecraft:visual/sky_color": "#5cd6c6",
     "minecraft:visual/fog_color": "#8fe2cc",
     "minecraft:visual/ambient_particles": {
@@ -106,35 +126,24 @@
     [
       "pysift:soul_willows_giant",
       "pysift:soul_willows",
-      "pysift:patch_grove_ember_grass",
-      "pysift:patch_grove_abyss_grass",
-      "pysift:patch_grove_puff_grass",
-      "pysift:patch_humus_grass",
-      "pysift:patch_tall_humus_grass",
-      "pysift:patch_humus_fern",
-      "pysift:patch_humus_bush",
-      "pysift:patch_grove_glowcap",
-      "pysift:patch_sun_bloom",
-      "pysift:patch_rose_bloom",
-      "pysift:patch_grove_dusk_bloom",
-      "pysift:patch_golden_bloom",
+      "pysift:patch_rift_mint_short_grass",
+      "pysift:patch_rift_mint_tall_grass",
       "pysift:patch_grove_teal_grass",
       "pysift:patch_grove_tall_teal_grass",
-      "pysift:patch_rift_mint_short_grass",
-      "pysift:patch_grove_glowshade_tall_grass",
-      "pysift:patch_coral_leaf_carpet",
-      "pysift:patch_pink_curled_fern",
-      "pysift:patch_green_giant_canopy",
-      "pysift:patch_grove_clustered_yellow_flowers",
-      "pysift:patch_rift_mint_tall_grass",
-      "pysift:patch_white_flower_patch",
+      "pysift:patch_blue_curled_fern",
+      "pysift:patch_olive_forked_stalk",
       "pysift:patch_cleaver_plant",
+      "pysift:patch_soul_cleaver_plant",
+      "pysift:patch_blue_giant_canopy",
+      "pysift:patch_grove_puff_grass",
+      "pysift:patch_grove_glowcap",
+      "pysift:patch_grove_ember_grass",
+      "pysift:patch_coral_leaf_carpet",
+      "pysift:patch_grove_yellow_flower_patch",
       "pysift:wall_green_sift_vine",
-      "pysift:wall_sift_wall_leaves",
       "pysift:cliff_vines_willow_grove",
       "pysift:glowshade_short_grass_grove",
       "pysift:glowshade_tuft_grove",
-      "pysift:starlit_shrub_grove",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
       "pysift:wild_rift"

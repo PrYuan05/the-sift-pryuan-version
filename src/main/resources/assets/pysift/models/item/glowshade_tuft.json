@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pysift:block/progression/glowshade_tuft"
+    "layer0": "pysift:block/vegetation/glowshade_tuft/glowshade_tuft"
   }
 }

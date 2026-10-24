@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "pysift:golden_bloom",
+          "name": "pysift:soul_berries",
           "modifier": [
             {
               "type": "minecraft:set_count",

@@ -1,10 +1,10 @@
 {
-  "variants": {
-    "half=lower": {
-      "model": "pysift:block/rift_orange_tall_grass_bottom"
-    },
-    "half=upper": {
-      "model": "pysift:block/rift_orange_tall_grass"
-    }
-  }
+	"variants": {
+		"half=lower": {
+			"model": "pysift:block/vegetation/rift_orange_tall_grass/rift_orange_tall_grass_bottom"
+		},
+		"half=upper": {
+			"model": "pysift:block/vegetation/rift_orange_tall_grass/rift_orange_tall_grass"
+		}
+	}
 }

@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/rift_mint_short_grass"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/rift_mint_short_grass/rift_mint_short_grass"
+		}
+	}
 }

@@ -1,0 +1,10 @@
+{
+	"parent": "pysift:block/vegetation/orange_sift_vine/custom_orange_sift_vine",
+	"textures": {
+		"all": "pysift:block/vegetation/orange_sift_vine/orange_sift_vine",
+		"particle": "pysift:block/vegetation/orange_sift_vine/orange_sift_vine",
+		"0": "pysift:block/vegetation/orange_sift_vine/orange_sift_vine",
+		"missing": "pysift:block/vegetation/orange_sift_vine/orange_sift_vine"
+	},
+	"render_type": "cutout"
+}

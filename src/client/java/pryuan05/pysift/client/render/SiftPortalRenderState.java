@@ -12,4 +12,6 @@ public class SiftPortalRenderState extends BlockEntityRenderState {
     public long seed;
     /** 0 = 白天，1 = 深夜（SiftDayPhase）。 */
     public float night;
+    /** 哪幾面被不透光的方塊貼住（1 << Direction.ordinal()）。 */
+    public int covered;
 }

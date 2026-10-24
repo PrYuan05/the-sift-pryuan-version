@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "pysift:block/progression/gloomcap"
+    "layer0": "pysift:block/vegetation/gloomcap/gloomcap"
   }
 }

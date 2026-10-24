@@ -1,10 +1,10 @@
 {
-  "variants": {
-    "half=lower": {
-      "model": "pysift:block/vegetation/soft_teal_tall_grass_bottom"
-    },
-    "half=upper": {
-      "model": "pysift:block/vegetation/soft_teal_tall_grass_top"
-    }
-  }
+	"variants": {
+		"half=lower": {
+			"model": "pysift:block/vegetation/soft_teal_tall_grass/soft_teal_tall_grass_bottom"
+		},
+		"half=upper": {
+			"model": "pysift:block/vegetation/soft_teal_tall_grass/soft_teal_tall_grass_top"
+		}
+	}
 }

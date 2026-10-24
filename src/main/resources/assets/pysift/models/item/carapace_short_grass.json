@@ -1,6 +1,6 @@
 {
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "pysift:block/carapace_shortgrass"
-  }
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "pysift:block/vegetation/carapace_short_grass/carapace_shortgrass"
+	}
 }

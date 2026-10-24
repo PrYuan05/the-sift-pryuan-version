@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "pysift:block/vegetation/soul_willow_vine_0"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "pysift:block/vegetation/_shared/soul_willow_vine_0"
+	}
 }

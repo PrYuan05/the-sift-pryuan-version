@@ -1,0 +1,355 @@
+{
+	"credit": "Designed for Minecraft Modding - 3D Agave Rosette",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "#leaf",
+		"leaf": "pysift:block/vegetation/yellow_agave/yellow_agave_leaf"
+	},
+	"elements": [
+		{
+			"name": "center_shoot",
+			"from": [
+				6.5,
+				0,
+				6.5
+			],
+			"to": [
+				9.5,
+				13,
+				9.5
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					8,
+					0,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						3,
+						13
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						0,
+						0,
+						3,
+						13
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						3,
+						13
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						3,
+						13
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						3,
+						0,
+						6,
+						3
+					],
+					"texture": "#leaf"
+				}
+			}
+		},
+		{
+			"name": "blade_north",
+			"from": [
+				6,
+				0,
+				5
+			],
+			"to": [
+				10,
+				15,
+				7
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "x",
+				"origin": [
+					8,
+					1,
+					7
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4,
+						0,
+						8,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						8,
+						0,
+						10,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						4,
+						0,
+						8,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						8,
+						0,
+						10,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						4,
+						0,
+						8,
+						2
+					],
+					"texture": "#leaf"
+				}
+			}
+		},
+		{
+			"name": "blade_south",
+			"from": [
+				6,
+				0,
+				9
+			],
+			"to": [
+				10,
+				15,
+				11
+			],
+			"rotation": {
+				"angle": -45,
+				"axis": "x",
+				"origin": [
+					8,
+					1,
+					9
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						4,
+						0,
+						8,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						8,
+						0,
+						10,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						4,
+						0,
+						8,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						8,
+						0,
+						10,
+						15
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						4,
+						0,
+						8,
+						2
+					],
+					"texture": "#leaf"
+				}
+			}
+		},
+		{
+			"name": "blade_west",
+			"from": [
+				5,
+				0,
+				6
+			],
+			"to": [
+				7,
+				14,
+				10
+			],
+			"rotation": {
+				"angle": -45,
+				"axis": "z",
+				"origin": [
+					7,
+					1,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						8,
+						0,
+						10,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						4,
+						0,
+						8,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						8,
+						0,
+						10,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						4,
+						0,
+						8,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						4,
+						0,
+						8,
+						2
+					],
+					"texture": "#leaf"
+				}
+			}
+		},
+		{
+			"name": "blade_east",
+			"from": [
+				9,
+				0,
+				6
+			],
+			"to": [
+				11,
+				14,
+				10
+			],
+			"rotation": {
+				"angle": 45,
+				"axis": "z",
+				"origin": [
+					9,
+					1,
+					8
+				]
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						8,
+						0,
+						10,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"east": {
+					"uv": [
+						4,
+						0,
+						8,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"south": {
+					"uv": [
+						8,
+						0,
+						10,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"west": {
+					"uv": [
+						4,
+						0,
+						8,
+						14
+					],
+					"texture": "#leaf"
+				},
+				"up": {
+					"uv": [
+						4,
+						0,
+						8,
+						2
+					],
+					"texture": "#leaf"
+				}
+			}
+		}
+	]
+}

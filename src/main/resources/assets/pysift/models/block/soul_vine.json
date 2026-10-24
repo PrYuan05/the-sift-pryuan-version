@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pysift:block/souls_vine",
-    "particle": "pysift:block/souls_vine"
-  },
-  "render_type": "cutout"
-}

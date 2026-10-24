@@ -29,8 +29,6 @@ public final class SiftFlora {
             p -> new NightGlowPlant(p.lightLevel(state -> 3), Block.box(2.0, 0.0, 2.0, 14.0, 10.0, 14.0), 40), Blocks.SHORT_GRASS);
     public static final Block GLOWSHADE_TUFT = ModProgression.registerBlock("glowshade_tuft",
             p -> new NightGlowPlant(p.lightLevel(state -> 4), Block.box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0), 25), Blocks.SHORT_GRASS);
-    public static final Block STARLIT_SHRUB = ModProgression.registerBlock("starlit_shrub",
-            p -> new NightGlowPlant(p.lightLevel(state -> 5), Block.box(1.0, 0.0, 1.0, 15.0, 13.0, 15.0), 15), Blocks.FERN);
 
     private SiftFlora() {
     }

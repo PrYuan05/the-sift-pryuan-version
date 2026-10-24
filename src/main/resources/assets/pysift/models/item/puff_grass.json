@@ -1,6 +1,6 @@
 {
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "pysift:block/vegetation/puff_grass_top"
-  }
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"layer0": "pysift:block/vegetation/puff_grass/puff_grass_top"
+	}
 }

@@ -47,17 +47,15 @@
 | `assets/pysift/textures/entity/equipment/humanoid_leggings/soulite.png` | 靈髓護腿穿著外觀（原版 64x32 版型） |
 | `assets/pysift/textures/item/soul_compass.png` | 靈魂羅盤（未鎖定時）：深紫外框、青色靈光錶面的羅盤（物品 16x16；鎖定後暫用原版羅盤指針圖） |
 | `assets/pysift/textures/item/homeward_stone.png` | 回程符石：深紫色圓潤石頭，刻著青色的回家符文（物品 16x16） |
-| `assets/pysift/textures/block/progression/soul_berry_bush_stage0.png` | 靈莓叢第 0 階：深綠色小灌木（十字模型 16x16，透明背景） |
-| `assets/pysift/textures/block/progression/soul_berry_bush_stage1.png` | 靈莓叢第 1 階：深綠色小灌木（十字模型 16x16，透明背景） |
-| `assets/pysift/textures/block/progression/soul_berry_bush_stage2.png` | 靈莓叢第 2 階：深綠色小灌木，掛著發光的青色莓果（十字模型 16x16，透明背景） |
-| `assets/pysift/textures/block/progression/soul_berry_bush_stage3.png` | 靈莓叢第 3 階：深綠色小灌木，掛著發光的青色莓果（十字模型 16x16，透明背景） |
+| `assets/pysift/textures/block/vegetation/soul_berry_bush/soul_berry_bush_stage0.png` | 靈莓叢第 0 階：深綠色小灌木（十字模型 16x16，透明背景） |
+| `assets/pysift/textures/block/vegetation/soul_berry_bush/soul_berry_bush_stage1.png` | 靈莓叢第 1 階：深綠色小灌木（十字模型 16x16，透明背景） |
+| `assets/pysift/textures/block/vegetation/soul_berry_bush/soul_berry_bush_stage2.png` | 靈莓叢第 2 階：深綠色小灌木，掛著發光的青色莓果（十字模型 16x16，透明背景） |
+| `assets/pysift/textures/block/vegetation/soul_berry_bush/soul_berry_bush_stage3.png` | 靈莓叢第 3 階：深綠色小灌木，掛著發光的青色莓果（十字模型 16x16，透明背景） |
 | `assets/pysift/textures/item/soul_berries.png` | 靈莓：一小串發光的青色莓果（物品 16x16） |
-| `assets/pysift/textures/block/progression/gloomcap.png` | 幽光菇：深藍紫色菇傘、帶青色發光斑點的小菇（十字模型 16x16） |
+| `assets/pysift/textures/block/vegetation/gloomcap/gloomcap.png` | 幽光菇：深藍紫色菇傘、帶青色發光斑點的小菇（十字模型 16x16） |
 | `assets/pysift/textures/item/gloomcap_stew.png` | 幽光菇燉湯：木碗裝著藍紫色、帶青色光點的湯（物品 16x16） |
 | `assets/pysift/textures/mob_effect/soul_ward.png` | 靈魂守護效果圖示：青色護盾形的靈魂（18x18） |
 | `assets/pysift/textures/mob_effect/echo_sight.png` | 回音視界效果圖示：青色的伏聆感測波紋（18x18） |
-| `assets/pysift/textures/block/progression/glowshade_short_grass_glow.png` | 夜光短草（草葉用幽匿草貼圖）：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）（發光層） |
-| `assets/pysift/textures/block/progression/glowshade_tuft.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點） |
-| `assets/pysift/textures/block/progression/glowshade_tuft_glow.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）（發光層） |
-| `assets/pysift/textures/block/progression/starlit_shrub.png` | 星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點） |
-| `assets/pysift/textures/block/progression/starlit_shrub_glow.png` | 星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點）（發光層） |
+| `assets/pysift/textures/block/vegetation/glowshade_short_grass/glowshade_short_grass_glow.png` | 夜光短草（草葉用幽匿草貼圖）：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）（發光層） |
+| `assets/pysift/textures/block/vegetation/glowshade_tuft/glowshade_tuft.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點） |
+| `assets/pysift/textures/block/vegetation/glowshade_tuft/glowshade_tuft_glow.png` | 夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）（發光層） |

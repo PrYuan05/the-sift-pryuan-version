@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/progression/glowshade_short_grass"
+      "model": "pysift:block/vegetation/glowshade_short_grass/glowshade_short_grass"
     }
   }
 }

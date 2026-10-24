@@ -284,7 +284,7 @@ def item(name, weight, lo=1, hi=1):
 
 COMMON = [item("minecraft:bread", 15, 1, 3), item("minecraft:iron_ingot", 12, 1, 4), item("minecraft:gold_ingot", 8, 1, 3),
           item("minecraft:bone", 10, 1, 4), item("minecraft:arrow", 8, 2, 8), item("pysift:gloomcap", 8, 1, 3),
-          item("pysift:golden_bloom", 8, 1, 3), item("pysift:soul_essence", 10, 1, 3), item("pysift:raw_siftite", 10, 1, 3),
+          item("pysift:soul_berries", 8, 1, 3), item("pysift:soul_essence", 10, 1, 3), item("pysift:raw_siftite", 10, 1, 3),
           item("pysift:charoite", 8, 1, 3)]
 RARE = [item("pysift:siftite_ingot", 20, 1, 3), item("pysift:soul_antidote", 15), item("minecraft:echo_shard", 10, 1, 2),
         item("pysift:summoning_sigil", 6), item("minecraft:diamond", 6, 1, 2), item("pysift:spirit_liquid_bucket", 8),

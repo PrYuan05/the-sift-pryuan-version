@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/carapace_short_grass"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/carapace_short_grass/carapace_short_grass"
+		}
+	}
 }

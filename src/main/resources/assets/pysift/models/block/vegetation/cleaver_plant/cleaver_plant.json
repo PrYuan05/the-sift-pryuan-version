@@ -1,0 +1,10 @@
+{
+	"parent": "pysift:block/vegetation/cleaver_plant/custom_cleaver_plant",
+	"textures": {
+		"all": "pysift:block/vegetation/cleaver_plant/cleaver_plant",
+		"particle": "pysift:block/vegetation/cleaver_plant/cleaver_plant",
+		"0": "pysift:block/vegetation/cleaver_plant/cleaver_plant",
+		"missing": "pysift:block/vegetation/cleaver_plant/cleaver_plant"
+	},
+	"render_type": "cutout"
+}

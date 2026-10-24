@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "pysift:block/vegetation/pink_curled_fern"
+		"layer0": "pysift:block/vegetation/pink_curled_fern/pink_curled_fern"
 	}
 }

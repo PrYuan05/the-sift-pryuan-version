@@ -48,6 +48,26 @@
       },
       "modifier": "overlay"
     },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.red_zone_caves.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.red_zone_caves.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.red_zone_caves.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.red_zone_caves",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
     "minecraft:visual/sky_color": "#5cd6c6",
     "minecraft:visual/fog_color": "#8fe2cc",
     "minecraft:visual/ambient_particles": {
@@ -84,7 +104,6 @@
     [
       "pysift:red_cave_grass",
       "pysift:red_cave_sprouts",
-      "pysift:red_cave_shrub",
       "pysift:red_cave_charoite",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave"

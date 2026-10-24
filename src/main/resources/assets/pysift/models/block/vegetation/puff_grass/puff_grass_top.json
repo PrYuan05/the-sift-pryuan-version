@@ -1,0 +1,101 @@
+{
+	"format_version": "26.3",
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "pysift:block/vegetation/puff_grass/puff_grass_top",
+		"cross": "pysift:block/vegetation/puff_grass/puff_grass_top"
+	},
+	"elements": [
+		{
+			"from": [
+				0,
+				0,
+				10.54037
+			],
+			"to": [
+				16,
+				16,
+				10.54037
+			],
+			"shade_direction_override": "up",
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					5.45963,
+					8,
+					10.54037
+				],
+				"rescale": true
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			}
+		},
+		{
+			"from": [
+				5.46004,
+				0,
+				0
+			],
+			"to": [
+				5.46004,
+				16,
+				16
+			],
+			"shade_direction_override": "up",
+			"rotation": {
+				"angle": 45,
+				"axis": "y",
+				"origin": [
+					5.46004,
+					8,
+					5.46004
+				],
+				"rescale": true
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross",
+					"tintindex": 0
+				}
+			}
+		}
+	]
+}

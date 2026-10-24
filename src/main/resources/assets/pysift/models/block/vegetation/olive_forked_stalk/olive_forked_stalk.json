@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:block/cross",
+	"textures": {
+		"cross": "pysift:block/vegetation/olive_forked_stalk/olive_forked_stalk"
+	}
+}

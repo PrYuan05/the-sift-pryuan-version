@@ -1,0 +1,10 @@
+{
+	"parent": "pysift:block/vegetation/green_sift_vine/custom_green_sift_vine",
+	"textures": {
+		"all": "pysift:block/vegetation/green_sift_vine/green_sift_vine",
+		"particle": "pysift:block/vegetation/green_sift_vine/green_sift_vine",
+		"0": "pysift:block/vegetation/green_sift_vine/green_sift_vine",
+		"missing": "pysift:block/vegetation/green_sift_vine/green_sift_vine"
+	},
+	"render_type": "cutout"
+}

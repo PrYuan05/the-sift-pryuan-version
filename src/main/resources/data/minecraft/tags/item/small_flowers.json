@@ -1,14 +1,9 @@
 {
   "replace": false,
   "values": [
-    "pysift:golden_bloom",
-    "pysift:sun_bloom",
-    "pysift:rose_bloom",
     "pysift:dusk_bloom",
     "pysift:clustered_yellow_flowers",
     "pysift:carapace_flower",
-    "pysift:white_flower_patch",
-    "pysift:yellow_flower_patch",
-    "pysift:soul_bubble_flower"
+    "pysift:yellow_flower_patch"
   ]
 }

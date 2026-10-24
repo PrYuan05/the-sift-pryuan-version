@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/vegetation/glowing_soul_willow_leaves"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/glowing_soul_willow_leaves/glowing_soul_willow_leaves"
+		}
+	}
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/progression/glowshade_tuft"
+      "model": "pysift:block/vegetation/glowshade_tuft/glowshade_tuft"
     }
   }
 }

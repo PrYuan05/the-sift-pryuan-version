@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "pysift:block/vegetation/soft_crimson_tall_grass_top"
+		"layer0": "pysift:block/vegetation/soft_crimson_tall_grass/soft_crimson_tall_grass_top"
 	}
 }

@@ -1,0 +1,6 @@
+{
+	"parent": "pysift:block/vegetation/_shared/template_vine_side",
+	"textures": {
+		"vine": "pysift:block/vegetation/_shared/soul_willow_vine_tip_0"
+	}
+}

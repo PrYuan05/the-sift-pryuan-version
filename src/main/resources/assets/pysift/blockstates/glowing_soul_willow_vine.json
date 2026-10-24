@@ -1,262 +1,262 @@
 {
-  "multipart": [
-    {
-      "when": {
-        "north": "true",
-        "shade": "0",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_0"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "0",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_0",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "0",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_0",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "0",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_0",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "shade": "0",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_0"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "0",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_0",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "0",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_0",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "0",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_0",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "shade": "1",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_1"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "1",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "1",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "1",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "shade": "1",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_1"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "1",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_1",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "1",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_1",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "1",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_1",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "shade": "2",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_2"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "2",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "2",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "2",
-        "tip": "false"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_side_2",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "north": "true",
-        "shade": "2",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_2"
-      }
-    },
-    {
-      "when": {
-        "east": "true",
-        "shade": "2",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_2",
-        "y": 90
-      }
-    },
-    {
-      "when": {
-        "south": "true",
-        "shade": "2",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_2",
-        "y": 180
-      }
-    },
-    {
-      "when": {
-        "west": "true",
-        "shade": "2",
-        "tip": "true"
-      },
-      "apply": {
-        "model": "pysift:block/vegetation/glowing_soul_willow_vine_tip_side_2",
-        "y": 270
-      }
-    }
-  ]
+	"multipart": [
+		{
+			"when": {
+				"north": "true",
+				"shade": "0",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_0"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "0",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "0",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "0",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"north": "true",
+				"shade": "0",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_0"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "0",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_0",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "0",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_0",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "0",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_0",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"north": "true",
+				"shade": "1",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_1"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "1",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "1",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "1",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"north": "true",
+				"shade": "1",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_1"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "1",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_1",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "1",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_1",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "1",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_1",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"north": "true",
+				"shade": "2",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_2"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "2",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "2",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "2",
+				"tip": "false"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_side_2",
+				"y": 270
+			}
+		},
+		{
+			"when": {
+				"north": "true",
+				"shade": "2",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_2"
+			}
+		},
+		{
+			"when": {
+				"east": "true",
+				"shade": "2",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_2",
+				"y": 90
+			}
+		},
+		{
+			"when": {
+				"south": "true",
+				"shade": "2",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_2",
+				"y": 180
+			}
+		},
+		{
+			"when": {
+				"west": "true",
+				"shade": "2",
+				"tip": "true"
+			},
+			"apply": {
+				"model": "pysift:block/vegetation/glowing_soul_willow_vine/glowing_soul_willow_vine_tip_side_2",
+				"y": 270
+			}
+		}
+	]
 }

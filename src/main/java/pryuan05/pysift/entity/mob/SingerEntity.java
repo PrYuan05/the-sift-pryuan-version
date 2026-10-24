@@ -18,6 +18,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import pryuan05.pysift.entity.ModEntities;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -60,18 +61,28 @@ public class SingerEntity extends PysiftAnimalEntity {
     /** 吹山羊角時就算好的儀式配置（門的中點、哪一側、唱片盒那一排的位置）；之後召喚與擺放都沿用它。 */
     private pryuan05.pysift.block.SiftPortalRitual.Site ritualSite;
     public static final int ACTION_NONE = 0, ACTION_BECKON = 1, ACTION_SUMMON = 2, ACTION_FINALE = 3, ACTION_SWEEP = 4, ACTION_PLAY = 5,
-            ACTION_AWAIT = 6;
+            ACTION_AWAIT = 6, ACTION_CELEBRATE = 7;
     /** 招手多久沒人理（tick）就抱起小傀儡轉圈圈，之後每隔多久再玩一次。 */
     private static final int BORED_AFTER = 400, PLAY_TICKS = 120, PLAY_AGAIN = 1200;
     private int beckonTicks;
     /** 玩完小傀儡之後要回到的等待動作（招手或等唱片）。 */
     private int waitAction = ACTION_BECKON;
+    /**
+     * 哼歌（曲目見 {@link SingerSongs}）：等唱片時把 WAITING 的曲子一首接一首完整哼完，每首之間休息 SONG_REST tick；
+     * 開門慶祝時哼 CELEBRATION。每格八分音符 HUM_STEP tick（慶祝時 CELEBRATE_STEP，比較輕快）。
+     */
+    private static final int HUM_STEP = 5, CELEBRATE_STEP = 3, SONG_REST = 40;
+    private int humTicks;
+    private int songIndex;
     /** 召喚（summon 2 秒）與終曲（sing 1.5 秒）播完後回到無動作。 */
     private int actionTicks;
     /** 開門後鑽回地底離開（動畫 burrow）。 */
     private static final EntityDataAccessor<Boolean> DATA_LEAVING = SynchedEntityData.defineId(SingerEntity.class, EntityDataSerializers.BOOLEAN);
-    /** 要和 animation.singer.burrow 的長度一致。 */
-    private static final int BURROW_TICKS = 50;
+    /**
+     * 要和 animation.singer.burrow 的長度一致（5.5 秒）：鞠躬 → 單手揮別 → 蹲低（剩 79 tick）→ 跳起 → 第 2.5 秒開始用 2 秒
+     * 慢慢轉一圈鑽進地底（剩 BURROW_DIVE tick）→ 第 4.5 秒完全沒入，再等 1 秒才移除，讓用戶端的動畫一定播得完。
+     */
+    private static final int BURROW_TICKS = 110, BURROW_DIVE = 60, BURROW_UNDER = 20;
     private int burrowTicks;
     private int songCooldown;
     private int emergeTicks;
@@ -111,11 +122,15 @@ public class SingerEntity extends PysiftAnimalEntity {
         if (action == ACTION_AWAIT && ritualAction() != ACTION_PLAY) {   // 剛開始等唱片：重新計算多久會無聊
             beckonTicks = 0;
         }
+        if (action == ACTION_AWAIT || action == ACTION_CELEBRATE) {   // 旋律從頭唱
+            humTicks = 0;
+        }
         this.entityData.set(DATA_ACTION, action);
         this.entityData.set(DATA_ACTION_START, (int) this.level().getGameTime());
         this.actionTicks = switch (action) {
             case ACTION_SUMMON -> 40;
-            case ACTION_FINALE -> 30;
+            case ACTION_FINALE -> 200;    // 正常情況下開門時就會換成 celebrate；門沒開成（唱片盒被打破）就回去等唱片
+            case ACTION_CELEBRATE -> 100;   // 快樂頌第一句（32 格 × 3 tick）唱完再退場
             case ACTION_SWEEP -> 50;
             case ACTION_PLAY -> PLAY_TICKS;
             default -> 0;
@@ -322,19 +337,85 @@ public class SingerEntity extends PysiftAnimalEntity {
                     server.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight() + 0.2, this.getZ(), 2, 0.6, 0.2, 0.6, 1.0);
                 }
             }
+            if (ritualAction() == ACTION_AWAIT) {
+                if (tickSong(server, SingerSongs.WAITING.get(songIndex), HUM_STEP, SONG_REST)) {   // 一首唱完換下一首
+                    songIndex = (songIndex + 1) % SingerSongs.WAITING.size();
+                }
+            } else if (ritualAction() == ACTION_CELEBRATE) {
+                tickSong(server, SingerSongs.CELEBRATION, CELEBRATE_STEP, 1000);
+            }
         }
         if (this.actionTicks > 0 && !this.level().isClientSide() && --this.actionTicks == 0) {
             // 玩夠了回去繼續等；召喚完傀儡之後，儀式歌者改成等玩家放唱片（await）
             int done = ritualAction();
-            setAction(done == ACTION_PLAY ? waitAction : done == ACTION_SUMMON && isRitual() ? ACTION_AWAIT : ACTION_NONE);
+            if (done == ACTION_CELEBRATE) {   // 慶祝完：揮手道別、鑽回地底
+                startLeaving();
+            } else {
+                setAction(done == ACTION_PLAY ? waitAction
+                        : (done == ACTION_SUMMON || done == ACTION_FINALE) && isRitual() ? ACTION_AWAIT : ACTION_NONE);
+            }
         }
         if (this.burrowTicks > 0 && this.level() instanceof ServerLevel level) {
-            tickEmerge(level, Math.min(EMERGE_TICKS - 7, this.burrowTicks));   // 同樣的碎屑與挖掘聲
+            int left = this.burrowTicks;
+            if (left == 79) {   // 蹲低準備起跳：「再——見」兩個下行音
+                hum(level, 19, true);
+            } else if (left == 75) {
+                hum(level, 12, true);
+            }
+            if (left == BURROW_DIVE) {   // 跳起轉圈、開始往下鑽：爆出一圈靈魂與音符
+                level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 0.5, this.getZ(), 30, 0.8, 0.4, 0.8, 0.05);
+                level.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight(), this.getZ(), 8, 1.0, 0.5, 1.0, 1.0);
+                this.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.5f, 1.8f);
+            }
+            if (left <= BURROW_DIVE && left > BURROW_UNDER) {   // 只有往下鑽的那 2 秒有碎屑與挖掘聲
+                tickEmerge(level, Math.min(EMERGE_TICKS - 7, left));
+            }
             if (--this.burrowTicks == 0) {
                 level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 0.3, this.getZ(), 20, 0.6, 0.2, 0.6, 0.02);
                 this.discard();
             }
         }
+    }
+
+    /**
+     * 哼一首曲子（每個八分音符 step tick），唱完休息 rest tick；回傳 true 表示這一首（含休息）剛好結束。
+     * 每小節的強拍（每 4 格的第一格）再疊一聲鐘聲。
+     */
+    private boolean tickSong(ServerLevel level, SingerSongs.Song song, int step, int rest) {
+        int t = humTicks++;
+        if (humTicks >= song.length() * step + rest) {
+            humTicks = 0;
+            return true;
+        }
+        int i = t / step;
+        if (t % step == 0 && i < song.length() && song.onset()[i]) {
+            hum(level, song.notes()[i], i % 4 == 0);
+        }
+        return false;
+    }
+
+    /** 終曲時跟著唱片盒唱同一個音（pitch = 音符盒的音高倍率）。 */
+    public void humNote(float pitch) {
+        if (this.level() instanceof ServerLevel level) {
+            hum(level, (int) Math.round(12 + 12 * Math.log(pitch) / Math.log(2)), true);
+        }
+    }
+
+    /** 笛聲唱一個音（音符盒半音 0~24），可以疊一聲輕輕的鐘聲；頭上冒出對應顏色的音符。 */
+    private void hum(ServerLevel level, int note, boolean chime) {
+        float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
+        level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.NEUTRAL, 0.9f, pitch);
+        if (chime) {
+            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.35f, pitch);
+        }
+        // 音符粒子：count 0 時 xSpeed 是顏色（和音符盒一樣 note / 24）
+        level.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight() + 0.3, this.getZ(), 0, note / 24.0, 0.0, 0.0, 1.0);
+    }
+
+    /** 門開了：雙手往上拋、跳兩下轉一圈（celebrate 5 秒，只播一次），哼快樂頌第一句；播完自己開始退場（{@link #startLeaving}）。 */
+    public void celebrate() {
+        setAction(ACTION_CELEBRATE);
+        this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.4f);
     }
 
     /** 腳下方塊的碎屑與挖掘聲；身體越出來，碎屑越往上噴。t = 已經爬了幾 tick。 */
@@ -400,15 +481,21 @@ public class SingerEntity extends PysiftAnimalEntity {
     @Override
     public void registerControllers(com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar controllers) {
         super.registerControllers(controllers);
-        // 儀式動作：等迴音碎片時招手（循環）→ 召喚傀儡（summon）→ 等玩家放唱片時打拍子哼歌（await，循環）→ 開門時唱終曲（sing）。排在最後，蓋過 idle／walk。
+        // 儀式動作：等迴音碎片時招手（循環）→ 召喚傀儡（summon）→ 等玩家放唱片時打拍子哼歌（await，循環）→ 終曲跟著唱片盒越指越高（finale）→ 開門慶祝（celebrate）。排在最後，蓋過 idle／walk。
         controllers.add(new com.geckolib.animation.AnimationController<SingerEntity>("ritual", 4, state -> {
-            if (isEmerging() || isLeaving()) {
+            // 退場也由這個控制器播：它排在最後，若只回傳 STOP，前一個「播完停在最後一格」的動作（celebrate）
+            // 會一直蓋住 held 控制器的 burrow，歌者就會原地站著直接消失
+            if (isLeaving()) {
+                return state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("burrow")));
+            }
+            if (isEmerging()) {
                 return com.geckolib.animation.object.PlayState.STOP;
             }
             return switch (ritualAction()) {
                 case ACTION_BECKON -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenLoop(anim("beckon")));
                 case ACTION_SUMMON -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("summon")));
-                case ACTION_FINALE -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("sing")));
+                case ACTION_FINALE -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("finale")));
+                case ACTION_CELEBRATE -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("celebrate")));
                 case ACTION_SWEEP -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenLoop(anim("sweep")));
                 case ACTION_PLAY -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("play")));
                 case ACTION_AWAIT -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenLoop(anim("await")));

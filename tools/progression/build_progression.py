@@ -187,7 +187,7 @@ MOB_DROPS = {   # entity: pools (bosses get their loot in a later step; lootkin 
     "scavenger": [drop("minecraft:bone", 0, 1), drop("minecraft:gold_nugget", 0, 3), ESSENCE(0.3)],
     "prickle": [drop("minecraft:stick", 0, 2), ESSENCE(0.25)],
     "roamroot": [drop("minecraft:stick", 1, 3), drop("pysift:soul_willow_sapling", 0, 1), ESSENCE(0.35)],
-    "bloombud": [drop("pysift:golden_bloom", 0, 2), ESSENCE(0.25)],
+    "bloombud": [drop("pysift:soul_berries", 0, 2), ESSENCE(0.25)],
     "tuner": [drop("minecraft:amethyst_shard", 0, 2), ESSENCE(0.4)],
     "wobble": [drop("minecraft:slime_ball", 0, 2), ESSENCE(0.25)],
     "nester": [drop("minecraft:feather", 1, 3), ESSENCE(0.35)],
@@ -909,21 +909,21 @@ def effect_icon(colours, seed):
 
 
 for stage in range(4):
-    save_placeholder(bush_sprite(stage, 70 + stage), f"block/progression/soul_berry_bush_stage{stage}",
+    save_placeholder(bush_sprite(stage, 70 + stage), f"block/vegetation/soul_berry_bush/soul_berry_bush_stage{stage}",
                      f"靈莓叢第 {stage} 階：深綠色小灌木{'，掛著發光的青色莓果' if stage >= 2 else ''}（十字模型 16x16，透明背景）")
-    wj(A / f"models/block/progression/soul_berry_bush_stage{stage}.json", {
+    wj(A / f"models/block/vegetation/soul_berry_bush/soul_berry_bush_stage{stage}.json", {
         "parent": "minecraft:block/cross", "render_type": "cutout",
-        "textures": {"cross": f"pysift:block/progression/soul_berry_bush_stage{stage}"}})
+        "textures": {"cross": f"pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage{stage}"}})
 wj(A / "blockstates/soul_berry_bush.json", {"variants": {
-    f"age={a}": {"model": f"pysift:block/progression/soul_berry_bush_stage{a}"} for a in range(4)}})
+    f"age={a}": {"model": f"pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage{a}"} for a in range(4)}})
 save_placeholder(blob_item(BERRY, 74), "item/soul_berries", "靈莓：一小串發光的青色莓果（物品 16x16）")
 generated_item("soul_berries")
 
-save_placeholder(mushroom_sprite(GLOOM, 75), "block/progression/gloomcap", "幽光菇：深藍紫色菇傘、帶青色發光斑點的小菇（十字模型 16x16）")
-wj(A / "blockstates/gloomcap.json", {"variants": {"": {"model": "pysift:block/progression/gloomcap"}}})
-wj(A / "models/block/progression/gloomcap.json", {"parent": "minecraft:block/cross", "render_type": "cutout",
-                                                  "textures": {"cross": "pysift:block/progression/gloomcap"}})
-generated_item("gloomcap", "pysift:block/progression/gloomcap")
+save_placeholder(mushroom_sprite(GLOOM, 75), "block/vegetation/gloomcap/gloomcap", "幽光菇：深藍紫色菇傘、帶青色發光斑點的小菇（十字模型 16x16）")
+wj(A / "blockstates/gloomcap.json", {"variants": {"": {"model": "pysift:block/vegetation/gloomcap/gloomcap"}}})
+wj(A / "models/block/vegetation/gloomcap/gloomcap.json", {"parent": "minecraft:block/cross", "render_type": "cutout",
+                                                  "textures": {"cross": "pysift:block/vegetation/gloomcap/gloomcap"}})
+generated_item("gloomcap", "pysift:block/vegetation/gloomcap/gloomcap")
 save_placeholder(blob_item([(60, 40, 30), (110, 80, 60), (80, 90, 170), (120, 220, 230)], 76), "item/gloomcap_stew",
                  "幽光菇燉湯：木碗裝著藍紫色、帶青色光點的湯（物品 16x16）")
 generated_item("gloomcap_stew")
@@ -1110,14 +1110,14 @@ def glow_cross_model(name, cross=None):
         if emissive:
             el["light_emission"] = 15
         return el
-    wj(A / f"models/block/progression/{name}.json", {
+    wj(A / f"models/block/vegetation/{name}/{name}.json", {
         "ambientocclusion": False, "render_type": "cutout",
-        "textures": {"particle": cross or f"pysift:block/progression/{name}", "cross": cross or f"pysift:block/progression/{name}",
-                     "glow": f"pysift:block/progression/{name}_glow"},
+        "textures": {"particle": cross or f"pysift:block/vegetation/{name}/{name}", "cross": cross or f"pysift:block/vegetation/{name}/{name}",
+                     "glow": f"pysift:block/vegetation/{name}/{name}_glow"},
         "elements": [plane("#cross", 8, False, "z"), plane("#cross", 8, False, "x"),
                      plane("#glow", 8.01, True, "z"), plane("#glow", 8.01, True, "x")]})
-    wj(A / f"blockstates/{name}.json", {"variants": {"": {"model": f"pysift:block/progression/{name}"}}})
-    generated_item(name, cross or f"pysift:block/progression/{name}")
+    wj(A / f"blockstates/{name}.json", {"variants": {"": {"model": f"pysift:block/vegetation/{name}/{name}"}}})
+    generated_item(name, cross or f"pysift:block/vegetation/{name}/{name}")
 
 
 GLOW_TEAL = [(20, 60, 60), (30, 100, 95), (50, 150, 135), (90, 200, 180)]
@@ -1126,18 +1126,16 @@ FLORA = {
                         "夜光短草（草葉用幽匿草貼圖）：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）"),
     "glowshade_tuft": (blades(GLOW_TEAL, 82, 15, 9), (150, 255, 245), 9,
                        "夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）"),
-    "starlit_shrub": (shrub([(18, 22, 40), (28, 34, 60), (40, 48, 80)], 83), (110, 190, 255), 14,
-                      "星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點）"),
 }
 # 夜光短草：草葉沿用幽匿草（sift_vegetation_assets 的 sculk_grass.png，使用者決定合併），只產生對齊它的發光層
-FLORA_CROSS = {"glowshade_short_grass": "block/sculk_grass"}
+FLORA_CROSS = {"glowshade_short_grass": "block/vegetation/glowshade_short_grass/sculk_grass"}
 for name, (base, dot, n, desc) in FLORA.items():
     cross = FLORA_CROSS.get(name)
     if cross:
         base = Image.open(A / f"textures/{cross}.png").convert("RGBA")
     else:
-        save_placeholder(base, f"block/progression/{name}", desc)
-    save_placeholder(glow_dots(base, dot, sum(map(ord, name)), n), f"block/progression/{name}_glow", desc + "（發光層）")
+        save_placeholder(base, f"block/vegetation/{name}/{name}", desc)
+    save_placeholder(glow_dots(base, dot, sum(map(ord, name)), n), f"block/vegetation/{name}/{name}_glow", desc + "（發光層）")
     glow_cross_model(name, cross and f"pysift:{cross}")
     loot(f"blocks/{name}", [{"rolls": 1, "condition": {"type": "minecraft:match_tool", "predicate": {"items": "minecraft:shears"}},
                               "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}])
@@ -1145,7 +1143,6 @@ for name, (base, dot, n, desc) in FLORA.items():
 FLORA_LANG = {
     "block.pysift.glowshade_short_grass": ("Glowshade Short Grass", "夜光短草"),
     "block.pysift.glowshade_tuft": ("Glowshade Tuft", "夜光草叢"),
-    "block.pysift.starlit_shrub": ("Starlit Shrub", "星光灌木"),
 }
 for lang, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{lang}.json"

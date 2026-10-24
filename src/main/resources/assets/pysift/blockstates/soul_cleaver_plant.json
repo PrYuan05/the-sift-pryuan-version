@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/soul_cleaver_plant"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/soul_cleaver_plant/soul_cleaver_plant"
+		}
+	}
 }

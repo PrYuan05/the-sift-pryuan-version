@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/cleaver_plant"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/cleaver_plant/cleaver_plant"
+		}
+	}
 }

@@ -1,9 +1,0 @@
-{
-  "type": "pysift:wall_plant",
-  "block": "pysift:sift_wall_leaves",
-  "tries": 24,
-  "min_length": 1,
-  "max_length": 1,
-  "xz_spread": 8,
-  "y_spread": 16
-}

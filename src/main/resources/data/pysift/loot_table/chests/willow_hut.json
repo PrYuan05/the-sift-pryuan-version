@@ -101,7 +101,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "pysift:golden_bloom",
+          "name": "pysift:soul_berries",
           "weight": 8,
           "modifier": [
             {

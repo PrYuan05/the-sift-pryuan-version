@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/cross",
-	"textures": {
-		"cross": "pysift:block/vegetation/soft_violet_tall_grass_top"
-	}
-}

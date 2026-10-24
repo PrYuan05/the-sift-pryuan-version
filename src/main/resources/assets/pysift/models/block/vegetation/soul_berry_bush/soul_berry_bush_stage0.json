@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "cutout",
+  "textures": {
+    "cross": "pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage0"
+  }
+}

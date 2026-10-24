@@ -2,60 +2,22 @@
 	"variants": {
 		"": [
 			{
-				"model": "pysift:block/vegetation/dusk_bloom",
+				"model": "pysift:block/vegetation/dusk_bloom/dusk_bloom",
 				"weight": 2
 			},
 			{
-				"model": "pysift:block/vegetation/dusk_bloom",
+				"model": "pysift:block/vegetation/dusk_bloom/dusk_bloom",
 				"weight": 2,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/dusk_bloom",
+				"model": "pysift:block/vegetation/dusk_bloom/dusk_bloom",
 				"weight": 2,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/dusk_bloom",
+				"model": "pysift:block/vegetation/dusk_bloom/dusk_bloom",
 				"weight": 2,
-				"y": 270
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s80",
-				"weight": 1
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s80",
-				"weight": 1,
-				"y": 90
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s80",
-				"weight": 1,
-				"y": 180
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s80",
-				"weight": 1,
-				"y": 270
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s120",
-				"weight": 1
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s120",
-				"weight": 1,
-				"y": 90
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s120",
-				"weight": 1,
-				"y": 180
-			},
-			{
-				"model": "pysift:block/vegetation/dusk_bloom_s120",
-				"weight": 1,
 				"y": 270
 			}
 		]

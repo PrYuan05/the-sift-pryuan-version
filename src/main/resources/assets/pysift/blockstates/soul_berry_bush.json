@@ -1,16 +1,16 @@
 {
   "variants": {
     "age=0": {
-      "model": "pysift:block/progression/soul_berry_bush_stage0"
+      "model": "pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage0"
     },
     "age=1": {
-      "model": "pysift:block/progression/soul_berry_bush_stage1"
+      "model": "pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage1"
     },
     "age=2": {
-      "model": "pysift:block/progression/soul_berry_bush_stage2"
+      "model": "pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage2"
     },
     "age=3": {
-      "model": "pysift:block/progression/soul_berry_bush_stage3"
+      "model": "pysift:block/vegetation/soul_berry_bush/soul_berry_bush_stage3"
     }
   }
 }

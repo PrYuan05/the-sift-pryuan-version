@@ -96,5 +96,325 @@
       "pysift:mob/blub/blub_walk3",
       "pysift:mob/blub/blub_walk4"
     ]
+  },
+  "music.the_sift.willow_grove": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/below_and_above",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/bromeliad",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/echo_in_the_wind",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/featherfall",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/left_to_bloom",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/comforting_memories",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.willow_grove.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.warped_forest.loop",
+        "type": "event",
+        "volume": 0.55,
+        "pitch": 1.1
+      }
+    ]
+  },
+  "ambient.the_sift.willow_grove.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.soul_sand_valley.mood",
+        "type": "event",
+        "volume": 0.6,
+        "pitch": 1.2
+      }
+    ]
+  },
+  "ambient.the_sift.willow_grove.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:entity.allay.ambient_without_item",
+        "type": "event",
+        "volume": 0.35,
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event",
+        "volume": 0.6,
+        "pitch": 0.7
+      },
+      {
+        "name": "minecraft:ambient.warped_forest.additions",
+        "type": "event",
+        "volume": 0.6,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "music.the_sift.crimson_strata_canyon": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/crescent_dunes",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/echo_in_the_wind",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/dry_hands",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/nether/crimson_forest/chrysopoeia",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.crimson_strata_canyon.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.crimson_forest.loop",
+        "type": "event",
+        "volume": 0.6,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.crimson_strata_canyon.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.crimson_forest.mood",
+        "type": "event",
+        "volume": 0.7,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.crimson_strata_canyon.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.crimson_forest.additions",
+        "type": "event",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event",
+        "volume": 0.5,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "music.the_sift.violet_slate_abyss": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/ancestry",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/deeper",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/nether/soulsand_valley/so_below",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/nether/concrete_halls",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.violet_slate_abyss.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.soul_sand_valley.loop",
+        "type": "event",
+        "volume": 0.7,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "ambient.the_sift.violet_slate_abyss.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.soul_sand_valley.mood",
+        "type": "event",
+        "volume": 0.8,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "ambient.the_sift.violet_slate_abyss.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.soul_sand_valley.additions",
+        "type": "event",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "minecraft:block.amethyst_block.resonate",
+        "type": "event",
+        "volume": 0.4,
+        "pitch": 0.6
+      },
+      {
+        "name": "minecraft:entity.allay.ambient_without_item",
+        "type": "event",
+        "volume": 0.25,
+        "pitch": 0.6
+      }
+    ]
+  },
+  "music.the_sift.amber_dunes": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/crescent_dunes",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/fireflies",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/haggstrom",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/danny",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.amber_dunes.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.nether_wastes.loop",
+        "type": "event",
+        "volume": 0.35,
+        "pitch": 1.3
+      }
+    ]
+  },
+  "ambient.the_sift.amber_dunes.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.basalt_deltas.mood",
+        "type": "event",
+        "volume": 0.5,
+        "pitch": 1.2
+      }
+    ]
+  },
+  "ambient.the_sift.amber_dunes.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:block.amethyst_block.chime",
+        "type": "event",
+        "volume": 0.5,
+        "pitch": 0.9
+      },
+      {
+        "name": "minecraft:ambient.basalt_deltas.additions",
+        "type": "event",
+        "volume": 0.3,
+        "pitch": 1.4
+      }
+    ]
+  },
+  "music.the_sift.red_zone_caves": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/deeper",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/an_ordinary_day",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/ebb",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/nether/crimson_forest/chrysopoeia",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.red_zone_caves.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.crimson_forest.loop",
+        "type": "event",
+        "volume": 0.5,
+        "pitch": 0.8
+      }
+    ]
+  },
+  "ambient.the_sift.red_zone_caves.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.cave",
+        "type": "event",
+        "volume": 0.8,
+        "pitch": 0.9
+      }
+    ]
+  },
+  "ambient.the_sift.red_zone_caves.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "minecraft:ambient.crimson_forest.additions",
+        "type": "event",
+        "volume": 0.6,
+        "pitch": 0.8
+      },
+      {
+        "name": "minecraft:block.amethyst_block.resonate",
+        "type": "event",
+        "volume": 0.4,
+        "pitch": 0.5
+      }
+    ]
   }
 }

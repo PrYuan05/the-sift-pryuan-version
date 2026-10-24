@@ -1,0 +1,8 @@
+{
+	"parent": "block/cross",
+	"textures": {
+		"cross": "pysift:block/vegetation/carapace_short_grass/carapace_shortgrass",
+		"particle": "pysift:block/vegetation/carapace_short_grass/carapace_shortgrass"
+	},
+	"render_type": "cutout"
+}

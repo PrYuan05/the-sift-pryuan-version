@@ -18,7 +18,6 @@ public final class FloorTints {
             Map.entry("pysift:violet_strata", new int[]{0xFFB995E0, 0xFFE0CC7C}),
             Map.entry("pysift:crimson_capped_void_01", new int[]{0xFFEDA098}),
             Map.entry("pysift:crimson_capped_crimson_strata_3", new int[]{0xFFEDA098}),
-            Map.entry("pysift:sift_pink_loam", new int[]{0xFFF3A0BE}),
             Map.entry("pysift:amber_sand", new int[]{0xFFEECC83}),
             Map.entry("pysift:pale_sand", new int[]{0xFFEFCD84}),
             Map.entry("pysift:crimson_capped_crimson_strata_2", new int[]{0xFFEEA399}),

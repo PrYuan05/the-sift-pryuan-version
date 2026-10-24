@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/carapace_flower"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/carapace_flower/carapace_flower"
+		}
+	}
 }

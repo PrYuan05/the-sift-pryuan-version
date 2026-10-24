@@ -1,7 +1,7 @@
 {
-  "variants": {
-    "": {
-      "model": "pysift:block/yellow_leaf_litter"
-    }
-  }
+	"variants": {
+		"": {
+			"model": "pysift:block/vegetation/yellow_leaf_litter/yellow_leaf_litter"
+		}
+	}
 }

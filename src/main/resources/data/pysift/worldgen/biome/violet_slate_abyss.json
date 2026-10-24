@@ -66,6 +66,26 @@
       },
       "modifier": "overlay"
     },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.violet_slate_abyss.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.violet_slate_abyss.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.violet_slate_abyss.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.violet_slate_abyss",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
     "minecraft:visual/sky_color": "#5cd6c6",
     "minecraft:visual/fog_color": "#8fe2cc",
     "minecraft:visual/ambient_particles": {
@@ -110,23 +130,14 @@
     [
       "pysift:patch_abyss_grass",
       "pysift:patch_violet_ember_grass",
+      "pysift:patch_violet_pink_curled_fern",
       "pysift:patch_violet_puff_grass",
-      "pysift:patch_glowcap",
-      "pysift:patch_bone_spire",
       "pysift:patch_dusk_bloom",
-      "pysift:patch_violet_golden_bloom",
-      "pysift:patch_violet_teal_grass",
-      "pysift:patch_blue_curled_fern",
-      "pysift:patch_glowshade_tall_grass",
-      "pysift:patch_white_curled_fern",
-      "pysift:patch_blue_giant_canopy",
-      "pysift:patch_white_giant_canopy",
-      "pysift:patch_soul_bubble_flower",
-      "pysift:patch_soul_cleaver_plant",
-      "pysift:patch_soul_vine",
-      "pysift:cliff_vines_violet_abyss",
-      "pysift:glowshade_short_grass_violet",
-      "pysift:starlit_shrub_violet",
+      "pysift:patch_violet_clustered_yellow_flowers",
+      "pysift:patch_violet_yellow_leaf_litter",
+      "pysift:patch_violet_yellow_agave",
+      "pysift:patch_bone_spire",
+      "pysift:patch_glowcap",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave",
       "pysift:wild_rift"

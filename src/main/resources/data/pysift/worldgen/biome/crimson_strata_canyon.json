@@ -75,6 +75,26 @@
       },
       "modifier": "overlay"
     },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.crimson_strata_canyon.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.crimson_strata_canyon.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.crimson_strata_canyon.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.crimson_strata_canyon",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
     "minecraft:visual/sky_color": "#5cd6c6",
     "minecraft:visual/fog_color": "#8fe2cc",
     "minecraft:visual/ambient_particles": {
@@ -114,19 +134,14 @@
     [
       "pysift:patch_ember_grass",
       "pysift:patch_tall_ember_grass",
-      "pysift:patch_canyon_puff_grass",
-      "pysift:patch_canyon_abyss_grass",
-      "pysift:patch_sun_bloom_canyon",
-      "pysift:patch_golden_bloom_sparse",
-      "pysift:patch_canyon_teal_grass",
-      "pysift:patch_canyon_tall_teal_grass",
-      "pysift:patch_rift_red_short_grass",
+      "pysift:patch_carapace_short_grass",
+      "pysift:patch_carapace_flower",
       "pysift:patch_canyon_coral_leaf_carpet",
       "pysift:patch_rift_orange_short_grass",
       "pysift:patch_rift_orange_tall_grass",
-      "pysift:patch_canyon_yellow_agave",
-      "pysift:patch_carapace_short_grass",
-      "pysift:patch_carapace_flower",
+      "pysift:patch_canyon_puff_grass",
+      "pysift:patch_canyon_teal_grass",
+      "pysift:patch_canyon_tall_teal_grass",
       "pysift:wall_carapace_vine",
       "pysift:wall_orange_sift_vine",
       "pysift:cliff_vines_crimson_canyon",

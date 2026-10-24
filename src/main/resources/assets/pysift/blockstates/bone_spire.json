@@ -2,59 +2,59 @@
 	"variants": {
 		"": [
 			{
-				"model": "pysift:block/vegetation/bone_spire",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire",
 				"weight": 2
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire",
 				"weight": 2,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire",
 				"weight": 2,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire",
 				"weight": 2,
 				"y": 270
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s80",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s80",
 				"weight": 1
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s80",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s80",
 				"weight": 1,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s80",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s80",
 				"weight": 1,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s80",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s80",
 				"weight": 1,
 				"y": 270
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s120",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s120",
 				"weight": 1
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s120",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s120",
 				"weight": 1,
 				"y": 90
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s120",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s120",
 				"weight": 1,
 				"y": 180
 			},
 			{
-				"model": "pysift:block/vegetation/bone_spire_s120",
+				"model": "pysift:block/vegetation/bone_spire/bone_spire_s120",
 				"weight": 1,
 				"y": 270
 			}

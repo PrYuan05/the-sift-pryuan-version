@@ -3,8 +3,8 @@
   "placement": [
     {
       "type": "minecraft:noise_threshold_count",
-      "above_noise": 3,
-      "below_noise": 1,
+      "above_noise": 6,
+      "below_noise": 2,
       "noise_level": -0.6
     },
     {
@@ -21,8 +21,8 @@
       "type": "minecraft:count",
       "count": {
         "type": "minecraft:uniform",
-        "min_inclusive": 10,
-        "max_inclusive": 20
+        "min_inclusive": 20,
+        "max_inclusive": 36
       }
     },
     {

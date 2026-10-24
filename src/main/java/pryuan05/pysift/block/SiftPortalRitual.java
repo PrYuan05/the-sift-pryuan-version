@@ -563,7 +563,8 @@ public final class SiftPortalRitual {
         }
         List<ResonantJukeboxBlockEntity> scale = new ArrayList<>(all);
         scale.sort(Comparator.comparingInt(b -> b.getRitualDisc().semitone()));
-        for (SingerEntity singer : level.getEntitiesOfClass(SingerEntity.class, new AABB(centre).inflate(32))) {
+        List<SingerEntity> singers = level.getEntitiesOfClass(SingerEntity.class, new AABB(centre).inflate(32));
+        for (SingerEntity singer : singers) {
             singer.getLookControl().setLookAt(Vec3.atCenterOf(centre));
             singer.setAction(SingerEntity.ACTION_FINALE);
             singer.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.0f);
@@ -581,6 +582,11 @@ public final class SiftPortalRitual {
                 level.playSound(null, p, SoundEvents.NOTE_BLOCK_HARP.value(), SoundSource.RECORDS, 2.0f, disc.pitch());
                 level.sendParticles(new DustParticleOptions(disc.color() & 0xFFFFFF, 2.0f), p.getX() + 0.5, p.getY() + 3, p.getZ() + 0.5,
                         30, 0.2, 2.5, 0.2, 0.0);
+                for (SingerEntity singer : singers) {   // 歌者跟著唱同一個音
+                    if (singer.isAlive()) {
+                        singer.humNote(disc.pitch());
+                    }
+                }
             });
         }
         schedule(level, 10 + scale.size() * FINALE_STEP + 14, () -> openPortal(level, anyBox, scale));
@@ -615,9 +621,9 @@ public final class SiftPortalRitual {
         level.sendParticles(ParticleTypes.END_ROD, target.x, target.y, target.z, 80, 1.5, 1.5, 1.5, 0.08);
         level.playSound(null, centre, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.BLOCKS, 2.0f, 1.2f);
         level.playSound(null, centre, SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 3.0f, 1.0f);
-        // 歌者的任務完成：揮手道別，然後鑽回地底離開
+        // 歌者的任務完成：先慶祝（跳起來轉圈、哼小號角），播完自己揮手道別、鑽回地底離開
         for (SingerEntity singer : level.getEntitiesOfClass(SingerEntity.class, new AABB(centre).inflate(32), SingerEntity::isRitual)) {
-            schedule(level, 40, singer::startLeaving);
+            singer.celebrate();
         }
         AdvancementHolder adv = level.getServer().getAdvancements().get(PySift.id("progression/eight_songs"));
         for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class, new AABB(centre).inflate(32))) {
@@ -664,6 +670,15 @@ public final class SiftPortalRitual {
                                 SiftPortalBlock.buildMouthFrame(level, base, axis);
                             }
                             return 1;
+                        }))
+                        .then(net.minecraft.commands.Commands.literal("landing").executes(ctx -> {
+                            // 跟穿過傳送門一樣：在這裡找落點、蓋回程門，回報落點能不能站
+                            ServerLevel level = ctx.getSource().getLevel();
+                            BlockPos at = BlockPos.containing(ctx.getSource().getPosition());
+                            BlockPos landing = SiftPortalBlock.prepareLanding(level, at.getX(), at.getZ());
+                            boolean safe = SiftPortalBlock.isSafeLanding(level, landing);
+                            ctx.getSource().sendSuccess(() -> Component.literal("landing " + landing.toShortString() + " safe=" + safe), false);
+                            return safe ? 1 : 0;
                         }))
                         .then(net.minecraft.commands.Commands.literal("summon").executes(ctx -> {
                             ServerLevel level = ctx.getSource().getLevel();

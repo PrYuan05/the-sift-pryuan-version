@@ -198,19 +198,19 @@
         },
         {
           "ticks": 12200,
-          "value": "#ffe0b0e0"
+          "value": "#c0e0b0e0"
         },
         {
           "ticks": 13500,
-          "value": "#ff2a2a4a"
+          "value": "#1e2a2a4a"
         },
         {
           "ticks": 22000,
-          "value": "#ff2a2a4a"
+          "value": "#1e2a2a4a"
         },
         {
           "ticks": 23300,
-          "value": "#ffd0a8c0"
+          "value": "#a0d0a8c0"
         }
       ]
     },
