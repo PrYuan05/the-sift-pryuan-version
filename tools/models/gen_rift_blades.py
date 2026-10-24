@@ -5,6 +5,8 @@ Usage: python -I tools/models/gen_rift_blades.py [--apply]
 """
 import sys, json, math, random
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -91,21 +93,14 @@ def build():
     def grass(name, src, seed, n, h1, h2, l1, l2, rad, w=3.0):
         tex[name] = colorize(g.blade_texture("grass"), palette(src))
         m[name] = (untint(g.tuft(seed, n, h1, h2, l1, l2, rad, w=w)), name)
-    grass("crimson_short_sprouts", "crimson_short_sprouts", 71, 9, (3, 4.5), (2.5, 4), (4, 12), (6, 14), 3.6, w=2.5)
-    grass("mint_rift_grass", "mint_rift_grass", 73, 9, (5, 7), (4.5, 7), (8, 18), (10, 22), 4.0)
-    grass("orange_rift_grass", "orange_rift_grass", 79, 9, (4.5, 6.5), (4, 6.5), (8, 20), (10, 24), 4.0)
-    grass("yellow_short_grass", "yellow_short_grass", 83, 10, (3.5, 5), (3, 5), (6, 16), (8, 20), 4.2, w=2.5)
+    # 裂隙橙／紅／薄荷短草與橙高草已改用 sift_vegetation_assets 的十字貼圖（tools/worldgen/rename_vegetation.py），不再產生 3D 葉片
+    grass("rift_yellow_short_grass", "rift_yellow_short_grass", 83, 10, (3.5, 5), (3, 5), (6, 16), (8, 20), 4.2, w=2.5)
     for c, seed in (("blue", 91), ("pink", 97), ("white", 101)):
-        name = f"curled_fern_{c}"
+        name = f"{c}_curled_fern"
         tex[name] = colorize(g.blade_texture("grass"), palette(name))
         m[name] = (untint(curled_tuft(seed, 6)), name)
     tex["olive_forked_stalk"] = colorize(g.blade_texture("bush"), palette("olive_forked_stalk"))
     m["olive_forked_stalk"] = (untint(forked_stalk()), "olive_forked_stalk")
-    tex["orange_tall_rift_grass"] = colorize(g.blade_texture("grass"), palette("orange_tall_rift_grass_bottom", 4)
-                                             + palette("orange_tall_rift_grass_top", 4)[2:])
-    b, t = g.tall_tuft(89, 8)
-    m["orange_tall_rift_grass_bottom"] = (untint(b), "orange_tall_rift_grass")
-    m["orange_tall_rift_grass_top"] = (untint(t), "orange_tall_rift_grass")
     return m, tex
 
 
@@ -144,7 +139,7 @@ def main():
         for n, im in tex.items():
             p = VEG / f"{n}_blades.png"
             g.backup(p)
-            im.save(p)
+            art_guard.save(im, p)
         for n, (els, tn) in m.items():
             particle = n if (VEG / f"{n}.png").exists() else tn
             p = A / g.MODEL_DIR / f"{n}.json"

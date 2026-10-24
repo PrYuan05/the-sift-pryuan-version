@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_fence_gate_open",
-  "textures": {
-    "texture": "dungeons_content_two:block/ancient_planks",
-    "particle": "dungeons_content_two:block/ancient_planks"
-  },
-  "render_type": "solid"
-}

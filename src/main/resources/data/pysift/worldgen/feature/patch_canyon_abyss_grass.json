@@ -1,6 +1,6 @@
 {
   "type": "minecraft:simple_block",
   "to_place": {
-    "id": "pysift:crimson_short_grass"
+    "id": "pysift:soft_crimson_short_grass"
   }
 }

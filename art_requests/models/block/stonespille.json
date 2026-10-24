@@ -1,9 +1,0 @@
-{
-  "parent": "dungeons_content_two:custom/stonepille",
-  "textures": {
-    "all": "minecraft:block/carrots_stage3",
-    "particle": "minecraft:block/carrots_stage3",
-    "0": "dungeons_content_two:block/stone_pille"
-  },
-  "render_type": "cutout"
-}

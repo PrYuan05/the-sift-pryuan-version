@@ -1,5 +1,5 @@
 """批次 3：影片裡有、模組還沒有的兩種植物。
-  tall_glow_grass   高發光草：兩格高的青色粗葉草（gen_blade_models 的葉片），葉間有不染色的黃色發光小方塊；顏色依地板（FloorTint）。
+  glowshade_tall_grass   高發光草：兩格高的青色粗葉草（gen_blade_models 的葉片），葉間有不染色的黃色發光小方塊；顏色依地板（FloorTint）。
   coral_leaf_carpet 珊瑚落葉地毯：像原版粉紅花瓣（FlowerBedBlock），1~4 層，用原版 flowerbed_1..4 模型，只換貼圖。
 Usage (from the project root):
   python -I tools/models/gen_batch3.py            預覽 build/previews/sift_batch_3.png
@@ -8,6 +8,8 @@ Java 註冊在 ModVegetation（TALL_GLOW_GRASS、CORAL_LEAF_CARPET）。
 """
 import sys, json, math, random
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -103,7 +105,7 @@ def preview(glow, tex):
     sheet = Image.new("RGB", (W * 3 + 40, 2 * (W + 30) + 120), (34, 33, 40))
     d = ImageDraw.Draw(sheet)
     # 高發光草：青地單株、3x3、紫地單株
-    d.text((10, 10), "高發光草 tall_glow_grass（顏色依地板：青地 / 紫地；黃點不染色、發光）", fill=(235, 235, 235), font=font)
+    d.text((10, 10), "高發光草 glowshade_tall_grass（顏色依地板：青地 / 紫地；黃點不染色、發光）", fill=(235, 235, 235), font=font)
     for k, (tint, floor, grid) in enumerate(((("#7BE0D0"), "#2E7F7A", False), ("#7BE0D0", "#2E7F7A", True), ("#B995E0", "#6E5A8C", False))):
         c = g.Canvas(W, W, 4.2 if grid else 7.5)
         cells = [(gx, gz) for gx in range(3) for gz in range(3)] if grid else [(1, 1)]
@@ -113,7 +115,7 @@ def preview(glow, tex):
             for half, els in enumerate(glow):
                 for e in els:
                     e2 = g.rotate_y_model(e, ((gx * 3 + gz) * 90) % 360)
-                    c.element(e2, {"#0": tex["tall_glow_grass"]}, g.hexrgb(tint), ((gx - 1) * 16, 16 * half, (gz - 1) * 16))
+                    c.element(e2, {"#0": tex["glowshade_tall_grass"]}, g.hexrgb(tint), ((gx - 1) * 16, 16 * half, (gz - 1) * 16))
         sheet.paste(c.img, (10 + k * (W + 10), 32))
     # 珊瑚落葉地毯：1~4 層 + 貼圖
     y0 = W + 50
@@ -126,7 +128,7 @@ def preview(glow, tex):
                 c.element(e, {"#flowerbed": tex["coral_leaf_carpet"], "#stem": tex["coral_leaf_carpet_stem"]}, (255, 255, 255))
         sheet.paste(c.img, (10 + (n - 1) * (W * 3 // 4), y0 + 22))
     sheet.paste(tex["coral_leaf_carpet"].resize((96, 96), Image.NEAREST), (10, y0 + W * 3 // 4 + 20), tex["coral_leaf_carpet"].resize((96, 96), Image.NEAREST))
-    sheet.paste(tex["tall_glow_grass"].resize((96, 96), Image.NEAREST), (116, y0 + W * 3 // 4 + 20))
+    sheet.paste(tex["glowshade_tall_grass"].resize((96, 96), Image.NEAREST), (116, y0 + W * 3 // 4 + 20))
     PREVIEW.parent.mkdir(parents=True, exist_ok=True)
     sheet.save(PREVIEW)
 
@@ -142,15 +144,15 @@ def apply(glow, tex):
     for n, im in tex.items():
         p = VEG / f"{n}.png"
         g.backup(p)
-        im.save(p)
+        art_guard.save(im, p)
     icon = A / "textures/item/coral_leaf_carpet.png"
     g.backup(icon)
-    item_icon(tex["coral_leaf_carpet"]).save(icon)
+    art_guard.save(item_icon(tex["coral_leaf_carpet"]), icon)
     # 高發光草
     for half, els in (("bottom", glow[0]), ("top", glow[1])):
-        wj(A / g.MODEL_DIR / f"tall_glow_grass_{half}.json", g.model("tall_glow_grass", els), indent="\t")
-    wj(A / "blockstates/tall_glow_grass.json", {"variants": {"half=lower": {"model": "pysift:block/vegetation/tall_glow_grass_bottom"},
-                                                             "half=upper": {"model": "pysift:block/vegetation/tall_glow_grass_top"}}})
+        wj(A / g.MODEL_DIR / f"glowshade_tall_grass_{half}.json", g.model("glowshade_tall_grass", els), indent="\t")
+    wj(A / "blockstates/glowshade_tall_grass.json", {"variants": {"half=lower": {"model": "pysift:block/vegetation/glowshade_tall_grass_bottom"},
+                                                             "half=upper": {"model": "pysift:block/vegetation/glowshade_tall_grass_top"}}})
     # 珊瑚落葉地毯：原版 flowerbed 模型 + 自己的貼圖
     for n in range(1, 5):
         wj(A / g.MODEL_DIR / f"coral_leaf_carpet_{n}.json", {"parent": f"minecraft:block/flowerbed_{n}", "textures": {
@@ -166,23 +168,23 @@ def apply(glow, tex):
             parts.append({"apply": apply_, "when": when})
     wj(A / "blockstates/coral_leaf_carpet.json", {"multipart": parts})
     # 物品
-    wj(A / "items/tall_glow_grass.json", {"model": {"type": "minecraft:model", "model": "pysift:item/tall_glow_grass"}})
+    wj(A / "items/glowshade_tall_grass.json", {"model": {"type": "minecraft:model", "model": "pysift:item/glowshade_tall_grass"}})
     wj(A / "items/coral_leaf_carpet.json", {"model": {"type": "minecraft:model", "model": "pysift:item/coral_leaf_carpet"}})
     wj(A / "models/item/coral_leaf_carpet.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/coral_leaf_carpet"}}, indent="\t")
     # 掉落表
     glow_loot = {"type": "minecraft:block", "pools": [{"condition": {"type": "minecraft:all_of", "terms": [
-        {"type": "minecraft:match_block", "blocks": "pysift:tall_glow_grass", "state": {"half": "lower"}},
+        {"type": "minecraft:match_block", "blocks": "pysift:glowshade_tall_grass", "state": {"half": "lower"}},
         {"type": "minecraft:any_of", "terms": ["minecraft:tool/can_shear", "minecraft:tool/can_silk_touch"]}]},
-        "entries": [{"type": "minecraft:item", "name": "pysift:tall_glow_grass"}], "rolls": 1}], "random_sequence": "pysift:blocks/tall_glow_grass"}
+        "entries": [{"type": "minecraft:item", "name": "pysift:glowshade_tall_grass"}], "rolls": 1}], "random_sequence": "pysift:blocks/glowshade_tall_grass"}
     carpet_loot = {"type": "minecraft:block", "pools": [{"entries": [{"type": "minecraft:item", "name": "pysift:coral_leaf_carpet", "modifier": [
         *[{"type": "minecraft:set_count", "condition": {"type": "minecraft:match_block", "blocks": "pysift:coral_leaf_carpet",
                                                          "state": {"flower_amount": str(k)}}, "count": k} for k in range(1, 5)],
         {"type": "minecraft:explosion_decay"}]}], "rolls": 1}], "random_sequence": "pysift:blocks/coral_leaf_carpet"}
     for folder in ("loot_table", "loot_tables"):
-        wj(D / "pysift" / folder / "blocks/tall_glow_grass.json", glow_loot)
+        wj(D / "pysift" / folder / "blocks/glowshade_tall_grass.json", glow_loot)
         wj(D / "pysift" / folder / "blocks/coral_leaf_carpet.json", carpet_loot)
     # 名稱
-    names = {"tall_glow_grass": ("高發光草", "Tall Glow Grass"), "coral_leaf_carpet": ("珊瑚落葉", "Coral Leaf Carpet")}
+    names = {"glowshade_tall_grass": ("高發光草", "Tall Glow Grass"), "coral_leaf_carpet": ("珊瑚落葉", "Coral Leaf Carpet")}
     for lang, i in (("zh_tw", 0), ("en_us", 1)):
         p = A / f"lang/{lang}.json"
         g.backup(p)
@@ -203,7 +205,7 @@ def apply(glow, tex):
 
 def main():
     glow = glow_models()
-    tex = {"tall_glow_grass": g.blade_texture("grass"), "coral_leaf_carpet": carpet_texture(), "coral_leaf_carpet_stem": stem_texture()}
+    tex = {"glowshade_tall_grass": g.blade_texture("grass"), "coral_leaf_carpet": carpet_texture(), "coral_leaf_carpet_stem": stem_texture()}
     preview(glow, tex)
     print("preview:", PREVIEW)
     if "--apply" in sys.argv:

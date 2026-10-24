@@ -31,8 +31,9 @@ _spec.loader.exec_module(VM)                     # element_transform: the 26.3 e
 STAMP = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 BK = P / ".texture_backups" / f"{STAMP}_lush_grass"
 
-SHORT = ["ember_grass", "abyss_grass", "humus_grass", "mint_rift_grass", "orange_rift_grass", "yellow_short_grass"]
-TALL = ["tall_ember_grass", "tall_humus_grass", "tall_glow_grass", "orange_tall_rift_grass", "puff_grass"]
+# 裂隙橙／薄荷短草、裂隙橙高草已改用 sift_vegetation_assets 的十字貼圖（tools/worldgen/rename_vegetation.py），不在這裡處理
+SHORT = ["ember_grass", "abyss_grass", "humus_grass", "rift_yellow_short_grass"]
+TALL = ["tall_ember_grass", "tall_humus_grass", "glowshade_tall_grass", "puff_grass"]
 # (mirror x, mirror z): the original clump plus one copy turned 180 degrees (fills the gaps the original leaves)
 COPIES = [(False, False), (True, True)]
 REACH = 6.6          # blade roots are spread out (about the clump centre) until the outermost is this far from the

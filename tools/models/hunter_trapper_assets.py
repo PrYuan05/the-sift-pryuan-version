@@ -4,6 +4,9 @@ Usage: python -I tools/models/hunter_trapper_assets.py
 """
 import json, shutil, datetime
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(__file__).resolve().parents[2]
@@ -133,7 +136,7 @@ def spawn_eggs():
                 op[x, y] = tuple(min(255, int(ch * f)) for ch in c) + (a,)
         p = A / f"textures/item/{mob}_spawn_egg.png"
         backup(p)
-        out.save(p)
+        art_guard.save(out, p)
         wj(A / f"items/{mob}_spawn_egg.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{mob}_spawn_egg"}}, 2)
         wj(A / f"models/item/{mob}_spawn_egg.json", {"parent": "minecraft:item/generated",
                                                      "textures": {"layer0": f"pysift:item/{mob}_spawn_egg"}}, 2)
@@ -153,7 +156,7 @@ def effect_icon():
             im.putpixel((i, 16), dark)
     p = A / "textures/mob_effect/ensnared.png"
     backup(p)
-    im.save(p)
+    art_guard.save(im, p)
 
 
 def biome_spawns():

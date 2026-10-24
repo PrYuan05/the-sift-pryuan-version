@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/vegetation/blue_giant_canopy"
+      },
+      {
+        "model": "pysift:block/vegetation/blue_giant_canopy",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/vegetation/blue_giant_canopy",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/vegetation/blue_giant_canopy",
+        "y": 270
+      }
+    ]
+  }
+}

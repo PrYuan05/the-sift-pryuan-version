@@ -1,8 +1,0 @@
-﻿{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pysift:block/sift_red_tallgrass",
-    "particle": "pysift:block/sift_red_tallgrass"
-  },
-  "render_type": "cutout"
-}

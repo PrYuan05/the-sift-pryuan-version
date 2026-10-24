@@ -1,0 +1,9 @@
+{
+  "type": "pysift:wall_plant",
+  "block": "pysift:carapace_vine",
+  "tries": 24,
+  "min_length": 1,
+  "max_length": 4,
+  "xz_spread": 8,
+  "y_spread": 16
+}

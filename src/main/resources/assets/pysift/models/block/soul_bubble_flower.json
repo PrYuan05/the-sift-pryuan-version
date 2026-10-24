@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "pysift:custom/soul_bubble_pop_flower",
   "textures": {
     "all": "pysift:block/soul_bubble_flower",

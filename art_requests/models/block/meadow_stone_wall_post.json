@@ -1,8 +1,0 @@
-{
-  "parent": "block/template_wall_post",
-  "textures": {
-    "wall": "dungeons_content_two:block/meadow_stone",
-    "particle": "dungeons_content_two:block/meadow_stone"
-  },
-  "render_type": "solid"
-}

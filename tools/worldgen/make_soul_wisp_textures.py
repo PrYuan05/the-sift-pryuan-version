@@ -4,6 +4,8 @@ Usage: python -I tools/worldgen/make_soul_wisp_textures.py <project>
   soul_trail.png 8x8 soft round glow, white with an alpha falloff; tinted per particle (trail and halo)"""
 import math, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 OUT = Path(sys.argv[1]) / "src/main/resources/assets/pysift/textures/particle"
@@ -25,10 +27,10 @@ COLOURS = {"#": (127, 232, 255, 255), "W": (236, 252, 255, 255), "E": (27, 74, 1
            ".": (0, 0, 0, 0)}
 head = Image.new("RGBA", (12, 12))
 head.putdata([COLOURS[ch] for row in HEAD for ch in row])
-head.save(OUT / "soul_wisp.png")
+art_guard.save(head, OUT / "soul_wisp.png")
 
 trail = Image.new("RGBA", (8, 8))
 trail.putdata([(255, 255, 255, int(255 * max(0.0, 1 - math.hypot(x - 3.5, y - 3.5) / 4.2) ** 1.6))
                for y in range(8) for x in range(8)])
-trail.save(OUT / "soul_trail.png")
+art_guard.save(trail, OUT / "soul_trail.png")
 print("wrote", *(p.name for p in sorted(OUT.glob("soul_*.png"))))

@@ -429,9 +429,9 @@ def build_all():
     grove_tops[1].save(OUT_GROUND / "grove_top_b.png")
     side_overlay.save(OUT_GROUND / "crimson_grass_side_overlay.png")
 
-    soft_short.save(OUT_VEG / "crimson_short_grass.png")
-    soft_tall_bot.save(OUT_VEG / "crimson_tall_grass_bottom.png")
-    soft_tall_top.save(OUT_VEG / "crimson_tall_grass_top.png")
+    soft_short.save(OUT_VEG / "soft_crimson_short_grass.png")
+    soft_tall_bot.save(OUT_VEG / "soft_crimson_tall_grass_bottom.png")
+    soft_tall_top.save(OUT_VEG / "soft_crimson_tall_grass_top.png")
     soft_short_gray.save(OUT_VEG / "soft_short_grass_gray.png")
     soft_tall_bot_gray.save(OUT_VEG / "soft_tall_grass_bottom_gray.png")
     soft_tall_top_gray.save(OUT_VEG / "soft_tall_grass_top_gray.png")
@@ -582,36 +582,36 @@ def apply_extra_blocks():
         addition = (
             anchor + "\n\n"
             "    // ===== 影片風格柔和草地與短草／高草（額外方塊） =====\n"
-            "    public static final Block CRIMSON_SHORT_GRASS = register(\"crimson_short_grass\", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);\n"
-            "    public static final Block CRIMSON_TALL_GRASS = register(\"crimson_tall_grass\", DoublePlantBlock::new, Blocks.TALL_GRASS, true);"
+            "    public static final Block SOFT_CRIMSON_SHORT_GRASS = register(\"soft_crimson_short_grass\", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);\n"
+            "    public static final Block SOFT_CRIMSON_TALL_GRASS = register(\"soft_crimson_tall_grass\", DoublePlantBlock::new, Blocks.TALL_GRASS, true);"
         )
         assert anchor in java_text, "Could not find CORAL_LEAF_CARPET anchor in ModVegetation.java"
         java_path.write_text(java_text.replace(anchor, addition, 1), encoding="utf-8")
 
-    wj(A / "models/block/vegetation/crimson_short_grass.json", {
+    wj(A / "models/block/vegetation/soft_crimson_short_grass.json", {
         "parent": "pysift:block/vegetation/dense_rift_foliage_template",
-        "textures": {"cross": "pysift:block/vegetation/crimson_short_grass"}
+        "textures": {"cross": "pysift:block/vegetation/soft_crimson_short_grass"}
     }, indent="\t")
-    wj(A / "models/block/vegetation/crimson_tall_grass_bottom.json", {
+    wj(A / "models/block/vegetation/soft_crimson_tall_grass_bottom.json", {
         "parent": "pysift:block/vegetation/dense_rift_foliage_template",
-        "textures": {"cross": "pysift:block/vegetation/crimson_tall_grass_bottom"}
+        "textures": {"cross": "pysift:block/vegetation/soft_crimson_tall_grass_bottom"}
     }, indent="\t")
-    wj(A / "models/block/vegetation/crimson_tall_grass_top.json", {
+    wj(A / "models/block/vegetation/soft_crimson_tall_grass_top.json", {
         "parent": "pysift:block/vegetation/dense_rift_foliage_template",
-        "textures": {"cross": "pysift:block/vegetation/crimson_tall_grass_top"}
+        "textures": {"cross": "pysift:block/vegetation/soft_crimson_tall_grass_top"}
     }, indent="\t")
 
-    wj(A / "blockstates/crimson_short_grass.json", {
-        "variants": {"": [{"model": "pysift:block/vegetation/crimson_short_grass", **({"y": y} if y else {})} for y in (0, 90, 180, 270)]}
+    wj(A / "blockstates/soft_crimson_short_grass.json", {
+        "variants": {"": [{"model": "pysift:block/vegetation/soft_crimson_short_grass", **({"y": y} if y else {})} for y in (0, 90, 180, 270)]}
     })
-    wj(A / "blockstates/crimson_tall_grass.json", {
+    wj(A / "blockstates/soft_crimson_tall_grass.json", {
         "variants": {
-            "half=lower": {"model": "pysift:block/vegetation/crimson_tall_grass_bottom"},
-            "half=upper": {"model": "pysift:block/vegetation/crimson_tall_grass_top"}
+            "half=lower": {"model": "pysift:block/vegetation/soft_crimson_tall_grass_bottom"},
+            "half=upper": {"model": "pysift:block/vegetation/soft_crimson_tall_grass_top"}
         }
     })
 
-    for name, icon_tex in (("crimson_short_grass", "crimson_short_grass"), ("crimson_tall_grass", "crimson_tall_grass_top")):
+    for name, icon_tex in (("soft_crimson_short_grass", "soft_crimson_short_grass"), ("soft_crimson_tall_grass", "soft_crimson_tall_grass_top")):
         wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
         wj(A / f"models/item/{name}.json", {
             "parent": "minecraft:item/generated",
@@ -621,35 +621,35 @@ def apply_extra_blocks():
     shears = {"type": "minecraft:any_of", "terms": ["minecraft:tool/can_shear", "minecraft:tool/can_silk_touch"]}
     short_loot = {
         "type": "minecraft:block",
-        "pools": [{"condition": shears, "entries": [{"type": "minecraft:item", "name": "pysift:crimson_short_grass"}], "rolls": 1}],
-        "random_sequence": "pysift:blocks/crimson_short_grass"
+        "pools": [{"condition": shears, "entries": [{"type": "minecraft:item", "name": "pysift:soft_crimson_short_grass"}], "rolls": 1}],
+        "random_sequence": "pysift:blocks/soft_crimson_short_grass"
     }
     tall_loot = {
         "type": "minecraft:block",
         "pools": [{
             "condition": {"type": "minecraft:all_of", "terms": [
-                {"type": "minecraft:match_block", "blocks": "pysift:crimson_tall_grass", "state": {"half": "lower"}},
+                {"type": "minecraft:match_block", "blocks": "pysift:soft_crimson_tall_grass", "state": {"half": "lower"}},
                 shears
             ]},
-            "entries": [{"type": "minecraft:item", "name": "pysift:crimson_tall_grass"}],
+            "entries": [{"type": "minecraft:item", "name": "pysift:soft_crimson_tall_grass"}],
             "rolls": 1
         }],
-        "random_sequence": "pysift:blocks/crimson_tall_grass"
+        "random_sequence": "pysift:blocks/soft_crimson_tall_grass"
     }
     for folder in ("loot_table", "loot_tables"):
-        wj(D / f"pysift/{folder}/blocks/crimson_short_grass.json", short_loot)
-        wj(D / f"pysift/{folder}/blocks/crimson_tall_grass.json", tall_loot)
+        wj(D / f"pysift/{folder}/blocks/soft_crimson_short_grass.json", short_loot)
+        wj(D / f"pysift/{folder}/blocks/soft_crimson_tall_grass.json", tall_loot)
 
     tag_p = D / "minecraft/tags/block/replaceable_by_trees.json"
     tag_j = json.loads(tag_p.read_text(encoding="utf-8"))
-    for bid in ("pysift:crimson_short_grass", "pysift:crimson_tall_grass"):
+    for bid in ("pysift:soft_crimson_short_grass", "pysift:soft_crimson_tall_grass"):
         if bid not in tag_j["values"]:
             tag_j["values"].append(bid)
     wj(tag_p, tag_j)
 
     names = {
-        "crimson_short_grass": ("柔和赤紅短草", "Soft Crimson Short Grass"),
-        "crimson_tall_grass": ("柔和赤紅高草", "Soft Crimson Tall Grass"),
+        "soft_crimson_short_grass": ("柔和赤紅短草", "Soft Crimson Short Grass"),
+        "soft_crimson_tall_grass": ("柔和赤紅高草", "Soft Crimson Tall Grass"),
     }
     for lang, idx in (("zh_tw", 0), ("en_us", 1)):
         lp = A / f"lang/{lang}.json"
@@ -658,7 +658,7 @@ def apply_extra_blocks():
             lj_data[f"block.pysift.{k}"] = lj_data[f"item.pysift.{k}"] = v[idx]
         wj(lp, lj_data)
 
-    print("Registered extra blocks: crimson_short_grass, crimson_tall_grass")
+    print("Registered extra blocks: soft_crimson_short_grass, soft_crimson_tall_grass")
 
 
 def main():

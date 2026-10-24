@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "dungeons_content_two:block/sift_orange_short_grass",
-    "particle": "dungeons_content_two:block/sift_orange_short_grass"
-  },
-  "render_type": "cutout"
-}

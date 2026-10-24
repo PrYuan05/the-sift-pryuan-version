@@ -1,0 +1,10 @@
+{
+  "parent": "pysift:custom/soul_cleaver_plant",
+  "textures": {
+    "all": "pysift:block/soul_cleaver_plant",
+    "particle": "pysift:block/soul_cleaver_plant",
+    "0": "pysift:block/soul_cleaver_plant",
+    "missing": "pysift:block/soul_cleaver_plant"
+  },
+  "render_type": "cutout"
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "dungeons_content_two:block/stripped_souls_log",
-    "particle": "dungeons_content_two:block/stripped_souls_log"
-  },
-  "render_type": "solid"
-}

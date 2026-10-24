@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "dungeons_content_two:block/souls_planks",
-    "particle": "dungeons_content_two:block/souls_planks"
-  },
-  "render_type": "solid"
-}

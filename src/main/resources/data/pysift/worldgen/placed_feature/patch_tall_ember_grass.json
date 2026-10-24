@@ -58,7 +58,7 @@
           {
             "type": "minecraft:would_survive",
             "state": {
-              "id": "pysift:crimson_tall_grass",
+              "id": "pysift:soft_crimson_tall_grass",
               "properties": {
                 "half": "lower"
               }

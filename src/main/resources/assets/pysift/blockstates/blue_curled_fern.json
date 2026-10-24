@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/vegetation/blue_curled_fern"
+      },
+      {
+        "model": "pysift:block/vegetation/blue_curled_fern",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/vegetation/blue_curled_fern",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/vegetation/blue_curled_fern",
+        "y": 270
+      }
+    ]
+  }
+}

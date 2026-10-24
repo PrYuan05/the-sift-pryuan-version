@@ -1,0 +1,8 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "pysift:block/sift_wheat_plant",
+    "particle": "pysift:block/sift_wheat_plant"
+  },
+  "render_type": "cutout"
+}

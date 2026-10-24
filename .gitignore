@@ -51,3 +51,6 @@ run-server/
 # python
 __pycache__/
 *.pyc
+
+# art editing workspace (copies, rebuilt by tools/art_workspace/workspace.py)
+art_workspace/

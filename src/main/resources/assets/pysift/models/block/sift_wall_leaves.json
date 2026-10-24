@@ -1,0 +1,10 @@
+{
+  "parent": "pysift:custom/sift_wall_leaves",
+  "textures": {
+    "all": "pysift:block/sift_wall_leaves",
+    "particle": "pysift:block/sift_wall_leaves",
+    "0": "pysift:block/sift_wall_leaves",
+    "missing": "pysift:block/sift_wall_leaves"
+  },
+  "render_type": "cutout"
+}

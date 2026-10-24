@@ -1,6 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "dungeons_content_two:item/yellow_leaf"
-  }
-}

@@ -8,6 +8,8 @@ Usage: python -I tools/worldgen/make_decor_textures.py <project> [seed]
 Writes into textures/block/vegetation/ and a preview build/texture_pipeline/out/decor_textures.png."""
 import sys, random
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(sys.argv[1]).resolve()
@@ -94,7 +96,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     prev = Image.new("RGBA", (len(imgs) * 136, 128 * 2 + 8), (36, 36, 42, 255))
     for i, (name, im) in enumerate(imgs.items()):
-        im.save(OUT / f"{name}.png")
+        art_guard.save(im, OUT / f"{name}.png")
         prev.alpha_composite(im.resize((128, 128), Image.Resampling.NEAREST), (i * 136, 0))
     # puff grass stacked (bottom under top), tinted pink / teal like in game
     for j, tint in enumerate(((240, 138, 176), (79, 216, 196))):

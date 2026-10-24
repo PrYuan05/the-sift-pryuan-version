@@ -9,7 +9,7 @@ Usage: python -I tools/worldgen/install_rift_flora.py
 - 注意：重跑會把模型蓋回交叉平面；之後要再跑 tools/models/gen_rift_blades.py --apply 換回 3D 葉片。
 已存在的檔案會先備份到 .texture_backups/<stamp>_rift_flora/。
 """
-import json, shutil, datetime
+import json, shutil, sys, datetime
 from pathlib import Path
 
 P = Path(__file__).resolve().parents[2]
@@ -20,19 +20,19 @@ BK = P / ".texture_backups" / (datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 
 # name: (kind, zh, en, item icon texture or None = 3D icon)
 PLANTS = {
-    "crimson_short_sprouts": ("grass", "赤紅短芽", "Crimson Short Sprouts", "crimson_short_sprouts"),
-    "curled_fern_blue": ("grass", "藍捲蕨", "Blue Curled Fern", "curled_fern_blue"),
-    "curled_fern_pink": ("grass", "粉捲蕨", "Pink Curled Fern", "curled_fern_pink"),
-    "curled_fern_white": ("grass", "白捲蕨", "White Curled Fern", "curled_fern_white"),
-    "mint_rift_grass": ("grass", "薄荷裂隙草", "Mint Rift Grass", "mint_rift_grass"),
-    "orange_rift_grass": ("grass", "橙裂隙草", "Orange Rift Grass", "orange_rift_grass"),
-    "yellow_short_grass": ("grass", "黃短草", "Yellow Short Grass", "yellow_short_grass"),
+    "rift_red_short_grass": ("grass", "赤紅短芽", "Crimson Short Sprouts", "rift_red_short_grass"),
+    "blue_curled_fern": ("grass", "藍捲蕨", "Blue Curled Fern", "blue_curled_fern"),
+    "pink_curled_fern": ("grass", "粉捲蕨", "Pink Curled Fern", "pink_curled_fern"),
+    "white_curled_fern": ("grass", "白捲蕨", "White Curled Fern", "white_curled_fern"),
+    "rift_mint_short_grass": ("grass", "薄荷裂隙草", "Mint Rift Grass", "rift_mint_short_grass"),
+    "rift_orange_short_grass": ("grass", "橙裂隙草", "Orange Rift Grass", "rift_orange_short_grass"),
+    "rift_yellow_short_grass": ("grass", "黃短草", "Yellow Short Grass", "rift_yellow_short_grass"),
     "olive_forked_stalk": ("grass", "橄欖叉莖", "Olive Forked Stalk", "olive_forked_stalk"),
-    "orange_tall_rift_grass": ("tall", "高橙裂隙草", "Tall Orange Rift Grass", "orange_tall_rift_grass_top"),
-    "agave_rosette": ("bush", "黃龍舌蘭", "Yellow Agave Rosette", None),
-    "giant_canopy_green": ("bush", "綠巨傘草", "Green Giant Canopy", None),
-    "giant_canopy_blue": ("bush", "藍巨傘草", "Blue Giant Canopy", None),
-    "giant_canopy_white": ("bush", "白巨傘草", "White Giant Canopy", None),
+    "rift_orange_tall_grass": ("tall", "高橙裂隙草", "Tall Orange Rift Grass", "rift_orange_tall_grass_top"),
+    "yellow_agave": ("bush", "黃龍舌蘭", "Yellow Agave Rosette", None),
+    "green_giant_canopy": ("bush", "綠巨傘草", "Green Giant Canopy", None),
+    "blue_giant_canopy": ("bush", "藍巨傘草", "Blue Giant Canopy", None),
+    "white_giant_canopy": ("bush", "白巨傘草", "White Giant Canopy", None),
     "clustered_yellow_flowers": ("flower", "簇生黃花", "Clustered Yellow Flowers", None),
 }
 
@@ -94,6 +94,9 @@ def add_lang(path, entries):
 
 
 def main():
+    if "--force" not in sys.argv:
+        sys.exit("已整合：這批植物之後經過 tools/worldgen/rename_vegetation.py 合併與改名，重跑會把舊 ID 和舊模型寫回來。"
+                 "真的要重新匯入請加 --force，之後再跑一次 rename_vegetation.py。")
     # 貼圖
     for png in (SRC / "textures/block").glob("*.png"):
         dst = A / "textures/block/vegetation" / png.name

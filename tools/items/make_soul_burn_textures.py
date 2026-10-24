@@ -6,6 +6,8 @@ Usage: python -I tools/items/make_soul_burn_textures.py <project>
 Both are new files; a preview goes to build/texture_pipeline/out/soul_burn_textures.png."""
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(sys.argv[1]).resolve()
@@ -75,7 +77,7 @@ def main():
     # soul_burn was merged into soul_deprivation (which keeps its own icon), so only the antidote is written
     for img, path in ((bottle, A / "item/soul_antidote.png"),):
         path.parent.mkdir(parents=True, exist_ok=True)
-        img.save(path)
+        art_guard.save(img, path)
         print("wrote", path.relative_to(P))
     prev = Image.new("RGBA", (16 * 10 + 18 * 10 + 20, 180), (40, 40, 46, 255))
     prev.alpha_composite(bottle.resize((160, 160), Image.Resampling.NEAREST), (0, 10))

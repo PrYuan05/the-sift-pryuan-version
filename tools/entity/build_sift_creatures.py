@@ -12,6 +12,8 @@ Animation names match the Java code (HunterEntity / TrapperEntity skillAnimation
 Textures are painted procedurally from fixed seeds, so re-running gives the same result."""
 import json, math, random, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw
 
 P = Path(sys.argv[1])
@@ -363,7 +365,7 @@ for eid, bones, tw, th, seed, anims in SPECS:
     geo, tex, placed = build(eid, bones, tw, th, seed)
     (R / "geckolib/models/entity").mkdir(parents=True, exist_ok=True)
     (R / f"geckolib/models/entity/{eid}.geo.json").write_text(json.dumps(geo, indent=2) + "\n", encoding="utf-8")
-    tex.save(R / f"textures/entity/{eid}.png")
+    art_guard.save(tex, R / f"textures/entity/{eid}.png")
     (R / f"geckolib/animations/entity/{eid}.animation.json").write_text(
         json.dumps({"format_version": "1.8.0", "animations": anims}, indent=2) + "\n", encoding="utf-8")
     previews.append((eid, render(placed, tex)))

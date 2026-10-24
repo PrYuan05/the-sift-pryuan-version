@@ -8,6 +8,8 @@ Usage (from the project root):
 """
 import sys, json, math, random, shutil, datetime
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw, ImageFont
 
 P = Path(__file__).resolve().parents[2]
@@ -430,7 +432,7 @@ def main():
             if root == A:
                 backup(p)
             p.parent.mkdir(parents=True, exist_ok=True)
-            im.save(p)
+            art_guard.save(im, p) if root == A else im.save(p)
         for n, (j, _) in models.items():
             p = root / MODEL_DIR / f"{n}.json"
             if root == A:

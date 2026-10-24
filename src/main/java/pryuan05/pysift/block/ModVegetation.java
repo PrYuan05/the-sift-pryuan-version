@@ -102,35 +102,37 @@ public final class ModVegetation {
     public static final Block DUSK_BLOOM = register("dusk_bloom",
             p -> new FlowerBlock(MobEffects.NIGHT_VISION, 5.0F, p), Blocks.DANDELION, false);
 
-    // ===== 裂隙植被（使用者提供的 rift_dimension_flora_assets；資源由 tools/worldgen/install_rift_flora.py 安裝，尚未加入世界生成） =====
-    public static final Block CRIMSON_SHORT_SPROUTS = register("crimson_short_sprouts", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block CURLED_FERN_BLUE = register("curled_fern_blue", SiftGrassBlock::new, Blocks.FERN, false);
-    public static final Block CURLED_FERN_PINK = register("curled_fern_pink", SiftGrassBlock::new, Blocks.FERN, false);
-    public static final Block CURLED_FERN_WHITE = register("curled_fern_white", SiftGrassBlock::new, Blocks.FERN, false);
-    public static final Block MINT_RIFT_GRASS = register("mint_rift_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block ORANGE_RIFT_GRASS = register("orange_rift_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block YELLOW_SHORT_GRASS = register("yellow_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    // ===== 裂隙植被（使用者提供的 rift_dimension_flora_assets 與 sift_vegetation_assets；ID 由 tools/worldgen/rename_vegetation.py 統一） =====
+    // 裂隙草：橙／紅／薄荷三色的短草、高草（材質來自 sift_vegetation_assets），黃短草與叉莖仍是 rift_dimension_flora 的 3D 葉片
+    public static final Block RIFT_ORANGE_SHORT_GRASS = register("rift_orange_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block RIFT_ORANGE_TALL_GRASS = register("rift_orange_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block RIFT_RED_SHORT_GRASS = register("rift_red_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block RIFT_MINT_SHORT_GRASS = register("rift_mint_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block RIFT_MINT_TALL_GRASS = register("rift_mint_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block RIFT_YELLOW_SHORT_GRASS = register("rift_yellow_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     public static final Block OLIVE_FORKED_STALK = register("olive_forked_stalk", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block ORANGE_TALL_RIFT_GRASS = register("orange_tall_rift_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    public static final Block BLUE_CURLED_FERN = register("blue_curled_fern", SiftGrassBlock::new, Blocks.FERN, false);
+    public static final Block PINK_CURLED_FERN = register("pink_curled_fern", SiftGrassBlock::new, Blocks.FERN, false);
+    public static final Block WHITE_CURLED_FERN = register("white_curled_fern", SiftGrassBlock::new, Blocks.FERN, false);
     /** 立體植物：黃龍舌蘭、三色巨傘草（直接掉落自己）。 */
-    public static final Block AGAVE_ROSETTE = register("agave_rosette", BushBlock::new, Blocks.BUSH, false);
-    public static final Block GIANT_CANOPY_GREEN = register("giant_canopy_green", BushBlock::new, Blocks.BUSH, false);
-    public static final Block GIANT_CANOPY_BLUE = register("giant_canopy_blue", BushBlock::new, Blocks.BUSH, false);
-    public static final Block GIANT_CANOPY_WHITE = register("giant_canopy_white", BushBlock::new, Blocks.BUSH, false);
+    public static final Block YELLOW_AGAVE = register("yellow_agave", BushBlock::new, Blocks.BUSH, false);
+    public static final Block GREEN_GIANT_CANOPY = register("green_giant_canopy", BushBlock::new, Blocks.BUSH, false);
+    public static final Block BLUE_GIANT_CANOPY = register("blue_giant_canopy", BushBlock::new, Blocks.BUSH, false);
+    public static final Block WHITE_GIANT_CANOPY = register("white_giant_canopy", BushBlock::new, Blocks.BUSH, false);
     public static final Block CLUSTERED_YELLOW_FLOWERS = register("clustered_yellow_flowers",
             p -> new FlowerBlock(MobEffects.SPEED, 5.0F, p), Blocks.DANDELION, false);
 
     // ===== 影片 The Sift 章節補上的植物（資源由 tools/models/gen_batch3.py 產生） =====
-    /** 高發光草：兩格高的青色粗葉草，葉間有發光黃點；顏色依地板，本身微微發光。 */
-    public static final Block TALL_GLOW_GRASS = floorTint(register("tall_glow_grass",
+    /** 高夜光草：兩格高的青色粗葉草，葉間有發光黃點；顏色依地板，本身微微發光（短的是 progression/SiftFlora 的夜光短草）。 */
+    public static final Block GLOWSHADE_TALL_GRASS = floorTint(register("glowshade_tall_grass",
             p -> new DoublePlantBlock(p.lightLevel(state -> 5)), Blocks.TALL_GRASS, true), 0xFF7BE0D0);
     /** 珊瑚落葉地毯：像粉紅花瓣，可疊 1~4 層。 */
     public static final Block CORAL_LEAF_CARPET = register("coral_leaf_carpet", p -> new FlowerBedBlock(p, 3), Blocks.PINK_PETALS, false);
 
     // ===== 影片風格柔和草地與短草／高草（額外方塊） =====
-    // 柔和草：原版十字模型＋色盤上色好的貼圖（tools/worldgen/soft_grass_palette.py）；三組顏色分給不同生態域
-    public static final Block CRIMSON_SHORT_GRASS = register("crimson_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block CRIMSON_TALL_GRASS = register("crimson_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
+    // 柔和草：原版十字模型＋色盤上色好的貼圖（tools/worldgen/soft_grass_palette.py）；各組顏色分給不同生態域
+    public static final Block SOFT_CRIMSON_SHORT_GRASS = register("soft_crimson_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SOFT_CRIMSON_TALL_GRASS = register("soft_crimson_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
     public static final Block SOFT_VIOLET_SHORT_GRASS = register("soft_violet_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     public static final Block SOFT_VIOLET_TALL_GRASS = register("soft_violet_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
     public static final Block SOFT_DUNE_SHORT_GRASS = register("soft_dune_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
@@ -139,35 +141,31 @@ public final class ModVegetation {
     public static final Block SOFT_TEAL_SHORT_GRASS = register("soft_teal_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
     public static final Block SOFT_TEAL_TALL_GRASS = register("soft_teal_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
 
-    // ===== 蝭拚??啣?璊◤ (Sift Vegetation Expansion) =====
+    // ===== sift_vegetation_assets 匯入的植物（世界生成見 tools/worldgen/build_the_sift.py 的 VEGETATION） =====
+    // 甲殼：花、短草、藤
     public static final Block CARAPACE_FLOWER = register("carapace_flower",
             p -> new FlowerBlock(MobEffects.RESISTANCE, 5.0F, p), Blocks.DANDELION, false);
     public static final Block CARAPACE_SHORT_GRASS = register("carapace_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block SCULK_GRASS = register("sculk_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block SIFT_SHORT_GRASS = register("sift_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block SIFT_TALLGRASS = register("sift_tallgrass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
-    public static final Block SIFT_ORANGE_SHORT_GRASS = register("sift_orange_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block SIFT_ORANGE_TALL_GRASS = register("sift_orange_tall_grass", DoublePlantBlock::new, Blocks.TALL_GRASS, true);
-    public static final Block SIFT_RED_SHORT_GRASS = register("sift_red_short_grass", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block SIFT_SMALL_FLOWERS = register("sift_small_flowers",
+    public static final Block CARAPACE_VINE = register("carapace_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
+    // 小花叢與靈魂氣泡花
+    public static final Block WHITE_FLOWER_PATCH = register("white_flower_patch",
             p -> new FlowerBlock(MobEffects.SPEED, 5.0F, p), Blocks.DANDELION, false);
-    public static final Block SIFT_SMALL_FLOWERS_YELLOW = register("sift_small_flowers_yellow",
+    public static final Block YELLOW_FLOWER_PATCH = register("yellow_flower_patch",
             p -> new FlowerBlock(MobEffects.GLOWING, 5.0F, p), Blocks.DANDELION, false);
     public static final Block SOUL_BUBBLE_FLOWER = register("soul_bubble_flower",
             p -> new FlowerBlock(MobEffects.WATER_BREATHING, 5.0F, p.lightLevel(state -> 6)), Blocks.DANDELION, false);
-
-    // 蝡??方???蝺??鋡?    public static final Block CARAPACE_VINE = register("carapace_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
-    public static final Block GREEN_TREE_VINE = register("green_tree_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
-    public static final Block ORANGE_TREE_VINE = register("orange_tree_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
+    // 藤蔓與攀牆葉：貼在牆面上（SiftWallPlantBlock，生成在岩壁上）；靈魂藤是地面的十字植物
+    public static final Block GREEN_SIFT_VINE = register("green_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
+    public static final Block ORANGE_SIFT_VINE = register("orange_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
     public static final Block SOUL_VINE = register("soul_vine", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
-    public static final Block SIFT_WALL_LEAF = register("sift_wall_leaf", p -> new BushBlock(p.noOcclusion()), Blocks.VINE, false);
-
-    // 憟璊????    public static final Block SIFT_CLEAVER_PLANT = register("sift_cleaver_plant", BushBlock::new, Blocks.BUSH, false);
-    public static final Block SIFT_SOUL_CLEAVER_PLANT = register("sift_soul_cleaver_plant", p -> new BushBlock(p.lightLevel(state -> 8)), Blocks.BUSH, false);
-    public static final Block WEAT_SMALL_PLANT = register("weat_small_plant", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block WEAT_PLANT = register("weat_plant", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
-    public static final Block WEAT = register("weat", BushBlock::new, Blocks.BUSH, false);
-    public static final Block YELLOW_LEAF = register("yellow_leaf", BushBlock::new, Blocks.BUSH, false);
+    public static final Block SIFT_WALL_LEAVES = register("sift_wall_leaves", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
+    // 劈裂草、篩靈小麥、黃色落葉
+    public static final Block CLEAVER_PLANT = register("cleaver_plant", BushBlock::new, Blocks.BUSH, false);
+    public static final Block SOUL_CLEAVER_PLANT = register("soul_cleaver_plant", p -> new BushBlock(p.lightLevel(state -> 8)), Blocks.BUSH, false);
+    public static final Block SIFT_WHEAT_SPROUT = register("sift_wheat_sprout", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_WHEAT_PLANT = register("sift_wheat_plant", SiftGrassBlock::new, Blocks.SHORT_GRASS, false);
+    public static final Block SIFT_WHEAT = register("sift_wheat", BushBlock::new, Blocks.BUSH, false);
+    public static final Block YELLOW_LEAF_LITTER = register("yellow_leaf_litter", BushBlock::new, Blocks.BUSH, false);
 
     private ModVegetation() {
     }

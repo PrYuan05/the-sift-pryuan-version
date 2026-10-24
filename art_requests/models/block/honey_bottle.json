@@ -1,9 +1,0 @@
-{
-  "parent": "dungeons_content_two:custom/honey_bottle",
-  "textures": {
-    "all": "dungeons_content_two:block/honey_bottle",
-    "particle": "dungeons_content_two:block/honey_bottle",
-    "0": "dungeons_content_two:block/honey_bottle"
-  },
-  "render_type": "solid"
-}

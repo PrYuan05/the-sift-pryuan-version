@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "pysift:block/green_sift_vine"
+    },
+    "facing=east": {
+      "model": "pysift:block/green_sift_vine",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "pysift:block/green_sift_vine",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "pysift:block/green_sift_vine",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/vegetation/yellow_agave"
+      },
+      {
+        "model": "pysift:block/vegetation/yellow_agave",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/vegetation/yellow_agave",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/vegetation/yellow_agave",
+        "y": 270
+      }
+    ]
+  }
+}

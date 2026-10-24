@@ -1,9 +1,0 @@
-{
-  "parent": "dungeons_content_two:custom/weat",
-  "textures": {
-    "all": "dungeons_content_two:block/weat",
-    "particle": "dungeons_content_two:block/weat_plant",
-    "0": "dungeons_content_two:block/weat"
-  },
-  "render_type": "cutout"
-}

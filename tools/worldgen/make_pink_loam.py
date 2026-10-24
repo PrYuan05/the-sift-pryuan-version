@@ -4,6 +4,8 @@ Brightness remap (as recolor.py palette mode) onto a salmon ramp with deep pink 
 Other source options were compared in build/texture_pipeline/out/pink_loam_options.png."""
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(sys.argv[1])
@@ -31,5 +33,5 @@ img = Image.new("RGBA", src.size)
 img.putdata(out)
 dst = T / "vegetation/sift_pink_loam.png"
 dst.parent.mkdir(parents=True, exist_ok=True)
-img.save(dst)
+art_guard.save(img, dst)
 print("wrote", dst.relative_to(P))

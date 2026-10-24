@@ -144,7 +144,7 @@ def provider(block, **props):
 
 # 青色地面：柔和青碧草只長在這些方塊上，其他柔和草不長在這些方塊上（使用者：草的顏色要符合地板）
 TEAL_FLOORS = ["pysift:capped_crimson_strata", "pysift:abyssal_strata", "pysift:silted_strata"]
-SOFT_GRASS = {"crimson_short_grass", "crimson_tall_grass", "soft_violet_short_grass", "soft_violet_tall_grass",
+SOFT_GRASS = {"soft_crimson_short_grass", "soft_crimson_tall_grass", "soft_violet_short_grass", "soft_violet_tall_grass",
               "soft_dune_short_grass", "soft_dune_tall_grass"}
 
 
@@ -264,24 +264,41 @@ def cliff_vines(name, tries=48, min_len=3, max_len=7, glow_chance=0.15, count=6,
     return f"pysift:{name}"
 
 
+def wall_plant(name, block, count, tries=24, min_len=1, max_len=1, min_y=40, max_y=120):
+    """貼牆植物（SiftWallPlantBlock，pysift:wall_plant 特徵）：在峭壁側面的空氣格貼著實心面放，藤蔓再往下延伸。"""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "pysift:wall_plant", "block": f"pysift:{block}", "tries": tries,
+                                             "min_length": min_len, "max_length": max_len, "xz_spread": 8, "y_spread": 16})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": min_y},
+                                                      "max_inclusive": {"absolute": max_y}}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
 VEGETATION = {
     # ember_grass / abyss_grass / puff_grass are coloured by the floor under them (client FloorTint), so the same plant
     # is orange on crimson rock, teal on violet rock, pink on pink loam (reference video, The Sift 6:34 on).
     # (lo, hi) tries are random per patch centre; every patch is noise-clustered (patch() default).
-    "crimson_strata_canyon": [patch("patch_ember_grass", "crimson_short_grass", 12, (48, 80)),
-                              patch("patch_tall_ember_grass", "crimson_tall_grass", 5, (16, 32), half="lower"),
+    "crimson_strata_canyon": [patch("patch_ember_grass", "soft_crimson_short_grass", 12, (48, 80)),
+                              patch("patch_tall_ember_grass", "soft_crimson_tall_grass", 5, (16, 32), half="lower"),
                               patch("patch_canyon_puff_grass", "puff_grass", 2, (6, 14), half="lower"),
-                              patch("patch_canyon_abyss_grass", "crimson_short_grass", 3, (10, 24)),
+                              patch("patch_canyon_abyss_grass", "soft_crimson_short_grass", 3, (10, 24)),
                               patch("patch_sun_bloom_canyon", "sun_bloom", 2, (6, 12)),
                               patch("patch_golden_bloom_sparse", "golden_bloom", 2, (6, 12)),
                               # 裂隙植被（使用者提供的 rift_dimension_flora_assets）
                               patch("patch_canyon_teal_grass", "soft_teal_short_grass", 8, (32, 56), floor_in=TEAL_FLOORS),
                               patch("patch_canyon_tall_teal_grass", "soft_teal_tall_grass", 4, (12, 24), half="lower", floor_in=TEAL_FLOORS),
-                              patch("patch_crimson_short_sprouts", "crimson_short_sprouts", 4, (16, 32)),
+                              patch("patch_rift_red_short_grass", "rift_red_short_grass", 4, (16, 32)),
                               carpet_patch("patch_canyon_coral_leaf_carpet", 2, (6, 12)),
-                              patch("patch_orange_rift_grass", "orange_rift_grass", 3, (12, 24)),
-                              patch("patch_orange_tall_rift_grass", "orange_tall_rift_grass", 2, (6, 12), half="lower"),
-                              patch("patch_canyon_agave_rosette", "agave_rosette", 1, (2, 5)),
+                              patch("patch_rift_orange_short_grass", "rift_orange_short_grass", 3, (12, 24)),
+                              patch("patch_rift_orange_tall_grass", "rift_orange_tall_grass", 2, (6, 12), half="lower"),
+                              patch("patch_canyon_yellow_agave", "yellow_agave", 1, (2, 5)),
+                              # sift_vegetation_assets：甲殼花、甲殼短草，岩壁上的甲殼藤與橙篩靈藤
+                              patch("patch_carapace_short_grass", "carapace_short_grass", 3, (10, 20)),
+                              patch("patch_carapace_flower", "carapace_flower", 1, (3, 6)),
+                              wall_plant("wall_carapace_vine", "carapace_vine", 4, max_len=4),
+                              wall_plant("wall_orange_sift_vine", "orange_sift_vine", 3, max_len=3),
                               cliff_vines("cliff_vines_crimson_canyon", tries=54, min_len=3, max_len=8, glow_chance=0.10, count=9)],
     "violet_slate_abyss": [patch("patch_abyss_grass", "soft_violet_short_grass", 12, (48, 80)),
                            patch("patch_violet_ember_grass", "soft_violet_tall_grass", 4, (16, 32), half="lower"),
@@ -291,19 +308,23 @@ VEGETATION = {
                            patch("patch_dusk_bloom", "dusk_bloom", 2, (6, 12)),
                            patch("patch_violet_golden_bloom", "golden_bloom", 1, (4, 8)),
                            patch("patch_violet_teal_grass", "soft_teal_short_grass", 3, (12, 24), floor_in=TEAL_FLOORS),
-                           patch("patch_curled_fern_blue", "curled_fern_blue", 3, (8, 16)),
-                           patch("patch_tall_glow_grass", "tall_glow_grass", 3, (8, 16), half="lower"),
-                           patch("patch_curled_fern_white", "curled_fern_white", 2, (6, 12)),
-                           patch("patch_giant_canopy_blue", "giant_canopy_blue", 1, (2, 5)),
-                           patch("patch_giant_canopy_white", "giant_canopy_white", 1, (2, 4)),
+                           patch("patch_blue_curled_fern", "blue_curled_fern", 3, (8, 16)),
+                           patch("patch_glowshade_tall_grass", "glowshade_tall_grass", 3, (8, 16), half="lower"),
+                           patch("patch_white_curled_fern", "white_curled_fern", 2, (6, 12)),
+                           patch("patch_blue_giant_canopy", "blue_giant_canopy", 1, (2, 5)),
+                           patch("patch_white_giant_canopy", "white_giant_canopy", 1, (2, 4)),
+                           # sift_vegetation_assets：靈魂氣泡花、靈魂劈裂草、靈魂藤
+                           patch("patch_soul_bubble_flower", "soul_bubble_flower", 1, (2, 5)),
+                           patch("patch_soul_cleaver_plant", "soul_cleaver_plant", 1, (2, 4)),
+                           patch("patch_soul_vine", "soul_vine", 2, (4, 8)),
                            cliff_vines("cliff_vines_violet_abyss", tries=48, min_len=3, max_len=7, glow_chance=0.35, count=7)],
     "willow_grove": [trees("soul_willows_giant", SOUL_WILLOW_GIANT, {"type": "minecraft:rarity_filter", "chance": 16}),
                      trees("soul_willows", SOUL_WILLOW, {"type": "minecraft:count", "count": uniform(1, 2)}),
-                     patch("patch_grove_ember_grass", "crimson_short_grass", 8, (32, 56)),
-                     patch("patch_grove_abyss_grass", "crimson_short_grass", 6, (24, 48)),
+                     patch("patch_grove_ember_grass", "soft_crimson_short_grass", 8, (32, 56)),
+                     patch("patch_grove_abyss_grass", "soft_crimson_short_grass", 6, (24, 48)),
                      patch("patch_grove_puff_grass", "puff_grass", 3, (8, 16), half="lower"),
-                     patch("patch_humus_grass", "crimson_short_grass", 4, (16, 32)),
-                     patch("patch_tall_humus_grass", "crimson_tall_grass", 2, (8, 16), half="lower"),
+                     patch("patch_humus_grass", "soft_crimson_short_grass", 4, (16, 32)),
+                     patch("patch_tall_humus_grass", "soft_crimson_tall_grass", 2, (8, 16), half="lower"),
                      patch("patch_humus_fern", "humus_fern", 3, (8, 16)),
                      patch("patch_humus_bush", "humus_bush", 2, (4, 10)),
                      patch("patch_grove_glowcap", "gloomcap", 2, (4, 10)),
@@ -313,21 +334,33 @@ VEGETATION = {
                      patch("patch_golden_bloom", "golden_bloom", 2, (6, 12)),
                      patch("patch_grove_teal_grass", "soft_teal_short_grass", 6, (24, 40), floor_in=TEAL_FLOORS),
                      patch("patch_grove_tall_teal_grass", "soft_teal_tall_grass", 2, (8, 16), half="lower", floor_in=TEAL_FLOORS),
-                     patch("patch_mint_rift_grass", "mint_rift_grass", 4, (16, 32)),
-                     patch("patch_grove_tall_glow_grass", "tall_glow_grass", 2, (6, 12), half="lower"),
+                     patch("patch_rift_mint_short_grass", "rift_mint_short_grass", 4, (16, 32)),
+                     patch("patch_grove_glowshade_tall_grass", "glowshade_tall_grass", 2, (6, 12), half="lower"),
                      carpet_patch("patch_coral_leaf_carpet", 3, (8, 16)),
-                     patch("patch_curled_fern_pink", "curled_fern_pink", 2, (6, 12)),
-                     patch("patch_giant_canopy_green", "giant_canopy_green", 1, (2, 5)),
+                     patch("patch_pink_curled_fern", "pink_curled_fern", 2, (6, 12)),
+                     patch("patch_green_giant_canopy", "green_giant_canopy", 1, (2, 5)),
                      patch("patch_grove_clustered_yellow_flowers", "clustered_yellow_flowers", 1, (4, 8)),
+                     # sift_vegetation_assets：薄荷高草、白色小花叢、劈裂草，岩壁上的綠篩靈藤與攀牆葉
+                     patch("patch_rift_mint_tall_grass", "rift_mint_tall_grass", 2, (6, 12), half="lower"),
+                     patch("patch_white_flower_patch", "white_flower_patch", 2, (4, 8)),
+                     patch("patch_cleaver_plant", "cleaver_plant", 1, (2, 5)),
+                     wall_plant("wall_green_sift_vine", "green_sift_vine", 4, max_len=4),
+                     wall_plant("wall_sift_wall_leaves", "sift_wall_leaves", 3),
                      cliff_vines("cliff_vines_willow_grove", tries=64, min_len=4, max_len=9, glow_chance=0.18, count=12)],
     "amber_dunes": [patch("patch_dune_tall_ember_grass", "soft_dune_tall_grass", 2, (6, 12), half="lower"),
                     patch("patch_dune_ember_grass", "soft_dune_short_grass", 3, (10, 20)),
                     patch("patch_dune_golden_bloom", "golden_bloom", 1, (4, 8)),
                     patch("patch_dune_teal_grass", "soft_teal_short_grass", 2, (8, 16), floor_in=TEAL_FLOORS),
-                    patch("patch_yellow_short_grass", "yellow_short_grass", 4, (12, 24)),
-                    patch("patch_dune_agave_rosette", "agave_rosette", 1, (2, 5)),
+                    patch("patch_rift_yellow_short_grass", "rift_yellow_short_grass", 4, (12, 24)),
+                    patch("patch_dune_yellow_agave", "yellow_agave", 1, (2, 5)),
                     patch("patch_olive_forked_stalk", "olive_forked_stalk", 1, (2, 5)),
                     patch("patch_clustered_yellow_flowers", "clustered_yellow_flowers", 1, (4, 8)),
+                    # sift_vegetation_assets：黃色小花叢、篩靈小麥（幼苗／植株／麥束）、黃色落葉
+                    patch("patch_yellow_flower_patch", "yellow_flower_patch", 1, (4, 8)),
+                    patch("patch_sift_wheat_sprout", "sift_wheat_sprout", 2, (6, 12)),
+                    patch("patch_sift_wheat_plant", "sift_wheat_plant", 1, (4, 8)),
+                    patch("patch_sift_wheat", "sift_wheat", 1, (1, 2)),
+                    patch("patch_yellow_leaf_litter", "yellow_leaf_litter", 1, (3, 6)),
                     cliff_vines("cliff_vines_amber_dunes", tries=32, min_len=2, max_len=5, glow_chance=0.08, count=3)],
 }
 
@@ -574,10 +607,10 @@ FARM_FEATURES = [
 # night-glow flora (SiftFlora.java): glowshade grass in the meadows, starlit shrubs here and there
 SURFACE = [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}]
 GLOW_FEATURES = {
-    "willow_grove": [farm_plant("glowshade_grass_grove", provider("glowshade_grass"), 28, SURFACE, []),
+    "willow_grove": [farm_plant("glowshade_short_grass_grove", provider("glowshade_short_grass"), 28, SURFACE, []),
                      farm_plant("glowshade_tuft_grove", provider("glowshade_tuft"), 10, SURFACE, []),
                      farm_plant("starlit_shrub_grove", provider("starlit_shrub"), 3, SURFACE, [])],
-    "violet_slate_abyss": [farm_plant("glowshade_grass_violet", provider("glowshade_grass"), 18, SURFACE, []),
+    "violet_slate_abyss": [farm_plant("glowshade_short_grass_violet", provider("glowshade_short_grass"), 18, SURFACE, []),
                            farm_plant("starlit_shrub_violet", provider("starlit_shrub"), 5, SURFACE, [])],
 }
 
@@ -590,8 +623,8 @@ RED_CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecra
                    "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
                   {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]
 CAVE_FEATURES = {"red_zone_caves": [
-    farm_plant("red_cave_grass", provider("crimson_short_grass"), 90, RED_CAVE_FLOOR, []),
-    farm_plant("red_cave_sprouts", provider("crimson_short_sprouts"), 50, RED_CAVE_FLOOR, []),
+    farm_plant("red_cave_grass", provider("soft_crimson_short_grass"), 90, RED_CAVE_FLOOR, []),
+    farm_plant("red_cave_sprouts", provider("rift_red_short_grass"), 50, RED_CAVE_FLOOR, []),
     farm_plant("red_cave_shrub", provider("starlit_shrub"), 10, RED_CAVE_FLOOR, []),
     farm_plant("red_cave_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, RED_CAVE_FLOOR, []),
 ]}

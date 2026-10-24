@@ -7,6 +7,8 @@ the near-white highlight stays light, the dark outline becomes deep teal; two fl
 body so it reads as burning. Writes NEW files textures/gui/sprites/hud/heart/soul_<name>.png and a preview."""
 import sys, zipfile, io, colorsys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(sys.argv[1]).resolve()
@@ -63,7 +65,7 @@ def main():
         for name in NAMES:
             src = Image.open(io.BytesIO(z.read(f"assets/minecraft/textures/gui/sprites/hud/heart/{name}.png"))).convert("RGBA")
             img = flames(recolour(src))
-            img.save(OUT / f"soul_{name}.png")
+            art_guard.save(img, OUT / f"soul_{name}.png")
             made.append((src, img))
     prev = Image.new("RGBA", (len(made) * 80, 160), (40, 40, 46, 255))
     for i, (a, b) in enumerate(made):

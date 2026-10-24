@@ -11,6 +11,8 @@ OVERRIDE 可以為個別生物指定改用哪個骨骼（例如臉不在 head �
 """
 import sys, json, shutil, datetime
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw, ImageFont
 
 P = Path(__file__).resolve().parents[2]
@@ -233,7 +235,7 @@ def main():
             if p.exists():
                 BK.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(p, BK / p.name)
-            egg.save(p)
+            art_guard.save(egg, p)
         print("applied; backups in", BK)
 
 

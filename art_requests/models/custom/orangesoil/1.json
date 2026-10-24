@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "all": "dungeons_content_two:block/sift_orange_sand_side"
-  }
-}

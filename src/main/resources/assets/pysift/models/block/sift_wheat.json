@@ -1,0 +1,9 @@
+{
+  "parent": "pysift:custom/sift_wheat",
+  "textures": {
+    "all": "pysift:block/sift_wheat",
+    "particle": "pysift:block/sift_wheat_plant",
+    "0": "pysift:block/sift_wheat"
+  },
+  "render_type": "cutout"
+}

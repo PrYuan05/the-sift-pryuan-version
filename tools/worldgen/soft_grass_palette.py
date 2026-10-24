@@ -3,7 +3,7 @@ Usage: python -I tools/worldgen/soft_grass_palette.py [參考截圖] [--apply]
   預覽 build/previews/soft_grass_palette.png；--apply 寫入三組草的貼圖，模型改成原版 minecraft:block/cross（不染色）。
 
 使用者選擇：原版十字＋預先上色。三組草各自一張已上色的貼圖，顏色跟著草的種類（生態域），不跟著腳下那一格：
-  crimson_*      粉色色盤（取自參考截圖）
+  soft_crimson_* 粉色色盤（取自參考截圖）
   soft_violet_*  粉色色盤的色相轉到紫晶區地面（violet_capped_dark_slate 頂面）的色相，鮮豔度與深淺不變；葉形＝母版左右鏡像
   soft_dune_*    粉色色盤的色相轉到沙丘地面（amber_sand）的色相；葉形＝鏡像後葉尖壓低 2 px
 
@@ -12,6 +12,8 @@ Usage: python -I tools/worldgen/soft_grass_palette.py [參考截圖] [--apply]
 """
 import sys, json, colorsys, shutil, datetime
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 P = Path(__file__).resolve().parents[2]
@@ -23,15 +25,15 @@ BK = P / ".texture_backups" / (datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 # 每組草的色盤：("pink",) 粉色本身；("rotate", 地面) 粉色色盤轉到地面色相；("relative", 地面色, 飽和加成, 明度提升)
 #   relative：把「粉色色盤 ↔ 赤紅地板 #F47D89」的亮暗、飽和關係套到這種地板上（使用者：紫色要專門符合地板的色相）
 SETS = {
-    "crimson": ("pink",),
+    "soft_crimson": ("pink",),
     "soft_violet": ("relative", "#4F4657", 1.4, 0.22),   # 紫晶區地板很暗很灰：保持地板色相，稍微提亮才看得到
     "soft_dune": ("rotate", "amber_sand"),
     "soft_teal": ("relative", "#43B6B0", 1.0, 0.0),      # 青色地板（尖柱頂 capped_crimson_strata、abyssal / silted strata）
 }
-SHAPES = {"crimson": (False, 0), "soft_violet": (True, 0), "soft_dune": (True, 2), "soft_teal": (False, 1)}   # (鏡像, 葉尖壓低 px)
+SHAPES = {"soft_crimson": (False, 0), "soft_violet": (True, 0), "soft_dune": (True, 2), "soft_teal": (False, 1)}   # (鏡像, 葉尖壓低 px)
 PINK_FLOOR = "#F47D89"   # 粉色色盤所在的赤紅地板（crimson_capped_crimson_strata_2 頂面平均色）
-NAMES_ZH = {"crimson": "柔和赤紅", "soft_violet": "柔和紫晶", "soft_dune": "柔和沙丘", "soft_teal": "柔和青碧"}
-NAMES_EN = {"crimson": "Soft Crimson", "soft_violet": "Soft Violet", "soft_dune": "Soft Dune", "soft_teal": "Soft Teal"}
+NAMES_ZH = {"soft_crimson": "柔和赤紅", "soft_violet": "柔和紫晶", "soft_dune": "柔和沙丘", "soft_teal": "柔和青碧"}
+NAMES_EN = {"soft_crimson": "Soft Crimson", "soft_violet": "Soft Violet", "soft_dune": "Soft Dune", "soft_teal": "Soft Teal"}
 REF = None   # 參考截圖（可選）：python ... <截圖路徑>
 
 
@@ -119,7 +121,7 @@ def shift_down(im, dy):
 def build():
     """回傳 {貼圖名: 上色後 Image}, {set: palette}。"""
     names = ("short_grass", "tall_grass_bottom", "tall_grass_top")
-    m = {n: Image.open(SRC / f"crimson_{n}.png").convert("RGBA") for n in names}
+    m = {n: Image.open(SRC / f"soft_crimson_{n}.png").convert("RGBA") for n in names}
     lv = levels(m.values())
     pals, tex = {}, {}
     for prefix, spec in SETS.items():
@@ -143,7 +145,7 @@ def apply(tex):
     for n, im in tex.items():
         p = VEG / f"{n}.png"
         backup(p)
-        im.save(p)
+        art_guard.save(im, p)
         mp = A / f"models/block/vegetation/{n}.json"
         backup(mp)
         mp.write_text(json.dumps({"parent": "minecraft:block/cross", "textures": {"cross": f"pysift:block/vegetation/{n}"}},
@@ -197,7 +199,7 @@ def apply(tex):
 def preview_sets(tex, pals, lv, sheet_path):
     font = ImageFont.truetype("C:/Windows/Fonts/msjh.ttc", 16)
     S = 10
-    grounds = {"crimson": hx("#F47D89"), "soft_violet": hx("#4F4657"), "soft_dune": hx("#E1B66E"), "soft_teal": hx("#43B6B0")}
+    grounds = {"soft_crimson": hx("#F47D89"), "soft_violet": hx("#4F4657"), "soft_dune": hx("#E1B66E"), "soft_teal": hx("#43B6B0")}
     sheet = Image.new("RGB", (len(pals) * 420 + 20, 600), (34, 33, 40))
     d = ImageDraw.Draw(sheet)
     for k, (prefix, pal) in enumerate(pals.items()):
@@ -218,7 +220,7 @@ def preview_sets(tex, pals, lv, sheet_path):
 
 
 def main(ref_path=None):
-    names = ("crimson_short_grass", "crimson_tall_grass_bottom", "crimson_tall_grass_top")
+    names = ("soft_crimson_short_grass", "soft_crimson_tall_grass_bottom", "soft_crimson_tall_grass_top")
     m = {n: Image.open(SRC / f"{n}.png").convert("RGBA") for n in names}
     lv = levels(m.values())
     print("gray levels (light→dark):", lv)
@@ -238,12 +240,12 @@ def main(ref_path=None):
         d.text((x, 160), label, fill=(235, 235, 235), font=font)
         bg = Image.new("RGBA", (16 * S, 32 * S), ground + (255,))
         tall = Image.new("RGBA", (16, 32))
-        tall.paste(ims["crimson_tall_grass_top"], (0, 0))
-        tall.paste(ims["crimson_tall_grass_bottom"], (0, 16))
+        tall.paste(ims["soft_crimson_tall_grass_top"], (0, 0))
+        tall.paste(ims["soft_crimson_tall_grass_bottom"], (0, 16))
         bg.alpha_composite(tall.resize((16 * S, 32 * S), Image.NEAREST))
         sheet.paste(bg.convert("RGB"), (x, 186))
         bg2 = Image.new("RGBA", (16 * S, 16 * S), ground + (255,))
-        bg2.alpha_composite(ims["crimson_short_grass"].resize((16 * S, 16 * S), Image.NEAREST))
+        bg2.alpha_composite(ims["soft_crimson_short_grass"].resize((16 * S, 16 * S), Image.NEAREST))
         sheet.paste(bg2.convert("RGB"), (x + 16 * S + 10, 186 + 16 * S))
         x += 2 * 16 * S + 40
     if ref_path:

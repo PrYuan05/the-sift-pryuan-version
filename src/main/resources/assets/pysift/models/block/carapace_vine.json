@@ -1,4 +1,4 @@
-﻿{
+{
   "parent": "pysift:custom/carapace_vine",
   "textures": {
     "all": "pysift:block/carapace_vine",

@@ -7,6 +7,8 @@ tall_ember_grass_top.png, so the blades run on across the two blocks (also Floor
 Existing PNGs are backed up to .texture_backups/<stamp>_grass_blades/ before they are replaced."""
 import sys, random, shutil, datetime
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard   # 臨時圖保護：使用者用同檔名覆蓋過的貼圖不會被重跑蓋掉
 from PIL import Image
 
 P = Path(sys.argv[1]).resolve()
@@ -52,7 +54,7 @@ def save(img, path):
         bk.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(path, bk)
     path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(path)
+    art_guard.save(img, path)
     print("wrote", path.relative_to(P))
 
 

@@ -1,7 +1,0 @@
-﻿{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "pysift:item/orange_sift_vine"
-  },
-  "render_type": "translucent"
-}

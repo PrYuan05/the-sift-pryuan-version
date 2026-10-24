@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:match_tool",
+        "predicate": {
+          "items": "minecraft:shears"
+        }
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:glowshade_short_grass"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "pysift:blocks/glowshade_short_grass"
+}

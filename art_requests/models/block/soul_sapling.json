@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "dungeons_content_two:block/souls_sapling",
-    "particle": "dungeons_content_two:block/souls_sapling"
-  },
-  "render_type": "cutout"
-}

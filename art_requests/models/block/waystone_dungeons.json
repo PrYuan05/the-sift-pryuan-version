@@ -1,9 +1,0 @@
-{
-  "parent": "dungeons_content_two:custom/waystone_dungeons",
-  "textures": {
-    "all": "dungeons_content_two:block/waystone_off",
-    "particle": "dungeons_content_two:block/waystone_off",
-    "0": "dungeons_content_two:block/waystone_off"
-  },
-  "render_type": "solid"
-}

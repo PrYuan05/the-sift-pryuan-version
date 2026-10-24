@@ -1,9 +1,0 @@
-{
-  "parent": "dungeons_content_two:custom/soul_bubble_pop_flower",
-  "textures": {
-    "all": "dungeons_content_two:block/soul_bubble_flower",
-    "particle": "dungeons_content_two:block/soul_bubble_flower",
-    "0": "dungeons_content_two:block/soul_bubble_flower"
-  },
-  "render_type": "cutout"
-}

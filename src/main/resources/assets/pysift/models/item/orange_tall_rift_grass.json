@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:item/generated",
-	"textures": {
-		"layer0": "pysift:block/vegetation/orange_tall_rift_grass_top"
-	}
-}

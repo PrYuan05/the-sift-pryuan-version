@@ -1,8 +1,0 @@
-﻿{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "pysift:block/weat_plant2",
-    "particle": "pysift:block/weat_plant2"
-  },
-  "render_type": "cutout"
-}

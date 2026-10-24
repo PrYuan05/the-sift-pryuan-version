@@ -1098,7 +1098,7 @@ def shrub(colours, seed):
     return img
 
 
-def glow_cross_model(name):
+def glow_cross_model(name, cross=None):
     """Cross model with a second, emissive cross for the glowing dots (no z-fighting: the glow planes sit 0.01 in front)."""
     def plane(texture, z_or_x, emissive, axis):
         if axis == "z":
@@ -1112,32 +1112,38 @@ def glow_cross_model(name):
         return el
     wj(A / f"models/block/progression/{name}.json", {
         "ambientocclusion": False, "render_type": "cutout",
-        "textures": {"particle": f"pysift:block/progression/{name}", "cross": f"pysift:block/progression/{name}",
+        "textures": {"particle": cross or f"pysift:block/progression/{name}", "cross": cross or f"pysift:block/progression/{name}",
                      "glow": f"pysift:block/progression/{name}_glow"},
         "elements": [plane("#cross", 8, False, "z"), plane("#cross", 8, False, "x"),
                      plane("#glow", 8.01, True, "z"), plane("#glow", 8.01, True, "x")]})
     wj(A / f"blockstates/{name}.json", {"variants": {"": {"model": f"pysift:block/progression/{name}"}}})
-    generated_item(name, f"pysift:block/progression/{name}")
+    generated_item(name, cross or f"pysift:block/progression/{name}")
 
 
 GLOW_TEAL = [(20, 60, 60), (30, 100, 95), (50, 150, 135), (90, 200, 180)]
 FLORA = {
-    "glowshade_grass": (blades(GLOW_TEAL, 81, 9, 7), (150, 255, 245), 6,
-                        "夜光草：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）"),
+    "glowshade_short_grass": (blades(GLOW_TEAL, 81, 9, 7), (150, 255, 245), 6,
+                        "夜光短草（草葉用幽匿草貼圖）：青綠色短草葉，葉尖有青白色的發光點（十字模型；另一張 _glow 只畫發光點）"),
     "glowshade_tuft": (blades(GLOW_TEAL, 82, 15, 9), (150, 255, 245), 9,
                        "夜光草叢：較高的青綠色草叢，葉尖發光（十字模型；_glow 只畫發光點）"),
     "starlit_shrub": (shrub([(18, 22, 40), (28, 34, 60), (40, 48, 80)], 83), (110, 190, 255), 14,
                       "星光灌木：深藍黑色的圓灌木，掛滿藍色小光點（十字模型；_glow 只畫光點）"),
 }
+# 夜光短草：草葉沿用幽匿草（sift_vegetation_assets 的 sculk_grass.png，使用者決定合併），只產生對齊它的發光層
+FLORA_CROSS = {"glowshade_short_grass": "block/sculk_grass"}
 for name, (base, dot, n, desc) in FLORA.items():
-    save_placeholder(base, f"block/progression/{name}", desc)
+    cross = FLORA_CROSS.get(name)
+    if cross:
+        base = Image.open(A / f"textures/{cross}.png").convert("RGBA")
+    else:
+        save_placeholder(base, f"block/progression/{name}", desc)
     save_placeholder(glow_dots(base, dot, sum(map(ord, name)), n), f"block/progression/{name}_glow", desc + "（發光層）")
-    glow_cross_model(name)
+    glow_cross_model(name, cross and f"pysift:{cross}")
     loot(f"blocks/{name}", [{"rolls": 1, "condition": {"type": "minecraft:match_tool", "predicate": {"items": "minecraft:shears"}},
                               "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}])
 
 FLORA_LANG = {
-    "block.pysift.glowshade_grass": ("Glowshade Grass", "夜光草"),
+    "block.pysift.glowshade_short_grass": ("Glowshade Short Grass", "夜光短草"),
     "block.pysift.glowshade_tuft": ("Glowshade Tuft", "夜光草叢"),
     "block.pysift.starlit_shrub": ("Starlit Shrub", "星光灌木"),
 }

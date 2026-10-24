@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:simple_block",
-  "to_place": {
-    "id": "pysift:tall_glow_grass",
-    "properties": {
-      "half": "lower"
-    }
-  }
-}

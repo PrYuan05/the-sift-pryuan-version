@@ -18,14 +18,14 @@ import pryuan05.pysift.block.SiftDayPhase;
 /**
  * 夜光植物（參考影片中夜裡會發出青藍光點的草地與灌木）：
  * <ul>
- *   <li>夜光草（短）、夜光草叢（高）：青綠色草葉，葉尖有一層自發光的光點（模型的 light_emission 層），白天看起來像普通的草。</li>
+ *   <li>夜光短草（貼圖沿用幽匿草）、夜光草叢：青綠色草葉，葉尖有一層自發光的光點（模型的 light_emission 層），白天看起來像普通的草。</li>
  *   <li>星光灌木：深色小灌木，掛滿發藍光的小點。</li>
  * </ul>
  * 一直帶著微弱亮度；入夜後（{@link SiftDayPhase}）會飄出小小的發光粒子。
  * 資源由 tools/progression/build_progression.py 產生，世界生成在 tools/worldgen/build_the_sift.py 的 GLOW_FEATURES。
  */
 public final class SiftFlora {
-    public static final Block GLOWSHADE_GRASS = ModProgression.registerBlock("glowshade_grass",
+    public static final Block GLOWSHADE_SHORT_GRASS = ModProgression.registerBlock("glowshade_short_grass",
             p -> new NightGlowPlant(p.lightLevel(state -> 3), Block.box(2.0, 0.0, 2.0, 14.0, 10.0, 14.0), 40), Blocks.SHORT_GRASS);
     public static final Block GLOWSHADE_TUFT = ModProgression.registerBlock("glowshade_tuft",
             p -> new NightGlowPlant(p.lightLevel(state -> 4), Block.box(1.0, 0.0, 1.0, 15.0, 15.0, 15.0), 25), Blocks.SHORT_GRASS);

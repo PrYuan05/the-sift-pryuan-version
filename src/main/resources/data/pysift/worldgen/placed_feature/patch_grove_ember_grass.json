@@ -57,7 +57,7 @@
           },
           {
             "type": "minecraft:would_survive",
-            "state": "pysift:crimson_short_grass"
+            "state": "pysift:soft_crimson_short_grass"
           },
           {
             "type": "minecraft:not",

@@ -1,8 +1,0 @@
-{
-  "parent": "block/cross",
-  "textures": {
-    "cross": "dungeons_content_two:block/weat_plant2",
-    "particle": "dungeons_content_two:block/weat_plant2"
-  },
-  "render_type": "cutout"
-}

@@ -24,6 +24,7 @@ import pryuan05.pysift.worldgen.SoulWillowVineDecorator;
 import pryuan05.pysift.command.BossLocateCommand;
 import pryuan05.pysift.worldgen.BossArenaFeature;
 import pryuan05.pysift.worldgen.CliffVinesFeature;
+import pryuan05.pysift.worldgen.WallPlantFeature;
 import pryuan05.pysift.worldgen.StrataSpireFeature;
 
 public class PySift implements ModInitializer {
@@ -53,6 +54,7 @@ public class PySift implements ModInitializer {
         SoulWillowVineDecorator.register();
         StrataSpireFeature.register();
         CliffVinesFeature.register();
+        WallPlantFeature.register();
         BossArenaFeature.register();
         ModEntities.registerModEntities();
         ModItems.registerModItems();

@@ -59,10 +59,13 @@ public class SingerEntity extends PysiftAnimalEntity {
     private float playBaseYaw;
     /** 吹山羊角時就算好的儀式配置（門的中點、哪一側、唱片盒那一排的位置）；之後召喚與擺放都沿用它。 */
     private pryuan05.pysift.block.SiftPortalRitual.Site ritualSite;
-    public static final int ACTION_NONE = 0, ACTION_BECKON = 1, ACTION_SUMMON = 2, ACTION_FINALE = 3, ACTION_SWEEP = 4, ACTION_PLAY = 5;
+    public static final int ACTION_NONE = 0, ACTION_BECKON = 1, ACTION_SUMMON = 2, ACTION_FINALE = 3, ACTION_SWEEP = 4, ACTION_PLAY = 5,
+            ACTION_AWAIT = 6;
     /** 招手多久沒人理（tick）就抱起小傀儡轉圈圈，之後每隔多久再玩一次。 */
     private static final int BORED_AFTER = 400, PLAY_TICKS = 120, PLAY_AGAIN = 1200;
     private int beckonTicks;
+    /** 玩完小傀儡之後要回到的等待動作（招手或等唱片）。 */
+    private int waitAction = ACTION_BECKON;
     /** 召喚（summon 2 秒）與終曲（sing 1.5 秒）播完後回到無動作。 */
     private int actionTicks;
     /** 開門後鑽回地底離開（動畫 burrow）。 */
@@ -104,6 +107,9 @@ public class SingerEntity extends PysiftAnimalEntity {
     public void setAction(int action) {
         if (ritualAction() == ACTION_PLAY && action != ACTION_PLAY) {   // 中途被打斷：轉回原本的方向
             faceYaw(playBaseYaw);
+        }
+        if (action == ACTION_AWAIT && ritualAction() != ACTION_PLAY) {   // 剛開始等唱片：重新計算多久會無聊
+            beckonTicks = 0;
         }
         this.entityData.set(DATA_ACTION, action);
         this.entityData.set(DATA_ACTION_START, (int) this.level().getGameTime());
@@ -240,6 +246,7 @@ public class SingerEntity extends PysiftAnimalEntity {
             ritualSite.save(output);
         }
         output.putBoolean("Waiting", isWaiting());
+        output.putBoolean("AwaitDiscs", ritualAction() == ACTION_AWAIT || ritualAction() == ACTION_PLAY && waitAction == ACTION_AWAIT);
     }
 
     @Override
@@ -247,7 +254,11 @@ public class SingerEntity extends PysiftAnimalEntity {
         super.readAdditionalSaveData(input);
         this.entityData.set(DATA_RITUAL, input.getBooleanOr("Ritual", false));
         ritualSite = pryuan05.pysift.block.SiftPortalRitual.Site.load(input);
-        setWaiting(input.getBooleanOr("Waiting", false));
+        if (input.getBooleanOr("AwaitDiscs", false)) {
+            setAction(ACTION_AWAIT);
+        } else {
+            setWaiting(input.getBooleanOr("Waiting", false));
+        }
     }
 
     /** 自然生成、生怪蛋、/summon 都會經過這裡：出生時從地底爬出。 */
@@ -300,8 +311,9 @@ public class SingerEntity extends PysiftAnimalEntity {
         }
         if (this.level() instanceof ServerLevel server && isRitual() && !isEmerging() && !isLeaving()) {
             int action = ritualAction();
-            if (action == ACTION_BECKON && ++beckonTicks >= BORED_AFTER) {   // 等太久：抱起小傀儡轉圈圈
+            if ((action == ACTION_BECKON || action == ACTION_AWAIT) && ++beckonTicks >= BORED_AFTER) {   // 等太久：抱起小傀儡轉圈圈
                 beckonTicks = BORED_AFTER - PLAY_AGAIN;
+                waitAction = action;
                 startPlaying(server);
             } else if (action == ACTION_PLAY) {
                 int elapsed = PLAY_TICKS - actionTicks;   // 2.2~4.4 秒：抱著轉一圈；其他時間面向原本的方向
@@ -312,7 +324,9 @@ public class SingerEntity extends PysiftAnimalEntity {
             }
         }
         if (this.actionTicks > 0 && !this.level().isClientSide() && --this.actionTicks == 0) {
-            setAction(ritualAction() == ACTION_PLAY ? ACTION_BECKON : ACTION_NONE);   // 玩夠了回去繼續招手
+            // 玩夠了回去繼續等；召喚完傀儡之後，儀式歌者改成等玩家放唱片（await）
+            int done = ritualAction();
+            setAction(done == ACTION_PLAY ? waitAction : done == ACTION_SUMMON && isRitual() ? ACTION_AWAIT : ACTION_NONE);
         }
         if (this.burrowTicks > 0 && this.level() instanceof ServerLevel level) {
             tickEmerge(level, Math.min(EMERGE_TICKS - 7, this.burrowTicks));   // 同樣的碎屑與挖掘聲
@@ -386,7 +400,7 @@ public class SingerEntity extends PysiftAnimalEntity {
     @Override
     public void registerControllers(com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar controllers) {
         super.registerControllers(controllers);
-        // 儀式動作：等迴音碎片時招手（循環）→ 召喚傀儡（summon）→ 開門時唱終曲（sing）。排在最後，蓋過 idle／walk。
+        // 儀式動作：等迴音碎片時招手（循環）→ 召喚傀儡（summon）→ 等玩家放唱片時打拍子哼歌（await，循環）→ 開門時唱終曲（sing）。排在最後，蓋過 idle／walk。
         controllers.add(new com.geckolib.animation.AnimationController<SingerEntity>("ritual", 4, state -> {
             if (isEmerging() || isLeaving()) {
                 return com.geckolib.animation.object.PlayState.STOP;
@@ -397,6 +411,7 @@ public class SingerEntity extends PysiftAnimalEntity {
                 case ACTION_FINALE -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("sing")));
                 case ACTION_SWEEP -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenLoop(anim("sweep")));
                 case ACTION_PLAY -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenPlayAndHold(anim("play")));
+                case ACTION_AWAIT -> state.setAndContinue(com.geckolib.animation.RawAnimation.begin().thenLoop(anim("await")));
                 default -> com.geckolib.animation.object.PlayState.STOP;
             };
         }));
