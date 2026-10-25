@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "woolen_carpet",
+  "key": {
+    "#": "pysift:rose_wool"
+  },
+  "pattern": [
+    "##"
+  ],
+  "result": {
+    "count": 3,
+    "id": "pysift:rose_carpet"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:block/sift_colors/lavender_glazed_terracotta",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -5005861
+      }
+    ]
+  }
+}

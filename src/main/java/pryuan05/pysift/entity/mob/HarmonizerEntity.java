@@ -50,7 +50,7 @@ import pryuan05.pysift.entity.ai.SonicConeGoal;
  *   <li>近身砸地：被逼到 3.5 格內時，半徑 4 格 10 點傷害並往上擊飛，冷卻 7 秒（動畫 slam）。</li>
  *   <li>沒有一般近戰；死亡時播放 death。</li>
  *   <li>威脅機制（BossMechanics）：二階段攻擊 +30%、移速 +15%、冷卻 ×0.65，並召喚 3 隻引信飛蟲；脫戰回血、守在競技場。</li>
- *   <li>咆哮召喚：自己的援軍少於 3 隻時，咆哮放出半徑 5×SCALE 格的衝擊波（6 點）並召喚 5 隻篩靈界怪物（哨兵、母巢怪、潛伏獵手、傳粉蜂怪、幼苗怪），冷卻 30 秒（動畫 roar）。</li>
+ *   <li>咆哮召喚：自己的援軍少於 3 隻時，咆哮放出半徑 5×SCALE 格的衝擊波（6 點）並召喚 5 隻隙浮怪物（哨兵、母巢怪、潛伏獵手、傳粉蜂怪、幼苗怪），冷卻 30 秒（動畫 roar）。</li>
  *   <li>光束增益：用光束連著每隻還活著的援軍，每 2 秒給力量 I 與抗性 I；援軍死了光束就斷。</li>
  *   <li>觸手抓取：目標在 2~6×SCALE 格且有視線，舉起觸手抓住目標拉到身邊，7 點傷害並緩速，冷卻 8 秒（動畫 tentacle_grab）。</li>
  *   <li>紫色漩渦球＋砸地：前方召出漩渦球，3.5 秒內把站在地上的人往球心吸（一直跳就不會被吸走），接著整個身體砸在球的位置，半徑 2.5×SCALE 格 16 點傷害，冷卻 15 秒（動畫 vortex）。</li>
@@ -91,7 +91,7 @@ public class HarmonizerEntity extends PysiftMonsterEntity {
         this.goalSelector.addGoal(1, new GroundSlamGoal(this, "slam", 12, 20, 140, 3.5 * SCALE, 4.0 * SCALE, 10.0f, 0.6));
         this.goalSelector.addGoal(1, new SonicConeGoal(this, "sonic_cone", 12, 24, 120, 8.0 * SCALE, 30.0, 8.0f, 1.2));
         this.goalSelector.addGoal(1, new ResonanceRingGoal(this, "resonance", 8, 240, 7.0 * SCALE, 2.0 * SCALE, 7.0 * SCALE, 20, 6.0f));
-        // 咆哮召喚：環狀衝擊波＋召喚 5 隻篩靈界怪物（場上自己的援軍少於 3 隻時才會用）
+        // 咆哮召喚：環狀衝擊波＋召喚 5 隻隙浮怪物（場上自己的援軍少於 3 隻時才會用）
         this.goalSelector.addGoal(1, new SkillGoal(this, "roar", 20, 40, 600, 0.0, 30.0, false, this::roarSummon) {
             @Override
             public boolean canUse() {
@@ -191,7 +191,7 @@ public class HarmonizerEntity extends PysiftMonsterEntity {
         level.sendParticles(ParticleTypes.SQUID_INK, target.getX(), target.getY(0.5), target.getZ(), 10, 0.3, 0.4, 0.3, 0.02);
     }
 
-    /** 死亡狂暴：附近 16 格的篩靈界怪物獲得速度、生命提升與再生 30 秒。 */
+    /** 死亡狂暴：附近 16 格的隙浮怪物獲得速度、生命提升與再生 30 秒。 */
     @Override
     public void die(DamageSource source) {
         super.die(source);

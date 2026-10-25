@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_wool",
+    "pysift:mint_wool",
+    "pysift:coral_wool",
+    "pysift:amber_wool",
+    "pysift:lavender_wool",
+    "pysift:rose_wool",
+    "pysift:soul_blue_wool",
+    "pysift:void_wool",
+    "pysift:dusk_gold_wool"
+  ]
+}

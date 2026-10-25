@@ -32,11 +32,12 @@ public class PySiftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         SiftClientVisuals.register();
+        pryuan05.pysift.client.SiftColorsClient.register();   // 9 種新顏色的方塊著色
         PysiftTooltips.register();   // 物品說明按住 Shift 才展開
         SoulDeprivationVision.register();   // 靈魂剝奪：伏聆色調的視野後製
-        SiftPortalTransition.register();     // 篩靈界傳送門的過場動畫
-        SiftAurora.register();               // 篩靈界夜晚的極光
-        // 篩靈界傳送門：大面積珠光流光 + 邊緣破曉聖光
+        SiftPortalTransition.register();     // 隙浮傳送門的過場動畫
+        SiftAurora.register();               // 隙浮夜晚的極光
+        // 隙浮傳送門：大面積珠光流光 + 邊緣破曉聖光
         BlockEntityRendererRegistry.register(ModBlockEntities.SIFT_PORTAL, context -> new SiftPortalBlockEntityRenderer());
         // 八音儀式的共鳴唱片盒：升起動畫、旋轉的唱片、彩色光柱
         BlockEntityRendererRegistry.register(pryuan05.pysift.block.RitualBlocks.RESONANT_JUKEBOX_ENTITY,

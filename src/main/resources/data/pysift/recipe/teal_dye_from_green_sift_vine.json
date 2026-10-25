@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "teal_dye",
+  "ingredients": [
+    "pysift:green_sift_vine"
+  ],
+  "result": {
+    "id": "pysift:teal_dye"
+  }
+}

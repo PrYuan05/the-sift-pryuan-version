@@ -35,7 +35,7 @@ public final class SiftClientVisuals {
                 new SpiritLiquidTint()));
     }
 
-    /** 靈液：貼圖本身已是彩虹星雲，並由 FluidRendererMixin 以世界座標貼成 8×8 格的連續大圖，所以不再染色（白色 = 原色）。 */
+    /** 靈液：貼圖本身已是彩虹星雲，並由 FluidRendererMixin 以世界座標貼成 32×32 格的連續大圖，所以不再染色（白色 = 原色）。 */
     private static final class SpiritLiquidTint implements BlockTintSource {
         @Override
         public int color(BlockState state) {

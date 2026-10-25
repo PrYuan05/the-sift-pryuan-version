@@ -18,13 +18,13 @@ import pryuan05.pysift.PySift;
 import java.util.Map;
 
 /**
- * 篩金石工具與盔甲：強度介於鐵與鑽石之間（鐵 250 耐久／鑽石 1561；盔甲鐵 15 點／鑽石 20 點）。
+ * 隙浮金工具與盔甲：強度介於鐵與鑽石之間（鐵 250 耐久／鑽石 1561；盔甲鐵 15 點／鑽石 20 點）。
  * <ul>
  *   <li>工具：耐久 800、挖掘速度 7、攻擊 +2.5、附魔性 16，可挖鑽石等級以下的方塊（與鐵相同的 incorrect 標籤）。</li>
  *   <li>盔甲：2 / 7 / 5 / 2 共 16 點、韌性 1、附魔性 15。</li>
  *   <li>套裝效果（穿滿四件）：碰到靈液時血量只被抽到 0.5 倍，而不是 0.2 倍（{@link SoulWard#drainRatio}）。</li>
  * </ul>
- * 修理材料：篩金石錠（#pysift:siftite_tool_materials / #pysift:repairs_siftite_armor）。
+ * 修理材料：隙浮金錠（#pysift:siftite_tool_materials / #pysift:repairs_siftite_armor）。
  */
 public final class SiftiteGear {
     public static final TagKey<Item> TOOL_MATERIALS = TagKey.create(Registries.ITEM, PySift.id("siftite_tool_materials"));
@@ -50,7 +50,7 @@ public final class SiftiteGear {
     private SiftiteGear() {
     }
 
-    /** 四件篩金石盔甲都穿在身上。 */
+    /** 四件隙浮金盔甲都穿在身上。 */
     public static boolean wearsFullSet(Player player) {
         return player.getItemBySlot(EquipmentSlot.HEAD).is(HELMET) && player.getItemBySlot(EquipmentSlot.CHEST).is(CHESTPLATE)
                 && player.getItemBySlot(EquipmentSlot.LEGS).is(LEGGINGS) && player.getItemBySlot(EquipmentSlot.FEET).is(BOOTS);

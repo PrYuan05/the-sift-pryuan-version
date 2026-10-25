@@ -21,7 +21,7 @@ import pryuan05.pysift.effect.ModEffects;
 import pryuan05.pysift.effect.SoulBurn;
 
 /**
- * 篩靈信標（終局，第 1 階段第 6 段）：三種 Boss 核心各一顆加紫龍晶合成<b>篩靈信標寶石</b>，
+ * 隙浮信標（終局，第 1 階段第 6 段）：三種 Boss 核心各一顆加紫龍晶合成<b>隙浮信標寶石</b>，
  * 在鍛造台鑲嵌到任一胸甲（保留附魔與紋飾，配方在 build_progression.py）。
  * 穿著鑲嵌胸甲的玩家周圍 {@link #RADIUS} 格內的所有玩家（含自己）：
  * 不會再被靈液點燃（{@link SoulWard#isImmune}），身上已有的靈魂剝奪也會被淨化、血量歸還（{@link SoulBurn#cure}）。

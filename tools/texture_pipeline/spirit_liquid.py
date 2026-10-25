@@ -2,8 +2,10 @@
 Usage: python -I tools/texture_pipeline/spirit_liquid.py <project> [--dry-run]
 
 Writes NEW files only (never touches existing PNGs):
-  textures/block/fluid/spirit_liquid_still.png   128x128 (8x8 blocks; FluidRendererMixin maps it in world space),
-                                                 STILL_FRAMES frames, drifts one full tile diagonally per loop
+  textures/block/fluid/spirit_liquid_still.png   512x512 (32x32 blocks, for wide spirit rivers; FluidRendererMixin and
+                                                 SodiumFluidRendererMixin map it in world space), STILL_FRAMES frames;
+                                                 built from irregular waves (BIG_*) so nothing repeats inside the 32x32
+                                                 blocks; each wave drifts at its own speed and the loop is seamless
   textures/block/fluid/spirit_liquid_flow.png    32x32, FLOW_FRAMES frames, scrolls 1 px per frame along v
   textures/block/fluid/spirit_liquid_overlay.png 16x16, top-left block of the first still frame
   + .png.mcmeta for the two animated sprites
@@ -17,9 +19,10 @@ P = Path(sys.argv[1]).resolve()
 DRY = "--dry-run" in sys.argv
 OUT_DIR = P / "src/main/resources/assets/pysift/textures/block/fluid"
 PREVIEW = P / "build/texture_pipeline/out/spirit_liquid_preview.png"
-STILL_SIZE = 128     # must match FluidRendererMixin.SPIRIT_TILE * 16
-STILL_FRAMES = 64
-STILL_FREQ = 1       # one nebula cycle per 8-block tile
+STILL_SIZE = 512     # must match FluidRendererMixin.SPIRIT_TILE * 16 (32 blocks)
+STILL_FRAMES = 32    # 32 x 8 ticks = 12.8 s per loop (64 frames at 512x512 would be a 64 MB sprite)
+STILL_FREQ = 4       # > 1 selects the big-tile field (features ~ 6-8 blocks, as before)
+STILL_FRAMETIME = 8
 STILL_DETAIL = 0.35  # off-axis harmonics: lower = larger, smoother colour patches (promo art look)
 FLOW_FRAMES = 32
 ALPHA = 225          # vanilla water is ~180; higher = less see-through
@@ -65,8 +68,28 @@ def field(u, v, ph, detail=0.0):
     return hue / 1.25, light
 
 
-def pixel(u, v, ph, detail=0.0):
-    hue, light = field(u, v, ph, detail)
+# Big tile (32 blocks): waves whose integer wave vectors point in many directions with lengths ~3-6 per tile, so the
+# features are about as big as the old 8-block pattern but nothing repeats inside the 32x32 tile. Each wave's phase
+# turns an integer number of times per loop (m), so every wave drifts at its own speed and the loop is seamless.
+#            (kx, ky, amplitude, phase, m)
+BIG_HUE = [(4, 1, 0.55, 0.10, 1), (-3, 4, 0.45, 0.37, -1), (5, -2, 0.30, 0.71, 1), (1, 5, 0.30, 0.52, -1),
+           (-4, -3, 0.22, 0.05, 1), (6, 3, 0.15, 0.88, -1)]
+BIG_LIGHT = [(3, -4, 0.55, 0.23, -1), (5, 3, 0.40, 0.61, 1), (-2, 6, 0.30, 0.94, 1), (7, -1, 0.20, 0.42, -1)]
+BIG_WARP_U = [(2, 3, 0.022, 0.13, 1), (-3, 5, 0.012, 0.66, -1)]
+BIG_WARP_V = [(3, -2, 0.022, 0.48, -1), (5, 2, 0.012, 0.29, 1)]
+
+
+def waves(terms, U, V, ph):
+    return sum(a * math.sin(TAU * (kx * U + ky * V + p + m * ph)) for kx, ky, a, p, m in terms)
+
+
+def big_field(U, V, ph):
+    U, V = U + waves(BIG_WARP_U, U, V, ph), V + waves(BIG_WARP_V, U, V, ph)
+    return waves(BIG_HUE, U, V, ph) / 1.6, waves(BIG_LIGHT, U, V, ph) / 1.1
+
+
+def pixel(u, v, ph, detail=0.0, big=False):
+    hue, light = big_field(u, v, ph) if big else field(u, v, ph, detail)
     r, g, b = ramp(0.05 + hue * HUE_SWING)          # sweeps most of the saturated ramp
     if light > 0:                                   # light highlights on the crests
         k = light * HIGHLIGHT
@@ -88,13 +111,19 @@ def frame(size, ph, star_list, shift=(0, 0), freq=1, detail=0.0):
     px = img.load()
     for y in range(size):
         for x in range(size):
-            r, g, b = pixel(freq * ((x - shift[0]) % size) / size, freq * ((y - shift[1]) % size) / size, ph, detail)
+            if freq > 1:   # big tile: the waves drift on their own, no shift
+                r, g, b = pixel(x / size, y / size, ph, big=True)
+            else:
+                r, g, b = pixel(freq * ((x - shift[0]) % size) / size, freq * ((y - shift[1]) % size) / size, ph, detail)
             px[x, y] = (int(min(255, r)), int(min(255, g)), int(min(255, b)), ALPHA)
     for sx, sy, phase, speed, cross in star_list:
         tw = 0.5 + 0.5 * math.sin(TAU * (speed * ph + phase))      # integer speed -> loops
         if tw < 0.35:
             continue
-        x, y = (sx + shift[0]) % size, (sy + shift[1]) % size
+        # on the big tile the nebula only drifts a quarter tile per loop, so moving stars would jump back at the loop;
+        # they stay put and only twinkle there
+        sh = shift if freq == 1 else (0, 0)
+        x, y = (sx + sh[0]) % size, (sy + sh[1]) % size
         pts = [(x, y)] + ([((x + dx) % size, (y + dy) % size) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))]
                            if cross and tw > 0.8 else [])
         for i, (qx, qy) in enumerate(pts):
@@ -114,9 +143,9 @@ def sheet(frames):
 
 
 def main():
-    still_stars = stars(STILL_SIZE, 70, 7)
+    still_stars = stars(STILL_SIZE, 70 * (STILL_SIZE // 128) ** 2, 7)
     flow_stars = stars(32, 14, 11)
-    step = STILL_SIZE // STILL_FRAMES                                   # 2 px/frame -> one full tile per loop
+    step = 0                                                            # big tile: waves drift by phase instead
     still = [frame(STILL_SIZE, i / STILL_FRAMES, still_stars, shift=(i * step, i * step), freq=STILL_FREQ, detail=STILL_DETAIL)
              for i in range(STILL_FRAMES)]
     flow = [frame(32, i / FLOW_FRAMES, flow_stars, shift=(0, i)) for i in range(FLOW_FRAMES)]   # 1 px/frame
@@ -148,7 +177,8 @@ def main():
         "spirit_liquid_flow.png": sheet(flow),
         "spirit_liquid_overlay.png": still[0].crop((0, 0, 16, 16)),
     }
-    meta = {"animation": {"frametime": 4, "interpolate": True}}   # still: 64 x 4 ticks = 12.8 s per loop
+    meta = {"animation": {"frametime": 4, "interpolate": True}}
+    still_meta = {"animation": {"frametime": STILL_FRAMETIME, "interpolate": True}}
     if DRY:
         print("dry run; would write", ", ".join(files))
         return
@@ -156,8 +186,8 @@ def main():
     for name, img in files.items():
         img.save(OUT_DIR / name)
         print("wrote", OUT_DIR / name, img.size)
-    for name in ("spirit_liquid_still.png", "spirit_liquid_flow.png"):
-        (OUT_DIR / (name + ".mcmeta")).write_text(json.dumps(meta, indent=2) + "\n", encoding="utf-8")
+    for name, m in (("spirit_liquid_still.png", still_meta), ("spirit_liquid_flow.png", meta)):
+        (OUT_DIR / (name + ".mcmeta")).write_text(json.dumps(m, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

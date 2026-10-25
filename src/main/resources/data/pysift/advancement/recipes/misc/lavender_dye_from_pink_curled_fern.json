@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pink_curled_fern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:pink_curled_fern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:lavender_dye_from_pink_curled_fern"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pink_curled_fern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:lavender_dye_from_pink_curled_fern"
+    ]
+  }
+}

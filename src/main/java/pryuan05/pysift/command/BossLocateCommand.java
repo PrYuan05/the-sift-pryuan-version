@@ -157,7 +157,7 @@ public final class BossLocateCommand {
 
     private static int showDashboard(CommandSourceStack source) {
         source.sendSuccess(() -> Component.literal("§6========================================"), false);
-        source.sendSuccess(() -> Component.literal("§6[The Sift] §eBoss 智能定位導航面板§r"), false);
+        source.sendSuccess(() -> Component.literal("§6[隙浮] §eBoss 智能定位導航面板§r"), false);
         source.sendSuccess(() -> Component.literal("§7點擊下方選項快速定位或傳送至該 Boss：§r"), false);
 
         for (BossInfo b : BossInfo.values()) {
@@ -185,7 +185,7 @@ public final class BossLocateCommand {
     private static int locate(CommandSourceStack source, String bossName, String action) {
         Optional<BossInfo> opt = BossInfo.fromString(bossName);
         if (opt.isEmpty()) {
-            source.sendFailure(Component.literal("§c[The Sift] 未知的 Boss 名稱「" + bossName + "」！可用：monarch, harmonizer, sculk_monstrosity"));
+            source.sendFailure(Component.literal("§c[隙浮] 未知的 Boss 名稱「" + bossName + "」！可用：monarch, harmonizer, sculk_monstrosity"));
             return 0;
         }
 
@@ -221,7 +221,7 @@ public final class BossLocateCommand {
             int z = nearestEntity.getBlockZ();
             int dist = (int) Math.sqrt(minLiveDist);
 
-            MutableComponent msg = Component.literal("§6[The Sift]§r 在目前世界找到正在活動的 ")
+            MutableComponent msg = Component.literal("§6[隙浮]§r 在目前世界找到正在活動的 ")
                     .append(Component.literal(boss.displayName).withStyle(boss.color, ChatFormatting.BOLD))
                     .append(Component.literal("！\n§7座標：§a[" + x + ", " + y + ", " + z + "]§r §7(距離: §b" + dist + "§7 格)§r  "))
                     .append(createActionButton("[點擊傳送至該 Boss]", "/tp @s " + x + " " + y + " " + z,
@@ -236,7 +236,7 @@ public final class BossLocateCommand {
             BlockPos arenaPos = arenaRecord.get().pos();
             int dist = (int) Math.sqrt(arenaPos.distSqr(origin));
 
-            MutableComponent msg = Component.literal("§6[The Sift]§r 雖無活動中實體，但已定位到先前生成的專屬神殿 ")
+            MutableComponent msg = Component.literal("§6[隙浮]§r 雖無活動中實體，但已定位到先前生成的專屬神殿 ")
                     .append(Component.literal(boss.arenaName).withStyle(boss.color, ChatFormatting.BOLD))
                     .append(Component.literal("！\n§7座標：§a[" + arenaPos.getX() + ", " + arenaPos.getY() + ", " + arenaPos.getZ() + "]§r §7(距離: §b" + dist + "§7 格)§r  "))
                     .append(createActionButton("[點擊傳送至神殿]", "/tp @s " + arenaPos.getX() + " " + (arenaPos.getY() + 1) + " " + arenaPos.getZ(),
@@ -252,7 +252,7 @@ public final class BossLocateCommand {
     private static int handleBiomeSearch(CommandSourceStack source, ServerLevel level, BossInfo boss, BlockPos origin, boolean fromFindFallback) {
         Pair<BlockPos, Holder<Biome>> result = level.findClosestBiome3d(holder -> holder.is(boss.biomeKey), origin, 6400, 32, 64);
         if (result == null) {
-            MutableComponent msg = Component.literal("§c[The Sift] 在半徑 6400 格內未探測到 " + boss.displayName + " 的棲息生態域。§r  ")
+            MutableComponent msg = Component.literal("§c[隙浮] 在半徑 6400 格內未探測到 " + boss.displayName + " 的棲息生態域。§r  ")
                     .append(createActionButton("[在此處直接生成專屬神殿]", "/locateboss " + boss.id + " spawn",
                             "立即在此處生成專屬神殿與 Boss", ChatFormatting.GOLD));
             source.sendSuccess(() -> msg, false);
@@ -264,7 +264,7 @@ public final class BossLocateCommand {
         BlockPos targetPos = new BlockPos(biomePos.getX(), surfaceY, biomePos.getZ());
         int dist = (int) Math.sqrt(origin.distSqr(targetPos));
 
-        MutableComponent msg = Component.literal("§6[The Sift]§r ");
+        MutableComponent msg = Component.literal("§6[隙浮]§r ");
         if (fromFindFallback) {
             msg.append(Component.literal("目前區域尚未生成該 Boss。已為您定位其原生生態域 "));
         } else {
@@ -284,13 +284,13 @@ public final class BossLocateCommand {
 
     private static int handleSpawn(CommandSourceStack source, ServerLevel level, BossInfo boss, BlockPos origin) {
         if (!Commands.LEVEL_GAMEMASTERS.check(source.permissions())) {
-            source.sendFailure(Component.literal("§c[The Sift] 召喚神殿需要管理員權限 (Game Master / OP)！"));
+            source.sendFailure(Component.literal("§c[隙浮] 召喚神殿需要管理員權限 (Game Master / OP)！"));
             return 0;
         }
 
         boolean success = BossArenaFeature.generateArenaDirectly(level, boss.id, origin);
         if (success) {
-            MutableComponent msg = Component.literal("§6[The Sift]§r 已成功於 §a[" + origin.getX() + ", " + origin.getY() + ", " + origin.getZ() + "]§r 召喚 ")
+            MutableComponent msg = Component.literal("§6[隙浮]§r 已成功於 §a[" + origin.getX() + ", " + origin.getY() + ", " + origin.getZ() + "]§r 召喚 ")
                     .append(Component.literal(boss.displayName).withStyle(boss.color, ChatFormatting.BOLD))
                     .append(Component.literal(" 與其專屬神殿 "))
                     .append(Component.literal(boss.arenaName).withStyle(ChatFormatting.YELLOW, ChatFormatting.BOLD))
@@ -298,7 +298,7 @@ public final class BossLocateCommand {
             source.sendSuccess(() -> msg, true);
             return 1;
         } else {
-            source.sendFailure(Component.literal("§c[The Sift] 召喚專屬神殿失敗，請確認該位置是否可容納建築。"));
+            source.sendFailure(Component.literal("§c[隙浮] 召喚專屬神殿失敗，請確認該位置是否可容納建築。"));
             return 0;
         }
     }

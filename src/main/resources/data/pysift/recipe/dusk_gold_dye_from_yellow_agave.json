@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "dusk_gold_dye",
+  "ingredients": [
+    "pysift:yellow_agave"
+  ],
+  "result": {
+    "id": "pysift:dusk_gold_dye",
+    "count": 2
+  }
+}

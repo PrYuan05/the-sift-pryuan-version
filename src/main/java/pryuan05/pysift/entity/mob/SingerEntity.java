@@ -44,7 +44,7 @@ import pryuan05.pysift.entity.PysiftAnimalEntity;
  * 爬出期間不能移動、不會受傷，腳下方塊噴出碎屑並發出挖掘聲。
  * <p>儀式歌者（在遠古城市吹山羊角召喚出來的，{@link #isRitual}）：固定站在原地不走動，
  * 手持迴音碎片右鍵它，它會召喚迴音傀儡擺放八音唱片盒（{@link SiftPortalRitual#startRitual}）。
- * 篩靈界自然生成的歌者照常走動，不會觸發儀式。
+ * 隙浮自然生成的歌者照常走動，不會觸發儀式。
  */
 public class SingerEntity extends PysiftAnimalEntity {
     private static final double RANGE = 16.0;

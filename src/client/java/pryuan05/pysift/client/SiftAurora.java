@@ -10,7 +10,7 @@ import pryuan05.pysift.block.SiftDayPhase;
 import pryuan05.pysift.block.SiftPortalBlock;
 
 /**
- * 篩靈界的夜晚極光：入夜（{@link SiftDayPhase}）後，高空出現七條會飄動、閃爍的極光帶（翠綠轉粉紫、青藍轉洋紅、金綠轉玫瑰），
+ * 隙浮的夜晚極光：入夜（{@link SiftDayPhase}）後，高空出現七條會飄動、閃爍的極光帶（翠綠轉粉紫、青藍轉洋紅、金綠轉玫瑰），
  * 遠的低、近的高，頭頂也有兩條橫過天頂。
  * 每條是一片垂直的光幕，沿著一條彎曲的弧線掛在鏡頭周圍（跟著鏡頭移動，所以永遠走不到），用 lightning 渲染（疊加發光）。
  */

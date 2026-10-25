@@ -10,6 +10,6 @@
   },
   "start_pool": "pysift:dune_tomb",
   "step": "surface_structures",
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "none",
   "use_expansion_hack": false
 }

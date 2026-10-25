@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:void_concrete",
+  "result": {
+    "id": "pysift:void_concrete_stairs"
+  }
+}

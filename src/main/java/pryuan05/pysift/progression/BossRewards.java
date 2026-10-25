@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.Blocks;
  * <ul>
  *   <li>每次擊敗必掉 1 顆<b>核心</b>（調和者核心／君王王冠／幽匿巨怪之心）與 2–4 個<b>碎片</b>
  *       （共鳴音晶／君王羽刃（ModItems.MONARCH_FEATHER）／幽匿鱗片）、3–6 個靈魂精華。掉落表由 build_progression.py 產生。</li>
- *   <li>核心會被消耗：三把 Boss 武器各用一顆，篩靈信標寶石再用三種各一顆，所以每隻 Boss 至少要打兩次。</li>
- *   <li><b>篩靈祭壇</b>（{@link SiftAltarBlock}）：放在 Boss 競技場 48 格內，手持<b>召喚印記</b>右鍵即可重新召喚該競技場的 Boss。</li>
+ *   <li>核心會被消耗：三把 Boss 武器各用一顆，隙浮信標寶石再用三種各一顆，所以每隻 Boss 至少要打兩次。</li>
+ *   <li><b>隙浮祭壇</b>（{@link SiftAltarBlock}）：放在 Boss 競技場 48 格內，手持<b>召喚印記</b>右鍵即可重新召喚該競技場的 Boss。</li>
  * </ul>
  */
 public final class BossRewards {

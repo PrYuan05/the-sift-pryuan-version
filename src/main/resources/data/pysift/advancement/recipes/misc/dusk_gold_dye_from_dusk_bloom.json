@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dusk_bloom": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:dusk_bloom"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:dusk_gold_dye_from_dusk_bloom"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dusk_bloom"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:dusk_gold_dye_from_dusk_bloom"
+    ]
+  }
+}

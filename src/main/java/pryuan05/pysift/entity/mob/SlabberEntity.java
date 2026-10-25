@@ -52,7 +52,7 @@ import pryuan05.pysift.block.SoulCrystal;
 import pryuan05.pysift.entity.ModEntities;
 
 /**
- * 泥板獸（篩靈界的「牛」，友善）。背上是一片可以種花的土。
+ * 泥板獸（隙浮的「牛」，友善）。背上是一片可以種花的土。
  * <ul>
  *   <li>種花：手持任一種花（#minecraft:flowers）右鍵光禿的背，把那朵花種上去；背上看得到那種花的模型。</li>
  *   <li>生長：每約 2 分鐘長一階（共 3 階，背上的花從 1 朵長到 5 朵）；骨粉可以直接長一階。</li>

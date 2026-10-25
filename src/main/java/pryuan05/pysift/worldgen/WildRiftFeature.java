@@ -14,7 +14,7 @@ import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.SiftPortalBlock;
 
 /**
- * 野外的小裂隙門：極少數生成在篩靈界的平地上，可以傳回主世界，夜晚特別亮（SiftPortalBlockEntityRenderer）。
+ * 野外的小裂隙門：極少數生成在隙浮的平地上，可以傳回主世界，夜晚特別亮（SiftPortalBlockEntityRenderer）。
  * 地面高低差超過 1 格、或有液體時不生成。
  */
 public record WildRiftFeature() implements Feature {

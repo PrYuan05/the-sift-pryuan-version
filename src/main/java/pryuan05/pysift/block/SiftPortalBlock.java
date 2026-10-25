@@ -42,7 +42,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import pryuan05.pysift.block.entity.SiftPortalBlockEntity;
 
 /**
- * 篩靈界傳送門（pysift:sift_portal）：完整方塊選取邊框（Shapes.block()）、無碰撞、不可破壞、最高亮度，軸向沿 X 或 Z。
+ * 隙浮傳送門（pysift:sift_portal）：完整方塊選取邊框（Shapes.block()）、無碰撞、不可破壞、最高亮度，軸向沿 X 或 Z。
  * <ul>
  *   <li>外觀由 SiftPortalBlockEntityRenderer 繪製（亮白珠光大畫布流光、內側破曉金白光帶、向外溢出的聖光束），
  *       方塊模型本身不渲染（RenderShape.INVISIBLE），物品圖示與手持模型為 3D 完整方塊。</li>
@@ -358,7 +358,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
             }
         }
         if (level.dimension() == SIFT_DIM) {
-            // 篩靈界這一端：使用者設計的到達門（依生態域色系三選一）；結構檔不在時退回程式畫的縮小版巨口
+            // 隙浮這一端：使用者設計的到達門（依生態域色系三選一）；結構檔不在時退回程式畫的縮小版巨口
             if (!buildArrivalPortal(level, bestCentre, bestAxis)) {
                 buildMouthFrame(level, bestCentre, bestAxis);
             }

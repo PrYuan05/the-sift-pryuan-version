@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "coral_dye",
+  "ingredients": [
+    "pysift:coral_leaf_carpet"
+  ],
+  "result": {
+    "id": "pysift:coral_dye"
+  }
+}

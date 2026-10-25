@@ -21,7 +21,7 @@ import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.block.SiftPortalBlock;
 
 /**
- * 走進篩靈界傳送門時的過場動畫（只在用戶端）：
+ * 走進隙浮傳送門時的過場動畫（只在用戶端）：
  * <ol>
  *   <li>充能：站在門裡的 {@value SiftPortalBlock#PLAYER_TRANSITION_TICKS} tick（與伺服器的傳送延遲相同）內，
  *       畫面逐漸被門面的珠光虹彩（sift_portal_large_canvas.png，兩層反向流動）蓋住，邊緣先亮；

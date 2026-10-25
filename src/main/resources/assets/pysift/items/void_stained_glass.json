@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:block/sift_colors/void_stained_glass",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -12964280
+      }
+    ]
+  }
+}

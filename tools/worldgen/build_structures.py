@@ -15,6 +15,9 @@ from pathlib import Path
 
 P = Path(sys.argv[1])
 D = P / "src/main/resources/data/pysift"
+# templates the user edited in game (tools/worldgen/import_structures.py) are theirs: never overwrite them
+EDITED = P / "tools/worldgen/art/edited_structures.json"
+edited = set(json.loads(EDITED.read_text(encoding="utf-8"))) if EDITED.exists() else set()
 A = P / "src/main/resources/assets/pysift"
 DATA_VERSION = 5023          # Minecraft 26.3 world_version (version.json in the client jar)
 
@@ -245,7 +248,7 @@ STRUCTURES = {   # name: (design, biome, terrain adaptation, start height offset
     "strata_shrine": (strata_shrine, "crimson_strata_canyon", "beard_thin", 0, 26, 8, 70531001),
     "abyss_obelisk": (abyss_obelisk, "violet_slate_abyss", "beard_thin", 0, 28, 9, 70531002),
     "willow_hut": (willow_hut, "willow_grove", "beard_thin", 0, 24, 8, 70531003),
-    "dune_tomb": (dune_tomb, "amber_dunes", "bury", -5, 30, 10, 70531004),
+    "dune_tomb": (dune_tomb, "amber_dunes", "none", -5, 30, 10, 70531004),     # user: nothing on top ("bury" covered the roof)
 }
 
 
@@ -258,7 +261,10 @@ previews = []
 for name, (design, biome, adaptation, start_y, spacing, separation, salt) in STRUCTURES.items():
     t = design()
     (D / "structure").mkdir(parents=True, exist_ok=True)
-    (D / f"structure/{name}.nbt").write_bytes(t.to_nbt())
+    if name in edited:
+        print("keep (edited in game):", name)
+    else:
+        (D / f"structure/{name}.nbt").write_bytes(t.to_nbt())
     wj(D / f"worldgen/template_pool/{name}.json", {"fallback": "minecraft:empty", "elements": [{"weight": 1, "element": {
         "element_type": "minecraft:single_pool_element", "location": f"pysift:{name}",
         "processors": "minecraft:empty", "projection": "rigid"}}]})

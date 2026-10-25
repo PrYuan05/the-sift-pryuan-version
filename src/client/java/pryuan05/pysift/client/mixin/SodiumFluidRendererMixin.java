@@ -17,7 +17,7 @@ import pryuan05.pysift.fluid.ModFluids;
 
 /**
  * Sodium 版的靈液世界座標 UV（原版路徑見 {@link FluidRendererMixin}）。裝了 Sodium 時區塊網格由
- * Sodium 的 DefaultFluidRenderer 產生，原版 FluidRenderer 的 mixin 不會被用到，靈液每格都會貼一整張 8×8 格的大貼圖。
+ * Sodium 的 DefaultFluidRenderer 產生，原版 FluidRenderer 的 mixin 不會被用到，靈液每格都會貼一整張 32×32 格的大貼圖。
  * <ul>
  *   <li>流動頂面、側面的 flowingMaterial 換成 stillMaterial（大貼圖），和原版路徑一樣。</li>
  *   <li>所有頂點都經過 setVertex(quad, i, x, y, z, u, v)，x/y/z 是格內座標：頂面、底面的 u 沿世界 x、v 沿世界 z；
@@ -30,13 +30,13 @@ import pryuan05.pysift.fluid.ModFluids;
 @Pseudo
 @Mixin(value = DefaultFluidRenderer.class, remap = false)
 public abstract class SodiumFluidRendererMixin {
-    private static final int SPIRIT_TILE = 8;
+    private static final int SPIRIT_TILE = 32;   // blocks per still-texture tile (512 px; tools/texture_pipeline/spirit_liquid.py)
 
     private static boolean pysift$isSpirit(FluidState fluidState) {
         return ModFluids.SPIRIT_LIQUID.isSame(fluidState.getType());
     }
 
-    /** (world cell in the 8x8 tile + offset inside the block 0..1) / 8; never leaves the sprite. */
+    /** (world cell in the 32x32 tile + offset inside the block 0..1) / 32; never leaves the sprite. */
     private static float pysift$cell(int coord, float local) {
         return (Math.floorMod(coord, SPIRIT_TILE) + local) / SPIRIT_TILE;
     }

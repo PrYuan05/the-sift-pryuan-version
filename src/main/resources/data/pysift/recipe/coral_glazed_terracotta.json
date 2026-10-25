@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:coral_terracotta",
+  "result": {
+    "id": "pysift:coral_glazed_terracotta"
+  }
+}

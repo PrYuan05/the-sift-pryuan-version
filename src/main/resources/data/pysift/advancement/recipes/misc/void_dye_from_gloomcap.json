@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gloomcap": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:gloomcap"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:void_dye_from_gloomcap"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gloomcap"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:void_dye_from_gloomcap"
+    ]
+  }
+}

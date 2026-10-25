@@ -45,7 +45,7 @@ import java.util.List;
  *   <li>8 張放滿：歌者唱出終曲，8 道光柱依音階閃一次後匯聚到門中心，框架填滿傳送門（或開出裂隙門）；歌者揮手道別、鑽回地底離開。</li>
  *   <li>唱片盒就是門的鑰匙：打破任一個，門就關閉，唱片掉出來。</li>
  * </ol>
- * 篩靈界裡沒有遠古城市：用靈魂晶塊蓋一個封閉框架，手持迴音碎片右鍵框架，就能填出回主世界的傳送門。
+ * 隙浮裡沒有遠古城市：用靈魂晶塊蓋一個封閉框架，手持迴音碎片右鍵框架，就能填出回主世界的傳送門。
  */
 public final class SiftPortalRitual {
     /** 這次儀式的配置：門中心、框架軸向、是否有框架、8 個唱片盒的位置。 */
@@ -227,7 +227,7 @@ public final class SiftPortalRitual {
             }
             return InteractionResult.PASS;   // 山羊角照常吹響
         });
-        // 篩靈界：靈魂晶塊框架 + 迴音碎片 → 回主世界的傳送門
+        // 隙浮：靈魂晶塊框架 + 迴音碎片 → 回主世界的傳送門
         UseBlockCallback.EVENT.register((player, level, hand, hit) -> {
             ItemStack stack = player.getItemInHand(hand);
             if (!stack.is(Items.ECHO_SHARD) || !level.dimension().equals(SiftPortalBlock.SIFT_DIM)

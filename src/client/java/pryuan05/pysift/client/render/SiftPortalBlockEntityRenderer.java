@@ -17,7 +17,7 @@ import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.block.entity.SiftPortalBlockEntity;
 
 /**
- * 篩靈界傳送門完整方塊渲染器。
+ * 隙浮傳送門完整方塊渲染器。
  * <ol>
  *   <li>亮白珠光大畫布：對所有未被同類方塊遮擋的暴露面（前後左右上下），
  *       以世界座標連續對齊取樣並疊加兩層反向正弦流光；法線統一頂向天頂，消除水平漫反射陰暗。</li>

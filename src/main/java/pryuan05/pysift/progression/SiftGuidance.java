@@ -52,10 +52,10 @@ import java.util.function.Consumer;
 /**
  * 上手輔助（A）：
  * <ul>
- *   <li><b>靈魂羅盤</b>：在篩靈界右鍵，指針指向目前模式的目標（調和者／君王／幽匿巨怪的競技場，或最近的遺跡結構）；
+ *   <li><b>靈魂羅盤</b>：在隙浮右鍵，指針指向目前模式的目標（調和者／君王／幽匿巨怪的競技場，或最近的遺跡結構）；
  *       蹲下右鍵切換模式。還沒生成的競技場會改指向該 Boss 所在的生態域。</li>
- *   <li><b>回程符石</b>：在篩靈界按住右鍵 3 秒，傳送回你在主世界的重生點（床／重生錨，沒有就世界重生點）。</li>
- *   <li><b>篩靈指南書</b>：第一次進入篩靈界時自動獲得（也能用書＋紫龍晶合成），介紹靈液、解藥、礦石、Boss、祭壇、覺醒、信標與靈髓。</li>
+ *   <li><b>回程符石</b>：在隙浮按住右鍵 3 秒，傳送回你在主世界的重生點（床／重生錨，沒有就世界重生點）。</li>
+ *   <li><b>隙浮指南書</b>：第一次進入隙浮時自動獲得（也能用書＋紫龍晶合成），介紹靈液、解藥、礦石、Boss、祭壇、覺醒、信標與靈髓。</li>
  * </ul>
  */
 public final class SiftGuidance {
@@ -230,7 +230,7 @@ public final class SiftGuidance {
     }
 
     static void load() {
-        // 第一次進入篩靈界：送一本指南書
+        // 第一次進入隙浮：送一本指南書
         ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
             if (destination.dimension().equals(THE_SIFT) && !player.getAttachedOrElse(RECEIVED_GUIDE, false)) {
                 player.setAttached(RECEIVED_GUIDE, true);

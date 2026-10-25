@@ -23,9 +23,9 @@ import java.util.function.Function;
 /**
  * 第 1 階段「進度循環」的方塊與物品（規格見 MODDING_ROADMAP_AND_SPECS.md）：
  * <ul>
- *   <li>礦石：篩金石礦（所有生態域地下的虛黑岩，y -40～40）→ 粗篩金石 → 熔煉成篩金石錠；
+ *   <li>礦石：隙浮金礦（所有生態域地下的虛黑岩，y -40～40）→ 粗隙浮金 → 熔煉成隙浮金錠；
  *       紫龍晶簇（紫晶深板岩區地表與洞穴）→ 紫龍晶。生成設定在 tools/worldgen/build_the_sift.py 的 PROGRESSION_ORES。</li>
- *   <li>一般生物掉落的材料：引信粉（引信蠅）、靈魂精華（篩靈界的敵對生物，召喚印記的材料）。</li>
+ *   <li>一般生物掉落的材料：引信粉（引信蠅）、靈魂精華（隙浮的敵對生物，召喚印記的材料）。</li>
  * </ul>
  * 資源（模型、貼圖、掉落表、配方、標籤、語系）由 tools/progression/build_progression.py 產生。
  */
@@ -76,8 +76,9 @@ public final class ModProgression {
         SiftGuidance.load();
         SiftFarming.load();
         SiftFlora.load();
-        // 進度相關的方塊與物品都排在「物品」分頁
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.ITEMS_TAB_KEY).register(output -> CREATIVE_ORDER.forEach(output::accept));
+        // 進度相關的物品排在「物品」分頁；方塊（礦石、祭壇、作物、草叢）由 ModItems 放進方塊分頁
+        CreativeModeTabEvents.modifyOutputEvent(ModItems.ITEMS_TAB_KEY).register(output ->
+                CREATIVE_ORDER.stream().filter(item -> !(item instanceof BlockItem)).forEach(output::accept));
         PySift.LOGGER.info("Registered {} progression blocks / items", CREATIVE_ORDER.size());
     }
 }

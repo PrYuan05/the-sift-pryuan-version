@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:block/sift_colors/dusk_gold_wool_slab",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -864405
+      }
+    ]
+  }
+}

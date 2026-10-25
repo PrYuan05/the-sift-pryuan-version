@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -42,5 +43,7 @@ public final class ModFluids {
 
     public static void registerModFluids() {
         PySift.LOGGER.info("Registering Fluids for {}", PySift.MOD_ID);
+        // 發射器：和水桶同一套行為（倒出、倒進可含水／含靈液的方塊）；不註冊的話發射器只會把桶子當物品吐出去
+        DispenserBlock.registerBehavior(SPIRIT_LIQUID_BUCKET, DispenserBlock.DISPENSER_REGISTRY.get(Items.WATER_BUCKET));
     }
 }

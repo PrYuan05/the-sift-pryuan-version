@@ -101,10 +101,10 @@ FUSE = [(70, 50, 40), (150, 110, 60), (220, 170, 80), (250, 230, 150)]
 
 VOID_STONE = A / "textures/block/void_stone/void_stone_c.png"
 save_placeholder(speckle(VOID_STONE, [SIFTITE[2], SIFTITE[3], SIFTITE[3]], 7, 11), "block/progression/siftite_ore",
-                 "篩金石礦：虛黑岩底，帶淡金色與灰銀色的礦點（16x16）")
+                 "隙浮金礦：虛黑岩底，帶淡金色與灰銀色的礦點（16x16）")
 save_placeholder(crystal_cluster(CHAROITE[1:], 12), "block/progression/charoite_cluster",
                  "紫龍晶簇：像紫水晶簇的紫色晶刺，畫在十字模型上（16x16，透明背景）")
-save_placeholder(blob_item(SIFTITE, 13), "item/raw_siftite", "粗篩金石：灰銀色礦塊帶金色斑點（物品 16x16）")
+save_placeholder(blob_item(SIFTITE, 13), "item/raw_siftite", "粗隙浮金：灰銀色礦塊帶金色斑點（物品 16x16）")
 save_placeholder(blob_item(FUSE, 14, "pile"), "item/fuse_powder", "引信粉：一小堆金黃色火藥粉（物品 16x16）")
 save_placeholder(blob_item(SOUL, 15), "item/soul_essence", "靈魂精華：發光的青藍色靈魂團（物品 16x16）")
 
@@ -234,8 +234,8 @@ add_tag("minecraft/tags/block/blocks_motion_no_leaves.json", ["pysift:siftite_or
 
 # ------------------------------------------------------------------ lang (merged)
 LANG = {
-    "siftite_ore": ("Siftite Ore", "篩金石礦"), "charoite_cluster": ("Charoite Cluster", "紫龍晶簇"),
-    "raw_siftite": ("Raw Siftite", "粗篩金石"), "fuse_powder": ("Fuse Powder", "引信粉"),
+    "siftite_ore": ("Siftite Ore", "隙浮金礦"), "charoite_cluster": ("Charoite Cluster", "紫龍晶簇"),
+    "raw_siftite": ("Raw Siftite", "粗隙浮金"), "fuse_powder": ("Fuse Powder", "引信粉"),
     "soul_essence": ("Soul Essence", "靈魂精華"),
 }
 BLOCKS = {"siftite_ore", "charoite_cluster"}
@@ -298,11 +298,11 @@ def mask_sprite(rows):
     return img
 
 
-GEAR_NAMES = {"siftite_sword": ("Siftite Sword", "篩金石劍"), "siftite_pickaxe": ("Siftite Pickaxe", "篩金石鎬"),
-              "siftite_axe": ("Siftite Axe", "篩金石斧"), "siftite_shovel": ("Siftite Shovel", "篩金石鏟"),
-              "siftite_hoe": ("Siftite Hoe", "篩金石鋤"), "siftite_helmet": ("Siftite Helmet", "篩金石頭盔"),
-              "siftite_chestplate": ("Siftite Chestplate", "篩金石胸甲"), "siftite_leggings": ("Siftite Leggings", "篩金石護腿"),
-              "siftite_boots": ("Siftite Boots", "篩金石靴子")}
+GEAR_NAMES = {"siftite_sword": ("Siftite Sword", "隙浮金劍"), "siftite_pickaxe": ("Siftite Pickaxe", "隙浮金鎬"),
+              "siftite_axe": ("Siftite Axe", "隙浮金斧"), "siftite_shovel": ("Siftite Shovel", "隙浮金鏟"),
+              "siftite_hoe": ("Siftite Hoe", "隙浮金鋤"), "siftite_helmet": ("Siftite Helmet", "隙浮金頭盔"),
+              "siftite_chestplate": ("Siftite Chestplate", "隙浮金胸甲"), "siftite_leggings": ("Siftite Leggings", "隙浮金護腿"),
+              "siftite_boots": ("Siftite Boots", "隙浮金靴子")}
 TOOLS = ("siftite_sword", "siftite_pickaxe", "siftite_axe", "siftite_shovel", "siftite_hoe")
 for name, rows in MASKS.items():
     save_placeholder(mask_sprite(rows), f"item/{name}", f"{GEAR_NAMES[name][1]}：銀灰金屬、金色點綴（物品 16x16）")
@@ -346,8 +346,8 @@ def armor_layer(leggings, seed):
     return img
 
 
-save_placeholder(armor_layer(False, 21), "entity/equipment/humanoid/siftite", "篩金石盔甲穿著外觀（頭盔、胸甲、靴子；原版 64x32 版型）")
-save_placeholder(armor_layer(True, 22), "entity/equipment/humanoid_leggings/siftite", "篩金石護腿穿著外觀（原版 64x32 版型）")
+save_placeholder(armor_layer(False, 21), "entity/equipment/humanoid/siftite", "隙浮金盔甲穿著外觀（頭盔、胸甲、靴子；原版 64x32 版型）")
+save_placeholder(armor_layer(True, 22), "entity/equipment/humanoid_leggings/siftite", "隙浮金護腿穿著外觀（原版 64x32 版型）")
 wj(A / "equipment/siftite.json", {"layers": {"humanoid": [{"texture": "pysift:siftite"}],
                                              "humanoid_leggings": [{"texture": "pysift:siftite"}]}})
 
@@ -397,8 +397,8 @@ save_placeholder(blob_item([(40, 20, 60), (90, 50, 140), (170, 110, 230), (240, 
                  "召喚印記：刻著符文的紫色圓形印記（物品 16x16）")
 ALTAR_SIDE = speckle(A / "textures/block/dark_slate_bricks/dark_slate_bricks.png", [CHAROITE[2], SOUL[2]], 4, 36)
 ALTAR_TOP = speckle(A / "textures/block/dark_slate_bricks/dark_slate_bricks.png", [SOUL[2], SOUL[3]], 10, 37)
-save_placeholder(ALTAR_SIDE, "block/progression/sift_altar_side", "篩靈祭壇側面：深色板岩磚、紫與青色符文（16x16）")
-save_placeholder(ALTAR_TOP, "block/progression/sift_altar_top", "篩靈祭壇頂面：發光的召喚陣（16x16）")
+save_placeholder(ALTAR_SIDE, "block/progression/sift_altar_side", "隙浮祭壇側面：深色板岩磚、紫與青色符文（16x16）")
+save_placeholder(ALTAR_TOP, "block/progression/sift_altar_top", "隙浮祭壇頂面：發光的召喚陣（16x16）")
 wj(A / "blockstates/sift_altar.json", {"variants": {"": {"model": "pysift:block/progression/sift_altar"}}})
 wj(A / "models/block/progression/sift_altar.json", {"parent": "minecraft:block/cube_bottom_top", "textures": {
     "top": "pysift:block/progression/sift_altar_top", "side": "pysift:block/progression/sift_altar_side",
@@ -438,8 +438,8 @@ BOSS_LANG = {
     "item.pysift.resonant_crystal": ("Resonant Crystal", "共鳴音晶"),
     "item.pysift.sculk_scale": ("Sculk Scale", "幽匿鱗片"),
     "item.pysift.summoning_sigil": ("Summoning Sigil", "召喚印記"),
-    "block.pysift.sift_altar": ("Sift Altar", "篩靈祭壇"),
-    "item.pysift.sift_altar": ("Sift Altar", "篩靈祭壇"),
+    "block.pysift.sift_altar": ("Sift Altar", "隙浮祭壇"),
+    "item.pysift.sift_altar": ("Sift Altar", "隙浮祭壇"),
     "message.pysift.altar.no_arena": ("The altar must stand within 48 blocks of a boss arena", "祭壇必須放在 Boss 競技場 48 格內"),
     "message.pysift.altar.boss_alive": ("The arena's boss is still alive", "這座競技場的 Boss 還活著"),
     "message.pysift.altar.summoned": ("%s answers the summons!", "%s 回應了召喚！"),
@@ -516,7 +516,7 @@ for lang, i in (("en_us", 0), ("zh_tw", 1)):
 
 # ------------------------------------------------------------------ sift beacon (SiftBeacon.java)
 save_placeholder(crystal_cluster([(120, 240, 230), (180, 250, 245), (240, 255, 255), (255, 255, 255)], 41), "item/sift_beacon_gem",
-                 "篩靈信標寶石：發出青白色光芒的寶石（物品 16x16）")
+                 "隙浮信標寶石：發出青白色光芒的寶石（物品 16x16）")
 generated_item("sift_beacon_gem")
 shaped("sift_beacon_gem", ["CCC", "HMS", "CCC"], {"C": "pysift:charoite", "H": "pysift:harmonizer_core",
                                                    "M": "pysift:monarch_crown", "S": "pysift:sculk_monstrosity_heart"}, "misc")
@@ -552,7 +552,7 @@ ADV_LANG = {}
 has = lambda items, **extra: {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": items, **extra}]}}
 killed = lambda entity: {"trigger": "minecraft:player_killed_entity", "conditions": {"entity": {
     "type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:entity_type": entity}}}}
-adv("root", None, "pysift:sift_beacon_gem", ("The Sift", "篩靈界"), ("Step through the portal into The Sift", "穿過傳送門，進入篩靈界"),
+adv("root", None, "pysift:sift_beacon_gem", ("The Sift", "隙浮"), ("Step through the portal into The Sift", "穿過傳送門，進入隙浮"),
     {"entered": {"trigger": "minecraft:changed_dimension", "conditions": {"to": "pysift:the_sift"}}},
     show=False, background="minecraft:gui/advancements/backgrounds/end")
 adv("spirit_touch", "root", "pysift:spirit_liquid_bucket", ("Soul Drain", "靈魂抽離"),
@@ -561,10 +561,10 @@ adv("spirit_touch", "root", "pysift:spirit_liquid_bucket", ("Soul Drain", "靈�
 adv("antidote", "spirit_touch", "pysift:soul_antidote", ("Second Wind", "失而復得"),
     ("Drink a Soul Antidote", "喝下靈魂解藥"),
     {"drank": {"trigger": "minecraft:consume_item", "conditions": {"item": {"items": "pysift:soul_antidote"}}}})
-adv("siftite", "root", "pysift:raw_siftite", ("Sifted Metal", "篩出金屬"), ("Mine Siftite Ore", "挖到篩金石礦"),
+adv("siftite", "root", "pysift:raw_siftite", ("Sifted Metal", "篩出金屬"), ("Mine Siftite Ore", "挖到隙浮金礦"),
     {"raw": has("pysift:raw_siftite")})
-adv("siftite_armor", "siftite", "pysift:siftite_chestplate", ("Sift-Forged", "篩金鍛甲"),
-    ("Craft any piece of Siftite armor", "製作任一件篩金石盔甲"),
+adv("siftite_armor", "siftite", "pysift:siftite_chestplate", ("Sift-Forged", "隙浮鍛甲"),
+    ("Craft any piece of Siftite armor", "製作任一件隙浮金盔甲"),
     {"armor": has(["pysift:siftite_helmet", "pysift:siftite_chestplate", "pysift:siftite_leggings", "pysift:siftite_boots"])})
 adv("kill_harmonizer", "root", "pysift:harmonizer_core", ("Silenced", "曲終人散"), ("Defeat the Harmonizer", "擊敗調和者"),
     {"kill": killed("pysift:harmonizer")}, frame="goal", xp=100)
@@ -580,15 +580,15 @@ adv("awakened", "kill_harmonizer", "pysift:sonic_staff", ("Awakening", "覺醒")
 data = json.loads((ADV / "awakened.json").read_text(encoding="utf-8"))
 data["requirements"] = [["sonic_staff", "dash_charm", "sculk_hammer"]]
 wj(ADV / "awakened.json", data)
-adv("sift_beacon", "awakened", "pysift:sift_beacon_gem", ("Beacon of The Sift", "篩靈信標"),
-    ("Inlay a Sift Beacon Gem into a chestplate", "把篩靈信標寶石鑲嵌到胸甲上"),
+adv("sift_beacon", "awakened", "pysift:sift_beacon_gem", ("Beacon of The Sift", "隙浮信標"),
+    ("Inlay a Sift Beacon Gem into a chestplate", "把隙浮信標寶石鑲嵌到胸甲上"),
     {"beacon": has("#minecraft:chest_armor", components={"pysift:sift_beacon": True})}, frame="challenge", xp=500)
 
 BEACON_LANG = {
-    "item.pysift.sift_beacon_gem": ("Sift Beacon Gem", "篩靈信標寶石"),
-    "tooltip.pysift.sift_beacon.inlaid": ("✦ Sift Beacon inlaid", "✦ 已鑲嵌篩靈信標"),
-    "tag.item.pysift.siftite_tool_materials": ("Siftite Tool Materials", "篩金石工具材料"),
-    "tag.item.pysift.repairs_siftite_armor": ("Repairs Siftite Armor", "可修理篩金石盔甲"),
+    "item.pysift.sift_beacon_gem": ("Sift Beacon Gem", "隙浮信標寶石"),
+    "tooltip.pysift.sift_beacon.inlaid": ("✦ Sift Beacon inlaid", "✦ 已鑲嵌隙浮信標"),
+    "tag.item.pysift.siftite_tool_materials": ("Siftite Tool Materials", "隙浮金工具材料"),
+    "tag.item.pysift.repairs_siftite_armor": ("Repairs Siftite Armor", "可修理隙浮金盔甲"),
     "tooltip.pysift.sift_beacon.aura": ("Players within 8 blocks are immune to Soul Deprivation",
                                         "半徑 8 格內的玩家免疫靈魂剝奪，靈液不再傷人"),
     **ADV_LANG,
@@ -604,7 +604,7 @@ for lang, i in (("en_us", 0), ("zh_tw", 1)):
 # ------------------------------------------------------------------ usage hints (tooltips)
 HINT_LANG = {
     "tooltip.pysift.summoning_sigil.0": ("Use on a Sift Altar placed within 48 blocks of a boss arena",
-                                         "對放在 Boss 競技場 48 格內的篩靈祭壇右鍵使用"),
+                                         "對放在 Boss 競技場 48 格內的隙浮祭壇右鍵使用"),
     "tooltip.pysift.summoning_sigil.1": ("The arena's boss is summoned again at its center",
                                          "該競技場的 Boss 會在中央再次出現"),
     "tooltip.pysift.summoning_sigil.2": ("Find arenas with /locate boss <monarch|harmonizer|sculk_monstrosity>",
@@ -774,10 +774,10 @@ wj(D / "pysift/recipe/homeward_stone.json", {"type": "minecraft:crafting_shapele
 GUIDE = [
     ("Welcome to The Sift. The violet pools are Spirit Liquid: touching it drains your health and gives Soul Deprivation. "
      "Cure it with a Soul Antidote (crafting table).",
-     "歡迎來到篩靈界。紫色的池子是靈液：碰到會抽走血量並造成「靈魂剝奪」。用靈魂解藥（工作台合成）可以解除。"),
+     "歡迎來到隙浮。紫色的池子是靈液：碰到會抽走血量並造成「靈魂剝奪」。用靈魂解藥（工作台合成）可以解除。"),
     ("Siftite Ore hides underground (y -40 to 40). Smelt Raw Siftite into ingots for Siftite gear: "
      "the full set halves the health drained by Spirit Liquid.",
-     "篩金石礦藏在地底（y -40 到 40）。粗篩金石燒成錠就能做篩金石裝備：整套穿上時，靈液抽走的血量減半。"),
+     "隙浮金礦藏在地底（y -40 到 40）。粗隙浮金燒成錠就能做隙浮金裝備：整套穿上時，靈液抽走的血量減半。"),
     ("Charoite grows in the Violet Slate Abyss and in soul geodes deep below. It is used for compasses, "
      "homeward stones, sigils and Soulite.",
      "紫龍晶長在紫晶深板岩區，以及地底深處的靈魂晶洞。羅盤、回程符石、召喚符印與靈髓都會用到。"),
@@ -786,13 +786,13 @@ GUIDE = [
      "三隻 Boss 守在自己的競技場：調和者（柳絮林地）、君王（琥珀沙丘）與幽匿巨怪（紫晶深板岩區）。每隻都會掉落核心與碎片。"),
     ("Want a rematch? Craft a Summoning Sigil, place a Sift Altar near an arena and use the sigil on it. "
      "The boss returns if it is not already alive.",
-     "想再打一次？合成召喚符印，把篩靈祭壇放在競技場附近，拿符印對祭壇右鍵。Boss 不在場時就會重新出現。"),
+     "想再打一次？合成召喚符印，把隙浮祭壇放在競技場附近，拿符印對祭壇右鍵。Boss 不在場時就會重新出現。"),
     ("Cores become weapons: Sonic Staff, Dash Charm and Sculk Hammer. At a smithing table, a boss shard "
      "awakens a weapon and makes it stronger.",
      "核心可以做成武器：音波法杖、衝刺護符、幽匿重錘。在鍛造台用 Boss 碎片可以「覺醒」武器，讓它變得更強。"),
     ("Inlay a Sift Beacon gem into a chestplate at the smithing table. While worn, players within 8 blocks "
      "are immune to Soul Deprivation.",
-     "在鍛造台把篩靈信標寶石鑲進胸甲。穿著時，8 格內的玩家都會免疫靈魂剝奪。"),
+     "在鍛造台把隙浮信標寶石鑲進胸甲。穿著時，8 格內的玩家都會免疫靈魂剝奪。"),
     ("Soulite is stronger than netherite. Forge a Soulite Ingot, then upgrade netherite gear with the Soulite "
      "Upgrade template (dropped by bosses and found in ruins).",
      "靈髓比獄髓更強。先合成靈髓錠，再用靈髓升級模板（Boss 掉落、遺跡箱子）把獄髓裝備升級。"),
@@ -811,23 +811,23 @@ GUIDE = [
 ]
 GUIDE_LANG = {f"book.pysift.guide.page{i + 1}": page for i, page in enumerate(GUIDE)}
 GUIDE_LANG.update({
-    "book.pysift.guide.title": ("Sift Guidebook", "篩靈指南書"),
+    "book.pysift.guide.title": ("Sift Guidebook", "隙浮指南書"),
     "message.pysift.guide.received": ("You received the Sift Guidebook. Read it to survive The Sift!",
-                                      "你獲得了《篩靈指南書》，讀一讀，才能在篩靈界活下去！"),
+                                      "你獲得了《隙浮指南書》，讀一讀，才能在隙浮活下去！"),
     "item.pysift.soul_compass": ("Soul Compass", "靈魂羅盤"),
     "item.pysift.homeward_stone": ("Homeward Stone", "回程符石"),
-    "tooltip.pysift.soul_compass.0": ("Use in The Sift to point at the target", "在篩靈界右鍵：指針指向目標"),
+    "tooltip.pysift.soul_compass.0": ("Use in The Sift to point at the target", "在隙浮右鍵：指針指向目標"),
     "tooltip.pysift.soul_compass.1": ("Sneak + use: switch target (Harmonizer → Monarch → Sculk Monstrosity → Ruins) and lock on", "蹲下右鍵：切換目標（調和者 → 君王 → 幽匿巨怪 → 遺跡）並立刻鎖定"),
     "tooltip.pysift.homeward_stone": ("Hold use for 3 s in The Sift: return to your overworld spawn",
-                                      "在篩靈界按住右鍵 3 秒：傳送回主世界的重生點"),
+                                      "在隙浮按住右鍵 3 秒：傳送回主世界的重生點"),
     "message.pysift.compass.mode": ("Target: %s", "目標：%s"),
     "message.pysift.compass.ruins": ("Nearest ruins", "最近的遺跡"),
     "message.pysift.compass.found": ("%s: %s blocks away", "%s：距離 %s 格"),
     "message.pysift.compass.biome": ("%s: arena not found yet, pointing at its biome (%s blocks)",
                                      "%s：還沒發現競技場，先指向它所在的生態域（%s 格）"),
     "message.pysift.compass.not_found": ("%s: nothing found nearby", "%s：附近找不到"),
-    "message.pysift.compass.wrong_dimension": ("The needle only stirs in The Sift", "指針只會在篩靈界轉動"),
-    "message.pysift.homeward.wrong_dimension": ("The stone only works in The Sift", "符石只在篩靈界有效"),
+    "message.pysift.compass.wrong_dimension": ("The needle only stirs in The Sift", "指針只會在隙浮轉動"),
+    "message.pysift.homeward.wrong_dimension": ("The stone only works in The Sift", "符石只在隙浮有效"),
 })
 for lang, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{lang}.json"
@@ -999,7 +999,7 @@ ALTAR_LANG = {
     "message.pysift.altar.too_far": ("No arena in range. The nearest is %s's arena, %s. Place the altar within %s blocks of its centre.",
                                      "附近沒有競技場。最近的是 %s 的競技場，%s。請把祭壇放在競技場中心 %s 格內。"),
     "message.pysift.altar.no_arena_found": ("No boss arena has been discovered in The Sift yet. Explore to find one first.",
-                                            "篩靈界還沒有發現任何 Boss 競技場，先去探索找到一座吧。"),
+                                            "隙浮還沒有發現任何 Boss 競技場，先去探索找到一座吧。"),
     "message.pysift.altar.dir.north": ("%s blocks north", "往北 %s 格"),
     "message.pysift.altar.dir.south": ("%s blocks south", "往南 %s 格"),
     "message.pysift.altar.dir.east": ("%s blocks east", "往東 %s 格"),
@@ -1025,7 +1025,7 @@ wj(A / "models/block/ritual/resonant_jukebox.json", {"textures": {"particle": "m
 loot("blocks/resonant_jukebox", [])                                                                 # only the disc drops
 add_tag("minecraft/tags/block/mineable/axe.json", ["pysift:resonant_jukebox"])
 adv("eight_songs", None, "minecraft:music_disc_5", ("Eight Songs", "八音共鳴"),
-    ("Fill the eight Resonant Jukeboxes and open the way to The Sift", "放滿 8 個共鳴唱片盒，開啟通往篩靈界的門"),
+    ("Fill the eight Resonant Jukeboxes and open the way to The Sift", "放滿 8 個共鳴唱片盒，開啟通往隙浮的門"),
     {"opened": {"trigger": "minecraft:impossible"}}, frame="goal", background="minecraft:gui/advancements/backgrounds/end")
 # the progression tree starts here now: "The Sift" (entering) hangs under it
 data = json.loads((ADV / "root.json").read_text(encoding="utf-8"))
@@ -1042,8 +1042,8 @@ RITUAL_LANG = {
     "message.pysift.ritual.already": ("The jukeboxes are already in place - fill them with the eight songs",
                                       "唱片盒都已經擺好了，把 8 首歌放進去吧"),
     "message.pysift.ritual.busy": ("The Echo Golems are still at work", "迴音傀儡還在忙"),
-    "message.pysift.ritual.opened": ("The eight songs resonate - the way to The Sift is open!", "八首歌共鳴，通往篩靈界的門開啟了！"),
-    "message.pysift.ritual.closed": ("A jukebox fell silent - the portal to The Sift closes", "一個唱片盒靜了下來，通往篩靈界的門關閉了"),
+    "message.pysift.ritual.opened": ("The eight songs resonate - the way to The Sift is open!", "八首歌共鳴，通往隙浮的門開啟了！"),
+    "message.pysift.ritual.closed": ("A jukebox fell silent - the portal to The Sift closes", "一個唱片盒靜了下來，通往隙浮的門關閉了"),
     "message.pysift.ritual.no_crystal_frame": ("Build a closed frame of Soul Crystal blocks first", "先用靈魂晶塊蓋一個封閉的框架"),
 }
 for key, names in ADV_LANG.items():
@@ -1155,9 +1155,13 @@ for lang, i in (("en_us", 0), ("zh_tw", 1)):
 
 # ------------------------------------------------------------------ bookkeeping
 STATE.write_text(json.dumps(placeholder_hashes, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+# only the textures that are still our placeholders (the user has drawn the rest); no list at all once everything is drawn
+todo = [(p, d) for p, d in ART_REQUESTS
+        if placeholder_hashes.get(p[len("textures/"):-len(".png")]) == sha1(A / p)]
 req = ["# 第 1 階段待繪製的貼圖", "",
        "目前是 tools/progression/build_progression.py 畫的臨時圖；直接用同名檔案覆蓋即可，腳本重跑不會蓋掉你的圖。", "",
-       "| 檔案 | 內容 |", "| :-- | :-- |"] + [f"| `assets/pysift/{p}` | {d} |" for p, d in ART_REQUESTS]
-(P / "art_requests").mkdir(exist_ok=True)
-(P / "art_requests/progression.md").write_text("\n".join(req) + "\n", encoding="utf-8")
+       "| 檔案 | 內容 |", "| :-- | :-- |"] + [f"| `assets/pysift/{p}` | {d} |" for p, d in todo]
+if todo:
+    (P / "art_requests").mkdir(exist_ok=True)
+    (P / "art_requests/progression.md").write_text("\n".join(req) + "\n", encoding="utf-8")
 print(f"progression resources: {len(ART_REQUESTS)} textures, {len(MOB_DROPS)} mob loot tables")

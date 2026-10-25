@@ -29,7 +29,7 @@ import java.util.Comparator;
 import java.util.Optional;
 
 /**
- * 篩靈祭壇：放在 Boss 競技場（{@link BossArenaSavedData} 記錄的中心）{@link #ARENA_RANGE} 格內，
+ * 隙浮祭壇：放在 Boss 競技場（{@link BossArenaSavedData} 記錄的中心）{@link #ARENA_RANGE} 格內，
  * 手持召喚印記右鍵，消耗一個印記，在競技場中心重新召喚那座競技場的 Boss。
  * 競技場 {@link #BUSY_RANGE} 格內還有同種 Boss 活著時不會召喚。
  * 放下祭壇時就會告訴玩家它連結到哪座競技場（或最近的競技場在哪個方向、多遠）；失敗原因寫在聊天欄。

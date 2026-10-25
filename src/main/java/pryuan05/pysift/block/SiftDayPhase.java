@@ -3,7 +3,7 @@ package pryuan05.pysift.block;
 import net.minecraft.world.level.Level;
 
 /**
- * 篩靈界的三個時段（和 data/pysift/timeline/sift_day.json 一致，跟主世界共用時鐘）：
+ * 隙浮的三個時段（和 data/pysift/timeline/sift_day.json 一致，跟主世界共用時鐘）：
  * 晨間 23000~3000、日間 3500~11000、夜間 13500~22000，中間平滑過渡。
  * 給特效用（夜晚發光的傳送門、夜光植物的粒子）；兩端都能呼叫。
  */

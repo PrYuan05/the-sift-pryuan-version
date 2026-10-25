@@ -184,6 +184,13 @@ make splash and lingering versions):
 | Soul Berries | **Soul Ward** (3:00 / 8:00) | complete immunity to Soul Deprivation |
 | Gloomcap | **Echo Sight** (3:00 / 8:00) | hostile creatures within 32 blocks glow, with sculk sparks only you can see |
 
+**Nine new colours**: Teal, Mint, Coral, Amber, Lavender, Crimson Rose, Soul Blue, Void and Dusk Gold. Each has its own
+dye, crafted from Sift plants of that colour (teal and mint grass, coral leaves, rift-orange grass, violet grass, carapace
+flowers, soul cleavers, gloomcaps, dusk blooms...), and its own wool (with slabs and stairs), carpet, concrete (with slabs
+and stairs), concrete powder, terracotta, glazed terracotta, stained glass and panes - crafted just like the vanilla ones.
+The new dyes also colour leather armour. Plants without a new colour of their own craft into vanilla dyes; tall plants
+give two.
+
 ## Blocks
 
 More than 450 blocks, most with several visual stages you can pick in the creative tab:
@@ -370,6 +377,8 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | :-- | :-- | :-- |
 | 靈莓 | **靈魂守護**（3:00／8:00） | 完全免疫靈魂剝奪 |
 | 幽光菇 | **回音視界**（3:00／8:00） | 32 格內的敵對生物發光，頭上冒出只有你看得到的幽匿粒子 |
+
+**9 種新顏色**：青碧、薄荷、珊瑚、琥珀、薰衣草、赤紅玫瑰、靈魂藍、虛黑、暮光金。每種都有自己的染料，由同色的篩靈界植物合成（青碧草、薄荷草、珊瑚落葉、裂隙橙草、紫晶草、甲殼花、靈魂劈裂草、幽光菇、暮綻花……），還有自己的羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、混凝土粉末、陶土、彩繪陶瓦、染色玻璃與玻璃片，做法和原版一樣。新染料也能染皮甲。沒有專屬新顏色的植物則合成原版染料；高的植物一次給 2 個。
 
 ### 方塊
 450 種以上的方塊，多數有多種外觀階段可在創造模式分頁中挑選：地層岩、覆蓋石、板岩、砂岩、大理石與礦石；

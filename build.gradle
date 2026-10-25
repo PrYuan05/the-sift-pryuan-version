@@ -48,6 +48,10 @@ loom {
 	}
 }
 
+configurations {
+	devModsFolder { transitive = false }
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -60,6 +64,16 @@ dependencies {
 
 	// Not shipped or required: only lets SodiumFluidRendererMixin compile (it applies only when Sodium is installed)
 	clientCompileOnly "maven.modrinth:sodium:mc26.3-0.9.2-fabric"
+
+	// Dev-only tools for runClient (not shipped, not dependencies of pysift):
+	//   Live Texture Editor - edit block / item / entity textures in game (look at a block, press R); export the edits
+	//   as a resource pack and write them back with tools/texture_pipeline/import_texture_pack.py
+	localRuntime "maven.modrinth:livetextureeditor:qmblUJWn" // 3.0 for MC 26.3 (Modrinth version ids: version numbers
+	                                                          // such as Axiom's "6.1.3" are shared by every MC build)
+	//   Axiom (world editor / building tool) + DBTools (extra Axiom tools). On the dev classpath Fabric Loader fails to
+	//   resolve Axiom ("fabricloader missing"), so they are copied into run/mods instead (task syncDevMods, runs before runClient)
+	devModsFolder "maven.modrinth:axiom:CrfjL7cY"           // Axiom 6.1.3 for MC 26.3
+	devModsFolder "maven.modrinth:dbtools:UpP9xeHF"         // DBTools 2.4.1+MC26.3-AX6.1.3
 }
 
 processResources {
@@ -115,3 +129,10 @@ publishing {
 		// retrieving dependencies.
 	}
 }
+
+// Axiom + DBTools for the dev client: copied into run/mods (see devModsFolder above); other files in run/mods are kept
+tasks.register("syncDevMods", Copy) {
+	from configurations.devModsFolder
+	into layout.projectDirectory.dir("run/mods")
+}
+tasks.named("runClient") { dependsOn "syncDevMods" }

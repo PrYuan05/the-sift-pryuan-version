@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "pysift:block/sift_colors/dusk_gold_concrete_powder",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -864405
+      }
+    ]
+  }
+}

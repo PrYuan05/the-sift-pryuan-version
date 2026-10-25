@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import pryuan05.pysift.fluid.ModFluids;
 
 /**
- * 靈液靜止頂面改用世界座標 UV：still 貼圖是 8×8 格的大圖，每格只取其中對應座標的 1/8 × 1/8，
+ * 靈液靜止頂面改用世界座標 UV：still 貼圖是 32×32 格的大圖（512px），每格只取其中對應座標的 1/32 × 1/32，
  * 整片池面因此連續、看不到格線（原版每格都貼整張 sprite）。
  * <ul>
  *   <li>靜止頂面：tesselate 裡「沒有流向」分支的 getU0/getV0/getV1/getU1（各自的第一次呼叫，u 沿 x、v 沿 z）。</li>
@@ -26,14 +26,14 @@ import pryuan05.pysift.fluid.ModFluids;
  *       依序為角落 (x0,z0)、(x0,z1)、(x1,z1)、(x1,z0)）換成世界座標，斜面也和旁邊連成一片。</li>
  *   <li>底面：同靜止頂面（stillMaterial 第二次使用，getU0/getU1/getV0/getV1 的 ordinal 1）。</li>
  *   <li>側面（往下流的牆面、池邊）：原版每格貼整張流動貼圖。靈液改用靜止大貼圖，u 依面向沿世界 x 或 z、
- *       v 沿世界高度往下取 1/8 格（flowingMaterial 第二次呼叫、getU(F) ordinal 4~5、getV(F) ordinal 4~6），
+ *       v 沿世界高度往下取 1/32 格（flowingMaterial 第二次呼叫、getU(F) ordinal 4~5、getV(F) ordinal 4~6），
  *       上下左右相鄰的牆面因此連成一片。貼著玻璃／樹葉時的 overlay 貼圖維持原版。</li>
  * </ul>
  * 其他液體不受影響。
  */
 @Mixin(FluidRenderer.class)
 public abstract class FluidRendererMixin {
-    private static final int SPIRIT_TILE = 8;
+    private static final int SPIRIT_TILE = 32;   // blocks per still-texture tile (512 px; tools/texture_pipeline/spirit_liquid.py)
 
     private static boolean pysift$isSpirit(FluidState fluidState) {
         return ModFluids.SPIRIT_LIQUID.isSame(fluidState.getType());

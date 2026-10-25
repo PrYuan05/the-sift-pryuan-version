@@ -22,7 +22,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import java.util.Map;
 
 /**
- * 貼在牆面上的植物（甲殼藤、綠／橙篩靈藤、篩靈攀牆葉）：像梯子一樣有水平朝向，模型是貼在支撐面上的一片平面
+ * 貼在牆面上的植物（甲殼藤、綠／橙隙浮藤、隙浮攀牆葉）：像梯子一樣有水平朝向，模型是貼在支撐面上的一片平面
  * （models/custom 的 z=15.5 平面，facing=north 時貼著南邊那格）。支撐的方塊不見了就掉落。
  * 世界生成見 worldgen/WallPlantFeature。
  */

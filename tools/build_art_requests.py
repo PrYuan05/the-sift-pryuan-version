@@ -89,7 +89,9 @@ def veg_ids():
     ids = []
     for f in ("src/main/java/pryuan05/pysift/block/ModVegetation.java", "src/main/java/pryuan05/pysift/progression/SiftFlora.java"):
         ids += re.findall(r'register(?:Block)?\("([a-z0-9_]+)"', (P / f).read_text(encoding="utf-8"))
-    return [i for i in ids if i != "sift_pink_loam"] + ["sift_pink_loam"]
+    # pink loam is a floor block listed with the plants; it was removed (2026-10-25), so only while it still exists
+    loam = ["sift_pink_loam"] if (A / "blockstates/sift_pink_loam.json").exists() else []
+    return [i for i in ids if i != "sift_pink_loam" and (A / f"blockstates/{i}.json").exists()] + loam
 
 
 def split(ref):

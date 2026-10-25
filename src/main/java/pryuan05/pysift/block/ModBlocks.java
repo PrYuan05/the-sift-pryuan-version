@@ -404,7 +404,7 @@ public class ModBlocks {
         return stateProperties.with(property, state);
     }
 
-    /** 篩靈界傳送門：不在 ALL_BLOCKS（不進方塊分頁），由 Singer 儀式或返回門產生；物品只用於創造模式／指令測試。 */
+    /** 隙浮傳送門：不在 ALL_BLOCKS（不進方塊分頁），由 Singer 儀式或返回門產生；物品只用於創造模式／指令測試。 */
     public static final Block SIFT_PORTAL = registerPortal();
 
     private static Block registerPortal() {

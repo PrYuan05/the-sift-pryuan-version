@@ -47,6 +47,11 @@ for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBl
 # phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)
 for _prog in sorted((_blk / "progression").glob("*.java")):
     veg_ids += re.findall(r'register(?:Block|Plant)\("([a-z0-9_]+)"', _prog.read_text(encoding="utf-8"))
+# the 9 new Sift colours (block/SiftColors.java, resources from tools/progression/build_sift_colors.py): <colour>_<kind>
+_colors = _blk / "block/SiftColors.java"
+if _colors.exists():
+    _src = _colors.read_text(encoding="utf-8")
+    veg_ids += [f"{c}_{k}" for c in re.findall(r'[A-Z_]+\("([a-z_]+)", 0x', _src) for k in re.findall(r'block\(c, "([a-z_]+)"', _src)]
 out["vegetation_and_fluid_blocks"] = len(veg_ids)
 all_ids = ids + set_ids + veg_ids
 enum_vals = {}
@@ -108,6 +113,7 @@ for bid in set_ids + veg_ids:   # vanilla-style blockstates: only check that eve
                 continue
             used_models.add(mf)
             for t in lj(mf).get("textures", {}).values():
+                t = t.get("sprite", "") if isinstance(t, dict) else t   # 26.3: {"sprite": ..., "force_translucent": true}
                 if not t.startswith(("minecraft:", "#")):   # "#x" 是同模型內另一個貼圖變數
                     tf = res_path(ASSETS, t, "textures", ".png")
                     (used_tex.add(tf) if tf.exists() else missing_tex.append((bid, t)))
@@ -304,7 +310,8 @@ bad_item_refs = []
 
 def walk(o, bid):
     if isinstance(o, dict):
-        if o.get("type") == "minecraft:model" and not res_path(ASSETS, o["model"], "models", ".json").exists():
+        if (o.get("type") == "minecraft:model" and not o["model"].startswith("minecraft:")   # vanilla models always exist
+                and not res_path(ASSETS, o["model"], "models", ".json").exists()):
             bad_item_refs.append((bid, o["model"]))
         for v in o.values():
             walk(v, bid)

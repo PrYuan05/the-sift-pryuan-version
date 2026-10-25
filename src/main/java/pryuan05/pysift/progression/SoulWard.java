@@ -5,8 +5,8 @@ import net.minecraft.server.level.ServerPlayer;
 /**
  * 靈魂剝奪的減免規則，由 {@link pryuan05.pysift.effect.SoulBurn#ignite} 查詢：
  * <ul>
- *   <li>{@link #isImmune}：完全不會被點燃（篩靈信標的光環 {@link SiftBeacon}，或穿滿靈髓套裝 {@link SouliteGear}）。</li>
- *   <li>{@link #drainRatio}：血量被抽到原本的幾倍；預設 0.2，穿滿篩金石盔甲為 0.5。</li>
+ *   <li>{@link #isImmune}：完全不會被點燃（隙浮信標的光環 {@link SiftBeacon}，或穿滿靈髓套裝 {@link SouliteGear}）。</li>
+ *   <li>{@link #drainRatio}：血量被抽到原本的幾倍；預設 0.2，穿滿隙浮金盔甲為 0.5。</li>
  * </ul>
  */
 public final class SoulWard {

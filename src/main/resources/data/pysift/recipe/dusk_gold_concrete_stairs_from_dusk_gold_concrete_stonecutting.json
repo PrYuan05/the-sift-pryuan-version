@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:dusk_gold_concrete",
+  "result": {
+    "id": "pysift:dusk_gold_concrete_stairs"
+  }
+}

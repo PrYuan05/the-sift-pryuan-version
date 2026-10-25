@@ -76,7 +76,7 @@ public final class SoulBurn {
         State s = state(player);
         if (!s.drained() && !player.isCreative()) {
             float pre = player.getHealth();
-            player.setHealth(Math.max(1.0f, pre * SoulWard.drainRatio(player)));   // 0.2，篩金石套裝 0.5
+            player.setHealth(Math.max(1.0f, pre * SoulWard.drainRatio(player)));   // 0.2，隙浮金套裝 0.5
             player.setAttached(STATE, new State(pre, true, false));
             play(player, SoundEvents.SOUL_ESCAPE.value(), 1.0f);
             play(player, SoundEvents.GENERIC_BURN, 0.8f);

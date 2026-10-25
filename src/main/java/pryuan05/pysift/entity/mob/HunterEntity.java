@@ -34,7 +34,7 @@ import pryuan05.pysift.entity.projectile.HunterJavelinEntity;
  * <ul>
  *   <li>走位：和目標保持 8~14 格；被貼到 4 格內時往後跳開（動畫 leap，冷卻 5 秒），躲不掉才用標槍近戰（動畫 attack）。</li>
  *   <li>標槍：5~18 格且看得到目標時投出靈魂標槍（{@link HunterJavelinEntity}，約 6 點，不能撿；動畫 throw，冷卻 3 秒）。</li>
- *   <li>標記：指向目標 8 秒發光，24 格內沒有目標的篩靈界怪物全部改追這個目標（動畫 mark，冷卻 15 秒）。</li>
+ *   <li>標記：指向目標 8 秒發光，24 格內沒有目標的隙浮怪物全部改追這個目標（動畫 mark，冷卻 15 秒）。</li>
  * </ul>
  */
 public class HunterEntity extends PysiftMonsterEntity {

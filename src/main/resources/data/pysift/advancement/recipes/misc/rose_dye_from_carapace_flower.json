@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carapace_flower": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:carapace_flower"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:rose_dye_from_carapace_flower"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_carapace_flower"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:rose_dye_from_carapace_flower"
+    ]
+  }
+}

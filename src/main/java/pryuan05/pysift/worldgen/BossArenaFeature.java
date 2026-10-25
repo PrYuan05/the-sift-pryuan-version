@@ -6,6 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -19,6 +20,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.block.ModVegetation;
@@ -53,6 +56,8 @@ public record BossArenaFeature(
 
     private static final int MAX_FOOTING = 16;
     private static final int CLEAR_HEIGHT = 20;
+    /** 結構檔裡地面所在的層（和 tools/worldgen/capture_boss_arenas.py 的 FLOOR_ROW 一致）。 */
+    private static final int TEMPLATE_FLOOR_ROW = 5;
 
     public static final MapCodec<BossArenaFeature> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
             Codec.STRING.optionalFieldOf("arena_type", "").forGetter(BossArenaFeature::arenaType),
@@ -98,11 +103,13 @@ public record BossArenaFeature(
                 }
             }
 
-            switch (type) {
-                case "monarch" -> buildMonarchArena(level, random, center, mob);
-                case "harmonizer" -> buildHarmonizerArena(level, random, center, mob);
-                case "sculk_monstrosity" -> buildSculkMonstrosityArena(level, random, center, mob);
-                default -> buildGenericArena(level, random, center, mob);
+            if (!placeTemplate(level, random, center, type, mob)) {   // 沒有結構檔時才用程式蓋
+                switch (type) {
+                    case "monarch" -> buildMonarchArena(level, random, center, mob);
+                    case "harmonizer" -> buildHarmonizerArena(level, random, center, mob);
+                    case "sculk_monstrosity" -> buildSculkMonstrosityArena(level, random, center, mob);
+                    default -> buildGenericArena(level, random, center, mob);
+                }
             }
 
             mob.setYRot(random.nextFloat() * 360);
@@ -113,6 +120,50 @@ public record BossArenaFeature(
             return true;
         }
         return false;
+    }
+
+    /**
+     * 結構檔版本的競技場：data/pysift/structure/boss_arena/&lt;type&gt;.nbt（tools/worldgen/capture_boss_arenas.py 由下面的程式版
+     * 擷取，使用者可以用 /pysift_showcase 在遊戲裡手動修改）。結構中心欄對準 center，第 TEMPLATE_FLOOR_ROW 層是地面；
+     * 每一欄最底下的方塊往下補到實心地面（最多 MAX_FOOTING 格），Boss 站在中心欄最低的落腳處（王座、坑底都適用）。
+     */
+    private boolean placeTemplate(WorldGenLevel level, RandomSource random, BlockPos center, String type, Mob bossMob) {
+        Optional<StructureTemplate> template = level.getLevel().getStructureTemplateManager().get(PySift.id("boss_arena/" + type));
+        if (template.isEmpty()) {
+            return false;
+        }
+        Vec3i size = template.get().getSize();
+        BlockPos corner = center.offset(-size.getX() / 2, -TEMPLATE_FLOOR_ROW, -size.getZ() / 2);
+        template.get().placeInWorld(level, corner, corner, new StructurePlaceSettings(), random, Block.UPDATE_CLIENTS);
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        for (int x = 0; x < size.getX(); x++) {
+            for (int z = 0; z < size.getZ(); z++) {
+                for (int y = 0; y <= TEMPLATE_FLOOR_ROW + 1; y++) {
+                    pos.set(corner.getX() + x, corner.getY() + y, corner.getZ() + z);
+                    BlockState bottom = level.getBlockState(pos);
+                    if (bottom.isAir()) {
+                        continue;
+                    }
+                    for (int d = 0; d < MAX_FOOTING; d++) {
+                        pos.move(0, -1, 0);
+                        BlockState below = level.getBlockState(pos);
+                        if (!below.isAir() && !below.canBeReplaced() && below.getFluidState().isEmpty()) {
+                            break;
+                        }
+                        level.setBlock(pos, bottom, Block.UPDATE_CLIENTS);
+                    }
+                    break;
+                }
+            }
+        }
+        for (int y = -TEMPLATE_FLOOR_ROW + 1; y <= CLEAR_HEIGHT; y++) {
+            BlockPos feet = center.above(y);
+            if (!level.getBlockState(feet.below()).isAir() && level.getBlockState(feet).isAir() && level.getBlockState(feet.above()).isAir()) {
+                bossMob.snapTo(feet.getX() + 0.5, feet.getY(), feet.getZ() + 0.5);
+                break;
+            }
+        }
+        return true;
     }
 
     public static boolean generateArenaDirectly(net.minecraft.server.level.ServerLevel level, String type, BlockPos center) {

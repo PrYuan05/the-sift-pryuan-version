@@ -62,7 +62,7 @@
 | **維度與地貌 (The Sift Dimension)** | 🟢 實作完成（待實機驗證） | 90% | `pysift:the_sift` 維度與 4 個自訂生態系（赤紅沉積峽谷、紫晶深板岩區、柳絮林地、琥珀沙丘）；平緩地形搭配淺池、圓形分層桌山（`StrataSpireFeature`）、Boss 競技場（`BossArenaFeature`）與巨型靈柳（`SoulWillowTrunkPlacer` / `SoulWillowFoliagePlacer` / `SoulWillowVineDecorator`）。 |
 | **靈液與靈魂剝奪 (Fluid & Effects)** | 🟢 實作完成（待實機驗證） | 95% | `spirit_liquid` 流體與 `soul_deprivation` 效果；包含 80% 血量抽離、受傷觸發靈魂碎裂（鎖定最大生命上限）、靈魂解藥復原、幽匿風格視覺後處理（`SoulDeprivationVision`）與靈魂火愛心 HUD。 |
 | **傳送門與開門儀式 (Portal)** | 🟢 實作完成（待實機驗證） | 90% | `sift_portal` 方塊與 `SiftPortalRitual`（強化深板岩旁吹山羊角召喚歌者，手持迴音碎片／靈魂沙／靈魂晶塊右鍵歌者共鳴開門），含跨方塊大畫布渲染器（`SiftPortalBlockEntityRenderer`）與 2 秒傳送過場動畫（`SiftPortalTransition`）。 |
-| **進度循環 (Progression)** | 🟢 實作完成（待實機驗證；貼圖為臨時圖） | 90% | 第 1 階段：篩金石礦／紫龍晶簇、篩金石工具與盔甲（套裝減輕靈魂剝奪）、22 種生物掉落、三隻 Boss 的核心與碎片、篩靈祭壇與召喚印記（重新挑戰）、音波法杖／衝刺護符／重錘與覺醒升級、篩靈信標（鑲嵌胸甲的免疫光環）、10 個成就。程式在 `progression/`，資源由 `tools/progression/build_progression.py` 產生，待繪貼圖清單在 `art_requests/progression.md`。 |
+| **進度循環 (Progression)** | 🟢 實作完成（待實機驗證；貼圖為臨時圖） | 90% | 第 1 階段：篩金石礦／紫龍晶簇、篩金石工具與盔甲（套裝減輕靈魂剝奪）、22 種生物掉落、三隻 Boss 的核心與碎片、篩靈祭壇與召喚印記（重新挑戰）、音波法杖／衝刺護符／重錘與覺醒升級、篩靈信標（鑲嵌胸甲的免疫光環）、10 個成就。程式在 `progression/`，資源由 `tools/progression/build_progression.py` 產生，貼圖已全部換成正式美術；目前的美術需求總目錄在 `art_requests/README.md`。 |
 | **世界內容 (World Content)** | 🟢 實作完成（待實機驗證） | 85% | 第 2 階段：四種結構（地層神殿、深淵方尖碑、靈柳小屋、沙丘古墓，各有戰利品箱）、地下靈魂晶洞、各生態域環境粒子。結構由 `tools/worldgen/build_structures.py` 產生（26.3 結構檔調色盤用 `id`／`properties`），晶洞與粒子在 `build_the_sift.py`。生怪平衡待實機調整。 |
 | **音效與粒子 (Audio/FX)** | 🟡 基礎完成 | 60% | 已實作靈魂光點與靈魂軌跡粒子（`ModParticles`）、各技能與儀式之原版音效組合；自訂專屬環境音檔與生物獨立音效待日後擴充。 |
 

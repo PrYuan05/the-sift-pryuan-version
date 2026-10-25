@@ -14,6 +14,17 @@
     "pysift:fossil/spine",
     "pysift:fossil/skull",
     "pysift:fossil/claw",
-    "pysift:lullaby_shrine"
+    "pysift:lullaby_shrine",
+    "pysift:boss_arena/monarch",
+    "pysift:boss_arena/harmonizer",
+    "pysift:boss_arena/sculk_monstrosity",
+    "pysift:strata_shrine",
+    "pysift:abyss_obelisk",
+    "pysift:willow_hut",
+    "pysift:dune_tomb",
+    "pysift:portal/ember",
+    "pysift:portal/slate",
+    "pysift:portal/silted",
+    "pysift:portal/dune"
   ]
 }

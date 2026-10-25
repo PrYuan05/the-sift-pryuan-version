@@ -10,11 +10,13 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import pryuan05.pysift.PySift;
+import pryuan05.pysift.progression.ModProgression;
 import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.entity.ModEntities;
 
@@ -97,7 +99,11 @@ public class ModItems {
             .displayItems((params, output) -> acceptBlocks(output, true))
             .build();
 
-    /** 依 ModBlocks 的順序列出方塊（各狀態、建材組緊跟在石頭後面）；unused 決定列出生成用到的還是沒用到的。 */
+    /**
+     * 依 ModBlocks 的順序列出方塊（各狀態、建材組緊跟在石頭後面），再加上進度系統的方塊（礦石、祭壇、作物）；
+     * unused 決定列出生成用到的還是沒用到的。植被、靈柳木、砂岩、靈魂晶塊由各自的類別加進來；
+     * 最後的分類排序在用戶端（CreativeLayout）。
+     */
     private static void acceptBlocks(CreativeModeTab.Output output, boolean unused) {
         for (Block block : ModBlocks.ALL_BLOCKS) {
             if (ModBlocks.SET_BASE.containsKey(block)) {
@@ -110,6 +116,11 @@ public class ModItems {
             output.acceptAll(ModBlocks.stateVariantStacks(block));
             for (Block member : ModBlocks.SET_OF.getOrDefault(block, java.util.List.of())) {
                 output.accept(member);
+            }
+        }
+        for (Item item : ModProgression.CREATIVE_ORDER) {
+            if (item instanceof BlockItem blockItem && blockItem.getBlock().defaultBlockState().is(NOT_IN_WORLDGEN) == unused) {
+                output.accept(item);
             }
         }
     }

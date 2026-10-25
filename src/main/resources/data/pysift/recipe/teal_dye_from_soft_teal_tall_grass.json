@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "teal_dye",
+  "ingredients": [
+    "pysift:soft_teal_tall_grass"
+  ],
+  "result": {
+    "id": "pysift:teal_dye",
+    "count": 2
+  }
+}

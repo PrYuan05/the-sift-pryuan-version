@@ -9,7 +9,12 @@
 		"LavaFluidMixin",
 		"SoulDeprivationDamageMixin",
 		"SouliteFluidWalkMixin",
-		"RitualQuietShriekerMixin"
+		"RitualQuietShriekerMixin",
+		"StateDefinitionBuilderMixin",
+		"BlockMixin",
+		"BlockStateBaseMixin",
+		"BucketItemMixin",
+		"BlockItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

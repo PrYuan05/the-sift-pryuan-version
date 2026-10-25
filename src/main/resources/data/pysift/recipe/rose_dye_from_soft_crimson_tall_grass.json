@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "rose_dye",
+  "ingredients": [
+    "pysift:soft_crimson_tall_grass"
+  ],
+  "result": {
+    "id": "pysift:rose_dye",
+    "count": 2
+  }
+}

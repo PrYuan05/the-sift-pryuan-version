@@ -144,7 +144,7 @@ public final class SiftFarming {
 
     public static final double ECHO_RADIUS = 32.0;
 
-    /** 敵對生物：Enemy、MONSTER 類別（有些篩靈界生物不是 Enemy，例如 Roamroot），或正把 viewer 當目標的生物。 */
+    /** 敵對生物：Enemy、MONSTER 類別（有些隙浮生物不是 Enemy，例如 Roamroot），或正把 viewer 當目標的生物。 */
     public static boolean isHostile(Mob mob, LivingEntity viewer) {
         return mob.isAlive() && mob != viewer && !(mob instanceof TamableAnimal pet && pet.isOwnedBy(viewer))
                 && (mob instanceof Enemy || mob.getType().getCategory() == MobCategory.MONSTER || mob.getTarget() == viewer);

@@ -698,8 +698,10 @@ STRUCTURES = {
                   "step": "underground_structures", "terrain_adaptation": "beard_box", "use_expansion_hack": False,
                   "spawn_overrides": {}}, SIFT_BIOMES, 40, 14, 70531101),
     "humbler_husk": ({"type": "minecraft:jigsaw", "start_pool": "pysift:humbler_husk", "size": 1, "max_distance_from_center": 80,
-                      "project_start_to_heightmap": "WORLD_SURFACE_WG", "start_height": {"absolute": -3},
-                      "step": "surface_structures", "terrain_adaptation": "beard_thin", "use_expansion_hack": False,   # sunk 3, not covered
+                      "project_start_to_heightmap": "WORLD_SURFACE_WG", "start_height": {"absolute": -9},
+                      # template has no air (keeps the dunes) and 6 rows of sand supports under its floor
+                      # (tools/worldgen/naturalize_structure.py --support 6): sunk 3 + 6, no terrain carving
+                      "step": "surface_structures", "terrain_adaptation": "none", "use_expansion_hack": False,
                       "spawn_overrides": {}}, ["pysift:amber_dunes"], 34, 12, 70531102),
 }
 for name, (data, biomes, spacing, separation, salt) in STRUCTURES.items():

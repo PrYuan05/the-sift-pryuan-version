@@ -40,6 +40,9 @@ def nbt_file(root):
     return buf.getvalue()
 
 D = P / "src/main/resources/data/pysift"
+# templates the user edited in game (tools/worldgen/import_structures.py) are theirs: never overwrite them
+EDITED = P / "tools/worldgen/art/edited_structures.json"
+edited = set(json.loads(EDITED.read_text(encoding="utf-8"))) if EDITED.exists() else set()
 A = P / "src/main/resources/assets/pysift"
 src = json.loads((Path(__file__).parent / "art/portal_designs.json").read_text(encoding="utf-8"))
 
@@ -87,6 +90,9 @@ for design, blocks in src["designs"].items():
                 entry["properties"] = (10, {k: (8, v) for k, v in props.items()})
             palette.append(entry)
         out.append({"pos": (9, (3, [x, y, z])), "state": (3, index[key])})
+    if f"portal/{design}" in edited:
+        print(f"keep (edited in game): portal/{design}")
+        continue
     path = D / f"structure/portal/{design}.nbt"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_bytes(nbt_file({"DataVersion": (3, DATA_VERSION), "size": (9, (3, src["size"])),
