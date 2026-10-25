@@ -403,6 +403,24 @@
     "pysift:soul_crystal_block",
     "pysift:siftite_ore",
     "pysift:charoite_cluster",
-    "pysift:sift_altar"
+    "pysift:sift_altar",
+    "pysift:amber_sandstone",
+    "pysift:chiseled_amber_sandstone",
+    "pysift:cut_amber_sandstone",
+    "pysift:amber_sandstone_stairs",
+    "pysift:amber_sandstone_slab",
+    "pysift:cut_amber_sandstone_slab",
+    "pysift:smooth_amber_sandstone",
+    "pysift:smooth_amber_sandstone_stairs",
+    "pysift:smooth_amber_sandstone_slab",
+    "pysift:pale_sandstone",
+    "pysift:chiseled_pale_sandstone",
+    "pysift:cut_pale_sandstone",
+    "pysift:pale_sandstone_stairs",
+    "pysift:pale_sandstone_slab",
+    "pysift:cut_pale_sandstone_slab",
+    "pysift:smooth_pale_sandstone",
+    "pysift:smooth_pale_sandstone_stairs",
+    "pysift:smooth_pale_sandstone_slab"
   ]
 }

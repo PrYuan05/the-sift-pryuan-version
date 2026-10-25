@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:amber_sandstone",
+  "result": {
+    "id": "pysift:amber_sandstone_stairs"
+  }
+}

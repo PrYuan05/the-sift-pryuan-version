@@ -198,6 +198,14 @@
     "pysift:sift_portal",
     "pysift:soul_crystal_block",
     "pysift:siftite_ore",
-    "pysift:sift_altar"
+    "pysift:sift_altar",
+    "pysift:amber_sandstone",
+    "pysift:chiseled_amber_sandstone",
+    "pysift:cut_amber_sandstone",
+    "pysift:smooth_amber_sandstone",
+    "pysift:pale_sandstone",
+    "pysift:chiseled_pale_sandstone",
+    "pysift:cut_pale_sandstone",
+    "pysift:smooth_pale_sandstone"
   ]
 }

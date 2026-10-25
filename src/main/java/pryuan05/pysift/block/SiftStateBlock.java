@@ -1,6 +1,9 @@
 package pryuan05.pysift.block;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -100,6 +103,43 @@ public class SiftStateBlock extends Block {
         @Override
         protected BlockState mirror(BlockState state, Mirror mirror) {
             return state.rotate(mirror.getRotation(state.getValue(FACING)));
+        }
+
+        /** 自然生成的地表（{@link SurfaceDecay}）且頂面朝上時，被蓋住會退化成下方方塊。 */
+        private Boolean surface;
+
+        private boolean isSurface() {
+            if (surface == null) {
+                surface = SurfaceDecay.isSurface(this);
+            }
+            return surface;
+        }
+
+        @Override
+        protected boolean isRandomlyTicking(BlockState state) {
+            return state.getValue(FACING) == Direction.UP && isSurface();
+        }
+
+        @Override
+        protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+            SurfaceDecay.randomTick(state, level, pos);
+        }
+    }
+
+    /** 沒有狀態屬性的地表立方體（例如搖籃曲山丘的 void_capped_crimson_01）：被蓋住會退化成下方方塊（{@link SurfaceDecay}）。 */
+    public static class SurfaceCube extends Block {
+        public SurfaceCube(BlockBehaviour.Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        protected boolean isRandomlyTicking(BlockState state) {
+            return true;
+        }
+
+        @Override
+        protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+            SurfaceDecay.randomTick(state, level, pos);
         }
     }
 }

@@ -6,12 +6,14 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.ColorRGBA;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ColoredFallingBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
@@ -65,7 +67,17 @@ public class ModBlocks {
         }
     }
 
-    record Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties) {
+    /** fallingDust：不為 null 時是會受重力掉落的砂（ColoredFallingBlock），值為落下時的粉塵顏色 RGB。 */
+    record Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties, Integer fallingDust) {
+        Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties) {
+            this(name, mat, shape, properties, null);
+        }
+
+        /** 像原版砂一樣受重力影響（下方是空氣或液體時掉落）。 */
+        Def falling(int dustRgb) {
+            return new Def(name, mat, shape, properties, dustRgb);
+        }
+
         Def intProp(String property, int min, int max) {
             return with(IntegerProperty.create(property, min, max));
         }
@@ -83,7 +95,7 @@ public class ModBlocks {
         private Def with(Property<?> property) {
             List<Property<?>> list = new ArrayList<>(properties);
             list.add(property);
-            return new Def(name, mat, shape, List.copyOf(list));
+            return new Def(name, mat, shape, List.copyOf(list), fallingDust);
         }
     }
 
@@ -227,7 +239,7 @@ public class ModBlocks {
             block("teal_water_block", Mat.STONE),
             block("violet_solid_block", Mat.STONE),
             block("void_obsidian", Mat.STONE),
-            block("amber_sand", Mat.SAND),
+            block("amber_sand", Mat.SAND).falling(0xE0B56D),
             block("chiseled_stone_frame", Mat.STONE),
             block("cinnabar_planks", Mat.WOOD),
             block("concentric_stone", Mat.STONE),
@@ -235,7 +247,7 @@ public class ModBlocks {
             block("dense_foliage_block", Mat.GRASS),
             block("honey_planks", Mat.WOOD),
             block("meander_stone_bricks", Mat.STONE),
-            block("pale_sand", Mat.SAND),
+            block("pale_sand", Mat.SAND).falling(0xEBC88A),
             block("rosewood_planks", Mat.WOOD),
             block("stone_variant", Mat.STONE),
             block("walnut_planks", Mat.WOOD)
@@ -345,7 +357,11 @@ public class ModBlocks {
     private static Block register(Def def) {
         ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(def.name()));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(def.name()));
-        Block block = SiftStateBlock.create(def.mat().properties().setId(blockKey), def.shape(), def.properties());
+        BlockBehaviour.Properties properties = def.mat().properties().setId(blockKey);
+        boolean plainCube = def.shape() == SiftStateBlock.Shape.CUBE && def.properties().isEmpty();
+        Block block = def.fallingDust() != null && plainCube ? new ColoredFallingBlock(new ColorRGBA(0xFF000000 | def.fallingDust()), properties)
+                : SurfaceDecay.isSurfaceName(def.name()) && plainCube ? new SiftStateBlock.SurfaceCube(properties)   // 會退化的地表立方體
+                : SiftStateBlock.create(properties, def.shape(), def.properties());
         Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
         Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
         ALL_BLOCKS.add(block);

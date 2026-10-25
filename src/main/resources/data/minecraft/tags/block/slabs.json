@@ -74,6 +74,12 @@
     "pysift:dark_stone_slab",
     "pysift:dark_stone_brick_slab",
     "pysift:stone_variant_slab",
-    "pysift:stone_variant_brick_slab"
+    "pysift:stone_variant_brick_slab",
+    "pysift:amber_sandstone_slab",
+    "pysift:cut_amber_sandstone_slab",
+    "pysift:smooth_amber_sandstone_slab",
+    "pysift:pale_sandstone_slab",
+    "pysift:cut_pale_sandstone_slab",
+    "pysift:smooth_pale_sandstone_slab"
   ]
 }

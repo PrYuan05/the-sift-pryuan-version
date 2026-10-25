@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/smooth_amber_sandstone"
+    }
+  }
+}

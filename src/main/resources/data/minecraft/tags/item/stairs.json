@@ -74,6 +74,10 @@
     "pysift:dark_stone_stairs",
     "pysift:dark_stone_brick_stairs",
     "pysift:stone_variant_stairs",
-    "pysift:stone_variant_brick_stairs"
+    "pysift:stone_variant_brick_stairs",
+    "pysift:amber_sandstone_stairs",
+    "pysift:smooth_amber_sandstone_stairs",
+    "pysift:pale_sandstone_stairs",
+    "pysift:smooth_pale_sandstone_stairs"
   ]
 }

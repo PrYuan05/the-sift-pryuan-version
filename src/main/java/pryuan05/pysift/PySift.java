@@ -10,6 +10,7 @@ import pryuan05.pysift.effect.SoulBurn;
 import pryuan05.pysift.block.entity.ModBlockEntities;
 import pryuan05.pysift.block.ModVegetation;
 import pryuan05.pysift.block.SoulCrystal;
+import pryuan05.pysift.block.SandstoneFamily;
 import pryuan05.pysift.block.SoulWillowWood;
 import pryuan05.pysift.progression.ModProgression;
 import pryuan05.pysift.particle.ModParticles;
@@ -46,6 +47,7 @@ public class PySift implements ModInitializer {
         ModFluids.registerModFluids();
         ModVegetation.registerModVegetation();
         SoulWillowWood.register();
+        SandstoneFamily.register();          // 每種沙的砂岩建材組
         SoulCrystal.register();
         ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具
         ModParticles.register();

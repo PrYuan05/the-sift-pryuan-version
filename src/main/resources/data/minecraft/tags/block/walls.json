@@ -74,6 +74,8 @@
     "pysift:dark_stone_wall",
     "pysift:dark_stone_brick_wall",
     "pysift:stone_variant_wall",
-    "pysift:stone_variant_brick_wall"
+    "pysift:stone_variant_brick_wall",
+    "pysift:amber_sandstone_wall",
+    "pysift:pale_sandstone_wall"
   ]
 }

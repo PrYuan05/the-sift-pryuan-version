@@ -36,6 +36,10 @@ veg_ids += re.findall(r'registerBlock\("([a-z0-9_]+)"', (_blk / "fluid/ModFluids
 wood_ids = re.findall(r'(?:block|blockOnly)\("([a-z0-9_]+)"', (_blk / "block/SoulWillowWood.java").read_text(encoding="utf-8"))     if (_blk / "block/SoulWillowWood.java").exists() else []
 wall_variants = {w for w in wood_ids if "_wall_" in w}   # no item / loot of their own (they drop the standing sign)
 veg_ids += wood_ids
+# sandstone families (SandstoneFamily.java, resources from tools/worldgen/build_sandstone.py): vanilla-style; the item
+# definitions point at the block models (no models/item of their own), mineable through #mineable/pickaxe like vanilla
+sandstone_ids = re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/SandstoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/SandstoneFamily.java").exists() else []
+veg_ids += sandstone_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
 for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java"):
     if (_blk / _extra).exists():
@@ -277,7 +281,7 @@ for bid in all_ids:
     for rel, label in ((A / "items" / f"{bid}.json", "items"), (A / "models/item" / f"{bid}.json", "models_item"),
                        (D / "pysift/loot_table/blocks" / f"{bid}.json", "loot_table"),
                        (D / "pysift/loot_tables/blocks" / f"{bid}.json", "loot_tables")):
-        if not rel.exists() and bid not in wall_variants and not (bid in wood_ids and label == "models_item"):
+        if not rel.exists() and bid not in wall_variants and not ((bid in wood_ids or bid in sandstone_ids) and label == "models_item"):
             gaps[label].append(bid)
     if bid in wood_ids:
         if not any(f"pysift:{bid}" in lj(t)["values"] for t in (*(D / "minecraft/tags/block").glob("*.json"),

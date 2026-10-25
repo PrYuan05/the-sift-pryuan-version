@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/pale_sandstone/pale_sandstone_top",
+    "side": "pysift:block/pale_sandstone/pale_sandstone_top",
+    "top": "pysift:block/pale_sandstone/pale_sandstone_top"
+  }
+}

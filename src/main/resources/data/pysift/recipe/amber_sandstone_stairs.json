@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": [
+      "pysift:amber_sandstone",
+      "pysift:chiseled_amber_sandstone",
+      "pysift:cut_amber_sandstone"
+    ]
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "id": "pysift:amber_sandstone_stairs"
+  }
+}
