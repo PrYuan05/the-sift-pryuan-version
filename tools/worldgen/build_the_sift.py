@@ -31,7 +31,8 @@ GROVE_UNDER = state("abyssal_strata", depth=0)
 DUNE_SAND, DUNE_ACCENT = state("amber_sand"), state("pale_sand")          # ~70 / 30 by surface noise
 DUNE_STONE, DUNE_DEEP = state("bleached_sandstone", bleach=0), state("cracked_sandstone", crack=0)
 
-# start from a clean slate so removed biomes / features leave no orphan JSON behind
+# start from a clean slate so removed biomes / features leave no orphan JSON behind.
+# This also removes the landmark features written by tools/worldgen/build_landmarks.py: run that one after this script.
 for sub in ("biome", "feature", "placed_feature"):
     for old in (D / "worldgen" / sub).glob("*.json"):
         old.unlink()
@@ -707,34 +708,72 @@ GROVE_PATH = state("cracked_sandstone", crack=0)         # warm tan
 
 # Lullaby Hills (user design): void-capped crimson on every top surface, crimson vein stone below (the canyon walls),
 # and a canyon floor in two layers: a dry land layer (Y70) with the road at the wall foot, then a river layer.
-# Floor materials go from light at the wall foot to gold at the water:
-#   land layer   ash marble veining 0 (wall foot, the road) -> veining 1 (towards the drop)
-#   drop / step  ash marble veining 2
-#   river layer  aurum ore richness 0 (bank) -> richness 1 (water's edge and river bed)
-# Surface rules cannot read density functions, so the layers are told apart by height (they sit at fixed Y) and the
-# wall foot by the canyon noise itself (same noise, same coordinates as the terrain's LULLABY_CANYON).
+# Floor materials go from the water out to the wall foot:
+#   aurum ore richness 1 (river bed, water's edge) -> richness 0 (bank) -> bleached sandstone (bleach 0 with a little
+#   bleach 1; the half step and most of the land layer) -> ash marble veining 0 (the road under the wall) -> void cap (tops)
+# The bands follow |canyon noise| (the same noise and coordinates as the terrain's LULLABY_CANYON), so they line up with
+# the layers of the terrain. Every border blends naturally (user): A -> 25 % B -> 75 % B -> B, chosen block by block
+# with a fine "dither" noise; the 25 / 75 % shares drift by about +-12 % from place to place (the low surface noise).
 LULLABY_TOP = state("void_capped_crimson_01")
 LULLABY_WALL, LULLABY_WALL_ALT = state("crimson_vein_stone", crimson_spread=4), state("crimson_vein_stone", crimson_spread=3)
-BELOW = lambda y: {"type": "minecraft:not", "invert": {"type": "minecraft:y_above", "anchor": {"absolute": y},
-                                                       "surface_depth_multiplier": 0, "add_stone_depth": False}}
-LULLABY_WALL_FOOT = 0.085      # |canyon noise| above this on the land layer = right under the wall (the road)
-far_from_river = lambda: seq(
-    cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_lullaby_canyon",
-          "min_threshold": LULLABY_WALL_FOOT, "max_threshold": 1.0e9}, block(state("ash_marble", veining=0))),
-    cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_lullaby_canyon",
-          "min_threshold": -1.0e9, "max_threshold": -LULLABY_WALL_FOOT}, block(state("ash_marble", veining=0))),
-    block(state("ash_marble", veining=1)))
-LULLABY_FLOOR = seq(
-    cond(BELOW(64), block(state("aurum_ore", richness=1))),          # water's edge and river bed
-    cond(BELOW(66), block(state("aurum_ore", richness=0))),          # river bank
-    cond(BELOW(69), block(state("ash_marble", veining=2))),          # the half step down to the river
-    cond(BELOW(73), far_from_river()),                               # the land layer
-    block(LULLABY_TOP))
+wj(D / "worldgen/noise/the_sift_dither.json", {"base_amplitude": 1.0, "base_octave": 0, "octave_count": 1})
+DITHER_SD = 0.38           # spread of the dither noise (measured on the test server); turns a share into a threshold
+DITHER_JITTER = 0.12       # local drift of every share
+
+
+def dither_threshold(share):
+    """Noise value that the dither noise exceeds on `share` of the blocks (normal approximation)."""
+    from statistics import NormalDist
+    return DITHER_SD * NormalDist().inv_cdf(1.0 - share)
+
+
+def mix(share, a, b):
+    """Rule: b on about `share` of the blocks, a on the rest; the share drifts by +-DITHER_JITTER from place to place."""
+    def pick(p):
+        if p <= 0.0:
+            return a
+        if p >= 1.0:
+            return b
+        return seq(cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_dither",
+                         "min_threshold": dither_threshold(p), "max_threshold": 1.0e9}, b), a)
+    return seq(cond(NOISE(0.0), pick(min(1.0, share + DITHER_JITTER))), pick(max(0.0, share - DITHER_JITTER)))
+
+
+def canyon_band(lo, hi, rule):
+    """Run `rule` where lo <= |canyon noise| < hi (both signs of the noise)."""
+    band = lambda a, b: {"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_lullaby_canyon",
+                         "min_threshold": a, "max_threshold": b}
+    return seq(cond(band(lo, hi), rule), cond(band(-hi, -lo), rule))
+
+
+def blended_bands(materials, borders, width):
+    """materials[i] lies between borders[i-1] and borders[i] (|canyon noise|); each border blends over 2 x width."""
+    edges = [0.0] + borders + [1.0e9]
+    parts = []
+    for i, m in enumerate(materials):
+        lo, hi = edges[i], edges[i + 1]
+        inner_lo = lo + width if i > 0 else lo
+        inner_hi = hi - width if i < len(materials) - 1 else hi
+        if i > 0:                                              # just past the border: 75 % this material, 25 % the previous
+            parts.append(canyon_band(lo, inner_lo, mix(0.75, materials[i - 1], m)))
+        parts.append(canyon_band(inner_lo, inner_hi, m))
+        if i < len(materials) - 1:                             # just before the next border: 25 % of the next material
+            parts.append(canyon_band(inner_hi, hi, mix(0.25, m, materials[i + 1])))
+    return seq(*parts)
+
+
+SANDSTONE = mix(0.15, block(state("bleached_sandstone", bleach=0)), block(state("bleached_sandstone", bleach=1)))
+LULLABY_BORDERS = [0.03, 0.05, 0.105, 0.133]   # water's edge | bank / half step | land layer / road | wall
+LULLABY_BLEND = 0.008                          # |canyon| per blend step (~2 blocks on the canyon floor)
+FLOOR_BANDS = [block(state("aurum_ore", richness=1)), block(state("aurum_ore", richness=0)), SANDSTONE,
+               block(state("ash_marble", veining=0))]
+WALL_STONE = mix(0.3, block(LULLABY_WALL), block(LULLABY_WALL_ALT))
 LULLABY_RULE = seq(
-    cond(ON_FLOOR, LULLABY_FLOOR),
-    cond(WITHIN(4), cond(BELOW(69), seq(cond(BELOW(64), block(state("aurum_ore", richness=1))),
-                                        block(state("ash_marble", veining=2))))),   # faces of the drop to the river
-    cond(WITHIN(26), seq(cond(NOISE(0.25), block(LULLABY_WALL_ALT)), block(LULLABY_WALL))))   # walls are up to ~22 tall
+    cond(ON_FLOOR, blended_bands(FLOOR_BANDS + [block(LULLABY_TOP)], LULLABY_BORDERS, LULLABY_BLEND)),
+    # just under the canyon floor (the faces of the half step and the bank): the floor's own material
+    cond(WITHIN(3), canyon_band(0.0, LULLABY_BORDERS[-1],
+                                blended_bands(FLOOR_BANDS, LULLABY_BORDERS[:-1], LULLABY_BLEND))),
+    cond(WITHIN(26), WALL_STONE))   # walls are up to ~22 tall
 path = lambda floor: cond(ON_FLOOR, cond(ON_PATH, block(floor)))
 
 CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0,
@@ -816,8 +855,10 @@ wj(D / "worldgen/density_function/the_sift/terrain/dune_ridge.json",
    {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_dunes")}})
 HILLS, RIDGE, LAND = DF + "hills", DF + "dune_ridge", DF + "landform"
 # Lullaby Hills canyon: |noise| is 0 along long winding lines -> the canyon floors; it rises away from them through the
-# land layer, the walls and the terraces up to the plateau. The surface rule reads the same noise (LULLABY_WALL_FOOT).
-wj(D / "worldgen/noise/the_sift_lullaby_canyon.json", {"base_amplitude": 1.0, "base_octave": -8, "octave_count": 2,
+# land layer, the walls and the terraces up to the plateau. The surface rule reads the same noise (LULLABY_BORDERS, blended_bands).
+# base_octave -7: about 128 blocks per noise period -> ~0.004 per block, so each 0.006 rise in the spline is a 1-2 block
+# vertical wall and each shelf is ~9 blocks wide (-8 made the whole canyon a 100-block gentle slope)
+wj(D / "worldgen/noise/the_sift_lullaby_canyon.json", {"base_amplitude": 1.0, "base_octave": -7, "octave_count": 2,
                                                        "amplitude_modifiers": [1.0, 0.25]})
 wj(D / "worldgen/density_function/the_sift/terrain/lullaby_canyon.json",
    {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_lullaby_canyon")}})
@@ -852,17 +893,26 @@ DUNE_LAND = landform(DUNES, stepped(86, 6))
 # Lullaby Hills cross-section (|canyon| -> block height): flat shelves joined by steep rises = vertical walls.
 #   river bed 56..58 (spirit liquid up to 63) | bank 64 | half step 67 | land layer 70 (the road) | wall |
 #   terraces 82 / 96 / 110 | plateau 125 with low hills on top
-LULLABY = spline(LULLABY_CANYON, (0.0, 56, 0), (0.022, 58, 0), (0.03, 64, 0), (0.04, 64, 0), (0.046, 67, 0), (0.054, 67, 0),
-                 (0.06, 70, 0), (0.105, 70, 0), (0.111, 82, 0), (0.15, 82, 0), (0.156, 96, 0), (0.19, 96, 0),
-                 (0.196, 110, 0), (0.23, 110, 0), (0.238, spline(HILLS, (-1.0, 124, 0), (1.0, 132, 6)), 0))
+# measured in game: |canyon| changes ~0.011 per block, so a 0.065 shelf is ~6 blocks and a 0.006 rise is a vertical wall
+LULLABY = spline(LULLABY_CANYON, (0.0, 56, 0), (0.025, 58, 0), (0.034, 64, 0), (0.048, 64, 0), (0.054, 67, 0), (0.066, 67, 0),
+                 (0.072, 70, 0), (0.13, 70, 0), (0.136, 82, 0), (0.2, 82, 0), (0.206, 96, 0), (0.27, 96, 0),
+                 (0.276, 110, 0), (0.34, 110, 0), (0.348, spline(HILLS, (-1.0, 124, 0), (1.0, 132, 6)), 0))
 HOT = spline("pysift:the_sift/vegetation", (-1.0, DUNE_LAND, 0), (-0.4, DUNE_LAND, 0), (-0.2, CANYON, 0), (1.0, CANYON, 0))
 CLIMATE = spline(
     "pysift:the_sift/temperature", (-1.0, VIOLET, 0), (-0.4, VIOLET, 0), (-0.2, GROVE, 0), (0.3, GROVE, 0),
     (0.45, HOT, 0), (1.0, HOT, 0))
-# Lullaby Hills take over where weirdness (ridges) is high, in the warm half (temperature > 0) - see the biome source
-LULLABY_WARM = spline("pysift:the_sift/temperature", (-1.0, CLIMATE, 0), (-0.08, CLIMATE, 0), (0.02, LULLABY, 0), (1.0, LULLABY, 0))
-SHAPE = {"type": "minecraft:spline", "spline": spline(
-    "pysift:the_sift/ridges", (-1.0, CLIMATE, 0), (0.38, CLIMATE, 0), (0.46, LULLABY_WARM, 0), (1.0, LULLABY_WARM, 0))}
+# Lullaby Hills take over where weirdness (ridges) is high, in the warm half (temperature > 0) - see the biome source.
+# Blend: shape = climate + weight * (lullaby - climate); each spline lives in its own density function, written once.
+raw_spline = lambda coordinate, *points: {"coordinate": coordinate, "points": [
+    {"location": loc, "value": v, "derivative": 0.0} for loc, v in points]}
+wj(D / "worldgen/density_function/the_sift/terrain/climate_shape.json", {"type": "minecraft:spline", "spline": CLIMATE})
+wj(D / "worldgen/density_function/the_sift/terrain/lullaby_shape.json", {"type": "minecraft:spline", "spline": LULLABY})
+WARM = raw_spline("pysift:the_sift/temperature", (-1.0, 0.0), (-0.08, 0.0), (0.02, 1.0), (1.0, 1.0))
+wj(D / "worldgen/density_function/the_sift/terrain/lullaby_weight.json", {"type": "minecraft:cache", "input": {
+    "type": "minecraft:spline", "spline": raw_spline("pysift:the_sift/ridges", (-1.0, 0.0), (0.38, 0.0), (0.46, WARM), (1.0, WARM))}})
+SHAPE = {"type": "minecraft:add", "left": DF + "climate_shape", "right": {"type": "minecraft:mul", "left": DF + "lullaby_weight",
+         "right": {"type": "minecraft:add", "left": DF + "lullaby_shape", "right": {"type": "minecraft:mul", "left": -1.0,
+                                                                                     "right": DF + "climate_shape"}}}}
 PONDS = {"type": "minecraft:mul", "right": -POND_BLOCKS / 128 / (1 - POND_START),
          "left": {"type": "minecraft:clamp", "min": 0.0, "max": 1.0 - POND_START,
                   "input": {"type": "minecraft:add", "left": noise2d("the_sift_ponds"), "right": -POND_START}}}

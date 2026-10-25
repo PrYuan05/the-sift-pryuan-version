@@ -1,0 +1,2174 @@
+{
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "pysift:the_sift/temperature",
+    "points": [
+      {
+        "location": -1.0,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/landform",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.484375,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.55,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0625
+                  },
+                  {
+                    "location": 0.0,
+                    "value": -0.421875,
+                    "derivative": 0.125
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.28125,
+                    "derivative": 0.15625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0625
+                  },
+                  {
+                    "location": 0.0,
+                    "value": -0.421875,
+                    "derivative": 0.125
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.28125,
+                    "derivative": 0.15625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.24,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": -0.4,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/landform",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.484375,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.55,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0625
+                  },
+                  {
+                    "location": 0.0,
+                    "value": -0.421875,
+                    "derivative": 0.125
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.28125,
+                    "derivative": 0.15625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0625
+                  },
+                  {
+                    "location": 0.0,
+                    "value": -0.421875,
+                    "derivative": 0.125
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.28125,
+                    "derivative": 0.15625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.24,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.28125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.2265625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.171875,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": -0.2,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/landform",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.484375,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.55,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.5,
+                    "derivative": 0.0234375
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.4375,
+                    "derivative": 0.0390625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.5,
+                    "derivative": 0.0234375
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.4375,
+                    "derivative": 0.0390625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.24,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 0.3,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/landform",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.484375,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.55,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.5,
+                    "derivative": 0.0234375
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.4375,
+                    "derivative": 0.0390625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.5,
+                    "derivative": 0.0234375
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.4375,
+                    "derivative": 0.0390625
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.24,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.35,
+                    "value": -0.390625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.25,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.3,
+                    "value": -0.3515625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.4,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3125,
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 0.45,
+        "value": {
+          "coordinate": "pysift:the_sift/vegetation",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.4,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 1.0,
+        "value": {
+          "coordinate": "pysift:the_sift/vegetation",
+          "points": [
+            {
+              "location": -1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.4,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/dune_ridge",
+                      "points": [
+                        {
+                          "location": 0.0,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.12,
+                          "value": -0.421875,
+                          "derivative": -0.3125
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.46875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.328125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.28125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.234375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": -0.2,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/landform",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.515625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": -0.55,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.2,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.55,
+                          "value": -0.484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.45,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.15,
+                          "value": -0.4375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.05,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.25,
+                          "value": -0.3828125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.35,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.6,
+                          "value": -0.3203125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.7,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.25,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 0.24,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": {
+                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "points": [
+                        {
+                          "location": -1.0,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.35,
+                          "value": -0.21875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": -0.25,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.3,
+                          "value": -0.1484375,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.4,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 1.0,
+                          "value": -0.078125,
+                          "derivative": 0.0
+                        }
+                      ]
+                    },
+                    "derivative": 0.0
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
+}

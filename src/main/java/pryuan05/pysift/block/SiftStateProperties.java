@@ -58,6 +58,7 @@ public final class SiftStateProperties {
         OLIVE("olive"),
         WARM("warm"),
         TEAL("teal"),
+        DEEP_TEAL("deep_teal"),
         LAVENDER("lavender"),
         VIOLET("violet"),
         LIGHT("light"),

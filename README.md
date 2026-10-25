@@ -19,7 +19,7 @@ for code, terrain generation and texture pipelines — see [How it was made](#ho
 
 | | |
 | :-- | :-- |
-| 🌌 Dimension | 4 biomes, stepped mesas, ponds of Spirit Liquid, ruins with loot, underground soul geodes |
+| 🌌 Dimension | 5 biomes, stepped mesas, ponds of Spirit Liquid, ruins with loot, underground soul geodes |
 | 🐾 Creatures | 26 animated creatures, 3 bosses with enrage phases and death sequences |
 | ⚔️ Progression | Siftite → boss weapons → Sift Beacon → **Soulite** gear with boss powers |
 | 🧭 Helpers | Sift Guidebook, Soul Compass, Homeward Stone |
@@ -85,6 +85,10 @@ large round mesas built of stepped two-block-high tiers. The terrain was shaped 
 
 Each biome hides its own ruins with loot — a crimson **Strata Shrine**, an **Abyss Obelisk** crowned with a soul
 crystal, **Willow Huts** on stilts and half-buried **Dune Tombs** — and deep below lie glowing **soul crystal geodes**.
+
+**Lullaby Hills** (after Minecraft Dungeons II) is a grand canyon: towering walls of crimson vein stone climb in three
+terraces to void-capped plateaus, and down on the canyon floor a pale marble road runs along the wall foot above a
+river of Spirit Liquid lined with golden aurum ore. Echo Golems roam here.
 
 Bigger landmarks, after the locations of Minecraft Dungeons II:
 - **The Echo Den** — deep underground (y −16 to −46), a domed singing amphitheatre where Echo Golems gather, with
@@ -232,7 +236,7 @@ Released under the [MIT License](LICENSE).
 
 **一款 AI-powered 的 Minecraft 模組：層層地層、靈魂柳與發光靈液交織的全新維度，由三隻 Boss 鎮守。**
 
-The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整個可以探索的維度：四個生態域、層層內縮的圓台地形、
+The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整個可以探索的維度：五個生態域、層層內縮的圓台地形、
 靈液池塘、26 種擁有專屬 AI 與動畫的生物、三場 Boss 戰、一路升級到**靈髓**（比獄髓更強）的裝備、種植與釀造，以及 450 種以上的建築方塊。
 
 這也是一次 **AI-powered 模組開發**的實驗：一位創作者、親手繪製的美術，加上 AI-powered 的程式、地形生成與貼圖流程工具（見〈製作方式〉）。
@@ -291,6 +295,8 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | **琥珀沙丘** | 琥珀沙、淺沙、漂白砂岩 | 稜線沙丘、砂岩圓台、龍舌蘭與綠洲池塘、Boss 競技場 |
 
 每個生態域都藏著自己的遺跡與寶箱：赤紅的**地層神殿**、頂著靈魂晶塊的**深淵方尖碑**、架在高腳上的**靈柳小屋**、半埋在沙裡的**沙丘古墓**；地底深處還有會發光的**靈魂晶洞**。
+
+**搖籃曲山丘**（參考 Minecraft Dungeons II）是一座大峽谷：赤紅脈石的高聳地形牆分三層階梯爬上虛黑覆蓋的台地；谷底的牆腳有一條灰白大理石道路，再往下一階是金岩礦河岸圍著的靈液河。迴音傀儡在這裡出沒。
 
 參考 Minecraft Dungeons II 的地點，還有幾個大型地標：
 - **迴音穴**：地底深處（y −16～−46）的圓頂歌唱劇場，迴音傀儡聚在這裡唱歌；隧道往外分岔，通往晶洞、共鳴室、坍塌的大廳和稀有的寶庫，每一座的格局都不一樣。

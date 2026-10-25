@@ -53,7 +53,7 @@
             ],
             "weirdness": [
               -1.0,
-              1.0
+              0.42
             ],
             "depth": 0.0,
             "offset": 0.0
@@ -80,7 +80,7 @@
             ],
             "weirdness": [
               -1.0,
-              1.0
+              0.42
             ],
             "depth": 0.0,
             "offset": 0.0
@@ -107,6 +107,33 @@
             ],
             "weirdness": [
               -1.0,
+              0.42
+            ],
+            "depth": 0.0,
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "pysift:lullaby_hills",
+          "parameters": {
+            "temperature": [
+              0.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              0.42,
               1.0
             ],
             "depth": 0.0,
