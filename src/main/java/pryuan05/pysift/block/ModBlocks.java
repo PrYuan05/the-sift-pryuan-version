@@ -165,11 +165,10 @@ public class ModBlocks {
             facing("teal_capped_abyssal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 abyssal_strata_depth0_b）
             facing("crimson_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_b）
             facing("crimson_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_c）
-            facing("rose_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_e）
-            facing("capped_crimson_strata", Mat.STONE).tones("teal", "rose"), // 由 teal_capped_crimson_strata（teal）與 rose_capped_crimson_strata_2（rose）合併
+            // 由 teal_capped_crimson_strata（teal）、rose_capped_crimson_strata_2（rose）、rose_capped_crimson_strata（mottled）
+            // 與 teal_capped_dark_slate（deep_teal，紅色岩石改成同一個珊瑚紅色盤）合併
+            facing("capped_crimson_strata", Mat.STONE).tones("teal", "rose", "mottled", "deep_teal"),
             facing("violet_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_l）
-            facing("teal_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_b）
-            facing("teal_capped_dark_slate_2", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_c）
             facing("olive_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_f）
             pillar("dark_slate_pillar", Mat.DEEPSLATE), // TODO: verify texture pairing — 端面為色彩相近的推測配對（來源 dark_slate_l）
             facing("gray_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 dark_slate_m）

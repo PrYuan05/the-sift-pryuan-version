@@ -443,7 +443,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
      * 蓋的門產生），依生態域的色系挑選；沒列出的生態域用 silted。
      */
     public static final java.util.Map<String, String> PORTAL_DESIGNS = java.util.Map.of(
-            "crimson_strata_canyon", "ember", "amber_dunes", "dune",
+            "crimson_strata_canyon", "ember", "amber_dunes", "dune", "lullaby_hills", "ember",
             "violet_slate_abyss", "slate",
             "willow_grove", "silted");
     /** 每種設計的階梯石材：{整塊, 半磚}。 */

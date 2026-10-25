@@ -97,6 +97,166 @@
       "pysift:mob/blub/blub_walk4"
     ]
   },
+  "entity.blub.hurt": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_idle1",
+        "pitch": 1.45,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle2",
+        "pitch": 1.45,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle3",
+        "pitch": 1.45,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle4",
+        "pitch": 1.45,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle5",
+        "pitch": 1.45,
+        "volume": 1.0
+      }
+    ]
+  },
+  "entity.blub.death": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_idle1",
+        "pitch": 0.55,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle2",
+        "pitch": 0.55,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle3",
+        "pitch": 0.55,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle4",
+        "pitch": 0.55,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle5",
+        "pitch": 0.55,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_land1",
+        "pitch": 0.6,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_land2",
+        "pitch": 0.6,
+        "volume": 1.0
+      },
+      {
+        "name": "pysift:mob/blub/blub_land3",
+        "pitch": 0.6,
+        "volume": 1.0
+      }
+    ]
+  },
+  "entity.blub.growl": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.growl",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_idle1",
+        "pitch": 0.62,
+        "volume": 0.9
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle2",
+        "pitch": 0.62,
+        "volume": 0.9
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle3",
+        "pitch": 0.62,
+        "volume": 0.9
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle4",
+        "pitch": 0.62,
+        "volume": 0.9
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle5",
+        "pitch": 0.62,
+        "volume": 0.9
+      }
+    ]
+  },
+  "entity.blub.whine": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.whine",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_idle1",
+        "pitch": 1.7,
+        "volume": 0.6
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle2",
+        "pitch": 1.7,
+        "volume": 0.6
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle3",
+        "pitch": 1.7,
+        "volume": 0.6
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle4",
+        "pitch": 1.7,
+        "volume": 0.6
+      },
+      {
+        "name": "pysift:mob/blub/blub_idle5",
+        "pitch": 1.7,
+        "volume": 0.6
+      }
+    ]
+  },
+  "entity.blub.sit": {
+    "category": "neutral",
+    "subtitle": "subtitles.entity.blub.sit",
+    "sounds": [
+      {
+        "name": "pysift:mob/blub/blub_land1",
+        "pitch": 0.75,
+        "volume": 0.7
+      },
+      {
+        "name": "pysift:mob/blub/blub_land2",
+        "pitch": 0.75,
+        "volume": 0.7
+      },
+      {
+        "name": "pysift:mob/blub/blub_land3",
+        "pitch": 0.75,
+        "volume": 0.7
+      }
+    ]
+  },
   "music.the_sift.willow_grove": {
     "category": "music",
     "sounds": [

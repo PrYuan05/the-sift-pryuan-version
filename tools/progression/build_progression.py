@@ -803,8 +803,8 @@ GUIDE = [
      "3 seconds to return to your overworld spawn.",
      "迷路了？靈魂羅盤會指向競技場與遺跡（蹲下右鍵切換）。按住回程符石 3 秒，就能回到主世界的重生點。"),
     ("Soul Berries grow beside Spirit Liquid; Gloomcaps glow in caves. Brew them in Awkward Potions for Soul Ward and "
-     "Echo Sight. Tame a Blub with soul sand or soul soil: it fights and fetches.",
-     "靈莓長在靈液旁，幽光菇長在洞穴。把它們加進粗製藥水，可以釀出靈魂守護與回音視界。拿靈魂沙或靈魂土餵布魯布就有機會馴服牠，馴服後牠會幫你打架、撿東西。"),
+     "Echo Sight. Tame a Blub with a Soul Crystal Block: it fights and fetches.",
+     "靈莓長在靈液旁，幽光菇長在洞穴。把它們加進粗製藥水，可以釀出靈魂守護與回音視界。拿靈魂晶塊餵布魯布就有機會馴服牠，馴服後牠會幫你打架、撿東西。"),
     ("The eight jukeboxes at the Ancient City are the key: break one and that portal closes. To open a portal from here, "
      "build a closed frame of Soul Crystal blocks and use an Echo Shard on it.",
      "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。"),

@@ -1,0 +1,19 @@
+{
+  "templates": [
+    "pysift:echo_den/hub",
+    "pysift:echo_den/corridor",
+    "pysift:echo_den/stairs",
+    "pysift:echo_den/crossing",
+    "pysift:echo_den/crystal_grotto",
+    "pysift:echo_den/resonance_room",
+    "pysift:echo_den/collapsed_room",
+    "pysift:echo_den/vault",
+    "pysift:echo_den/cap",
+    "pysift:humbler_husk",
+    "pysift:fossil/rib_arch",
+    "pysift:fossil/spine",
+    "pysift:fossil/skull",
+    "pysift:fossil/claw",
+    "pysift:lullaby_shrine"
+  ]
+}

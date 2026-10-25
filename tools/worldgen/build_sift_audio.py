@@ -12,7 +12,7 @@ from pathlib import Path
 
 P = Path(sys.argv[1]).resolve()
 SOUNDS = P / "src/main/resources/assets/pysift/sounds.json"
-BIOMES = ["willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves"]
+BIOMES = ["willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills"]
 
 # 背景音樂（原版曲目暫用）：柳絮林地柔和、峽谷乾燥遼闊、深淵幽暗、沙丘溫暖、紅區洞穴低沉
 MUSIC = {
@@ -21,6 +21,7 @@ MUSIC = {
     "violet_slate_abyss": ["ancestry", "deeper", "nether/soulsand_valley/so_below", "nether/concrete_halls"],
     "amber_dunes": ["crescent_dunes", "fireflies", "haggstrom", "danny"],
     "red_zone_caves": ["deeper", "an_ordinary_day", "ebb", "nether/crimson_forest/chrysopoeia"],
+    "lullaby_hills": ["echo_in_the_wind", "left_to_bloom", "featherfall", "comforting_memories"],   # gentle: the echo golems' lullaby
 }
 # 環境音：loop（持續的底噪）、mood（偶爾一聲低鳴）、additions（零星的小聲音）。值 = [(原版事件, 音量, 音高)]
 # 遠處的「歌聲」用悅靈的哼唱和紫水晶的叮噹聲代替（The Sift 是歌者的家）
@@ -46,6 +47,12 @@ AMBIENT = {
         "loop": [("ambient.nether_wastes.loop", 0.35, 1.3)],
         "mood": [("ambient.basalt_deltas.mood", 0.5, 1.2)],
         "additions": [("block.amethyst_block.chime", 0.5, 0.9), ("ambient.basalt_deltas.additions", 0.3, 1.4)],
+    },
+    "lullaby_hills": {   # wind through the canyon, distant humming and chimes (the echo golems singing)
+        "loop": [("ambient.crimson_forest.loop", 0.45, 1.15)],
+        "mood": [("ambient.soul_sand_valley.mood", 0.5, 1.3)],
+        "additions": [("block.amethyst_block.chime", 0.6, 0.8), ("entity.allay.ambient_without_item", 0.3, 0.7),
+                      ("block.amethyst_block.resonate", 0.35, 0.9)],
     },
     "red_zone_caves": {
         "loop": [("ambient.crimson_forest.loop", 0.5, 0.8)],

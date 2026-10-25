@@ -18,14 +18,14 @@ TOP_N = 8
 
 # role -> (current block, current properties, candidate block families). Candidates are every state of those blocks.
 CRIMSON = ["crimson_strata", "crimson_vein_stone", "ember_stone", "veined_crimson_stone", "bleached_clay",
-           "banded_mudstone", "crimson_capped_crimson_strata", "crimson_capped_crimson_strata_2", "rose_capped_crimson_strata",
+           "banded_mudstone", "crimson_capped_crimson_strata", "crimson_capped_crimson_strata_2",
            "capped_crimson_strata", "stone_capped_rose_01", "rose_capped_stone_01", "crimson_capped_void_01",
            "ash_capped_crimson_01"]
 VIOLET = ["violet_strata", "violet_marble", "violet_solid_block", "corrupted_slate", "violet_capped_dark_slate",
           "violet_capped_crimson_strata", "crimson_capped_violet_strata", "crimson_capped_violet_strata_2",
           "ash_capped_violet_01", "magma_vein_slate", "stone_capped_violet_01"]
 PINK = ["crimson_strata", "rose_capped_stone_01", "stone_capped_rose_01", "rose_capped_dark_slate_01",
-        "rose_capped_crimson_strata", "capped_crimson_strata", "dark_slate_capped_rose_01", "bleached_clay",
+        "capped_crimson_strata", "dark_slate_capped_rose_01", "bleached_clay",
         "banded_mudstone", "crimson_vein_stone", "ember_stone", "cracked_sandstone"]
 SAND = ["pale_sand", "amber_sand", "bleached_sandstone", "cracked_sandstone", "banded_mudstone", "silted_strata"]
 ROLES = {

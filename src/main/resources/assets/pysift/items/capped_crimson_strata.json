@@ -17,6 +17,20 @@
           "type": "minecraft:model",
           "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_rose_1"
         }
+      },
+      {
+        "when": "mottled",
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_mottled_1"
+        }
+      },
+      {
+        "when": "deep_teal",
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/capped_crimson_strata/capped_crimson_strata_deep_teal_1"
+        }
       }
     ],
     "fallback": {

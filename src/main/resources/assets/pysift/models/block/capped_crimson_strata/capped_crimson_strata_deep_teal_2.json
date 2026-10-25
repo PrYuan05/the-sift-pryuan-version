@@ -1,0 +1,9 @@
+{
+  "parent": "pysift:block/templates/cube_bottom_top_vflip",
+  "textures": {
+    "top": "pysift:block/teal_strata/teal_strata_a",
+    "bottom": "pysift:block/ember_stone/ember_stone_heat0_a",
+    "side": "pysift:block/capped_crimson_strata/capped_crimson_strata_deep_teal_side",
+    "particle": "pysift:block/capped_crimson_strata/capped_crimson_strata_deep_teal_side"
+  }
+}

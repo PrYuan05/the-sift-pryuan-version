@@ -16,12 +16,18 @@ public class ModSounds {
     public static final SoundEvent BLUB_JUMP = register("entity.blub.jump");
     public static final SoundEvent BLUB_LAND = register("entity.blub.land");
     public static final SoundEvent BLUB_STEP = register("entity.blub.step");
+    // 跟原版狗一樣的一組字幕：受傷、死亡、低吼（有目標時）、嗚咽（受傷的寵物）、趴下；沿用布魯布的音檔，只改音高
+    public static final SoundEvent BLUB_HURT = register("entity.blub.hurt");
+    public static final SoundEvent BLUB_DEATH = register("entity.blub.death");
+    public static final SoundEvent BLUB_GROWL = register("entity.blub.growl");
+    public static final SoundEvent BLUB_WHINE = register("entity.blub.whine");
+    public static final SoundEvent BLUB_SIT = register("entity.blub.sit");
 
     /**
      * The Sift 各生態域的背景音樂與環境音（music.the_sift.&lt;生態域&gt;、ambient.the_sift.&lt;生態域&gt;.loop／mood／additions），
      * 由生態域 JSON 的 audio attributes 引用；sounds.json 目前指向原版音樂與環境音（tools/worldgen/build_sift_audio.py）。
      */
-    public static final List<String> SIFT_BIOMES = List.of("willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves");
+    public static final List<String> SIFT_BIOMES = List.of("willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills");
 
     static {
         for (String biome : SIFT_BIOMES) {

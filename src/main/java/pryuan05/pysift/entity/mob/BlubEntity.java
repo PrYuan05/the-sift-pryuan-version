@@ -54,7 +54,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -80,7 +79,7 @@ import java.util.function.Supplier;
  * </ul>
  * 特色：
  * <ul>
- *   <li>喜歡靈魂沙／靈魂土：手持會被引誘；未馴服時餵食有 1/3 機率馴服，也用來繁殖與回血。</li>
+ *   <li>只吃靈魂晶塊（SoulCrystal）：手持會被引誘；未馴服時餵食有 1/3 機率馴服，也用來繁殖與回血。</li>
  *   <li>馴服後會跟隨主人；主人空手（或拿非食物）右鍵切換坐下。</li>
  *   <li>血量低於 50% 時，"mood" 控制器循環播放委屈動畫（sad）。</li>
  *   <li>馴服後會幫忙打架（像狼：攻擊主人打的、或打主人的目標；不打苦力怕、主人的其他寵物與其他布魯布）。</li>
@@ -162,7 +161,7 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
     }
 
     private static boolean isSoulBlock(ItemStack stack) {
-        return stack.is(Blocks.SOUL_SAND.asItem()) || stack.is(Blocks.SOUL_SOIL.asItem());
+        return stack.is(pryuan05.pysift.block.SoulCrystal.SOUL_CRYSTAL_BLOCK_ITEM);
     }
 
     @Override
@@ -193,7 +192,7 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
         if (biomeKey != null) {
             String path = biomeKey.getPath();
             if (path.contains("amber_dunes")) return Variant.CARAPACE;
-            if (path.contains("crimson_strata_canyon")) return Variant.RAVINES;
+            if (path.contains("crimson_strata_canyon") || path.contains("lullaby_hills")) return Variant.RAVINES;
             if (path.contains("willow_grove")) return random.nextBoolean() ? Variant.MEADOWS : Variant.SOUL_ENGORGED;
             if (path.contains("violet_slate_abyss")) return Variant.FUNGAL;
             // 原版維度生成的適配
@@ -305,17 +304,24 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
     // ---------------------------------------------------------------- sounds
     @Override
     protected SoundEvent getAmbientSound() {
+        // 跟原版狗一樣：有攻擊目標時低吼，受傷的寵物偶爾嗚咽，其他時候發出各變體自己的叫聲
+        if (this.getTarget() != null) {
+            return ModSounds.BLUB_GROWL;
+        }
+        if (this.isTame() && this.isSad() && this.random.nextInt(3) == 0) {
+            return ModSounds.BLUB_WHINE;
+        }
         return this.getVariant().getAmbientSound();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.BLUB_LAND;
+        return ModSounds.BLUB_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.BLUB_LAND;
+        return ModSounds.BLUB_DEATH;
     }
 
     @Override
@@ -419,6 +425,7 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
                     this.tame(player);
                     this.navigation.stop();
                     this.setOrderedToSit(true);
+                    player.sendOverlayMessage(Component.translatable("message.pysift.blub.tamed", this.getDisplayName()));
                     this.level().broadcastEntityEvent(this, (byte) 7);   // 愛心粒子
                 } else {
                     this.level().broadcastEntityEvent(this, (byte) 6);   // 煙霧粒子
@@ -434,6 +441,13 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
         InteractionResult result = super.mobInteract(player, hand);   // 繁殖
         if (!result.consumesAction() && this.isTame() && this.isOwnedBy(player)) {
             this.setOrderedToSit(!this.isOrderedToSit());
+            if (this.isOrderedToSit()) {
+                this.playSound(ModSounds.BLUB_SIT, 0.7f, 1.0f);
+            }
+            if (!this.level().isClientSide()) {   // 快捷列上方的提示（自訂名字會顯示名字）
+                player.sendOverlayMessage(Component.translatable(this.isOrderedToSit()
+                        ? "message.pysift.blub.sit" : "message.pysift.blub.stand", this.getDisplayName()));
+            }
             this.jumping = false;
             this.navigation.stop();
             this.setTarget(null);
@@ -467,6 +481,9 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>("movement", 4, state -> {
+            if (this.isInSittingPose()) {   // 坐下 = 趴著：肚子貼地、前腳往前伸、後腳往後伸，慢慢呼吸
+                return state.setAndContinue(RawAnimation.begin().thenLoop("animation.blub.sit"));
+            }
             if (state.isMoving()) {
                 if (this.isSprinting() || this.isPanicking() || this.getTarget() != null) {
                     return state.setAndContinue(RawAnimation.begin().thenLoop("animation.blub.run"));
@@ -479,6 +496,17 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
         controllers.add(new AnimationController<>("mood", 8, state -> this.isSad()
                 ? state.setAndContinue(RawAnimation.begin().thenLoop("animation.blub.sad"))
                 : PlayState.STOP));
+        // 咬：往後一縮、撲上去、身體前端往下一咬（加在 movement 之後，播放時蓋過跑步動畫）
+        AnimationController<BlubEntity> attack = new AnimationController<>("attack", 2, state -> PlayState.STOP);
+        attack.triggerableAnim("bite", RawAnimation.begin().thenPlay("animation.blub.attack"));
+        controllers.add(attack);
+    }
+
+    /** 每次近戰出手都播咬的動畫（MeleeAttackGoal 打到才會呼叫這裡）。 */
+    @Override
+    public boolean doHurtTarget(ServerLevel level, net.minecraft.world.entity.Entity target) {
+        this.triggerAnim("attack", "bite");
+        return super.doHurtTarget(level, target);
     }
 
     @Override

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:jigsaw",
+  "start_pool": "pysift:echo_den/hub",
+  "size": 7,
+  "max_distance_from_center": 96,
+  "start_height": {
+    "type": "minecraft:uniform",
+    "min_inclusive": {
+      "absolute": -36
+    },
+    "max_inclusive": {
+      "absolute": -16
+    }
+  },
+  "step": "underground_structures",
+  "terrain_adaptation": "beard_box",
+  "use_expansion_hack": false,
+  "spawn_overrides": {},
+  "biomes": "#pysift:has_structure/echo_den"
+}

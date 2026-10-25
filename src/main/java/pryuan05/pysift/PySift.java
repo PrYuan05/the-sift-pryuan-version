@@ -56,10 +56,13 @@ public class PySift implements ModInitializer {
         CliffVinesFeature.register();
         WallPlantFeature.register();
         BossArenaFeature.register();
+        pryuan05.pysift.worldgen.SurfaceFossilFeature.register();     // 迅從者荒原的小化石
+        pryuan05.pysift.worldgen.LullabyShrineFeature.register();     // 搖籃曲山丘神殿
         ModEntities.registerModEntities();
         ModItems.registerModItems();
         SiftPortalRitual.register();
         BossLocateCommand.register();
+        pryuan05.pysift.worldgen.StructureShowcase.register();        // /pysift_showcase：在遊戲裡修改結構草稿
         LOGGER.info("The Sift initialized successfully!");
     }
 }

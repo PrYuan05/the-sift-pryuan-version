@@ -59,9 +59,6 @@
     "teal_capped_abyssal_strata": {
       "bottom": "pysift:block/teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom"
     },
-    "rose_capped_crimson_strata": {
-      "top": "pysift:block/rose_capped_crimson_strata/rose_capped_crimson_strata_top"
-    },
     "gray_capped_dark_slate": {
       "bottom": "pysift:block/gray_capped_dark_slate/gray_capped_dark_slate_bottom"
     },

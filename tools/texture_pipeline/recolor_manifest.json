@@ -460,53 +460,53 @@
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
-      "pool": "crimson_vein_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "0e26511f258c79fd4cb1e3580bc3f6f68413f56f",
-      "sha1_after": "abd47e378136b945ee6cc34a845d1e2d589a6fc6",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
-      "date": "20261018-175357"
+      "pool": "crimson_vein_stone",
+      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
+      "mode": "palette",
+      "sha1_before": "abd47e378136b945ee6cc34a845d1e2d589a6fc6",
+      "sha1_after": "9e4d1735bd8d2f51a76bf84f110d79592a30dab9",
+      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
-      "pool": "crimson_vein_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "791e64fc5f559ec265faa79b57e48a78b27d7193",
-      "sha1_after": "8450a36dd51602aae88a6dc4728be5863a213f70",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
-      "date": "20261018-175357"
+      "pool": "crimson_vein_stone",
+      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
+      "mode": "palette",
+      "sha1_before": "8450a36dd51602aae88a6dc4728be5863a213f70",
+      "sha1_after": "ca97d6e726e9f2074a394da6c2268ca36ab3a197",
+      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
-      "pool": "crimson_vein_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "44cc3552ba6ec312e6c884b7d7242ce1c97e4da5",
-      "sha1_after": "63ae34f6bff93ce144f83351624ec8fdb188fd1f",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
-      "date": "20261018-175357"
+      "pool": "crimson_vein_stone",
+      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
+      "mode": "palette",
+      "sha1_before": "63ae34f6bff93ce144f83351624ec8fdb188fd1f",
+      "sha1_after": "834bc86a501063cf0936e3480a11b2c31ee01f1c",
+      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
-      "pool": "crimson_vein_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "9d32e4726fd44680f6efeadd7e4f3d55568e7e06",
-      "sha1_after": "bc1ab9e1dbb3aee74b632334872f2f93f3f3d921",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
-      "date": "20261018-175357"
+      "pool": "crimson_vein_stone",
+      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
+      "mode": "palette",
+      "sha1_before": "bc1ab9e1dbb3aee74b632334872f2f93f3f3d921",
+      "sha1_after": "fee4009e048d38d554579b1ce03cdd301de4666f",
+      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
-      "pool": "crimson_vein_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
-      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
-      "date": "20261018-175357"
+      "pool": "crimson_vein_stone",
+      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
+      "mode": "palette",
+      "sha1_before": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
+      "sha1_after": "107c6ef5b5d0bbcc6b1288916d2e28ceebbe4228",
+      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/crimson_vein_stone_bricks/chiseled_crimson_vein_stone_bricks.png",
@@ -541,26 +541,6 @@
       "sha1_after": "98a78d41b76eb5d247da3d51b84e31743bfc7dc7",
       "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_a.png",
       "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_b.png",
-      "pool": "dark_slate:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "ed24586765e0e11ba52f64fa5e89a9f4ebd55558",
-      "sha1_after": "dc5199c99eb12b263a8dec6ae0c69d51a0157ff5",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/dark_slate/dark_slate_b.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_c.png",
-      "pool": "dark_slate:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "def3ae739ffa5180b35e69025fd3a52678088812",
-      "sha1_after": "ac9d56f1a6f34c1714b0e64ac1a1a68e037d7433",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/dark_slate/dark_slate_c.png",
-      "date": "20261018-175357"
     },
     {
       "file": "textures/block/dark_slate/dark_slate_k.png",
@@ -1350,8 +1330,8 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
-      "pool": "rose_capped_crimson_strata:stage2_pink",
+      "file": "textures/block/capped_crimson_strata/capped_crimson_strata_mottled_top.png",
+      "pool": "capped_crimson_strata:mottled_top",
       "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
@@ -1864,6 +1844,26 @@
         "date": "20261013-085205",
         "reconstructed": true
       }
+    },
+    {
+      "file": "textures/block/void_capped_crimson_01/void_capped_crimson_01_bottom.png",
+      "pool": "void_capped_crimson_01",
+      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4",
+      "mode": "palette",
+      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
+      "sha1_after": "c74183356b1516e74c8d31ea8815ecab44c4e553",
+      "backup": ".texture_backups/crimson_harmonize/void_capped_crimson_01/void_capped_crimson_01_bottom.png",
+      "date": "recorded 20261025-125336"
+    },
+    {
+      "file": "textures/block/void_capped_crimson_01/void_capped_crimson_01_side.png",
+      "pool": "void_capped_crimson_01",
+      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4",
+      "mode": "palette",
+      "sha1_before": "c408ed5a9f8165aa7450b01dc02c3b8505e807b6",
+      "sha1_after": "93a7fd3000a505628c43c4b85aea3b33971cbcf7",
+      "backup": ".texture_backups/crimson_harmonize/void_capped_crimson_01/void_capped_crimson_01_side.png",
+      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/void_obsidian_bricks/chiseled_void_obsidian_bricks.png",

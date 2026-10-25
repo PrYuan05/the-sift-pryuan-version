@@ -86,6 +86,13 @@ large round mesas built of stepped two-block-high tiers. The terrain was shaped 
 Each biome hides its own ruins with loot — a crimson **Strata Shrine**, an **Abyss Obelisk** crowned with a soul
 crystal, **Willow Huts** on stilts and half-buried **Dune Tombs** — and deep below lie glowing **soul crystal geodes**.
 
+Bigger landmarks, after the locations of Minecraft Dungeons II:
+- **The Echo Den** — deep underground (y −16 to −46), a domed singing amphitheatre where Echo Golems gather, with
+  tunnels branching out to crystal grottoes, resonance rooms, collapsed halls and a rare vault. Every den is laid out differently.
+- **Humbler Husks** — colossal skeletons half sunk in the Amber Dunes; walk through the ribcage (achievement *Carapace
+  Explorer*). Smaller fossils stick out of the sand all around.
+- **Lullaby Hilltop shrines** — rings of pillars on hill tops, where two Echo Golems hum around a jukebox.
+
 ### Spirit Liquid and Soul Deprivation
 
 The ponds are filled with glowing **Spirit Liquid**. You can swim in it and carry it in a bucket, but touching it
@@ -285,6 +292,11 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 每個生態域都藏著自己的遺跡與寶箱：赤紅的**地層神殿**、頂著靈魂晶塊的**深淵方尖碑**、架在高腳上的**靈柳小屋**、半埋在沙裡的**沙丘古墓**；地底深處還有會發光的**靈魂晶洞**。
 
+參考 Minecraft Dungeons II 的地點，還有幾個大型地標：
+- **迴音穴**：地底深處（y −16～−46）的圓頂歌唱劇場，迴音傀儡聚在這裡唱歌；隧道往外分岔，通往晶洞、共鳴室、坍塌的大廳和稀有的寶庫，每一座的格局都不一樣。
+- **迅從者殘骸**：半埋在琥珀沙丘裡的巨大骨架，可以從肋骨中間走進去（成就「甲殼探險家」）；附近沙地上到處插著小化石。
+- **搖籃曲山丘神殿**：山頂上的一圈石柱，兩隻迴音傀儡圍著唱片機哼歌。
+
 ### 靈液與靈魂剝奪
 池塘裡是會發光的**靈液**，可以游泳也能用桶子裝。但碰到它會陷入**靈魂剝奪**：血量被抽到原本的五分之一；
 在這期間再受到任何傷害，被抽走的血量會**碎裂**消散，最大生命值被鎖住。水和雨都沒有用，只有**靈魂解藥**能把失去的血量拿回來。
@@ -307,11 +319,11 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 發射飛鏢的飛鏢背、頭頂長出靈魂晶塊的迴音傀儡、背上長花的泥板獸，以及溫和的布魯布。
 
 #### 馴服布魯布
-拿**靈魂沙或靈魂土**餵野生布魯布（每次 1/3 機率，冒愛心就是成功）。馴服後牠會跟著你，空手右鍵讓牠坐下，而且：
+拿**靈魂晶塊**餵野生布魯布（只吃這個）（每次 1/3 機率，冒愛心就是成功）。馴服後牠會跟著你，空手右鍵讓牠坐下，而且：
 - **幫你打架**：像狼一樣攻擊你打的、或打你的目標（不打苦力怕和你的其他寵物）；
 - **幫你撿東西**：把 8 格內的掉落物叼回來，直接放進你的背包（你自己丟掉的東西不撿）。
 
-再餵靈魂沙可以回血，兩隻也能繁殖。
+再餵靈魂晶塊可以回血，兩隻也能繁殖。
 
 #### Boss
 

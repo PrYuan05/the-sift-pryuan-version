@@ -339,6 +339,16 @@ VEGETATION = {
                     patch("patch_dune_teal_grass", "soft_teal_short_grass", 1, (4, 8), floor_in=TEAL_FLOORS),
                     wall_plant("wall_dune_orange_sift_vine", "orange_sift_vine", 3, max_len=3),
                     cliff_vines("cliff_vines_amber_dunes", tries=24, min_len=2, max_len=4, glow_chance=0.05, count=2)],
+    # Lullaby Hills (canyon walls of crimson vein stone, void-capped tops): sparse red / pink / orange plants
+    "lullaby_hills": [patch("patch_lullaby_ember_grass", "soft_crimson_short_grass", 6, (20, 36)),
+                      patch("patch_lullaby_tall_ember_grass", "soft_crimson_tall_grass", 2, (6, 12), half="lower"),
+                      patch("patch_lullaby_rift_orange_short_grass", "rift_orange_short_grass", 3, (8, 16)),
+                      patch("patch_lullaby_carapace_short_grass", "carapace_short_grass", 2, (6, 12)),
+                      patch("patch_lullaby_puff_grass", "puff_grass", 1, (4, 8), half="lower"),
+                      carpet_patch("patch_lullaby_coral_leaf_carpet", 2, (4, 10)),
+                      wall_plant("wall_lullaby_carapace_vine", "carapace_vine", 4, max_len=5),
+                      cliff_vines("cliff_vines_lullaby_hills", tries=40, min_len=4, max_len=10, glow_chance=0.12, count=6,
+                                  max_y=130)],
 }
 
 # ---- strata mesas (pysift:strata_spire, StrataSpireFeature.java) ----
@@ -541,7 +551,8 @@ AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
            "red_zone_caves": ("minecraft:crimson_spore", 0.03),
            "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
            "willow_grove": ("minecraft:spore_blossom_air", 0.012),
-           "amber_dunes": ("minecraft:white_ash", 0.015)}
+           "amber_dunes": ("minecraft:white_ash", 0.015),
+           "lullaby_hills": ("minecraft:crimson_spore", 0.008)}
 
 CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
                                                              "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 55}}},
@@ -587,6 +598,16 @@ GLOW_FEATURES = {
     "willow_grove": [farm_plant("glowshade_short_grass_grove", provider("glowshade_short_grass"), 28, SURFACE, []),
                      # night-glow tufts in clusters (5 patches x 10-20 tufts per chunk) so they read as glowing meadows at night
                      patch("glowshade_tuft_grove", "glowshade_tuft", 5, (10, 20))],
+}
+
+# landmarks (tools/worldgen/build_landmarks.py, SurfaceFossilFeature / LullabyShrineFeature): placed after the vegetation
+# so nothing grows on them. The Echo Den and the Humbler Husk are structures (structure_set), not biome features.
+LANDMARK_FEATURES = {
+    "amber_dunes": ["pysift:surface_fossil"],
+    "crimson_strata_canyon": ["pysift:lullaby_shrine"],
+    "violet_slate_abyss": ["pysift:lullaby_shrine"],
+    "willow_grove": ["pysift:lullaby_shrine"],
+    "lullaby_hills": ["pysift:lullaby_shrine"],
 }
 
 # red zone caves (underground biome, reference video "THE SIFT UPDATE"): crimson floors, coral-red plants, glowing
@@ -637,7 +658,7 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
         "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE]] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
                     + (CHAROITE if name == "violet_slate_abyss" else []), [], []]
                     + [VEGETATION.get(name, []) + GLOW_FEATURES.get(name, []) + CAVE_FEATURES.get(name, []) + FARM_FEATURES
-                       + ([] if name in CAVE_FEATURES else [WILD_RIFT]), []],
+                       + ([] if name in CAVE_FEATURES else [WILD_RIFT]) + LANDMARK_FEATURES.get(name, []), []],
         "has_precipitation": rain,
         "temperature": temperature,
     })
@@ -656,6 +677,10 @@ biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
 biome("red_zone_caves", 1.2, 0.4, False, "#4a1622", "#3a1018", "#7a3b55",
       spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1)],
              creature=[("blub", 10, 1, 2)]))
+biome("lullaby_hills", 1.4, 0.3, False, "#6a2a48", "#4a1c34", "#d06a8c",
+      spawns(monster=[("dartback", 30, 1, 2), ("prickle", 25, 1, 2), ("seedling", 15, 2, 3), ("sprout", 15, 2, 3),
+                      ("fusefly", 20, 1, 2)],
+             creature=[("echo_golem", 14, 1, 2), ("blub", 20, 2, 3)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
       spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
              creature=[("lootkin", 6, 1, 1), ("blub", 25, 2, 4)]))
@@ -679,6 +704,37 @@ ON_PATH = {"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_paths"
 CRIMSON_PATH = state("banded_mudstone", banding=0)       # pale reddish-brown earth
 VIOLET_PATH = state("ash_marble", veining=0)             # pale stone
 GROVE_PATH = state("cracked_sandstone", crack=0)         # warm tan
+
+# Lullaby Hills (user design): void-capped crimson on every top surface, crimson vein stone below (the canyon walls),
+# and a canyon floor in two layers: a dry land layer (Y70) with the road at the wall foot, then a river layer.
+# Floor materials go from light at the wall foot to gold at the water:
+#   land layer   ash marble veining 0 (wall foot, the road) -> veining 1 (towards the drop)
+#   drop / step  ash marble veining 2
+#   river layer  aurum ore richness 0 (bank) -> richness 1 (water's edge and river bed)
+# Surface rules cannot read density functions, so the layers are told apart by height (they sit at fixed Y) and the
+# wall foot by the canyon noise itself (same noise, same coordinates as the terrain's LULLABY_CANYON).
+LULLABY_TOP = state("void_capped_crimson_01")
+LULLABY_WALL, LULLABY_WALL_ALT = state("crimson_vein_stone", crimson_spread=4), state("crimson_vein_stone", crimson_spread=3)
+BELOW = lambda y: {"type": "minecraft:not", "invert": {"type": "minecraft:y_above", "anchor": {"absolute": y},
+                                                       "surface_depth_multiplier": 0, "add_stone_depth": False}}
+LULLABY_WALL_FOOT = 0.085      # |canyon noise| above this on the land layer = right under the wall (the road)
+far_from_river = lambda: seq(
+    cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_lullaby_canyon",
+          "min_threshold": LULLABY_WALL_FOOT, "max_threshold": 1.0e9}, block(state("ash_marble", veining=0))),
+    cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_lullaby_canyon",
+          "min_threshold": -1.0e9, "max_threshold": -LULLABY_WALL_FOOT}, block(state("ash_marble", veining=0))),
+    block(state("ash_marble", veining=1)))
+LULLABY_FLOOR = seq(
+    cond(BELOW(64), block(state("aurum_ore", richness=1))),          # water's edge and river bed
+    cond(BELOW(66), block(state("aurum_ore", richness=0))),          # river bank
+    cond(BELOW(69), block(state("ash_marble", veining=2))),          # the half step down to the river
+    cond(BELOW(73), far_from_river()),                               # the land layer
+    block(LULLABY_TOP))
+LULLABY_RULE = seq(
+    cond(ON_FLOOR, LULLABY_FLOOR),
+    cond(WITHIN(4), cond(BELOW(69), seq(cond(BELOW(64), block(state("aurum_ore", richness=1))),
+                                        block(state("ash_marble", veining=2))))),   # faces of the drop to the river
+    cond(WITHIN(26), seq(cond(NOISE(0.25), block(LULLABY_WALL_ALT)), block(LULLABY_WALL))))   # walls are up to ~22 tall
 path = lambda floor: cond(ON_FLOOR, cond(ON_PATH, block(floor)))
 
 CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0,
@@ -699,6 +755,7 @@ wj(D / "worldgen/material_rule/the_sift.json", seq(
         in_biome("violet_slate_abyss", seq(path(VIOLET_PATH), cond(ON_FLOOR, block(VIOLET_TOP)), cond(WITHIN(5), block(VIOLET_UNDER)))),
         # willow grove: crimson-capped strata on top, abyssal strata (depth=0) below
         in_biome("willow_grove", seq(path(GROVE_PATH), cond(ON_FLOOR, block(GROVE_TOP)), cond(WITHIN(6), block(GROVE_UNDER)))),
+        in_biome("lullaby_hills", LULLABY_RULE),
         # amber dunes: amber sand with pale sand patches, then sandstone
         in_biome("amber_dunes", seq(
             cond(WITHIN(3), seq(cond(NOISE(0.35), block(DUNE_ACCENT)), block(DUNE_SAND))),
@@ -758,6 +815,13 @@ wj(D / "worldgen/density_function/the_sift/terrain/hills.json", {"type": "minecr
 wj(D / "worldgen/density_function/the_sift/terrain/dune_ridge.json",
    {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_dunes")}})
 HILLS, RIDGE, LAND = DF + "hills", DF + "dune_ridge", DF + "landform"
+# Lullaby Hills canyon: |noise| is 0 along long winding lines -> the canyon floors; it rises away from them through the
+# land layer, the walls and the terraces up to the plateau. The surface rule reads the same noise (LULLABY_WALL_FOOT).
+wj(D / "worldgen/noise/the_sift_lullaby_canyon.json", {"base_amplitude": 1.0, "base_octave": -8, "octave_count": 2,
+                                                       "amplitude_modifiers": [1.0, 0.25]})
+wj(D / "worldgen/density_function/the_sift/terrain/lullaby_canyon.json",
+   {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_lullaby_canyon")}})
+LULLABY_CANYON = DF + "lullaby_canyon"
 # biome landforms (the "normal" terrain of each biome)
 ROLLING = spline(HILLS, (-1.0, 62, 8), (0.0, 74, 16), (1.0, 92, 20))                  # violet: rolling hills
 LOWLAND = spline(HILLS, (-1.0, 64, 3), (1.0, 72, 5))                                  # grove: flats, ponds
@@ -785,10 +849,20 @@ VIOLET = landform(ROLLING, stepped(92, 7))
 GROVE = landform(LOWLAND, stepped(78, 5))
 CANYON = landform(TERRACES, stepped(100, 9))
 DUNE_LAND = landform(DUNES, stepped(86, 6))
+# Lullaby Hills cross-section (|canyon| -> block height): flat shelves joined by steep rises = vertical walls.
+#   river bed 56..58 (spirit liquid up to 63) | bank 64 | half step 67 | land layer 70 (the road) | wall |
+#   terraces 82 / 96 / 110 | plateau 125 with low hills on top
+LULLABY = spline(LULLABY_CANYON, (0.0, 56, 0), (0.022, 58, 0), (0.03, 64, 0), (0.04, 64, 0), (0.046, 67, 0), (0.054, 67, 0),
+                 (0.06, 70, 0), (0.105, 70, 0), (0.111, 82, 0), (0.15, 82, 0), (0.156, 96, 0), (0.19, 96, 0),
+                 (0.196, 110, 0), (0.23, 110, 0), (0.238, spline(HILLS, (-1.0, 124, 0), (1.0, 132, 6)), 0))
 HOT = spline("pysift:the_sift/vegetation", (-1.0, DUNE_LAND, 0), (-0.4, DUNE_LAND, 0), (-0.2, CANYON, 0), (1.0, CANYON, 0))
-SHAPE = {"type": "minecraft:spline", "spline": spline(
+CLIMATE = spline(
     "pysift:the_sift/temperature", (-1.0, VIOLET, 0), (-0.4, VIOLET, 0), (-0.2, GROVE, 0), (0.3, GROVE, 0),
-    (0.45, HOT, 0), (1.0, HOT, 0))}
+    (0.45, HOT, 0), (1.0, HOT, 0))
+# Lullaby Hills take over where weirdness (ridges) is high, in the warm half (temperature > 0) - see the biome source
+LULLABY_WARM = spline("pysift:the_sift/temperature", (-1.0, CLIMATE, 0), (-0.08, CLIMATE, 0), (0.02, LULLABY, 0), (1.0, LULLABY, 0))
+SHAPE = {"type": "minecraft:spline", "spline": spline(
+    "pysift:the_sift/ridges", (-1.0, CLIMATE, 0), (0.38, CLIMATE, 0), (0.46, LULLABY_WARM, 0), (1.0, LULLABY_WARM, 0))}
 PONDS = {"type": "minecraft:mul", "right": -POND_BLOCKS / 128 / (1 - POND_START),
          "left": {"type": "minecraft:clamp", "min": 0.0, "max": 1.0 - POND_START,
                   "input": {"type": "minecraft:add", "left": noise2d("the_sift_ponds"), "right": -POND_START}}}
@@ -858,8 +932,10 @@ wj(D / "worldgen/noise_settings/the_sift.json", noise)
 
 # ---- dimension: multi-noise climate, temperature x humidity ----
 FULL = [-1.0, 1.0]
-point = lambda b, t, h: {"biome": f"pysift:{b}", "parameters": {
-    "temperature": t, "humidity": h, "continentalness": FULL, "erosion": FULL, "weirdness": FULL,
+LULLABY_WEIRDNESS = 0.42     # weirdness above this (in the warm half) is Lullaby Hills; matches the terrain spline
+NOT_LULLABY = [-1.0, LULLABY_WEIRDNESS]
+point = lambda b, t, h, w=FULL: {"biome": f"pysift:{b}", "parameters": {
+    "temperature": t, "humidity": h, "continentalness": FULL, "erosion": FULL, "weirdness": w,
     "depth": 0.0, "offset": 0.0}}
 wj(D / "dimension/the_sift.json", {
     "type": "pysift:the_sift",
@@ -867,9 +943,10 @@ wj(D / "dimension/the_sift.json", {
         "type": "minecraft:noise",
         "biome_source": {"type": "minecraft:multi_noise", "biomes": [
             point("violet_slate_abyss", [-1.0, -0.3], FULL),             # cold
-            point("willow_grove", [-0.3, 0.4], FULL),                   # mild
-            point("crimson_strata_canyon", [0.4, 1.0], [-0.3, 1.0]),    # hot, not dry
-            point("amber_dunes", [0.2, 1.0], [-1.0, -0.3]),             # hot and dry
+            point("willow_grove", [-0.3, 0.4], FULL, NOT_LULLABY),      # mild
+            point("crimson_strata_canyon", [0.4, 1.0], [-0.3, 1.0], NOT_LULLABY),    # hot, not dry
+            point("amber_dunes", [0.2, 1.0], [-1.0, -0.3], NOT_LULLABY),             # hot and dry
+            point("lullaby_hills", [0.0, 1.0], FULL, [LULLABY_WEIRDNESS, 1.0]),      # warm + high weirdness: grand canyons
             {"biome": "pysift:red_zone_caves", "parameters": {           # underground, like vanilla lush caves
                 "temperature": [-0.2, 1.0], "humidity": [0.1, 1.0], "continentalness": FULL, "erosion": FULL,
                 "weirdness": FULL, "depth": [0.2, 0.9], "offset": 0.0}},
