@@ -10,6 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
@@ -127,7 +128,7 @@ public final class SiftCreativeTabs {
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, t.key, t.tab);
             BY_TAB.put(t.tab, t);
         }
-        // the same items in vanilla's tabs, after vanilla's own (block_state variants only in ours)
+        // the same items in vanilla's tabs, next to the vanilla items they resemble (block_state variants only in ours)
         Map<ResourceKey<CreativeModeTab>, List<ItemStack>> vanilla = new LinkedHashMap<>();
         for (Tab t : Tab.values()) {
             ResourceKey<CreativeModeTab> key = t.vanilla != null ? t.vanilla : Tab.BUILDING.vanilla;
@@ -135,13 +136,77 @@ public final class SiftCreativeTabs {
         }
         vanilla.computeIfAbsent(Tab.NATURAL.vanilla, k -> new ArrayList<>());
         for (ResourceKey<CreativeModeTab> key : vanilla.keySet()) {
-            CreativeModeTabEvents.modifyOutputEvent(key).register(output -> collect().forEach((t, stacks) -> {
-                for (ItemStack stack : stacks) {
-                    if (!stack.has(DataComponents.BLOCK_STATE) && vanillaTab(t, stack).equals(key)) {
-                        output.accept(stack);
+            CreativeModeTabEvents.modifyOutputEvent(key).register(output -> {
+                // anchor (a vanilla item) -> our stacks that go after it, in our order
+                Map<Item, List<ItemStack>> groups = new LinkedHashMap<>();
+                List<ItemStack> rest = new ArrayList<>();
+                collect().forEach((t, stacks) -> {
+                    for (ItemStack stack : stacks) {
+                        if (stack.has(DataComponents.BLOCK_STATE) || !vanillaTab(t, stack).equals(key)) {
+                            continue;
+                        }
+                        Item anchor = anchorOf(stack, output.getDisplayStacks());
+                        if (anchor == null) {
+                            rest.add(stack);
+                        } else {
+                            groups.computeIfAbsent(anchor, a -> new ArrayList<>()).add(stack);
+                        }
                     }
-                }
-            }));
+                });
+                groups.forEach((anchor, stacks) -> output.insertAfter(anchor, stacks));
+                rest.forEach(output::accept);
+            });
         }
+    }
+
+    /** Vanilla's last colour in its colour order: our 9 colours go right after it. */
+    private static final String LAST_VANILLA_COLOUR = "pink_";
+    /** Where each kind of our items sits in vanilla's tabs (after this vanilla item). */
+    private static final Map<CreativeLayout.Section, Item> SECTION_ANCHORS = Map.ofEntries(
+            Map.entry(CreativeLayout.Section.WOOD, Items.WARPED_BUTTON),           // after the last wood family
+            Map.entry(CreativeLayout.Section.STONE, Items.PURPUR_SLAB),            // after the stone families, before copper
+            Map.entry(CreativeLayout.Section.CAPPED, Items.PURPUR_SLAB),
+            Map.entry(CreativeLayout.Section.DECOR, Items.PURPUR_SLAB),
+            Map.entry(CreativeLayout.Section.EARTH, Items.MUD_BRICK_WALL),
+            Map.entry(CreativeLayout.Section.SAND, Items.CUT_RED_SANDSTONE_SLAB),
+            Map.entry(CreativeLayout.Section.ORE, Items.ANCIENT_DEBRIS),
+            Map.entry(CreativeLayout.Section.TREE, Items.WARPED_STEM),
+            Map.entry(CreativeLayout.Section.PLANT, Items.WARPED_FUNGUS),
+            Map.entry(CreativeLayout.Section.SPECIAL, Items.LODESTONE),
+            Map.entry(CreativeLayout.Section.TOOL, Items.NETHERITE_HOE),
+            Map.entry(CreativeLayout.Section.COMBAT, Items.NETHERITE_BOOTS),
+            Map.entry(CreativeLayout.Section.CONSUMABLE, Items.ENCHANTED_GOLDEN_APPLE),
+            Map.entry(CreativeLayout.Section.MATERIAL, Items.NETHERITE_INGOT));
+
+    /** The vanilla item our stack goes after in a vanilla tab, or null (then it goes at the end). */
+    private static Item anchorOf(ItemStack stack, java.util.Collection<ItemStack> shown) {
+        Item anchor = null;
+        String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+        CreativeLayout.Section section = CreativeLayout.section(stack);
+        if (stack.getItem() instanceof SiftColors.SiftDyeItem || section == CreativeLayout.Section.COLORED) {
+            // <colour>_<kind> after vanilla's pink_<kind>; slabs / stairs (no vanilla ones) after the full block
+            for (SiftColors.SiftColor c : SiftColors.SiftColor.values()) {
+                if (path.startsWith(c.id + "_")) {
+                    String kind = path.substring(c.id.length() + 1).replaceAll("_(slab|stairs)$", "");
+                    anchor = BuiltInRegistries.ITEM.getOptional(Identifier.withDefaultNamespace(LAST_VANILLA_COLOUR + kind)).orElse(null);
+                    break;
+                }
+            }
+        } else if (section == CreativeLayout.Section.SPAWN_EGG) {
+            // vanilla's spawn eggs are alphabetical: after the last one before ours
+            for (ItemStack s : shown) {
+                Identifier id = BuiltInRegistries.ITEM.getKey(s.getItem());
+                if (id.getNamespace().equals("minecraft") && id.getPath().endsWith("_spawn_egg") && id.getPath().compareTo(path) < 0) {
+                    anchor = s.getItem();
+                }
+            }
+        } else {
+            anchor = SECTION_ANCHORS.get(section);
+        }
+        if (anchor == null) {
+            return null;
+        }
+        Item a = anchor;
+        return shown.stream().anyMatch(s -> s.is(a)) ? a : null;
     }
 }

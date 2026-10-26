@@ -40,11 +40,11 @@ KINDS = {   # kind: (English, 繁中)
     "stained_glass": ("Stained Glass", "染色玻璃"), "stained_glass_pane": ("Stained Glass Pane", "染色玻璃片"),
     "candle": ("Candle", "蠟燭"), "candle_cake": ("Candle Cake", "蠟燭蛋糕"),
     "bed": ("Bed", "床"), "banner": ("Banner", "旗幟"), "wall_banner": ("Wall Banner", "牆上旗幟"),
-    "cushion": ("Cushion", "坐墊"),
+    "cushion": ("Cushion", "坐墊"), "shulker_box": ("Shulker Box", "界伏殼"),
 }
 NO_ITEM = {"candle_cake", "wall_banner"}   # candle cake: put the candle on a cake; wall banner: the banner item
 ITEM_ONLY = {"cushion"}                    # an entity placed by its item (SiftCushion), no block
-NOT_SOLID = {"carpet", "candle", "candle_cake", "bed", "banner", "wall_banner"}   # the rest -> #blocks_motion_no_leaves
+NOT_SOLID = {"carpet", "candle", "candle_cake", "bed", "banner", "wall_banner", "shulker_box"}   # the rest -> #blocks_motion_no_leaves
 VANILLA_COLOURS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
                    "purple", "blue", "brown", "green", "red", "black"]
 
@@ -131,7 +131,9 @@ def colour_model(vanilla_ref, colour):
         own = custom_texture(sprite, colour) if isinstance(sprite, str) else None
         drawn = drawn or own is not None
         textures[key] = ({**tex, "sprite": own} if isinstance(tex, dict) else own) if own else tex
-    out = {"parent": m["parent"] if drawn else tinted_template(m["parent"]), "textures": textures}
+    out = {"textures": textures}
+    if "parent" in m:                               # the shulker box model is a particle texture only
+        out = {"parent": m["parent"] if drawn else tinted_template(m["parent"]), **out}
     wj(A / f"models/block/sift_colors/{name}.json", out)
     if drawn:
         DRAWN.add(f"pysift:block/sift_colors/{name}")
@@ -158,7 +160,7 @@ def remap_models(obj, colour):
         def one(k, v):
             if k == "model" and isinstance(v, str) and "block/white_" in v:
                 return colour_model(v, colour)
-            if k == "model" and isinstance(v, str) and "item/white_" in v:
+            if k in ("model", "base") and isinstance(v, str) and "item/white_" in v:
                 return item_model(v, colour)
             return remap_models(v, colour)
         return {k: one(k, v) for k, v in obj.items()}
@@ -197,6 +199,8 @@ for colour, (rgb, en, zh) in COLOURS.items():
         # banner item: vanilla's special banner model only knows the 16 dye colours -> ours (SiftBannerSpecialRenderer)
         item = json.loads(json.dumps(item).replace('{"type": "minecraft:banner", "color": "white"}',
                                                    f'{{"type": "pysift:sift_banner", "color": "{colour}"}}'))
+        # shulker box item: vanilla's special model with our box texture (textures/entity/shulker/shulker_<colour>.png)
+        item = json.loads(json.dumps(item).replace('"minecraft:shulker_white"', f'"pysift:shulker_{colour}"'))
         drawn = any(f'"{ref}"' in json.dumps(item) for ref in DRAWN)
         wj(A / f"items/{colour}_{kind}.json", item if drawn else add_tint(item, rgb))   # a drawn texture is not tinted
         for prefix in (("item",) if kind in ITEM_ONLY else ("block", "item")):

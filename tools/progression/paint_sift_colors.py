@@ -43,9 +43,11 @@ WINDOWS = {   # narrow windows: contrast close to vanilla's own variation (user:
     "item_cushion": ("item:white_cushion", 0.48, 0.74, 1.0, 5),
     "entity_cushion": ("entity/cushion:white_cushion", 0.48, 0.74, 1.0, 5),
     "map_banner": ("map/decorations:white_banner", 0.40, 0.80, 1.0, 4),     # banner marker on maps (SiftMapBanners)
+    "shulker_box": ("white_shulker_box", 0.40, 0.76, 1.0, 5),                  # block particle
+    "entity_shulker": ("entity/shulker:shulker_white", 0.40, 0.76, 1.0, 5),   # the box itself (ShulkerBoxRendererMixin)
 }
 # kinds written somewhere else than textures/block/sift_colors/<colour>_<kind>.png
-OUT_PATH = {"entity_cushion": "entity/cushion/{colour}_cushion.png", "map_banner": "map/decorations/{colour}_banner.png"}
+OUT_PATH = {"entity_shulker": "entity/shulker/shulker_{colour}.png", "entity_cushion": "entity/cushion/{colour}_cushion.png", "map_banner": "map/decorations/{colour}_banner.png"}
 
 
 KEEP_FLAME = {"candle_lit", "item_candle"}

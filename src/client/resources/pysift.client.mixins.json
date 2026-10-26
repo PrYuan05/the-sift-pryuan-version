@@ -16,7 +16,9 @@
 		"SpecialModelRenderersAccessor",
 		"BannerRenderStateMixin",
 		"BannerRendererMixin",
-		"ShieldSpecialRendererMixin"
+		"ShieldSpecialRendererMixin",
+		"ShulkerBoxRenderStateMixin",
+		"ShulkerBoxRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

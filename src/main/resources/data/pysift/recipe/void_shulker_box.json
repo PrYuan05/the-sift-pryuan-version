@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:crafting_transmute",
+  "group": "shulker_box_dye",
+  "input": "#minecraft:shulker_boxes",
+  "material": "pysift:void_dye",
+  "result": {
+    "id": "pysift:void_shulker_box"
+  }
+}

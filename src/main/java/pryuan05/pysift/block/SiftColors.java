@@ -21,6 +21,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.ShulkerBoxBlock;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.WallBannerBlock;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
@@ -110,6 +112,8 @@ public final class SiftColors {
     public static final Map<SiftColor, Item> CUSHIONS = new LinkedHashMap<>();
     /** 旗幟方塊（站立與牆上）→ 顏色，客戶端著色用。 */
     public static final Map<Block, SiftColor> BANNER_COLORS = new LinkedHashMap<>();
+    /** 界伏殼方塊 → 顏色（方塊實體與原版共用，DyeColor 是白色；客戶端 ShulkerBoxRendererMixin 換貼圖）。 */
+    public static final Map<Block, SiftColor> SHULKER_COLORS = new LinkedHashMap<>();
     /** 篩靈界顏色的坐墊實體（原版坐墊的大小與追蹤距離）。 */
     public static EntityType<SiftCushion> CUSHION_TYPE;
     /** 物品欄的排列順序。 */
@@ -149,6 +153,11 @@ public final class SiftColors {
             BANNER_COLORS.put(wallBanner, c);
             item(c, "banner", props -> new BannerItem(banner, wallBanner,
                     props.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
+            Block shulker = blockOnly(c, "shulker_box", p -> new ShulkerBoxBlock(DyeColor.WHITE, p), Blocks.DYED_SHULKER_BOX.white());
+            BlockEntityTypes.SHULKER_BOX.addValidBlock(shulker);
+            SHULKER_COLORS.put(shulker, c);
+            item(c, "shulker_box", props -> new BlockItem(shulker,
+                    props.stacksTo(1).component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)));
             CUSHIONS.put(c, item(c, "cushion", props -> new SiftCushion.SiftCushionItem(c, props)));
             MAP_BANNERS.put(c, Registry.registerForHolder(BuiltInRegistries.MAP_DECORATION_TYPE, PySift.id(c.id + "_banner"),
                     new MapDecorationType(PySift.id(c.id + "_banner"), true, true)));

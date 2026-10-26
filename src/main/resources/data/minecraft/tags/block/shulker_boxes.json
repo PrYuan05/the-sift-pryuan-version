@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_shulker_box",
+    "pysift:mint_shulker_box",
+    "pysift:coral_shulker_box",
+    "pysift:amber_shulker_box",
+    "pysift:lavender_shulker_box",
+    "pysift:rose_shulker_box",
+    "pysift:soul_blue_shulker_box",
+    "pysift:void_shulker_box",
+    "pysift:dusk_gold_shulker_box"
+  ]
+}
