@@ -1,9 +1,9 @@
 {
-  "parent": "pysift:block/sift_colors/template/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
     "all": {
       "force_translucent": true,
-      "sprite": "minecraft:block/white_stained_glass"
+      "sprite": "pysift:block/sift_colors/void_stained_glass"
     }
   }
 }

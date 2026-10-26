@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/sift_colors/dusk_gold_terracotta",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -864405
-      }
-    ]
+    "model": "pysift:block/sift_colors/dusk_gold_terracotta"
   }
 }

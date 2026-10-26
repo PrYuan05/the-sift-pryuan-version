@@ -1,8 +1,8 @@
 {
-  "parent": "pysift:block/sift_colors/template/inner_stairs",
+  "parent": "minecraft:block/inner_stairs",
   "textures": {
-    "bottom": "minecraft:block/white_concrete",
-    "side": "minecraft:block/white_concrete",
-    "top": "minecraft:block/white_concrete"
+    "bottom": "pysift:block/sift_colors/void_concrete",
+    "side": "pysift:block/sift_colors/void_concrete",
+    "top": "pysift:block/sift_colors/void_concrete"
   }
 }

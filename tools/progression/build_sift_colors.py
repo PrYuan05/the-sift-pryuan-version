@@ -38,8 +38,10 @@ KINDS = {   # kind: (English, 繁中)
     "concrete_stairs": ("Concrete Stairs", "混凝土階梯"), "concrete_powder": ("Concrete Powder", "混凝土粉末"),
     "terracotta": ("Terracotta", "陶土"), "glazed_terracotta": ("Glazed Terracotta", "彩繪陶瓦"),
     "stained_glass": ("Stained Glass", "染色玻璃"), "stained_glass_pane": ("Stained Glass Pane", "染色玻璃片"),
+    "candle": ("Candle", "蠟燭"), "candle_cake": ("Candle Cake", "蠟燭蛋糕"),
 }
-NOT_SOLID = {"carpet"}          # everything else goes into #blocks_motion_no_leaves (CLAUDE.md)
+NO_ITEM = {"candle_cake"}       # you get it by putting the candle on a cake
+NOT_SOLID = {"carpet", "candle", "candle_cake"}          # everything else goes into #blocks_motion_no_leaves (CLAUDE.md)
 VANILLA_COLOURS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
                    "purple", "blue", "brown", "green", "red", "black"]
 
@@ -108,6 +110,9 @@ def custom_texture(ref, colour):
     m = re.fullmatch(r"minecraft:block/white_([a-z_]+)", ref)
     if m and (A / f"textures/block/sift_colors/{colour}_{m.group(1)}.png").exists():
         return f"pysift:block/sift_colors/{colour}_{m.group(1)}"
+    m = re.fullmatch(r"minecraft:item/white_([a-z_]+)", ref)          # item sprites (the candle): <colour>_item_<x>.png
+    if m and (A / f"textures/block/sift_colors/{colour}_item_{m.group(1)}.png").exists():
+        return f"pysift:block/sift_colors/{colour}_item_{m.group(1)}"
     return None
 
 
@@ -125,13 +130,35 @@ def colour_model(vanilla_ref, colour):
         textures[key] = ({**tex, "sprite": own} if isinstance(tex, dict) else own) if own else tex
     out = {"parent": m["parent"] if drawn else tinted_template(m["parent"]), "textures": textures}
     wj(A / f"models/block/sift_colors/{name}.json", out)
+    if drawn:
+        DRAWN.add(f"pysift:block/sift_colors/{name}")
     return f"pysift:block/sift_colors/{name}"
+
+
+DRAWN = set()   # pysift model ids that use the user's drawings (those must not be tinted)
+
+
+def item_model(vanilla_ref, colour):
+    """Vanilla item model (e.g. item/white_stained_glass_pane): if its sprite has a drawing, our own copy using it."""
+    m = model_json(vanilla_ref)
+    textures = {k: custom_texture(v, colour) or v for k, v in m.get("textures", {}).items() if isinstance(v, str)}
+    if textures == m.get("textures", {}):
+        return vanilla_ref
+    name = f"{colour}_" + vanilla_ref.split("/")[-1].replace("white_", "", 1)
+    wj(A / f"models/item/sift_colors/{name}.json", {"parent": m["parent"], "textures": textures})
+    DRAWN.add(f"pysift:item/sift_colors/{name}")
+    return f"pysift:item/sift_colors/{name}"
 
 
 def remap_models(obj, colour):
     if isinstance(obj, dict):
-        return {k: (colour_model(v, colour) if k == "model" and isinstance(v, str) and "block/white_" in v
-                    else remap_models(v, colour)) for k, v in obj.items()}
+        def one(k, v):
+            if k == "model" and isinstance(v, str) and "block/white_" in v:
+                return colour_model(v, colour)
+            if k == "model" and isinstance(v, str) and "item/white_" in v:
+                return item_model(v, colour)
+            return remap_models(v, colour)
+        return {k: one(k, v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [remap_models(v, colour) for v in obj]
     return obj
@@ -159,8 +186,11 @@ for colour, (rgb, en, zh) in COLOURS.items():
     for kind, (ken, kzh) in KINDS.items():
         bs = jr(CLIENT, f"assets/minecraft/blockstates/white_{kind}.json")
         wj(A / f"blockstates/{colour}_{kind}.json", remap_models(bs, colour))
+        if kind in NO_ITEM:
+            lang[f"block.pysift.{colour}_{kind}"] = (f"{en} {ken}", f"{zh}色{kzh}")
+            continue
         item = remap_models(jr(CLIENT, f"assets/minecraft/items/white_{kind}.json"), colour)
-        drawn = (A / f"textures/block/sift_colors/{colour}_{kind}.png").exists()
+        drawn = any(f'"{ref}"' in json.dumps(item) for ref in DRAWN)
         wj(A / f"items/{colour}_{kind}.json", item if drawn else add_tint(item, rgb))   # a drawn texture is not tinted
         for prefix in ("block", "item"):
             lang[f"{prefix}.pysift.{colour}_{kind}"] = (f"{en} {ken}", f"{zh}色{kzh}")

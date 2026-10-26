@@ -1,8 +1,8 @@
 {
-  "parent": "pysift:block/sift_colors/template/outer_stairs",
+  "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "minecraft:block/white_wool",
-    "side": "minecraft:block/white_wool",
-    "top": "minecraft:block/white_wool"
+    "bottom": "pysift:block/sift_colors/dusk_gold_wool",
+    "side": "pysift:block/sift_colors/dusk_gold_wool",
+    "top": "pysift:block/sift_colors/dusk_gold_wool"
   }
 }

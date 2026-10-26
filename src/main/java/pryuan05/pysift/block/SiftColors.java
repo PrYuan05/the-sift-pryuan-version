@@ -9,6 +9,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CandleBlock;
+import net.minecraft.world.level.block.CandleCakeBlock;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.ConcretePowderBlock;
 import net.minecraft.world.level.block.GlazedTerracottaBlock;
@@ -83,9 +85,20 @@ public final class SiftColors {
             block(c, "glazed_terracotta", GlazedTerracottaBlock::new, Blocks.GLAZED_TERRACOTTA.white());
             block(c, "stained_glass", SiftGlassBlock::new, Blocks.STAINED_GLASS.white());
             block(c, "stained_glass_pane", SiftGlassPaneBlock::new, Blocks.STAINED_GLASS_PANE.white());
+            Block candle = block(c, "candle", CandleBlock::new, Blocks.DYED_CANDLE.white());
+            blockOnly(c, "candle_cake", p -> new SiftCandleCakeBlock(candle, p), Blocks.DYED_CANDLE_CAKE.white());
         }
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("crafting_sift_dye"), SiftDyeRecipe.SERIALIZER);
         CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> ORDER.forEach(output::accept));
+    }
+
+    /** A block without an item of its own (candle cakes: you get one by putting the candle on a cake). */
+    private static Block blockOnly(SiftColor c, String kind, Function<BlockBehaviour.Properties, Block> factory, Block like) {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(c.id + "_" + kind));
+        Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey,
+                factory.apply(BlockBehaviour.Properties.ofFullCopy(like).setId(blockKey)));
+        TINTS.put(block, c.rgb);
+        return block;
     }
 
     private static Block block(SiftColor c, String kind, Function<BlockBehaviour.Properties, Block> factory, Block like) {
@@ -115,6 +128,13 @@ public final class SiftColors {
     public static final class SiftGlassBlock extends TransparentBlock {
         public SiftGlassBlock(Properties properties) {
             super(properties);
+        }
+    }
+
+    /** 蠟燭蛋糕：建構時會登記到 CandleCakeBlock 的「蠟燭 → 蛋糕」表，所以把新蠟燭插到蛋糕上就會變成這個。 */
+    public static final class SiftCandleCakeBlock extends CandleCakeBlock {
+        public SiftCandleCakeBlock(Block candle, Properties properties) {
+            super(candle, properties);
         }
     }
 

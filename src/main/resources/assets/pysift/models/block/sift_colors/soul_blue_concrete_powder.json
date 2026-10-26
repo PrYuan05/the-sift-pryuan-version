@@ -1,6 +1,6 @@
 {
-  "parent": "pysift:block/sift_colors/template/cube_all",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "minecraft:block/white_concrete_powder"
+    "all": "pysift:block/sift_colors/soul_blue_concrete_powder"
   }
 }

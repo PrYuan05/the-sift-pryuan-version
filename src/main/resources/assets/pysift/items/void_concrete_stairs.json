@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/sift_colors/void_concrete_stairs",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -12964280
-      }
-    ]
+    "model": "pysift:block/sift_colors/void_concrete_stairs"
   }
 }

@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/sift_colors/mint_concrete",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -7347264
-      }
-    ]
+    "model": "pysift:block/sift_colors/mint_concrete"
   }
 }

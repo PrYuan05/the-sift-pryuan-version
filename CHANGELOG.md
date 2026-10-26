@@ -45,7 +45,8 @@
 ### New: blocks, colours and dyes
 - **Nine new colours**: Teal, Mint, Coral, Amber, Lavender, Crimson Rose, Soul Blue, Void and Dusk Gold, each with a dye
   and wool (with slabs and stairs), carpet, concrete (with slabs and stairs), concrete powder, terracotta, glazed
-  terracotta, stained glass and panes (108 blocks), crafted like the vanilla ones. The new dyes also colour leather armour.
+  terracotta, stained glass and panes (108 blocks), crafted like the vanilla ones; every block takes its palette from
+  its hand-drawn dye. The new dyes also colour leather armour.
 - Sift plants craft into dyes: the new colours from matching plants, vanilla dyes from the rest.
 - **Amber and pale sandstone** families (chiseled, cut, smooth, slabs, stairs, walls); amber and pale sand now fall.
 - **Spiritlogging**: any block that can hold water can hold Spirit Liquid instead (buckets, placing blocks in it).
@@ -92,7 +93,7 @@
 - Boss 競技場、遺跡、到達門與地標都改成可以在遊戲裡修改的結構檔（`/pysift_showcase`，見 `art_requests/structures_edit_guide.md`），其中幾座已經手工改過。
 
 ### 新增：方塊、顏色與染料
-- **9 種新顏色**：青碧、薄荷、珊瑚、琥珀、薰衣草、赤紅玫瑰、靈魂藍、虛黑、暮光金。每種有染料，以及羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、混凝土粉末、陶土、彩繪陶瓦、染色玻璃與玻璃片（共 108 個方塊），做法和原版一樣；新染料也能染皮甲。
+- **9 種新顏色**：青碧、薄荷、珊瑚、琥珀、薰衣草、赤紅玫瑰、靈魂藍、虛黑、暮光金。每種有染料，以及羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、混凝土粉末、陶土、彩繪陶瓦、染色玻璃與玻璃片（共 108 個方塊），做法和原版一樣；每個方塊的色盤都取自手繪的染料。新染料也能染皮甲。
 - 隙浮的植物可以合成染料：顏色相符的做新顏色，其他做原版染料。
 - **琥珀砂岩、蒼白砂岩**整套（雕紋、切製、平滑、半磚、階梯、牆）；琥珀沙與蒼白沙會像原版沙一樣掉落。
 - **含靈液**：所有能含水的方塊都能改成含靈液（桶子倒入、舀起、在靈液裡放方塊都可以）。

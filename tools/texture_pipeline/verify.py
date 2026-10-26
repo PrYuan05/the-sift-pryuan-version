@@ -51,7 +51,7 @@ for _prog in sorted((_blk / "progression").glob("*.java")):
 _colors = _blk / "block/SiftColors.java"
 if _colors.exists():
     _src = _colors.read_text(encoding="utf-8")
-    veg_ids += [f"{c}_{k}" for c in re.findall(r'[A-Z_]+\("([a-z_]+)", 0x', _src) for k in re.findall(r'block\(c, "([a-z_]+)"', _src)]
+    veg_ids += [f"{c}_{k}" for c in re.findall(r'[A-Z_]+\("([a-z_]+)", 0x', _src) for k in re.findall(r'block(?:Only)?\(c, "([a-z_]+)"', _src)]
 out["vegetation_and_fluid_blocks"] = len(veg_ids)
 all_ids = ids + set_ids + veg_ids
 enum_vals = {}

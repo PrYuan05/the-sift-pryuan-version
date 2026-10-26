@@ -1,12 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "minecraft:item/white_stained_glass_pane",
-    "tints": [
-      {
-        "type": "minecraft:constant",
-        "value": -2534546
-      }
-    ]
+    "model": "pysift:item/sift_colors/rose_stained_glass_pane"
   }
 }

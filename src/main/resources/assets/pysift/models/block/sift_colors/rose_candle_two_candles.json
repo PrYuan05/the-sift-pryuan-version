@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_two_candles",
+  "textures": {
+    "all": "pysift:block/sift_colors/rose_candle",
+    "particle": "pysift:block/sift_colors/rose_candle"
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "parent": "pysift:block/sift_colors/template/carpet",
+  "parent": "minecraft:block/carpet",
   "textures": {
-    "wool": "minecraft:block/white_wool"
+    "wool": "pysift:block/sift_colors/coral_wool"
   }
 }
