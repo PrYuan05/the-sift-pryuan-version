@@ -10,13 +10,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PostSpawnProcessor;
 import net.minecraft.world.entity.decoration.Cushion;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,7 +22,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -34,7 +30,8 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * 篩靈界顏色的坐墊。原版坐墊（{@link Cushion}）的顏色是 DyeColor，只有 16 色，所以這裡用同一個實體的子類別多記一個
- * 篩靈界顏色：坐上去、被打掉、被火燒等行為都沿用原版，只有掉落物、選取方塊（中鍵）和貼圖（SiftCushionRenderer）換成自己的。
+ * 篩靈界顏色：坐上去、被打掉、被火燒等行為都沿用原版。原版程式裡「顏色 → 物品」的地方（掉落物、中鍵選取、
+ * 破壞粒子）由 CushionMixin 換成 {@link #item()}；貼圖由客戶端的 SiftCushionRenderer 換。
  */
 public class SiftCushion extends Cushion {
     private static final EntityDataAccessor<Integer> DATA_SIFT_COLOR = SynchedEntityData.defineId(SiftCushion.class, EntityDataSerializers.INT);
@@ -51,6 +48,11 @@ public class SiftCushion extends Cushion {
 
     public void setSiftColor(SiftColors.SiftColor color) {
         this.entityData.set(DATA_SIFT_COLOR, color.ordinal());
+    }
+
+    /** This cushion's item. */
+    public Item item() {
+        return SiftColors.CUSHIONS.get(getSiftColor());
     }
 
     @Override
@@ -73,35 +75,6 @@ public class SiftCushion extends Cushion {
             if (c.id.equals(id)) {
                 setSiftColor(c);
             }
-        }
-    }
-
-    private ItemStack itemStack() {
-        ItemStack stack = new ItemStack(SiftColors.CUSHIONS.get(getSiftColor()));
-        if (this.hasCustomName()) {
-            stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, this.getCustomName());
-        }
-        return stack;
-    }
-
-    @Override
-    public ItemStack getPickResult() {
-        return new ItemStack(SiftColors.CUSHIONS.get(getSiftColor()));
-    }
-
-    /** Same as vanilla's dropItem, but drops our cushion item. */
-    @Override
-    public void dropItem(ServerLevel level, Entity causedBy) {
-        this.playSound(SoundEvents.CUSHION_BREAK, 1.0F, 1.0F);
-        if (!level.getGameRules().get(GameRules.ENTITY_DROPS)) {
-            return;
-        }
-        if (causedBy instanceof Player player && player.hasInfiniteMaterials()) {
-            return;
-        }
-        ItemEntity drop = this.spawnAtLocation(level, itemStack());
-        if (drop != null && causedBy instanceof LightningBolt) {
-            drop.setInvulnerableTime(20);
         }
     }
 

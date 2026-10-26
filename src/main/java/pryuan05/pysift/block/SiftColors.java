@@ -6,6 +6,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.saveddata.maps.MapDecorationType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -73,7 +77,31 @@ public final class SiftColors {
             this.id = id;
             this.rgb = rgb;
         }
+
+        public static java.util.Optional<SiftColor> byId(String id) {
+            return java.util.Arrays.stream(values()).filter(c -> c.id.equals(id)).findFirst();
+        }
+
+        public static final com.mojang.serialization.Codec<SiftColor> CODEC = com.mojang.serialization.Codec.STRING.comapFlatMap(
+                id -> byId(id).map(com.mojang.serialization.DataResult::success)
+                        .orElseGet(() -> com.mojang.serialization.DataResult.error(() -> "Unknown Sift colour: " + id)),
+                c -> c.id);
+        public static final net.minecraft.network.codec.StreamCodec<io.netty.buffer.ByteBuf, SiftColor> STREAM_CODEC =
+                net.minecraft.network.codec.ByteBufCodecs.VAR_INT.map(i -> values()[Math.floorMod(i, values().length)], SiftColor::ordinal);
     }
+
+    /**
+     * 篩靈色系統：原版到處用 DyeColor（16 色）記「底色」，這個模組的顏色另外記在這裡，和原版並存。
+     * - 旗幟方塊：方塊本身就是顏色（{@link #BANNER_COLORS}），方塊實體與原版共用，DyeColor 是白色。
+     * - 盾牌：套上篩靈色旗幟時另外記 {@code pysift:base_color}（原版的 base_color 仍是白色，沒有本模組時也能正常讀取）。
+     * - 地圖：篩靈色旗幟的標記用自己的標記種類（{@link #MAP_BANNERS}，SiftMapBannerMixin）。
+     * 繪製時 SiftBannerTint（客戶端）把旗幟／盾牌的底層換成這個顏色。
+     */
+    public static final DataComponentType<SiftColor> BASE_COLOR = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
+            PySift.id("base_color"), DataComponentType.<SiftColor>builder().persistent(SiftColor.CODEC)
+                    .networkSynchronized(SiftColor.STREAM_CODEC).build());
+    /** 每個顏色的地圖旗幟標記（貼圖 textures/map/decorations/<顏色>_banner.png）。 */
+    public static final Map<SiftColor, Holder<MapDecorationType>> MAP_BANNERS = new LinkedHashMap<>();
 
     /** 每個顏色的染料。 */
     public static final Map<SiftColor, SiftDyeItem> DYES = new LinkedHashMap<>();
@@ -123,6 +151,8 @@ public final class SiftColors {
             item(c, "banner", props -> new BannerItem(banner, wallBanner,
                     props.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
             CUSHIONS.put(c, item(c, "cushion", props -> new SiftCushion.SiftCushionItem(c, props)));
+            MAP_BANNERS.put(c, Registry.registerForHolder(BuiltInRegistries.MAP_DECORATION_TYPE, PySift.id(c.id + "_banner"),
+                    new MapDecorationType(PySift.id(c.id + "_banner"), true, true)));
         }
         ResourceKey<EntityType<?>> cushionKey = ResourceKey.create(Registries.ENTITY_TYPE, PySift.id("sift_cushion"));
         CUSHION_TYPE = Registry.register(BuiltInRegistries.ENTITY_TYPE, cushionKey,
@@ -216,6 +246,16 @@ public final class SiftColors {
         protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
             return bannerStack(this, level, pos);
         }
+    }
+
+    /** The Sift colour of a banner item, or null for vanilla banners. */
+    public static SiftColor bannerColor(ItemStack stack) {
+        return stack.getItem() instanceof BannerItem banner ? BANNER_COLORS.get(banner.getBlock()) : null;
+    }
+
+    /** The Sift colour of the banner block at pos, or null. */
+    public static SiftColor bannerColor(BlockGetter level, BlockPos pos) {
+        return BANNER_COLORS.get(level.getBlockState(pos).getBlock());
     }
 
     /** Vanilla's BannerBlockEntity.getItem() would give the vanilla white banner: our item with the block entity's patterns. */

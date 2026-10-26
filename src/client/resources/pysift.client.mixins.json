@@ -15,7 +15,8 @@
 		"SodiumFluidRendererMixin",
 		"SpecialModelRenderersAccessor",
 		"BannerRenderStateMixin",
-		"BannerRendererMixin"
+		"BannerRendererMixin",
+		"ShieldSpecialRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

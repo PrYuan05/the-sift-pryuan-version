@@ -29,8 +29,10 @@ python -I tools/progression/build_sift_colors.py .
 - **床**：`textures/block/sift_colors/<顏色>_bed_{foot,head}_<面>.png`，**坐墊**：`<顏色>_item_cushion.png`（物品）與
   `textures/entity/cushion/<顏色>_cushion.png`（實體），都由 `paint_sift_colors.py` 依染料色盤上色，只改布料（原版白床與紅床不同的像素），
   木框和枕頭保留原版。想重畫只要直接覆蓋那些 PNG（要重新產生用 `--only bed_,item_cushion,entity_cushion`，不會動到其他已上色的方塊）。
+- **床的布料遮罩**：比對原版紅床和藍床，相同的像素（木框、枕頭）照抄原版有色床，不同的才上色。
 - **旗幟**：不需要貼圖，用原版白色旗幟底圖、在客戶端換成染料的代表色（`SiftColors.SiftColor` 的 RGB）。
-  已知限制：旗幟套到盾牌上、或地圖上的旗幟標記，底色會是白色（原版只認 16 色）。
+  篩靈色系統和原版並存：盾牌另記 `pysift:base_color`、地圖標記用自己的種類（`textures/map/decorations/<顏色>_banner.png`，
+  由 `paint_sift_colors.py --only map_banner` 上色）。讀檔後地圖標記會先是白色，拿著地圖回到旗幟附近就會變回來。
 
 | 顏色 | ID | 來源植物 |
 | :-- | :-- | :-- |

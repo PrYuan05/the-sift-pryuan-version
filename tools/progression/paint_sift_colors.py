@@ -36,15 +36,16 @@ WINDOWS = {   # narrow windows: contrast close to vanilla's own variation (user:
     "candle": ("white_candle", 0.40, 0.80, 1.0, 4),
     "candle_lit": ("white_candle_lit", 0.40, 0.80, 1.0, 4),          # the flame keeps vanilla's own colours (see below)
     "item_candle": ("item:white_candle", 0.40, 0.80, 1.0, 4),
-    # beds and cushions: only the cloth is dyed (the pixels that differ between vanilla's white and red versions);
+    # beds and cushions: only the cloth is dyed (the pixels that differ between vanilla's red and blue versions);
     # the wooden frame and the white pillow keep vanilla's colours
     **{f"bed_{part}": (f"white_bed_{part}", 0.48, 0.74, 1.0, 5)
        for part in ("foot_east", "foot_south", "foot_up", "foot_west", "head_east", "head_up", "head_west")},
     "item_cushion": ("item:white_cushion", 0.48, 0.74, 1.0, 5),
     "entity_cushion": ("entity/cushion:white_cushion", 0.48, 0.74, 1.0, 5),
+    "map_banner": ("map/decorations:white_banner", 0.40, 0.80, 1.0, 4),     # banner marker on maps (SiftMapBanners)
 }
 # kinds written somewhere else than textures/block/sift_colors/<colour>_<kind>.png
-OUT_PATH = {"entity_cushion": "entity/cushion/{colour}_cushion.png"}
+OUT_PATH = {"entity_cushion": "entity/cushion/{colour}_cushion.png", "map_banner": "map/decorations/{colour}_banner.png"}
 
 
 KEEP_FLAME = {"candle_lit", "item_candle"}
@@ -120,11 +121,16 @@ def paint(colour, kind):
     src = Image.open(io.BytesIO(JAR.read(f"assets/minecraft/textures/{folder}/{name}.png"))).convert("RGBA")
     ramp = ramp_of(colour)
     dyed = None
-    if kind.startswith(("bed_", "item_cushion", "entity_cushion")):    # cloth mask: white vs red vanilla texture
+    if kind.startswith(("bed_", "item_cushion", "entity_cushion", "map_banner")):    # cloth mask: white vs red vanilla texture
+        # value: the vanilla pixel to keep (frame, pillow), None = cloth to paint
+        # cloth = pixels that differ between two DYED vanilla versions (red vs blue); white is no good as a reference,
+        # its pillow / sheet shading differs from every coloured bed and would be repainted too
         red = Image.open(io.BytesIO(JAR.read(f"assets/minecraft/textures/{folder}/{name.replace('white', 'red', 1)}.png"))).convert("RGBA")
-        dyed = red.load()
+        blue = Image.open(io.BytesIO(JAR.read(f"assets/minecraft/textures/{folder}/{name.replace('white', 'blue', 1)}.png"))).convert("RGBA")
+        rp, bp = red.load(), blue.load()
+        dyed = {(xx, yy): rp[xx, yy] if rp[xx, yy] == bp[xx, yy] else None for yy in range(red.height) for xx in range(red.width)}
     cloth = [p for i, p in enumerate(src.get_flattened_data())
-             if p[3] > 0 and (dyed is None or dyed[i % src.width, i // src.width] != p)]
+             if p[3] > 0 and (dyed is None or dyed[i % src.width, i // src.width] is None)]
     levels = sorted({round(lum(p[:3])) for p in cloth})
     rank = {v: (i / (len(levels) - 1) if len(levels) > 1 else 0.5) for i, v in enumerate(levels)}
     out = Image.new("RGBA", src.size)
@@ -134,8 +140,8 @@ def paint(colour, kind):
             r, g, b, a = ps[xx, yy]
             if a == 0:
                 continue
-            if dyed is not None and dyed[xx, yy] == (r, g, b, a):
-                po[xx, yy] = (r, g, b, a)               # frame / pillow: not part of the cloth
+            if dyed is not None and dyed[xx, yy]:
+                po[xx, yy] = dyed[xx, yy]               # frame / pillow: as on vanilla's coloured beds
                 continue
             if kind in KEEP_FLAME and colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)[1] > 0.35:
                 po[xx, yy] = (r, g, b, a)               # the candle flame keeps vanilla's colours; only the wax is dyed

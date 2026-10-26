@@ -1,8 +1,6 @@
 package pryuan05.pysift.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -19,14 +17,14 @@ import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.client.mixin.SpecialModelRenderersAccessor;
 
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
  * 篩靈界顏色的旗幟底色。原版旗幟只認 DyeColor（16 色），所以方塊上是白色旗幟，畫的時候把「底色那一層」換成篩靈界的顏色：
  * BannerRendererMixin 在畫旗幟時呼叫 {@link #begin}，畫底層（BANNER_PATTERN_BASE）時用 {@link #baseColor} 取代白色；
- * 圖案層照舊用原版染料顏色。物品欄裡的旗幟用自己的特殊模型 pysift:sift_banner（{@link Unbaked}）。
+ * 圖案層照舊用原版染料顏色。物品欄裡的旗幟用自己的特殊模型 pysift:sift_banner（{@link Unbaked}），
+ * 盾牌由 ShieldSpecialRendererMixin 讀 pysift:base_color（見 SiftColors.BASE_COLOR）。
  */
 public final class SiftBannerTint {
     /** 0xRRGGBB of the banner being drawn, -1 = a vanilla banner. Rendering happens on the render thread only. */
@@ -64,16 +62,11 @@ public final class SiftBannerTint {
         void pysift$setSiftTint(int rgb);
     }
 
-    private static final Codec<SiftColors.SiftColor> COLOR = Codec.STRING.comapFlatMap(
-            id -> Arrays.stream(SiftColors.SiftColor.values()).filter(c -> c.id.equals(id)).findFirst()
-                    .map(DataResult::success).orElseGet(() -> DataResult.error(() -> "Unknown Sift colour: " + id)),
-            c -> c.id);
-
     /** Item model {"type": "pysift:sift_banner", "color": "teal"} - vanilla's minecraft:banner with a Sift colour. */
     public record Unbaked(SiftColors.SiftColor color, BannerBlock.AttachmentType attachment)
             implements SpecialModelRenderer.Unbaked<BannerPatternLayers> {
         public static final MapCodec<Unbaked> MAP_CODEC = RecordCodecBuilder.mapCodec(i -> i.group(
-                COLOR.fieldOf("color").forGetter(Unbaked::color),
+                SiftColors.SiftColor.CODEC.fieldOf("color").forGetter(Unbaked::color),
                 BannerBlock.AttachmentType.CODEC.optionalFieldOf("attachment", BannerBlock.AttachmentType.GROUND).forGetter(Unbaked::attachment)
         ).apply(i, Unbaked::new));
 

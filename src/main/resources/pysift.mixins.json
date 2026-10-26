@@ -14,7 +14,11 @@
 		"BlockMixin",
 		"BlockStateBaseMixin",
 		"BucketItemMixin",
-		"BlockItemMixin"
+		"BlockItemMixin",
+		"CushionMixin",
+		"ShieldDecorationRecipeMixin",
+		"MapItemSavedDataAccessor",
+		"SiftMapBannerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
