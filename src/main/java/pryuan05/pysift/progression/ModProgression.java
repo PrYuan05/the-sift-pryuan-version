@@ -1,6 +1,5 @@
 package pryuan05.pysift.progression;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -77,7 +76,7 @@ public final class ModProgression {
         SiftFarming.load();
         SiftFlora.load();
         // 進度相關的物品排在「物品」分頁；方塊（礦石、祭壇、作物、草叢）由 ModItems 放進方塊分頁
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.ITEMS_TAB_KEY).register(output ->
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.ITEMS_TAB_KEY, output ->
                 CREATIVE_ORDER.stream().filter(item -> !(item instanceof BlockItem)).forEach(output::accept));
         PySift.LOGGER.info("Registered {} progression blocks / items", CREATIVE_ORDER.size());
     }

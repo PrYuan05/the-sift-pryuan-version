@@ -1,6 +1,5 @@
 package pryuan05.pysift.block;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -72,7 +71,7 @@ public final class SandstoneFamily {
     }
 
     public static void register() {
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> ITEMS.forEach(output::accept));
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> ITEMS.forEach(output::accept));
         PySift.LOGGER.info("Registered sandstone families ({} blocks)", ITEMS.size());
     }
 }

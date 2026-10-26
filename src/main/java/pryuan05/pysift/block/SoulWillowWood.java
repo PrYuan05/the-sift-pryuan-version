@@ -1,6 +1,5 @@
 package pryuan05.pysift.block;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.BlockSetTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
@@ -175,7 +174,7 @@ public final class SoulWillowWood {
         }
         flammable.add(SOUL_WILLOW_SHELF, 30, 20);
 
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> ITEMS.forEach(output::accept));
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> ITEMS.forEach(output::accept));
         PySift.LOGGER.info("Registered soul willow wood set ({} items)", ITEMS.size());
     }
 }

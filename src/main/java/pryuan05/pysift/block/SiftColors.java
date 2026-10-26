@@ -1,6 +1,5 @@
 package pryuan05.pysift.block;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -163,7 +162,7 @@ public final class SiftColors {
                         .updateInterval(EntityTypes.CUSHION.updateInterval())
                         .build(cushionKey));
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("crafting_sift_dye"), SiftDyeRecipe.SERIALIZER);
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> ORDER.forEach(output::accept));
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> ORDER.forEach(output::accept));
     }
 
     /** A block without an item of its own (candle cakes: you get one by putting the candle on a cake). */

@@ -2,9 +2,7 @@
   "itemGroup.pysift": "隙浮",
   "itemGroup.pysift.the_sift": "隙浮",
   "itemGroup.pysift.sift_tab": "隙浮",
-  "itemGroup.pysift.pysift_blocks": "隙浮方塊",
-  "itemGroup.pysift.pysift_unused_blocks": "隙浮方塊（未用於世界生成）",
-  "itemGroup.pysift.pysift_items": "隙浮物品與生怪蛋",
+  "itemGroup.pysift.pysift_unused_blocks": "隙浮：未用於世界生成的方塊",
   "entity.pysift.blub": "布魯布",
   "entity.pysift.blub.variant.soul_engorged": "充盈靈魂布魯布",
   "entity.pysift.blub.variant.carapace": "甲殼布魯布",
@@ -1562,5 +1560,14 @@
   "block.pysift.dusk_gold_banner": "暮光金色旗幟",
   "item.pysift.dusk_gold_banner": "暮光金色旗幟",
   "block.pysift.dusk_gold_wall_banner": "暮光金色牆上旗幟",
-  "item.pysift.dusk_gold_cushion": "暮光金色坐墊"
+  "item.pysift.dusk_gold_cushion": "暮光金色坐墊",
+  "itemGroup.pysift.pysift_building": "隙浮：建築方塊",
+  "itemGroup.pysift.pysift_natural": "隙浮：自然方塊",
+  "itemGroup.pysift.pysift_colored": "隙浮：彩色方塊",
+  "itemGroup.pysift.pysift_functional": "隙浮：功能方塊",
+  "itemGroup.pysift.pysift_tools": "隙浮：工具與實用物品",
+  "itemGroup.pysift.pysift_combat": "隙浮：戰鬥",
+  "itemGroup.pysift.pysift_food": "隙浮：食物與飲品",
+  "itemGroup.pysift.pysift_ingredients": "隙浮：材料",
+  "itemGroup.pysift.pysift_spawn_eggs": "隙浮：生怪蛋"
 }

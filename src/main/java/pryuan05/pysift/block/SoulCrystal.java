@@ -1,6 +1,5 @@
 package pryuan05.pysift.block;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerLevel;
@@ -58,7 +57,7 @@ public final class SoulCrystal {
     }
 
     public static void register() {
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> output.accept(SOUL_CRYSTAL_BLOCK_ITEM));
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> output.accept(SOUL_CRYSTAL_BLOCK_ITEM));
         PySift.LOGGER.info("Registered soul crystal block");
     }
 }

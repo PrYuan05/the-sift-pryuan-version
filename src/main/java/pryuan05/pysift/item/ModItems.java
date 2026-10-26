@@ -70,7 +70,7 @@ public class ModItems {
             WOBBLE_SPAWN_EGG, HARMONIZER_SPAWN_EGG, MONARCH_SPAWN_EGG, SCULK_MONSTROSITY_SPAWN_EGG
     };
 
-    // Creative Tabs
+    // Creative tab sources (the visible tabs are SiftCreativeTabs; these keys only name where items come from)
     public static final ResourceKey<CreativeModeTab> BLOCKS_TAB_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
             PySift.id("pysift_blocks")
@@ -82,29 +82,17 @@ public class ModItems {
      */
     public static final TagKey<Block> NOT_IN_WORLDGEN = TagKey.create(Registries.BLOCK, PySift.id("not_in_worldgen"));
 
-    public static final CreativeModeTab BLOCKS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(ModBlocks.ALL_BLOCKS.isEmpty() ? net.minecraft.world.item.Items.STONE : ModBlocks.ALL_BLOCKS.get(0)))
-            .title(Component.translatable("itemGroup.pysift.pysift_blocks"))
-            .displayItems((params, output) -> acceptBlocks(output, false))
-            .build();
-
     public static final ResourceKey<CreativeModeTab> UNUSED_BLOCKS_TAB_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
             PySift.id("pysift_unused_blocks")
     );
-
-    public static final CreativeModeTab UNUSED_BLOCKS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(net.minecraft.world.item.Items.STRUCTURE_VOID))
-            .title(Component.translatable("itemGroup.pysift.pysift_unused_blocks"))
-            .displayItems((params, output) -> acceptBlocks(output, true))
-            .build();
 
     /**
      * 依 ModBlocks 的順序列出方塊（各狀態、建材組緊跟在石頭後面），再加上進度系統的方塊（礦石、祭壇、作物）；
      * unused 決定列出生成用到的還是沒用到的。植被、靈柳木、砂岩、靈魂晶塊由各自的類別加進來；
      * 最後的分類排序在用戶端（CreativeLayout）。
      */
-    private static void acceptBlocks(CreativeModeTab.Output output, boolean unused) {
+    static void acceptBlocks(CreativeModeTab.Output output, boolean unused) {
         for (Block block : ModBlocks.ALL_BLOCKS) {
             if (ModBlocks.SET_BASE.containsKey(block)) {
                 continue;   // building-set members are listed right after their stone
@@ -130,22 +118,16 @@ public class ModItems {
             PySift.id("pysift_items")
     );
 
-    public static final CreativeModeTab ITEMS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(SIFTITE_INGOT))
-            .title(Component.translatable("itemGroup.pysift.pysift_items"))
-            .displayItems((params, output) -> {
-                // Materials
-                output.accept(CHAROITE);
-                output.accept(SIFTITE_INGOT);
-                output.accept(SOUL_ANTIDOTE);
-                // 君王羽刃（投石、陷阱師的網只當投擲物外觀，不放進分頁）
-                output.accept(MONARCH_FEATHER);
-                // Spawn Eggs
-                for (Item egg : SPAWN_EGGS) {
-                    output.accept(egg);
-                }
-            })
-            .build();
+    /** 核心材料、君王羽刃（投石、陷阱師的網只當投擲物外觀，不放進分頁）與生怪蛋。 */
+    static void acceptItems(CreativeModeTab.Output output) {
+        output.accept(CHAROITE);
+        output.accept(SIFTITE_INGOT);
+        output.accept(SOUL_ANTIDOTE);
+        output.accept(MONARCH_FEATHER);
+        for (Item egg : SPAWN_EGGS) {
+            output.accept(egg);
+        }
+    }
 
     public static Item registerItem(String name, Function<Item.Properties, Item> itemFactory) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, PySift.id(name));
@@ -161,8 +143,6 @@ public class ModItems {
 
     public static void registerModItems() {
         PySift.LOGGER.info("Registering Items and Creative Tabs for {}", PySift.MOD_ID);
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, BLOCKS_TAB_KEY, BLOCKS_TAB);
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, UNUSED_BLOCKS_TAB_KEY, UNUSED_BLOCKS_TAB);
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEMS_TAB_KEY, ITEMS_TAB);
+        SiftCreativeTabs.register();
     }
 }

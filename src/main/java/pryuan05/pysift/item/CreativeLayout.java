@@ -13,7 +13,10 @@ import net.minecraft.world.level.block.VegetationBlock;
 import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.block.ModVegetation;
+import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.block.SiftPortalBlock;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.SmithingTemplateItem;
 import pryuan05.pysift.block.SoulWillowWood;
 
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 創造模式分頁的分類與排序（三個 pysift 分頁共用；用戶端的 CreativeModeInventoryScreenMixin 在顯示前套用）。
+ * 創造模式分頁的分類與排序（pysift 的分頁共用，SiftCreativeTabs 也用 {@link #section} 決定東西放哪一頁；用戶端的 CreativeModeInventoryScreenMixin 在顯示前套用）。
  * <ol>
  *   <li>每個物品先歸到一個「族」（{@link #group}）：方塊與它的 block_state 變體、建材組（石磚／半磚／階梯／牆）、
  *       靈柳木整組、同一種沙的砂岩家族各算一族，族內順序不變。</li>
@@ -39,10 +42,12 @@ public final class CreativeLayout {
 
     /** 類別，宣告順序就是分頁裡的順序。 */
     public enum Section {
-        STONE, CAPPED, EARTH, SAND, ORE, PLANT, TREE, WOOD, DECOR, SPECIAL,   // 方塊
-        MATERIAL, GEAR, CONSUMABLE, SPAWN_EGG                                 // 物品
+        STONE, CAPPED, EARTH, SAND, ORE, PLANT, TREE, WOOD, DECOR, COLORED, SPECIAL,   // 方塊（SPECIAL = 功能方塊）
+        MATERIAL, TOOL, COMBAT, CONSUMABLE, SPAWN_EGG                                 // 物品
     }
 
+    /** 戰鬥用的物品（其餘有 TOOL 元件或有特殊功能的物品算工具）。 */
+    private static final String[] COMBAT_WORDS = {"_sword", "_helmet", "_chestplate", "_leggings", "_boots", "staff", "charm", "hammer"};
     private static final String[] PLANT_WORDS = {"grass", "fern", "flower", "vine", "leaf_litter", "agave", "canopy",
             "stalk", "tuft", "bloom", "plant", "gloomcap"};
     private static final String[] EARTH_WORDS = {"dirt", "moss", "forest_floor", "grass_block", "foliage", "earth", "wilting"};
@@ -98,13 +103,27 @@ public final class CreativeLayout {
         }
         Block block = Block.byItem(item);
         if (block == Blocks.AIR) {
-            if (stack.has(DataComponents.TOOL) || stack.has(DataComponents.WEAPON) || stack.has(DataComponents.EQUIPPABLE)) {
-                return Section.GEAR;
+            String id = path(item);
+            if (SiftColors.CUSHIONS.containsValue(item)) {
+                return Section.SPECIAL;                       // cushions sit with the beds and banners' functional blocks
             }
-            if (stack.has(DataComponents.FOOD) || stack.has(DataComponents.CONSUMABLE)) {
+            if (containsAny(id, COMBAT_WORDS) || stack.has(DataComponents.EQUIPPABLE)) {
+                return Section.COMBAT;
+            }
+            if (stack.has(DataComponents.FOOD) || stack.has(DataComponents.CONSUMABLE) || id.contains("antidote")) {
                 return Section.CONSUMABLE;
             }
-            return Section.MATERIAL;
+            if (stack.has(DataComponents.TOOL) || item instanceof BucketItem) {
+                return Section.TOOL;
+            }
+            // plain materials (ingots, shards, dyes, templates) vs items with their own behaviour (compass, homeward stone)
+            if (item.getClass() == Item.class || item instanceof SiftColors.SiftDyeItem || item instanceof SmithingTemplateItem) {
+                return Section.MATERIAL;
+            }
+            return Section.TOOL;
+        }
+        if (SiftColors.TINTS.containsKey(block)) {
+            return Section.COLORED;                           // the 9 Sift colours: wool ... candles, beds, banners
         }
         Block base = ModBlocks.SET_BASE.getOrDefault(block, block);       // 建材組跟著石頭分類
         String id = path(base.asItem());

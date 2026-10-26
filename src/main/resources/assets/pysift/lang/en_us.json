@@ -2,9 +2,7 @@
   "itemGroup.pysift": "The Sift",
   "itemGroup.pysift.the_sift": "The Sift",
   "itemGroup.pysift.sift_tab": "The Sift",
-  "itemGroup.pysift.pysift_blocks": "Sift Blocks",
-  "itemGroup.pysift.pysift_unused_blocks": "Sift Blocks (not in worldgen)",
-  "itemGroup.pysift.pysift_items": "Sift Items & Spawn Eggs",
+  "itemGroup.pysift.pysift_unused_blocks": "The Sift: Unused Blocks",
   "entity.pysift.blub": "Blub",
   "entity.pysift.blub.variant.soul_engorged": "Soul Engorged Blub",
   "entity.pysift.blub.variant.carapace": "Carapace Blub",
@@ -1562,5 +1560,14 @@
   "block.pysift.dusk_gold_banner": "Dusk Gold Banner",
   "item.pysift.dusk_gold_banner": "Dusk Gold Banner",
   "block.pysift.dusk_gold_wall_banner": "Dusk Gold Wall Banner",
-  "item.pysift.dusk_gold_cushion": "Dusk Gold Cushion"
+  "item.pysift.dusk_gold_cushion": "Dusk Gold Cushion",
+  "itemGroup.pysift.pysift_building": "The Sift: Building Blocks",
+  "itemGroup.pysift.pysift_natural": "The Sift: Natural Blocks",
+  "itemGroup.pysift.pysift_colored": "The Sift: Colored Blocks",
+  "itemGroup.pysift.pysift_functional": "The Sift: Functional Blocks",
+  "itemGroup.pysift.pysift_tools": "The Sift: Tools & Utilities",
+  "itemGroup.pysift.pysift_combat": "The Sift: Combat",
+  "itemGroup.pysift.pysift_food": "The Sift: Food & Drinks",
+  "itemGroup.pysift.pysift_ingredients": "The Sift: Ingredients",
+  "itemGroup.pysift.pysift_spawn_eggs": "The Sift: Spawn Eggs"
 }

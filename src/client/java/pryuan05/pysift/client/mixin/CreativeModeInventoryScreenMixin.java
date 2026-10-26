@@ -10,12 +10,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pryuan05.pysift.client.CreativeTabRows;
 import pryuan05.pysift.item.CreativeLayout;
-import pryuan05.pysift.item.ModItems;
+import pryuan05.pysift.item.SiftCreativeTabs;
 
 import java.util.List;
 
 /**
- * pysift 的三個分頁：依類別排序（生態域用到的排前面），每個類別從新的一列開始、大族獨佔整列、小族接在一起
+ * pysift 的分頁（SiftCreativeTabs）：依類別排序（生態域用到的排前面），每個類別從新的一列開始、大族獨佔整列、小族接在一起
  * （CreativeLayout + CreativeTabRows.layout）。在分頁內容填入 menu.items 之後重排，再重新捲動一次讓格子更新。
  */
 @Mixin(CreativeModeInventoryScreen.class)
@@ -28,7 +28,7 @@ public abstract class CreativeModeInventoryScreenMixin {
 
     @Inject(method = {"selectTab", "refreshCurrentTabContents"}, at = @At("TAIL"))
     private void pysift$arrangeRows(CallbackInfo ci) {
-        if (selectedTab != ModItems.BLOCKS_TAB && selectedTab != ModItems.UNUSED_BLOCKS_TAB && selectedTab != ModItems.ITEMS_TAB) {
+        if (!SiftCreativeTabs.isOurs(selectedTab)) {
             return;
         }
         CreativeModeInventoryScreen.ItemPickerMenu menu = ((CreativeModeInventoryScreen) (Object) this).getMenu();

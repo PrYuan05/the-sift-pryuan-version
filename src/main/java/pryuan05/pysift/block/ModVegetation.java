@@ -1,6 +1,5 @@
 package pryuan05.pysift.block;
 
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -182,11 +181,11 @@ public final class ModVegetation {
 
     public static void registerModVegetation() {
         // 世界生成用到的植被放主方塊分頁，沒用到的（ModItems.NOT_IN_WORLDGEN）放「未使用方塊」分頁
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> {
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> {
             ALL.stream().filter(b -> !b.defaultBlockState().is(ModItems.NOT_IN_WORLDGEN)).forEach(output::accept);
             output.accept(ModFluids.SPIRIT_LIQUID_BUCKET);
         });
-        CreativeModeTabEvents.modifyOutputEvent(ModItems.UNUSED_BLOCKS_TAB_KEY).register(output ->
+        pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.UNUSED_BLOCKS_TAB_KEY, output ->
                 ALL.stream().filter(b -> b.defaultBlockState().is(ModItems.NOT_IN_WORLDGEN)).forEach(output::accept));
         PySift.LOGGER.info("Registered {} Sift vegetation blocks", ALL.size());
     }
