@@ -39,9 +39,12 @@ KINDS = {   # kind: (English, 繁中)
     "terracotta": ("Terracotta", "陶土"), "glazed_terracotta": ("Glazed Terracotta", "彩繪陶瓦"),
     "stained_glass": ("Stained Glass", "染色玻璃"), "stained_glass_pane": ("Stained Glass Pane", "染色玻璃片"),
     "candle": ("Candle", "蠟燭"), "candle_cake": ("Candle Cake", "蠟燭蛋糕"),
+    "bed": ("Bed", "床"), "banner": ("Banner", "旗幟"), "wall_banner": ("Wall Banner", "牆上旗幟"),
+    "cushion": ("Cushion", "坐墊"),
 }
-NO_ITEM = {"candle_cake"}       # you get it by putting the candle on a cake
-NOT_SOLID = {"carpet", "candle", "candle_cake"}          # everything else goes into #blocks_motion_no_leaves (CLAUDE.md)
+NO_ITEM = {"candle_cake", "wall_banner"}   # candle cake: put the candle on a cake; wall banner: the banner item
+ITEM_ONLY = {"cushion"}                    # an entity placed by its item (SiftCushion), no block
+NOT_SOLID = {"carpet", "candle", "candle_cake", "bed", "banner", "wall_banner"}   # the rest -> #blocks_motion_no_leaves
 VANILLA_COLOURS = ["white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan",
                    "purple", "blue", "brown", "green", "red", "black"]
 
@@ -184,21 +187,27 @@ for colour, (rgb, en, zh) in COLOURS.items():
         wj(A / f"items/{colour}_dye.json", add_tint(jr(CLIENT, "assets/minecraft/items/white_dye.json"), rgb))
     lang[f"item.pysift.{colour}_dye"] = (f"{en} Dye", f"{zh}色染料")
     for kind, (ken, kzh) in KINDS.items():
-        bs = jr(CLIENT, f"assets/minecraft/blockstates/white_{kind}.json")
-        wj(A / f"blockstates/{colour}_{kind}.json", remap_models(bs, colour))
+        if kind not in ITEM_ONLY:
+            bs = jr(CLIENT, f"assets/minecraft/blockstates/white_{kind}.json")
+            wj(A / f"blockstates/{colour}_{kind}.json", remap_models(bs, colour))
         if kind in NO_ITEM:
             lang[f"block.pysift.{colour}_{kind}"] = (f"{en} {ken}", f"{zh}色{kzh}")
             continue
         item = remap_models(jr(CLIENT, f"assets/minecraft/items/white_{kind}.json"), colour)
+        # banner item: vanilla's special banner model only knows the 16 dye colours -> ours (SiftBannerSpecialRenderer)
+        item = json.loads(json.dumps(item).replace('{"type": "minecraft:banner", "color": "white"}',
+                                                   f'{{"type": "pysift:sift_banner", "color": "{colour}"}}'))
         drawn = any(f'"{ref}"' in json.dumps(item) for ref in DRAWN)
         wj(A / f"items/{colour}_{kind}.json", item if drawn else add_tint(item, rgb))   # a drawn texture is not tinted
-        for prefix in ("block", "item"):
+        for prefix in (("item",) if kind in ITEM_ONLY else ("block", "item")):
             lang[f"{prefix}.pysift.{colour}_{kind}"] = (f"{en} {ken}", f"{zh}色{kzh}")
 
 # ------------------------------------------------------------------ data: loot, recipes, recipe unlocks, tags
 names = COMMON.namelist()
 for colour in COLOURS:
     for kind in KINDS:
+        if f"data/minecraft/loot_table/blocks/white_{kind}.json" not in names:   # wall banner, cushion
+            continue
         loot = swap(jr(COMMON, f"data/minecraft/loot_table/blocks/white_{kind}.json"), colour)
         loot["random_sequence"] = f"pysift:blocks/{colour}_{kind}"
         for folder in ("loot_table", "loot_tables"):
@@ -224,6 +233,10 @@ for colour in COLOURS:
             text = json.dumps(a).replace(f'"minecraft:{stem}"', f'"pysift:{out_name}"')
             folder = adv[0].split("/")[-2]
             wj(D / f"pysift/advancement/recipes/{folder}/{out_name}.json", json.loads(text))
+# copying a banner's patterns onto a blank banner of the same colour
+for colour in COLOURS:
+    wj(D / f"pysift/recipe/{colour}_banner_duplicate.json",
+       swap(jr(COMMON, "data/minecraft/recipe/white_banner_duplicate.json"), colour))
 # leather armour, wolf armour: SiftDyeRecipe (pysift:crafting_sift_dye)
 wj(D / "pysift/recipe/sift_dye_armor.json", {"type": "pysift:crafting_sift_dye"})
 
@@ -242,7 +255,7 @@ for n in names:
     wj(f, cur)
 motion = D / "minecraft/tags/block/blocks_motion_no_leaves.json"
 cur = json.loads(motion.read_text(encoding="utf-8-sig"))
-cur["values"] += [f"pysift:{c}_{k}" for c in COLOURS for k in KINDS if k not in NOT_SOLID and f"pysift:{c}_{k}" not in cur["values"]]
+cur["values"] += [f"pysift:{c}_{k}" for c in COLOURS for k in KINDS if k not in NOT_SOLID | ITEM_ONLY and f"pysift:{c}_{k}" not in cur["values"]]
 wj(motion, cur)
 
 # ------------------------------------------------------------------ lang (merge, keep the file's line endings)

@@ -5,8 +5,24 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BannerBlock;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.WallBannerBlock;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
+import net.minecraft.world.level.block.entity.BlockEntityTypes;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CandleBlock;
@@ -31,7 +47,9 @@ import java.util.function.Function;
 /**
  * 篩靈界的 9 種新顏色（原版 16 色寫死在 DyeColor，不能擴充，所以每個顏色有自己的一整套方塊）：
  * 染料（由同色的篩靈界植物合成，也能染皮甲：{@link SiftDyeRecipe}）＋羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、
- * 混凝土粉末、陶土、彩繪陶瓦、染色玻璃、玻璃片。
+ * 混凝土粉末、陶土、彩繪陶瓦、染色玻璃、玻璃片、蠟燭、床、旗幟與坐墊。
+ * 床與坐墊用畫好的貼圖（tools/progression/paint_sift_colors.py）；旗幟和原版一樣是白色底圖著色，
+ * 由客戶端的 SiftBannerTint 換成這裡的顏色（原版旗幟的 DyeColor 只有 16 色）。坐墊是實體（{@link SiftCushion}）。
  * 所有方塊和物品都沿用原版白色版本的貼圖，再由客戶端依 {@link SiftColor#rgb} 著色（模型的面有 tintindex 0），
  * 不複製任何原版貼圖。資源（模型、blockstate、配方、掉落物、標籤、語系）由 tools/progression/build_sift_colors.py 產生。
  */
@@ -61,6 +79,12 @@ public final class SiftColors {
     public static final Map<SiftColor, SiftDyeItem> DYES = new LinkedHashMap<>();
     /** 方塊 → 著色用的 0xRRGGBB（客戶端讀這張表）。 */
     public static final Map<Block, Integer> TINTS = new LinkedHashMap<>();
+    /** 每個顏色的坐墊物品。 */
+    public static final Map<SiftColor, Item> CUSHIONS = new LinkedHashMap<>();
+    /** 旗幟方塊（站立與牆上）→ 顏色，客戶端著色用。 */
+    public static final Map<Block, SiftColor> BANNER_COLORS = new LinkedHashMap<>();
+    /** 篩靈界顏色的坐墊實體（原版坐墊的大小與追蹤距離）。 */
+    public static EntityType<SiftCushion> CUSHION_TYPE;
     /** 物品欄的排列順序。 */
     private static final List<Item> ORDER = new ArrayList<>();
 
@@ -87,7 +111,27 @@ public final class SiftColors {
             block(c, "stained_glass_pane", SiftGlassPaneBlock::new, Blocks.STAINED_GLASS_PANE.white());
             Block candle = block(c, "candle", CandleBlock::new, Blocks.DYED_CANDLE.white());
             blockOnly(c, "candle_cake", p -> new SiftCandleCakeBlock(candle, p), Blocks.DYED_CANDLE_CAKE.white());
+            Block bed = blockOnly(c, "bed", p -> new BedBlock(DyeColor.WHITE, p), Blocks.BED.white());
+            item(c, "bed", props -> new BlockItem(bed, props.stacksTo(1)));
+            Block banner = blockOnly(c, "banner", p -> new SiftBannerBlock(c, p), Blocks.BANNER.white());
+            Block wallBanner = blockOnly(c, "wall_banner", p -> new SiftWallBannerBlock(c, p.overrideLootTable(banner.getLootTable())
+                    .overrideDescription(banner.getDescriptionId())), Blocks.WALL_BANNER.white());
+            BlockEntityTypes.BANNER.addValidBlock(banner);
+            BlockEntityTypes.BANNER.addValidBlock(wallBanner);
+            BANNER_COLORS.put(banner, c);
+            BANNER_COLORS.put(wallBanner, c);
+            item(c, "banner", props -> new BannerItem(banner, wallBanner,
+                    props.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
+            CUSHIONS.put(c, item(c, "cushion", props -> new SiftCushion.SiftCushionItem(c, props)));
         }
+        ResourceKey<EntityType<?>> cushionKey = ResourceKey.create(Registries.ENTITY_TYPE, PySift.id("sift_cushion"));
+        CUSHION_TYPE = Registry.register(BuiltInRegistries.ENTITY_TYPE, cushionKey,
+                EntityType.Builder.<SiftCushion>of(SiftCushion::new, MobCategory.MISC)
+                        .sized(EntityTypes.CUSHION.getWidth(), EntityTypes.CUSHION.getHeight())
+                        .eyeHeight(EntityTypes.CUSHION.getDimensions().eyeHeight())
+                        .clientTrackingRange(EntityTypes.CUSHION.clientTrackingRange())
+                        .updateInterval(EntityTypes.CUSHION.updateInterval())
+                        .build(cushionKey));
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("crafting_sift_dye"), SiftDyeRecipe.SERIALIZER);
         CreativeModeTabEvents.modifyOutputEvent(ModItems.BLOCKS_TAB_KEY).register(output -> ORDER.forEach(output::accept));
     }
@@ -99,6 +143,13 @@ public final class SiftColors {
                 factory.apply(BlockBehaviour.Properties.ofFullCopy(like).setId(blockKey)));
         TINTS.put(block, c.rgb);
         return block;
+    }
+
+    private static Item item(SiftColor c, String kind, Function<Item.Properties, Item> factory) {
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(c.id + "_" + kind));
+        Item item = Registry.register(BuiltInRegistries.ITEM, itemKey, factory.apply(new Item.Properties().setId(itemKey)));
+        ORDER.add(item);
+        return item;
     }
 
     private static Block block(SiftColor c, String kind, Function<BlockBehaviour.Properties, Block> factory, Block like) {
@@ -136,6 +187,44 @@ public final class SiftColors {
         public SiftCandleCakeBlock(Block candle, Properties properties) {
             super(candle, properties);
         }
+    }
+
+    /** 旗幟：原版的白色旗幟（底色在客戶端換成 {@link #color}），中鍵選取拿到自己的旗幟物品。 */
+    public static final class SiftBannerBlock extends BannerBlock {
+        public final SiftColor color;
+
+        public SiftBannerBlock(SiftColor color, Properties properties) {
+            super(DyeColor.WHITE, properties);
+            this.color = color;
+        }
+
+        @Override
+        protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+            return bannerStack(this, level, pos);
+        }
+    }
+
+    public static final class SiftWallBannerBlock extends WallBannerBlock {
+        public final SiftColor color;
+
+        public SiftWallBannerBlock(SiftColor color, Properties properties) {
+            super(DyeColor.WHITE, properties);
+            this.color = color;
+        }
+
+        @Override
+        protected ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData) {
+            return bannerStack(this, level, pos);
+        }
+    }
+
+    /** Vanilla's BannerBlockEntity.getItem() would give the vanilla white banner: our item with the block entity's patterns. */
+    private static ItemStack bannerStack(Block block, LevelReader level, BlockPos pos) {
+        ItemStack stack = new ItemStack(block.asItem());
+        if (level.getBlockEntity(pos) instanceof BannerBlockEntity banner) {
+            stack.applyComponents(banner.collectComponents());
+        }
+        return stack;
     }
 
     /** 玻璃片（同上，原版 StainedGlassPaneBlock 需要 DyeColor）。 */

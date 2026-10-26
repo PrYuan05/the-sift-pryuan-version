@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "cushion_dye",
+  "ingredients": [
+    "pysift:lavender_dye",
+    [
+      "minecraft:white_cushion",
+      "minecraft:orange_cushion",
+      "minecraft:magenta_cushion",
+      "minecraft:light_blue_cushion",
+      "minecraft:yellow_cushion",
+      "minecraft:lime_cushion",
+      "minecraft:pink_cushion",
+      "minecraft:gray_cushion",
+      "minecraft:light_gray_cushion",
+      "minecraft:cyan_cushion",
+      "minecraft:purple_cushion",
+      "minecraft:blue_cushion",
+      "minecraft:brown_cushion",
+      "minecraft:green_cushion",
+      "minecraft:red_cushion",
+      "minecraft:black_cushion",
+      "pysift:teal_cushion",
+      "pysift:mint_cushion",
+      "pysift:coral_cushion",
+      "pysift:amber_cushion",
+      "pysift:rose_cushion",
+      "pysift:soul_blue_cushion",
+      "pysift:void_cushion",
+      "pysift:dusk_gold_cushion"
+    ]
+  ],
+  "result": {
+    "id": "pysift:lavender_cushion"
+  }
+}

@@ -24,6 +24,14 @@ python -I tools/progression/build_sift_colors.py .
 `--preview` 會產生對照圖 `build/previews/sift_colors_painted.png`。也可以直接畫 `textures/block/sift_colors/<顏色>_<種類>.png`
 覆蓋單一方塊（之後重跑 paint_sift_colors.py 會蓋掉，記得先備份）。
 
+### 床、旗幟、坐墊（2026-10-26 新增）
+
+- **床**：`textures/block/sift_colors/<顏色>_bed_{foot,head}_<面>.png`，**坐墊**：`<顏色>_item_cushion.png`（物品）與
+  `textures/entity/cushion/<顏色>_cushion.png`（實體），都由 `paint_sift_colors.py` 依染料色盤上色，只改布料（原版白床與紅床不同的像素），
+  木框和枕頭保留原版。想重畫只要直接覆蓋那些 PNG（要重新產生用 `--only bed_,item_cushion,entity_cushion`，不會動到其他已上色的方塊）。
+- **旗幟**：不需要貼圖，用原版白色旗幟底圖、在客戶端換成染料的代表色（`SiftColors.SiftColor` 的 RGB）。
+  已知限制：旗幟套到盾牌上、或地圖上的旗幟標記，底色會是白色（原版只認 16 色）。
+
 | 顏色 | ID | 來源植物 |
 | :-- | :-- | :-- |
 | 青碧 | `teal` | 柔和青碧草、劈裂草 |

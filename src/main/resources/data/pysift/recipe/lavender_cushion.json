@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cushion",
+  "key": {
+    "#": "pysift:lavender_wool_slab"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "id": "pysift:lavender_cushion"
+  }
+}

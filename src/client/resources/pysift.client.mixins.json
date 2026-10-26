@@ -12,7 +12,10 @@
 		"FlameFeatureRendererMixin",
 		"ScreenEffectRendererMixin",
 		"HudMixin",
-		"SodiumFluidRendererMixin"
+		"SodiumFluidRendererMixin",
+		"SpecialModelRenderersAccessor",
+		"BannerRenderStateMixin",
+		"BannerRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/template_bed_foot",
+  "textures": {
+    "east": "pysift:block/sift_colors/mint_bed_foot_east",
+    "south": "pysift:block/sift_colors/mint_bed_foot_south",
+    "up": "pysift:block/sift_colors/mint_bed_foot_up",
+    "west": "pysift:block/sift_colors/mint_bed_foot_west"
+  }
+}

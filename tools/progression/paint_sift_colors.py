@@ -2,7 +2,9 @@
 rank remapping). The tinted vanilla white textures had too little contrast; this keeps vanilla's structure (the order of
 its brightness levels) and maps every level onto the colour ramp of the user's dye.
 
-  python -I tools/progression/paint_sift_colors.py <project> [--preview]
+  python -I tools/progression/paint_sift_colors.py <project> [--preview] [--only bed_,item_cushion,entity_cushion]
+
+--only: paint just the kinds starting with one of these prefixes (the others keep their current files).
 
 - Ramp: the pigment pixels of textures/item/<colour>_dye.png, without the brown dish (the colours every dye shares, plus
   the two dish shadows) and without accents whose hue is far from the dye's main hue (coral's yellow highlight,
@@ -34,7 +36,15 @@ WINDOWS = {   # narrow windows: contrast close to vanilla's own variation (user:
     "candle": ("white_candle", 0.40, 0.80, 1.0, 4),
     "candle_lit": ("white_candle_lit", 0.40, 0.80, 1.0, 4),          # the flame keeps vanilla's own colours (see below)
     "item_candle": ("item:white_candle", 0.40, 0.80, 1.0, 4),
+    # beds and cushions: only the cloth is dyed (the pixels that differ between vanilla's white and red versions);
+    # the wooden frame and the white pillow keep vanilla's colours
+    **{f"bed_{part}": (f"white_bed_{part}", 0.48, 0.74, 1.0, 5)
+       for part in ("foot_east", "foot_south", "foot_up", "foot_west", "head_east", "head_up", "head_west")},
+    "item_cushion": ("item:white_cushion", 0.48, 0.74, 1.0, 5),
+    "entity_cushion": ("entity/cushion:white_cushion", 0.48, 0.74, 1.0, 5),
 }
+# kinds written somewhere else than textures/block/sift_colors/<colour>_<kind>.png
+OUT_PATH = {"entity_cushion": "entity/cushion/{colour}_cushion.png"}
 
 
 KEEP_FLAME = {"candle_lit", "item_candle"}
@@ -109,7 +119,13 @@ def paint(colour, kind):
     folder, name = src_name.split(":") if ":" in src_name else ("block", src_name)
     src = Image.open(io.BytesIO(JAR.read(f"assets/minecraft/textures/{folder}/{name}.png"))).convert("RGBA")
     ramp = ramp_of(colour)
-    levels = sorted({round(lum(p[:3])) for p in src.get_flattened_data() if p[3] > 0})
+    dyed = None
+    if kind.startswith(("bed_", "item_cushion", "entity_cushion")):    # cloth mask: white vs red vanilla texture
+        red = Image.open(io.BytesIO(JAR.read(f"assets/minecraft/textures/{folder}/{name.replace('white', 'red', 1)}.png"))).convert("RGBA")
+        dyed = red.load()
+    cloth = [p for i, p in enumerate(src.get_flattened_data())
+             if p[3] > 0 and (dyed is None or dyed[i % src.width, i // src.width] != p)]
+    levels = sorted({round(lum(p[:3])) for p in cloth})
     rank = {v: (i / (len(levels) - 1) if len(levels) > 1 else 0.5) for i, v in enumerate(levels)}
     out = Image.new("RGBA", src.size)
     po, ps = out.load(), src.load()
@@ -117,6 +133,9 @@ def paint(colour, kind):
         for xx in range(src.width):
             r, g, b, a = ps[xx, yy]
             if a == 0:
+                continue
+            if dyed is not None and dyed[xx, yy] == (r, g, b, a):
+                po[xx, yy] = (r, g, b, a)               # frame / pillow: not part of the cloth
                 continue
             if kind in KEEP_FLAME and colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)[1] > 0.35:
                 po[xx, yy] = (r, g, b, a)               # the candle flame keeps vanilla's colours; only the wax is dyed
@@ -133,10 +152,13 @@ def paint(colour, kind):
     return out
 
 
+ONLY = sys.argv[sys.argv.index("--only") + 1].split(",") if "--only" in sys.argv else None
 written = []
 for colour in COLOURS:
     for kind in WINDOWS:
-        f = T / f"block/sift_colors/{colour}_{kind}.png"
+        if ONLY and not kind.startswith(tuple(ONLY)):
+            continue
+        f = T / (OUT_PATH[kind].format(colour=colour) if kind in OUT_PATH else f"block/sift_colors/{colour}_{kind}.png")
         f.parent.mkdir(parents=True, exist_ok=True)
         paint(colour, kind).save(f)
         written.append(f)
@@ -159,7 +181,8 @@ if "--preview" in sys.argv:
         for j, c in enumerate(ramp_of(colour)):
             d.rectangle([16 * S + 8 + (j % 9) * 10, y0 + (j // 9) * 10, 16 * S + 16 + (j % 9) * 10, y0 + 8 + (j // 9) * 10], fill=c)
         for i, kind in enumerate(kinds):
-            tex = Image.open(T / f"block/sift_colors/{colour}_{kind}.png").convert("RGBA")
+            tex = Image.open(T / (OUT_PATH[kind].format(colour=colour) if kind in OUT_PATH
+                                  else f"block/sift_colors/{colour}_{kind}.png")).convert("RGBA")
             tiled = Image.new("RGBA", (48, 48))
             for a in range(3):
                 for b in range(3):

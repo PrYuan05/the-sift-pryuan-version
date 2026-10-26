@@ -92,6 +92,8 @@ for kind, bid, mat, chain in defs:
             uncovered.append((bid, dict(zip(names, combo))))
     for v in var.values():
         for e in entries(v):
+            if e["model"].startswith("minecraft:"):   # vanilla models always exist (banners: minecraft:block/banner)
+                continue
             mf = res_path(ASSETS, e["model"], "models", ".json")
             if not mf.exists():
                 missing_models.append((bid, e["model"]))
@@ -107,6 +109,8 @@ for bid in set_ids + veg_ids:   # vanilla-style blockstates: only check that eve
     pools = [p["apply"] for p in j["multipart"]] if "multipart" in j else list(j["variants"].values())
     for v in pools:
         for e in entries(v):
+            if e["model"].startswith("minecraft:"):
+                continue
             mf = res_path(ASSETS, e["model"], "models", ".json")
             if not mf.exists():
                 missing_models.append((bid, e["model"]))

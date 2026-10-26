@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "bed_dye",
+  "ingredients": [
+    "pysift:soul_blue_dye",
+    [
+      "minecraft:white_bed",
+      "minecraft:orange_bed",
+      "minecraft:magenta_bed",
+      "minecraft:light_blue_bed",
+      "minecraft:yellow_bed",
+      "minecraft:lime_bed",
+      "minecraft:pink_bed",
+      "minecraft:gray_bed",
+      "minecraft:light_gray_bed",
+      "minecraft:cyan_bed",
+      "minecraft:purple_bed",
+      "minecraft:blue_bed",
+      "minecraft:brown_bed",
+      "minecraft:green_bed",
+      "minecraft:red_bed",
+      "minecraft:black_bed",
+      "pysift:teal_bed",
+      "pysift:mint_bed",
+      "pysift:coral_bed",
+      "pysift:amber_bed",
+      "pysift:lavender_bed",
+      "pysift:rose_bed",
+      "pysift:void_bed",
+      "pysift:dusk_gold_bed"
+    ]
+  ],
+  "result": {
+    "id": "pysift:soul_blue_bed"
+  }
+}

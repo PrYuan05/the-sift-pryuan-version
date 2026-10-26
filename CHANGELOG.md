@@ -48,6 +48,9 @@
   terracotta, stained glass and panes (108 blocks), crafted like the vanilla ones; every block takes its palette from
   its hand-drawn dye. The new dyes also colour leather armour.
 - Sift plants craft into dyes: the new colours from matching plants, vanilla dyes from the rest.
+- **Beds, banners and cushions** in all nine new colours, crafted and re-dyed like the vanilla ones. Beds and cushions
+  use cloth painted from each dye (frame and pillow stay vanilla); banners take vanilla patterns from the loom on a base
+  of the new colour, in the world and in the inventory. Cushions are seats like the vanilla ones.
 - **Amber and pale sandstone** families (chiseled, cut, smooth, slabs, stairs, walls); amber and pale sand now fall.
 - **Spiritlogging**: any block that can hold water can hold Spirit Liquid instead (buckets, placing blocks in it).
 - Covered natural surface blocks turn into the block below, like vanilla grass.
