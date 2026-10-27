@@ -466,6 +466,7 @@
     "pysift:rose_concrete_slab",
     "pysift:soul_blue_concrete_slab",
     "pysift:void_concrete_slab",
-    "pysift:dusk_gold_concrete_slab"
+    "pysift:dusk_gold_concrete_slab",
+    "pysift:soul_sift_axle"
   ]
 }

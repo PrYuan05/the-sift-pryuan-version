@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "pysift:soul_crystal_block",
+    "E": "minecraft:echo_shard",
+    "P": "pysift:soul_willow_planks",
+    "S": "pysift:dark_slate"
+  },
+  "pattern": [
+    " C ",
+    "PEP",
+    "S S"
+  ],
+  "result": {
+    "id": "pysift:soul_sift_axle"
+  }
+}

@@ -41,7 +41,7 @@ veg_ids += wood_ids
 sandstone_ids = re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/SandstoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/SandstoneFamily.java").exists() else []
 veg_ids += sandstone_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
-for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java"):
+for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java", "block/SoulSiftAxle.java"):
     if (_blk / _extra).exists():
         veg_ids += re.findall(r'Registries\.BLOCK, PySift\.id\("([a-z0-9_]+)"\)', (_blk / _extra).read_text(encoding="utf-8"))
 # phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)

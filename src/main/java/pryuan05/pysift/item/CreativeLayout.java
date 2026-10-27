@@ -127,7 +127,7 @@ public final class CreativeLayout {
         }
         Block base = ModBlocks.SET_BASE.getOrDefault(block, block);       // 建材組跟著石頭分類
         String id = path(base.asItem());
-        if (base instanceof SiftPortalBlock || id.contains("altar") || id.contains("portal")) {
+        if (base instanceof SiftPortalBlock || id.contains("altar") || id.contains("portal") || id.contains("axle")) {
             return Section.SPECIAL;
         }
         if (id.contains("soul_willow") || SoulWillowWood.ITEMS.contains(base.asItem())) {

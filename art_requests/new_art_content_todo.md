@@ -45,3 +45,13 @@ python -I tools/progression/build_sift_colors.py .
 | 靈魂藍 | `soul_blue` | 靈魂劈裂草、靈魂柳葉 |
 | 虛黑 | `void` | 幽光菇 |
 | 暮光金 | `dusk_gold` | 暮綻花、黃龍舌蘭 |
+
+---
+
+## 二、靈魂隙浮輪軸（2026-10-27 新增）
+
+- 現在借用現有貼圖：支架 = 虛黑岩 `dark_slate/dark_slate_a`、輪軸 = 剝皮靈柳原木、輪框與輪輻 = 靈柳木板、篩網 = 靈魂晶塊。
+- 想換成專屬貼圖：畫好放在 `textures/block/soul_sift_axle/`，再把 `models/block/soul_sift_axle.json`（支架）與
+  `models/block/soul_sift_axle_wheel.json`（會轉的輪子）裡的 `textures` 改過去；形狀也可以直接用 Blockbench 開這兩個模型修改。
+  輪子是繞方塊中心（8, 8, 8）沿 X 軸轉的，改形狀時讓輪子保持以中心對稱，轉起來才不會晃。
+
