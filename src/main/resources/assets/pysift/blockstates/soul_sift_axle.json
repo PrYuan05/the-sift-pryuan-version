@@ -1,0 +1,18 @@
+{
+  "variants": {
+    "active=false,axis=x": {
+      "model": "pysift:block/soul_sift_axle"
+    },
+    "active=true,axis=x": {
+      "model": "pysift:block/soul_sift_axle"
+    },
+    "active=false,axis=z": {
+      "model": "pysift:block/soul_sift_axle",
+      "y": 90
+    },
+    "active=true,axis=z": {
+      "model": "pysift:block/soul_sift_axle",
+      "y": 90
+    }
+  }
+}

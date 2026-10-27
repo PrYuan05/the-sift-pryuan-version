@@ -58,6 +58,11 @@
 - Night-glow tufts grow in clusters in the Willow Grove.
 - Crimson vein stone and void-capped crimson share one hue; crimson vein stone no longer looks like ember stone.
 
+### New: Soul Sift Axle
+- An animated machine of the Singers: its wheel turns slowly, and spins up when you put a sculk block in to sift it back
+  into soul sand, soul soil and soul essence. Lore: sculk is Sift soul energy leaking through a rift; Wardens are fallen
+  Singers; the Ancient City is the seal over the rift.
+
 ### New: creatures
 - **Blub**: lies down when told to sit, has a bite attack, dog-like subtitles (hurts, dies, growls, whines, lies down)
   and action-bar hints; it is tamed, healed, bred and tempted with **Soul Crystal Blocks** only.

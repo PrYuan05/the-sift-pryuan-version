@@ -1569,5 +1569,7 @@
   "itemGroup.pysift.pysift_combat": "The Sift: Combat",
   "itemGroup.pysift.pysift_food": "The Sift: Food & Drinks",
   "itemGroup.pysift.pysift_ingredients": "The Sift: Ingredients",
-  "itemGroup.pysift.pysift_spawn_eggs": "The Sift: Spawn Eggs"
+  "itemGroup.pysift.pysift_spawn_eggs": "The Sift: Spawn Eggs",
+  "block.pysift.soul_sift_axle": "Soul Sift Axle",
+  "block.pysift.soul_sift_axle_wheel": "Soul Sift Axle Wheel"
 }

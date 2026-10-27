@@ -1,0 +1,15 @@
+{
+  "model": {
+    "type": "minecraft:composite",
+    "models": [
+      {
+        "type": "minecraft:model",
+        "model": "pysift:block/soul_sift_axle"
+      },
+      {
+        "type": "minecraft:model",
+        "model": "pysift:block/soul_sift_axle_wheel"
+      }
+    ]
+  }
+}

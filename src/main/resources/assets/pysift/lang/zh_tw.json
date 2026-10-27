@@ -1569,5 +1569,7 @@
   "itemGroup.pysift.pysift_combat": "隙浮：戰鬥",
   "itemGroup.pysift.pysift_food": "隙浮：食物與飲品",
   "itemGroup.pysift.pysift_ingredients": "隙浮：材料",
-  "itemGroup.pysift.pysift_spawn_eggs": "隙浮：生怪蛋"
+  "itemGroup.pysift.pysift_spawn_eggs": "隙浮：生怪蛋",
+  "block.pysift.soul_sift_axle": "靈魂隙浮輪軸",
+  "block.pysift.soul_sift_axle_wheel": "靈魂隙浮輪軸（輪子）"
 }
