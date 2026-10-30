@@ -404,7 +404,7 @@ BIOMES = [
          "crack 0~3：裂得越多多邊形越小；也是柳絮林地的路徑"),
     ]),
     ("crimson_strata_canyon", "赤紅沉積峽谷", [
-        ("地表", [("crimson_capped_crimson_strata_3", "sift_ground/canyon_top_a")], ["tuff", "pink_sandstone"], False,
+        ("地表", [("canyon_capped_crimson_strata", "sift_ground/canyon_top_a")], ["tuff", "pink_sandstone"], False,
          "頂面（canyon_top_a~d）→ 粉紅凝灰岩；側面 crimson_strata_i → 粉紅砂岩；底面沿用地下的 silted_strata"),
         ("地下（0~4 格）", [("silted_strata", "silted_strata/silted_strata_silt0_a")], ["siltstone"], True,
          "silt 0~2：越深層紋越密、含更多暗色泥質夾層"),
@@ -424,7 +424,7 @@ BIOMES = [
         ("岩壁與紫層", [("violet_strata", "violet_strata/violet_strata_e")], ["phyllite"], True, "紫色地層本體"),
     ]),
     ("willow_grove", "柳絮林地", [
-        ("地表", [("crimson_capped_crimson_strata_2", "sift_ground/grove_top")], ["pink_clay", "pink_sandstone"], False,
+        ("地表", [("grove_capped_crimson_strata", "sift_ground/grove_top")], ["pink_clay", "pink_sandstone"], False,
          "頂面（grove_top、grove_top_b）→ 粉紅黏土；側面 crimson_strata_c → 粉紅砂岩；底面 teal_strata_a"),
         ("地下（0~6 格）", [("abyssal_strata", "abyssal_strata/abyssal_strata_depth0_a")], ["chlorite"], True,
          "depth 0~3、共 7 張：越深葉理越密越暗（Boss 神殿的磚用這個）"),
@@ -432,7 +432,7 @@ BIOMES = [
         ("底面與層", [("teal_strata", "teal_strata/teal_strata_a")], ["siltstone"], True, "tone pale／cyan"),
     ]),
     ("lullaby_hills", "搖籃曲山丘", [
-        ("台地地表", [("void_capped_crimson_01", "void_capped_crimson_01/void_capped_crimson_01_top")], ["rusty_basalt", "basalt"], False,
+        ("台地地表", [("capped_crimson_vein_stone", "capped_crimson_vein_stone/capped_crimson_vein_stone_top")], ["rusty_basalt", "basalt"], False,
          "頂面鐵染玄武岩、底面玄武岩、側面兩者交界"),
         ("岩壁", [("crimson_vein_stone", "crimson_vein_stone/crimson_vein_stone_crimson_spread0")], ["rosa_marble"], True,
          "crimson_spread 0~4：灰紫底 → 粉紅（spread 4 整塊玫瑰大理石；spread 3、4 是牆面）"),
@@ -441,7 +441,7 @@ BIOMES = [
          "richness 0~1；**四種礦脈材質擇一**，礦脈佈滿整個方塊（richness 0 留較多灰色圍岩、1 幾乎全滿）；谷底砂岩層用 bleached_sandstone"),
     ]),
     ("red_zone_caves", "紅區洞穴", [
-        ("洞穴地面與天花板", [("crimson_capped_crimson_strata_3", "sift_ground/canyon_top_a"), ("silted_strata", "silted_strata/silted_strata_silt0_a")],
+        ("洞穴地面與天花板", [("canyon_capped_crimson_strata", "sift_ground/canyon_top_a"), ("silted_strata", "silted_strata/silted_strata_silt0_a")],
          ["tuff", "pink_sandstone", "siltstone"], False, "與赤紅沉積峽谷共用同一組方塊，不重畫（洞穴的光照會改變觀感，進遊戲再看一次）"),
     ]),
     ("(所有生態域)", "地底 void_stone", [

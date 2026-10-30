@@ -154,29 +154,29 @@ public class ModBlocks {
             pillar("grooved_stone_pillar", Mat.STONE),
 
             // ===== 覆蓋石（由 layered_strata 拆分，cube_bottom_top） =====
-            block("amber_capped_stone_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("amber_capped_stone_02", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("amber_capped_stone_03", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("ash_capped_crimson_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("ash_capped_dark_slate_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("ash_capped_dark_slate_02", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("ash_capped_violet_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("crimson_capped_void_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("dark_slate_capped_ash_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("dark_slate_capped_rose_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("rose_capped_dark_slate_01", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("rose_capped_stone_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("stone_capped_amber_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("stone_capped_amber_02", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("stone_capped_amber_03", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("stone_capped_rose_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("stone_capped_violet_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
-            block("void_capped_crimson_01", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("mottled_amber_capped_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("pale_amber_capped_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("olive_amber_capped_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_crimson", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("plain_ash_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("speckled_ash_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("ash_capped_violet", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("crimson_capped_void_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("dark_slate_capped_ash", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("dark_slate_capped_rose", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("rose_capped_dark_slate", Mat.DEEPSLATE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("rose_capped_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("mossy_stone_capped_amber", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("umber_stone_capped_amber", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("pale_stone_capped_amber", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_rose", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("stone_capped_violet", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
+            block("capped_crimson_vein_stone", Mat.STONE), // TODO: verify texture pairing — 頂面與底面為色彩最近鄰推測
 
             // ===== 帶狀貼圖抽出的複合面方塊（facing 六向可旋轉；柱狀為 axis） =====
             facing("teal_capped_abyssal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 abyssal_strata_depth0_b）
             facing("crimson_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_b）
-            facing("crimson_capped_crimson_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_c）
+            facing("grove_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_c）
             // 由 teal_capped_crimson_strata（teal）、rose_capped_crimson_strata_2（rose）、rose_capped_crimson_strata（mottled）
             // 與 teal_capped_dark_slate（deep_teal，紅色岩石改成同一個珊瑚紅色盤）合併
             facing("capped_crimson_strata", Mat.STONE).tones("teal", "rose", "mottled", "deep_teal"),
@@ -190,12 +190,12 @@ public class ModBlocks {
             facing("olive_capped_forest_floor", Mat.GRAVEL), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 forest_floor_moss1）
             facing("crimson_capped_gray_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_a）
             facing("teal_capped_gray_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_h）
-            facing("teal_capped_gray_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_i）
+            facing("red_spotted_teal_capped_gray_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 gray_strata_i）
             facing("olive_capped_mossy_olive_earth", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 mossy_olive_earth_moss2）
             facing("gray_capped_sky_block", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 sky_block_cloud2）
             facing("teal_capped_teal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_c）
             facing("crimson_capped_violet_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_b）
-            facing("crimson_capped_violet_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_c）
+            facing("streaked_crimson_capped_violet_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_c）
 
             // ===== 隨機池回饋第二輪：新方塊 =====
             block("varied_dark_slate", Mat.DEEPSLATE).tones("gray", "mottled", "violet"),
@@ -204,8 +204,8 @@ public class ModBlocks {
             block("umber_void_stone", Mat.STONE),
             block("void_stone_bricks", Mat.STONE),
             block("speckled_void_stone", Mat.STONE),
-            facing("crimson_capped_crimson_strata_3", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_i，rot90）
-            facing("teal_capped_teal_strata_2", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_g，rot90）
+            facing("canyon_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_i，rot90）
+            facing("bright_teal_capped_teal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_g，rot90）
             facing("gray_capped_void_stone", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 void_stone_i，none）
             pillar("void_stone_pillar", Mat.STONE), // TODO: verify texture pairing — 端面為色彩相近的推測配對（來源 void_stone_h，側面上下翻轉）
 

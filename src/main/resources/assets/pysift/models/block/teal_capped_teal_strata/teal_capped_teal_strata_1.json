@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/abyssal_strata/abyssal_strata_depth2",
     "bottom": "pysift:block/abyssal_strata/abyssal_strata_depth1_b",
-    "side": "pysift:block/teal_strata/teal_strata_c"
+    "side": "pysift:block/teal_capped_teal_strata/teal_strata_c"
   }
 }

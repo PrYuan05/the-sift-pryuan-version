@@ -31,7 +31,7 @@ SETS = {
     "soft_teal": ("relative", "#43B6B0", 1.0, 0.0),      # 青色地板（尖柱頂 capped_crimson_strata、abyssal / silted strata）
 }
 SHAPES = {"soft_crimson": (False, 0), "soft_violet": (True, 0), "soft_dune": (True, 2), "soft_teal": (False, 1)}   # (鏡像, 葉尖壓低 px)
-PINK_FLOOR = "#F47D89"   # 粉色色盤所在的赤紅地板（crimson_capped_crimson_strata_2 頂面平均色）
+PINK_FLOOR = "#F47D89"   # 粉色色盤所在的赤紅地板（grove_capped_crimson_strata 頂面平均色）
 NAMES_ZH = {"soft_crimson": "柔和赤紅", "soft_violet": "柔和紫晶", "soft_dune": "柔和沙丘", "soft_teal": "柔和青碧"}
 NAMES_EN = {"soft_crimson": "Soft Crimson", "soft_violet": "Soft Violet", "soft_dune": "Soft Dune", "soft_teal": "Soft Teal"}
 REF = None   # 參考截圖（可選）：python ... <截圖路徑>

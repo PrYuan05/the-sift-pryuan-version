@@ -1,4 +1,4 @@
-"""Harmonize the red rock of void_capped_crimson_01 with crimson_vein_stone (user request, Lullaby Hills).
+"""Harmonize the red rock of capped_crimson_vein_stone with crimson_vein_stone (user request, Lullaby Hills).
 
   python -I tools/texture_pipeline/harmonize_crimson.py <project> review   -> build/texture_pipeline/out/crimson_harmonize_review.png
   python -I tools/texture_pipeline/harmonize_crimson.py <project> apply    -> writes the PNGs, backs up to .texture_backups/crimson_harmonize/
@@ -15,7 +15,7 @@ from PIL import Image
 P = Path(sys.argv[1])
 MODE = sys.argv[2] if len(sys.argv) > 2 else "review"
 T = P / "src/main/resources/assets/pysift/textures/block"
-VOID = ["void_capped_crimson_01/void_capped_crimson_01_side.png", "void_capped_crimson_01/void_capped_crimson_01_bottom.png"]
+VOID = ["capped_crimson_vein_stone/capped_crimson_vein_stone_side.png", "capped_crimson_vein_stone/capped_crimson_vein_stone_bottom.png"]
 VEIN = [f"crimson_vein_stone/crimson_vein_stone_crimson_spread{s}.png" for s in ("1_a", "1_b", "2", "3", "4")]
 EMBER = "ember_stone/ember_stone_heat0_a.png"     # shown for comparison only (it keeps its colours)
 # targets (value / saturation means of the red pixels after the change)

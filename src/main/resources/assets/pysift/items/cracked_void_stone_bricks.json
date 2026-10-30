@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/cracked_void_stone_bricks"
+    "model": "pysift:block/cracked_void_stone_bricks/cracked_void_stone_bricks"
   }
 }

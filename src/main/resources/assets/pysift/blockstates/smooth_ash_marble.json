@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/smooth_ash_marble"
+      "model": "pysift:block/smooth_ash_marble/smooth_ash_marble"
     }
   }
 }

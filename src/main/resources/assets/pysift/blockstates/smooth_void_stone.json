@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/smooth_void_stone"
+      "model": "pysift:block/smooth_void_stone/smooth_void_stone"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/smooth_pale_sandstone"
+      "model": "pysift:block/smooth_pale_sandstone/smooth_pale_sandstone"
     }
   }
 }

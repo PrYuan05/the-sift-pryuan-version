@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pysift:block/cracked_void_stone_tile_slab"
+      "model": "pysift:block/cracked_void_stone_tile_slab/cracked_void_stone_tile_slab"
     },
     "type=double": {
-      "model": "pysift:block/cracked_void_stone_tiles"
+      "model": "pysift:block/cracked_void_stone_tiles/cracked_void_stone_tiles"
     },
     "type=top": {
-      "model": "pysift:block/cracked_void_stone_tile_slab_top"
+      "model": "pysift:block/cracked_void_stone_tile_slab/cracked_void_stone_tile_slab_top"
     }
   }
 }

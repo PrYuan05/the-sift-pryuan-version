@@ -2,7 +2,7 @@
   "variants": {
     "": [
       {
-        "model": "pysift:block/void_stone/void_stone_a",
+        "model": "pysift:block/umber_void_stone/void_stone_a",
         "weight": 1
       }
     ]

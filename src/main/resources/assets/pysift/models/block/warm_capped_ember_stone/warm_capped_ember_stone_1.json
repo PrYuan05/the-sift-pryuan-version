@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/warm_capped_ember_stone/warm_capped_ember_stone_top",
     "bottom": "pysift:block/ember_stone/ember_stone_heat4",
-    "side": "pysift:block/ember_stone/ember_stone_heat3_c"
+    "side": "pysift:block/warm_capped_ember_stone/ember_stone_heat3_c"
   }
 }

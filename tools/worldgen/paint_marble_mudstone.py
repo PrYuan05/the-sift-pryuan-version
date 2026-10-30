@@ -10,7 +10,7 @@ Usage: python -I tools/worldgen/paint_marble_mudstone.py <project> [--apply] [--
                                     violet-brown ground, cream bands (a touch warmer) - level = number of cream bands.
   bleached_sandstone (bleach 0-4)   Coconino sandstone: cross-bedded laminae; one ladder that gets paler and less
                                     saturated per level, the lightest step capped at V 0.92 (no near-white).
-  void_capped_crimson_01            basalt plateau: top = void_stone's basalt (same palette, the ground below), bottom =
+  capped_crimson_vein_stone            basalt plateau: top = void_stone's basalt (same palette, the ground below), bottom =
                                     iron-stained basalt in a brick red-brown, side = both, keeping its layout.
 Bricks (vanilla_building_patterns.md): marbles on quartz_bricks (top course one 16 px block, bottom course 8 px bricks
 staggered 4), mudstone on mud_bricks (light joints), white sandstone on end_stone_bricks. Chiseled heads: ash marble =
@@ -246,9 +246,9 @@ def build():
     sp = cap(ramp(s0, 0.18))
     out[T / "bleached_sandstone_bricks/bleached_sandstone_bricks.png"] = paint(small_bricks(random.Random("bsb"), crossbed), sp)
     out[T / "bleached_sandstone_bricks/chiseled_bleached_sandstone_bricks.png"] = paint(chiseled(random.Random("bsc"), crossbed, HURLER), sp)
-    # void_capped_crimson_01 caps crimson_vein_stone (Lullaby Hills): its red and grey-violet are that stone's,
+    # capped_crimson_vein_stone caps crimson_vein_stone (Lullaby Hills): its red and grey-violet are that stone's,
     # so the same rose-marble structure and the same shared palettes replace them directly (layout kept)
-    vc = T / "void_capped_crimson_01"
+    vc = T / "capped_crimson_vein_stone"
     for p in sorted(vc.glob("*.png")):
         src = ORIG / p.relative_to(P) if (ORIG / p.relative_to(P)).exists() else p
         img, _ = repaint(src, rosa, ("red", "ground"), 0.18, classify=red, base=base)
@@ -275,7 +275,7 @@ def main():
             sheet.paste(Image.open(path).convert("RGB").crop((0, 0, 16, 16)).resize((S, S), Image.NEAREST), (x, y))
         sheet.paste(new.resize((S, S), Image.NEAREST), (x, y + S + 2))
         d.text((x, y + 2 * S + 4), path.stem.replace("chiseled_", "ch_").replace("crimson_vein_stone", "cvs")
-               .replace("banded_mudstone", "bm").replace("bleached_sandstone", "bs").replace("void_capped_crimson_01", "vcc")[:11],
+               .replace("banded_mudstone", "bm").replace("bleached_sandstone", "bs").replace("capped_crimson_vein_stone", "vcc")[:11],
                fill=(200, 205, 215), font=f)
         t = Image.new("RGB", (48, 48))
         for a in range(3):

@@ -154,7 +154,7 @@ def pdist(p, q):
 
 
 class Tex:
-    """A 16x16 block texture addressed by resource id (e.g. 'pysift:block/dark_slate/dark_slate_a')."""
+    """A 16x16 block texture addressed by resource id (e.g. 'pysift:block/framed_dark_slate/dark_slate_a')."""
 
     def __init__(self, ref, assets_root):
         self.ref = ref

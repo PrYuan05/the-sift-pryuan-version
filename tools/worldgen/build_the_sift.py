@@ -23,10 +23,10 @@ def state(block, **props):
 
 # ---- blocks used by the surface rules (verified against registered blockstates) ----
 BASE = state("void_stone", tone="dark")                                   # cleanest dark stone (surface_candidates.py)
-CRIMSON_TOP = state("crimson_capped_crimson_strata_3", facing="up")     # user choice; facing block, top face up
+CRIMSON_TOP = state("canyon_capped_crimson_strata", facing="up")     # user choice; facing block, top face up
 CRIMSON_UNDER = state("silted_strata", silt=0)                           # user choice: only silt=0 under the cap
 VIOLET_TOP, VIOLET_UNDER = state("violet_capped_dark_slate", facing="up"), state("dark_slate", fade=0)   # user choice
-GROVE_TOP = state("crimson_capped_crimson_strata_2", facing="up")         # user choice (no more pink loam)
+GROVE_TOP = state("grove_capped_crimson_strata", facing="up")         # user choice (no more pink loam)
 GROVE_UNDER = state("abyssal_strata", depth=0)
 DUNE_SAND, DUNE_ACCENT = state("amber_sand"), state("pale_sand")          # ~70 / 30 by surface noise
 DUNE_STONE, DUNE_DEEP = state("bleached_sandstone", bleach=0), state("cracked_sandstone", crack=0)
@@ -714,7 +714,7 @@ GROVE_PATH = state("cracked_sandstone", crack=0)         # warm tan
 # The bands follow |canyon noise| (the same noise and coordinates as the terrain's LULLABY_CANYON), so they line up with
 # the layers of the terrain. Every border blends naturally (user): A -> 25 % B -> 75 % B -> B, chosen block by block
 # with a fine "dither" noise; the 25 / 75 % shares drift by about +-12 % from place to place (the low surface noise).
-LULLABY_TOP = state("void_capped_crimson_01")
+LULLABY_TOP = state("capped_crimson_vein_stone")
 LULLABY_WALL, LULLABY_WALL_ALT = state("crimson_vein_stone", crimson_spread=4), state("crimson_vein_stone", crimson_spread=3)
 wj(D / "worldgen/noise/the_sift_dither.json", {"base_amplitude": 1.0, "base_octave": 0, "octave_count": 1})
 DITHER_SD = 0.38           # spread of the dither noise (measured on the test server); turns a share into a threshold

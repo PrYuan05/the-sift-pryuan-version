@@ -61,10 +61,10 @@ def all_textures(block):
 
 blocks = sorted(p.stem for p in (A / "blockstates").glob("*.json"))
 target_tex = set().union(*(all_textures(b) for b in TARGETS))
-if "crimson_capped_crimson_strata_2" in TARGETS:
+if "grove_capped_crimson_strata" in TARGETS:
     target_tex.add("pysift:block/ember_stone/ember_stone_heat2_a")
     target_tex.add("pysift:block/ember_stone/ember_stone_heat0_a")
-if "crimson_capped_crimson_strata_3" in TARGETS:
+if "canyon_capped_crimson_strata" in TARGETS:
     target_tex.add("pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4")
 family = re.compile(r"crimson_capped_|crimson_strata")
 related = {}

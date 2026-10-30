@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/polished_void_stone_stairs"
+    "model": "pysift:block/polished_void_stone_stairs/polished_void_stone_stairs"
   }
 }

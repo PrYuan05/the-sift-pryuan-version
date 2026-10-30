@@ -4,20 +4,20 @@
     "pysift:meadow_grass_block",
     "pysift:rich_dirt",
     "pysift:forest_floor",
-    "pysift:ash_capped_crimson_01",
+    "pysift:ash_capped_crimson",
     "pysift:crimson_strata",
-    "pysift:ash_capped_violet_01",
+    "pysift:ash_capped_violet",
     "pysift:violet_strata",
-    "pysift:crimson_capped_void_01",
-    "pysift:crimson_capped_crimson_strata_3",
+    "pysift:crimson_capped_void_stone",
+    "pysift:canyon_capped_crimson_strata",
     "pysift:amber_sand",
     "pysift:pale_sand",
-    "pysift:crimson_capped_crimson_strata_2",
+    "pysift:grove_capped_crimson_strata",
     "pysift:violet_capped_dark_slate",
     "pysift:capped_crimson_strata",
     "pysift:abyssal_strata",
     "pysift:dark_slate",
     "pysift:silted_strata",
-    "pysift:void_capped_crimson_01"
+    "pysift:capped_crimson_vein_stone"
   ]
 }

@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pysift:block/pale_sandstone_slab"
+      "model": "pysift:block/pale_sandstone_slab/pale_sandstone_slab"
     },
     "type=double": {
-      "model": "pysift:block/pale_sandstone"
+      "model": "pysift:block/pale_sandstone/pale_sandstone"
     },
     "type=top": {
-      "model": "pysift:block/pale_sandstone_slab_top"
+      "model": "pysift:block/pale_sandstone_slab/pale_sandstone_slab_top"
     }
   }
 }

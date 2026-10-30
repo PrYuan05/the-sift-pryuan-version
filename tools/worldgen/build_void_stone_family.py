@@ -225,6 +225,8 @@ def main():
             lang[f"block.pysift.{bid}"] = en if code == "en_us" else zh
         wj(A / f"lang/{code}.json", lang)
     print(f"{len(PARTS)} blocks, {len(models)} models, {len(textures)} textures, {recipes} recipes, {tags} tags")
+    import subprocess, sys as _sys                          # keep models grouped per block (tools/texture_pipeline/group_models.py)
+    subprocess.run([_sys.executable, "-I", str(Path(__file__).resolve().parents[1] / "texture_pipeline/group_models.py"), str(P)], check=True)
     print("textures:", sorted(t.split("/")[-1] for t in textures))
     if skipped:
         print("recipes skipped (vanilla ingredient left):", skipped)

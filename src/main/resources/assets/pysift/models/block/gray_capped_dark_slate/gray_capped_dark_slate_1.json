@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/void_stone/void_stone_g",
     "bottom": "pysift:block/gray_capped_dark_slate/gray_capped_dark_slate_bottom",
-    "side": "pysift:block/dark_slate/dark_slate_m"
+    "side": "pysift:block/gray_capped_dark_slate/dark_slate_m"
   }
 }

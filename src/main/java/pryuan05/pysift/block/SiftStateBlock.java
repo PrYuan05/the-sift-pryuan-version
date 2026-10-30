@@ -126,7 +126,7 @@ public class SiftStateBlock extends Block {
         }
     }
 
-    /** 沒有狀態屬性的地表立方體（例如搖籃曲山丘的 void_capped_crimson_01）：被蓋住會退化成下方方塊（{@link SurfaceDecay}）。 */
+    /** 沒有狀態屬性的地表立方體（例如搖籃曲山丘的 capped_crimson_vein_stone）：被蓋住會退化成下方方塊（{@link SurfaceDecay}）。 */
     public static class SurfaceCube extends Block {
         public SurfaceCube(BlockBehaviour.Properties properties) {
             super(properties);

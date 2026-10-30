@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/cracked_void_stone_tiles"
+      "model": "pysift:block/cracked_void_stone_tiles/cracked_void_stone_tiles"
     }
   }
 }

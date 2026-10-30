@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/smooth_amber_sandstone_slab"
+    "model": "pysift:block/smooth_amber_sandstone_slab/smooth_amber_sandstone_slab"
   }
 }

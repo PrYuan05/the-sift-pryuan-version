@@ -1,7 +1,7 @@
 {
   "parent": "pysift:block/templates/cube_column_vflip",
   "textures": {
-    "end": "pysift:block/void_stone/void_stone_pillar_top",
-    "side": "pysift:block/void_stone/void_stone_h"
+    "end": "pysift:block/void_stone_pillar/void_stone_pillar_top",
+    "side": "pysift:block/void_stone_pillar/void_stone_h"
   }
 }

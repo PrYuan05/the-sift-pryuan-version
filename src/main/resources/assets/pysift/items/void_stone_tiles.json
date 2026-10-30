@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/void_stone_tiles"
+    "model": "pysift:block/void_stone_tiles/void_stone_tiles"
   }
 }

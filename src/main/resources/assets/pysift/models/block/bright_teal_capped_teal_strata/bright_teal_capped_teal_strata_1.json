@@ -1,0 +1,8 @@
+{
+  "parent": "pysift:block/templates/cube_bottom_top_rot90",
+  "textures": {
+    "top": "pysift:block/bright_teal_capped_teal_strata/bright_teal_capped_teal_strata_top",
+    "bottom": "pysift:block/silted_strata/silted_strata_silt0_a",
+    "side": "pysift:block/bright_teal_capped_teal_strata/teal_strata_g"
+  }
+}

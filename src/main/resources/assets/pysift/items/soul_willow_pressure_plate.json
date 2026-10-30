@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/soul_willow_pressure_plate"
+    "model": "pysift:block/soul_willow_pressure_plate/soul_willow_pressure_plate"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/plain_ash_capped_dark_slate/plain_ash_capped_dark_slate_top",
+    "side": "pysift:block/plain_ash_capped_dark_slate/plain_ash_capped_dark_slate_side",
+    "bottom": "pysift:block/plain_ash_capped_dark_slate/plain_ash_capped_dark_slate_bottom"
+  }
+}

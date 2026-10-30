@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/chiseled_amber_sandstone"
+      "model": "pysift:block/chiseled_amber_sandstone/chiseled_amber_sandstone"
     }
   }
 }

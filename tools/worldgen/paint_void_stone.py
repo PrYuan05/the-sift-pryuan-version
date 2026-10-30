@@ -360,8 +360,8 @@ TEXTURES = {   # published path -> painter
     f"{VS}b": lambda r: bricks(r, (0, 4, 0, 4)),
     f"{VS}d": lambda r: bricks(r, (2, 6, 2, 6), cracked=(3, 5)),
     "void_stone_bricks/chiseled_void_stone_bricks": chiseled,
-    f"{VS}h": column_side,
-    "void_stone/void_stone_pillar_top": column_end,
+    "void_stone_pillar/void_stone_h": column_side,
+    "void_stone_pillar/void_stone_pillar_top": column_end,
     # VoidStoneFamily (build_void_stone_family.py): vanilla deepslate's polished / tiles / cracked forms and smooth stone
     "void_stone/polished_void_stone": polished,
     "void_stone/void_stone_tiles": lambda r: tile_grid(r),
@@ -408,9 +408,9 @@ def preview(images, pal):
     sheet.paste(t.resize((48 * z, 48 * z), Image.NEAREST), (x, y0 + 16)); x += 48 * z + 16
     t = Image.new("RGB", (48, 64))
     for bx in range(3):
-        t.paste(images["void_stone/void_stone_pillar_top"], (bx * 16, 0))
+        t.paste(images["void_stone_pillar/void_stone_pillar_top"], (bx * 16, 0))
         for by in range(1, 4):
-            t.paste(images[f"{VS}h"], (bx * 16, by * 16))
+            t.paste(images["void_stone_pillar/void_stone_h"], (bx * 16, by * 16))
     sheet.paste(t.resize((48 * z, 64 * z), Image.NEAREST), (x, y0 + 16))
     for k, rgb in enumerate(pal):
         d.rectangle([24 + k * 34, sheet.height - 30, 54 + k * 34, sheet.height - 8], fill=rgb)
@@ -462,10 +462,10 @@ def main():
         doc["entries"] = keep
         man.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     model = json.loads(PILLAR_MODEL.read_text(encoding="utf-8"))
-    if model["textures"]["end"] != "pysift:block/void_stone/void_stone_pillar_top":
+    if model["textures"]["end"] != "pysift:block/void_stone_pillar/void_stone_pillar_top":
         (bk / PILLAR_MODEL.relative_to(P)).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(PILLAR_MODEL, bk / PILLAR_MODEL.relative_to(P))
-        model["textures"]["end"] = "pysift:block/void_stone/void_stone_pillar_top"
+        model["textures"]["end"] = "pysift:block/void_stone_pillar/void_stone_pillar_top"
         PILLAR_MODEL.write_text(json.dumps(model, indent=2) + "\n", encoding="utf-8")
     print("written:", len(written), "; backups in", bk.relative_to(P))
 

@@ -8,7 +8,7 @@
     ],
     "type=double": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_e",
+        "model": "pysift:block/blotched_dark_slate/dark_slate_e",
         "weight": 1
       }
     ],

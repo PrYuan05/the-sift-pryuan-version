@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pysift:block/smooth_void_stone_slab"
+      "model": "pysift:block/smooth_void_stone_slab/smooth_void_stone_slab"
     },
     "type=double": {
-      "model": "pysift:block/smooth_void_stone_slab_double"
+      "model": "pysift:block/smooth_void_stone_slab/smooth_void_stone_slab_double"
     },
     "type=top": {
-      "model": "pysift:block/smooth_void_stone_slab_top"
+      "model": "pysift:block/smooth_void_stone_slab/smooth_void_stone_slab_top"
     }
   }
 }

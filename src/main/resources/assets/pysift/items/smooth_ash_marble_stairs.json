@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/smooth_ash_marble_stairs"
+    "model": "pysift:block/smooth_ash_marble_stairs/smooth_ash_marble_stairs"
   }
 }

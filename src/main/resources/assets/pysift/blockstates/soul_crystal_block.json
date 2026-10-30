@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/soul_crystal_block"
+      "model": "pysift:block/soul_crystal_block/soul_crystal_block"
     }
   }
 }

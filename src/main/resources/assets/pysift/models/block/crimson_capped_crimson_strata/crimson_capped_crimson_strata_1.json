@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/ember_stone/ember_stone_heat2_a",
     "bottom": "pysift:block/crimson_strata/crimson_strata_d",
-    "side": "pysift:block/crimson_strata/crimson_strata_b"
+    "side": "pysift:block/crimson_capped_crimson_strata/crimson_strata_b"
   }
 }

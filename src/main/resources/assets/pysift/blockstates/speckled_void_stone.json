@@ -2,7 +2,7 @@
   "variants": {
     "": [
       {
-        "model": "pysift:block/void_stone/void_stone_g",
+        "model": "pysift:block/speckled_void_stone/void_stone_g",
         "weight": 1
       }
     ]

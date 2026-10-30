@@ -163,7 +163,7 @@ EXACT_CRIMSON_AND_TRANSITION_MAP: dict[str, tuple[int, int, int]] = {
     "#a36270": (200, 142, 151),  # #c88e97 (crimson_strata_c, gray_strata_a upper transition)
     "#6a7463": (176, 132, 140),  # #b0848c (dark_slate_b, c, e, gray_strata_b transition near dusty-rose bottom)
 
-    # Transition pixels in crimson_strata_i, gray_strata_i, teal_capped_gray_strata_2_bottom
+    # Transition pixels in crimson_strata_i, gray_strata_i, red_spotted_teal_capped_gray_strata_bottom
     "#4e7179": (51, 185, 176),
     "#607378": (54, 188, 179),
     "#7d5a6a": (144, 162, 166),
@@ -275,7 +275,7 @@ def recolor_pixel_stage3(rel_path: str, rgb: tuple[int, int, int]) -> tuple[int,
 
 
 STAGE3_TEXTURES = [
-    # 1. Canyon: silted_strata, capped_crimson_strata, crimson_capped_crimson_strata_3
+    # 1. Canyon: silted_strata, capped_crimson_strata, canyon_capped_crimson_strata
     "textures/block/silted_strata/silted_strata_silt0_a.png",
     "textures/block/silted_strata/silted_strata_silt0_b.png",
     "textures/block/silted_strata/silted_strata_silt1.png",
@@ -284,12 +284,12 @@ STAGE3_TEXTURES = [
     "textures/block/silted_strata_bricks/chiseled_silted_strata_bricks.png",
     "textures/block/capped_crimson_strata/capped_crimson_strata_teal_top.png",
     "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
-    "textures/block/crimson_strata/crimson_strata_h.png",
-    "textures/block/crimson_strata/crimson_strata_f.png",
-    "textures/block/crimson_strata/crimson_strata_i.png",
-    # 2. Willow Grove: abyssal_strata, abyssal_strata_bricks, chiseled_abyssal_strata_bricks, crimson_capped_crimson_strata_2
+    "textures/block/capped_crimson_strata/crimson_strata_h.png",
+    "textures/block/capped_crimson_strata/crimson_strata_f.png",
+    "textures/block/canyon_capped_crimson_strata/crimson_strata_i.png",
+    # 2. Willow Grove: abyssal_strata, abyssal_strata_bricks, chiseled_abyssal_strata_bricks, grove_capped_crimson_strata
     "textures/block/abyssal_strata/abyssal_strata_depth0_a.png",
-    "textures/block/abyssal_strata/abyssal_strata_depth0_b.png",
+    "textures/block/teal_capped_abyssal_strata/abyssal_strata_depth0_b.png",
     "textures/block/abyssal_strata/abyssal_strata_depth0_c.png",
     "textures/block/abyssal_strata/abyssal_strata_depth0_d.png",
     "textures/block/abyssal_strata/abyssal_strata_depth1_a.png",
@@ -298,33 +298,33 @@ STAGE3_TEXTURES = [
     "textures/block/abyssal_strata_bricks/abyssal_strata_bricks.png",
     "textures/block/abyssal_strata_bricks/chiseled_abyssal_strata_bricks.png",
     "textures/block/teal_strata/teal_strata_a.png",
-    "textures/block/crimson_strata/crimson_strata_c.png",
+    "textures/block/grove_capped_crimson_strata/crimson_strata_c.png",
     # 3. Connected blocks sharing these textures (for 100% block continuity)
     "textures/block/teal_strata/teal_strata_b.png",
-    "textures/block/teal_strata/teal_strata_c.png",
-    "textures/block/teal_strata/teal_strata_d.png",
+    "textures/block/teal_capped_teal_strata/teal_strata_c.png",
+    "textures/block/abyssal_strata/teal_strata_d.png",
     "textures/block/teal_strata/teal_strata_e.png",
     "textures/block/teal_strata/teal_strata_f.png",
-    "textures/block/teal_strata/teal_strata_g.png",
+    "textures/block/bright_teal_capped_teal_strata/teal_strata_g.png",
     "textures/block/teal_strata_bricks/teal_strata_bricks.png",
     "textures/block/teal_strata_bricks/chiseled_teal_strata_bricks.png",
-    "textures/block/crimson_strata/crimson_strata_e.png",
+    "textures/block/capped_crimson_strata/crimson_strata_e.png",
     "textures/block/crimson_strata/crimson_strata_g.png",
     "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
     "textures/block/teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom.png",
-    "textures/block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_top.png",
+    "textures/block/bright_teal_capped_teal_strata/bright_teal_capped_teal_strata_top.png",
     "textures/block/teal_capped_gray_strata/teal_capped_gray_strata_bottom.png",
-    "textures/block/teal_capped_gray_strata_2/teal_capped_gray_strata_2_bottom.png",
-    "textures/block/gray_strata/gray_strata_a.png",
+    "textures/block/red_spotted_teal_capped_gray_strata/red_spotted_teal_capped_gray_strata_bottom.png",
+    "textures/block/crimson_capped_gray_strata/gray_strata_a.png",
     "textures/block/gray_strata/gray_strata_b.png",
     "textures/block/gray_strata/gray_strata_f.png",
     "textures/block/gray_strata/gray_strata_g.png",
-    "textures/block/gray_strata/gray_strata_h.png",
-    "textures/block/gray_strata/gray_strata_i.png",
+    "textures/block/teal_capped_gray_strata/gray_strata_h.png",
+    "textures/block/red_spotted_teal_capped_gray_strata/gray_strata_i.png",
     "textures/block/dark_slate/dark_slate_b.png",
     "textures/block/dark_slate/dark_slate_c.png",
-    "textures/block/dark_slate/dark_slate_d.png",
-    "textures/block/dark_slate/dark_slate_e.png",
+    "textures/block/varied_dark_slate/dark_slate_d.png",
+    "textures/block/blotched_dark_slate/dark_slate_e.png",
 ]
 
 
@@ -479,18 +479,18 @@ def render_3d_blocks_sheet(out_path: Path) -> None:
         ("silted_strata [silt=2] 淤積地層岩", "赤紅沉積峽谷：過渡層", "silted_strata/silted_strata_silt2.png", "silted_strata/silted_strata_silt2.png", "silted_strata/silted_strata_silt2.png", None),
         ("capped_crimson_strata [tone=teal] 覆蓋赤紅地層岩", "赤紅沉積峽谷：圓台頂面（青色）", "capped_crimson_strata/capped_crimson_strata_teal_top.png", "crimson_strata/crimson_strata_h.png", "crimson_vein_stone/crimson_vein_stone_crimson_spread4.png", None),
         ("capped_crimson_strata [tone=rose] 覆蓋赤紅地層岩", "赤紅沉積峽谷：圓台頂面（玫瑰色）", "capped_crimson_strata/capped_crimson_strata_rose_top.png", "crimson_strata/crimson_strata_f.png", "crimson_vein_stone/crimson_vein_stone_crimson_spread4.png", Image.Transpose.FLIP_TOP_BOTTOM),
-        ("crimson_capped_crimson_strata_3 赤紅覆蓋赤紅地層岩 3", "赤紅沉積峽谷：地表方塊", "sift_ground/canyon_top_a.png", "crimson_strata/crimson_strata_i.png", "silted_strata/silted_strata_silt1.png", Image.Transpose.ROTATE_270),
+        ("canyon_capped_crimson_strata 赤紅覆蓋赤紅地層岩 3", "赤紅沉積峽谷：地表方塊", "sift_ground/canyon_top_a.png", "crimson_strata/crimson_strata_i.png", "silted_strata/silted_strata_silt1.png", Image.Transpose.ROTATE_270),
         ("abyssal_strata [depth=0] 深淵地層岩 (a)", "柳絮林地：地表下6格／池塘／圓台主體", "abyssal_strata/abyssal_strata_depth0_a.png", "abyssal_strata/abyssal_strata_depth0_a.png", "abyssal_strata/abyssal_strata_depth0_a.png", None),
         ("abyssal_strata [depth=0] 深淵地層岩 (d)", "柳絮林地：地表下6格／池塘／圓台主體", "abyssal_strata/abyssal_strata_depth0_d.png", "abyssal_strata/abyssal_strata_depth0_d.png", "abyssal_strata/abyssal_strata_depth0_d.png", None),
         ("abyssal_strata [depth=1..3] 深淵地層岩", "深淵地層岩過渡階段 (depth=1, 2, 3)", "abyssal_strata/abyssal_strata_depth0_c.png", "abyssal_strata/abyssal_strata_depth1_a.png", "abyssal_strata/abyssal_strata_depth2.png", None),
         ("abyssal_strata_bricks 深淵地層岩磚", "柳絮林地：Boss 競技場", "abyssal_strata_bricks/abyssal_strata_bricks.png", "abyssal_strata_bricks/abyssal_strata_bricks.png", "abyssal_strata_bricks/abyssal_strata_bricks.png", None),
         ("chiseled_abyssal_strata_bricks 浮雕深淵地層岩磚", "柳絮林地：Boss 競技場", "abyssal_strata_bricks/chiseled_abyssal_strata_bricks.png", "abyssal_strata_bricks/chiseled_abyssal_strata_bricks.png", "abyssal_strata_bricks/chiseled_abyssal_strata_bricks.png", None),
-        ("crimson_capped_crimson_strata_2 赤紅覆蓋赤紅地層岩 2", "柳絮林地：地表方塊", "sift_ground/grove_top.png", "crimson_strata/crimson_strata_c.png", "teal_strata/teal_strata_a.png", None),
+        ("grove_capped_crimson_strata 赤紅覆蓋赤紅地層岩 2", "柳絮林地：地表方塊", "sift_ground/grove_top.png", "crimson_strata/crimson_strata_c.png", "teal_strata/teal_strata_a.png", None),
         ("teal_capped_abyssal_strata 青碧覆蓋深淵地層岩", "同系列青碧覆蓋方塊", "abyssal_strata/abyssal_strata_depth2.png", "abyssal_strata/abyssal_strata_depth0_b.png", "teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom.png", None),
         ("teal_capped_teal_strata 青碧覆蓋青碧地層岩", "同系列青碧覆蓋方塊", "abyssal_strata/abyssal_strata_depth2.png", "teal_strata/teal_strata_c.png", "abyssal_strata/abyssal_strata_depth1_a.png", None),
-        ("teal_capped_teal_strata_2 青碧覆蓋青碧地層岩 2", "同系列青碧覆蓋方塊", "teal_capped_teal_strata_2/teal_capped_teal_strata_2_top.png", "teal_strata/teal_strata_g.png", "silted_strata/silted_strata_silt0_a.png", Image.Transpose.ROTATE_270),
+        ("bright_teal_capped_teal_strata 青碧覆蓋青碧地層岩 2", "同系列青碧覆蓋方塊", "bright_teal_capped_teal_strata/bright_teal_capped_teal_strata_top.png", "teal_strata/teal_strata_g.png", "silted_strata/silted_strata_silt0_a.png", Image.Transpose.ROTATE_270),
         ("teal_capped_gray_strata 青碧覆蓋灰色地層岩", "同系列青碧覆蓋方塊", "silted_strata/silted_strata_silt0_a.png", "gray_strata/gray_strata_h.png", "teal_capped_gray_strata/teal_capped_gray_strata_bottom.png", Image.Transpose.FLIP_TOP_BOTTOM),
-        ("teal_capped_gray_strata_2 青碧覆蓋灰色地層岩 2", "同系列青碧覆蓋方塊", "silted_strata/silted_strata_silt0_a.png", "gray_strata/gray_strata_i.png", "teal_capped_gray_strata_2/teal_capped_gray_strata_2_bottom.png", None),
+        ("red_spotted_teal_capped_gray_strata 青碧覆蓋灰色地層岩 2", "同系列青碧覆蓋方塊", "silted_strata/silted_strata_silt0_a.png", "gray_strata/gray_strata_i.png", "red_spotted_teal_capped_gray_strata/red_spotted_teal_capped_gray_strata_bottom.png", None),
     ]
 
     row_h = 84

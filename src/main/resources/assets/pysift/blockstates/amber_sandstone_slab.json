@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pysift:block/amber_sandstone_slab"
+      "model": "pysift:block/amber_sandstone_slab/amber_sandstone_slab"
     },
     "type=double": {
-      "model": "pysift:block/amber_sandstone"
+      "model": "pysift:block/amber_sandstone/amber_sandstone"
     },
     "type=top": {
-      "model": "pysift:block/amber_sandstone_slab_top"
+      "model": "pysift:block/amber_sandstone_slab/amber_sandstone_slab_top"
     }
   }
 }

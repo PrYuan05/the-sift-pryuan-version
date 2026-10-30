@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/smooth_ash_marble_wall_inventory"
+    "model": "pysift:block/smooth_ash_marble_wall/smooth_ash_marble_wall_inventory"
   }
 }

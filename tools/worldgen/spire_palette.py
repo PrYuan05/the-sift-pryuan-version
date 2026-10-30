@@ -11,7 +11,7 @@ P, RES, A, D = project_paths(sys.argv[1])
 ASSETS, OUT = RES / "assets", P / "build/texture_pipeline/out"
 ROLES = {   # (biome, part): [(block, {props}), ...]
     ("crimson_strata_canyon", "body"): [("ember_stone", {"heat": "0"}), ("crimson_vein_stone", {"crimson_spread": "4"}),
-                                        ("crimson_capped_void_01", {}), ("crimson_strata", {"tone": "crimson"})],
+                                        ("crimson_capped_void_stone", {}), ("crimson_strata", {"tone": "crimson"})],
     ("crimson_strata_canyon", "band"): [("abyssal_strata", {"depth": "0"}), ("abyssal_strata", {"depth": "1"}),
                                         ("abyssal_strata", {"depth": "2"}), ("teal_deep_block", {"depth": "0"}),
                                         ("teal_deep_block", {"depth": "2"}), ("teal_strata", {"tone": "cyan"}),
@@ -22,7 +22,7 @@ ROLES = {   # (biome, part): [(block, {props}), ...]
                                      ("dark_slate", {"fade": "0"}), ("magma_vein_slate", {"vein": "0"})],
     ("willow_grove", "body"): [("crimson_strata", {"tone": "rose"}), ("banded_mudstone", {"banding": "0"}),
                                ("bleached_clay", {"bleach": "0"})],
-    ("willow_grove", "band"): [("sift_pink_loam", {}), ("bleached_clay", {"bleach": "2"}), ("rose_capped_stone_01", {})],
+    ("willow_grove", "band"): [("sift_pink_loam", {}), ("bleached_clay", {"bleach": "2"}), ("rose_capped_stone", {})],
     ("amber_dunes", "body"): [("bleached_sandstone", {"bleach": "0"}), ("cracked_sandstone", {"crack": "0"}),
                               ("amber_sand", {}), ("banded_mudstone", {"banding": "0"})],
     ("amber_dunes", "band"): [("cracked_sandstone", {"crack": "0"}), ("banded_mudstone", {"banding": "0"}),

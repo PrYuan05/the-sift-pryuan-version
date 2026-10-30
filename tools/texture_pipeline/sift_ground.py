@@ -187,8 +187,8 @@ def build():
     tex["violet_top"] = violet(300)
     tex["violet_top_b"] = violet(310)
     sands = {"amber_sand": sand(400, AMBER), "pale_sand": sand(410, PALE)}
-    models = [(f"crimson_capped_crimson_strata_3/crimson_capped_crimson_strata_3_{i + 1}", f"canyon_top_{k}") for i, k in enumerate("abcd")]
-    models += [("crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1", "grove_top"),
+    models = [(f"canyon_capped_crimson_strata/canyon_capped_crimson_strata_{i + 1}", f"canyon_top_{k}") for i, k in enumerate("abcd")]
+    models += [("grove_capped_crimson_strata/grove_capped_crimson_strata_1", "grove_top"),
                ("violet_capped_dark_slate/violet_capped_dark_slate_1", "violet_top")]
     return tex, sands, models
 

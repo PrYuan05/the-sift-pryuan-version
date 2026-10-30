@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/cut_amber_sandstone"
+    "model": "pysift:block/cut_amber_sandstone/cut_amber_sandstone"
   }
 }

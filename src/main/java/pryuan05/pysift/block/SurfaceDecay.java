@@ -26,11 +26,11 @@ import java.util.Map;
 public final class SurfaceDecay {
     /** 地表方塊 → 被蓋住後變成的方塊（id 與屬性）。 */
     private static final Map<String, Under> UNDER = Map.of(
-            "crimson_capped_crimson_strata_3", new Under("silted_strata", Map.of("silt", "0")),       // 赤紅沉積峽谷、紅區洞穴
+            "canyon_capped_crimson_strata", new Under("silted_strata", Map.of("silt", "0")),       // 赤紅沉積峽谷、紅區洞穴
             "violet_capped_dark_slate", new Under("dark_slate", Map.of("fade", "0")),                 // 紫晶深板岩區
-            "crimson_capped_crimson_strata_2", new Under("abyssal_strata", Map.of("depth", "0")),     // 柳絮林地
+            "grove_capped_crimson_strata", new Under("abyssal_strata", Map.of("depth", "0")),     // 柳絮林地
             "capped_crimson_strata", new Under("ember_stone", Map.of("heat", "0")),                    // 峽谷桌山頂
-            "void_capped_crimson_01", new Under("crimson_vein_stone", Map.of("crimson_spread", "4"))  // 搖籃曲山丘
+            "capped_crimson_vein_stone", new Under("crimson_vein_stone", Map.of("crimson_spread", "4"))  // 搖籃曲山丘
     );
     private static final Map<Block, BlockState> RESOLVED = new HashMap<>();
 

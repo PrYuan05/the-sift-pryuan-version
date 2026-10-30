@@ -87,10 +87,10 @@ TAGS = {  # vanilla tag -> entries to add
                                    "puff_grass", "golden_bloom",
                                    "sun_bloom", "rose_bloom", "dusk_bloom"],
     # The Sift surface blocks plants may grow on (VegetationBlock#mayPlaceOn checks this tag)
-    "block/supports_vegetation": ["meadow_grass_block", "rich_dirt", "forest_floor", "ash_capped_crimson_01",
-                                  "crimson_strata", "ash_capped_violet_01", "violet_strata", "crimson_capped_void_01",
-                                  "crimson_capped_crimson_strata_3", "amber_sand", "pale_sand", "void_capped_crimson_01",
-                                  "crimson_capped_crimson_strata_2", "violet_capped_dark_slate", "capped_crimson_strata",
+    "block/supports_vegetation": ["meadow_grass_block", "rich_dirt", "forest_floor", "ash_capped_crimson",
+                                  "crimson_strata", "ash_capped_violet", "violet_strata", "crimson_capped_void_stone",
+                                  "canyon_capped_crimson_strata", "amber_sand", "pale_sand", "capped_crimson_vein_stone",
+                                  "grove_capped_crimson_strata", "violet_capped_dark_slate", "capped_crimson_strata",
                                   "abyssal_strata", "dark_slate", "silted_strata"],
     "fluid/water": ["spirit_liquid", "flowing_spirit_liquid"],
 }

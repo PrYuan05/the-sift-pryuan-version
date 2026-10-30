@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/soul_willow_wood"
+    "model": "pysift:block/soul_willow_wood/soul_willow_wood"
   }
 }

@@ -93,6 +93,8 @@ def main():
                 lang[f"block.pysift.{ours}{suf}"] = en + es if code == "en_us" else zh + zs
             wj(A / f"lang/{code}.json", lang)
     print("made:", made)
+    import subprocess, sys as _sys                          # keep models grouped per block (tools/texture_pipeline/group_models.py)
+    subprocess.run([_sys.executable, "-I", str(Path(__file__).resolve().parents[1] / "texture_pipeline/group_models.py"), str(P)], check=True)
 
 
 if __name__ == "__main__":

@@ -7,8 +7,8 @@
     "grooved_stone_pillar",
     "edged_stone",
     "capped_crimson_strata",
-    "crimson_capped_crimson_strata_2",
-    "crimson_capped_crimson_strata_3"
+    "grove_capped_crimson_strata",
+    "canyon_capped_crimson_strata"
   ],
   "exclude_sources": [
     "framed_slate",
@@ -46,7 +46,7 @@
   "max_pool_spread": 4.0,
   "max_variants": 3,
   "orientation": {
-    "teal_capped_teal_strata_2": "rot90"
+    "bright_teal_capped_teal_strata": "rot90"
   },
   "_doc_orientation": "orientation: per-block side transform (none / vflip / rot90 / rot270). Blocks not listed keep their current orientation; the automatic drip score is only reported.",
   "allow_sources": {
@@ -74,8 +74,8 @@
     "teal_capped_gray_strata": {
       "bottom": "pysift:block/teal_capped_gray_strata/teal_capped_gray_strata_bottom"
     },
-    "teal_capped_gray_strata_2": {
-      "bottom": "pysift:block/teal_capped_gray_strata_2/teal_capped_gray_strata_2_bottom"
+    "red_spotted_teal_capped_gray_strata": {
+      "bottom": "pysift:block/red_spotted_teal_capped_gray_strata/red_spotted_teal_capped_gray_strata_bottom"
     },
     "olive_capped_mossy_olive_earth": {
       "top": "pysift:block/olive_capped_mossy_olive_earth/olive_capped_mossy_olive_earth_top"
@@ -83,8 +83,8 @@
     "gray_capped_sky_block": {
       "top": "pysift:block/gray_capped_sky_block/gray_capped_sky_block_top"
     },
-    "teal_capped_teal_strata_2": {
-      "top": "pysift:block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_top"
+    "bright_teal_capped_teal_strata": {
+      "top": "pysift:block/bright_teal_capped_teal_strata/bright_teal_capped_teal_strata_top"
     }
   }
 }

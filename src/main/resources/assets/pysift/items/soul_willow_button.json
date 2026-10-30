@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/soul_willow_button_inventory"
+    "model": "pysift:block/soul_willow_button/soul_willow_button_inventory"
   }
 }

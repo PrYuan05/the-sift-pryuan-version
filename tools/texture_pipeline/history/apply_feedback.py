@@ -62,7 +62,7 @@ for mf in (A / "models/block").rglob("*.json"):
     if "side" in mj.get("textures", {}) and not mf.parent.name == "templates":
         SIDES.add(mj["textures"]["side"])
 SIDES |= {c["texture"] for c in lj(OUT / "directional_proposal.json")}
-SIDES |= {f"pysift:block/void_stone/void_stone_{l}" for l in "hi"} | {"pysift:block/teal_strata/teal_strata_g"}
+SIDES |= {f"pysift:block/void_stone/void_stone_{l}" for l in "hi"} | {"pysift:block/bright_teal_capped_teal_strata/teal_strata_g"}
 LIB = [r for r in LIB if r not in SIDES]
 _lib = {}
 
@@ -211,9 +211,9 @@ def facing_block(bid, src_block, label, transform, band_side, zh):
 
 report = {}
 # crimson_strata i: teal edge on the left -> rotate so it faces up
-report["crimson_capped_crimson_strata_3"] = facing_block("crimson_capped_crimson_strata_3", "crimson_strata", "i", "rot90", "left", "赤紅覆蓋赤紅地層岩 3")
+report["canyon_capped_crimson_strata"] = facing_block("canyon_capped_crimson_strata", "crimson_strata", "i", "rot90", "left", "赤紅覆蓋赤紅地層岩 3")
 # teal_strata g: user — the right side goes to the bottom (clockwise 90°, left edge becomes the top)
-report["teal_capped_teal_strata_2"] = facing_block("teal_capped_teal_strata_2", "teal_strata", "g", "rot90", "left", "青碧覆蓋青碧地層岩 2")
+report["bright_teal_capped_teal_strata"] = facing_block("bright_teal_capped_teal_strata", "teal_strata", "g", "rot90", "left", "青碧覆蓋青碧地層岩 2")
 # void_stone i: dark band already at the top
 report["gray_capped_void_stone"] = facing_block("gray_capped_void_stone", "void_stone", "i", "none", "top", "灰覆蓋虛黑岩")
 

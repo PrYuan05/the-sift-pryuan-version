@@ -1,13 +1,13 @@
 {
   "variants": {
     "type=bottom": {
-      "model": "pysift:block/smooth_ash_marble_slab"
+      "model": "pysift:block/smooth_ash_marble_slab/smooth_ash_marble_slab"
     },
     "type=double": {
-      "model": "pysift:block/smooth_ash_marble"
+      "model": "pysift:block/smooth_ash_marble/smooth_ash_marble"
     },
     "type=top": {
-      "model": "pysift:block/smooth_ash_marble_slab_top"
+      "model": "pysift:block/smooth_ash_marble_slab/smooth_ash_marble_slab_top"
     }
   }
 }

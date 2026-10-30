@@ -103,7 +103,7 @@ EXACT_COLOR_MAP = {
     # 4. ember_stone_heat1..3 (transition between warm amber #b57c4d and soft rose-pink #f27683)
     hx("#b36350"): lerp_rgb(hx("#b57c4d"), hx("#f27683"), 0.52),
 
-    # 5. crimson_capped_void_01_side (smooth gradient from top cap #e86975..#fa8390 into dark void #3d2f41)
+    # 5. crimson_capped_void_stone_side (smooth gradient from top cap #e86975..#fa8390 into dark void #3d2f41)
     hx("#783d4c"): lerp_rgb(hx("#3d2f41"), hx("#f27683"), 0.62),
     hx("#763c4a"): lerp_rgb(hx("#3d2f41"), hx("#f27683"), 0.58),
     hx("#6e3947"): lerp_rgb(hx("#3d2f41"), hx("#e86975"), 0.52),
@@ -127,31 +127,31 @@ TARGET_TEXTURES = [
     ("ember_stone", "textures/block/ember_stone/ember_stone_heat2_a.png", "pysift:block/sift_ground/grove_top"),
     ("ember_stone", "textures/block/ember_stone/ember_stone_heat2_b.png", "pysift:block/sift_ground/canyon_top_b"),
     ("ember_stone", "textures/block/ember_stone/ember_stone_heat3_a.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("ember_stone", "textures/block/ember_stone/ember_stone_heat3_b.png", "pysift:block/sift_ground/grove_top"),
+    ("ember_stone", "textures/block/crimson_capped_ember_stone/ember_stone_heat3_b.png", "pysift:block/sift_ground/grove_top"),
     ("crimson_vein_stone", "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_vein_stone", "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_vein_stone", "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_vein_stone", "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_vein_stone", "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_a.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_b.png", "pysift:block/sift_ground/grove_top"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_c.png", "pysift:block/sift_ground/grove_top"),
+    ("crimson_strata", "textures/block/crimson_capped_crimson_strata/crimson_strata_b.png", "pysift:block/sift_ground/grove_top"),
+    ("crimson_strata", "textures/block/grove_capped_crimson_strata/crimson_strata_c.png", "pysift:block/sift_ground/grove_top"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_d.png", "pysift:block/sift_ground/grove_top"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_e.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_f.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_strata", "textures/block/capped_crimson_strata/crimson_strata_e.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_strata", "textures/block/capped_crimson_strata/crimson_strata_f.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_g.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_h.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_i.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_strata", "textures/block/capped_crimson_strata/crimson_strata_h.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_strata", "textures/block/canyon_capped_crimson_strata/crimson_strata_i.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_j.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_k.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_strata", "textures/block/crimson_strata/crimson_strata_l.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_strata", "textures/block/violet_capped_crimson_strata/crimson_strata_l.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_m.png", "pysift:block/sift_ground/canyon_top_b"),
     ("crimson_strata", "textures/block/crimson_strata/crimson_strata_n.png", "pysift:block/sift_ground/canyon_top_b"),
     ("capped_crimson_strata", "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png", "pysift:block/sift_ground/canyon_top_b"),
     ("rose_capped_crimson_strata", "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_capped_void_01", "textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("crimson_capped_void_01", "textures/block/crimson_capped_void_01/crimson_capped_void_01_side.png", "pysift:block/sift_ground/canyon_top_b"),
-    ("gray_strata", "textures/block/gray_strata/gray_strata_a.png", "pysift:block/sift_ground/grove_top"),
+    ("crimson_capped_void_stone", "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_top.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("crimson_capped_void_stone", "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_side.png", "pysift:block/sift_ground/canyon_top_b"),
+    ("gray_strata", "textures/block/crimson_capped_gray_strata/gray_strata_a.png", "pysift:block/sift_ground/grove_top"),
     ("dark_slate", "textures/block/dark_slate/dark_slate_b.png", "pysift:block/sift_ground/grove_top"),
     ("dark_slate", "textures/block/dark_slate/dark_slate_c.png", "pysift:block/sift_ground/grove_top"),
     ("crimson_strata", "textures/block/crimson_strata_bricks/crimson_strata_bricks.png", "pysift:block/sift_ground/canyon_top_b"),
@@ -214,18 +214,18 @@ def recolor_image(im, rel_path):
 
 
 def restore_surface_models_without_overlay():
-    """Ensure crimson_capped_crimson_strata_2 and _3 use their original cube_bottom_top / cube_bottom_top_rot90
+    """Ensure grove_capped_crimson_strata and _3 use their original cube_bottom_top / cube_bottom_top_rot90
     parents (so side textures crimson_strata_c and crimson_strata_i show their original shapes without overlay)
     while keeping the user-edited grove_top(_b) and canyon_top_a..d on top.
     """
-    m2_1 = A / "models/block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_1.json"
-    m2_2 = A / "models/block/crimson_capped_crimson_strata_2/crimson_capped_crimson_strata_2_2.json"
+    m2_1 = A / "models/block/grove_capped_crimson_strata/grove_capped_crimson_strata_1.json"
+    m2_2 = A / "models/block/grove_capped_crimson_strata/grove_capped_crimson_strata_2.json"
     wj(m2_1, {
         "parent": "minecraft:block/cube_bottom_top",
         "textures": {
             "top": "pysift:block/sift_ground/grove_top",
             "bottom": "pysift:block/teal_strata/teal_strata_a",
-            "side": "pysift:block/crimson_strata/crimson_strata_c"
+            "side": "pysift:block/grove_capped_crimson_strata/crimson_strata_c"
         }
     })
     wj(m2_2, {
@@ -233,19 +233,19 @@ def restore_surface_models_without_overlay():
         "textures": {
             "top": "pysift:block/sift_ground/grove_top_b",
             "bottom": "pysift:block/teal_strata/teal_strata_a",
-            "side": "pysift:block/crimson_strata/crimson_strata_c"
+            "side": "pysift:block/grove_capped_crimson_strata/crimson_strata_c"
         }
     })
 
     bots = ["silted_strata_silt1", "silted_strata_silt0_b", "silted_strata_silt1", "silted_strata_silt0_b"]
     for i, k in enumerate("abcd"):
-        m3 = A / f"models/block/crimson_capped_crimson_strata_3/crimson_capped_crimson_strata_3_{i + 1}.json"
+        m3 = A / f"models/block/canyon_capped_crimson_strata/canyon_capped_crimson_strata_{i + 1}.json"
         wj(m3, {
             "parent": "pysift:block/templates/cube_bottom_top_rot90",
             "textures": {
                 "top": f"pysift:block/sift_ground/canyon_top_{k}",
                 "bottom": f"pysift:block/silted_strata/{bots[i]}",
-                "side": "pysift:block/crimson_strata/crimson_strata_i"
+                "side": "pysift:block/canyon_capped_crimson_strata/crimson_strata_i"
             }
         })
 

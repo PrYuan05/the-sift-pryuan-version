@@ -18,19 +18,19 @@ TOP_N = 8
 
 # role -> (current block, current properties, candidate block families). Candidates are every state of those blocks.
 CRIMSON = ["crimson_strata", "crimson_vein_stone", "ember_stone", "veined_crimson_stone", "bleached_clay",
-           "banded_mudstone", "crimson_capped_crimson_strata", "crimson_capped_crimson_strata_2",
-           "capped_crimson_strata", "stone_capped_rose_01", "rose_capped_stone_01", "crimson_capped_void_01",
-           "ash_capped_crimson_01"]
+           "banded_mudstone", "crimson_capped_crimson_strata", "grove_capped_crimson_strata",
+           "capped_crimson_strata", "stone_capped_rose", "rose_capped_stone", "crimson_capped_void_stone",
+           "ash_capped_crimson"]
 VIOLET = ["violet_strata", "violet_marble", "violet_solid_block", "corrupted_slate", "violet_capped_dark_slate",
-          "violet_capped_crimson_strata", "crimson_capped_violet_strata", "crimson_capped_violet_strata_2",
-          "ash_capped_violet_01", "magma_vein_slate", "stone_capped_violet_01"]
-PINK = ["crimson_strata", "rose_capped_stone_01", "stone_capped_rose_01", "rose_capped_dark_slate_01",
-        "capped_crimson_strata", "dark_slate_capped_rose_01", "bleached_clay",
+          "violet_capped_crimson_strata", "crimson_capped_violet_strata", "streaked_crimson_capped_violet_strata",
+          "ash_capped_violet", "magma_vein_slate", "stone_capped_violet"]
+PINK = ["crimson_strata", "rose_capped_stone", "stone_capped_rose", "rose_capped_dark_slate",
+        "capped_crimson_strata", "dark_slate_capped_rose", "bleached_clay",
         "banded_mudstone", "crimson_vein_stone", "ember_stone", "cracked_sandstone"]
 SAND = ["pale_sand", "amber_sand", "bleached_sandstone", "cracked_sandstone", "banded_mudstone", "silted_strata"]
 ROLES = {
-    "crimson_top": ("crimson_capped_crimson_strata_3", {}, CRIMSON + ["crimson_capped_crimson_strata_3"]),
-    "violet_top": ("ash_capped_violet_01", {}, VIOLET),
+    "crimson_top": ("canyon_capped_crimson_strata", {}, CRIMSON + ["canyon_capped_crimson_strata"]),
+    "violet_top": ("ash_capped_violet", {}, VIOLET),
     "violet_under": ("violet_strata", {}, VIOLET),
     "grove_top": ("sift_pink_loam", {}, PINK),
     "dunes_top": ("pale_sand", {}, SAND),

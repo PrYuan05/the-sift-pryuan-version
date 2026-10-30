@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/void_stone/void_stone_c",
     "bottom": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust1",
-    "side": "pysift:block/void_stone/void_stone_i"
+    "side": "pysift:block/gray_capped_void_stone/void_stone_i"
   }
 }

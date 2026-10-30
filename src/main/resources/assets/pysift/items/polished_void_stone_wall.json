@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "pysift:block/polished_void_stone_wall_inventory"
+    "model": "pysift:block/polished_void_stone_wall/polished_void_stone_wall_inventory"
   }
 }

@@ -17,7 +17,7 @@
             "then_run": {
               "type": "minecraft:block",
               "result_state": {
-                "id": "pysift:crimson_capped_crimson_strata_3",
+                "id": "pysift:canyon_capped_crimson_strata",
                 "properties": {
                   "facing": "up"
                 }
@@ -110,7 +110,7 @@
                   "then_run": {
                     "type": "minecraft:block",
                     "result_state": {
-                      "id": "pysift:crimson_capped_crimson_strata_3",
+                      "id": "pysift:canyon_capped_crimson_strata",
                       "properties": {
                         "facing": "up"
                       }
@@ -270,7 +270,7 @@
                   "then_run": {
                     "type": "minecraft:block",
                     "result_state": {
-                      "id": "pysift:crimson_capped_crimson_strata_2",
+                      "id": "pysift:grove_capped_crimson_strata",
                       "properties": {
                         "facing": "up"
                       }
@@ -2829,7 +2829,7 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:void_capped_crimson_01"
+                                          "result_state": "pysift:capped_crimson_vein_stone"
                                         }
                                       },
                                       {
@@ -2857,7 +2857,7 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:void_capped_crimson_01"
+                                        "result_state": "pysift:capped_crimson_vein_stone"
                                       }
                                     },
                                     {
@@ -2906,7 +2906,7 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:void_capped_crimson_01"
+                                          "result_state": "pysift:capped_crimson_vein_stone"
                                         }
                                       },
                                       {
@@ -2934,7 +2934,7 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:void_capped_crimson_01"
+                                        "result_state": "pysift:capped_crimson_vein_stone"
                                       }
                                     },
                                     {
@@ -2988,7 +2988,7 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:void_capped_crimson_01"
+                                          "result_state": "pysift:capped_crimson_vein_stone"
                                         }
                                       },
                                       {
@@ -3016,7 +3016,7 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:void_capped_crimson_01"
+                                        "result_state": "pysift:capped_crimson_vein_stone"
                                       }
                                     },
                                     {
@@ -3065,7 +3065,7 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:void_capped_crimson_01"
+                                          "result_state": "pysift:capped_crimson_vein_stone"
                                         }
                                       },
                                       {
@@ -3093,7 +3093,7 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:void_capped_crimson_01"
+                                        "result_state": "pysift:capped_crimson_vein_stone"
                                       }
                                     },
                                     {
@@ -3125,7 +3125,7 @@
                             },
                             "then_run": {
                               "type": "minecraft:block",
-                              "result_state": "pysift:void_capped_crimson_01"
+                              "result_state": "pysift:capped_crimson_vein_stone"
                             }
                           },
                           {
@@ -3138,7 +3138,7 @@
                             },
                             "then_run": {
                               "type": "minecraft:block",
-                              "result_state": "pysift:void_capped_crimson_01"
+                              "result_state": "pysift:capped_crimson_vein_stone"
                             }
                           }
                         ]

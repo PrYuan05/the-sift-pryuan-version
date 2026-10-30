@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/outer_stairs",
   "textures": {
-    "bottom": "pysift:block/void_stone/void_stone_a",
-    "top": "pysift:block/void_stone/void_stone_a",
-    "side": "pysift:block/void_stone/void_stone_a"
+    "bottom": "pysift:block/umber_void_stone/void_stone_a",
+    "top": "pysift:block/umber_void_stone/void_stone_a",
+    "side": "pysift:block/umber_void_stone/void_stone_a"
   }
 }

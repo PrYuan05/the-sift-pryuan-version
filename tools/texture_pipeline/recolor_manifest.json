@@ -25,7 +25,7 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/ash_capped_dark_slate_01/ash_capped_dark_slate_01_bottom.png",
+      "file": "textures/block/plain_ash_capped_dark_slate/plain_ash_capped_dark_slate_bottom.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -35,7 +35,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/ash_capped_dark_slate_01/ash_capped_dark_slate_01_side.png",
+      "file": "textures/block/plain_ash_capped_dark_slate/plain_ash_capped_dark_slate_side.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -45,7 +45,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/ash_capped_dark_slate_02/ash_capped_dark_slate_02_bottom.png",
+      "file": "textures/block/speckled_ash_capped_dark_slate/speckled_ash_capped_dark_slate_bottom.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -55,7 +55,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/ash_capped_dark_slate_02/ash_capped_dark_slate_02_side.png",
+      "file": "textures/block/speckled_ash_capped_dark_slate/speckled_ash_capped_dark_slate_side.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -91,8 +91,8 @@
     {
       "file": "textures/block/blotched_dark_slate_bricks/blotched_dark_slate_bricks.png",
       "pool": "blotched_dark_slate:bricks",
-      "reference": "pysift:block/dark_slate/dark_slate_e",
-      "source": "pysift:block/dark_slate/dark_slate_e",
+      "reference": "pysift:block/blotched_dark_slate/dark_slate_e",
+      "source": "pysift:block/blotched_dark_slate/dark_slate_e",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -103,8 +103,8 @@
     {
       "file": "textures/block/blotched_dark_slate_bricks/chiseled_blotched_dark_slate_bricks.png",
       "pool": "blotched_dark_slate:chiseled",
-      "reference": "pysift:block/dark_slate/dark_slate_e",
-      "source": "pysift:block/dark_slate/dark_slate_e",
+      "reference": "pysift:block/blotched_dark_slate/dark_slate_e",
+      "source": "pysift:block/blotched_dark_slate/dark_slate_e",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -125,8 +125,8 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/crimson_capped_void_01/crimson_capped_void_01_side.png",
-      "pool": "crimson_capped_void_01:stage2_pink",
+      "file": "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_side.png",
+      "pool": "crimson_capped_void_stone:stage2_pink",
       "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "3ac0033dfc6b8e0711320b2e4514a2f9418c5e77",
@@ -135,8 +135,8 @@
       "date": "20261018-175357"
     },
     {
-      "file": "textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png",
-      "pool": "crimson_capped_void_01:stage2_pink",
+      "file": "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_top.png",
+      "pool": "crimson_capped_void_stone:stage2_pink",
       "reference": "pysift:block/sift_ground/canyon_top_b",
       "mode": "tone",
       "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
@@ -145,7 +145,7 @@
       "date": "20261018-175357"
     },
     {
-      "file": "textures/block/dark_slate/dark_slate_a.png",
+      "file": "textures/block/framed_dark_slate/dark_slate_a.png",
       "pool": "dark_slate:tone",
       "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
       "mode": "tone",
@@ -155,7 +155,7 @@
       "date": "20261014-011457"
     },
     {
-      "file": "textures/block/dark_slate/dark_slate_m.png",
+      "file": "textures/block/gray_capped_dark_slate/dark_slate_m.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -165,7 +165,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/dark_slate/dark_slate_n.png",
+      "file": "textures/block/gray_capped_dark_slate/dark_slate_n.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -175,7 +175,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/dark_slate_capped_ash_01/dark_slate_capped_ash_01_side.png",
+      "file": "textures/block/dark_slate_capped_ash/dark_slate_capped_ash_side.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -185,7 +185,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/dark_slate_capped_ash_01/dark_slate_capped_ash_01_top.png",
+      "file": "textures/block/dark_slate_capped_ash/dark_slate_capped_ash_top.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -195,7 +195,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/dark_slate_capped_rose_01/dark_slate_capped_rose_01_bottom.png",
+      "file": "textures/block/dark_slate_capped_rose/dark_slate_capped_rose_bottom.png",
       "pool": "violet_purple:unify",
       "reference": "pysift:block/violet_strata/violet_strata_e",
       "mode": "tone",
@@ -205,7 +205,7 @@
       "date": "20261014-044204"
     },
     {
-      "file": "textures/block/dark_slate_capped_rose_01/dark_slate_capped_rose_01_side.png",
+      "file": "textures/block/dark_slate_capped_rose/dark_slate_capped_rose_side.png",
       "pool": "violet_purple:unify",
       "reference": "pysift:block/violet_strata/violet_strata_e",
       "mode": "tone",
@@ -215,7 +215,7 @@
       "date": "20261014-044204"
     },
     {
-      "file": "textures/block/dark_slate_capped_rose_01/dark_slate_capped_rose_01_top.png",
+      "file": "textures/block/dark_slate_capped_rose/dark_slate_capped_rose_top.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -304,7 +304,7 @@
       "previous": {
         "file": "textures/block/gray_capped_dark_slate/gray_capped_dark_slate_bottom.png",
         "pool": "gray_capped_dark_slate:bottom",
-        "reference": "bottom band of pysift:block/dark_slate/dark_slate_m (none)",
+        "reference": "bottom band of pysift:block/gray_capped_dark_slate/dark_slate_m (none)",
         "source": "pysift:block/cobbled_dirt/cobbled_dirt_stone5",
         "mode": "generated",
         "method": "rank",
@@ -327,7 +327,7 @@
       "date": "20261013-040934"
     },
     {
-      "file": "textures/block/gray_strata/gray_strata_a.png",
+      "file": "textures/block/crimson_capped_gray_strata/gray_strata_a.png",
       "pool": "gray_strata:stage2_pink",
       "reference": "pysift:block/sift_ground/grove_top",
       "mode": "tone",
@@ -699,7 +699,7 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_bottom.png",
+      "file": "textures/block/rose_capped_dark_slate/rose_capped_dark_slate_bottom.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
       "mode": "tone",
@@ -709,7 +709,7 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_side.png",
+      "file": "textures/block/rose_capped_dark_slate/rose_capped_dark_slate_side.png",
       "pool": "violet_purple:unify",
       "reference": "pysift:block/violet_strata/violet_strata_e",
       "mode": "tone",
@@ -719,7 +719,7 @@
       "date": "20261014-044204"
     },
     {
-      "file": "textures/block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_top.png",
+      "file": "textures/block/rose_capped_dark_slate/rose_capped_dark_slate_top.png",
       "pool": "violet_purple:unify",
       "reference": "pysift:block/violet_strata/violet_strata_e",
       "mode": "tone",
@@ -837,7 +837,7 @@
     {
       "file": "textures/block/teal_capped_abyssal_strata/teal_capped_abyssal_strata_bottom.png",
       "pool": "teal_capped_abyssal_strata:bottom",
-      "reference": "bottom band of pysift:block/abyssal_strata/abyssal_strata_depth0_b (vflip)",
+      "reference": "bottom band of pysift:block/teal_capped_abyssal_strata/abyssal_strata_depth0_b (vflip)",
       "source": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
       "mode": "generated",
       "method": "rank",
@@ -849,7 +849,7 @@
     {
       "file": "textures/block/teal_capped_gray_strata/teal_capped_gray_strata_bottom.png",
       "pool": "teal_capped_gray_strata:bottom",
-      "reference": "bottom band of pysift:block/gray_strata/gray_strata_h (vflip)",
+      "reference": "bottom band of pysift:block/teal_capped_gray_strata/gray_strata_h (vflip)",
       "source": "pysift:block/banded_mudstone/banded_mudstone_banding3",
       "mode": "generated",
       "method": "rank",
@@ -859,9 +859,9 @@
       "date": "20261013-040934"
     },
     {
-      "file": "textures/block/teal_capped_gray_strata_2/teal_capped_gray_strata_2_bottom.png",
-      "pool": "teal_capped_gray_strata_2:bottom",
-      "reference": "bottom band of pysift:block/gray_strata/gray_strata_i (none)",
+      "file": "textures/block/red_spotted_teal_capped_gray_strata/red_spotted_teal_capped_gray_strata_bottom.png",
+      "pool": "red_spotted_teal_capped_gray_strata:bottom",
+      "reference": "bottom band of pysift:block/red_spotted_teal_capped_gray_strata/gray_strata_i (none)",
       "source": "pysift:block/crimson_strata/crimson_strata_g",
       "mode": "generated",
       "method": "rank",
@@ -871,9 +871,9 @@
       "date": "20261013-040934"
     },
     {
-      "file": "textures/block/teal_capped_teal_strata_2/teal_capped_teal_strata_2_top.png",
-      "pool": "teal_capped_teal_strata_2:top",
-      "reference": "top band of pysift:block/teal_strata/teal_strata_g (rot90)",
+      "file": "textures/block/bright_teal_capped_teal_strata/bright_teal_capped_teal_strata_top.png",
+      "pool": "bright_teal_capped_teal_strata:top",
+      "reference": "top band of pysift:block/bright_teal_capped_teal_strata/teal_strata_g (rot90)",
       "source": "pysift:block/teal_strata/teal_strata_e",
       "mode": "generated",
       "method": "rank",
@@ -909,8 +909,8 @@
     {
       "file": "textures/block/umber_void_stone_bricks/chiseled_umber_void_stone_bricks.png",
       "pool": "umber_void_stone:chiseled",
-      "reference": "pysift:block/void_stone/void_stone_a",
-      "source": "pysift:block/void_stone/void_stone_a",
+      "reference": "pysift:block/umber_void_stone/void_stone_a",
+      "source": "pysift:block/umber_void_stone/void_stone_a",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -921,8 +921,8 @@
     {
       "file": "textures/block/umber_void_stone_bricks/umber_void_stone_bricks.png",
       "pool": "umber_void_stone:bricks",
-      "reference": "pysift:block/void_stone/void_stone_a",
-      "source": "pysift:block/void_stone/void_stone_a",
+      "reference": "pysift:block/umber_void_stone/void_stone_a",
+      "source": "pysift:block/umber_void_stone/void_stone_a",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -933,8 +933,8 @@
     {
       "file": "textures/block/varied_dark_slate_bricks/chiseled_varied_dark_slate_bricks.png",
       "pool": "varied_dark_slate:chiseled",
-      "reference": "pysift:block/dark_slate/dark_slate_g",
-      "source": "pysift:block/dark_slate/dark_slate_g",
+      "reference": "pysift:block/varied_dark_slate/dark_slate_g",
+      "source": "pysift:block/varied_dark_slate/dark_slate_g",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -945,8 +945,8 @@
     {
       "file": "textures/block/varied_dark_slate_bricks/varied_dark_slate_bricks.png",
       "pool": "varied_dark_slate:bricks",
-      "reference": "pysift:block/dark_slate/dark_slate_g",
-      "source": "pysift:block/dark_slate/dark_slate_g",
+      "reference": "pysift:block/varied_dark_slate/dark_slate_g",
+      "source": "pysift:block/varied_dark_slate/dark_slate_g",
       "mode": "generated",
       "method": "building_set",
       "sha1_before": null,
@@ -1075,7 +1075,7 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/void_stone/void_stone_i.png",
+      "file": "textures/block/gray_capped_void_stone/void_stone_i.png",
       "pool": "void_stone:sides",
       "reference": "pysift:block/void_stone/void_stone_c",
       "mode": "palette",
@@ -1087,8 +1087,8 @@
     {
       "file": "textures/block/warm_capped_ember_stone/warm_capped_ember_stone_top.png",
       "pool": "warm_capped_ember_stone:top",
-      "reference": "top band of pysift:block/ember_stone/ember_stone_heat3_c (vflip)",
-      "source": "pysift:block/dark_slate/dark_slate_e",
+      "reference": "top band of pysift:block/warm_capped_ember_stone/ember_stone_heat3_c (vflip)",
+      "source": "pysift:block/blotched_dark_slate/dark_slate_e",
       "mode": "generated",
       "method": "rank",
       "sha1_before": null,

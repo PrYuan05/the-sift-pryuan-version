@@ -16,15 +16,15 @@
     ],
     "type=double": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_g",
+        "model": "pysift:block/varied_dark_slate/dark_slate_g",
         "weight": 1
       },
       {
-        "model": "pysift:block/dark_slate/dark_slate_h",
+        "model": "pysift:block/varied_dark_slate/dark_slate_h",
         "weight": 1
       },
       {
-        "model": "pysift:block/dark_slate/dark_slate_i",
+        "model": "pysift:block/varied_dark_slate/dark_slate_i",
         "weight": 1
       }
     ],

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/capped_crimson_vein_stone/capped_crimson_vein_stone_top",
+    "side": "pysift:block/capped_crimson_vein_stone/capped_crimson_vein_stone_side",
+    "bottom": "pysift:block/capped_crimson_vein_stone/capped_crimson_vein_stone_bottom"
+  }
+}

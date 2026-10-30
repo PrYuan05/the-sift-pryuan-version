@@ -217,6 +217,8 @@ def main():
         print(f"{colour}: {len(PARTS)} blocks, {len(fam.models)} models, {len(fam.textures)} textures, {recipes} recipes, {tags} tags")
     for code, d in lang.items():
         wj(A / f"lang/{code}.json", d)
+    import subprocess, sys as _sys                          # keep models grouped per block (tools/texture_pipeline/group_models.py)
+    subprocess.run([_sys.executable, "-I", str(Path(__file__).resolve().parents[1] / "texture_pipeline/group_models.py"), str(P)], check=True)
 
 
 if __name__ == "__main__":

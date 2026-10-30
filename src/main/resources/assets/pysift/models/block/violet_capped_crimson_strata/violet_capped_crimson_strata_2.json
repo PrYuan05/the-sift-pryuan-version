@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/violet_strata/violet_strata_e",
     "bottom": "pysift:block/crimson_strata/crimson_strata_j",
-    "side": "pysift:block/crimson_strata/crimson_strata_l"
+    "side": "pysift:block/violet_capped_crimson_strata/crimson_strata_l"
   }
 }

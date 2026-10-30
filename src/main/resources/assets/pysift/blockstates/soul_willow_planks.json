@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "pysift:block/soul_willow_planks"
+      "model": "pysift:block/soul_willow_planks/soul_willow_planks"
     }
   }
 }

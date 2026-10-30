@@ -2,12 +2,12 @@
   "multipart": [
     {
       "apply": {
-        "model": "pysift:block/soul_willow_fence_post"
+        "model": "pysift:block/soul_willow_fence/soul_willow_fence_post"
       }
     },
     {
       "apply": {
-        "model": "pysift:block/soul_willow_fence_side",
+        "model": "pysift:block/soul_willow_fence/soul_willow_fence_side",
         "uvlock": true
       },
       "when": {
@@ -16,7 +16,7 @@
     },
     {
       "apply": {
-        "model": "pysift:block/soul_willow_fence_side",
+        "model": "pysift:block/soul_willow_fence/soul_willow_fence_side",
         "uvlock": true,
         "y": 90
       },
@@ -26,7 +26,7 @@
     },
     {
       "apply": {
-        "model": "pysift:block/soul_willow_fence_side",
+        "model": "pysift:block/soul_willow_fence/soul_willow_fence_side",
         "uvlock": true,
         "y": 180
       },
@@ -36,7 +36,7 @@
     },
     {
       "apply": {
-        "model": "pysift:block/soul_willow_fence_side",
+        "model": "pysift:block/soul_willow_fence/soul_willow_fence_side",
         "uvlock": true,
         "y": 270
       },

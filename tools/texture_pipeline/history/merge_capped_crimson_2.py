@@ -63,7 +63,7 @@ def lum(c): return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]
 def coral_side():
     """dark_slate_b with every non-teal (red rock) pixel mapped by brightness onto the rock palette of crimson_strata_h."""
     src = Image.open(A / "textures/block/dark_slate/dark_slate_b.png").convert("RGBA")
-    ref = Image.open(A / "textures/block/crimson_strata/crimson_strata_h.png").convert("RGBA")
+    ref = Image.open(A / "textures/block/capped_crimson_strata/crimson_strata_h.png").convert("RGBA")
     pal = sorted({p[:3] for p in ref.get_flattened_data() if p[3] and not is_teal(p)}, key=lum)
     rock = [p for p in src.get_flattened_data() if p[3] and not is_teal(p)]
     lo, hi = min(map(lum, rock)), max(map(lum, rock))

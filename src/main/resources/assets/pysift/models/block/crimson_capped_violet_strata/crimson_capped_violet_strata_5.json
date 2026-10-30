@@ -3,6 +3,6 @@
   "textures": {
     "top": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
     "bottom": "pysift:block/void_stone/void_stone_f",
-    "side": "pysift:block/violet_strata/violet_strata_b"
+    "side": "pysift:block/crimson_capped_violet_strata/violet_strata_b"
   }
 }
