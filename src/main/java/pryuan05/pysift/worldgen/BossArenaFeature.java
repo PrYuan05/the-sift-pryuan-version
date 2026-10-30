@@ -423,7 +423,7 @@ public record BossArenaFeature(
         Block chiseledDark = getBlock("chiseled_dark_slate_bricks");
         Block pillar = getBlock("dark_slate_pillar");
         Block wall = getBlock("dark_slate_brick_wall");
-        Block corrupted = getBlock("corrupted_slate_bricks");
+        Block corrupted = getBlock("chiseled_dark_slate_bricks");
         Block crystal = getBlock("soul_crystal_block");
         Block rune = getBlock("rune_slate");
         Block voidStone = getBlock("void_stone");

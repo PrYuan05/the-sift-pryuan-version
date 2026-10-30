@@ -143,8 +143,7 @@ def abyss_obelisk():
     c = 4
     for x in range(9):
         for z in range(9):
-            corruption = t.rnd.choice((0, 0, 1, 2))
-            t.set(x, 0, z, "corrupted_slate_bricks", corruption=corruption)
+            t.set(x, 0, z, "dark_slate_bricks")
             for y in range(1, 13):
                 t.set(x, y, z, "minecraft:air")
     for x in range(1, 8):
