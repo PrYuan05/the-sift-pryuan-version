@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:cracked_void_stone_tiles",
+  "result": {
+    "id": "pysift:cracked_void_stone_tile_wall"
+  }
+}

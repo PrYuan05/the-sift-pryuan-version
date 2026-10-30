@@ -306,6 +306,11 @@
     "pysift:dusk_gold_concrete_powder",
     "pysift:dusk_gold_terracotta",
     "pysift:dusk_gold_glazed_terracotta",
-    "pysift:soul_sift_axle"
+    "pysift:soul_sift_axle",
+    "pysift:smooth_void_stone",
+    "pysift:polished_void_stone",
+    "pysift:void_stone_tiles",
+    "pysift:cracked_void_stone_bricks",
+    "pysift:cracked_void_stone_tiles"
   ]
 }

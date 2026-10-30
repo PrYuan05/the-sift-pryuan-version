@@ -76,6 +76,11 @@
     "pysift:stone_variant_wall",
     "pysift:stone_variant_brick_wall",
     "pysift:amber_sandstone_wall",
-    "pysift:pale_sandstone_wall"
+    "pysift:pale_sandstone_wall",
+    "pysift:polished_void_stone_wall",
+    "pysift:void_stone_tile_wall",
+    "pysift:cracked_void_stone_brick_wall",
+    "pysift:cracked_void_stone_tile_wall",
+    "pysift:smooth_void_stone_wall"
   ]
 }

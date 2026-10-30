@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/veined_teal_stone_bricks/chiseled_veined_teal_stone_bricks"
+    "end": "pysift:block/veined_teal_stone_bricks/chiseled_veined_teal_stone_bricks_top",
+    "side": "pysift:block/veined_teal_stone_bricks/chiseled_veined_teal_stone_bricks"
   }
 }

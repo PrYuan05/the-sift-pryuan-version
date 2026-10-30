@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/banded_mudstone_bricks/chiseled_banded_mudstone_bricks"
+    "end": "pysift:block/banded_mudstone_bricks/chiseled_banded_mudstone_bricks_top",
+    "side": "pysift:block/banded_mudstone_bricks/chiseled_banded_mudstone_bricks"
   }
 }

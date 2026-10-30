@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/speckled_void_stone_bricks/chiseled_speckled_void_stone_bricks"
+    "end": "pysift:block/speckled_void_stone_bricks/chiseled_speckled_void_stone_bricks_top",
+    "side": "pysift:block/speckled_void_stone_bricks/chiseled_speckled_void_stone_bricks"
   }
 }

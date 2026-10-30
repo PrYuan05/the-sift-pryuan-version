@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/silted_strata_bricks/chiseled_silted_strata_bricks"
+    "end": "pysift:block/silted_strata_bricks/chiseled_silted_strata_bricks_top",
+    "side": "pysift:block/silted_strata_bricks/chiseled_silted_strata_bricks"
   }
 }

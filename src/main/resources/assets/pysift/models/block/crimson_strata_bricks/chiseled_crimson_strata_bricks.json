@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/crimson_strata_bricks/chiseled_crimson_strata_bricks"
+    "end": "pysift:block/crimson_strata_bricks/chiseled_crimson_strata_bricks_top",
+    "side": "pysift:block/crimson_strata_bricks/chiseled_crimson_strata_bricks"
   }
 }

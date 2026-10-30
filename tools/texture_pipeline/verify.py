@@ -39,6 +39,8 @@ veg_ids += wood_ids
 # sandstone families (SandstoneFamily.java, resources from tools/worldgen/build_sandstone.py): vanilla-style; the item
 # definitions point at the block models (no models/item of their own), mineable through #mineable/pickaxe like vanilla
 sandstone_ids = re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/SandstoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/SandstoneFamily.java").exists() else []
+# void stone family (VoidStoneFamily.java, tools/worldgen/build_void_stone_family.py): same vanilla-style resources
+sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/VoidStoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/VoidStoneFamily.java").exists() else []
 veg_ids += sandstone_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
 for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java", "block/SoulSiftAxle.java"):

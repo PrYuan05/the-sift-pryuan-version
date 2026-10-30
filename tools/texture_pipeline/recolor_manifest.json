@@ -1,30 +1,6 @@
 {
   "entries": [
     {
-      "file": "textures/block/abyssal_strata_bricks/abyssal_strata_bricks.png",
-      "pool": "abyssal_strata:bricks",
-      "reference": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
-      "source": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "2f3f068cde22ae15dd19aa00e3d7a15552f8457a",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/abyssal_strata_bricks/chiseled_abyssal_strata_bricks.png",
-      "pool": "abyssal_strata:chiseled",
-      "reference": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
-      "source": "pysift:block/abyssal_strata/abyssal_strata_depth0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "a586caa759bc56f771ffe8e89e177703cbda3e1c",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
       "file": "textures/block/amber_vein_stone_bricks/amber_vein_stone_bricks.png",
       "pool": "amber_vein_stone:bricks",
       "reference": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0",
@@ -209,40 +185,6 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
-      "pool": "capped_crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "88d0c0ca37878a5206d7bf256abbd6cf3f1830b6",
-      "sha1_after": "3ec0ba108f68eb932f2ea54b27f6aa17a8eb4571",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/capped_crimson_strata/capped_crimson_strata_rose_top.png",
-        "pool": "capped_crimson_strata:rose_top",
-        "reference": "top band of pysift:block/crimson_strata/crimson_strata_f (vflip)",
-        "source": "pysift:block/dark_slate/dark_slate_d",
-        "mode": "generated",
-        "method": "rank",
-        "sha1_before": null,
-        "sha1_after": "88d0c0ca37878a5206d7bf256abbd6cf3f1830b6",
-        "backup": null,
-        "date": "20261013-040934"
-      }
-    },
-    {
-      "file": "textures/block/capped_crimson_strata/capped_crimson_strata_teal_top.png",
-      "pool": "capped_crimson_strata:teal_top",
-      "reference": "top band of pysift:block/crimson_strata/crimson_strata_h (none)",
-      "source": "pysift:block/abyssal_strata/abyssal_strata_depth2",
-      "mode": "generated",
-      "method": "rank",
-      "sha1_before": null,
-      "sha1_after": "2fc11c242ce209b56ae35fe97d3f973515877775",
-      "backup": null,
-      "date": "20261013-040934"
-    },
-    {
       "file": "textures/block/corrupted_slate_bricks/chiseled_corrupted_slate_bricks.png",
       "pool": "corrupted_slate:chiseled",
       "reference": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
@@ -273,190 +215,6 @@
       "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
       "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png",
       "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_a.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "7bd310d10b8b75709b625bc73649a6a3a771a5f8",
-      "sha1_after": "d5508dac2ee590c4e8ffef2f722baa5b2be1d1ea",
-      "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata/crimson_strata_a.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_b.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "cbc9be879b4eeff27a7f4a56db1aaae9e0424532",
-      "sha1_after": "cd70656359468514daad51fa8b3db3303b927486",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_b.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_c.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "8522e4f0eda1e935179dd4b48413d786005c6b40",
-      "sha1_after": "1c7ad40f3d91cf015b611e0f380a4b4ef08ecbc7",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_c.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_d.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "91473b390ee525c19b8c57ed455e845727f3b6de",
-      "sha1_after": "2f2d86d1d3b1fe0a401583bf69b40b0b4e6fd5bc",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_d.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_e.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "24e19fd352c0e7f297789d6ca891b1e8b01d7b48",
-      "sha1_after": "1fef6a963287816c98227d8989c1f3d1b5683d7e",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_e.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_f.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "114773742acee0a59213b71d50855a9976cd8f24",
-      "sha1_after": "809f0b553e34ea7364f0cedfb4f212f7468df154",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_f.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_g.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "43b18764113b9fb83a0e611ac12f7309cc198c3b",
-      "sha1_after": "3908c97ed210a0be982566c0c8106379dc7b8a41",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_g.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_h.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "7219d67369c9ca478663c4cc061b5828d18ed1d9",
-      "sha1_after": "1b996e7be0690efc9f03787843b93e63053d0cb8",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_h.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_i.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "38e7d54c82b013b57acb84bdefa55f739ca3cd60",
-      "sha1_after": "8b38c5c6c28b4685694f571a6153154da35c85a7",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_i.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_j.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "2ac9dc31822471b75e1142ac33dccaa836d28355",
-      "sha1_after": "897d0fdb49e845c2dbb5b595e84b572e16d3bd09",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_j.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_k.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "fff05bb2a3f1e6c193942466ffd301ee87c00bac",
-      "sha1_after": "0149dbce038f279e780a0334cb856dfc5198fa58",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_k.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_l.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "df61f0cfb54b4ea026cead73fed8e5b6713cb142",
-      "sha1_after": "434056eb7c1935eef0954b45f4a9c2ae1b803694",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_l.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_m.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "5f8033288ff5f21c1c54a57d756650ea1b38cabf",
-      "sha1_after": "8f207f4f71082caddb406b3c7a426f8133a74e10",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_m.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata/crimson_strata_n.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "ecd0078dc0a17892326af8f6d83bc7fed2aa7ae1",
-      "sha1_after": "36d48387993ea868c9bb8a72c7da01d347c53d7e",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_strata/crimson_strata_n.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "63319e2ca5f9e507d92803176fa0363fb04b68c8",
-      "sha1_after": "543887335c83e134854f631defd2239fb4aae171",
-      "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/crimson_strata_bricks/chiseled_crimson_strata_bricks.png",
-        "pool": "crimson_strata:chiseled",
-        "reference": "pysift:block/crimson_strata/crimson_strata_a",
-        "source": "pysift:block/crimson_strata/crimson_strata_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "63319e2ca5f9e507d92803176fa0363fb04b68c8",
-        "backup": null,
-        "date": "20261013-085205"
-      }
-    },
-    {
-      "file": "textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
-      "pool": "crimson_strata:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "329bbf8045c45d21e996918e496a544309d92daf",
-      "sha1_after": "862f6ef0eac6164c0f793479ccb306d63ded177a",
-      "backup": ".texture_backups/20261014-011458_recolor/textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/crimson_strata_bricks/crimson_strata_bricks.png",
-        "pool": "crimson_strata:bricks",
-        "reference": "pysift:block/crimson_strata/crimson_strata_a",
-        "source": "pysift:block/crimson_strata/crimson_strata_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "329bbf8045c45d21e996918e496a544309d92daf",
-        "backup": null,
-        "date": "20261013-085205"
-      }
     },
     {
       "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
@@ -774,110 +532,6 @@
       "sha1_after": "356fca52191be6cce96d96a7330d6e6faf814dff",
       "backup": null,
       "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat0_a.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
-      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat0_a.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat1_a.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "11f70971f978581de5c0fb3d1cfe14a0ad15e4f1",
-      "sha1_after": "d5daeade82477be3f61549211d27ca459f5b724d",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat1_a.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat2_a.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "ce412026e955a6852986e182648ad7d7031b9344",
-      "sha1_after": "b9542cc6312f4b4325a3c346fc415c2e3fbe8f5f",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat2_a.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat2_b.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "35783d80ffc0f522157ac66f3a83a03bfe262565",
-      "sha1_after": "33752fb95889f521939b9df75c43443ea3b0e417",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat2_b.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat3_a.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "dcd7b94ac9b52c0511380e16c85435bebef8ba10",
-      "sha1_after": "8d8316f4610466d0278c5a361b546c8ac9abedbb",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat3_a.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone/ember_stone_heat3_b.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/grove_top",
-      "mode": "tone",
-      "sha1_before": "f64dbcd26d33007472fee5e0eb6e013482050c41",
-      "sha1_after": "52a25aaa1d0cce795164fb0fad8601ab5aeacad4",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone/ember_stone_heat3_b.png",
-      "date": "20261018-175357"
-    },
-    {
-      "file": "textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "63d86ea8061a1e4d08e5b9556a8c2cb1e693aa4c",
-      "sha1_after": "e92b54284ed8825cb1730987c67150f71f76158b",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/ember_stone_bricks/chiseled_ember_stone_bricks.png",
-        "pool": "ember_stone:chiseled",
-        "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
-        "source": "pysift:block/ember_stone/ember_stone_heat0_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "63d86ea8061a1e4d08e5b9556a8c2cb1e693aa4c",
-        "backup": null,
-        "date": "20261013-085205"
-      }
-    },
-    {
-      "file": "textures/block/ember_stone_bricks/ember_stone_bricks.png",
-      "pool": "ember_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "a980aa0c14b6c8f77f8539f6443bdcdbb09070d0",
-      "sha1_after": "e83eaac83b3476d94db666b70e74dd2707b0875d",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/ember_stone_bricks/ember_stone_bricks.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/ember_stone_bricks/ember_stone_bricks.png",
-        "pool": "ember_stone:bricks",
-        "reference": "pysift:block/ember_stone/ember_stone_heat0_a",
-        "source": "pysift:block/ember_stone/ember_stone_heat0_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "a980aa0c14b6c8f77f8539f6443bdcdbb09070d0",
-        "backup": null,
-        "date": "20261013-085205"
-      }
     },
     {
       "file": "textures/block/frost_veined_stone/frost_veined_stone_tintcrimson_veins2_b.png",
@@ -1330,28 +984,6 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/capped_crimson_strata/capped_crimson_strata_mottled_top.png",
-      "pool": "capped_crimson_strata:mottled_top",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
-      "sha1_after": "386630ba09fa3970ec6cc5fca62666968b3ab6ce",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
-      "date": "20261018-175357",
-      "previous": {
-        "file": "textures/block/rose_capped_crimson_strata/rose_capped_crimson_strata_top.png",
-        "pool": "rose_capped_crimson_strata:top",
-        "reference": "top band of pysift:block/crimson_strata/crimson_strata_e (vflip)",
-        "source": "pysift:block/dark_slate/dark_slate_d",
-        "mode": "generated",
-        "method": "rank",
-        "sha1_before": null,
-        "sha1_after": "6cfeffa6934ef5241370e69674eb5c717cdbdbd0",
-        "backup": null,
-        "date": "20261013-040934"
-      }
-    },
-    {
       "file": "textures/block/rose_capped_dark_slate_01/rose_capped_dark_slate_01_bottom.png",
       "pool": "slate_gray:unify",
       "reference": "pysift:block/dark_slate/dark_slate_k",
@@ -1402,30 +1034,6 @@
       "method": "building_set",
       "sha1_before": null,
       "sha1_after": "5b322061fe7c1fc051289941048aa3c064461a8b",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/silted_strata_bricks/chiseled_silted_strata_bricks.png",
-      "pool": "silted_strata:chiseled",
-      "reference": "pysift:block/silted_strata/silted_strata_silt0_a",
-      "source": "pysift:block/silted_strata/silted_strata_silt0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "da8dcce31a25bc590fb75a5888a76f01b302767d",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/silted_strata_bricks/silted_strata_bricks.png",
-      "pool": "silted_strata:bricks",
-      "reference": "pysift:block/silted_strata/silted_strata_silt0_a",
-      "source": "pysift:block/silted_strata/silted_strata_silt0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "be3f72065359928fe949f5929b217529327afa7c",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1580,30 +1188,6 @@
       "method": "building_set",
       "sha1_before": null,
       "sha1_after": "8e4ac9543ca046aa5440e0aa8ed80b3fcc5fbdd9",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/teal_strata_bricks/chiseled_teal_strata_bricks.png",
-      "pool": "teal_strata:chiseled",
-      "reference": "pysift:block/teal_strata/teal_strata_e",
-      "source": "pysift:block/teal_strata/teal_strata_e",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "97706b2b69124ca86ca1f3090e0a793f0a838a62",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/teal_strata_bricks/teal_strata_bricks.png",
-      "pool": "teal_strata:bricks",
-      "reference": "pysift:block/teal_strata/teal_strata_e",
-      "source": "pysift:block/teal_strata/teal_strata_e",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "7762dd7430b6cfbcc641d22560031758d476e2a3",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1890,36 +1474,6 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/void_stone/void_stone_b.png",
-      "pool": "void_stone:tone",
-      "reference": "pysift:block/void_stone/void_stone_c",
-      "mode": "palette",
-      "sha1_before": "e6e35921a3a63a50e093253c90394ff6b99a961a",
-      "sha1_after": "2817902b74da12b0afb0e4c732c90880aec60dd0",
-      "backup": ".texture_backups/20261014-004521_recolor/textures/block/void_stone/void_stone_b.png",
-      "date": "20261014-004521"
-    },
-    {
-      "file": "textures/block/void_stone/void_stone_d.png",
-      "pool": "void_stone:tone",
-      "reference": "pysift:block/void_stone/void_stone_c",
-      "mode": "palette",
-      "sha1_before": "e61944501374ed989377cdf8bebaa72f737be64e",
-      "sha1_after": "5a44daae91f4daec9db49c4b6a0f5f1a692beae2",
-      "backup": ".texture_backups/20261014-004521_recolor/textures/block/void_stone/void_stone_d.png",
-      "date": "20261014-004521"
-    },
-    {
-      "file": "textures/block/void_stone/void_stone_h.png",
-      "pool": "void_stone:tone",
-      "reference": "pysift:block/void_stone/void_stone_c",
-      "mode": "palette",
-      "sha1_before": "bd244639cc9dd09a63de65eece0e5f88702c5f8c",
-      "sha1_after": "e8439700d7c585a9452c18a155ca3c3003924be9",
-      "backup": ".texture_backups/20261013-040501_recolor/textures/block/void_stone/void_stone_h.png",
-      "date": "20261014-004521"
-    },
-    {
       "file": "textures/block/void_stone/void_stone_i.png",
       "pool": "void_stone:sides",
       "reference": "pysift:block/void_stone/void_stone_c",
@@ -1928,29 +1482,6 @@
       "sha1_after": "e501643bf521c4361a8e680f43e5fe2fdc334bf0",
       "backup": ".texture_backups/20261013-040501_recolor/textures/block/void_stone/void_stone_i.png",
       "date": "20261013-040501"
-    },
-    {
-      "file": "textures/block/void_stone_bricks/chiseled_void_stone_bricks.png",
-      "pool": "void_stone:tone",
-      "reference": "pysift:block/void_stone/void_stone_c",
-      "mode": "palette",
-      "sha1_before": "80fd6c6d68ae5530a6a6c4c787b1fe5fc179aba9",
-      "sha1_after": "b6678625ca6b6d581de538f87aee7b2fbce835bf",
-      "backup": ".texture_backups/20261014-004521_recolor/textures/block/void_stone_bricks/chiseled_void_stone_bricks.png",
-      "date": "20261014-004521",
-      "previous": {
-        "file": "textures/block/void_stone_bricks/chiseled_void_stone_bricks.png",
-        "pool": "void_stone:chiseled",
-        "reference": "pysift:block/void_stone/void_stone_c",
-        "source": "pysift:block/void_stone/void_stone_c",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "80fd6c6d68ae5530a6a6c4c787b1fe5fc179aba9",
-        "backup": null,
-        "date": "20261013-085205",
-        "reconstructed": true
-      }
     },
     {
       "file": "textures/block/warm_capped_ember_stone/warm_capped_ember_stone_top.png",

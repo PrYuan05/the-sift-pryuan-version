@@ -467,6 +467,21 @@
     "pysift:soul_blue_concrete_slab",
     "pysift:void_concrete_slab",
     "pysift:dusk_gold_concrete_slab",
-    "pysift:soul_sift_axle"
+    "pysift:soul_sift_axle",
+    "pysift:smooth_void_stone_slab",
+    "pysift:smooth_void_stone",
+    "pysift:polished_void_stone",
+    "pysift:polished_void_stone_stairs",
+    "pysift:polished_void_stone_slab",
+    "pysift:void_stone_tiles",
+    "pysift:void_stone_tile_stairs",
+    "pysift:void_stone_tile_slab",
+    "pysift:cracked_void_stone_bricks",
+    "pysift:cracked_void_stone_tiles",
+    "pysift:cracked_void_stone_brick_slab",
+    "pysift:cracked_void_stone_brick_stairs",
+    "pysift:cracked_void_stone_tile_slab",
+    "pysift:cracked_void_stone_tile_stairs",
+    "pysift:smooth_void_stone_stairs"
   ]
 }

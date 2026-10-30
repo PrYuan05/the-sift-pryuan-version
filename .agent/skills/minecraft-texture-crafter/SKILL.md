@@ -159,20 +159,30 @@ python -I .agent/skills/minecraft-texture-crafter/scripts/inspect_vanilla_textur
 1. **木板（`--kind planks`）**：垂直分成 **4 列，每列 4 px 高**（$y \in \{0..3, 4..7, 8..11, 12..15\}$），每列底部一條較暗的接縫；**上下兩列的直向接頭錯開**；木紋用水平 **1×3 ~ 1×6 px** 的像素簇。
 2. **磚與瓷磚（`--kind bricks`）**：每層 **8 px（2 層）或 4 px（4 層）** 高，**相鄰兩層橫向錯開 50%（8 px）**；每塊磚**左上邊緣提亮**，**右下的灰縫加暗**。
 3. **雕紋與切製／金屬方塊（`--kind chiseled`）**：外圍一圈 **1 px 斜面邊框**（$x=0$、$y=0$ 亮；$x=15$、$y=15$ 暗）；中央 **14×14** 至少**一軸（最好兩軸或四軸）鏡像對稱**。石質雕紋／切製內板須保留 2~3 色微差砂粒斑駁，浮雕凹槽轉角須有次亮／次暗緩衝倒角。
+   - **雕紋方塊一定要有頂底面**（和側面不同，和**平滑版**一樣，照原版雕紋砂岩＝平滑砂岩的頂面）：模型用 `minecraft:block/cube_column`，`side` 是雕紋貼圖、`end` 是該石材平滑版的貼圖；沒有平滑版的石材，用 `tools/texture_pipeline/chiseled_tops.py` 依石磚色階畫一張平滑風格的 `<雕紋貼圖>_top.png`（平整石面＋1 px 斜面外框）。`building_sets.py` 新增石磚組時會自動這樣做。
    - **雕紋圖騰必須是該生態域代表生物的頭像**（如同原版雕紋砂岩刻的是沙漠的苦力怕臉）：有 Boss 的生態域用 Boss 的頭，沒有 Boss 的用當地最常見、輪廓最好認的生物；畫成左右對稱的浮雕或凹刻，抓 2~3 個辨識特徵（王冠、眼睛、角、嘴）就好，不要硬塞細節。先用 `tools/models/geo_preview3d.py` 畫出生物正面當參考。
 
      | 生態域（石材所屬） | 雕紋頭像 | 辨識特徵 |
      | :-- | :-- | :-- |
      | 琥珀沙丘 `amber_dunes` | Monarch（Boss） | 三尖王冠、兩道橫向眼縫（`chiseled_amber_sandstone` 已採用） |
      | 琥珀沙丘的淺沙 `pale_sand` | Scavenger（最常見） | 往外上翹的兩支彎角、兜帽、凹陷臉部裡的兩隻眼（`chiseled_pale_sandstone` 已採用） |
-     | 柳絮林地 `willow_grove` | Harmonizer（Boss） | 依模型正面取特徵 |
+     | 柳絮林地 `willow_grove` | Harmonizer（Boss） | 兩側分岔觸角、中央一隻眼、寬領片（`chiseled_abyssal_strata_bricks` 已採用） |
+     | 柳絮林地的青碧地層 `teal_strata` | Blub（最常見） | 兩隻兔耳、小眼與嘴（`chiseled_teal_strata_bricks` 已採用） |
      | 紫晶深板岩區 `violet_slate_abyss` | Sculk Monstrosity（Boss） | 依模型正面取特徵 |
-     | 赤紅沉積峽谷 `crimson_strata_canyon` | Dartback（最常見） | 依模型正面取特徵 |
+     | 赤紅沉積峽谷 `crimson_strata_canyon` | Dartback（最常見） | 背上一排刺、寬扁身體、兩隻小眼（`chiseled_crimson_strata_bricks` 已採用） |
+     | 赤紅峽谷的流紋岩 `ember_stone` | Fusefly（第二常見） | 膠囊頭、頭頂引信、兩隻大眼（`chiseled_ember_stone_bricks` 已採用） |
+     | 赤紅峽谷地下的粉砂岩 `silted_strata` | Prickle（第三常見） | 兩根觸角、底下一排短腳（`chiseled_silted_strata_bricks` 已採用） |
      | 搖籃曲山丘 `lullaby_hills` | Echo Golem／Singer | 頭頂的靈魂晶塊、耳朵 |
-     | 紅區洞穴 `red_zone_caves` | Stalker（最常見） | 依模型正面取特徵 |
+     | 紅區洞穴 `red_zone_caves`／地底 `void_stone` | Stalker（最常見） | 方頭、兩個耳狀凸起、凹刻面罩裡兩隻眼（`chiseled_void_stone_bricks` 已採用） |
 4. **沉積岩／砂岩五件套（`top` / `side` / `bottom` / `cut` / `chiseled`）**：`top` 用窄跨度（$\Delta\text{Lum} \approx 0.11 \sim 0.18$）全柔和砂粒簇；`side` 上方 $y=0..3$ 為水平壓實頂蓋層、下方 $y=4..15$ 為半封閉圓潤碎屑岩塊網格；`bottom` 為滿版無高光粗糙碎屑岩塊（詳見手冊 8.3 節）。
 5. **礦石嵌入（`--kind ore --base <原石>`）**：**外圍 1~2 px 保留原石的原樣**（平鋪時才不會露出礦石的接縫）；礦簇放在**中央 12×12**，每個礦簇**正下方加 1 px 的深色原石陰影**，讓礦物看起來嵌在岩石裡。
 6. **環面無縫（Torus Wrapping，石頭、泥土、樹葉等自然方塊）**：越過 $x=15$ 的像素簇要從 $x=0$ 自然接回來，$y$ 方向也一樣；**不要有超過 4 px 的筆直水平／垂直邊界**，平鋪後會變成明顯的格線（木板、磚、雕紋的縫是刻意的直線，不在此限）。
+7. **石材建材家族（每種石頭升級時一起做）**：
+   - **石磚系列的磚形一律從原版 `*_bricks` 挑一種當骨架**（stone／deepslate／polished_blackstone／cinnabar／sulfur／tuff／quartz／end_stone／mud／nether／red_nether／bricks／resin／prismarine，共 14 種，歸成 5 種骨架）：依石材硬度與現實參照物選一張，只借層高、磚寬、錯縫、灰縫，色階與微紋理重畫。裂紋、苔蘚版與石磚的半磚／階梯／牆都沿用挑好的那一張。
+   - **`*_tiles`、`polished_*`、`smooth_*`、`chiseled_*` 也從原版同類方塊挑**，依現實參照物決定做不做、用哪一款（例：板岩才做 `deepslate_tiles` 式板岩瓦；有礦物顆粒的岩石用有框的 `polished_granite` 式，層狀或極細粒岩用無框的 `polished_deepslate`／`polished_blackstone` 式；玄武岩的平滑用 `smooth_basalt` 式）。
+   - **完整清單、量測數據、5 種骨架與每種 Sift 石材的建議對應，見 [`references/vanilla_building_patterns.md`](references/vanilla_building_patterns.md)**（對照圖 `vanilla_building_patterns.png`）。
+   - **每個方塊都要有衍生方塊**：本體、石磚、裂紋石磚、磨製、磚瓦、裂紋磚瓦、平滑都要有**半磚、階梯、牆**（原版沒有的形式，例如裂紋磚的半磚，就用其他形式的模型、配方當範本改寫）。只有柱與浮雕石磚不做衍生。
+   - 實例：虛黑岩（玄武岩）家族，`tools/worldgen/paint_void_stone.py`（貼圖）＋ `tools/worldgen/build_void_stone_family.py`（方塊資源）＋ `block/VoidStoneFamily.java`。
 
 ### 工法 C：色階排名／HLS 位移重映射法（Rank / HLS Offset Recoloring）
 適用於：已有高品質原版結構（如木門、活板門、告示牌、沙岩家族衍生品），需將原版色階精準轉換為新材質色盤時（參考 [`tools/worldgen/build_soul_willow_wood.py`](../../../tools/worldgen/build_soul_willow_wood.py)、[`tools/worldgen/build_sandstone.py`](../../../tools/worldgen/build_sandstone.py)）。

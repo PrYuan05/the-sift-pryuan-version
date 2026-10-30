@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from palette_lib import project_paths, lj, wj, entries, res_path, sha1, lab, lum
+from chiseled_tops import smooth_top
 
 P, RES, A, D = project_paths(sys.argv[1])
 ASSETS = RES / "assets"
@@ -318,7 +319,12 @@ def apply():
             want = set(default_key(chain))
             key = next(k for k in var if set(x for x in k.split(",") if x) >= want)
             return [e["model"] for e in entries(var[key])]
-        chis_model = model(f"{ids['bricks']}/{ids['chiseled']}", "minecraft:block/cube_all", {"all": tex["chiseled"]})
+        # chiseled ends = the stone's smooth face, like vanilla chiseled sandstone (chiseled_tops.py)
+        brick_png = A / "textures/block" / ids["bricks"] / f"{ids['bricks']}.png"
+        top_img = smooth_top(Image.open(brick_png) if brick_png.exists() else base_img, ids["chiseled"])
+        top_img.save(A / "textures/block" / ids["bricks"] / f"{ids['chiseled']}_top.png")
+        chis_model = model(f"{ids['bricks']}/{ids['chiseled']}", "minecraft:block/cube_column",
+                           {"end": tex["chiseled"] + "_top", "side": tex["chiseled"]})
         wj(A / "blockstates" / f"{ids['chiseled']}.json", {"variants": {"": {"model": chis_model}}})
         item_models = {ids["chiseled"]: chis_model}
         if reuse_bricks:

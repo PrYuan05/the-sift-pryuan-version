@@ -8,6 +8,11 @@
     "pysift:chiseled_pale_sandstone",
     "pysift:cut_pale_sandstone",
     "pysift:pale_sandstone",
-    "pysift:smooth_pale_sandstone"
+    "pysift:smooth_pale_sandstone",
+    "pysift:cracked_void_stone_bricks",
+    "pysift:cracked_void_stone_tiles",
+    "pysift:void_stone_tiles",
+    "pysift:polished_void_stone",
+    "pysift:smooth_void_stone"
   ]
 }

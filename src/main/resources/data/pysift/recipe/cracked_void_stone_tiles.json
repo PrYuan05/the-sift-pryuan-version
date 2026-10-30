@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:void_stone_tiles",
+  "result": {
+    "id": "pysift:cracked_void_stone_tiles"
+  }
+}

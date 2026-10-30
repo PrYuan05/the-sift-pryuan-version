@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/teal_deep_block_bricks/chiseled_teal_deep_block_bricks"
+    "end": "pysift:block/teal_deep_block_bricks/chiseled_teal_deep_block_bricks_top",
+    "side": "pysift:block/teal_deep_block_bricks/chiseled_teal_deep_block_bricks"
   }
 }

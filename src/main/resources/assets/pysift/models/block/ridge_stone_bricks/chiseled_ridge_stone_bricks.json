@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/ridge_stone_bricks/chiseled_ridge_stone_bricks"
+    "end": "pysift:block/ridge_stone_bricks/chiseled_ridge_stone_bricks_top",
+    "side": "pysift:block/ridge_stone_bricks/chiseled_ridge_stone_bricks"
   }
 }

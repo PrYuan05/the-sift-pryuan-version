@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/polished_void_stone_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/polished_void_stone"
+    },
+    "type=top": {
+      "model": "pysift:block/polished_void_stone_slab_top"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/ash_marble_bricks/chiseled_ash_marble_bricks"
+    "end": "pysift:block/ash_marble_bricks/chiseled_ash_marble_bricks_top",
+    "side": "pysift:block/ash_marble_bricks/chiseled_ash_marble_bricks"
   }
 }

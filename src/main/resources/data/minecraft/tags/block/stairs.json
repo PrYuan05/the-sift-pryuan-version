@@ -78,6 +78,11 @@
     "pysift:amber_sandstone_stairs",
     "pysift:smooth_amber_sandstone_stairs",
     "pysift:pale_sandstone_stairs",
-    "pysift:smooth_pale_sandstone_stairs"
+    "pysift:smooth_pale_sandstone_stairs",
+    "pysift:polished_void_stone_stairs",
+    "pysift:void_stone_tile_stairs",
+    "pysift:cracked_void_stone_brick_stairs",
+    "pysift:cracked_void_stone_tile_stairs",
+    "pysift:smooth_void_stone_stairs"
   ]
 }

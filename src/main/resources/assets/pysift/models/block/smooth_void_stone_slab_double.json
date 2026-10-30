@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/void_stone/smooth_void_stone",
+    "side": "pysift:block/void_stone/smooth_void_stone_slab_side"
+  }
+}

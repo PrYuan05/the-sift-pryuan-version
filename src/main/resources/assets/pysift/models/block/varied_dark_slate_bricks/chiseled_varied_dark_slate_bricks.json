@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "pysift:block/varied_dark_slate_bricks/chiseled_varied_dark_slate_bricks"
+    "end": "pysift:block/varied_dark_slate_bricks/chiseled_varied_dark_slate_bricks_top",
+    "side": "pysift:block/varied_dark_slate_bricks/chiseled_varied_dark_slate_bricks"
   }
 }
