@@ -311,6 +311,7 @@
     "pysift:polished_void_stone",
     "pysift:void_stone_tiles",
     "pysift:cracked_void_stone_bricks",
-    "pysift:cracked_void_stone_tiles"
+    "pysift:cracked_void_stone_tiles",
+    "pysift:smooth_ash_marble"
   ]
 }

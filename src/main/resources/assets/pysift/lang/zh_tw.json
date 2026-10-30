@@ -1607,5 +1607,9 @@
   "block.pysift.void_stone_tile_wall": "虛黑岩磚瓦牆",
   "block.pysift.cracked_void_stone_tile_wall": "裂紋虛黑岩磚瓦牆",
   "block.pysift.cracked_void_stone_brick_wall": "裂紋虛黑岩磚牆",
-  "block.pysift.cracked_void_stone_brick_slab": "裂紋虛黑岩磚半磚"
+  "block.pysift.cracked_void_stone_brick_slab": "裂紋虛黑岩磚半磚",
+  "block.pysift.smooth_ash_marble": "平滑灰大理石",
+  "block.pysift.smooth_ash_marble_slab": "平滑灰大理石半磚",
+  "block.pysift.smooth_ash_marble_stairs": "平滑灰大理石階梯",
+  "block.pysift.smooth_ash_marble_wall": "平滑灰大理石牆"
 }

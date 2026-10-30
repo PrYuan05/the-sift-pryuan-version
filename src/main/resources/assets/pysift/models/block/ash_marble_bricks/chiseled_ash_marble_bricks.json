@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "pysift:block/ash_marble_bricks/chiseled_ash_marble_bricks_top",
+    "end": "pysift:block/ash_marble/smooth_ash_marble",
     "side": "pysift:block/ash_marble_bricks/chiseled_ash_marble_bricks"
   }
 }

@@ -312,7 +312,8 @@ def repaint(path, fn, fams, span, classify=None, macro=False, base=None):
     else:
         base_rgbs = {f: [px[x, y][:3] for x, y in pts] for f, pts in groups.items()}
     for f, pts in groups.items():
-        pal = ramp(base or base_rgbs[f], span)                  # base: calibrate to another texture's colour
+        ref = base.get(f) if isinstance(base, dict) else base    # base: calibrate to another texture's colour
+        pal = ramp(ref or base_rgbs[f], span)                   # (a dict = one reference per colour family)
         shift = {}
         if macro:
             fam = set(pts)

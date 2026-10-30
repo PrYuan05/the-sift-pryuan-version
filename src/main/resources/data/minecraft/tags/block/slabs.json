@@ -85,6 +85,7 @@
     "pysift:polished_void_stone_slab",
     "pysift:void_stone_tile_slab",
     "pysift:cracked_void_stone_brick_slab",
-    "pysift:cracked_void_stone_tile_slab"
+    "pysift:cracked_void_stone_tile_slab",
+    "pysift:smooth_ash_marble_slab"
   ]
 }

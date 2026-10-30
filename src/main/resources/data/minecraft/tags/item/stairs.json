@@ -83,6 +83,7 @@
     "pysift:void_stone_tile_stairs",
     "pysift:cracked_void_stone_brick_stairs",
     "pysift:cracked_void_stone_tile_stairs",
-    "pysift:smooth_void_stone_stairs"
+    "pysift:smooth_void_stone_stairs",
+    "pysift:smooth_ash_marble_stairs"
   ]
 }

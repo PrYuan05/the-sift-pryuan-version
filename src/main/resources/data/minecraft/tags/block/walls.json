@@ -81,6 +81,7 @@
     "pysift:void_stone_tile_wall",
     "pysift:cracked_void_stone_brick_wall",
     "pysift:cracked_void_stone_tile_wall",
-    "pysift:smooth_void_stone_wall"
+    "pysift:smooth_void_stone_wall",
+    "pysift:smooth_ash_marble_wall"
   ]
 }

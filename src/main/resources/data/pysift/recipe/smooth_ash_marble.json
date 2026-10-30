@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:ash_marble",
+  "result": {
+    "id": "pysift:smooth_ash_marble"
+  }
+}

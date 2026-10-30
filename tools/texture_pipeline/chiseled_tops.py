@@ -15,7 +15,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 VSCALE = [1.16, 1.09, 1.035, 1.0, 0.965, 0.88, 0.78]      # #1 .. #7 as value factors of the stone's median colour
 HSHIFT = [+6, +4, +2, 0, -2, -5, -8]                       # light steps a touch warmer, dark ones cooler (skill 2.2)
-SMOOTH = {"chiseled_void_stone_bricks": "pysift:block/void_stone/smooth_void_stone"}
+SMOOTH = {"chiseled_void_stone_bricks": "pysift:block/void_stone/smooth_void_stone",
+          "chiseled_ash_marble_bricks": "pysift:block/ash_marble/smooth_ash_marble"}
 
 
 def lum(c): return 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]

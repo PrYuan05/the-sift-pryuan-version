@@ -65,54 +65,6 @@
       "date": "20261014-044202"
     },
     {
-      "file": "textures/block/ash_marble_bricks/ash_marble_bricks.png",
-      "pool": "ash_marble:bricks",
-      "reference": "pysift:block/ash_marble/ash_marble_veining0",
-      "source": "pysift:block/ash_marble/ash_marble_veining0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "de3be0098fd4956f20e6f4bd09e368f858eec9d6",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/ash_marble_bricks/chiseled_ash_marble_bricks.png",
-      "pool": "ash_marble:chiseled",
-      "reference": "pysift:block/ash_marble/ash_marble_veining0",
-      "source": "pysift:block/ash_marble/ash_marble_veining0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "727a4996c4a43bbddffc8a1da7be4d180f6ad6f6",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/banded_mudstone_bricks/banded_mudstone_bricks.png",
-      "pool": "banded_mudstone:bricks",
-      "reference": "pysift:block/banded_mudstone/banded_mudstone_banding0",
-      "source": "pysift:block/banded_mudstone/banded_mudstone_banding0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "0442a20bd34c78734e1528e45d2d9e229b702b0b",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/banded_mudstone_bricks/chiseled_banded_mudstone_bricks.png",
-      "pool": "banded_mudstone:chiseled",
-      "reference": "pysift:block/banded_mudstone/banded_mudstone_banding0",
-      "source": "pysift:block/banded_mudstone/banded_mudstone_banding0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "b25c264f6ccc55ecb2d744d9d2c1f6360ef0d19e",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
       "file": "textures/block/bleached_clay_bricks/bleached_clay_bricks.png",
       "pool": "bleached_clay:bricks",
       "reference": "pysift:block/bleached_clay/bleached_clay_bleach0",
@@ -133,30 +85,6 @@
       "method": "building_set",
       "sha1_before": null,
       "sha1_after": "e5f575b8b7fcbd9100fcfc871af7797c506fb8f3",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/bleached_sandstone_bricks/bleached_sandstone_bricks.png",
-      "pool": "bleached_sandstone:bricks",
-      "reference": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
-      "source": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "e9055f6d9a9d4a993a1af02ce1ecdf52f26601f3",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/bleached_sandstone_bricks/chiseled_bleached_sandstone_bricks.png",
-      "pool": "bleached_sandstone:chiseled",
-      "reference": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
-      "source": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "a715cbebf1cc758a7e4957b4d33c20eacb9cfdc7",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -217,80 +145,6 @@
       "date": "20261018-175357"
     },
     {
-      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
-      "pool": "crimson_vein_stone",
-      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
-      "mode": "palette",
-      "sha1_before": "abd47e378136b945ee6cc34a845d1e2d589a6fc6",
-      "sha1_after": "9e4d1735bd8d2f51a76bf84f110d79592a30dab9",
-      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread1_a.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
-      "pool": "crimson_vein_stone",
-      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
-      "mode": "palette",
-      "sha1_before": "8450a36dd51602aae88a6dc4728be5863a213f70",
-      "sha1_after": "ca97d6e726e9f2074a394da6c2268ca36ab3a197",
-      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread1_b.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
-      "pool": "crimson_vein_stone",
-      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
-      "mode": "palette",
-      "sha1_before": "63ae34f6bff93ce144f83351624ec8fdb188fd1f",
-      "sha1_after": "834bc86a501063cf0936e3480a11b2c31ee01f1c",
-      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread2.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
-      "pool": "crimson_vein_stone",
-      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
-      "mode": "palette",
-      "sha1_before": "bc1ab9e1dbb3aee74b632334872f2f93f3f3d921",
-      "sha1_after": "fee4009e048d38d554579b1ce03cdd301de4666f",
-      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread3.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
-      "pool": "crimson_vein_stone",
-      "reference": "pysift:block/void_capped_crimson_01/void_capped_crimson_01_side",
-      "mode": "palette",
-      "sha1_before": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
-      "sha1_after": "107c6ef5b5d0bbcc6b1288916d2e28ceebbe4228",
-      "backup": ".texture_backups/crimson_harmonize/crimson_vein_stone/crimson_vein_stone_crimson_spread4.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone_bricks/chiseled_crimson_vein_stone_bricks.png",
-      "pool": "crimson_vein_stone:chiseled",
-      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0",
-      "source": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "10a385d54e53395e37d28dee793f496a9d024d5f",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/crimson_vein_stone_bricks/crimson_vein_stone_bricks.png",
-      "pool": "crimson_vein_stone:bricks",
-      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0",
-      "source": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "9f158739e4bec439b50d6f89396333649a8cdb69",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
       "file": "textures/block/dark_slate/dark_slate_a.png",
       "pool": "dark_slate:tone",
       "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
@@ -298,16 +152,6 @@
       "sha1_before": "c8e93ded2dd5d76ae60a1d2b8251bc1a9375f3a9",
       "sha1_after": "98a78d41b76eb5d247da3d51b84e31743bfc7dc7",
       "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_a.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_k.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "bda78550d039587801f8180fecee986a23e79b5a",
-      "sha1_after": "49fd4e102f6e5a79777d1e7cae4ce33603b42c93",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_k.png",
       "date": "20261014-011457"
     },
     {
@@ -329,135 +173,6 @@
       "sha1_after": "9ce1a47abb68bf5980f33e14cd40ebacfd840a97",
       "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_n.png",
       "date": "20261014-044202"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_o.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "811071833f4fca771f97796525b4f0747f2e1cc9",
-      "sha1_after": "06ecc492b1872d51a1209373324cfbe658682e80",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_o.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_p.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "5a7d2152be5433d64473866766f2381d9aed7b95",
-      "sha1_after": "4b5403c93ba21ba29802ccd2da76f7841ce794bf",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_p.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_q.png",
-      "pool": "slate_gray:unify",
-      "reference": "pysift:block/dark_slate/dark_slate_k",
-      "mode": "tone",
-      "sha1_before": "bb0acea95a69b49127120a1ea0a15da9817d5647",
-      "sha1_after": "201eb746b954cf421736e72a32d0b49a9158e986",
-      "backup": ".texture_backups/20261014-044202_recolor/textures/block/dark_slate/dark_slate_q.png",
-      "date": "20261014-044202"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_r.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "3081bcac70138a94a8102d8bbb22d8e38af986c3",
-      "sha1_after": "07dca249729fac7877363cab5a8404a5d8fbe910",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_r.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_s.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "ed810f82ccb15b78356bfa30df26a6c3912376b2",
-      "sha1_after": "b7969b3820678cbe151311a7ef693f6008df5b96",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_s.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_t.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "6429dc574931df44a1d50ad03877ba11a1b10c2c",
-      "sha1_after": "d7c3db99340f3794388873d9dba24a906a9f2e1c",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_t.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_u.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "d4ea87a5bbc3c7e2f4e707510834dcd87b59469a",
-      "sha1_after": "e9d49f1bfaa99c5d5bd4786bf24aa0e98db5f27f",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate/dark_slate_u.png",
-      "date": "20261014-011457"
-    },
-    {
-      "file": "textures/block/dark_slate/dark_slate_v.png",
-      "pool": "dark_slate:fade4",
-      "reference": "pysift:block/dark_slate/dark_slate_k",
-      "source": "pysift:block/dark_slate/dark_slate_k",
-      "mode": "generated",
-      "method": "plain_gray",
-      "note": "lightness pattern of dark_slate_k, every pixel set to its gray body chroma (no purple, no teal spots)",
-      "sha1_before": null,
-      "sha1_after": "421308cd4e5ea27580836adcd3a37b0b527414e7",
-      "backup": null,
-      "date": "20261014-044246"
-    },
-    {
-      "file": "textures/block/dark_slate_bricks/chiseled_dark_slate_bricks.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "34419979a1885ef4a76bc15625ad1602eabb2a06",
-      "sha1_after": "eb1d23673c32501cd4e5f5f820af6ba0d31528fc",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate_bricks/chiseled_dark_slate_bricks.png",
-      "date": "20261014-011457",
-      "previous": {
-        "file": "textures/block/dark_slate_bricks/chiseled_dark_slate_bricks.png",
-        "pool": "dark_slate:chiseled",
-        "reference": "pysift:block/dark_slate/dark_slate_k",
-        "source": "pysift:block/dark_slate/dark_slate_k",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "34419979a1885ef4a76bc15625ad1602eabb2a06",
-        "backup": null,
-        "date": "20261013-085205",
-        "reconstructed": true
-      }
-    },
-    {
-      "file": "textures/block/dark_slate_bricks/dark_slate_bricks.png",
-      "pool": "dark_slate:tone",
-      "reference": "pysift:block/violet_capped_dark_slate/violet_capped_dark_slate_bottom",
-      "mode": "tone",
-      "sha1_before": "faf72276097b3869ea1506ba738e62ab0664cc14",
-      "sha1_after": "9564b051486784d960332502e36314534be403fe",
-      "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate_bricks/dark_slate_bricks.png",
-      "date": "20261014-011457",
-      "previous": {
-        "file": "textures/block/dark_slate_bricks/dark_slate_bricks.png",
-        "pool": "dark_slate:bricks",
-        "reference": "pysift:block/dark_slate/dark_slate_k",
-        "source": "pysift:block/dark_slate/dark_slate_k",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "faf72276097b3869ea1506ba738e62ab0664cc14",
-        "backup": null,
-        "date": "20261013-085205",
-        "reconstructed": true
-      }
     },
     {
       "file": "textures/block/dark_slate_capped_ash_01/dark_slate_capped_ash_01_side.png",
@@ -1288,28 +1003,6 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/violet_capped_dark_slate/violet_capped_dark_slate_bottom.png",
-      "pool": "slate_gray:unify",
-      "reference": "pysift:block/dark_slate/dark_slate_k",
-      "mode": "tone",
-      "sha1_before": "8224d124a5f9c04f5c9a481a70fa8a36a57d2049",
-      "sha1_after": "fbf7d417d569b49c3311e7fd5092d5e217e5867b",
-      "backup": ".texture_backups/20261014-044202_recolor/textures/block/violet_capped_dark_slate/violet_capped_dark_slate_bottom.png",
-      "date": "20261014-044202",
-      "previous": {
-        "file": "textures/block/violet_capped_dark_slate/violet_capped_dark_slate_bottom.png",
-        "pool": "violet_capped_dark_slate:bottom",
-        "reference": "bottom band of pysift:block/dark_slate/dark_slate_q (vflip)",
-        "source": "pysift:block/dark_slate/dark_slate_u",
-        "mode": "generated",
-        "method": "rank",
-        "sha1_before": null,
-        "sha1_after": "8224d124a5f9c04f5c9a481a70fa8a36a57d2049",
-        "backup": null,
-        "date": "20261013-040934"
-      }
-    },
-    {
       "file": "textures/block/violet_marble_bricks/chiseled_violet_marble_bricks.png",
       "pool": "violet_marble:chiseled",
       "reference": "pysift:block/violet_marble/violet_marble_a",
@@ -1356,98 +1049,6 @@
       "sha1_after": "9e8175da0efa7d7af10ba425369c504c5adc853a",
       "backup": null,
       "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/violet_strata/violet_strata_h.png",
-      "pool": "violet_strata:merge",
-      "reference": "pysift:block/rose_strata/rose_strata_a",
-      "source": "pysift:block/rose_strata/rose_strata_a",
-      "mode": "generated",
-      "method": "merged_from",
-      "sha1_before": null,
-      "sha1_after": "42b8ee1bc132966019c3666a9b71a0b0e3550ff2",
-      "backup": null,
-      "date": "20261014-044223",
-      "note": "purple -> violet_strata_e, gray -> dark_slate_k (tone + mean lightness)"
-    },
-    {
-      "file": "textures/block/violet_strata/violet_strata_i.png",
-      "pool": "violet_strata:merge",
-      "reference": "pysift:block/rose_strata/rose_strata_b",
-      "source": "pysift:block/rose_strata/rose_strata_b",
-      "mode": "generated",
-      "method": "merged_from",
-      "sha1_before": null,
-      "sha1_after": "042fde6c97163b26587940b73af79608a2af73b5",
-      "backup": null,
-      "date": "20261014-044223",
-      "note": "purple -> violet_strata_e, gray -> dark_slate_k (tone + mean lightness), red spots kept"
-    },
-    {
-      "file": "textures/block/violet_strata_bricks/chiseled_violet_strata_bricks.png",
-      "pool": "violet_strata:tone",
-      "reference": "pysift:block/violet_strata/violet_strata_e",
-      "mode": "palette",
-      "sha1_before": "148374ceb5de16a0f280ccdb9a211535a6568fcb",
-      "sha1_after": "7b10a0cc21883a537ccd0d085a626708519d901c",
-      "backup": ".texture_backups/20261014-010328_recolor/textures/block/violet_strata_bricks/chiseled_violet_strata_bricks.png",
-      "date": "20261014-010328",
-      "previous": {
-        "file": "textures/block/violet_strata_bricks/chiseled_violet_strata_bricks.png",
-        "pool": "violet_strata:chiseled",
-        "reference": "pysift:block/violet_strata/violet_strata_a",
-        "source": "pysift:block/violet_strata/violet_strata_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "148374ceb5de16a0f280ccdb9a211535a6568fcb",
-        "backup": null,
-        "date": "20261013-085205",
-        "reconstructed": true
-      }
-    },
-    {
-      "file": "textures/block/violet_strata_bricks/violet_strata_bricks.png",
-      "pool": "violet_strata:tone",
-      "reference": "pysift:block/violet_strata/violet_strata_e",
-      "mode": "palette",
-      "sha1_before": "97545dfa1c7beda2d9fb299a90001d8d8218dcb3",
-      "sha1_after": "736df70dc1982d57e95ced7482b770feeee2a767",
-      "backup": ".texture_backups/20261014-010328_recolor/textures/block/violet_strata_bricks/violet_strata_bricks.png",
-      "date": "20261014-010328",
-      "previous": {
-        "file": "textures/block/violet_strata_bricks/violet_strata_bricks.png",
-        "pool": "violet_strata:bricks",
-        "reference": "pysift:block/violet_strata/violet_strata_a",
-        "source": "pysift:block/violet_strata/violet_strata_a",
-        "mode": "generated",
-        "method": "building_set",
-        "sha1_before": null,
-        "sha1_after": "97545dfa1c7beda2d9fb299a90001d8d8218dcb3",
-        "backup": null,
-        "date": "20261013-085205",
-        "reconstructed": true
-      }
-    },
-    {
-      "file": "textures/block/void_capped_crimson_01/void_capped_crimson_01_bottom.png",
-      "pool": "void_capped_crimson_01",
-      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4",
-      "mode": "palette",
-      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
-      "sha1_after": "c74183356b1516e74c8d31ea8815ecab44c4e553",
-      "backup": ".texture_backups/crimson_harmonize/void_capped_crimson_01/void_capped_crimson_01_bottom.png",
-      "date": "recorded 20261025-125336"
-    },
-    {
-      "file": "textures/block/void_capped_crimson_01/void_capped_crimson_01_side.png",
-      "pool": "void_capped_crimson_01",
-      "reference": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread4",
-      "mode": "palette",
-      "sha1_before": "c408ed5a9f8165aa7450b01dc02c3b8505e807b6",
-      "sha1_after": "93a7fd3000a505628c43c4b85aea3b33971cbcf7",
-      "backup": ".texture_backups/crimson_harmonize/void_capped_crimson_01/void_capped_crimson_01_side.png",
-      "date": "recorded 20261025-125336"
     },
     {
       "file": "textures/block/void_obsidian_bricks/chiseled_void_obsidian_bricks.png",

@@ -1607,5 +1607,9 @@
   "block.pysift.void_stone_tile_wall": "Void Stone Tile Wall",
   "block.pysift.cracked_void_stone_tile_wall": "Cracked Void Stone Tile Wall",
   "block.pysift.cracked_void_stone_brick_wall": "Cracked Void Stone Brick Wall",
-  "block.pysift.cracked_void_stone_brick_slab": "Cracked Void Stone Brick Slab"
+  "block.pysift.cracked_void_stone_brick_slab": "Cracked Void Stone Brick Slab",
+  "block.pysift.smooth_ash_marble": "Smooth Ash Marble",
+  "block.pysift.smooth_ash_marble_slab": "Smooth Ash Marble Slab",
+  "block.pysift.smooth_ash_marble_stairs": "Smooth Ash Marble Stairs",
+  "block.pysift.smooth_ash_marble_wall": "Smooth Ash Marble Wall"
 }
