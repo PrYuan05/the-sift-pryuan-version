@@ -32,7 +32,7 @@
   "src/main/resources/assets/pysift/textures/block/sift_colors/soul_blue_glazed_terracotta.png": "d28657a91288c90fa0fd41c6630de7524062917d",
   "src/main/resources/assets/pysift/textures/block/sift_colors/teal_glazed_terracotta.png": "f5aea3174dd0e0ad19d3b45beb287b626e919f17",
   "src/main/resources/assets/pysift/textures/block/sift_colors/void_glazed_terracotta.png": "8b0c5bceefc0935387063f98c0c038bdb3356e67",
-  "src/main/resources/assets/pysift/textures/block/soul_crystal_block.png": "9f97a4a1968493340af8a94c8093bd861e91dab3",
+  "src/main/resources/assets/pysift/textures/block/soul_crystal_block.png": "ae982374943b7f7c062139027c002cbce8b77dc8",
   "src/main/resources/assets/pysift/textures/block/soul_willow/soul_willow_door_bottom.png": "c4c0d5670ff544cf3e0d1219f4e3cc116dc654e2",
   "src/main/resources/assets/pysift/textures/block/soul_willow/soul_willow_door_top.png": "975f60aecba6ca54ae8b003a22f8aa9c063fe77f",
   "src/main/resources/assets/pysift/textures/block/soul_willow/soul_willow_hanging_sign.png": "23467b27195f7d8c98eae8aad1f9932661bcdfde",
@@ -271,5 +271,9 @@
   "src/main/resources/assets/pysift/textures/block/violet_strata_bricks/violet_strata_bricks.png": "24c038c6525fc910f7155197408e380c9fd327d1",
   "src/main/resources/assets/pysift/textures/block/capped_crimson_vein_stone/capped_crimson_vein_stone_bottom.png": "0bcb0f89b5e628f4018ac2f1aefb0b14b3bd51eb",
   "src/main/resources/assets/pysift/textures/block/capped_crimson_vein_stone/capped_crimson_vein_stone_side.png": "b2ffe56625aadfd2d2941fc3d0b2f9510c456bfe",
-  "src/main/resources/assets/pysift/textures/block/capped_crimson_vein_stone/capped_crimson_vein_stone_top.png": "dc295ed3bc0089ae25c60075671883bc7af1d7a2"
+  "src/main/resources/assets/pysift/textures/block/capped_crimson_vein_stone/capped_crimson_vein_stone_top.png": "dc295ed3bc0089ae25c60075671883bc7af1d7a2",
+  "src/main/resources/assets/pysift/textures/block/soul_crystal_block/soul_crystal_block_inner.png": "f6fcb0db2fccdc5d27d87bc8ff55e4dcfec345a8",
+  "src/main/resources/assets/pysift/textures/block/soul_crystal_block/soul_crystal_block_outer.png": "c974581654ecbf2e3935259361371e9721e0c119",
+  "src/main/resources/assets/pysift/textures/block/soul_crystal_block/soul_crystal_block_frame.png": "45b533545ae17ed7ea149afcb4002c27e80fc752",
+  "src/main/resources/assets/pysift/textures/block/violet_capped_dark_slate/violet_capped_dark_slate_side.png": "2b7bd83fa4dc0a2262548f5d5a652866753648de"
 }

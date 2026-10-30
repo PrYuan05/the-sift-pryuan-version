@@ -7,6 +7,9 @@ import com.geckolib.renderer.base.RenderPassInfo;
 import com.geckolib.renderer.layer.builtin.ItemInHandGeoLayer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.resources.Identifier;
 import pryuan05.pysift.entity.mob.EchoGolemEntity;
 
 /** 迴音傀儡：頭頂的靈魂晶塊被取下或送給歌者後，隱藏模型的 crystal 骨骼（支架 cage 保留）。 */
@@ -23,6 +26,12 @@ public class EchoGolemRenderer extends PysiftUniversalGeoRenderer<EchoGolemEntit
     public void addRenderData(EchoGolemEntity animatable, Void relatedObject, EntityRenderState renderState, float partialTick) {
         super.addRenderData(animatable, relatedObject, renderState, partialTick);
         ((GeoRenderState) renderState).addGeckolibData(HAS_CRYSTAL, animatable.hasCrystal());
+    }
+
+    /** 頭頂的靈魂晶塊是半透明的水晶（裡面有小靈魂）：整隻用半透明渲染，不透明的像素畫起來和原本一樣。 */
+    @Override
+    public RenderType getRenderType(EntityRenderState renderState, Identifier texture) {
+        return renderState.isInvisible ? super.getRenderType(renderState, texture) : RenderTypes.entityTranslucent(texture);
     }
 
     @Override
