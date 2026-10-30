@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+    "bottom": "pysift:block/dark_slate_pillar/dark_slate_pillar_bottom",
+    "top": "pysift:block/dark_slate_pillar/dark_slate_pillar_top",
+    "side": "pysift:block/dark_slate_pillar/dark_slate_pillar_side"
+  }
+}

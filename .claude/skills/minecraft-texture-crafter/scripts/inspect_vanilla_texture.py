@@ -16,11 +16,19 @@ Minecraft 原版材質提取、結構剖析與「繪師隨身 8 點檢核表」�
    - [6] 選擇性外框檢測 (Selective Outlining / Sel-Out Analysis)
    - [7] 3x3 無縫平鋪邊界連續性預覽 (3x3 Seamless Tiling Preview)
    - [8] 4x4 遠景網格效應測試 (Zoom-Out Grid Effect Preview)
-4. 自動輸出高解析度視覺化審核圖至 `build/previews/texture_audit_<name>.png`。
+4. 進階規則檢核（Cotufa + Jappa 原版標準，依 --kind 選擇）：
+   - [9] 2 的次方尺寸  [10] 每條色階組的色數（物品 4~7、方塊雙層色階 4~8）  [11] 相鄰色階明度差（物品 ≥8%；方塊雙層架構允許 1~4 處微紋理副色）
+   - [12] 相對色相偏移（亮部往暖 +10~20°、暗部往冷 15~30°）  [13] 低飽和中間調橋接、飽和度上限  [14] 棋盤格混色
+   - 物品：[15] 置中範圍 12~14 px 與 1~2 px 留白  [16] L 形雙角  [17] 45° 對角主軸（handheld）
+   - 方塊：[15] 環面長直線 > 4 px  [16]/[17] 木板 4 列、磚塊錯縫、雕紋斜面外框與鏡像對稱、礦石外圍保留原石與礦簇陰影
+   - 方塊：[18] 表面微紋理與色階過渡檢核（反 AI 平塗塑膠感：單色佔比 ≤55%、紋理變化率 ≥45%、柔和微過渡 ≥20%）
+5. 自動輸出高解析度視覺化審核圖至 `build/previews/texture_audit_<name>.png`。
 
 用法範例：
-  python -I .agent/skills/minecraft-texture-crafter/scripts/inspect_vanilla_texture.py item/mace.png src/main/resources/assets/pysift/textures/item/sculk_hammer.png
-  python -I .agent/skills/minecraft-texture-crafter/scripts/inspect_vanilla_texture.py --search mace
+  python -I .claude/skills/minecraft-texture-crafter/scripts/inspect_vanilla_texture.py item/mace.png src/main/resources/assets/pysift/textures/item/sculk_hammer.png --kind handheld
+  python -I .claude/skills/minecraft-texture-crafter/scripts/inspect_vanilla_texture.py block/iron_ore.png --kind ore --base block/stone.png
+  python -I .claude/skills/minecraft-texture-crafter/scripts/inspect_vanilla_texture.py --search mace
+（Antigravity 用的副本在 .agent/skills/minecraft-texture-crafter/，內容相同）
 """
 
 from __future__ import annotations
@@ -243,6 +251,326 @@ def analyze_texture(label: str, img: Image.Image) -> dict:
     }
 
 
+# =====================================================================================================================
+# 進階規則檢核（Cotufa + Jappa 原版標準，SKILL.md 第 2.4 節、第 3 步 A／B 拓撲、第 4 步 9~16 項）
+# =====================================================================================================================
+KINDS = ("auto", "block", "item", "handheld", "planks", "bricks", "chiseled", "ore")
+WARM_HUE, COOL_HUE = 55.0, 240.0       # 亮部往黃、暗部往藍紫（含深紅也算冷暗：見 _toward_cool）
+
+
+def _hue_dist(a: float, b: float) -> float:
+    d = abs(a - b) % 360.0
+    return min(d, 360.0 - d)
+
+
+def _toward(h_from: float, h_to: float, target: float) -> float:
+    """h_from -> h_to 往 target 靠近了幾度（正 = 靠近，負 = 遠離）。"""
+    return _hue_dist(h_from, target) - _hue_dist(h_to, target)
+
+
+def _toward_cool(h_base: float, h_shadow: float) -> float:
+    """暗部往冷色（藍紫 240°）或深紅紫（330°）靠近的度數，取較大者（Cotufa：shadow 偏 blue / purple / crimson）。"""
+    return max(_toward(h_base, h_shadow, COOL_HUE), _toward(h_base, h_shadow, 300.0))
+
+
+def material_groups(palette: list[tuple[tuple[int, int, int], int]]) -> list[list[tuple[tuple[int, int, int], int]]]:
+    """把色盤分成「材質色階組」：低飽和（S < 12%）一組；其餘依色相排序後串連，相鄰色相差 ≤ 25° 的屬於同一條 ramp
+    （色相偏移過的亮部、暗部會和固有色連在一起，不會被切到別組）。"""
+    gray = [(rgb, c) for rgb, c in palette if rgb_to_hsv_deg(*rgb)[1] < 12.0]
+    chroma = sorted(((rgb, c) for rgb, c in palette if rgb_to_hsv_deg(*rgb)[1] >= 12.0), key=lambda kv: rgb_to_hsv_deg(*kv[0])[0])
+    groups: list[list] = []
+    for rgb, c in chroma:
+        hue = rgb_to_hsv_deg(*rgb)[0]
+        if groups and _hue_dist(hue, rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= 25.0:
+            groups[-1].append((rgb, c))
+        else:
+            groups.append([(rgb, c)])
+    if len(groups) > 1 and _hue_dist(rgb_to_hsv_deg(*groups[0][0][0])[0], rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= 25.0:
+        groups[0] = groups.pop() + groups[0]      # 色環頭尾（紅色 0°／360°）相接
+    if gray:
+        groups.append(gray)
+    return sorted(groups, key=lambda g: -sum(c for _, c in g))
+
+
+def _value_levels(group) -> list[float]:
+    """一組色階的明度層（HSV V %），相差 < 2% 的視為同一層。"""
+    vs = sorted({round(rgb_to_hsv_deg(*rgb)[2], 1) for rgb, _ in group}, reverse=True)
+    levels: list[float] = []
+    for v in vs:
+        if not levels or levels[-1] - v >= 2.0:
+            levels.append(v)
+    return levels
+
+
+def advanced_checks(info: dict, kind: str, base: Image.Image | None) -> list[tuple[str, str, str]]:
+    """回傳 [(編號與名稱, 狀態 ✅/⚠️/ℹ️, 說明)]。"""
+    frame: Image.Image = info["frame"]
+    w, h = info["frame_size"]
+    px = frame.load()
+    full = info["is_full_block"]
+    if kind == "auto":
+        kind = "block" if full else "item"
+    is_item = kind in ("item", "handheld")
+    out: list[tuple[str, str, str]] = []
+    opaque = lambda x, y: 0 <= x < w and 0 <= y < h and px[x, y][3] >= 16
+
+    # [9] 尺寸：2 的次方（非 2 的次方會讓整個方塊圖集的 mipmap 降級）
+    pow2 = lambda n: n > 0 and (n & (n - 1)) == 0
+    sw, sh = info["size"]
+    ok = pow2(w) and pow2(sh if sh == w else w) and (sh % w == 0)
+    out.append(("[9] 2 的次方尺寸", "✅" if ok else "⚠️",
+                f"{sw}x{sh}" + ("" if ok else "：方塊貼圖請用 16／32／64，動畫貼圖高度要是寬度的整數倍")))
+
+    # [10] 每條 ramp 的色階數：物品 3~7、方塊雙層架構 4~8（4~5 結構主色 + 1~3 微紋理過渡副色）
+    groups = material_groups(info["palette_sorted"])
+    limit_lo, limit_hi = (3, 7) if is_item else (4, 8)
+    counts = [len(_value_levels(g)) for g in groups if sum(c for _, c in g) >= max(4, info["total_opaque"] * 0.04)]
+    bad = [c for c in counts if c > limit_hi]
+    out.append(("[10] 每條色階組的色數", "✅" if not bad else "⚠️",
+                f"{len(counts)} 組材質色階，各 {counts} 層（建議 {limit_lo}~{limit_hi}）"
+                + ("" if not bad else "：色階太多會像模糊照片，請合併相近色")))
+
+    # [11] 相鄰色階明度差 ΔV（物品全程 ≥8%；方塊採「結構主色 + 1~4 處 2~5% 表面微紋理副色」雙層架構）
+    steps = []
+    for g in groups:
+        lv = _value_levels(g)
+        steps += [round(a - b, 1) for a, b in zip(lv, lv[1:])]
+    if is_item:
+        tight = [s for s in steps if s < 8.0]
+        out.append(("[11] 相鄰色階明度差 ΔV", "✅" if not tight else "⚠️",
+                    f"最小 ΔV={min(steps) if steps else 0:.1f}%"
+                    + ("（全部 ≥ 8%）" if not tight else
+                       f"，有 {len(tight)} 處 < 8%：物品小圖示下會糊成一片，請拉開到 8~15%")))
+    else:
+        micro = [s for s in steps if s < 5.0]
+        ok11 = len(micro) <= 4 and info["lum_span"] >= 0.10
+        out.append(("[11] 相鄰色階明度差 ΔV (方塊雙層)", "✅" if ok11 else "⚠️",
+                    f"最小 ΔV={min(steps) if steps else 0:.1f}%，含 {len(micro)} 處 <5% 微紋理／緩衝副色階（總跨度 ΔLum={info['lum_span']:.2f}）"
+                    + ("" if ok11 else "：微差色階過多(>4)或總跨度過窄(<0.10)，請整理為 4~5 結構主色 + 1~3 微紋理副色")))
+
+    # [12] 相對色相偏移：亮部往暖 +10~20°、暗部往冷 15~30°；亮部飽和度略降
+    main = groups[0] if groups else []
+    if len(main) >= 3:
+        base_rgb = max(main, key=lambda kv: kv[1])[0]
+        bh, bs, bv = rgb_to_hsv_deg(*base_rgb)
+        hi = max(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])[0]
+        lo = min(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])[0]
+        hh, hs, hv = rgb_to_hsv_deg(*hi)
+        lh, ls, lv_ = rgb_to_hsv_deg(*lo)
+        warm = _toward(bh, hh, WARM_HUE) if bs >= 12 else 0.0
+        cool = _toward_cool(bh, lh) if bs >= 12 else 0.0
+        gray = bs < 12
+        good = gray or (warm >= 5 and cool >= 8 and hs <= bs + 3)
+        out.append(("[12] 相對色相偏移", "✅" if good else "⚠️",
+                    "主色低飽和（灰系），色相偏移改看暖亮冷暗的微弱色偏" if gray else
+                    f"亮部往暖 {warm:+.0f}°（建議 +10~20）、暗部往冷 {cool:+.0f}°（建議 15~30）、"
+                    f"亮部 S {bs:.0f}%→{hs:.0f}%（應略降）"))
+    else:
+        out.append(("[12] 相對色相偏移", "ℹ️", "主色組少於 3 色，無法判斷"))
+
+    # [13] 低飽和中間調橋接：ramp 中段至少一色比兩側更不飽和（或主色本身 S ≤ 65%）
+    if len(main) >= 3:
+        ramp = sorted(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])
+        sats = [rgb_to_hsv_deg(*rgb)[1] for rgb, _ in ramp]
+        bridge = any(sats[i] < sats[i - 1] and sats[i] < sats[i + 1] for i in range(1, len(sats) - 1)) or max(sats) <= 65
+        out.append(("[13] 低飽和中間調橋接", "✅" if bridge else "ℹ️",
+                    f"S 由暗到亮 {[round(s) for s in sats]}" + ("" if bridge else "：可在暗部與亮部之間插一個降飽和的過渡色")))
+    max_s = max((rgb_to_hsv_deg(*rgb)[1] for rgb, _ in info["palette_sorted"]), default=0)
+    if max_s >= 98:
+        out.append(("[13b] 飽和度上限", "⚠️", f"有 S={max_s:.0f}% 的顏色，請避免 100% 純色"))
+
+    # [14] 禁止棋盤格混色：3x3 範圍內兩種顏色完全交錯（自然雜點偶爾碰出的 2x2 交錯不算）
+    dith = 0
+    for y in range(h - 2):
+        for x in range(w - 2):
+            a, b = px[x, y], px[x + 1, y]
+            if a[3] < 16 or b[3] < 16 or a[:3] == b[:3]:
+                continue
+            if all(px[x + dx, y + dy][3] >= 16 and px[x + dx, y + dy][:3] == (a if (dx + dy) % 2 == 0 else b)[:3]
+                   for dx in range(3) for dy in range(3)):
+                dith += 1
+    out.append(("[14] 棋盤格混色 (Dithering)", "✅" if dith == 0 else "⚠️",
+                f"{dith} 處 3x3 交錯" + ("" if dith == 0 else "：改用 2~4 px 像素簇做明暗，不要用棋盤格混色")))
+
+    if is_item:
+        # [15] 置中範圍與留白：一般物品 12x12~14x14、四周 1~2 px 透明
+        xs = [x for x in range(w) for y in range(h) if opaque(x, y)]
+        ys = [y for x in range(w) for y in range(h) if opaque(x, y)]
+        if xs:
+            bw, bh_ = max(xs) - min(xs) + 1, max(ys) - min(ys) + 1
+            margin = min(min(xs), min(ys), w - 1 - max(xs), h - 1 - max(ys))
+            scale = w / 16
+            if kind == "handheld":
+                ok = True
+                note = f"外框 {bw}x{bh_}（手持工具可貼滿對角線）"
+            else:
+                ok = 12 * scale <= max(bw, bh_) <= 14 * scale and margin >= 1 * scale
+                note = f"外框 {bw}x{bh_}、最小留白 {margin} px（建議 12~14、留白 1~2）"
+            out.append(("[15] 置中範圍與留白", "✅" if ok else "⚠️", note))
+
+        # [16] 2x2 L 形雙角：外框在斜線轉角多塞了一格（應該角對角相接）
+        edge = {(x, y) for x in range(w) for y in range(h) if opaque(x, y)
+                and any(not opaque(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))}
+        doubled = 0
+        for y in range(h - 1):
+            for x in range(w - 1):
+                cells = [(x, y), (x + 1, y), (x, y + 1), (x + 1, y + 1)]
+                on = [c for c in cells if c in edge]
+                off = [c for c in cells if not opaque(*c)]
+                if len(on) == 3 and len(off) == 1:
+                    # 三格外框排成 L、第四格透明，而且 L 的轉角那格往外沒有延伸 → 階梯上的多餘轉角
+                    corner = next(c for c in on if abs(c[0] - off[0][0]) + abs(c[1] - off[0][1]) == 2)
+                    ox, oy = 2 * corner[0] - off[0][0], 2 * corner[1] - off[0][1]
+                    if not opaque(ox, corner[1]) or not opaque(corner[0], oy):
+                        doubled += 1
+        out.append(("[16] L 形雙角 (Doubled corners)", "✅" if doubled <= 2 else "⚠️",
+                    f"{doubled} 處" + ("" if doubled <= 2 else "：斜線與曲線的外框要角對角相接，拿掉轉角內側多的那一格")))
+
+        if kind == "handheld":
+            # [17] 45° 主軸：像素集中在 y = 15 - x 附近（縮放到 16 格）
+            scale = w / 16
+            pts = [(x / scale, y / scale) for x in range(w) for y in range(h) if opaque(x, y)]
+            near = sum(1 for x, y in pts if abs(x + y - 15) <= 2.5) / max(1, len(pts))
+            out.append(("[17] 45° 對角主軸 y=15-x", "✅" if near >= 0.45 else "⚠️",
+                        f"{near * 100:.0f}% 的像素落在主對角線 ±2 px 內（握柄、刃身應沿 1:1 對角線）"))
+    else:
+        # [15] 環面直線：和上方（或左方）不同色、本身同色、長度 > 4 px 的直線段（環繞掃描，跨邊界的也算；
+        #      整列貫穿的縫是刻意的，不計）。平鋪後這種直線會變成明顯的格線
+        long_runs = 0
+        for horizontal in (True, False):
+            n_lines, n_along = (h, w) if horizontal else (w, h)
+            for i in range(n_lines):
+                cell = (lambda j, i=i: (j % n_along, i)) if horizontal else (lambda j, i=i: (i, j % n_along))
+                run, start = 0, 0
+                for j in range(2 * n_along):
+                    x, y = cell(j)
+                    ax, ay = (x, (y - 1) % h) if horizontal else ((x - 1) % w, y)
+                    c = px[x, y][:3]
+                    edge = c != px[ax, ay][:3]
+                    if edge and run and c == px[cell(j - 1)[0], cell(j - 1)[1]][:3]:
+                        run += 1
+                    elif edge:
+                        run, start = 1, j
+                    else:
+                        if 4 < run < n_along and start < n_along:
+                            long_runs += 1
+                        run = 0
+        out.append(("[15] 環面直線 (> 4 px)", "✅" if long_runs <= (6 if kind in ("planks", "bricks", "chiseled") else 2) else "⚠️",
+                    f"{long_runs} 條" + ("（木板／磚／雕紋的縫本來就是直線，僅供參考）" if kind in ("planks", "bricks", "chiseled")
+                                       else "：自然方塊避免超過 4 px 的筆直邊界，平鋪後會出現格線")))
+
+        lum = lambda x, y: luminance(*px[x % w, y % h][:3])
+        rows = [sum(lum(x, y) for x in range(w)) / w for y in range(h)]
+        cols = [sum(lum(x, y) for y in range(h)) / h for x in range(w)]
+        mean = sum(rows) / len(rows)
+        if kind == "planks":
+            # [16] 木板：4 列 × 4 px，每列底部（y=3,7,11,15）是較暗的接縫
+            seam = [rows[y] for y in range(h) if y % (h // 4) == h // 4 - 1]
+            ok = all(s < mean - 0.02 for s in seam)
+            out.append(("[16] 木板 4 列拓撲", "✅" if ok else "⚠️",
+                        f"接縫列明度 {[round(s, 2) for s in seam]} vs 平均 {mean:.2f}（每 4 px 一條較暗的接縫，相鄰列接頭錯開）"))
+        if kind == "bricks":
+            # [16] 磚：水平縫每 4 或 8 px 一條；上下兩層的直縫錯開 50%
+            dark_rows = [y for y in range(h) if rows[y] < mean - 0.03]
+            period = sorted({(b - a) for a, b in zip(dark_rows, dark_rows[1:]) if b - a > 1})
+            out.append(("[16] 磚塊錯縫拓撲", "✅" if any(p in (h // 4, h // 2) for p in period) else "ℹ️",
+                        f"較暗的水平縫在 y={dark_rows}（建議每 4 或 8 px 一層、層與層直縫錯開 8 px，縫的右下側較暗）"))
+        if kind == "chiseled":
+            # [16] 1 px 斜面外框：x=0、y=0 亮；x=15、y=15 暗
+            top, left = rows[0], cols[0]
+            bottom, right = rows[h - 1], cols[w - 1]
+            inner = sum(lum(x, y) for x in range(1, w - 1) for y in range(1, h - 1)) / ((w - 2) * (h - 2))
+            bevel = top > inner and left > inner and bottom < inner and right < inner
+            out.append(("[16] 1 px 斜面外框", "✅" if bevel else "⚠️",
+                        f"上 {top:.2f}／左 {left:.2f}／下 {bottom:.2f}／右 {right:.2f}，內部 {inner:.2f}（上左應比內部亮、下右應比內部暗）"))
+            # [17] 中央 14x14 的鏡像對稱（左右或上下，至少一軸）
+            def sym(mx: bool) -> float:
+                """中央 14x14 的結構邊緣（和四周鄰居的明度差最大的 30% 格子）鏡像吻合率。左上光源讓刻痕一側亮、
+                一側暗，亮暗本身不對稱，但刻痕兩側都是強邊緣，邊緣強度的位置是對稱的。"""
+                grad = {(x, y): abs(lum(x, y) - (lum(x - 1, y) + lum(x + 1, y) + lum(x, y - 1) + lum(x, y + 1)) / 4)
+                        for y in range(1, h - 1) for x in range(1, w - 1)}
+                cut = sorted(grad.values())[int(len(grad) * 0.7)]
+                edge = {k for k, v in grad.items() if v >= cut and v > 0.02}
+                if not edge:
+                    return 0.0
+                hit = 0
+                for x, y in edge:
+                    x2, y2 = (w - 1 - x, y) if mx else (x, h - 1 - y)
+                    hit += (x2, y2) in edge
+                return hit / len(edge)
+
+            lr, tb = sym(True), sym(False)
+            # 校準（原版 26.3）：雕紋／金屬方塊較佳的一軸 47~68%，石頭、泥土、鵝卵石只有 30~37%
+            out.append(("[17] 中央鏡像對稱", "✅" if max(lr, tb) >= 0.45 else "⚠️",
+                        f"結構邊緣左右 {lr * 100:.0f}%、上下 {tb * 100:.0f}% 吻合（至少一軸 ≥ 45%；原版雕紋 47~68%、自然石材 30~37%）"))
+        if kind == "ore":
+            if base is None:
+                out.append(("[16] 礦石外圍保留原石", "ℹ️", "加上 --base <原石貼圖> 才能比對（例如 --base block/stone.png）"))
+            else:
+                bpx = base.convert("RGBA").resize((w, h), Image.Resampling.NEAREST).load()
+                ring = [(x, y) for x in range(w) for y in range(h) if min(x, y, w - 1 - x, h - 1 - y) < max(1, w // 16)]
+                same = sum(px[x, y][:3] == bpx[x, y][:3] for x, y in ring) / len(ring)
+                out.append(("[16] 礦石外圍保留原石", "✅" if same >= 0.85 else "⚠️",
+                            f"最外圈 {same * 100:.0f}% 和原石相同（建議 ≥ 85%，平鋪時才不會露出礦石接縫）"))
+                ore = {(x, y) for x in range(w) for y in range(h) if px[x, y][:3] != bpx[x, y][:3]}
+                # 陰影像素本身也和原石不同色（算在變更區域裡），所以看每一欄變更區域的最下緣那格是否比原石暗
+                bottom = [(x, y) for x, y in ore if (x, y + 1) not in ore]
+                darker = sum(lum(x, y) < luminance(*bpx[x, y][:3]) - 0.01 for x, y in bottom) / max(1, len(bottom))
+                out.append(("[17] 礦簇下方 1 px 陰影", "✅" if darker >= 0.5 else "⚠️",
+                            f"礦簇最下緣 {darker * 100:.0f}% 的像素比原石暗（建議 ≥ 50%，讓礦物嵌在岩石裡）"))
+
+        # [18] 表面微紋理與色階過渡檢核（反 AI 平塗塑膠感 & 反跨階硬切斷層，以原版 26.3 十二張 Jappa 方塊校準）
+        top_cnt = max((c for _, c in info["palette_sorted"]), default=0)
+        top_share = top_cnt / max(1, info["total_opaque"])
+        adj_pairs = 0
+        diff_pairs = 0
+        soft_pairs = 0
+        max_adj_dlum = 0.0
+        for yy in range(h):
+            for xx in range(w):
+                if not opaque(xx, yy):
+                    continue
+                c1 = px[xx, yy][:3]
+                l1 = luminance(*c1)
+                for dx, dy in ((1, 0), (0, 1)):
+                    nx, ny = xx + dx, yy + dy
+                    if opaque(nx, ny):
+                        adj_pairs += 1
+                        c2 = px[nx, ny][:3]
+                        if c1 != c2:
+                            diff_pairs += 1
+                            dl = abs(l1 - luminance(*c2))
+                            if dl > max_adj_dlum:
+                                max_adj_dlum = dl
+                            if dl < 0.10:
+                                soft_pairs += 1
+        edge_density = diff_pairs / max(1, adj_pairs)
+        soft_ratio = soft_pairs / max(1, diff_pairs)
+        flat_ok = top_share <= 0.55 and edge_density >= 0.45
+        trans_ok = soft_ratio >= 0.20
+        ok18 = flat_ok and trans_ok
+        hints18: list[str] = []
+        if not flat_ok:
+            hints18.append("過於平滑／平塗塑膠感：請圍繞固有色增設 1~2 個 ΔLum≈0.03~0.06 微差副色打散單色死區")
+        if not trans_ok:
+            hints18.append("顏色缺少過渡／硬切貼紙感：請在深縫與亮面間補上 1 px 次暗／中間調緩衝色階")
+        out.append((
+            "[18] 表面微紋理與色階過渡",
+            "✅" if ok18 else "⚠️",
+            f"最大單色佔比 {top_share * 100:.0f}%（≤55%）、紋理變化率 {edge_density * 100:.0f}%（≥45%）、"
+            f"柔和微過渡 {soft_ratio * 100:.0f}%（≥20%，最大單步 ΔLum={max_adj_dlum:.2f}）"
+            + ("" if ok18 else " → " + "；".join(hints18)),
+        ))
+    return out
+
+
+def print_advanced_report(results: list[tuple[str, str, str]]) -> None:
+    print("🧭 [進階規則檢核 (Cotufa + Jappa 原版標準)]:")
+    for name, status, note in results:
+        print(f"  {name}: {status} {note}")
+    print()
+
+
 def print_analysis_report(info: dict) -> None:
     w, frame_h = info["frame_size"]
     kind_str = "方塊/滿版材質 (Full Block)" if info["is_full_block"] else "物品/透空材質 (Item / Cutout)"
@@ -380,7 +708,8 @@ def build_audit_sheet(analyses: list[dict], out_path: Path) -> None:
         draw.text(
             (12, y0 + 6),
             f"[{idx + 1}] {info['label']} ({fw}x{fh}) | Colors: {len(info['palette_sorted'])} | "
-            f"Value Span: {info['lum_span']:.2f} | Orphans: {len(info['orphan_coords'])}",
+            f"Value Span: {info['lum_span']:.2f} | Orphans: {len(info['orphan_coords'])} | "
+            f"Rule warnings: {sum(1 for _, st, _ in info.get('advanced', []) if st == '⚠️')}",
             fill=(230, 235, 245, 255),
         )
 
@@ -487,6 +816,10 @@ def main() -> int:
     parser.add_argument("--search", "-s", help="在原版 Minecraft 26.3 Client JAR 中搜尋包含關鍵字的貼圖路徑")
     parser.add_argument("--extract-to", "-e", help="將讀取到的第一張貼圖匯出至指定路徑")
     parser.add_argument("--output", "-o", help="自訂視覺化檢核圖輸出路徑 (預設: build/previews/texture_audit_<name>.png)")
+    parser.add_argument("--kind", "-k", choices=KINDS, default="auto",
+                        help="材質類型，決定進階檢核的規則：auto（滿版=block、透空=item）、item、handheld（手持工具／武器）、"
+                             "block、planks（木板）、bricks（磚）、chiseled（雕紋／金屬）、ore（礦石，搭配 --base）")
+    parser.add_argument("--base", "-b", help="礦石比對用的原石貼圖（原版路徑如 block/stone.png 或本地檔案）")
     args = parser.parse_args()
 
     root = find_project_root()
@@ -536,6 +869,9 @@ def main() -> int:
             print(f"💾 已提取貼圖至: {ext_path}")
         info = analyze_texture(label, img)
         print_analysis_report(info)
+        base_img = load_target_image(args.base, root, jar_path)[1] if args.base else None
+        info["advanced"] = advanced_checks(info, args.kind, base_img)
+        print_advanced_report(info["advanced"])
         analyses.append(info)
 
     if analyses:
@@ -551,7 +887,7 @@ def main() -> int:
             rel_out = out_path.relative_to(root)
         except ValueError:
             rel_out = out_path
-        print(f"🖼️ 已產生 8 點檢核視覺化對照圖: {rel_out}")
+        print(f"🖼️ 已產生檢核視覺化對照圖: {rel_out}")
 
     return 0
 
