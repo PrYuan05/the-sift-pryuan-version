@@ -181,6 +181,8 @@
  "src/main/resources/assets/pysift/textures/block/patina_ore/patina_ore_oxidation1.png": "0c1a0136917f879259c9f075f2b67803d077feda",
  "src/main/resources/assets/pysift/textures/block/raw_patina_block/raw_patina_block.png": "d400f5e2c7e434b6cb1bf78e672f514e66ce0c61",
  "src/main/resources/assets/pysift/textures/block/raw_siftite_block/raw_siftite_block.png": "296982f78f39bba3438aec97a604c9b820da3818",
+ "src/main/resources/assets/pysift/textures/block/red_sculk/red_sculk.png": "b8b36f0a82b16103e7c173ba0cc4190b15226e74",
+ "src/main/resources/assets/pysift/textures/block/red_sculk_vein/red_sculk_vein.png": "f8c869e302d5f2c083f760bb4b07fb85ef981c25",
  "src/main/resources/assets/pysift/textures/block/red_sculk_vein_bottom/red_sculk_vein_bottom.png": "bfbf8415f32ffab39d9250ea06be32b1fea07f27",
  "src/main/resources/assets/pysift/textures/block/red_sculk_vein_bottom/red_sculk_vein_bottom_glow.png": "28921c573db7ba25a6945119f2aae9ba37ae4458",
  "src/main/resources/assets/pysift/textures/block/ridge_stone_bricks/chiseled_ridge_stone_bricks_top.png": "d4722bc81ead40eb94cf1767c724b7340cf716af",

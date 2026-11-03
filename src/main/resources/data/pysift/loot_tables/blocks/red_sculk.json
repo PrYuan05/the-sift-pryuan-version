@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "pysift:blocks/red_sculk",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": "minecraft:tool/can_silk_touch",
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:red_sculk"
+        }
+      ]
+    }
+  ]
+}

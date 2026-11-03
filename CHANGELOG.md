@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+### New: red sculk and the rot around the rifts (story act 2-3)
+- **Red Sculk** and **Red Sculk Vein**: the living sculk of The Sift, crimson with glowing pink veins, in patches beside
+  the spirit ponds of the Willow Grove, Violet Slate Abyss, Lullaby Hills and Crimson Strata Canyon.
+- Every wild rift is ringed by rot: blue (vanilla) sculk right at the portal, blue and red mixed further out, then a
+  last ring of red - the soulless overworld air leaking in and killing the sculk.
+
 ### Changed: the Eight-Song Ritual can go wrong
 - Ritual discs now fit in any Resonant Jukebox; only left-to-right in rainbow order (each jukebox's faint beam shows
   its colour) plays the right melody.
@@ -154,6 +160,10 @@
 - Monarch model lowered so it no longer floats above the ground.
 
 ## 尚未發布（繁體中文）
+
+### 新增：赤紅幽匿與裂隙門周圍的腐爛（故事第二、三幕）
+- **赤紅幽匿**與**赤紅幽匿脈絡**：隙浮原生、活著的幽匿，赤紅色帶著發光的粉紅脈絡，成片長在柳絮林地、紫晶深板岩區、搖籃曲山丘和赤紅沉積峽谷的靈液池邊。
+- 每道野外裂隙門周圍都有一圈腐爛帶：門邊是原版的藍色幽匿，往外藍紅交錯，最外圈還是紅色。這是主世界沒有靈魂的空氣倒灌進來，把幽匿害死了。
 
 ### 修改：八音儀式可能出錯
 - 儀式唱片現在可以放進任何一個共鳴唱片盒；只有由左到右照彩虹順序放（每個唱片盒淡淡的光柱會顯示顏色），才奏得出正確的旋律。

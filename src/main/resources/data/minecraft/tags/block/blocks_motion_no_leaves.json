@@ -305,6 +305,7 @@
     "pysift:siftite_block",
     "pysift:raw_siftite_block",
     "pysift:patina_block",
-    "pysift:raw_patina_block"
+    "pysift:raw_patina_block",
+    "pysift:red_sculk"
   ]
 }

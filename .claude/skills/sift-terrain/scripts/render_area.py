@@ -21,7 +21,7 @@ PLANTS = ("grass", "fern", "flower", "bloom", "vine", "litter", "carpet", "agave
           "sprout", "bush", "puff", "cobweb", "lantern", "leaves", "_log")
 # block id (or id[props]) substring -> colour. NOTE: blocks in their DEFAULT state are saved without properties,
 # so "bleached_sandstone" (no props) is bleach=0; match the bare id for the default state.
-COLOURS = [("ember_basalt", (180, 132, 82)), ("magma_vein_slate", (97, 61, 88)),
+COLOURS = [("red_sculk", (196, 40, 84)), ("minecraft:sculk", (16, 70, 90)), ("ember_basalt", (180, 132, 82)), ("magma_vein_slate", (97, 61, 88)),
            ("rusted_dark_cobble", (120, 84, 60)), ("gray_capped_void_stone", (110, 110, 114)), ("red_sculk_vein", (171, 71, 84)),
            ("crimson_capped_void_stone", (126, 73, 89)), ("ember_stone", (220, 130, 90)), ("soul_crystal", (120, 220, 235)),
            ("aurum_ore[richness=1", (235, 175, 30)), ("aurum_ore", (175, 140, 80)),

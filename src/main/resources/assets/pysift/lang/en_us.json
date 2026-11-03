@@ -1587,5 +1587,9 @@
   "item.pysift.patina_block": "Block of Patina",
   "item.pysift.raw_patina_block": "Block of Raw Patina",
   "message.pysift.ritual.discord": "The eight songs fell out of tune. The portal tore open, the sculk burst out, and the Singer sang it shut again. The discs were thrown out: find the right order.",
-  "entity.pysift.sculk_maw": "Sculk Maw"
+  "entity.pysift.sculk_maw": "Sculk Maw",
+  "block.pysift.red_sculk": "Red Sculk",
+  "item.pysift.red_sculk": "Red Sculk",
+  "block.pysift.red_sculk_vein": "Red Sculk Vein",
+  "item.pysift.red_sculk_vein": "Red Sculk Vein"
 }

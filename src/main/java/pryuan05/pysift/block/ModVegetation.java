@@ -135,6 +135,10 @@ public final class ModVegetation {
     public static final Block GREEN_SIFT_VINE = register("green_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
     public static final Block ORANGE_SIFT_VINE = register("orange_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
     /** 腐化藤蔓：六面可貼附，依放置次數將 corruption 從 0 -> 1 -> 2 -> 3 升級。 */
+    // 赤紅幽匿（世界觀 4.7：隙浮原生、活著的幽匿；缺了靈液才會腐爛成原版的藍色幽匿）。資源：tools/worldgen/build_red_sculk.py
+    public static final Block RED_SCULK = register("red_sculk", p -> new Block(p.lightLevel(state -> 3)), Blocks.SCULK, false);
+    public static final Block RED_SCULK_VEIN = register("red_sculk_vein",
+            p -> new net.minecraft.world.level.block.GlowLichenBlock(p.lightLevel(state -> 4)), Blocks.SCULK_VEIN, false);
     public static final Block CORRUPTED_VINE = register("corrupted_vine", p -> new CorruptedVineBlock(p.noOcclusion()), Blocks.VINE, false);
     // 劈裂草、隙浮小麥、黃色落葉
     public static final Block CLEAVER_PLANT = register("cleaver_plant", BushBlock::new, Blocks.BUSH, false);

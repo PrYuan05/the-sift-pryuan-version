@@ -1587,5 +1587,9 @@
   "item.pysift.patina_block": "銅綠錠塊",
   "item.pysift.raw_patina_block": "粗銅綠塊",
   "message.pysift.ritual.discord": "八首歌走了調。門被撕開，幽匿爆了出來，歌者倒著唱把門闔上，唱片全被彈了出來：找出正確的順序再試一次。",
-  "entity.pysift.sculk_maw": "幽匿咬刺"
+  "entity.pysift.sculk_maw": "幽匿咬刺",
+  "block.pysift.red_sculk": "赤紅幽匿",
+  "item.pysift.red_sculk": "赤紅幽匿",
+  "block.pysift.red_sculk_vein": "赤紅幽匿脈絡",
+  "item.pysift.red_sculk_vein": "赤紅幽匿脈絡"
 }

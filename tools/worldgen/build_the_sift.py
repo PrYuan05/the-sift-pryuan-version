@@ -616,6 +616,22 @@ FARM_FEATURES = [
     farm_plant("gloomcap_cave", provider("gloomcap"), 10, CAVE_FLOOR, []),
 ]
 
+# Red sculk (lore 4.7: sculk is native to The Sift, red and alive where spirit liquid is; it rots to the vanilla blue
+# sculk without it). Patches grow on the ground around the spirit ponds, with red sculk veins over them
+# (tools/worldgen/build_red_sculk.py for the blocks; WildRiftFeature rots them blue around the rifts).
+wj(D / "worldgen/feature/red_sculk_vein_floor.json", {"type": "minecraft:simple_block",
+                                                       "to_place": provider("red_sculk_vein", down="true")})
+wj(D / "worldgen/feature/red_sculk_patch.json", {
+    "type": "minecraft:vegetation_patch", "surface": "floor", "depth": 1, "vertical_range": 3,
+    "extra_bottom_block_chance": 0.0, "extra_edge_column_chance": 0.4, "vegetation_chance": 0.3,
+    "xz_radius": uniform(2, 4), "replaceable": "#pysift:red_sculk_replaceable", "ground_state": provider("red_sculk"),
+    "vegetation_feature": {"feature": "pysift:red_sculk_vein_floor", "placement": []}})
+wj(D / "worldgen/placed_feature/red_sculk_patch.json", {"feature": "pysift:red_sculk_patch", "placement": [
+    {"type": "minecraft:count", "count": 6}, {"type": "minecraft:in_square"},
+    {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+    {"type": "minecraft:block_predicate_filter", "predicate": NEAR_SPIRIT}, {"type": "minecraft:biome"}]})
+RED_SCULK_BIOMES = {"willow_grove", "violet_slate_abyss", "lullaby_hills", "crimson_strata_canyon"}
+
 # night-glow flora (SiftFlora.java): glowshade grass in the meadows
 SURFACE = [{"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}]
 GLOW_FEATURES = {
@@ -704,6 +720,7 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
         "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE]] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
                     + (CHAROITE if name == "violet_slate_abyss" else []), [], []]
                     + [VEGETATION.get(name, []) + GLOW_FEATURES.get(name, []) + CAVE_FEATURES.get(name, []) + FARM_FEATURES
+                       + (["pysift:red_sculk_patch"] if name in RED_SCULK_BIOMES else [])
                        + ([] if name in CAVE_FEATURES else [WILD_RIFT]) + LANDMARK_FEATURES.get(name, []), []],
         "has_precipitation": rain,
         "temperature": temperature,
