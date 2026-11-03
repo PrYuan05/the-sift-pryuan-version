@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_grinding",
+  "ingredient": "#minecraft:iron_ores",
+  "result": {
+    "id": "minecraft:raw_iron",
+    "count": 2
+  }
+}

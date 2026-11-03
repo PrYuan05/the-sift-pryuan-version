@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": "pysift:siftite_ingot",
+    "S": "minecraft:polished_basalt"
+  },
+  "pattern": [
+    "I",
+    "S",
+    "I"
+  ],
+  "result": {
+    "id": "pysift:soul_shaft",
+    "count": 4
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": "minecraft:polished_deepslate",
+    "I": "pysift:siftite_ingot",
+    "B": "minecraft:blast_furnace",
+    "E": "pysift:soul_essence"
+  },
+  "pattern": [
+    "PIP",
+    "IBI",
+    "PEP"
+  ],
+  "result": {
+    "id": "pysift:spirit_engine"
+  }
+}
