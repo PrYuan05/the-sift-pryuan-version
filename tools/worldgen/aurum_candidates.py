@@ -117,9 +117,12 @@ def siderite(rnd, rich):                           # siderite: little tan-orange
     return host(rnd), g, m
 
 
+PYRITE_CUBES = {0: 6, 1: 16, 2: 26, 3: 40}          # cubes per richness (0 / 1 are the candidate sheet's)
+
+
 def pyrite_rust(rnd, rich):                        # oxidised pyrite: 2x2 cubes inside rusty halos
     m, cubes = set(), []
-    for _ in range(6 if rich == 0 else 16):
+    for _ in range(PYRITE_CUBES[rich]):
         x, y = rnd.randrange(16), rnd.randrange(16)
         cubes.append((x, y))
         for dx in range(-1, 3):

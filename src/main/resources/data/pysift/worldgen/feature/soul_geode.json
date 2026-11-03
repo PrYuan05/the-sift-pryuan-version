@@ -11,9 +11,9 @@
       "id": "pysift:soul_crystal_block"
     },
     "middle_layer_provider": {
-      "id": "pysift:corrupted_slate",
+      "id": "pysift:dark_slate",
       "properties": {
-        "corruption": "1"
+        "fade": "0"
       }
     },
     "outer_layer_provider": {

@@ -439,19 +439,21 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
     }
 
     /**
-     * 到達門的三種設計（data/pysift/structure/portal/*.nbt，由 tools/worldgen/build_portal_designs.py 從使用者在遊戲裡
+     * 到達門的六種設計（data/pysift/structure/portal/*.nbt，由 tools/worldgen/build_portal_designs.py 從使用者在遊戲裡
      * 蓋的門產生），依生態域的色系挑選；沒列出的生態域用 silted。
      */
     public static final java.util.Map<String, String> PORTAL_DESIGNS = java.util.Map.of(
-            "crimson_strata_canyon", "ember", "amber_dunes", "dune", "lullaby_hills", "ember",
-            "violet_slate_abyss", "slate",
+            "crimson_strata_canyon", "ember", "amber_dunes", "dune", "lullaby_hills", "lullaby",
+            "violet_slate_abyss", "slate", "soul_caldera", "caldera",
             "willow_grove", "silted");
     /** 每種設計的階梯石材：{整塊, 半磚}。 */
     private static final java.util.Map<String, String[]> RAMP_BLOCKS = java.util.Map.of(
             "ember", new String[]{"ember_stone", "ember_stone_slab"},
             "slate", new String[]{"dark_slate", "dark_slate_slab"},
             "silted", new String[]{"silted_strata", "silted_strata_slab"},
-            "dune", new String[]{"bleached_sandstone_bricks", "bleached_sandstone_brick_slab"});
+            "dune", new String[]{"bleached_sandstone_bricks", "bleached_sandstone_brick_slab"},
+            "lullaby", new String[]{"crimson_vein_stone", "crimson_vein_stone_slab"},
+            "caldera", new String[]{"ember_basalt", "ember_basalt_slab"});
     /** 結構檔裡傳送門底邊中央的位置（門面沿 Z 軸）。 */
     private static final BlockPos DESIGN_ANCHOR = new BlockPos(2, 2, 8);
 

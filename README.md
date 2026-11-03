@@ -78,10 +78,11 @@ large round mesas built of stepped two-block-high tiers. The terrain was shaped 
 
 | Biome | Ground | What you will find |
 | :-- | :-- | :-- |
-| **Crimson Strata Canyon** | crimson-capped strata over silted strata | stepped terraces, red mesas ringed in teal and rose, ember grass |
+| **Crimson Strata Canyon** | patchwork of canyon cap, silted strata, teal cap and mudstone; ember stone walls | irregular buttes with up to three shelves, rock pillars, a few round mesas, ember grass |
 | **Violet Slate Abyss** | violet-capped dark slate | rolling hills, glowcaps, bone spires, charoite clusters, soul crystals, a boss arena |
 | **Willow Grove** | crimson-capped strata over abyssal strata | soul willows (and rare giant weeping willows), the most ponds, flowers everywhere, a boss arena |
 | **Amber Dunes** | amber and pale sand over bleached sandstone | ridged dunes, sandstone mesas, agave and oasis ponds, a boss arena |
+| **Soul Caldera** | ember basalt and magma vein slate | a soul volcano plateau: shallow rifts with Spirit Liquid streams, round volcanoes with flat crater lakes, patina ore |
 
 Each biome hides its own ruins with loot — a crimson **Strata Shrine**, an **Abyss Obelisk** crowned with a soul
 crystal, **Willow Huts** on stilts and half-buried **Dune Tombs** — and deep below lie glowing **soul crystal geodes**.
@@ -166,6 +167,9 @@ you which boss it is linked to, or how far and in which direction the nearest ar
   on the sword, exploding sculk tendrils on the axe, glowing enemies, a decoy that saves you at low health, sculk thorns,
   walking on Spirit Liquid — and the full set makes you immune to Soul Deprivation.
 - An advancement line guides you from your first step into The Sift to Soulite.
+- **Patina** from the Soul Caldera (raw patina, patina ingots), kept for the coming soul power machines. Metal blocks
+  for siftite and patina.
+- **Soul Essence** reshapes blocks: use it on a block to switch to its next variant (sneak to pick which one).
 
 ## Farming and brewing
 
@@ -296,10 +300,11 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 | 生態域 | 地表 | 特色 |
 | :-- | :-- | :-- |
-| **赤紅沉積峽谷** | 赤紅覆蓋地層岩、淤積地層岩 | 階梯狀階地、青與玫瑰色環的紅色圓台、餘燼草 |
+| **赤紅沉積峽谷** | 峽谷覆蓋岩、淤積地層岩、青色覆蓋岩與條紋泥岩交錯；餘燼石崖壁 | 最多三層平台的不規則台地、石柱、少量圓形台地、餘燼草 |
 | **紫晶深板岩區** | 紫晶覆蓋深色板岩 | 起伏丘陵、螢光菇、骨刺、紫龍晶簇、靈魂晶塊、Boss 競技場 |
 | **柳絮林地** | 赤紅覆蓋地層岩、深淵地層岩 | 靈魂柳與罕見的巨型垂柳、最多池塘、滿地花草、Boss 競技場 |
 | **琥珀沙丘** | 琥珀沙、淺沙、漂白砂岩 | 稜線沙丘、砂岩圓台、龍舌蘭與綠洲池塘、Boss 競技場 |
+| **靈魂火山高原** | 餘燼玄武岩、熔脈板岩 | 噴發靈魂的火山高原：有靈液細流的淺裂谷、湖面平整的圓形火山口湖、銅綠礦 |
 
 每個生態域都藏著自己的遺跡與寶箱：赤紅的**地層神殿**、頂著靈魂晶塊的**深淵方尖碑**、架在高腳上的**靈柳小屋**、半埋在沙裡的**沙丘古墓**；地底深處還有會發光的**靈魂晶洞**。
 
@@ -361,6 +366,8 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - 比獄髓更強的**靈髓**：用獄髓錠、三隻 Boss 的碎片與紫龍晶鍛造靈髓錠，再用**靈髓升級模板**（Boss 掉落、遺跡寶箱）把獄髓裝備升級。
   每件都帶著 Boss 的能力：劍的音波連鎖、斧的爆炸幽匿藤蔓、讓敵人發光、瀕死時留下分身、幽匿荊棘、在靈液上行走；整套免疫靈魂剝奪。
 - 一條成就線，從踏進篩靈界一路引導到靈髓。
+- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠），留給之後的靈魂動力機器使用。隙浮金與銅綠都有金屬方塊。
+- **靈魂精華**能改變方塊型態：對方塊右鍵換成下一種型態（潛行可以選要換哪一種）。
 
 ### 種植與釀造
 

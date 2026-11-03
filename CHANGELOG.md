@@ -1,6 +1,60 @@
 # Changelog
 
+## v1.0.3
+
+### New biome: Soul Caldera
+- A volcanic plateau covered in souls instead of lava: cooled **Ember Basalt** fields cut by shallow rifts (at most
+  about 6 blocks deep) with a thin stream of Spirit Liquid along their floor.
+- **Magma Vein Slate** grades into every rift and crater: the veins grow from the rim inward, and the fully intruded
+  face is the rarest.
+- Round **soul volcanoes** rise in the biome's core, never at its edge: a cone of rusty scoria, ash and embers with a
+  flat **crater lake** of Spirit Liquid. About 20 volcanoes in a 6000 x 6000 area.
+- Sparse plants: violet and crimson tufts, soul cleavers, bone spires, ferns, puff grass, gloomcaps and short vines.
+- Blurred borders with its neighbours, its own sounds, Blub variant and an arrival portal.
+
+### New: patina and metal blocks
+- **Patina Ore** (replaces Argent Ore) grows in the Soul Caldera's rift walls: weathered green near the surface,
+  fresh hydrothermal breccia deeper down. It drops **Raw Patina** (fortune works); smelt it into **Patina Ingots**,
+  kept for the soul power machines that are coming later.
+- **Block of Patina**, **Block of Raw Patina**, **Block of Siftite** and **Block of Raw Siftite**, crafted 9 to 1
+  like the vanilla metal blocks. Patina and siftite blocks also work as beacon bases.
+
+### New: Soul Essence reshapes blocks
+- Use **Soul Essence** on a block to switch it to its next variant (colour tone, pattern, facing, stair shape...),
+  one essence per change; sneak + use picks which variant to change. Properties that would duplicate blocks or skip
+  growth are locked, and two-block blocks (doors, beds, double chests) can't be reshaped.
+
+### New: blocks and stones
+- Stone upgrade from real-world references: the **void stone** family (bricks, tiles, polished, smooth, cracked),
+  violet slate, marbles, banded mudstone, white sandstone, **Aurum Ore**, smooth ash marble and hand-painted amber
+  and pale sandstone. Every stone has slabs, stairs and walls.
+- **Ember Basalt** with bricks, slabs, stairs and walls; **Corrupted Vine** that climbs any face and spreads in four
+  stages; a two-layer connected **Soul Crystal Block**.
+- Block ids are now readable and every block keeps its assets in its own folder.
+
+### Changed: portals
+- New arrival portals for **Lullaby Hills** (crimson vein stone) and the **Soul Caldera** (ember basalt and glowing
+  magma vein slate). Arrival portals can be edited in game with `/pysift_showcase portal`.
+- Portal light now stays on the portal: the rays shoot out from the rim along the portal's facing instead of lying
+  over the frame, and the night haze sits on the face.
+- Fixed: the two end columns of portals facing east-west had no glow, and portal cells next to walls, slabs or stairs
+  showed no portal texture.
+
+### Removed
+- Argent Ore (now Patina Ore), Corrupted Slate and its building set, the Soul Sift Axle (being redesigned).
+
+### Lore
+- The story of The Sift was rewritten: sculk is native, red and alive in The Sift and rots blue in the soulless
+  overworld; the Warden and the Mourner are Sift creatures turned undead; the ancients put the discs in the wrong
+  jukeboxes and tore the portal open.
+
 ## v1.0.1
+
+### Changed: Crimson Strata Canyon terrain
+- The canyon's mesas now grow out of the terrain itself: irregular buttes of every size with steep walls and up to three
+  shelves (Y78 / Y89 / Y100), and free-standing rock pillars on the canyon floor. The old round mesas are kept but rare.
+- Each shelf has its own cap (rose, teal, then the canyon cap on top), walls of ember stone mixed with crimson strata,
+  and the floor is a patchwork of canyon cap, silted strata, teal cap and banded mudstone that blends block by block.
 
 ### New: the Eight-Song Ritual (replaces the old one-click portal)
 - Blow a Goat Horn at an Ancient City portal frame: a **Singer** climbs out and stays in place.
@@ -70,6 +124,38 @@
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## v1.0.3（繁體中文）
+
+### 新生態域：靈魂火山高原
+- 噴發的不是岩漿而是靈魂的火山高原：冷卻的**餘燼玄武岩**熔岩原被淺淺的裂谷切開（最深約 6 格），谷底中線有一條靈液細流。
+- 裂谷與火山口都有**熔脈板岩**的漸變：由外往內脈越來越多，完全被侵入的那一種最少。
+- 生態域核心會長出圓形的**靈魂火山**，不會出現在生態域邊緣：火山渣、灰燼與餘燼組成的錐體，頂上是湖面平整的靈液**火山口湖**。6000 × 6000 格內約 20 座。
+- 稀疏的植物：紫色與赤紅草叢、靈魂劈葉植物、骨刺、捲蕨、蓬鬆草、陰菇與短垂藤。
+- 和相鄰生態域之間的邊界會互相交錯，有自己的音效、布魯布變種與到達門。
+
+### 新增：銅綠與金屬方塊
+- **銅綠礦**（取代銀白礦）生成在靈魂火山高原的裂谷壁：靠近地表是風化的綠色，深處是新鮮的熱液角礫岩。挖掘會掉落**粗銅綠**（可用時運），熔煉成**銅綠錠**，留給之後的靈魂動力機器使用。
+- **銅綠錠塊**、**粗銅綠塊**、**隙浮金錠塊**、**粗隙浮金塊**，像原版金屬方塊一樣 9 個合成 1 個。銅綠錠塊與隙浮金錠塊也能當信標底座。
+
+### 新增：靈魂精華可以改變方塊型態
+- 拿**靈魂精華**對方塊右鍵，換成下一種型態（色調、紋路、朝向、樓梯形狀…），每次消耗 1 個；潛行＋右鍵選擇要換哪一種型態。會複製方塊或跳過成長的型態不能改，門、床、大箱子這類兩格的方塊也不能改。
+
+### 新增：方塊與石材
+- 依現實參考升級石材：**虛黑岩**家族（石磚、磚瓦、磨製、平滑、裂紋）、紫晶板岩、大理石、條紋泥岩、白砂岩、**金岩礦**、平滑灰大理石，以及手繪的琥珀與淺沙砂岩。每種石材都有半磚、階梯和牆。
+- **餘燼玄武岩**與它的石磚、半磚、階梯、牆；能貼在任何一面、分四階段蔓延的**腐化藤蔓**；雙層、會互相連接的**靈魂晶塊**。
+- 方塊 ID 改成看得懂的名稱，每個方塊的資源都放在自己的資料夾。
+
+### 修改：傳送門
+- 新增**搖籃曲山丘**（赤紅脈岩）與**靈魂火山高原**（餘燼玄武岩加發光的熔脈板岩）的到達門。到達門可以用 `/pysift_showcase portal` 在遊戲裡修改。
+- 傳送門的光只留在門上：光束從門邊沿門面方向往外射，不再平躺在門框上；夜晚的光霧貼在門面上。
+- 修正：沿東西向擺的門最兩端那一排沒有光暈；貼著牆、半磚、樓梯的傳送門格子看不到傳送門貼圖。
+
+### 移除
+- 銀白礦（改為銅綠礦）、腐化板岩與它的建材組、靈魂隙浮輪軸（重新設計中）。
+
+### 世界觀
+- 重寫隙浮的故事：幽匿是隙浮原生的生命，在隙浮是紅色、活著的，到了沒有靈魂的主世界才腐爛成藍色；監守者與哀悼者是屍化的隙浮生物；遠古人把唱片放錯了共鳴唱片盒，撕開了傳送門。
 
 ## v1.0.1（繁體中文）
 

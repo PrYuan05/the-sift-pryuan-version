@@ -1,0 +1,6 @@
+{
+  "parent": "pysift:block/corrupted_vine/template_corrupted_vine_face",
+  "textures": {
+    "vine": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b"
+  }
+}

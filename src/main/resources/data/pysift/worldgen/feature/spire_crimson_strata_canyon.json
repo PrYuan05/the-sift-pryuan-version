@@ -27,16 +27,6 @@
           }
         },
         "weight": 1
-      },
-      {
-        "data": {
-          "id": "pysift:capped_crimson_strata",
-          "properties": {
-            "facing": "up",
-            "tone": "rose"
-          }
-        },
-        "weight": 1
       }
     ]
   },

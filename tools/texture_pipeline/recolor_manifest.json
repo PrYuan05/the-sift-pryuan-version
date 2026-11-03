@@ -113,36 +113,136 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/corrupted_slate_bricks/chiseled_corrupted_slate_bricks.png",
-      "pool": "corrupted_slate:chiseled",
-      "reference": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
-      "source": "pysift:block/corrupted_slate/corrupted_slate_corruption0_a",
-      "mode": "generated",
-      "method": "building_set",
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption0_a.png",
+      "pool": "corrupted_vine:corruption=0",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption0_a.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
       "sha1_before": null,
-      "sha1_after": "da3c26f73c0263a36ef92dd2d11ec4f01a036ae6",
+      "sha1_after": "676d8ade71d3608a64632d68612b3745df09b155",
       "backup": null,
-      "date": "20261013-085205"
+      "date": "20261027-204237"
     },
     {
-      "file": "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_side.png",
-      "pool": "crimson_capped_void_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "3ac0033dfc6b8e0711320b2e4514a2f9418c5e77",
-      "sha1_after": "13c90a0a2e96aefe6ae922fd67e75fd98e87454c",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_capped_void_01/crimson_capped_void_01_side.png",
-      "date": "20261018-175357"
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption0_b.png",
+      "pool": "corrupted_vine:corruption=0",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption0_b.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "e4feeda5ef81aa463a2e09853635a35cd49d687b",
+      "backup": null,
+      "date": "20261027-204237"
     },
     {
-      "file": "textures/block/crimson_capped_void_stone/crimson_capped_void_stone_top.png",
-      "pool": "crimson_capped_void_stone:stage2_pink",
-      "reference": "pysift:block/sift_ground/canyon_top_b",
-      "mode": "tone",
-      "sha1_before": "97d42058e2ee1885e63b76185619e7e0f0e265f3",
-      "sha1_after": "140430ee9951ec4c7ab2bc8bc06afe71b5705eb0",
-      "backup": ".texture_backups/20261018-175357_stage2_crimson_recolor/textures/block/crimson_capped_void_01/crimson_capped_void_01_top.png",
-      "date": "20261018-175357"
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption1.png",
+      "pool": "corrupted_vine:corruption=1",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption1.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "642f08a26b431b52f5456d3653b764e72935278b",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption2_a.png",
+      "pool": "corrupted_vine:corruption=2",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption2_a.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "fe440646ad7739e9b21e683786631a7d341516cb",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption2_b.png",
+      "pool": "corrupted_vine:corruption=2",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption2_b.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "b4b1ca623437488de0cf034291e869f8edc92926",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption2_c.png",
+      "pool": "corrupted_vine:corruption=2",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption2_c.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "f5df33513d9620bc8b7d16afdb88fe5d232fa8d5",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption2_d.png",
+      "pool": "corrupted_vine:corruption=2",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption2_d.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "e540157ad72a49c76695f41151e63ef1e0aebe59",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption2_e.png",
+      "pool": "corrupted_vine:corruption=2",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption2_e.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "b9dde7a29709ae5d79667bae4231e19163289f0a",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption3_a.png",
+      "pool": "corrupted_vine:corruption=3",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption3_a.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "54fe8b7cc3a295f55142c8bf6946c86d2defaf42",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption3_b.png",
+      "pool": "corrupted_vine:corruption=3",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption3_b.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "d5ef781a913116a8f7d91f2e8749307578b3f846",
+      "backup": null,
+      "date": "20261027-204237"
+    },
+    {
+      "file": "textures/block/corrupted_vine/corrupted_vine_corruption3_c.png",
+      "pool": "corrupted_vine:corruption=3",
+      "reference": "pysift:block/dark_slate_pillar/dark_slate_pillar_side",
+      "source": "textures/block/corrupted_vine/corrupted_vine_corruption3_c.png",
+      "mode": "extracted_transparent_vine",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": null,
+      "sha1_after": "11784aa73e788fcac2021c8e9c1b2ce7760102c5",
+      "backup": null,
+      "date": "20261027-204237"
     },
     {
       "file": "textures/block/framed_dark_slate/dark_slate_a.png",
@@ -223,6 +323,42 @@
       "sha1_after": "5d189ce3bd8d29c943396f7635cb5e1951fe5161",
       "backup": ".texture_backups/20261014-011457_recolor/textures/block/dark_slate_capped_rose_01/dark_slate_capped_rose_01_top.png",
       "date": "20261014-044202"
+    },
+    {
+      "file": "textures/block/dark_slate_pillar/dark_slate_pillar_bottom.png",
+      "pool": "dark_slate_pillar:bottom",
+      "reference": "pysift:block/dark_slate/dark_slate_l",
+      "source": "textures/block/dark_slate_pillar/dark_slate_pillar_bottom.png",
+      "mode": "tall_strip_vine_pillar_sliced",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "98a835deef5ac7201b712992b0ae6b2e67b9b083",
+      "sha1_after": "d626d5e8a62be385d62c124b02d31ff2e731842d",
+      "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_bottom.png",
+      "date": "20261027-202704"
+    },
+    {
+      "file": "textures/block/dark_slate_pillar/dark_slate_pillar_side.png",
+      "pool": "dark_slate_pillar:side",
+      "reference": "pysift:block/dark_slate/dark_slate_l",
+      "source": "textures/block/dark_slate_pillar/dark_slate_pillar_side.png",
+      "mode": "tall_strip_vine_pillar_sliced",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "882ebafa60e100573a603a281f6ac55792acec61",
+      "sha1_after": "854f77eb49f8423ed0ef6803ba6ec8ec8ac7457f",
+      "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_side.png",
+      "date": "20261027-202704"
+    },
+    {
+      "file": "textures/block/dark_slate_pillar/dark_slate_pillar_top.png",
+      "pool": "dark_slate_pillar:top",
+      "reference": "pysift:block/dark_slate/dark_slate_l",
+      "source": "textures/block/dark_slate_pillar/dark_slate_pillar_top.png",
+      "mode": "tall_strip_vine_pillar_sliced",
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "98a835deef5ac7201b712992b0ae6b2e67b9b083",
+      "sha1_after": "d626d5e8a62be385d62c124b02d31ff2e731842d",
+      "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_top.png",
+      "date": "20261027-202704"
     },
     {
       "file": "textures/block/dark_stone_bricks/chiseled_dark_stone_bricks.png",
@@ -555,30 +691,6 @@
       "date": "20261013-033816"
     },
     {
-      "file": "textures/block/magma_vein_slate_bricks/chiseled_magma_vein_slate_bricks.png",
-      "pool": "magma_vein_slate:chiseled",
-      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
-      "source": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "07c1b8a700bdb0660515dec2676a7b7613599c0d",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/magma_vein_slate_bricks/magma_vein_slate_bricks.png",
-      "pool": "magma_vein_slate:bricks",
-      "reference": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
-      "source": "pysift:block/magma_vein_slate/magma_vein_slate_vein0_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "6a19993e43ef6412c7fad7a807f802a565336e0a",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
       "file": "textures/block/mossy_cobblestone_bricks/chiseled_mossy_cobblestone_bricks.png",
       "pool": "mossy_cobblestone:chiseled",
       "reference": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss0",
@@ -787,30 +899,6 @@
       "date": "20261013-085205"
     },
     {
-      "file": "textures/block/speckled_void_stone_bricks/chiseled_speckled_void_stone_bricks.png",
-      "pool": "speckled_void_stone:chiseled",
-      "reference": "pysift:block/void_stone/void_stone_g",
-      "source": "pysift:block/void_stone/void_stone_g",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "79015d404e1ed0284be691fc1c80a6636ccf9e81",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/speckled_void_stone_bricks/speckled_void_stone_bricks.png",
-      "pool": "speckled_void_stone:bricks",
-      "reference": "pysift:block/void_stone/void_stone_g",
-      "source": "pysift:block/void_stone/void_stone_g",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "c5445995e8448a3866c58182669cf57071672eb0",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
       "file": "textures/block/stone_variant_bricks/chiseled_stone_variant_bricks.png",
       "pool": "stone_variant:chiseled",
       "reference": "pysift:block/stone_variant/stone_variant",
@@ -903,30 +991,6 @@
       "method": "building_set",
       "sha1_before": null,
       "sha1_after": "8e4ac9543ca046aa5440e0aa8ed80b3fcc5fbdd9",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/umber_void_stone_bricks/chiseled_umber_void_stone_bricks.png",
-      "pool": "umber_void_stone:chiseled",
-      "reference": "pysift:block/umber_void_stone/void_stone_a",
-      "source": "pysift:block/umber_void_stone/void_stone_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "74a165b795b5bfd6e99750a43a0da6600a9c0f49",
-      "backup": null,
-      "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/umber_void_stone_bricks/umber_void_stone_bricks.png",
-      "pool": "umber_void_stone:bricks",
-      "reference": "pysift:block/umber_void_stone/void_stone_a",
-      "source": "pysift:block/umber_void_stone/void_stone_a",
-      "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "84fa9320a1865c535a8f7437853519e3d8047725",
       "backup": null,
       "date": "20261013-085205"
     },
@@ -1073,28 +1137,6 @@
       "sha1_after": "a3a027d630f9bdc26d64314909f6ebafcef8645a",
       "backup": null,
       "date": "20261013-085205"
-    },
-    {
-      "file": "textures/block/gray_capped_void_stone/void_stone_i.png",
-      "pool": "void_stone:sides",
-      "reference": "pysift:block/void_stone/void_stone_c",
-      "mode": "palette",
-      "sha1_before": "d9f1ba59651149717a8e7dfe876fa82bbb76b231",
-      "sha1_after": "e501643bf521c4361a8e680f43e5fe2fdc334bf0",
-      "backup": ".texture_backups/20261013-040501_recolor/textures/block/void_stone/void_stone_i.png",
-      "date": "20261013-040501"
-    },
-    {
-      "file": "textures/block/warm_capped_ember_stone/warm_capped_ember_stone_top.png",
-      "pool": "warm_capped_ember_stone:top",
-      "reference": "top band of pysift:block/warm_capped_ember_stone/ember_stone_heat3_c (vflip)",
-      "source": "pysift:block/blotched_dark_slate/dark_slate_e",
-      "mode": "generated",
-      "method": "rank",
-      "sha1_before": null,
-      "sha1_after": "58b15b9e19a5a407b011e4aaf635bf1cd415b8db",
-      "backup": null,
-      "date": "20261013-040934"
     }
   ]
 }

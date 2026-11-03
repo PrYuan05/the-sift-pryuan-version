@@ -23,13 +23,6 @@
         "predicate_type": "minecraft:block_match",
         "block": "pysift:void_stone"
       }
-    },
-    {
-      "state": "pysift:soul_crystal_block",
-      "target": {
-        "predicate_type": "minecraft:block_match",
-        "block": "pysift:corrupted_slate"
-      }
     }
   ]
 }

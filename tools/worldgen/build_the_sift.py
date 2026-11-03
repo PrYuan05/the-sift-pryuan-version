@@ -350,6 +350,17 @@ VEGETATION = {
                       wall_plant("wall_lullaby_carapace_vine", "carapace_vine", 4, max_len=5),
                       cliff_vines("cliff_vines_lullaby_hills", tries=40, min_len=4, max_len=10, glow_chance=0.12, count=6,
                                   max_y=130)],
+    # Soul Caldera: a scorched plateau, so sparse - violet and crimson tufts in the cooled lava, soul-cyan accents,
+    # bone spires in the ash; nothing grows on the hot magma veins (only the plain / cone floors support vegetation)
+    "soul_caldera": [patch("patch_caldera_violet_grass", "soft_violet_short_grass", 5, (16, 32)),
+                     patch("patch_caldera_tall_violet_grass", "soft_violet_tall_grass", 2, (4, 10), half="lower"),
+                     patch("patch_caldera_crimson_grass", "soft_crimson_short_grass", 3, (10, 20)),
+                     patch("patch_caldera_soul_cleaver_plant", "soul_cleaver_plant", 2, (3, 6)),
+                     patch("patch_caldera_bone_spire", "bone_spire", 2, (3, 8)),
+                     patch("patch_caldera_pink_curled_fern", "pink_curled_fern", 1, (3, 6)),
+                     patch("patch_caldera_puff_grass", "puff_grass", 1, (3, 6), half="lower"),
+                     patch("patch_caldera_glowcap", "gloomcap", 1, (2, 5)),
+                     cliff_vines("cliff_vines_soul_caldera", tries=24, min_len=2, max_len=4, glow_chance=0.3, count=3)],
 }
 
 # ---- strata mesas (pysift:strata_spire, StrataSpireFeature.java) ----
@@ -362,10 +373,10 @@ def weighted(*states):
 
 SPIRES = {   # biome: big round flat-topped mesas (user: large radius, flat walkable tops, not pillars)
     "crimson_strata_canyon": dict(tiers=(4, 8), radius=(12, 18), cap=(2, 3),
-                                  top=weighted(state("capped_crimson_strata", facing="up", tone="teal"),
-                                               state("capped_crimson_strata", facing="up", tone="rose")),
+                                  # caps whose side is blue above / pink below, over the pink ember stone body (user rule)
+                                  top=weighted(state("capped_crimson_strata", facing="up", tone="teal")),
                                   body=[state("ember_stone", heat=0)],
-                                  frequency={"type": "minecraft:rarity_filter", "chance": 6}),     # most common
+                                  frequency={"type": "minecraft:rarity_filter", "chance": 40}),    # user: keep a few; the buttes are terrain now
     "violet_slate_abyss": dict(tiers=(3, 7), radius=(10, 17), cap=(1, 3),
                                top=VIOLET_TOP, body=[VIOLET_UNDER],
                                frequency={"type": "minecraft:rarity_filter", "chance": 9}),
@@ -411,8 +422,7 @@ ARENAS = {
                          wall=state("abyssal_strata_brick_wall"), pillar=state("abyssal_strata_bricks"),
                          moat=state("spirit_liquid", level=0), moat_width=4),
     "violet_slate_abyss": dict(boss="sculk_monstrosity", radius=16, pillar_height=10, pillar_count=8,   # dark slate ring
-                               floor=weighted(*[state("corrupted_slate_bricks", corruption=c) for c in (0, 1, 2)],
-                                              state("dark_slate_bricks")),
+                               floor=weighted(state("dark_slate_bricks"), state("chiseled_dark_slate_bricks")),
                                wall=state("dark_slate_brick_wall"), pillar=state("dark_slate_pillar", axis="y")),
 }
 
@@ -469,6 +479,18 @@ def spirit_pond(biome_name, barrier, chance, protect):
 POND_FEATURES = {b: [spirit_pond(b, *v)] for b, v in PONDS_PER_BIOME.items()}
 
 
+def soul_crater():
+    """The volcano's flat crater lake and scorched crater floor (SoulCraterFeature): once per chunk, it only acts near a
+    volcano cell's centre."""
+    wj(D / "worldgen/feature/soul_crater.json", {"type": "pysift:soul_crater"})
+    wj(D / "worldgen/placed_feature/soul_crater.json", {"feature": "pysift:soul_crater", "placement": [
+        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"}, {"type": "minecraft:biome"}]})   # surface biome
+    return "pysift:soul_crater"
+
+
+POND_FEATURES["soul_caldera"] = [soul_crater()]
+
+
 # ---- biomes ----
 def spawns(**categories):
     """spawns(monster=[(mob, weight, min, max), ...], creature=[...]); the category must match the entity's MobCategory."""
@@ -484,7 +506,7 @@ def spawns(**categories):
 def soul_crystal_ore(name, size, count, placement):
     targets = [{"state": "pysift:soul_crystal_block",
                 "target": {"predicate_type": "minecraft:block_match", "block": f"pysift:{b}"}}
-               for b in ("violet_capped_dark_slate", "dark_slate", "void_stone", "corrupted_slate")]
+               for b in ("violet_capped_dark_slate", "dark_slate", "void_stone")]
     wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:ore", "discard_chance_on_air_exposure": 0.0,
                                                "size": size, "targets": targets})
     wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
@@ -530,7 +552,7 @@ def soul_geode(name):
         "type": "minecraft:geode",
         "blocks": {"filling_provider": {"id": "minecraft:air"}, "inner_layer_provider": provider("soul_crystal_block"),
                    "alternate_inner_layer_provider": provider("soul_crystal_block"),
-                   "middle_layer_provider": provider("corrupted_slate", corruption=1),
+                   "middle_layer_provider": provider("dark_slate", fade=0),
                    "outer_layer_provider": provider("void_obsidian"),
                    "inner_placements": [{"id": "minecraft:air"}],
                    "cannot_replace": "#minecraft:features_cannot_replace", "invalid_blocks": "#minecraft:geode_invalid_blocks"},
@@ -553,7 +575,8 @@ AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
            "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
            "willow_grove": ("minecraft:spore_blossom_air", 0.012),
            "amber_dunes": ("minecraft:white_ash", 0.015),
-           "lullaby_hills": ("minecraft:crimson_spore", 0.008)}
+           "lullaby_hills": ("minecraft:crimson_spore", 0.008),
+           "soul_caldera": ("pysift:soul_wisp", 0.004)}
 
 CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
                                                              "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 55}}},
@@ -625,6 +648,20 @@ CAVE_FEATURES = {"red_zone_caves": [
     farm_plant("red_cave_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, RED_CAVE_FLOOR, []),
 ]}
 
+def caldera_ore(name, ore, size, count, lo, hi):
+    """Ores in the Soul Caldera's rift walls (magma vein slate) and plateau stone."""
+    targets = [{"state": ore, "target": {"predicate_type": "minecraft:block_match", "block": f"pysift:{b}"}}
+               for b in ("magma_vein_slate", "ember_basalt", "void_stone")]
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:ore", "discard_chance_on_air_exposure": 0.0,
+                                               "size": size, "targets": targets})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                       "min_inclusive": {"absolute": lo}, "max_inclusive": {"absolute": hi}}},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
 ORE_FEATURES = {"violet_slate_abyss": [
     soul_crystal_ore("soul_crystal_surface", 5, uniform(0, 1), [
         {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
@@ -632,6 +669,14 @@ ORE_FEATURES = {"violet_slate_abyss": [
     soul_crystal_ore("soul_crystal_buried", 8, 3, [
         {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
                                                        "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 60}}}]),
+], "soul_caldera": [
+    # patina ore (user: replaces argent ore): weathered green (oxidation 1) near the surface in the rift walls,
+    # fresh breccia (oxidation 0) deeper down near the spirit liquid
+    caldera_ore("patina_ore_caldera_walls", state("patina_ore", oxidation="1"), 6, 6, 40, 90),
+    caldera_ore("patina_ore_caldera", state("patina_ore", oxidation="0"), 5, 3, 30, 62),
+    soul_crystal_ore("soul_crystal_caldera", 4, uniform(0, 2), [
+        {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+        {"type": "minecraft:offset", "x": 0, "y": -1, "z": 0}]),
 ]}
 
 def audio(name):
@@ -682,6 +727,9 @@ biome("lullaby_hills", 1.4, 0.3, False, "#6a2a48", "#4a1c34", "#d06a8c",
       spawns(monster=[("dartback", 30, 1, 2), ("prickle", 25, 1, 2), ("seedling", 15, 2, 3), ("sprout", 15, 2, 3),
                       ("fusefly", 20, 1, 2)],
              creature=[("echo_golem", 14, 1, 2), ("blub", 20, 2, 3)]))
+biome("soul_caldera", 2.0, 0.0, False, "#1e1a2a", "#2a2440", "#5fd8e8",
+      spawns(monster=[("stalker", 30, 1, 2), ("fusefly", 25, 1, 2), ("prickle", 10, 1, 1)],
+             creature=[("echo_golem", 6, 1, 1), ("blub", 10, 1, 2)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
       spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
              creature=[("lootkin", 6, 1, 1), ("blub", 25, 2, 4)]))
@@ -746,9 +794,17 @@ def canyon_band(lo, hi, rule):
     return seq(cond(band(lo, hi), rule), cond(band(-hi, -lo), rule))
 
 
-def blended_bands(materials, borders, width):
-    """materials[i] lies between borders[i-1] and borders[i] (|canyon noise|); each border blends over 2 x width."""
-    edges = [0.0] + borders + [1.0e9]
+def noise_band(noise):
+    """band(lo, hi, rule) for one sign of a noise: rule where lo <= noise < hi."""
+    return lambda lo, hi, rule: cond({"type": "minecraft:noise_threshold", "noise": noise,
+                                      "min_threshold": lo, "max_threshold": hi}, rule)
+
+
+def blended_bands(materials, borders, width, band=canyon_band, start=0.0):
+    """materials[i] lies between borders[i-1] and borders[i] (|canyon noise| unless another band is given);
+    each border blends over 2 x width."""
+    canyon_band = band
+    edges = [start] + borders + [1.0e9]
     parts = []
     for i, m in enumerate(materials):
         lo, hi = edges[i], edges[i + 1]
@@ -765,8 +821,10 @@ def blended_bands(materials, borders, width):
 SANDSTONE = mix(0.15, block(state("bleached_sandstone", bleach=0)), block(state("bleached_sandstone", bleach=1)))
 LULLABY_BORDERS = [0.03, 0.05, 0.105, 0.133]   # water's edge | bank / half step | land layer / road | wall
 LULLABY_BLEND = 0.008                          # |canyon| per blend step (~2 blocks on the canyon floor)
-FLOOR_BANDS = [block(state("aurum_ore", richness=1)), block(state("aurum_ore", richness=0)), SANDSTONE,
-               block(state("ash_marble", veining=0))]
+# the river bed itself (|canyon| < water's edge) gets richer towards the middle of the river (user): richness 4 (solid
+# ore) -> 3 -> 2 -> 1 at the water's edge, blended block by block like every other border
+RIVER_BED = blended_bands([block(state("aurum_ore", richness=r)) for r in (4, 3, 2, 1)], [0.008, 0.015, 0.022], 0.003)
+FLOOR_BANDS = [RIVER_BED, block(state("aurum_ore", richness=0)), SANDSTONE, block(state("ash_marble", veining=0))]
 WALL_STONE = mix(0.3, block(LULLABY_WALL), block(LULLABY_WALL_ALT))
 LULLABY_RULE = seq(
     cond(ON_FLOOR, blended_bands(FLOOR_BANDS + [block(LULLABY_TOP)], LULLABY_BORDERS, LULLABY_BLEND)),
@@ -776,6 +834,143 @@ LULLABY_RULE = seq(
     cond(WITHIN(26), WALL_STONE))   # walls are up to ~22 tall
 path = lambda floor: cond(ON_FLOOR, cond(ON_PATH, block(floor)))
 
+# Crimson canyon (buttes). Two-tone caps (user): the layer under a cap continues the colour of the cap's lower half -
+# blue (teal) under caps whose side is pink above / blue below, pink under caps that are blue above / pink below.
+# Every shelf mixes all two-tone caps block by block, tones as random as possible. A column makes the same choice for
+# its cap and the 3 blocks under it because every choice is a 2D noise threshold at that column.
+wj(D / "worldgen/noise/the_sift_dither_tone.json", {"base_amplitude": 1.0, "base_octave": 0, "octave_count": 1})
+wj(D / "worldgen/noise/the_sift_dither_layer.json", {"base_amplitude": 1.0, "base_octave": 0, "octave_count": 1})
+
+
+def pick(noise, rules):
+    """One of `rules`, each on about 1 / len(rules) of the columns (a fine noise ~ the dither noise's spread)."""
+    parts = [cond({"type": "minecraft:noise_threshold", "noise": noise, "min_threshold": dither_threshold((i + 1) / len(rules)),
+                   "max_threshold": 1.0e9}, r) for i, r in enumerate(rules[:-1])]
+    return seq(*parts, rules[-1])
+
+
+# user: blue layers are silted strata only (no teal / abyssal strata); pink layers and walls are ember stone (no crimson strata)
+BLUE_LAYER = pick("pysift:the_sift_dither_layer", [block(state("silted_strata", silt=0)), block(state("silted_strata", silt=1))])
+PINK_LAYER = block(state("ember_stone", heat=0))
+# Caps whose side is pink above / blue below sit on a blue (silted) layer, caps blue above / pink below on a pink (ember)
+# layer. Which of the two families a place gets is decided in PATCHES (the_sift_cap_tone, ~16 blocks), blended 25 / 75 %
+# at the borders; inside a family the tone is random block by block. (A per-block family choice made the layer under
+# the caps alternate blue / pink every column - vertical stripes down every step face.)
+# Lower half as SHOWN in game (model face rotation applied; the canyon cap's side is turned 90 degrees, so the raw
+# texture's right edge is its bottom): canyon cap, rose, mottled, deep teal -> blue below; teal cap -> pink below.
+wj(D / "worldgen/noise/the_sift_cap_tone.json", {"base_amplitude": 1.0, "base_octave": -4, "octave_count": 2,
+                                                 "amplitude_modifiers": [1.0, 0.5]})
+BLUE_BOTTOM_CAPS = pick("pysift:the_sift_dither_tone", [block(state("capped_crimson_strata", facing="up", tone=t))
+                                                        for t in ("rose", "mottled", "deep_teal")] + [block(CRIMSON_TOP)])
+PINK_BOTTOM_CAPS = block(state("capped_crimson_strata", facing="up", tone="teal"))
+CAP_FAMILIES = [(PINK_BOTTOM_CAPS, PINK_LAYER), (BLUE_BOTTOM_CAPS, BLUE_LAYER)]
+CAP_MIX = {part: blended_bands([family[part] for family in CAP_FAMILIES], [0.0], 0.06,
+                               band=noise_band("pysift:the_sift_cap_tone"), start=-1.0e9) for part in (0, 1)}
+# floor patches: two-tone caps (the canyon cap alone, or the full random cap mix) and two plain blocks
+FLOOR_PATCHES = [(block(state("silted_strata", silt=1)), block(CRIMSON_UNDER)),
+                 (block(CRIMSON_TOP), BLUE_LAYER),
+                 (CAP_MIX[0], CAP_MIX[1]),
+                 (block(state("banded_mudstone", banding=1)), block(CRIMSON_UNDER))]
+BUTTE_BAND, PATCH_BAND = noise_band("pysift:the_sift_buttes"), noise_band("pysift:the_sift_canyon_patches")
+BUTTE_RISES = [(0.04, 78), (0.13, 89), (0.22, 100)]      # (butte noise where a wall starts, shelf height); terrain uses it too
+
+
+def canyon_layer(part):
+    """part 0 = the surface block, 1 = the 3 blocks under it; both built from the same choices, so they match."""
+    floor = blended_bands([m[part] for m in FLOOR_PATCHES], [-0.18, 0.1, 0.28], 0.04, band=PATCH_BAND, start=-1.0e9)
+    return blended_bands([floor, CAP_MIX[part]], [BUTTE_RISES[0][0] + 0.004], 0.011, band=BUTTE_BAND, start=-1.0e9)
+
+
+CANYON_WALL = block(state("ember_stone", heat=0))
+CANYON_RULE = seq(
+    path(CRIMSON_PATH),
+    cond(ON_FLOOR, canyon_layer(0)),
+    cond(WITHIN(3), canyon_layer(1)),                    # continues the colour of the cap's lower half
+    cond(WITHIN(26), CANYON_WALL))                       # walls are up to ~34 tall from the floor, ~12 per shelf
+
+# Soul Caldera (user palette: cool basalt greys ~70 %, scorched violet-red ~20 %, soul-cyan light ~10 %, a little warm
+# ember on the volcano's rim). Bands read the same noises as the terrain (rift: |noise|, volcano: raw), every border blends.
+# rift / volcano thresholds, shared with the terrain splines below
+SOUL_RIFT_FLOOR, SOUL_RIFT_BANK, SOUL_RIFT_WALL = 0.022, 0.028, 0.051   # |rift noise|: channel floor | bank | plateau
+# The volcano is a true cone: on a grid of VOLCANO_CELL x VOLCANO_CELL cells, a repeating gradient gives the distance to
+# the cell's centre and a spline turns it into cone, rim and crater. Whether a cell gets a volcano is read AT ITS CENTRE
+# (the ridges / temperature noises shifted to the centre), so a cone is either whole or absent - only big patches, whose
+# core is deep enough at the centre, get one. The crater lake is filled flat by SoulCraterFeature (same grid, same numbers).
+# Ridges (weirdness) is our own noise sampled at scale 1, so surface rules can read it too (biome edge, crater lake).
+SOUL_WEIRDNESS = 0.22                              # weirdness below -this (and hot) is the Soul Caldera
+SOUL_HEAT = 0.25                                   # ... where temperature is above this; biome and terrain weight share it
+CORE_RIDGES = (-0.235, -0.225)                     # ridges at the cell centre: full volcano below the first, none above the second
+CORE_HEAT = (0.255, 0.265)                         # temperature at the cell centre: none below the first, full above the second
+VOLCANO_CELL = 256                                 # one possible volcano per cell (SoulCraterFeature.CELL)
+VOLCANO_JITTER = 80                                # x the jitter noise (~ +-0.5): centre moves up to ~40 blocks
+EDGE_CHECK = 56                                    # probes this far from the (jittered) centre must also be biome core
+CRATER_FLOOR, LAKE_LEVEL = 112, 115                # flat crater floor; the lake fills it up to LAKE_LEVEL (SoulCraterFeature)
+CONE_PROFILE = [(0, CRATER_FLOOR), (13, CRATER_FLOOR), (20, 128), (23, 129), (34, 118), (52, 100)]   # (distance, height)
+CONE_FOOT = 78                                     # distance where the cone meets the rifted plateau
+CONE_YS = [90, 104, 120]                           # surface heights where the cone's materials change
+EDGE_BLEND = (0.02, 0.05)                          # ridges past the biome edge where the soul ground still speckles in
+ridge_below = lambda v: {"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_ridge",
+                         "min_threshold": -1.0e9, "max_threshold": v}
+ridge_in = lambda a, b: {"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_ridge", "min_threshold": a, "max_threshold": b}
+
+
+def rift_band(lo, hi, rule):
+    band = lambda a, b: {"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_soul_rift", "min_threshold": a, "max_threshold": b}
+    return seq(cond(band(lo, hi), rule), cond(band(-hi, -lo), rule))
+
+
+# user: magma vein slate grades from the plateau into the rift, veins growing inward; the full face (vein 3) is the rarest
+VEIN = lambda v: block(state("magma_vein_slate", vein=v))
+LAVA_FIELD = block(state("ember_basalt"))   # cooled lava plain (user: one block; plain / speckled are its random textures)
+SCORCHED = mix(0.3, block(state("crimson_capped_void_stone")), VEIN(0))   # burnt by the souls
+ASH = block(state("gray_capped_void_stone", facing="up"))
+EMBER = mix(0.5, block(state("warm_capped_ember_stone", facing="up")), block(state("crimson_capped_ember_stone", facing="up")))
+# plateau floors by |rift|, outside in: lava field -> burnt rim (vein 0) -> bank (vein 1) -> bed (vein 2) -> a thin
+# centre line where a quarter is vein 3
+SOUL_PLAIN = blended_bands([mix(0.25, VEIN(2), VEIN(3)), VEIN(2), mix(0.35, VEIN(1), VEIN(2)), VEIN(1), SCORCHED, LAVA_FIELD],
+                           [0.006, 0.014, SOUL_RIFT_FLOOR, SOUL_RIFT_WALL - 0.004, SOUL_RIFT_WALL + 0.03], 0.003, band=rift_band)
+# volcano floors (by volcano noise): plain -> rusty scoria slopes getting rustier -> ash rim with warm embers -> burnt caldera
+def height_bands(materials, ys, width=3):
+    """materials[i] lies between ys[i-1] and ys[i] (surface Y); each border blends 25 / 75 % over 2 x width blocks."""
+    above = lambda y: {"type": "minecraft:y_above", "anchor": {"absolute": y}, "surface_depth_multiplier": 0,
+                       "add_stone_depth": False}
+    parts = []
+    for i in range(len(ys) - 1, -1, -1):
+        lo, hi = materials[i], materials[i + 1]
+        parts += [cond(above(ys[i] + width), hi), cond(above(ys[i]), mix(0.75, lo, hi)),
+                  cond(above(ys[i] - width), mix(0.25, lo, hi))]
+    return seq(*parts, materials[0])
+
+
+SOUL_FLOORS = height_bands(
+    [SOUL_PLAIN,
+     mix(0.4, block(state("rusted_dark_cobble", rust=0)), block(state("rusted_dark_cobble", rust=1))),
+     mix(0.4, block(state("rusted_dark_cobble", rust=2)), block(state("rusted_dark_cobble", rust=3))),
+     mix(0.25, ASH, EMBER)],
+    CONE_YS)
+SOUL_WALL = seq(cond(WITHIN(10), mix(0.3, VEIN(0), VEIN(1))), cond(WITHIN(30), mix(0.4, VEIN(1), VEIN(2))))
+
+
+def speckle(share, rule):
+    """rule on ~share of the blocks, otherwise fall through to the next rule."""
+    return cond({"type": "minecraft:noise_threshold", "noise": "pysift:the_sift_dither",
+                 "min_threshold": dither_threshold(share), "max_threshold": 1.0e9}, rule)
+
+
+# just outside the biome (ridges a little above -SOUL_WEIRDNESS) the cooled lava still speckles into the neighbour
+SOUL_EDGE = cond(ON_FLOOR, seq(
+    cond(ridge_in(-SOUL_WEIRDNESS - 0.01, -SOUL_WEIRDNESS + EDGE_BLEND[0]), speckle(0.5, LAVA_FIELD)),
+    cond(ridge_in(-SOUL_WEIRDNESS + EDGE_BLEND[0], -SOUL_WEIRDNESS + EDGE_BLEND[1]), speckle(0.2, LAVA_FIELD))))
+# user: spirit liquid in the rifts, over magma vein slate - a 1-deep stream along the rift's centre line, flush with the
+# flat rift bed (only below y 80, so never on the cone's slopes where it would spill)
+RIFT_STREAM = {"type": "minecraft:not", "invert": {"type": "minecraft:y_above", "anchor": {"absolute": 80},
+                                                   "surface_depth_multiplier": 0, "add_stone_depth": False}}
+SOUL_RULE = seq(cond(RIFT_STREAM, rift_band(0.0, 0.006, seq(cond(ON_FLOOR, block(state("spirit_liquid", level=0))),
+                                                          cond(WITHIN(3), mix(0.25, VEIN(2), VEIN(3)))))),
+                cond(ON_FLOOR, SOUL_FLOORS),
+                cond(WITHIN(3), block(state("ember_basalt"))),
+                SOUL_WALL)                                     # rift walls ~25 tall, the caldera wall deeper (void stone below)
+
 CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0,
            "surface_type": "ceiling"}
 wj(D / "worldgen/material_rule/the_sift.json", seq(
@@ -784,23 +979,25 @@ wj(D / "worldgen/material_rule/the_sift.json", seq(
     in_biome("red_zone_caves", seq(cond(ON_FLOOR, block(CRIMSON_TOP)), cond(WITHIN(2), block(CRIMSON_UNDER)),
                                    cond(CEILING, block(CRIMSON_UNDER)))),
     cond({"type": "minecraft:above_preliminary_surface"}, seq(
-        # crimson: capped strata on top, silted strata (silt=0) below, ragged hand-off to void_stone at depth 5-8
-        in_biome("crimson_strata_canyon", seq(
-            path(CRIMSON_PATH),
-            cond(ON_FLOOR, block(CRIMSON_TOP)),
-            cond(WITHIN(4), block(CRIMSON_UNDER)),
-            cond(WITHIN(8), cond(NOISE(0.0), block(CRIMSON_UNDER))))),
+        # crimson: buttes and hoodoos with banded caps, patchy floor, ember stone walls (CANYON_RULE)
+        in_biome("crimson_strata_canyon", seq(SOUL_EDGE, CANYON_RULE)),
         # violet: violet-capped dark slate on top, dark slate below (same pair as the violet mesas)
         in_biome("violet_slate_abyss", seq(path(VIOLET_PATH), cond(ON_FLOOR, block(VIOLET_TOP)), cond(WITHIN(5), block(VIOLET_UNDER)))),
         # willow grove: crimson-capped strata on top, abyssal strata (depth=0) below
         in_biome("willow_grove", seq(path(GROVE_PATH), cond(ON_FLOOR, block(GROVE_TOP)), cond(WITHIN(6), block(GROVE_UNDER)))),
         in_biome("lullaby_hills", LULLABY_RULE),
+        in_biome("soul_caldera", SOUL_RULE),
         # amber dunes: amber sand with pale sand patches, then sandstone
         in_biome("amber_dunes", seq(
+            SOUL_EDGE,
             cond(WITHIN(3), seq(cond(NOISE(0.35), block(DUNE_ACCENT)), block(DUNE_SAND))),
             cond(WITHIN(6), block(DUNE_STONE)),
             cond(WITHIN(9), block(DUNE_DEEP)))),
     )),
+    # steep canyon walls partly lie below the preliminary surface, where the rules above never run and the base void
+    # stone showed through in black patches: any stone left in the canyon above Y58 is ember stone
+    cond({"type": "minecraft:y_above", "anchor": {"absolute": 58}, "surface_depth_multiplier": 0, "add_stone_depth": False},
+         in_biome("crimson_strata_canyon", block(state("ember_stone", heat=0)))),
 ))
 
 # ---- noise settings: vanilla overworld router, with our own terrain shape ----
@@ -863,6 +1060,38 @@ wj(D / "worldgen/noise/the_sift_lullaby_canyon.json", {"base_amplitude": 1.0, "b
 wj(D / "worldgen/density_function/the_sift/terrain/lullaby_canyon.json",
    {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_lullaby_canyon")}})
 LULLABY_CANYON = DF + "lullaby_canyon"
+# Soul Caldera (user: a broken basalt plateau cut by glowing rifts, ONE big volcano in the middle, spirit liquid as the lava).
+# Rifts: |noise| is 0 along long winding lines, like the Lullaby canyon (base_octave -7: ~0.011 per block), but narrow and deep.
+# Volcano: the peaks of a very low noise (base_octave -9) - one cone where it is high, a deep caldera where it is highest.
+wj(D / "worldgen/noise/the_sift_soul_rift.json", {"base_amplitude": 1.0, "base_octave": -7, "octave_count": 2,
+                                                  "amplitude_modifiers": [1.0, 0.3]})
+# weirdness: vanilla minecraft:ridge (first octave -7 at xz_scale 0.25) == first octave -9 at scale 1, unshifted, so the
+# surface rules (which sample noises at x, 0, z) see exactly the value the biomes and the terrain use
+VANILLA_RIDGE = {"base_amplitude": 0.9147152149950137, "amplitude_modifiers": [1.0, 2.0, 1.0, 0.0, 0.0, 0.0]}
+wj(D / "worldgen/noise/the_sift_ridge.json", {**VANILLA_RIDGE, "base_octave": -9, "octave_count": 6})
+# temperature: vanilla first octave -10 at xz_scale 0.25 x BIOME_ZOOM 2 == first octave -11 at scale 1
+assert BIOME_ZOOM == 2.0
+wj(D / "worldgen/noise/the_sift_temperature.json", {"base_amplitude": 1.2453007926713473, "base_octave": -11, "octave_count": 6,
+                                                    "amplitude_modifiers": [1.5, 0.0, 1.0, 0.0, 0.0, 0.0]})
+wj(D / "worldgen/density_function/the_sift/terrain/soul_rift.json",
+   {"type": "minecraft:cache", "input": {"type": "minecraft:abs", "input": noise2d("the_sift_soul_rift")}})
+SOUL_RIFT = DF + "soul_rift"
+# Crimson canyon buttes (user: random, irregular mesas and pillars instead of round feature mesas, Lullaby-style).
+# The raw noise is a field of blobs of every size; a spline with flat shelves joined by 0.008 rises turns the blobs into
+# mesas with vertical walls and 2-3 terraces (CANYON_BUTTES). The surface rule reads the same noise (BUTTE_BORDERS).
+# 3 octaves give ragged, bay-cut edges; base_octave -7 -> mesas a few dozen blocks across.
+wj(D / "worldgen/noise/the_sift_buttes.json", {"base_amplitude": 1.0, "base_octave": -7, "octave_count": 3,
+                                               "amplitude_modifiers": [1.0, 0.45, 0.2]})
+wj(D / "worldgen/density_function/the_sift/terrain/buttes.json", {"type": "minecraft:cache", "input": noise2d("the_sift_buttes")})
+BUTTES = DF + "buttes"
+# free-standing pillars (hoodoos) on the canyon floor: the peaks of a finer noise (~32 blocks per period). Terrain density
+# is interpolated over 4-block cells, so anything thinner than ~6 blocks melts into a mound: the pillars are 6-10 wide.
+wj(D / "worldgen/noise/the_sift_hoodoos.json", {"base_amplitude": 1.0, "base_octave": -5, "octave_count": 1})
+wj(D / "worldgen/density_function/the_sift/terrain/hoodoos.json", {"type": "minecraft:cache", "input": noise2d("the_sift_hoodoos")})
+HOODOOS = DF + "hoodoos"
+# floor material patches (surface rule only)
+wj(D / "worldgen/noise/the_sift_canyon_patches.json", {"base_amplitude": 1.0, "base_octave": -6, "octave_count": 2,
+                                                       "amplitude_modifiers": [1.0, 0.4]})
 # biome landforms (the "normal" terrain of each biome)
 ROLLING = spline(HILLS, (-1.0, 62, 8), (0.0, 74, 16), (1.0, 92, 20))                  # violet: rolling hills
 LOWLAND = spline(HILLS, (-1.0, 64, 3), (1.0, 72, 5))                                  # grove: flats, ponds
@@ -888,7 +1117,14 @@ def landform(normal, plateau, basin=62):
 
 VIOLET = landform(ROLLING, stepped(92, 7))
 GROVE = landform(LOWLAND, stepped(78, 5))
-CANYON = landform(TERRACES, stepped(100, 9))
+# canyon: floor Y66 with hoodoo pillars, butte shelves Y78 / Y89 / Y100 (user: tallest about Y100)
+HOODOO_START = 0.45
+CANYON_FLOOR = spline(HOODOOS, (-1.0, 66, 0), (HOODOO_START, 66, 0), (HOODOO_START + 0.02, 86, 0), (1.0, 96, 0))
+CANYON_BUTTES = spline(BUTTES, (-1.0, CANYON_FLOOR, 0), (BUTTE_RISES[0][0], CANYON_FLOOR, 0),
+                       *[pt for i, (loc, y) in enumerate(BUTTE_RISES)
+                         for pt in ((loc + 0.008, y, 0),
+                                    (BUTTE_RISES[i + 1][0] if i + 1 < len(BUTTE_RISES) else 1.0, y, 0))])
+CANYON = landform(CANYON_BUTTES, CANYON_BUTTES)           # the landform layer only adds its pond basins here
 DUNE_LAND = landform(DUNES, stepped(86, 6))
 # Lullaby Hills cross-section (|canyon| -> block height): flat shelves joined by steep rises = vertical walls.
 #   river bed 56..58 (spirit liquid up to 63) | bank 64 | half step 67 | land layer 70 (the road) | wall |
@@ -897,6 +1133,57 @@ DUNE_LAND = landform(DUNES, stepped(86, 6))
 LULLABY = spline(LULLABY_CANYON, (0.0, 56, 0), (0.025, 58, 0), (0.034, 64, 0), (0.048, 64, 0), (0.054, 67, 0), (0.066, 67, 0),
                  (0.072, 70, 0), (0.13, 70, 0), (0.136, 82, 0), (0.2, 82, 0), (0.206, 96, 0), (0.27, 96, 0),
                  (0.276, 110, 0), (0.34, 110, 0), (0.348, spline(HILLS, (-1.0, 124, 0), (1.0, 132, 6)), 0))
+# Soul Caldera cross-sections. Rifts (|rift| -> height, user: at most ~6 deep): a channel 6 below the plateau (76-82),
+# a bank 3 below it, then the plateau. Volcano (distance to its cell's centre -> height, CONE_PROFILE): a cone rising from
+# the plateau at CONE_FOOT to the rim at 129, and a flat crater floor at CRATER_FLOOR inside.
+SOUL_PLATEAU = spline(HILLS, (-1.0, 76, 0), (1.0, 82, 3))
+RIFT_BED = spline(HILLS, (-1.0, 70, 0), (1.0, 76, 3))
+RIFT_BANK = spline(HILLS, (-1.0, 73, 0), (1.0, 79, 3))
+SOUL_RIFTED = spline(SOUL_RIFT, (0.0, RIFT_BED, 0), (SOUL_RIFT_FLOOR, RIFT_BED, 0), (SOUL_RIFT_BANK, RIFT_BANK, 0),
+                     (SOUL_RIFT_WALL - 0.006, RIFT_BANK, 0),
+                     (SOUL_RIFT_WALL, SOUL_PLATEAU, 0), (1.0, SOUL_PLATEAU, 0))
+# offset from the volcano cell's centre along x / z (repeating gradient: -cell/2 .. cell/2 across every cell)
+for axis in ("x", "z"):
+    wj(D / f"worldgen/density_function/the_sift/terrain/volcano_d{axis}.json", {
+        "type": "minecraft:gradient", "axis": axis, "tiling": "repeat", "from_coordinate": 0, "to_coordinate": VOLCANO_CELL,
+        "from_value": -VOLCANO_CELL / 2, "to_value": VOLCANO_CELL / 2})
+add, mul = (lambda a, b: {"type": "minecraft:add", "left": a, "right": b}), (lambda a, b: {"type": "minecraft:mul", "left": a, "right": b})
+
+
+def at_centre(noise, ox=0, oz=0):
+    """noise sampled at the cell's (unjittered) centre + (ox, oz): one value for the whole cell"""
+    return {"type": "minecraft:noise", "noise": noise, "xz_scale": 1.0, "y_scale": 0.0,
+            "shift_x": add(mul(-1.0, DF + "volcano_dx"), ox), "shift_z": add(mul(-1.0, DF + "volcano_dz"), oz)}
+
+
+# random centre: shifted up to ~VOLCANO_JITTER/2 from the cell's middle by two noises read at the middle
+for axis in ("x", "z"):
+    wj(D / f"worldgen/noise/the_sift_volcano_j{axis}.json", {"base_amplitude": 1.0, "base_octave": -2, "octave_count": 1})
+    wj(D / f"worldgen/density_function/the_sift/terrain/volcano_j{axis}.json", {"type": "minecraft:cache", "input": mul(
+        VOLCANO_JITTER, at_centre(f"pysift:the_sift_volcano_j{axis}"))})
+wj(D / "worldgen/density_function/the_sift/terrain/volcano_distance.json", {"type": "minecraft:cache", "input": {
+    "type": "minecraft:sqrt", "input": add(
+        {"type": "minecraft:square", "input": add(DF + "volcano_dx", mul(-1.0, DF + "volcano_jx"))},
+        {"type": "minecraft:square", "input": add(DF + "volcano_dz", mul(-1.0, DF + "volcano_jz"))})}})
+# away from the biome's edge: the core must hold at the (jittered) centre AND at four points EDGE_CHECK out (the cone)
+PROBES = [(0, 0), (EDGE_CHECK, 0), (-EDGE_CHECK, 0), (0, EDGE_CHECK), (0, -EDGE_CHECK)]
+
+
+def at_volcano(noise, ox, oz):
+    return at_centre(noise, add(DF + "volcano_jx", ox), add(DF + "volcano_jz", oz))
+
+
+def fold(kind, noise):
+    out = at_volcano(noise, *PROBES[0])
+    for ox, oz in PROBES[1:]:
+        out = {"type": f"minecraft:{kind}", "left": out, "right": at_volcano(noise, ox, oz)}
+    return {"type": "minecraft:cache", "input": out}
+
+
+wj(D / "worldgen/density_function/the_sift/terrain/volcano_ridges.json", fold("max", "pysift:the_sift_ridge"))        # highest = nearest the edge
+wj(D / "worldgen/density_function/the_sift/terrain/volcano_heat.json", fold("min", "pysift:the_sift_temperature"))   # coldest
+SOUL_CONE = spline(DF + "volcano_distance", *[(d, h, 0) for d, h in CONE_PROFILE], (CONE_FOOT, SOUL_RIFTED, 0),
+                   (VOLCANO_CELL, SOUL_RIFTED, 0))
 HOT = spline("pysift:the_sift/vegetation", (-1.0, DUNE_LAND, 0), (-0.4, DUNE_LAND, 0), (-0.2, CANYON, 0), (1.0, CANYON, 0))
 CLIMATE = spline(
     "pysift:the_sift/temperature", (-1.0, VIOLET, 0), (-0.4, VIOLET, 0), (-0.2, GROVE, 0), (0.3, GROVE, 0),
@@ -913,6 +1200,23 @@ wj(D / "worldgen/density_function/the_sift/terrain/lullaby_weight.json", {"type"
 SHAPE = {"type": "minecraft:add", "left": DF + "climate_shape", "right": {"type": "minecraft:mul", "left": DF + "lullaby_weight",
          "right": {"type": "minecraft:add", "left": DF + "lullaby_shape", "right": {"type": "minecraft:mul", "left": -1.0,
                                                                                      "right": DF + "climate_shape"}}}}
+# Soul Caldera takes over where weirdness is LOW (below -SOUL_WEIRDNESS) in the hot part (temperature > 0.4), so it never
+# overlaps the Lullaby Hills (high weirdness): shape += soul_weight * (soul_shape - climate_shape)
+# soul_shape = rifted + core * (cone - rifted): the cone only rises in the biome's core
+wj(D / "worldgen/density_function/the_sift/terrain/soul_rifted.json", {"type": "minecraft:spline", "spline": SOUL_RIFTED})
+wj(D / "worldgen/density_function/the_sift/terrain/soul_cone.json", {"type": "minecraft:spline", "spline": SOUL_CONE})
+CENTRE_RIDGES = raw_spline(DF + "volcano_ridges", (-1.0, 1.0), (CORE_RIDGES[0], 1.0), (CORE_RIDGES[1], 0.0), (1.0, 0.0))
+wj(D / "worldgen/density_function/the_sift/terrain/soul_core.json", {"type": "minecraft:spline", "spline": raw_spline(
+    DF + "volcano_heat", (-1.0, 0.0), (CORE_HEAT[0], 0.0), (CORE_HEAT[1], CENTRE_RIDGES), (1.0, CENTRE_RIDGES))})
+wj(D / "worldgen/density_function/the_sift/terrain/soul_shape.json", {"type": "minecraft:add", "left": DF + "soul_rifted",
+   "right": {"type": "minecraft:mul", "left": DF + "soul_core", "right": {"type": "minecraft:add", "left": DF + "soul_cone",
+             "right": {"type": "minecraft:mul", "left": -1.0, "right": DF + "soul_rifted"}}}})
+HOTTER = raw_spline("pysift:the_sift/temperature", (-1.0, 0.0), (SOUL_HEAT - 0.04, 0.0), (SOUL_HEAT + 0.04, 1.0), (1.0, 1.0))
+wj(D / "worldgen/density_function/the_sift/terrain/soul_weight.json", {"type": "minecraft:cache", "input": {
+    "type": "minecraft:spline", "spline": raw_spline("pysift:the_sift/ridges", (-1.0, HOTTER), (-SOUL_WEIRDNESS - 0.04, HOTTER), (-SOUL_WEIRDNESS + 0.04, 0.0), (1.0, 0.0))}})
+SHAPE = {"type": "minecraft:add", "left": SHAPE, "right": {"type": "minecraft:mul", "left": DF + "soul_weight",
+         "right": {"type": "minecraft:add", "left": DF + "soul_shape", "right": {"type": "minecraft:mul", "left": -1.0,
+                                                                                  "right": DF + "climate_shape"}}}}
 PONDS = {"type": "minecraft:mul", "right": -POND_BLOCKS / 128 / (1 - POND_START),
          "left": {"type": "minecraft:clamp", "min": 0.0, "max": 1.0 - POND_START,
                   "input": {"type": "minecraft:add", "left": noise2d("the_sift_ponds"), "right": -POND_START}}}
@@ -965,8 +1269,13 @@ while todo:
     df = json.loads(retarget(text))
     if rel == "overworld/offset":
         df = {"type": "minecraft:cache", "input": TERRAIN_OFFSET}
-    elif rel in ("overworld/temperature", "overworld/vegetation"):
+    elif rel == "overworld/temperature":   # own unshifted noise at scale 1 (= vanilla x BIOME_ZOOM), readable by surface rules
+        df = {"type": "minecraft:noise", "noise": "pysift:the_sift_temperature", "xz_scale": 1.0, "y_scale": 0.0}
+    elif rel == "overworld/vegetation":
         df["xz_scale"] *= BIOME_ZOOM    # smaller climate zones: biomes (and their landforms) come round more often
+    elif rel == "overworld/ridges":
+        df = {"type": "minecraft:cache", "input": {"type": "minecraft:noise", "noise": "pysift:the_sift_ridge",
+                                                   "xz_scale": 1.0, "y_scale": 0.0}}
     elif rel == "overworld/jaggedness":
         df = 0.0
     elif rel == "overworld/factor":
@@ -984,6 +1293,7 @@ wj(D / "worldgen/noise_settings/the_sift.json", noise)
 FULL = [-1.0, 1.0]
 LULLABY_WEIRDNESS = 0.42     # weirdness above this (in the warm half) is Lullaby Hills; matches the terrain spline
 NOT_LULLABY = [-1.0, LULLABY_WEIRDNESS]
+NOT_EXTREME = [-SOUL_WEIRDNESS, LULLABY_WEIRDNESS]
 point = lambda b, t, h, w=FULL: {"biome": f"pysift:{b}", "parameters": {
     "temperature": t, "humidity": h, "continentalness": FULL, "erosion": FULL, "weirdness": w,
     "depth": 0.0, "offset": 0.0}}
@@ -993,9 +1303,11 @@ wj(D / "dimension/the_sift.json", {
         "type": "minecraft:noise",
         "biome_source": {"type": "minecraft:multi_noise", "biomes": [
             point("violet_slate_abyss", [-1.0, -0.3], FULL),             # cold
-            point("willow_grove", [-0.3, 0.4], FULL, NOT_LULLABY),      # mild
-            point("crimson_strata_canyon", [0.4, 1.0], [-0.3, 1.0], NOT_LULLABY),    # hot, not dry
-            point("amber_dunes", [0.2, 1.0], [-1.0, -0.3], NOT_LULLABY),             # hot and dry
+            point("willow_grove", [-0.3, SOUL_HEAT], FULL, NOT_LULLABY),          # mild
+            point("willow_grove", [SOUL_HEAT, 0.4], FULL, [-SOUL_WEIRDNESS, LULLABY_WEIRDNESS]),   # mild, not the caldera
+            point("crimson_strata_canyon", [0.4, 1.0], [-0.3, 1.0], NOT_EXTREME),    # hot, not dry
+            point("amber_dunes", [0.2, 1.0], [-1.0, -0.3], NOT_EXTREME),             # hot and dry
+            point("soul_caldera", [SOUL_HEAT, 1.0], FULL, [-1.0, -SOUL_WEIRDNESS]),       # hot + low weirdness: soul volcano plateau
             point("lullaby_hills", [0.0, 1.0], FULL, [LULLABY_WEIRDNESS, 1.0]),      # warm + high weirdness: grand canyons
             {"biome": "pysift:red_zone_caves", "parameters": {           # underground, like vanilla lush caves
                 "temperature": [-0.2, 1.0], "humidity": [0.1, 1.0], "continentalness": FULL, "erosion": FULL,

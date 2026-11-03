@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import pryuan05.pysift.block.entity.ModBlockEntities;
 import pryuan05.pysift.client.render.SiftPortalBlockEntityRenderer;
 import pryuan05.pysift.client.render.SiftArrowRenderer;
+import pryuan05.pysift.client.render.SoulCrystalModel;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -42,9 +43,8 @@ public class PySiftClient implements ClientModInitializer {
         // 八音儀式的共鳴唱片盒：升起動畫、旋轉的唱片、彩色光柱
         BlockEntityRendererRegistry.register(pryuan05.pysift.block.RitualBlocks.RESONANT_JUKEBOX_ENTITY,
                 pryuan05.pysift.client.render.ResonantJukeboxRenderer::new);
-        // 靈魂隙浮輪軸：會轉的輪子（Create 式的部分模型）
-        BlockEntityRendererRegistry.register(pryuan05.pysift.block.SoulSiftAxle.ENTITY,
-                pryuan05.pysift.client.render.SoulSiftAxleRenderer::new);
+        // 靈魂晶塊：4 象限 CTM 外殼 + 3×3×3 子方塊無縫晶核（消除 2×2 空洞與側面暗影）
+        SoulCrystalModel.register();
         SoulWillowWoodClient.register();
         SoulParticlesClient.register();
         // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器

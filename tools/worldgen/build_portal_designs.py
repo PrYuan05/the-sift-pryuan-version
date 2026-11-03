@@ -7,7 +7,9 @@ the biome (SiftPortalBlock.PORTAL_DESIGNS), rotated to the portal axis.
 | ember  | ember stone + capped crimson strata             | crimson_strata_canyon                |
 | dune   | bleached sandstone bricks + cracked sandstone   | amber_dunes (derived from ember)     |
 | slate  | dark slate + violet-capped dark slate           | violet_slate_abyss                   |
-| silted | silted strata + crimson-capped crimson strata 2 | willow_grove (and anything else)     |"""
+| silted | silted strata + crimson-capped crimson strata 2 | willow_grove (and anything else)     |
+| lullaby| crimson vein stone + void-capped crimson stone  | lullaby_hills (derived from slate)   |
+| caldera| ember basalt + magma vein slate                 | soul_caldera (derived from slate)    |"""
 import gzip, io, json, struct, sys
 from pathlib import Path
 
@@ -54,6 +56,20 @@ DERIVED = {
         "pysift:ember_stone_slab": "pysift:bleached_sandstone_brick_slab",
         "pysift:ember_stone_wall": "pysift:bleached_sandstone_brick_wall",
         "pysift:capped_crimson_strata": "pysift:cracked_sandstone[crack=0]",
+        "pysift:soul_willow_vine": None,
+    }),
+    "lullaby": ("slate", {   # Lullaby Hills: its crimson vein stone canyon walls under void-capped tops, carapace vines
+        "pysift:dark_slate": "pysift:crimson_vein_stone",
+        "pysift:dark_slate_slab": "pysift:crimson_vein_stone_slab",
+        "pysift:dark_slate_wall": "pysift:crimson_vein_stone_wall",
+        "pysift:violet_capped_dark_slate": "pysift:capped_crimson_vein_stone",
+        "pysift:soul_willow_vine": None,
+    }),
+    "caldera": ("slate", {   # Soul Caldera: cooled ember basalt, glowing magma-vein bands, no vines on the scorched stone
+        "pysift:dark_slate": "pysift:ember_basalt",
+        "pysift:dark_slate_slab": "pysift:ember_basalt_slab",
+        "pysift:dark_slate_wall": "pysift:ember_basalt_wall",
+        "pysift:violet_capped_dark_slate": "pysift:magma_vein_slate[vein=2]",
         "pysift:soul_willow_vine": None,
     }),
 }

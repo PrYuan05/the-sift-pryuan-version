@@ -4,13 +4,29 @@
     "type": "minecraft:add",
     "left": {
       "type": "minecraft:add",
-      "left": "pysift:the_sift/terrain/climate_shape",
+      "left": {
+        "type": "minecraft:add",
+        "left": "pysift:the_sift/terrain/climate_shape",
+        "right": {
+          "type": "minecraft:mul",
+          "left": "pysift:the_sift/terrain/lullaby_weight",
+          "right": {
+            "type": "minecraft:add",
+            "left": "pysift:the_sift/terrain/lullaby_shape",
+            "right": {
+              "type": "minecraft:mul",
+              "left": -1.0,
+              "right": "pysift:the_sift/terrain/climate_shape"
+            }
+          }
+        }
+      },
       "right": {
         "type": "minecraft:mul",
-        "left": "pysift:the_sift/terrain/lullaby_weight",
+        "left": "pysift:the_sift/terrain/soul_weight",
         "right": {
           "type": "minecraft:add",
-          "left": "pysift:the_sift/terrain/lullaby_shape",
+          "left": "pysift:the_sift/terrain/soul_shape",
           "right": {
             "type": "minecraft:mul",
             "left": -1.0,

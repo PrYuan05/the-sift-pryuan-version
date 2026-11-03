@@ -16,7 +16,7 @@ APPLY = "--apply" in sys.argv
 sys.path.insert(0, str(P / "tools/worldgen"))
 from import_structures import read_nbt, write_nbt
 
-RENAMES = {
+DONE_2026_10_30 = {   # first batch, already applied (kept for the record)
     "amber_capped_stone_01": "mottled_amber_capped_stone",       # 斑駁琥珀覆蓋灰石岩
     "amber_capped_stone_02": "pale_amber_capped_stone",          # 淡沙琥珀覆蓋灰石岩
     "amber_capped_stone_03": "olive_amber_capped_stone",         # 橄欖琥珀覆蓋灰石岩
@@ -40,6 +40,13 @@ RENAMES = {
     "teal_capped_gray_strata_2": "red_spotted_teal_capped_gray_strata",   # 赤斑
     "teal_capped_teal_strata_2": "bright_teal_capped_teal_strata",        # 亮青碧
     "void_capped_crimson_01": "capped_crimson_vein_stone",       # caps crimson_vein_stone on the Lullaby plateaus
+}
+# 2026-10-31 (applied): umber_void_stone -> umber_ember_stone, speckled_void_stone -> speckled_ember_stone (+ chiseled_*)
+# 2026-10-31 (user): umber and speckled ember stone become ONE block, ember_basalt (the speckled look is a random texture
+# variant of it; the speckled family is removed separately)
+RENAMES = {
+    "umber_ember_stone": "ember_basalt",
+    "chiseled_umber_ember_stone_bricks": "chiseled_ember_basalt_bricks",
 }
 PAT = re.compile(r"(?<![a-z0-9_])(" + "|".join(sorted(map(re.escape, RENAMES), key=len, reverse=True)) + r")(?![a-z0-9])")
 TEXT = {".java", ".json", ".py", ".md", ".mcmeta", ".txt"}

@@ -9,34 +9,11 @@
     "type": "minecraft:weighted",
     "entries": [
       {
-        "data": {
-          "id": "pysift:corrupted_slate_bricks",
-          "properties": {
-            "corruption": "0"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "data": {
-          "id": "pysift:corrupted_slate_bricks",
-          "properties": {
-            "corruption": "1"
-          }
-        },
-        "weight": 1
-      },
-      {
-        "data": {
-          "id": "pysift:corrupted_slate_bricks",
-          "properties": {
-            "corruption": "2"
-          }
-        },
-        "weight": 1
-      },
-      {
         "data": "pysift:dark_slate_bricks",
+        "weight": 1
+      },
+      {
+        "data": "pysift:chiseled_dark_slate_bricks",
         "weight": 1
       }
     ]

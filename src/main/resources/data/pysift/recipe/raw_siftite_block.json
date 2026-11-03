@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": "pysift:raw_siftite"
+  },
+  "result": {
+    "id": "pysift:raw_siftite_block",
+    "count": 1
+  }
+}

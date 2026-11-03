@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:raw_siftite_block"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "pysift:blocks/raw_siftite_block"
+}

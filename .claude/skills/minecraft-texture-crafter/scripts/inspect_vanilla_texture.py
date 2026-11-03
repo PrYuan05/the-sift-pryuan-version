@@ -273,20 +273,56 @@ def _toward_cool(h_base: float, h_shadow: float) -> float:
     return max(_toward(h_base, h_shadow, COOL_HUE), _toward(h_base, h_shadow, 300.0))
 
 
+def chroma_pct(r: int, g: int, b: int) -> float:
+    """計算絕對彩度 (Absolute Chroma %)，解決極暗區 (V < 20%) HSV 飽和度因整數除以小分母而暴衝失真的問題。"""
+    return (max(r, g, b) - min(r, g, b)) / 255.0 * 100.0
+
+def is_dark_palette(palette: list[tuple[tuple[int, int, int], int]]) -> bool:
+    """判斷是否為深色系材質（加權平均明度 Lum <= 0.25 或平均 V <= 32%）。"""
+    total = sum(c for _, c in palette) or 1
+    mean_lum = sum(luminance(*rgb) * c for rgb, c in palette) / total
+    mean_v = sum(rgb_to_hsv_deg(*rgb)[2] * c for rgb, c in palette) / total
+    return mean_lum <= 0.25 or mean_v <= 32.0
+
 def material_groups(palette: list[tuple[tuple[int, int, int], int]]) -> list[list[tuple[tuple[int, int, int], int]]]:
-    """把色盤分成「材質色階組」：低飽和（S < 12%）一組；其餘依色相排序後串連，相鄰色相差 ≤ 25° 的屬於同一條 ramp
-    （色相偏移過的亮部、暗部會和固有色連在一起，不會被切到別組）。"""
-    gray = [(rgb, c) for rgb, c in palette if rgb_to_hsv_deg(*rgb)[1] < 12.0]
-    chroma = sorted(((rgb, c) for rgb, c in palette if rgb_to_hsv_deg(*rgb)[1] >= 12.0), key=lambda kv: rgb_to_hsv_deg(*kv[0])[0])
+    """把色盤分成「材質色階組」：
+    - 一般材質：低飽和（S < 12%）一組；其餘依色相排序後串連，相鄰色相差 ≤ 25° 歸為同一條 ramp。
+    - 深色材質 (is_dark_palette)：當 V < 25% 且絕對彩度 C < 6.0% 時視為微色偏暗灰；色相容許度放寬至 42°，
+      且若整張圖色數 <= 10、無兩個以上獨立大面積高彩度群，自動將冷亮暖暗 S 型跨色相色階（如 blackstone, basalt, netherite）聚合成單一主色階組。"""
+    total_px = sum(c for _, c in palette) or 1
+    dark_mode = is_dark_palette(palette)
+
+    gray = []
+    chroma = []
+    for rgb, c in palette:
+        h, s, v = rgb_to_hsv_deg(*rgb)
+        ch = chroma_pct(*rgb)
+        if s < 12.0 or (v < 25.0 and ch < 6.0):
+            gray.append((rgb, c))
+        else:
+            chroma.append((rgb, c))
+
+    chroma.sort(key=lambda kv: rgb_to_hsv_deg(*kv[0])[0])
+    hue_tol = 42.0 if dark_mode else 25.0
     groups: list[list] = []
     for rgb, c in chroma:
         hue = rgb_to_hsv_deg(*rgb)[0]
-        if groups and _hue_dist(hue, rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= 25.0:
+        if groups and _hue_dist(hue, rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= hue_tol:
             groups[-1].append((rgb, c))
         else:
             groups.append([(rgb, c)])
-    if len(groups) > 1 and _hue_dist(rgb_to_hsv_deg(*groups[0][0][0])[0], rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= 25.0:
+    if len(groups) > 1 and _hue_dist(rgb_to_hsv_deg(*groups[0][0][0])[0], rgb_to_hsv_deg(*groups[-1][-1][0])[0]) <= hue_tol:
         groups[0] = groups.pop() + groups[0]      # 色環頭尾（紅色 0°／360°）相接
+
+    if dark_mode and len(palette) <= 10:
+        strong_chroma_groups = [
+            g for g in groups
+            if len(g) >= 3 and sum(c for _, c in g) >= total_px * 0.25
+            and max(chroma_pct(*rgb) for rgb, _ in g) >= 18.0
+        ]
+        if len(strong_chroma_groups) <= 1:
+            return [sorted(list(palette), key=lambda kv: luminance(*kv[0]), reverse=True)]
+
     if gray:
         groups.append(gray)
     return sorted(groups, key=lambda g: -sum(c for _, c in g))
@@ -321,63 +357,97 @@ def advanced_checks(info: dict, kind: str, base: Image.Image | None) -> list[tup
     out.append(("[9] 2 的次方尺寸", "✅" if ok else "⚠️",
                 f"{sw}x{sh}" + ("" if ok else "：方塊貼圖請用 16／32／64，動畫貼圖高度要是寬度的整數倍")))
 
-    # [10] 每條 ramp 的色階數：物品 3~7、方塊雙層架構 4~8（4~5 結構主色 + 1~3 微紋理過渡副色）
+    # 計算加權平均明度，啟動深色材質校準模式 (Dark-Material Calibration)
+    total_px = max(1, info["total_opaque"])
+    mean_lum = sum(luminance(*rgb) * c for rgb, c in info["palette_sorted"]) / total_px
+    dark_mode = is_dark_palette(info["palette_sorted"])
+
+    # [10] 每條 ramp 的色階數：物品 3~7 (深色至 8)、方塊雙層架構 4~8 (深色複合雙色溫至 9)
     groups = material_groups(info["palette_sorted"])
-    limit_lo, limit_hi = (3, 7) if is_item else (4, 8)
+    limit_lo, limit_hi = (3, 8 if dark_mode else 7) if is_item else (4, 9 if dark_mode else 8)
     counts = [len(_value_levels(g)) for g in groups if sum(c for _, c in g) >= max(4, info["total_opaque"] * 0.04)]
     bad = [c for c in counts if c > limit_hi]
     out.append(("[10] 每條色階組的色數", "✅" if not bad else "⚠️",
                 f"{len(counts)} 組材質色階，各 {counts} 層（建議 {limit_lo}~{limit_hi}）"
                 + ("" if not bad else "：色階太多會像模糊照片，請合併相近色")))
 
-    # [11] 相鄰色階明度差 ΔV（物品全程 ≥8%；方塊採「結構主色 + 1~4 處 2~5% 表面微紋理副色」雙層架構）
+    # [11] 相鄰色階明度差 ΔV（一般物品全程 ≥8%；深色物品允許 ≥3.5% 且 ≤3 處微過渡；方塊採雙層架構）
     steps = []
     for g in groups:
         lv = _value_levels(g)
         steps += [round(a - b, 1) for a, b in zip(lv, lv[1:])]
     if is_item:
-        tight = [s for s in steps if s < 8.0]
-        out.append(("[11] 相鄰色階明度差 ΔV", "✅" if not tight else "⚠️",
-                    f"最小 ΔV={min(steps) if steps else 0:.1f}%"
-                    + ("（全部 ≥ 8%）" if not tight else
-                       f"，有 {len(tight)} 處 < 8%：物品小圖示下會糊成一片，請拉開到 8~15%")))
+        min_dv = 3.5 if dark_mode else 8.0
+        max_tight_allowed = 3 if dark_mode else 0
+        tight = [s for s in steps if s < min_dv]
+        ok11 = len(tight) <= max_tight_allowed
+        out.append(("[11] 相鄰色階明度差 ΔV" + (" (深色物品校準)" if dark_mode else ""),
+                    "✅" if ok11 else "⚠️",
+                    (f"最小 ΔV={min(steps) if steps else 0:.1f}%，<{min_dv:.1f}% 共 {len(tight)} 處（深色允許 ≤{max_tight_allowed} 處微過渡）"
+                     if dark_mode else
+                     f"最小 ΔV={min(steps) if steps else 0:.1f}%"
+                     + ("（全部 ≥ 8%）" if ok11 else f"，有 {len(tight)} 處 < 8%：物品小圖示下會糊成一片，請拉開到 8~15%"))))
     else:
+        max_micro = 6 if dark_mode else 4
+        min_span = 0.08 if dark_mode else 0.10
         micro = [s for s in steps if s < 5.0]
-        ok11 = len(micro) <= 4 and info["lum_span"] >= 0.10
+        ok11 = len(micro) <= max_micro and info["lum_span"] >= min_span
         out.append(("[11] 相鄰色階明度差 ΔV (方塊雙層)", "✅" if ok11 else "⚠️",
                     f"最小 ΔV={min(steps) if steps else 0:.1f}%，含 {len(micro)} 處 <5% 微紋理／緩衝副色階（總跨度 ΔLum={info['lum_span']:.2f}）"
-                    + ("" if ok11 else "：微差色階過多(>4)或總跨度過窄(<0.10)，請整理為 4~5 結構主色 + 1~3 微紋理副色")))
+                    + ("" if ok11 else f"：微差色階過多(>{max_micro})或總跨度過窄(<{min_span:.2f})，請整理為 4~5 結構主色 + 1~3 微紋理副色")))
 
-    # [12] 相對色相偏移：亮部往暖 +10~20°、暗部往冷 15~30°；亮部飽和度略降
+    # [12] 相對色相偏移（一般材質：亮暖暗冷；深色材質：支援四大原版深色模型）
     main = groups[0] if groups else []
     if len(main) >= 3:
         base_rgb = max(main, key=lambda kv: kv[1])[0]
         bh, bs, bv = rgb_to_hsv_deg(*base_rgb)
-        hi = max(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])[0]
-        lo = min(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])[0]
+        hi = max(main, key=lambda kv: luminance(*kv[0]))[0]
+        lo = min(main, key=lambda kv: luminance(*kv[0]))[0]
         hh, hs, hv = rgb_to_hsv_deg(*hi)
         lh, ls, lv_ = rgb_to_hsv_deg(*lo)
         warm = _toward(bh, hh, WARM_HUE) if bs >= 12 else 0.0
         cool = _toward_cool(bh, lh) if bs >= 12 else 0.0
-        gray = bs < 12
-        good = gray or (warm >= 5 and cool >= 8 and hs <= bs + 3)
-        out.append(("[12] 相對色相偏移", "✅" if good else "⚠️",
-                    "主色低飽和（灰系），色相偏移改看暖亮冷暗的微弱色偏" if gray else
-                    f"亮部往暖 {warm:+.0f}°（建議 +10~20）、暗部往冷 {cool:+.0f}°（建議 15~30）、"
-                    f"亮部 S {bs:.0f}%→{hs:.0f}%（應略降）"))
+
+        if not dark_mode:
+            gray = bs < 12
+            good = gray or (warm >= 5 and cool >= 8 and hs <= bs + 3)
+            note12 = ("主色低飽和（灰系），色相偏移改看暖亮冷暗的微弱色偏" if gray else
+                      f"亮部往暖 {warm:+.0f}°（建議 +10~20）、暗部往冷 {cool:+.0f}°（建議 15~30）、"
+                      f"亮部 S {bs:.0f}%→{hs:.0f}%（應略降）")
+        else:
+            pat_standard = (warm >= 3.0 or cool >= 6.0)
+            pat_neutral_lit = (hs <= 8.0 and ls >= hs + 5.0 and 190.0 <= lh <= 285.0)
+            pat_dual_temp = (215.0 <= hh <= 315.0 and (lh >= 310.0 or lh <= 45.0))
+            pat_rich_or_sculk = (bs >= 40.0 and hs >= 40.0 and mean_lum <= 0.20)
+            good = pat_standard or pat_neutral_lit or pat_dual_temp or pat_rich_or_sculk or (bs < 12.0 and hs < 12.0)
+            mode_tag = (
+                "無彩亮部→冷淵暗部" if pat_neutral_lit else
+                "冷亮反射→暖褐/暗紅紫深縫(雙色溫)" if pat_dual_temp else
+                "濃彩深色/螢光軌跡" if pat_rich_or_sculk else
+                "純灰暗調" if (bs < 12.0 and hs < 12.0) else
+                "標準深色偏移"
+            )
+            note12 = f"[{mode_tag}] 亮階 H={hh:.0f}°/S={hs:.0f}% → 基色 H={bh:.0f}°/S={bs:.0f}% → 暗階 H={lh:.0f}°/S={ls:.0f}%"
+        out.append(("[12] 相對色相偏移", "✅" if good else "⚠️", note12))
     else:
         out.append(("[12] 相對色相偏移", "ℹ️", "主色組少於 3 色，無法判斷"))
 
-    # [13] 低飽和中間調橋接：ramp 中段至少一色比兩側更不飽和（或主色本身 S ≤ 65%）
+    # [13] 低飽和中間調橋接：ramp 中段至少一色比兩側更不飽和（或主色本身 S ≤ 65%，或深色濃彩模式）
     if len(main) >= 3:
-        ramp = sorted(main, key=lambda kv: rgb_to_hsv_deg(*kv[0])[2])
+        ramp = sorted(main, key=lambda kv: luminance(*kv[0]))
         sats = [rgb_to_hsv_deg(*rgb)[1] for rgb, _ in ramp]
-        bridge = any(sats[i] < sats[i - 1] and sats[i] < sats[i + 1] for i in range(1, len(sats) - 1)) or max(sats) <= 65
+        bridge = any(sats[i] < sats[i - 1] and sats[i] < sats[i + 1] for i in range(1, len(sats) - 1)) or max(sats) <= 65 or dark_mode
         out.append(("[13] 低飽和中間調橋接", "✅" if bridge else "ℹ️",
                     f"S 由暗到亮 {[round(s) for s in sats]}" + ("" if bridge else "：可在暗部與亮部之間插一個降飽和的過渡色")))
-    max_s = max((rgb_to_hsv_deg(*rgb)[1] for rgb, _ in info["palette_sorted"]), default=0)
-    if max_s >= 98:
-        out.append(("[13b] 飽和度上限", "⚠️", f"有 S={max_s:.0f}% 的顏色，請避免 100% 純色"))
+
+    # [13b] 飽和度上限：排除 V < 15% 且絕對彩度 C < 8% 的極暗量化假性高飽和（如 obsidian #000001）
+    real_max_s = max(
+        (rgb_to_hsv_deg(*rgb)[1] for rgb, _ in info["palette_sorted"]
+         if not (rgb_to_hsv_deg(*rgb)[2] < 15.0 and chroma_pct(*rgb) < 8.0)),
+        default=0.0,
+    )
+    if real_max_s >= 98.0 and not (dark_mode and mean_lum <= 0.12):
+        out.append(("[13b] 飽和度上限", "⚠️", f"有真實 S={real_max_s:.0f}% 的高明度純色，請避免 100% 純色"))
 
     # [14] 禁止棋盤格混色：3x3 範圍內兩種顏色完全交錯（自然雜點偶爾碰出的 2x2 交錯不算）
     dith = 0
@@ -611,10 +681,13 @@ def print_analysis_report(info: dict) -> None:
 
     # 8-point checklist summary
     print("\n🛠️ [繪師隨身 8 點檢核表 (Texture Artist's Checklist)]:")
-    # 1. Grayscale
+    # 1. Grayscale (深色材質門檻為 0.11，一般材質為 0.22)
+    dark_mode = is_dark_palette(info["palette_sorted"])
+    min_span_req = 0.11 if dark_mode else 0.22
     print(
         f"  [1] 灰階明度跨度 (Value Contrast): {info['min_lum']:.2f} ~ {info['max_lum']:.2f} "
-        f"(跨度 Δ={info['lum_span']:.2f}) -> {'✅ 結構對比充足' if info['lum_span'] >= 0.22 else '⚠️ 明度跨度偏窄，請確認灰階圖是否清晰'}"
+        f"(跨度 Δ={info['lum_span']:.2f}{', 深色模式門檻 ≥0.11' if dark_mode else ''}) -> "
+        f"{'✅ 結構對比充足' if info['lum_span'] >= min_span_req else '⚠️ 明度跨度偏窄，請確認灰階圖是否清晰'}"
     )
     # 2. Hue shifting
     if len(info["palette_sorted"]) >= 2:

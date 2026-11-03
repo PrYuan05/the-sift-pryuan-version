@@ -1,0 +1,136 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "monster": [
+            {
+              "type": "pysift:stalker",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 30
+            },
+            {
+              "type": "pysift:fusefly",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 25
+            },
+            {
+              "type": "pysift:prickle",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            }
+          ],
+          "creature": [
+            {
+              "type": "pysift:echo_golem",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 6
+            },
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.soul_caldera.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.soul_caldera.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.soul_caldera.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.soul_caldera",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "pysift:soul_wisp"
+          },
+          "probability": 0.004
+        }
+      ]
+    }
+  },
+  "carvers": [],
+  "downfall": 0.0,
+  "effects": {
+    "water_color": "#5fd8e8"
+  },
+  "features": [
+    [],
+    [
+      "pysift:soul_crater"
+    ],
+    [
+      "pysift:soul_geode"
+    ],
+    [],
+    [],
+    [],
+    [
+      "pysift:patina_ore_caldera_walls",
+      "pysift:patina_ore_caldera",
+      "pysift:soul_crystal_caldera",
+      "pysift:siftite_ore"
+    ],
+    [],
+    [],
+    [
+      "pysift:patch_caldera_violet_grass",
+      "pysift:patch_caldera_tall_violet_grass",
+      "pysift:patch_caldera_crimson_grass",
+      "pysift:patch_caldera_soul_cleaver_plant",
+      "pysift:patch_caldera_bone_spire",
+      "pysift:patch_caldera_pink_curled_fern",
+      "pysift:patch_caldera_puff_grass",
+      "pysift:patch_caldera_glowcap",
+      "pysift:cliff_vines_soul_caldera",
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:wild_rift"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 2.0
+}

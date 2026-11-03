@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/ember_basalt/ember_basalt",
+        "weight": 3
+      },
+      {
+        "model": "pysift:block/ember_basalt/ember_basalt_speckled",
+        "weight": 2
+      }
+    ]
+  }
+}

@@ -5,6 +5,15 @@
     },
     "richness=1": {
       "model": "pysift:block/aurum_ore/aurum_ore_richness1"
+    },
+    "richness=2": {
+      "model": "pysift:block/aurum_ore/aurum_ore_richness2"
+    },
+    "richness=3": {
+      "model": "pysift:block/aurum_ore/aurum_ore_richness3"
+    },
+    "richness=4": {
+      "model": "pysift:block/aurum_ore/aurum_ore_richness4"
     }
   }
 }

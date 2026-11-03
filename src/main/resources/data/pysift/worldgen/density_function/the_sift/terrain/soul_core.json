@@ -1,0 +1,76 @@
+{
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "pysift:the_sift/terrain/volcano_heat",
+    "points": [
+      {
+        "location": -1.0,
+        "value": 0.0,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.255,
+        "value": 0.0,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.265,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/volcano_ridges",
+          "points": [
+            {
+              "location": -1.0,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": -0.235,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": -0.225,
+              "value": 0.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": 0.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 1.0,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/volcano_ridges",
+          "points": [
+            {
+              "location": -1.0,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": -0.235,
+              "value": 1.0,
+              "derivative": 0.0
+            },
+            {
+              "location": -0.225,
+              "value": 0.0,
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": 0.0,
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
+}

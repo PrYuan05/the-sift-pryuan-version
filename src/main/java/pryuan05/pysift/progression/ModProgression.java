@@ -37,10 +37,19 @@ public final class ModProgression {
     public static final Block CHAROITE_CLUSTER = registerBlock("charoite_cluster",
             p -> new AmethystClusterBlock(7.0f, 3.0f, p.lightLevel(state -> 6)), Blocks.AMETHYST_CLUSTER);
 
+    // ===== 金屬塊（像原版的鐵方塊／粗鐵方塊；貼圖與配方由 tools/progression/build_metal_blocks.py 產生）=====
+    public static final Block SIFTITE_BLOCK = registerBlock("siftite_block", Block::new, Blocks.IRON_BLOCK);
+    public static final Block RAW_SIFTITE_BLOCK = registerBlock("raw_siftite_block", Block::new, Blocks.RAW_IRON_BLOCK);
+    // 銅綠：火山高原的銅綠礦 → 粗銅綠 → 銅綠錠，只給之後的靈魂動力用
+    public static final Block PATINA_BLOCK = registerBlock("patina_block", Block::new, Blocks.IRON_BLOCK);
+    public static final Block RAW_PATINA_BLOCK = registerBlock("raw_patina_block", Block::new, Blocks.RAW_COPPER_BLOCK);
+
     // ===== 材料 =====
     public static final Item RAW_SIFTITE = registerItem("raw_siftite", Item::new);
+    public static final Item RAW_PATINA = registerItem("raw_patina", p -> new HintItem(p, "tooltip.pysift.patina_ingot"));
+    public static final Item PATINA_INGOT = registerItem("patina_ingot", p -> new HintItem(p, "tooltip.pysift.patina_ingot"));
     public static final Item FUSE_POWDER = registerItem("fuse_powder", Item::new);
-    public static final Item SOUL_ESSENCE = registerItem("soul_essence", Item::new);
+    public static final Item SOUL_ESSENCE = registerItem("soul_essence", SoulEssenceItem::new);   // 也能改變方塊型態
 
     private ModProgression() {
     }

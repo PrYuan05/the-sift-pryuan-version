@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:siftite_block"
+  ],
+  "result": {
+    "id": "pysift:siftite_ingot",
+    "count": 9
+  }
+}

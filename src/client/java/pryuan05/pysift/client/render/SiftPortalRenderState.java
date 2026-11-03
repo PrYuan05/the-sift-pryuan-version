@@ -14,4 +14,6 @@ public class SiftPortalRenderState extends BlockEntityRenderState {
     public float night;
     /** 哪幾面被不透光的方塊貼住（1 << Direction.ordinal()）。 */
     public int covered;
+    /** 方塊的 axis = X：門面沿 X 軸（南北兩面是門面）。 */
+    public boolean axisX;
 }

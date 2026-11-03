@@ -1,23 +1,28 @@
-"""Soul crystal block: a translucent framed cube with a smaller crystal cube inside (minecraft-texture-crafter skill).
+"""Soul crystal block: outer-deep to inner-light soul glare palette + 5-tile 4-quadrant CTM + 16-frame breathing/wisp animation.
 Usage: python -I tools/worldgen/paint_soul_crystal.py <project> [--apply]
 
-Material brief:
-  1. Identity: the crystal that condenses on the Echo Golem's head (SoulCrystal.java, light level 10).
-  2. Physical: a clear shell (bevelled frame, almost no body colour, a glass glare) around a solid glowing core.
-  3. Real world: a phantom / included crystal - a clear quartz shell grown round a smaller crystal inside it.
-  4. Vanilla anchors: glass (translucent shell, bright frame, diagonal glare); the core keeps the ORIGINAL texture's structure
-     (measured from the first version: light outer ring 0.88-0.92 with rounded corners, then 0.85, 0.79, a 0.77 centre with a
-     few faint crosses) - lighter outside, a little deeper inside (user).
-Colours: soul_willow_planks' own palette (#A4D7E9 #97C5D5 #8ACAC9 #74B6CC ... #4D90A4, H 180-196) - the golem's body and cage.
+Material Brief (Step 0 of minecraft-texture-crafter):
+  1. Identity & Lore Role:
+     - Condensed soul crystal carried on the Echo Golem's head and formed when spirit liquid meets water (Lullaby Hills).
+     - Emits strong soul light (light level 12) and releases soul_wisp particles when broken or exposed.
+  2. Physical & Surface Properties:
+     - Self-luminous energy core encased in a dense, bevelled teal crystal shell (80/20 rule: deep translucent cyan-teal
+       outer frame and glass + high-luminance soul-fire cyan/white glowing core).
+     - Strict "outer-deep -> inner-light" value gradient across the entire connected structure: both the inner soul glow
+       and the outer crystal sheen connect seamlessly across adjacent blocks into a single unified crystal mass.
+  3. Real-World Analogues:
+     - Phantom Quartz (clear crystal shell grown around an inner crystal phantom) + Uranium/Fluorescent Glass under UV
+       (deep absorption along thick outer edges, intense glowing core inside).
+  4. Vanilla Structural Anchors:
+     - block/soul_campfire_fire.png & block/soul_lantern.png: deep teal-slate outer framing (#0A2638..#158C94) contrasting
+       against the saturated soul-fire ramp (#085E78 -> #0E8296 -> #1FAEB8 -> #3EC0C6 -> #62E0E2 -> #92F4EC -> #DCFFF4).
+     - block/glass.png: diagonal specular sheen and animated glint that connect seamlessly across multi-block faces.
 
-Files (textures/block/soul_crystal_block/):
-  soul_crystal_block_outer.png (+ .mcmeta)  16 x 16*9 animated: frame 0 rests 3 s, then a 2 px glint sweeps the SHELL in 8 frames
-  soul_crystal_block_inner.png              16 x 16, the core drawn in the middle 12 x 12 (uv 2..14), opaque, static
-Model: inner cube 2..14 (no cullface) first, then the 0..16 shell (cullface, force_translucent); both light_emission 15.
-Echo Golem: its crystal bone gets the same inner cube (12^3, uv (0,64), listed BEFORE the shell so the translucent pass draws it
-first); the shell's (111,48) 16x16 gets the shell's rest frame, (0,64) 12x12 the core.
+Files generated in textures/block/soul_crystal_block/:
+  soul_crystal_block_shell_0..4.png (+ .mcmeta)  16 x 256 (16 frames, frametime 3): 4-quadrant CTM shell tiles
+  soul_crystal_block_core_0..4.png  (+ .mcmeta)  16 x 256 (16 frames, frametime 3): 4-quadrant CTM core tiles
 """
-import datetime, json, shutil, sys
+import datetime, json, math, shutil, sys
 from pathlib import Path
 from PIL import Image
 
@@ -25,257 +30,337 @@ P = Path(sys.argv[1]).resolve()
 APPLY = "--apply" in sys.argv
 A = P / "src/main/resources/assets/pysift"
 DIR = A / "textures/block/soul_crystal_block"
-OUTER, INNER = DIR / "soul_crystal_block_outer.png", DIR / "soul_crystal_block_inner.png"
-OLD = A / "textures/block/soul_crystal_block.png"
-MODEL = A / "models/block/soul_crystal_block/soul_crystal_block.json"
+OLD_TEX = A / "textures/block/soul_crystal_block.png"
+MODEL_DIR = A / "models/block/soul_crystal_block"
+MODEL = MODEL_DIR / "soul_crystal_block.json"
+BLOCKSTATE = A / "blockstates/soul_crystal_block.json"
 GOLEM = A / "textures/entity/echo_golem.png"
 GEO = A / "geckolib/models/entity/echo_golem.geo.json"
 SHELL_UV, CORE_UV = (111, 48), (0, 64)
 sys.path.insert(0, str(P / "tools"))
 import art_guard
 
-# soul_willow_planks, light -> deep, plus a near-white for the frame highlight
-W0, L1, L2, M1, M2, D1, D2 = ((0xDF, 0xF5, 0xF8), (0xA4, 0xD7, 0xE9), (0x97, 0xC5, 0xD5), (0x8A, 0xCA, 0xC9), (0x74, 0xB6, 0xCC),
-                              (0x52, 0x97, 0xAF), (0x4D, 0x90, 0xA4))
-FRAMES = 9
+# --- Palette: Outer-Deep -> Inner-Light (No #000000, No #FFFFFF, Hue-shifted) ---
+# Shell colours (deep navy-teal bevel frame -> translucent cyan glass + soul-white specular)
+S0_D = (0x0A, 0x26, 0x38)   # H=203 S=73% V=22% - deepest outer shadow edge
+S0_L = (0x0D, 0x38, 0x4E)   # H=200 S=83% V=31% - top-left lit outer edge
+S1_D = (0x0E, 0x4C, 0x60)   # H=195 S=85% V=38% - inner bevel shadow
+S1_L = (0x12, 0x62, 0x76)   # H=192 S=85% V=46% - inner bevel lit
+S2   = (0x10, 0x76, 0x82)   # H=186 S=88% V=51% - frame-to-glass cushion
+S3   = (0x15, 0x8C, 0x94)   # H=184 S=86% V=58% - tinted crystal glass body
+S4   = (0x2B, 0xAE, 0xB4)   # H=183 S=76% V=71% - connected diagonal crystal refraction sheen
+
+# Core colours (7-step two-tier block palette: cold-shifted shadows ~194 deg -> base 184 deg -> warm-shifted highlights ~161 deg)
+C0  = (0x08, 0x5E, 0x78)    # H=194 S=89% V=47% - exposed core rim (deep cold ocean teal)
+C1  = (0x0E, 0x82, 0x96)    # H=189 S=91% V=59% - outer core step
+C2  = (0x1F, 0xAE, 0xB8)    # H=184 S=83% V=72% - mid-core base (soul fire anchor)
+C2B = (0x3E, 0xC0, 0xC6)    # H=183 S=69% V=78% - micro-texture bridge (dV=6%, desaturated bridge)
+C3  = (0x62, 0xE0, 0xE2)    # H=181 S=57% V=89% - inner bright cyan
+C4  = (0x92, 0xF4, 0xEC)    # H=175 S=40% V=96% - soul aura highlight (warm-shifted +9 deg)
+C5  = (0xDC, 0xFF, 0xF4)    # H=161 S=14% V=100% - blazing soul-white core (warm-shifted +23 deg, not #FFFFFF)
+
+CORE_RAMP = (C0, C1, C2, C2B, C3, C4, C5)
+FRAMES = 16
+MCMETA = {"animation": {"frametime": 3, "interpolate": True}}
 
 
-def shell(framed=True):
-    """16 x 16 of (rgb, alpha): nearly clear body, a short glare bar upper left; framed = the bevelled 1 px frame painted in
-    (the golem's cube). The block draws its frame as geometry instead (connected_model), so its glass has none."""
-    px = {(x, y): (L1, 45) for x in range(16) for y in range(16)}
-    for (x, y) in ((11, 3), (12, 3), (12, 4), (3, 12), (4, 12)):
-        px[(x, y)] = (L2, 70)                                      # two faint inclusions
-    for i in range(16 if framed else 0):
-        px[(i, 0)] = (L1, 230)
-        px[(0, i)] = (L1, 230)
-        px[(i, 15)] = (D1, 230)
-        px[(15, i)] = (D1, 230)
-    if framed:
-        px[(0, 0)] = (W0, 240)
-        px[(1, 0)] = (W0, 235)
-        px[(0, 1)] = (W0, 235)
-        px[(15, 15)] = (D2, 240)
-        px[(15, 0)] = (L2, 230)
-        px[(0, 15)] = (L2, 230)
-    for k in range(4):                                             # glass glare
-        px[(2 + k, 5 - k)] = (W0, 160)
-    px[(2, 7)] = (W0, 120)
-    px[(3, 6)] = (W0, 120)
+def _quad_conn(tile):
+    """For tile index 0..4, return (H_connected, V_connected, D_connected)."""
+    return ((False, False, False),
+            (True,  False, False),
+            (False, True,  False),
+            (True,  True,  False),
+            (True,  True,  True))[tile]
+
+
+def _shell_edge_dist(x, y, H, V, D):
+    """Distance in pixels from the nearest unconnected outer boundary on the shell (0, 1, 2 = frame, >=3 = interior glass)."""
+    u = x if x < 8 else 15 - x
+    v = y if y < 8 else 15 - y
+    d_h = 99 if H else u
+    d_v = 99 if V else v
+    d = min(d_h, d_v)
+    if H and V and not D:
+        d = min(d, u + v)
+    return d
+
+
+def shell_frame_base(tile):
+    """16x16 RGBA base frame for shell tile 0..4.
+    Both the bevelled frame AND the diagonal specular glare rays connect seamlessly across adjacent blocks:
+    a torus-continuous diagonal ray ((x + y) % 16 in (6, 7)) runs straight across connected boundaries and terminates
+    cleanly at the outer bevel frame (d_edge <= 2)."""
+    H, V, D = _quad_conn(tile)
+    px = {}
+    for y in range(16):
+        for x in range(16):
+            u = x if x < 8 else 15 - x
+            v = y if y < 8 else 15 - y
+            lit_x = x < 8
+            lit_y = y < 8
+            s0 = S0_L if (lit_x and lit_y) else S0_D if (not lit_x and not lit_y) else (S0_L if (x + y < 15) else S0_D)
+            s1 = S1_L if (lit_x and lit_y) else S1_D if (not lit_x and not lit_y) else (S1_L if (x + y < 15) else S1_D)
+
+            d_edge = _shell_edge_dist(x, y, H, V, D)
+            if d_edge == 0:
+                px[(x, y)] = (s0, 244)
+            elif d_edge == 1:
+                if not H and not V and u == 1 and v == 1:
+                    px[(x, y)] = (s0, 234)
+                else:
+                    px[(x, y)] = (s1, 214)
+            elif d_edge == 2:
+                if not H and not V and u <= 2 and v <= 2 and (u + v <= 3):
+                    px[(x, y)] = (s1, 185)
+                else:
+                    px[(x, y)] = (S2, 146)
+            else:
+                # Torus-continuous diagonal glare rays: (x + y) % 16 == 7 (main ray) and 6 (soft edge)
+                # Because (15 + y) % 16 == (0 + y - 1) % 16, this ray connects seamlessly across every connected block edge!
+                diag = (x + y) % 16
+                if diag == 7:
+                    px[(x, y)] = (C4, 132)
+                elif diag == 6:
+                    px[(x, y)] = (C3, 98)
+                elif diag == 14 and ((x + y) >= 14):
+                    px[(x, y)] = (S4, 84)
+                else:
+                    px[(x, y)] = (S3, 64)
     return px
 
 
-def glint(px, f):
-    """f = 0 rests; f = 1..8: a 2 px diagonal glint (x + y = d) brightens the shell and lifts its alpha."""
-    if f == 0:
-        return px
-    out = dict(px)
-    d = 2 + (f - 1) * 4
-    for (x, y), (c, a) in px.items():
-        if 1 <= x <= 14 and 1 <= y <= 14:
-            s = x + y
-            if s == d:
-                out[(x, y)] = (W0, 200)
-            elif s in (d - 1, d + 1):
-                out[(x, y)] = (L1, max(a, 120))
+def shell_animate(base_px, f, tile):
+    """16-frame torus-connected diagonal soul-glint sweep + corner 4-point star flare on outer corners."""
+    out = dict(base_px)
+    H, V, D = _quad_conn(tile)
+    breath = int(round(8 * math.sin(2 * math.pi * f / FRAMES)))
+    for (x, y), (c, a) in out.items():
+        if a < 140:
+            out[(x, y)] = (c, max(50, min(145, a + breath)))
+
+    # Torus-continuous diagonal glint sweep across the entire connected crystal (sweeps 2 modulo-16 cycles over 16 frames)
+    # Because it uses (x + y) % 16 and extends all the way to x=0/15 and y=0/15 on connected sides,
+    # the moving light beam flows seamlessly from block to block across the whole connected wall!
+    if f >= 6:
+        d = ((f - 6) * 2) % 16
+        for (x, y), (c, a) in list(out.items()):
+            d_edge = _shell_edge_dist(x, y, H, V, D)
+            if d_edge <= 1:
+                continue
+            s = (x + y) % 16
+            dist_diag = min((s - d) % 16, (d - s) % 16)
+            if dist_diag == 0:
+                out[(x, y)] = (C5, max(a, 215 if d_edge >= 3 else 185))
+            elif dist_diag == 1:
+                out[(x, y)] = (C4, max(a, 160))
+
+    # Frames 10..12: 4-point soul star flare (✦) on true outer top-left corners (Tile 0)
+    if tile == 0 and f in (10, 11, 12):
+        peak = (f == 11)
+        for cx, cy in (((4, 4), (11, 11)) if peak else ((4, 4),)):
+            out[(cx, cy)] = (C5, 248 if peak else 210)
+            for ox, oy in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                q = (cx + ox, cy + oy)
+                if 2 <= q[0] <= 13 and 2 <= q[1] <= 13:
+                    out[q] = (C5 if peak else C4, 215 if peak else 170)
+            if peak:
+                for ox, oy in ((-2, 0), (2, 0), (0, -2), (0, 2)):
+                    q = (cx + ox, cy + oy)
+                    if 2 <= q[0] <= 13 and 2 <= q[1] <= 13:
+                        out[q] = (C3, max(out[q][1], 145))
     return out
 
 
-def core():
-    """12 x 12, the original texture's structure: rounded light ring, two lighter rings, deeper centre, faint crosses."""
-    g = {}
-    for y in range(12):
-        for x in range(12):
-            ring = min(x, y, 11 - x, 11 - y)
-            g[(x, y)] = (L1, L2, M1)[ring] if ring < 3 else M2
-    for (x, y) in ((0, 0), (11, 0), (0, 11), (11, 11)):           # rounded corners: one step lighter like the original
-        g[(x, y)] = W0
-    for (x, y) in ((1, 1), (10, 1), (1, 10), (10, 10)):
-        g[(x, y)] = L1
-    for cx, cy in ((4, 4), (7, 7)):                                # two faint crosses, apart (as sparse as the original)
-        for dx, dy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = (cx + dx, cy + dy)
-            if min(q[0], q[1], 11 - q[0], 11 - q[1]) >= 3:
-                g[q] = M1
-    return g
+def core_frame(tile, f):
+    """16x16 RGBA core texture for tile 0..4 at animation frame f (0..15).
+    Key property — CONNECTED GLOW:
+      The brightness index (0..6 -> C0..C5) is strictly a function of the distance d_outer from the nearest
+      UNCONNECTED boundary of the multi-block shape:
+        - When H is True, d_H = 7 (no horizontal drop-off at all — the glow beam runs straight across the block seam!).
+        - When V is True, d_V = 7 (no vertical drop-off at all — the glow beam runs straight across the block seam!).
+        - When H, V, D are all True (Tile 4), the entire quadrant is deep inside the connected crystal (C4/C5),
+          with torus-seamless rising soul-flame waves so a 1x3, L-shape, 2x2, or 3x3 has ONE unified glowing core!
+    """
+    H, V, D = _quad_conn(tile)
+    breath = 0.35 * math.sin(2 * math.pi * f / FRAMES)
 
+    grid = {}
+    for y in range(16):
+        for x in range(16):
+            u = x if x < 8 else 15 - x       # 0 at block outer edge, 7 at block centre
+            v = y if y < 8 else 15 - y
 
-def core_flat():
-    """The block's core faces: the deeper centre colour with a few faint crosses, no ring (the light ring is the core's
-    edge bars, so it disappears where two cores join)."""
-    im = Image.new("RGBA", (16, 16), (*M2, 255))
-    for cx, cy in ((4, 4), (11, 10), (6, 12), (12, 4)):
-        for dx, dy in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
-            im.putpixel(((cx + dx) % 16, (cy + dy) % 16), (*M1, 255))
-    return im
+            # Distance from the nearest unconnected boundary (in pixels, 0..7)
+            d_h = 7.0 if H else float(u)
+            d_v = 7.0 if V else float(v)
 
+            if not H and not V:
+                # Tile 0 (outer corner): rounded crystal corner from rim (1 -> C0) to inner core (7 -> C5)
+                m = min(d_h, d_v)
+                M = max(d_h, d_v)
+                d_outer = m - (0.35 if (m <= 5 and M <= 5 and m == d_h and m == d_v) else 0.0)
+            elif H and V and not D:
+                # Tile 3 (inner concave corner): concentric rings radiating from the missing diagonal (u=0, v=0)
+                d_outer = min(7.0, math.hypot(u, v) * 0.95)
+            else:
+                # Tile 1 (H=True, V=False -> d_outer = v), Tile 2 (H=False, V=True -> d_outer = u), Tile 4 (-> 7.0)
+                d_outer = min(d_h, d_v)
 
-FRAME_COLS = {"w0": W0, "l1": L1, "l2": L2, "d1": D1}          # frame.png: 4 px wide columns of these colours
+            # Map d_outer (0..7) strictly to ramp index (0..6):
+            #   d <= 1 -> 0 (C0)
+            #   d == 2 -> 1 (C1)
+            #   d == 3 -> 2 (C2)
+            #   d == 4 -> 3 (C2B)
+            #   d == 5 -> 4 (C3)
+            #   d == 6 -> 5 (C4)
+            #   d >= 7 -> 6 (C5, blazing soul-white core!)
+            base = max(0.0, d_outer - 1.0)
 
+            # Torus-seamless rising soul wave (gentle +/- 0.45 ripple that only modulates the innermost C4/C5 core
+            # and is completely locked to 0 on the outer C0..C3 rings so the connected beam never pinches!)
+            wave = (0.32 * math.sin(2 * math.pi * (x / 16.0) + 2 * math.pi * ((y + f) / 16.0)) +
+                    0.22 * math.cos(2 * math.pi * (x / 8.0) - 2 * math.pi * ((y + f) / 16.0)))
 
-def frame_tex():
+            if base >= 4.8:
+                val = base + wave + breath
+            else:
+                val = base + 0.15 * wave
+
+            idx = max(0, min(len(CORE_RAMP) - 1, int(round(val))))
+            grid[(x, y)] = idx
+
+    # Clean any single-pixel orphans while preserving the exact connected bands
+    for _ in range(2):
+        nxt = dict(grid)
+        for y in range(16):
+            for x in range(16):
+                v = grid[(x, y)]
+                ns = [grid[((x + dx) % 16, (y + dy) % 16)] for dx, dy in ((-1, 0), (1, 0), (0, -1), (0, 1))]
+                if v not in ns:
+                    nxt[(x, y)] = min(ns, key=lambda n: abs(n - v))
+        grid = nxt
+
     im = Image.new("RGBA", (16, 16))
-    for k, c in enumerate(FRAME_COLS.values()):
-        for x in range(4 * k, 4 * k + 4):
-            for y in range(16):
-                im.putpixel((x, y), (*c, 255))
+    im.putdata([(*CORE_RAMP[grid[(x, y)]], 255) for y in range(16) for x in range(16)])
     return im
 
 
-AX = {"west": (0, 0), "east": (0, 16), "down": (1, 0), "up": (1, 16), "north": (2, 0), "south": (2, 16)}
-OPP = {"west": "east", "east": "west", "down": "up", "up": "down", "north": "south", "south": "north"}
-EDGES = [(a, b) for a in AX for b in AX if a < b and AX[a][0] != AX[b][0]]   # 12 cube edges as pairs of faces
-E = 0.01                                                            # bars stand this far out of their faces (no z-fighting)
-
-
-def bar(d1, d2, lo, hi, inset, along_range):
-    """A 1 px bar on the edge between faces d1 and d2 of the box [lo, hi]^3; along_range = its extent on the third axis."""
-    f, t = [0, 0, 0], [0, 0, 0]
-    for d in (d1, d2):
-        axis, side = AX[d]
-        if side == 0:
-            f[axis], t[axis] = lo - E, lo + 1
-        else:
-            f[axis], t[axis] = hi - 1, hi + E
-    third = ({0, 1, 2} - {AX[d1][0], AX[d2][0]}).pop()
-    f[third], t[third] = along_range
-    return f, t
-
-
-def edge_colour(d1, d2):
-    s = {d1, d2}
-    if "up" in s:
-        return "w0" if s & {"north", "west"} else "l1"
-    if "down" in s:
-        return "d1" if s & {"south", "east"} else "l2"
-    return "l1" if s == {"north", "west"} else "d1" if s == {"south", "east"} else "l2"
-
-
-def element(f, t, tex, faces=None, cull=None, uv=None):
-    faces = faces or ("down", "up", "north", "south", "west", "east")
-    out = {"from": f, "to": t, "light_emission": 15, "faces": {}}
-    for d in faces:
-        face = {"texture": tex}
-        if uv:
-            face["uv"] = uv
-        if cull:
-            face["cullface"] = d
-        out["faces"][d] = face
-    return out
-
-
-def connected_models():
-    """{model name: model json} and the multipart blockstate for the connected block."""
-    base = "pysift:block/soul_crystal_block/"
-    tex = {"particle": base + "soul_crystal_block_inner", "inner": base + "soul_crystal_block_inner",
-           "frame": base + "soul_crystal_block_frame",
-           "outer": {"sprite": base + "soul_crystal_block_outer", "force_translucent": True}}
-    models, parts = {}, []
-
-    def add(name, elements, when=None):
-        models[name] = {"parent": "minecraft:block/block", "textures": tex, "elements": elements}
-        part = {"apply": {"model": base + name}}
-        if when:
-            part["when"] = when
-        parts.append(part)
-
-    col_uv = lambda c: [4 * list(FRAME_COLS).index(c), 0, 4 * list(FRAME_COLS).index(c) + 1, 1]
-    # always: the core and the glass shell (each shell face culls against a neighbouring crystal)
-    add("soul_crystal_block_core", [element([2, 2, 2], [14, 14, 14], "#inner"),
-                                    element([0, 0, 0], [16, 16, 16], "#outer", cull=True)])
-    for d in AX:                                                    # the core reaches the edge towards a connected crystal
-        axis, side = AX[d]
-        f, t = [2, 2, 2], [14, 14, 14]
-        f[axis], t[axis] = (0, 2) if side == 0 else (14, 16)
-        add(f"soul_crystal_block_arm_{d}", [element(f, t, "#inner", faces=[x for x in AX if x not in (d, OPP[d])])], {d: "true"})
-    for d1, d2 in EDGES:
-        c = edge_colour(d1, d2)
-        f, t = bar(d1, d2, 0, 16, 0, (0, 16))                        # the shell's frame
-        add(f"soul_crystal_block_frame_{d1}_{d2}", [element(f, t, "#frame", uv=col_uv(c))], {d1: "false", d2: "false"})
-        third = ({0, 1, 2} - {AX[d1][0], AX[d2][0]}).pop()
-        lo_dir, hi_dir = [d for d in AX if AX[d][0] == third]
-        f, t = bar(d1, d2, 2, 14, 0, (2, 14))                        # the core's light ring
-        add(f"soul_crystal_block_ring_{d1}_{d2}", [element(f, t, "#frame", uv=col_uv("l1"))], {d1: "false", d2: "false"})
-        for end, rng in ((lo_dir, (0, 2)), (hi_dir, (14, 16))):      # ... continued into a connected neighbour's core
-            f, t = bar(d1, d2, 2, 14, 0, rng)
-            add(f"soul_crystal_block_ring_{d1}_{d2}_{end}", [element(f, t, "#frame", uv=col_uv("l1"))],
-                {d1: "false", d2: "false", end: "true"})
-    inventory = {"parent": "minecraft:block/block", "textures": tex, "elements":
-                 models["soul_crystal_block_core"]["elements"]
-                 + [e for n, m in models.items() if n.startswith(("soul_crystal_block_frame_", "soul_crystal_block_ring_"))
-                    and n.count("_") == 5 for e in m["elements"]]}
-    models["soul_crystal_block"] = inventory                        # the item (and every unconnected state) look
-    return models, {"multipart": parts}
-
-
-def render_shell(px):
+def render_shell_frame(px):
     im = Image.new("RGBA", (16, 16))
     im.putdata([(*px[(x, y)][0], px[(x, y)][1]) for y in range(16) for x in range(16)])
     return im
 
 
-def render_core(g, size=16):
-    im = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    o = (size - 12) // 2
-    for (x, y), c in g.items():
-        im.putpixel((x + o, y + o), (*c, 255))
-    return im
+def make_strip(frames):
+    strip = Image.new("RGBA", (16, 16 * len(frames)))
+    for i, fr in enumerate(frames):
+        strip.paste(fr, (0, 16 * i))
+    return strip
 
 
-def front_view(flat, glass, cells=((0, 0), (1, 0), (2, 0), (0, 1), (0, 2), (4, 1))):
-    """Front (north) faces of crystals at (column, row) cells, as the connected model draws them: core rectangle grown to the
-    block edge towards connected neighbours, the core's light ring and the shell's frame only where no neighbour is."""
-    cs = set(cells)
-    W = (max(c for c, _ in cs) + 1) * 16
-    H = (max(r for _, r in cs) + 1) * 16
-    im = Image.new("RGBA", (W, H), (78, 128, 62, 255))
+def compose_quadrant_face(tiles, L, R, U, D, UL, UR, DL, DR):
+    """Compose a 16x16 face from 5 CTM tiles (0..4) using the exact same 4-quadrant rules as SoulCrystalModel.java."""
+    out = Image.new("RGBA", (16, 16))
+    quads = (
+        (0, 0, L, U, UL),   # TL
+        (8, 0, R, U, UR),   # TR
+        (0, 8, L, D, DL),   # BL
+        (8, 8, R, D, DR),   # BR
+    )
+    for x0, y0, h, v, d in quads:
+        t = 0 if (not h and not v) else 1 if (h and not v) else 2 if (not h and v) else 3 if not d else 4
+        crop = tiles[t].crop((x0, y0, x0 + 8, y0 + 8))
+        out.paste(crop, (x0, y0))
+    return out
+
+
+def connected_preview(shell_tiles, core_tiles):
+    """Render a multi-shape connected preview (Single, 1x3 bar, 2x2 square, L-shape, 3x3 wall, T/plus shape)."""
+    cells = {
+        # Single crystal
+        (0, 0),
+        # 1x3 horizontal bar
+        (2, 0), (3, 0), (4, 0),
+        # 2x2 square (the exact case from the user's screenshot!)
+        (6, 0), (7, 0),
+        (6, 1), (7, 1),
+        # L-shape (tests inner concave corner at (1, 4))
+        (0, 3), (0, 4), (0, 5), (1, 5), (2, 5),
+        # 3x3 solid wall (tests full interior Tile 4 at (5, 4))
+        (4, 3), (5, 3), (6, 3),
+        (4, 4), (5, 4), (6, 4),
+        (4, 5), (5, 5), (6, 5),
+        # 2x2 with an extra arm (tests mixed inner & outer corners)
+        (8, 3), (9, 3), (10, 3),
+        (8, 4), (9, 4),
+    }
+    W, H = 11 * 16 + 16, 6 * 16 + 16
+    im = Image.new("RGBA", (W, H), (22, 34, 28, 255))
     for yy in range(0, H, 8):
         for xx in range(0, W, 8):
             if (xx // 8 + yy // 8) % 2:
-                im.paste((64, 108, 52, 255), (xx, yy, xx + 8, yy + 8))
-    for c, r in cs:
-        L, R, U, D = (c - 1, r) in cs, (c + 1, r) in cs, (c, r - 1) in cs, (c, r + 1) in cs
-        x0, y0 = c * 16, r * 16
-        cx0, cx1 = (0 if L else 2), (16 if R else 14)
-        cy0, cy1 = (0 if U else 2), (16 if D else 14)
-        for y in range(cy0, cy1):
-            for x in range(cx0, cx1):
-                im.putpixel((x0 + x, y0 + y), flat.getpixel((x, y)))
-        ring = (*L1, 255)
-        for x in range(cx0, cx1):
-            if not U:
-                im.putpixel((x0 + x, y0 + 2), ring)
-            if not D:
-                im.putpixel((x0 + x, y0 + 13), ring)
-        for y in range(cy0, cy1):
-            if not L:
-                im.putpixel((x0 + 2, y0 + y), ring)
-            if not R:
-                im.putpixel((x0 + 13, y0 + y), ring)
-        im.alpha_composite(glass, (x0, y0))
-        for i in range(16):
-            for cond, px in ((not U, (i, 0)), (not D, (i, 15)), (not L, (0, i)), (not R, (15, i))):
-                if cond:
-                    col = L1 if px[1] == 0 or px[0] == 0 else D1
-                    im.putpixel((x0 + px[0], y0 + px[1]), (*col, 255))
-    return im.resize((W * 8, H * 8), Image.NEAREST).convert("RGB")
+                im.paste((18, 28, 23, 255), (xx, yy, xx + 8, yy + 8))
+
+    for c, r in sorted(cells):
+        L, R, U, D = (c - 1, r) in cells, (c + 1, r) in cells, (c, r - 1) in cells, (c, r + 1) in cells
+        UL, UR, DL, DR = (c - 1, r - 1) in cells, (c + 1, r - 1) in cells, (c - 1, r + 1) in cells, (c + 1, r + 1) in cells
+        x0, y0 = (c + 1) * 16 - 8, (r + 1) * 16 - 8
+
+        core_face = compose_quadrant_face(core_tiles, L, R, U, D, UL, UR, DL, DR)
+        shell_face = compose_quadrant_face(shell_tiles, L, R, U, D, UL, UR, DL, DR)
+
+        # Sub-cube occupancy on the 2D face (inset I = 1 px)
+        for y in range(16):
+            sy = -1 if y < 1 else (1 if y >= 15 else 0)
+            for x in range(16):
+                sx = -1 if x < 1 else (1 if x >= 15 else 0)
+                ok_x = True if sx == 0 else (L if sx == -1 else R)
+                ok_y = True if sy == 0 else (U if sy == -1 else D)
+                ok_d = True if (sx == 0 or sy == 0) else (
+                    UL if (sx == -1 and sy == -1) else
+                    UR if (sx == 1 and sy == -1) else
+                    DL if (sx == -1 and sy == 1) else DR
+                )
+                if ok_x and ok_y and ok_d:
+                    im.putpixel((x0 + x, y0 + y), core_face.getpixel((x, y)))
+
+        im.alpha_composite(shell_face, (x0, y0))
+
+    return im.resize((W * 5, H * 5), Image.NEAREST).convert("RGB")
 
 
-def model():
+def static_block_model():
+    """Static block model used for the item, particles, and to register all 10 CTM sprites into the block atlas."""
+    base = "pysift:block/soul_crystal_block/"
+    tex = {"particle": base + "soul_crystal_block_core_0"}
+    for i in range(5):
+        tex[f"shell_{i}"] = {"sprite": base + f"soul_crystal_block_shell_{i}", "force_translucent": True}
+        tex[f"core_{i}"] = base + f"soul_crystal_block_core_{i}"
     faces = ("down", "up", "north", "south", "west", "east")
-    return {"parent": "minecraft:block/block",
-            "textures": {"particle": "pysift:block/soul_crystal_block/soul_crystal_block_inner",
-                         "inner": "pysift:block/soul_crystal_block/soul_crystal_block_inner",
-                         "outer": {"sprite": "pysift:block/soul_crystal_block/soul_crystal_block_outer", "force_translucent": True}},
-            "elements": [
-                {"from": [2, 2, 2], "to": [14, 14, 14], "light_emission": 15,
-                 "faces": {d: {"uv": [2, 2, 14, 14], "texture": "#inner"} for d in faces}},
-                {"from": [0, 0, 0], "to": [16, 16, 16], "light_emission": 15,
-                 "faces": {d: {"uv": [0, 0, 16, 16], "texture": "#outer", "cullface": d} for d in faces}}]}
+    return {
+        "parent": "minecraft:block/block",
+        "textures": tex,
+        "elements": [
+            {
+                "from": [1, 1, 1],
+                "to": [15, 15, 15],
+                "shade": False,
+                "light_emission": 15,
+                "faces": {d: {"uv": [1, 1, 15, 15], "texture": "#core_0"} for d in faces},
+            },
+            {
+                "from": [0, 0, 0],
+                "to": [16, 16, 16],
+                "shade": False,
+                "light_emission": 15,
+                "faces": {d: {"uv": [0, 0, 16, 16], "texture": "#shell_0", "cullface": d} for d in faces},
+            },
+        ],
+    }
 
 
 def golem_geo(doc):
-    """crystal bone: the 12^3 core first (drawn before the translucent shell), then the original 16^3 shell."""
+    """Echo golem crystal bone: 12^3 inner core first (drawn before the 16^3 translucent shell)."""
     d = doc["minecraft:geometry"][0]
     bone = next(b for b in d["bones"] if b["name"] == "crystal")
     shell_cube = next(c for c in bone["cubes"] if c.get("size") == [16, 16, 16])
@@ -285,69 +370,92 @@ def golem_geo(doc):
 
 
 def main():
-    sp = shell()                                                    # framed: the golem's cube
-    frames = [render_shell(glint(sp, f)) for f in range(FRAMES)]
-    glass = [render_shell(glint(shell(framed=False), f)) for f in range(FRAMES)]   # the block: frame is geometry
-    flat, ftex = core_flat(), frame_tex()
-    models, blockstate = connected_models()
-    strip = Image.new("RGBA", (16, 16 * FRAMES))
-    for i, fr in enumerate(glass):
-        strip.paste(fr, (0, 16 * i))
-    inner = render_core(core())
-    mcmeta = {"animation": {"frametime": 2, "interpolate": False, "frames": [{"index": 0, "time": 60}] + list(range(1, FRAMES))}}
-    # preview: shell frames on a checker, the core, the composed face (core in the middle, shell over it), the golem
-    S = 128
-    sheet = Image.new("RGBA", (5 * (S + 4) + 4, 2 * (S + 4) + 4), (14, 14, 20, 255))
-    checker = Image.new("RGBA", (S, S), (78, 128, 62, 255))
-    for yy in range(0, S, 16):
-        for xx in range(0, S, 16):
-            if (xx // 16 + yy // 16) % 2:
-                checker.paste((64, 108, 52, 255), (xx, yy, xx + 16, yy + 16))
-    for k, f in enumerate((0, 2, 4, 6, 8)):
-        sheet.paste(checker, (4 + k * (S + 4), 4))
-        sheet.alpha_composite(frames[f].resize((S, S), Image.NEAREST), (4 + k * (S + 4), 4))
-    y2 = 8 + S
-    sheet.paste(checker, (4, y2))
-    sheet.alpha_composite(inner.resize((S, S), Image.NEAREST), (4, y2))
-    face = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-    face.alpha_composite(inner)
-    face.alpha_composite(frames[0])
-    sheet.paste(checker, (8 + S, y2))
-    sheet.alpha_composite(face.resize((S, S), Image.NEAREST), (8 + S, y2))
-    old = Image.open(OLD if OLD.exists() else OUTER).convert("RGBA").crop((0, 0, 16, 16))
-    sheet.alpha_composite(old.resize((S, S), Image.NEAREST), (12 + 2 * S, y2))
-    g = Image.open(GOLEM).convert("RGBA")
-    g.paste(frames[0], SHELL_UV)
-    g.paste(render_core(core(), 12), CORE_UV)
-    sheet.alpha_composite(g.crop((0, 40, 128, 80)).resize((2 * S - 4, S * 40 // 64), Image.NEAREST), (16 + 3 * S, y2))
+    shell_strips, core_strips = [], []
+    shell_f0, core_f0 = [], []
+    shell_f11, core_f2 = [], []
+    for t in range(5):
+        sb = shell_frame_base(t)
+        s_frames = [render_shell_frame(shell_animate(sb, f, t)) for f in range(FRAMES)]
+        c_frames = [core_frame(t, f) for f in range(FRAMES)]
+        shell_strips.append(make_strip(s_frames))
+        core_strips.append(make_strip(c_frames))
+        shell_f0.append(s_frames[0])
+        core_f0.append(c_frames[0])
+        shell_f11.append(s_frames[11])
+        core_f2.append(c_frames[2])
+
+    S = 112
+    sheet = Image.new("RGBA", (5 * (S + 6) + 6, 3 * (S + 6) + 6), (12, 16, 22, 255))
+    checker = Image.new("RGBA", (S, S), (28, 44, 34, 255))
+    for yy in range(0, S, 14):
+        for xx in range(0, S, 14):
+            if (xx // 14 + yy // 14) % 2:
+                checker.paste((22, 36, 28, 255), (xx, yy, xx + 14, yy + 14))
+
+    for t in range(5):
+        x = 6 + t * (S + 6)
+        sheet.paste(checker, (x, 6))
+        sh_im = shell_f11[0] if t == 0 else shell_f0[t]
+        sheet.alpha_composite(sh_im.resize((S, S), Image.NEAREST), (x, 6))
+        sheet.paste(core_f0[t].resize((S, S), Image.NEAREST), (x, 12 + S))
+        comp = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+        comp.alpha_composite(core_f2[t])
+        comp.alpha_composite(sh_im)
+        sheet.paste(checker, (x, 18 + 2 * S))
+        sheet.alpha_composite(comp.resize((S, S), Image.NEAREST), (x, 18 + 2 * S))
+
+    (P / "build/previews").mkdir(parents=True, exist_ok=True)
     sheet.convert("RGB").save(P / "build/previews/soul_crystal_paint.png")
-    front_view(flat, glass[0]).save(P / "build/previews/soul_crystal_connected.png")
+    connected_preview(shell_f0, core_f2).save(P / "build/previews/soul_crystal_connected.png")
+
     tmp = P / "build/previews/soul_crystal_paint"
     tmp.mkdir(parents=True, exist_ok=True)
-    inner.save(tmp / "inner.png")
-    face.save(tmp / "face.png")
-    print("preview: build/previews/soul_crystal_paint.png")
+    for t in range(5):
+        core_f0[t].save(tmp / f"core_{t}.png")
+        shell_f0[t].save(tmp / f"shell_{t}.png")
+    print("preview written: build/previews/soul_crystal_paint.png & build/previews/soul_crystal_connected.png")
+
     if not APPLY:
         return
-    bk = P / ".texture_backups" / (datetime.datetime.now().strftime("%Y%m%d-%H%M%S") + "_paint_soul_crystal")
-    for f in (OLD, OLD.with_name(OLD.name + ".mcmeta"), MODEL, GOLEM, GEO):
-        if f.exists():
-            (bk / f.relative_to(P)).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(f, bk / f.relative_to(P))
+
+    bk = P / ".texture_backups" / (datetime.datetime.now().strftime("%Y%m%d-%H%M%S") + "_soul_crystal_ctm")
+    for f in [OLD_TEX, GOLEM, GEO, BLOCKSTATE, *DIR.glob("*"), *MODEL_DIR.glob("*.json")]:
+        if f.exists() and f.is_file():
+            dest = bk / f.relative_to(P)
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(f, dest)
+
+    for old_f in (OLD_TEX, OLD_TEX.with_name(OLD_TEX.name + ".mcmeta"),
+                  DIR / "soul_crystal_block_outer.png", DIR / "soul_crystal_block_outer.png.mcmeta",
+                  DIR / "soul_crystal_block_inner.png", DIR / "soul_crystal_block_frame.png"):
+        if old_f.exists():
+            old_f.unlink()
+    for mf in MODEL_DIR.glob("*.json"):
+        if mf.name != "soul_crystal_block.json":
+            mf.unlink()
+
     DIR.mkdir(parents=True, exist_ok=True)
-    art_guard.save(strip, OUTER)
-    OUTER.with_name(OUTER.name + ".mcmeta").write_text(json.dumps(mcmeta, indent=2) + "\n", encoding="utf-8")
-    art_guard.save(flat, INNER)
-    art_guard.save(ftex, DIR / "soul_crystal_block_frame.png")
-    for f in (OLD, OLD.with_name(OLD.name + ".mcmeta")):         # the single-layer texture is replaced by the two above
-        if f.exists():
-            f.unlink()
-    for name, m in models.items():
-        (MODEL.parent / f"{name}.json").write_text(json.dumps(m, indent=2) + "\n", encoding="utf-8")
-    (A / "blockstates/soul_crystal_block.json").write_text(json.dumps(blockstate, indent=2) + "\n", encoding="utf-8")
+    for t in range(5):
+        sp = DIR / f"soul_crystal_block_shell_{t}.png"
+        cp = DIR / f"soul_crystal_block_core_{t}.png"
+        art_guard.save(shell_strips[t], sp)
+        art_guard.save(core_strips[t], cp)
+        sp.with_name(sp.name + ".mcmeta").write_text(json.dumps(MCMETA, indent=2) + "\n", encoding="utf-8")
+        cp.with_name(cp.name + ".mcmeta").write_text(json.dumps(MCMETA, indent=2) + "\n", encoding="utf-8")
+
+    MODEL_DIR.mkdir(parents=True, exist_ok=True)
+    MODEL.write_text(json.dumps(static_block_model(), indent=2) + "\n", encoding="utf-8")
+    BLOCKSTATE.write_text(json.dumps({
+        "variants": {"": {"model": "pysift:block/soul_crystal_block/soul_crystal_block"}}
+    }, indent=2) + "\n", encoding="utf-8")
+
+    g = Image.open(GOLEM).convert("RGBA")
+    g.paste(shell_f0[0], SHELL_UV)
+    core_12 = core_f0[0].crop((2, 2, 14, 14))
+    g.paste(core_12, CORE_UV)
     g.save(GOLEM)
     GEO.write_text(json.dumps(golem_geo(json.loads(GEO.read_text(encoding="utf-8"))), indent=2) + "\n", encoding="utf-8")
-    print("applied; backups in", bk.relative_to(P))
+    print("applied soul crystal textures, models, and golem head; backups in", bk.relative_to(P))
 
 
 if __name__ == "__main__":

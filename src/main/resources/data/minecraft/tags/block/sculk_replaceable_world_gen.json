@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:void_stone_tiles",
+    "pysift:cracked_void_stone_bricks",
+    "pysift:cracked_void_stone_tiles",
+    "pysift:polished_void_stone",
+    "pysift:smooth_ash_marble"
+  ]
+}

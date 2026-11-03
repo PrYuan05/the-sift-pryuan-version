@@ -134,6 +134,8 @@ public final class ModVegetation {
     // 藤蔓與攀牆葉：貼在牆面上（SiftWallPlantBlock，生成在岩壁上）；靈魂藤是地面的十字植物
     public static final Block GREEN_SIFT_VINE = register("green_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
     public static final Block ORANGE_SIFT_VINE = register("orange_sift_vine", p -> new SiftWallPlantBlock(p.noOcclusion()), Blocks.VINE, false);
+    /** 腐化藤蔓：六面可貼附，依放置次數將 corruption 從 0 -> 1 -> 2 -> 3 升級。 */
+    public static final Block CORRUPTED_VINE = register("corrupted_vine", p -> new CorruptedVineBlock(p.noOcclusion()), Blocks.VINE, false);
     // 劈裂草、隙浮小麥、黃色落葉
     public static final Block CLEAVER_PLANT = register("cleaver_plant", BushBlock::new, Blocks.BUSH, false);
     public static final Block SOUL_CLEAVER_PLANT = register("soul_cleaver_plant", p -> new BushBlock(p.lightLevel(state -> 8)), Blocks.BUSH, false);

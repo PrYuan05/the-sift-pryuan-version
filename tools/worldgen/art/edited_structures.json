@@ -1,13 +1,17 @@
 [
  "abyss_obelisk",
  "dune_tomb",
+ "echo_den/hub",
  "fossil/claw",
  "fossil/rib_arch",
  "fossil/skull",
  "fossil/spine",
  "humbler_husk",
  "lullaby_shrine",
+ "portal/caldera",
  "portal/dune",
+ "portal/lullaby",
+ "portal/silted",
  "strata_shrine",
  "willow_hut"
 ]

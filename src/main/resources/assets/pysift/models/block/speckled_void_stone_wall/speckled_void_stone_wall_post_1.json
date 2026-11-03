@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_post",
-  "textures": {
-    "wall": "pysift:block/void_stone/void_stone_g"
-  }
-}

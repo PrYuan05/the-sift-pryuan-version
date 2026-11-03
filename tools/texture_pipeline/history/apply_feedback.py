@@ -186,9 +186,9 @@ write_block("framed_dark_slate", "cube", [], {"": [DS["a"]]}, "DEEPSLATE", TOOL[
 write_block("blotched_dark_slate", "cube", [], {"": [DS["e"]]}, "DEEPSLATE", TOOL["dark_slate"], "斑紋深色板岩")
 
 VS = {l: ref("void_stone", l) for l in "abcdefghi"}
-write_block("umber_void_stone", "cube", [], {"": [VS["a"]]}, MAT["void_stone"], TOOL["void_stone"], "褐色虛黑岩")
+write_block("ember_basalt", "cube", [], {"": [VS["a"]]}, MAT["void_stone"], TOOL["void_stone"], "褐色虛黑岩")
 write_block("void_stone_bricks", "cube", [], {"": [VS["b"], VS["d"]]}, MAT["void_stone"], TOOL["void_stone"], "虛黑岩磚")
-write_block("speckled_void_stone", "cube", [], {"": [VS["g"]]}, MAT["void_stone"], TOOL["void_stone"], "斑點虛黑岩")
+write_block("speckled_ember_stone", "cube", [], {"": [VS["g"]]}, MAT["void_stone"], TOOL["void_stone"], "斑點虛黑岩")
 
 
 # ---------- facing (grass-block style) and pillar blocks ----------

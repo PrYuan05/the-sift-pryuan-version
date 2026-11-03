@@ -195,6 +195,7 @@ public class BlubEntity extends TamableAnimal implements GeoEntity {
             if (path.contains("crimson_strata_canyon") || path.contains("lullaby_hills")) return Variant.RAVINES;
             if (path.contains("willow_grove")) return random.nextBoolean() ? Variant.MEADOWS : Variant.SOUL_ENGORGED;
             if (path.contains("violet_slate_abyss")) return Variant.FUNGAL;
+            if (path.contains("soul_caldera")) return Variant.SOUL_ENGORGED;
             // 原版維度生成的適配
             if (path.contains("soul_sand")) return Variant.SOUL_ENGORGED;
             if (path.contains("desert") || path.contains("badlands") || path.contains("savanna")) return Variant.CARAPACE;

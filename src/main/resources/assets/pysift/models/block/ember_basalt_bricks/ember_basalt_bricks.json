@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/ember_basalt_bricks/ember_basalt_bricks"
+  }
+}

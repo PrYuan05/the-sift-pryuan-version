@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/ember_basalt_brick_slab/ember_basalt_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/ember_basalt_bricks/ember_basalt_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/ember_basalt_brick_slab/ember_basalt_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

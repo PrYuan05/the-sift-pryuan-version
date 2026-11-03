@@ -68,14 +68,26 @@ public class ModBlocks {
     }
 
     /** fallingDust：不為 null 時是會受重力掉落的砂（ColoredFallingBlock），值為落下時的粉塵顏色 RGB。 */
-    record Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties, Integer fallingDust) {
+    /** glowLevel：不為 null 時方塊發光；有整數屬性的在值 ≥ glowFrom 時發出 glowLevel 的光（例如熔脈板岩 vein 2、3），沒有屬性的一直發光。 */
+    record Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties, Integer fallingDust,
+               Integer glowLevel, int glowFrom) {
         Def(String name, Mat mat, SiftStateBlock.Shape shape, List<Property<?>> properties) {
-            this(name, mat, shape, properties, null);
+            this(name, mat, shape, properties, null, null, 0);
         }
 
         /** 像原版砂一樣受重力影響（下方是空氣或液體時掉落）。 */
         Def falling(int dustRgb) {
-            return new Def(name, mat, shape, properties, dustRgb);
+            return new Def(name, mat, shape, properties, dustRgb, glowLevel, glowFrom);
+        }
+
+        /** 一直發光（沒有整數屬性的方塊）。 */
+        Def glow(int level) {
+            return new Def(name, mat, shape, properties, fallingDust, level, 0);
+        }
+
+        /** 整數屬性 ≥ from 時發光。 */
+        Def glow(int level, int from) {
+            return new Def(name, mat, shape, properties, fallingDust, level, from);
         }
 
         Def intProp(String property, int min, int max) {
@@ -95,7 +107,7 @@ public class ModBlocks {
         private Def with(Property<?> property) {
             List<Property<?>> list = new ArrayList<>(properties);
             list.add(property);
-            return new Def(name, mat, shape, List.copyOf(list), fallingDust);
+            return new Def(name, mat, shape, List.copyOf(list), fallingDust, glowLevel, glowFrom);
         }
     }
 
@@ -116,7 +128,7 @@ public class ModBlocks {
     private static final List<Def> DEFS = List.of(
             // ===== 遞增／複合方塊 =====
             block("rune_slate", Mat.DEEPSLATE).intProp("charge", 0, 2),
-            block("aurum_ore", Mat.STONE).intProp("richness", 0, 1),
+            block("aurum_ore", Mat.STONE).intProp("richness", 0, 4),
             block("patina_ore", Mat.STONE).intProp("oxidation", 0, 1),
             block("crimson_vein_stone", Mat.STONE).intProp("crimson_spread", 0, 4),
             block("amber_vein_stone", Mat.STONE).intProp("amber_spread", 0, 3),
@@ -135,9 +147,7 @@ public class ModBlocks {
             block("wilting_foliage", Mat.GRAVEL).intProp("wither", 0, 3),
             block("teal_deep_block", Mat.STONE).intProp("depth", 0, 2),
             block("rusted_dark_cobble", Mat.STONE).intProp("rust", 0, 3),
-            block("corrupted_slate", Mat.DEEPSLATE).intProp("corruption", 0, 3),
-            block("corrupted_slate_bricks", Mat.DEEPSLATE).intProp("corruption", 0, 2),
-            block("magma_vein_slate", Mat.STONE).intProp("vein", 0, 2),
+            block("magma_vein_slate", Mat.STONE).intProp("vein", 0, 3).glow(7, 2),   // vein 2：發光的岩漿裂隙、vein 3：完全被岩漿侵入
             block("frost_veined_stone", Mat.STONE).enumProp("tint", SiftStateProperties.Tint.class).intProp("veins", 0, 2), // TODO: verify — 未繪製的 4 種 tint/veins 組合暫借 tint=none,veins=0 的模型
             block("cobbled_dirt", Mat.GRAVEL).intProp("stone", 0, 5),
             block("mossy_cobblestone", Mat.STONE).intProp("moss", 0, 2),
@@ -194,16 +204,13 @@ public class ModBlocks {
             facing("olive_capped_mossy_olive_earth", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 mossy_olive_earth_moss2）
             facing("gray_capped_sky_block", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 sky_block_cloud2）
             facing("teal_capped_teal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_c）
-            facing("crimson_capped_violet_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_b）
-            facing("streaked_crimson_capped_violet_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 violet_strata_c）
 
             // ===== 隨機池回饋第二輪：新方塊 =====
             block("varied_dark_slate", Mat.DEEPSLATE).tones("gray", "mottled", "violet"),
             block("framed_dark_slate", Mat.DEEPSLATE),
             block("blotched_dark_slate", Mat.DEEPSLATE),
-            block("umber_void_stone", Mat.STONE),
+            block("ember_basalt", Mat.STONE),
             block("void_stone_bricks", Mat.STONE),
-            block("speckled_void_stone", Mat.STONE),
             facing("canyon_capped_crimson_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 crimson_strata_i，rot90）
             facing("bright_teal_capped_teal_strata", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 teal_strata_g，rot90）
             facing("gray_capped_void_stone", Mat.STONE), // TODO: verify texture pairing — 頂面／底面為色彩相近的推測配對（來源 void_stone_i，none）
@@ -227,13 +234,11 @@ public class ModBlocks {
             block("veined_crimson_stone", Mat.STONE),
             block("veined_teal_stone", Mat.STONE).tones("teal", "mottled"),
             block("violet_marble", Mat.STONE),
-            block("argent_ore", Mat.STONE),
             block("aurum_lapis_ore", Mat.STONE),
             block("circle_slate", Mat.DEEPSLATE),
             block("framed_slate", Mat.DEEPSLATE),
             block("labyrinth_marble", Mat.STONE),
             block("labyrinth_marble_core", Mat.STONE),
-            block("red_sculk_vein_bottom", Mat.STONE),
             block("rose_quartz_ore", Mat.STONE),
             block("spiral_carved_stone", Mat.STONE),
             block("teal_water_block", Mat.STONE),
@@ -271,7 +276,6 @@ public class ModBlocks {
             "ash_marble",
             "teal_deep_block",
             "rusted_dark_cobble",
-            "corrupted_slate",
             "magma_vein_slate",
             "frost_veined_stone",
             "mossy_cobblestone",
@@ -279,8 +283,7 @@ public class ModBlocks {
             "mossy_olive_earth",
             "varied_dark_slate",
             "blotched_dark_slate",
-            "umber_void_stone",
-            "speckled_void_stone",
+            "ember_basalt",
             "dark_slate",
             "crimson_strata",
             "gray_strata",
@@ -358,6 +361,16 @@ public class ModBlocks {
         ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(def.name()));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(def.name()));
         BlockBehaviour.Properties properties = def.mat().properties().setId(blockKey);
+        if (def.glowLevel() != null) {
+            int level = def.glowLevel();
+            IntegerProperty stage = (IntegerProperty) def.properties().stream().filter(p -> p instanceof IntegerProperty).findFirst().orElse(null);
+            if (stage == null) {
+                properties.lightLevel(state -> level);
+            } else {
+                int from = def.glowFrom();
+                properties.lightLevel(state -> state.getValue(stage) >= from ? level : 0);
+            }
+        }
         boolean plainCube = def.shape() == SiftStateBlock.Shape.CUBE && def.properties().isEmpty();
         Block block = def.fallingDust() != null && plainCube ? new ColoredFallingBlock(new ColorRGBA(0xFF000000 | def.fallingDust()), properties)
                 : SurfaceDecay.isSurfaceName(def.name()) && plainCube ? new SiftStateBlock.SurfaceCube(properties)   // 會退化的地表立方體

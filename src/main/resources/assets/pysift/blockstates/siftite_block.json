@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/siftite_block/siftite_block"
+    }
+  }
+}

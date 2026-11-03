@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:gradient",
+  "axis": "x",
+  "tiling": "repeat",
+  "from_coordinate": 0,
+  "to_coordinate": 256,
+  "from_value": -128.0,
+  "to_value": 128.0
+}

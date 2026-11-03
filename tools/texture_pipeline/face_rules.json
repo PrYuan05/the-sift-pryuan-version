@@ -26,7 +26,6 @@
     "honey_planks",
     "rosewood_planks",
     "walnut_planks",
-    "argent_ore",
     "aurum_ore",
     "aurum_lapis_ore",
     "rose_quartz_ore",
@@ -39,7 +38,6 @@
     "framed_dark_slate",
     "sky_block",
     "teal_water_block",
-    "red_sculk_vein_bottom",
     "dense_foliage_block"
   ],
   "max_band_delta": 5.0,

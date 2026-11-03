@@ -27,7 +27,8 @@ public class ModSounds {
      * The Sift 各生態域的背景音樂與環境音（music.the_sift.&lt;生態域&gt;、ambient.the_sift.&lt;生態域&gt;.loop／mood／additions），
      * 由生態域 JSON 的 audio attributes 引用；sounds.json 目前指向原版音樂與環境音（tools/worldgen/build_sift_audio.py）。
      */
-    public static final List<String> SIFT_BIOMES = List.of("willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills");
+    public static final List<String> SIFT_BIOMES = List.of("willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills",
+            "soul_caldera");
 
     static {
         for (String biome : SIFT_BIOMES) {

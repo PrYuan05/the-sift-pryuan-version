@@ -18,6 +18,9 @@
     "pysift:abyssal_strata",
     "pysift:dark_slate",
     "pysift:silted_strata",
-    "pysift:capped_crimson_vein_stone"
+    "pysift:capped_crimson_vein_stone",
+    "pysift:ember_basalt",
+    "pysift:rusted_dark_cobble",
+    "pysift:gray_capped_void_stone"
   ]
 }

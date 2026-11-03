@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:sqrt",
+    "input": {
+      "type": "minecraft:add",
+      "left": {
+        "type": "minecraft:square",
+        "input": {
+          "type": "minecraft:add",
+          "left": "pysift:the_sift/terrain/volcano_dx",
+          "right": {
+            "type": "minecraft:mul",
+            "left": -1.0,
+            "right": "pysift:the_sift/terrain/volcano_jx"
+          }
+        }
+      },
+      "right": {
+        "type": "minecraft:square",
+        "input": {
+          "type": "minecraft:add",
+          "left": "pysift:the_sift/terrain/volcano_dz",
+          "right": {
+            "type": "minecraft:mul",
+            "left": -1.0,
+            "right": "pysift:the_sift/terrain/volcano_jz"
+          }
+        }
+      }
+    }
+  }
+}

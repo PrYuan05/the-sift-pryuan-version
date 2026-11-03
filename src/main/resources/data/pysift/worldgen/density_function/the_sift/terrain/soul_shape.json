@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:add",
+  "left": "pysift:the_sift/terrain/soul_rifted",
+  "right": {
+    "type": "minecraft:mul",
+    "left": "pysift:the_sift/terrain/soul_core",
+    "right": {
+      "type": "minecraft:add",
+      "left": "pysift:the_sift/terrain/soul_cone",
+      "right": {
+        "type": "minecraft:mul",
+        "left": -1.0,
+        "right": "pysift:the_sift/terrain/soul_rifted"
+      }
+    }
+  }
+}

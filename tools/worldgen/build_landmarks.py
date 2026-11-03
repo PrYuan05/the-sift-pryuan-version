@@ -156,7 +156,7 @@ def den_stone(t):
         return "void_stone_bricks"
     if r < 0.92:
         return "abyssal_strata_bricks"
-    return "corrupted_slate_bricks"
+    return "chiseled_dark_slate_bricks"
 
 
 def den_floor(t):
@@ -669,8 +669,10 @@ for name, design in TEMPLATES.items():
     f = D / f"structure/{name}.nbt"
     f.parent.mkdir(parents=True, exist_ok=True)
     f.write_bytes(t.to_nbt())
-# the order /pysift_showcase lays them out in (read by StructureShowcase.java)
-wj(D / "structure_showcase/landmarks.json", {"templates": [f"pysift:{n}" for n in TEMPLATES]})
+# the order /pysift_showcase lays them out in (read by StructureShowcase.java); the arrival portals
+# (tools/worldgen/build_portal_designs.py, one per biome palette) come last so the user can fix them in game too
+PORTALS = sorted(f"portal/{f.stem}" for f in (D / "structure/portal").glob("*.nbt"))
+wj(D / "structure_showcase/landmarks.json", {"templates": [f"pysift:{n}" for n in list(TEMPLATES) + PORTALS]})
 
 
 # ------------------------------------------------------------------ jigsaw pools and structures
@@ -690,7 +692,7 @@ pool("echo_den/caps", [("echo_den/cap", 1)])
 pool("humbler_husk", [("humbler_husk", 1)])
 
 SIFT_BIOMES = ["pysift:crimson_strata_canyon", "pysift:violet_slate_abyss", "pysift:willow_grove", "pysift:amber_dunes",
-               "pysift:red_zone_caves", "pysift:lullaby_hills"]
+               "pysift:red_zone_caves", "pysift:lullaby_hills", "pysift:soul_caldera"]
 STRUCTURES = {
     # name: (structure json, biomes, spacing, separation, salt)
     "echo_den": ({"type": "minecraft:jigsaw", "start_pool": "pysift:echo_den/hub", "size": 7, "max_distance_from_center": 96,

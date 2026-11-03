@@ -91,7 +91,9 @@ TAGS = {  # vanilla tag -> entries to add
                                   "crimson_strata", "ash_capped_violet", "violet_strata", "crimson_capped_void_stone",
                                   "canyon_capped_crimson_strata", "amber_sand", "pale_sand", "capped_crimson_vein_stone",
                                   "grove_capped_crimson_strata", "violet_capped_dark_slate", "capped_crimson_strata",
-                                  "abyssal_strata", "dark_slate", "silted_strata"],
+                                  "abyssal_strata", "dark_slate", "silted_strata",
+                                  # Soul Caldera floors (not the magma veins)
+                                  "ember_basalt", "rusted_dark_cobble", "gray_capped_void_stone"],
     "fluid/water": ["spirit_liquid", "flowing_spirit_liquid"],
 }
 

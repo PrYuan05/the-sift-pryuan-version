@@ -17,6 +17,9 @@ How The Sift's terrain is built and how to change it safely. Everything is data 
 - Ask (AskUserQuestion) only what changes the build: where the biome goes / what it replaces, wall height, material
   order (e.g. light at the wall foot -> gold at the water), which texture stages to touch. Then write a plan.
 
+- Before designing, draft a short formation history for the biome (what happened here) and make every landform and
+  material band traceable to it - see `references/geology_storytelling.md` (notes from a geology-simulation video).
+
 ## 2. Where things live in build_the_sift.py
 | piece | what to edit |
 | :--- | :--- |

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/patina_block/patina_block"
+    }
+  }
+}

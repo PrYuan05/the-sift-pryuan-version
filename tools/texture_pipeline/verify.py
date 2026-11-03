@@ -44,7 +44,7 @@ sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/VoidStoneF
 sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/StoneFamilies.java").read_text(encoding="utf-8"))     if (_blk / "block/StoneFamilies.java").exists() else []
 veg_ids += sandstone_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
-for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java", "block/SoulSiftAxle.java"):
+for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBlocks.java"):
     if (_blk / _extra).exists():
         veg_ids += re.findall(r'Registries\.BLOCK, PySift\.id\("([a-z0-9_]+)"\)', (_blk / _extra).read_text(encoding="utf-8"))
 # phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)
@@ -55,6 +55,10 @@ _colors = _blk / "block/SiftColors.java"
 if _colors.exists():
     _src = _colors.read_text(encoding="utf-8")
     veg_ids += [f"{c}_{k}" for c in re.findall(r'[A-Z_]+\("([a-z_]+)", 0x', _src) for k in re.findall(r'block(?:Only)?\(c, "([a-z_]+)"', _src)]
+# soul power blocks (soulpower/SoulPower.java, resources from tools/progression/build_soul_power.py)
+_power = _blk / "soulpower/SoulPower.java"
+if _power.exists():
+    veg_ids += re.findall(r'= register\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
 out["vegetation_and_fluid_blocks"] = len(veg_ids)
 all_ids = ids + set_ids + veg_ids
 enum_vals = {}

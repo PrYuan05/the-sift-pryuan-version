@@ -1,0 +1,7 @@
+{
+  "parent": "pysift:block/templates/cube_all_glow",
+  "textures": {
+    "all": "pysift:block/magma_vein_slate/magma_vein_slate_dyke3_b",
+    "glow": "pysift:block/magma_vein_slate/magma_vein_slate_dyke3_b_glow"
+  }
+}

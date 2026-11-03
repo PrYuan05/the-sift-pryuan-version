@@ -1,0 +1,284 @@
+{
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "pysift:the_sift/terrain/volcano_distance",
+    "points": [
+      {
+        "location": 0,
+        "value": -0.125,
+        "derivative": 0.0
+      },
+      {
+        "location": 13,
+        "value": -0.125,
+        "derivative": 0.0
+      },
+      {
+        "location": 20,
+        "value": 0.0,
+        "derivative": 0.0
+      },
+      {
+        "location": 23,
+        "value": 0.0078125,
+        "derivative": 0.0
+      },
+      {
+        "location": 34,
+        "value": -0.078125,
+        "derivative": 0.0
+      },
+      {
+        "location": 52,
+        "value": -0.21875,
+        "derivative": 0.0
+      },
+      {
+        "location": 78,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/soul_rift",
+          "points": [
+            {
+              "location": 0.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.453125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.022,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.453125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.028,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.4296875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3828125,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.045,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.4296875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3828125,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.051,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.359375,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.359375,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      },
+      {
+        "location": 256,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/soul_rift",
+          "points": [
+            {
+              "location": 0.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.453125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.022,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.453125,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.028,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.4296875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3828125,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.045,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.4296875,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.3828125,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 0.051,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.359375,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": {
+                "coordinate": "pysift:the_sift/terrain/hills",
+                "points": [
+                  {
+                    "location": -1.0,
+                    "value": -0.40625,
+                    "derivative": 0.0
+                  },
+                  {
+                    "location": 1.0,
+                    "value": -0.359375,
+                    "derivative": 0.0234375
+                  }
+                ]
+              },
+              "derivative": 0.0
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
+}

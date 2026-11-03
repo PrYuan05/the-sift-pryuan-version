@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/ember_basalt_bricks/chiseled_ember_basalt_bricks_top",
+    "side": "pysift:block/ember_basalt_bricks/chiseled_ember_basalt_bricks"
+  }
+}

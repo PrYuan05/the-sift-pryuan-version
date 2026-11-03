@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:raw_patina_block"
+  ],
+  "result": {
+    "id": "pysift:raw_patina",
+    "count": 9
+  }
+}

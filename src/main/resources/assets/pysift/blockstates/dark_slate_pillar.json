@@ -2,36 +2,18 @@
   "variants": {
     "axis=y": [
       {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_1",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
-        "weight": 1
+        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar"
       }
     ],
     "axis=z": [
       {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_1",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
-        "weight": 1,
+        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar",
         "x": 90
       }
     ],
     "axis=x": [
       {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_1",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar_2",
-        "weight": 1,
+        "model": "pysift:block/dark_slate_pillar/dark_slate_pillar",
         "x": 90,
         "y": 90
       }

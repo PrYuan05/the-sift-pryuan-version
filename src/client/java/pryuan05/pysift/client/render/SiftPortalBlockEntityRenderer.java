@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.block.entity.SiftPortalBlockEntity;
@@ -22,9 +23,10 @@ import pryuan05.pysift.block.entity.SiftPortalBlockEntity;
  *   <li>亮白珠光大畫布：對所有未被同類方塊遮擋的暴露面（前後左右上下），
  *       以世界座標連續對齊取樣並疊加兩層反向正弦流光；法線統一頂向天頂，消除水平漫反射陰暗。</li>
  *   <li>內側破曉金白光環：沿暴露面外圍邊緣向內漸層發光。</li>
- *   <li>外溢聖光束：向傳送門外側空域輻射，不遮擋門面本體。</li>
- *   <li>夜晚：光芒拉長、邊框轉粉金，門前後浮出一層光霧，地上鋪一片光。</li>
+ *   <li>外溢光束：從門與門框的交界往門前後射出（沿門面法線），只在邊緣，不會平貼在門框上。</li>
+ *   <li>夜晚：光束拉長、邊框轉粉金，門面上浮出一層光霧。</li>
  * </ol>
+ * 使用者：外溢的光只能出現在門與其他方塊的交界，不能蓋到門框和地面上。
  */
 public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPortalBlockEntity, SiftPortalRenderState> {
     private static final Identifier CANVAS = Identifier.fromNamespaceAndPath("pysift", "textures/block/sift_portal_large_canvas.png");
@@ -48,18 +50,26 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
         state.seed = pos.asLong();
         state.time = level == null ? 0 : (level.getGameTime() + partialTick) * 0.003f;
         state.night = pryuan05.pysift.block.SiftDayPhase.night(level);   // 夜晚：更亮、偏粉紅與金黃
+        state.axisX = portal.getBlockState().getValue(pryuan05.pysift.block.SiftPortalBlock.AXIS) == net.minecraft.core.Direction.Axis.X;
         state.faceUp = !isPortal(level, pos.above());
         state.faceDown = !isPortal(level, pos.below());
         state.faceNorth = !isPortal(level, pos.north());
         state.faceSouth = !isPortal(level, pos.south());
         state.faceWest = !isPortal(level, pos.west());
         state.faceEast = !isPortal(level, pos.east());
-        // 被門框（不透光的整塊）貼住的面看不到，畫布就不畫（邊框光仍然要知道哪裡是邊）
+        // 不畫畫布的面（邊框光仍然要知道哪裡是邊）：
+        //  - 門面前後兩面：被不透光的整塊貼住才不畫；
+        //  - 門的頂、底和兩端（和門面垂直的面）：旁邊只要有方塊就不畫。牆、半磚、柵欄這類不完整的方塊有縫，
+        //    以前這些面會從縫裡透出一整片白光（使用者回報）；只有旁邊真的是空氣（門框缺一塊）才畫。
         state.covered = 0;
-        net.minecraft.core.Direction[] dirs = net.minecraft.core.Direction.values();
-        for (int i = 0; i < dirs.length; i++) {
-            if (level != null && level.getBlockState(pos.relative(dirs[i])).canOcclude()) {
-                state.covered |= 1 << dirs[i].ordinal();
+        for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) {
+            if (level == null) {
+                break;
+            }
+            BlockState neighbour = level.getBlockState(pos.relative(dir));
+            boolean face = dir.getAxis() == (state.axisX ? net.minecraft.core.Direction.Axis.Z : net.minecraft.core.Direction.Axis.X);
+            if (face ? neighbour.canOcclude() : !neighbour.isAir() && !neighbour.is(ModBlocks.SIFT_PORTAL)) {
+                state.covered |= 1 << dir.ordinal();
             }
         }
     }
@@ -143,9 +153,12 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
     }
 
     // ------------------------------------------------------------------ shared: the portal's own frame of reference
-    /** 門面沿 X 軸（南北兩面露出）還是沿 Z 軸（東西兩面露出）。 */
+    /**
+     * 門面沿 X 軸還是沿 Z 軸：讀方塊的 axis。以前用「南北面有沒有露出」來猜，沿 Z 軸的門最兩端那一排南北面貼著門框，
+     * 會被猜成沿 X 軸，光環和光束畫到垂直的面上，看起來那兩排沒有光、光環卻出現在第二排。
+     */
     private static boolean axisX(SiftPortalRenderState s) {
-        return s.faceSouth || s.faceNorth;
+        return s.axisX;
     }
 
     /** 門面左（u = 0）、右（u = 1）兩側是否露出。 */
@@ -201,7 +214,11 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
         }
     }
 
-    // ------------------------------------------------------------------ layer 3: god rays spilling out of the rim
+    // ------------------------------------------------------------------ layer 3: rays spilling out at the rim
+    /**
+     * 每條光束從邊緣那條線出發，主要沿門面法線往外射（len），往門框方向只張開一點（SPREAD），
+     * 所以從正面看光只在交界上，從側面看才看得到它射出去的長度。以前光束沿著門面往上下左右平躺，整片蓋在門框上。
+     */
     private static void godRays(SiftPortalRenderState s, PoseStack.Pose pose, VertexConsumer vc) {
         boolean ax = axisX(s), left = leftOpen(s), right = rightOpen(s);
         if (!s.faceUp && !s.faceDown && !left && !right) {
@@ -209,48 +226,33 @@ public class SiftPortalBlockEntityRenderer implements BlockEntityRenderer<SiftPo
         }
         float n = s.night;
         float breathe = (float) Math.sin(s.time * 1.5f * 60.0f + (s.seed % 1000));
-        float len = (0.85f + 0.20f * breathe) * (1.0f + 2.0f * n);   // 夜晚光芒長到快三倍
+        float len = (0.55f + 0.15f * breathe) * (1.0f + 1.5f * n);   // 夜晚光束更長
+        float spread = 0.12f + 0.08f * n;
         int root = argb((int) (110 + 120 * n), 255, (int) (250 - 90 * n), (int) (225 + 10 * n));
         int tip = argb(0, 255, (int) (240 - 80 * n), (int) (200 + 30 * n));
         for (int side = 0; side < 2; side++) {
             float d = side == 0 ? 1.0f : 0.0f;
-            float out = side == 0 ? d + 0.15f + 0.25f * n : d - 0.15f - 0.25f * n;
-            if (s.faceUp) quad(vc, pose, ax, root, tip, 0, 1, d, 1, 1, d, 1, 1 + len, out, 0, 1 + len, out);
-            if (s.faceDown) quad(vc, pose, ax, root, tip, 1, 0, d, 0, 0, d, 0, -len, out, 1, -len, out);
-            if (left) quad(vc, pose, ax, root, tip, 0, 0, d, 0, 1, d, -len, 1, out, -len, 0, out);
-            if (right) quad(vc, pose, ax, root, tip, 1, 1, d, 1, 0, d, 1 + len, 0, out, 1 + len, 1, out);
+            float out = side == 0 ? d + len : d - len;
+            if (s.faceUp) quad(vc, pose, ax, root, tip, 0, 1, d, 1, 1, d, 1, 1 + spread, out, 0, 1 + spread, out);
+            if (s.faceDown) quad(vc, pose, ax, root, tip, 1, 0, d, 0, 0, d, 0, -spread, out, 1, -spread, out);
+            if (left) quad(vc, pose, ax, root, tip, 0, 0, d, 0, 1, d, -spread, 1, out, -spread, 0, out);
+            if (right) quad(vc, pose, ax, root, tip, 1, 1, d, 1, 0, d, 1 + spread, 0, out, 1 + spread, 1, out);
         }
     }
 
-    // ------------------------------------------------------------------ layer 4 (night only): glow haze and ground light
-    /**
-     * 入夜後門前後各浮出一層粉金色的光霧，外緣往外淡出；最底下一排還會在地上鋪一片往外淡出的光（照亮門前的台階）。
-     * 效能：光霧只有一層（整面半透明的層數越多，貼近門時要填的像素越多）。
-     */
+    // ------------------------------------------------------------------ layer 4 (night only): glow haze on the face
+    /** 入夜後門面上浮出一層粉金色的光霧，貼著門面，不超出傳送門的格子。 */
     private static void nightGlow(SiftPortalRenderState s, PoseStack.Pose pose, VertexConsumer vc) {
         float n = s.night;
         if (n <= 0.02f) {
             return;
         }
-        boolean ax = axisX(s), left = leftOpen(s), right = rightOpen(s);
+        boolean ax = axisX(s);
         float pulse = 0.8f + 0.2f * (float) Math.sin(s.time * 60.0f + (s.seed % 997) * 0.01f);
-        float fade = 0.9f;   // 外緣淡出的寬度
         int in = argb((int) (95 * n * pulse), 255, 150, 220);
-        int out = argb(0, 255, 190, 150);
         for (int side = 0; side < 2; side++) {
-            float d = side == 0 ? 1.45f : -0.45f;
+            float d = side == 0 ? 1.002f : -0.002f;
             quad(vc, pose, ax, in, in, 0, 0, d, 1, 0, d, 1, 1, d, 0, 1, d);
-            if (s.faceUp) quad(vc, pose, ax, in, out, 0, 1, d, 1, 1, d, 1, 1 + fade, d, 0, 1 + fade, d);
-            if (left) quad(vc, pose, ax, in, out, 0, 0, d, 0, 1, d, -fade, 1, d, -fade, 0, d);
-            if (right) quad(vc, pose, ax, in, out, 1, 1, d, 1, 0, d, 1 + fade, 0, d, 1 + fade, 1, d);
-        }
-        if (s.faceDown) {
-            int root = argb((int) (150 * n * pulse), 255, 170, 225);
-            int tip = argb(0, 255, 210, 160);
-            float y = 0.02f, reach = 3.0f;
-            float l = left ? -0.6f : 0.0f, r = right ? 1.6f : 1.0f;
-            quad(vc, pose, ax, root, tip, l, y, 1, r, y, 1, r, y, 1 + reach, l, y, 1 + reach);
-            quad(vc, pose, ax, root, tip, l, y, 0, r, y, 0, r, y, -reach, l, y, -reach);
         }
     }
 }

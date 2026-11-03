@@ -959,56 +959,94 @@
                   {
                     "location": -0.55,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1018,56 +1056,94 @@
                   {
                     "location": 0.2,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1077,36 +1153,94 @@
                   {
                     "location": 0.24,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1116,36 +1250,94 @@
                   {
                     "location": 1.0,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1183,56 +1375,94 @@
                   {
                     "location": -0.55,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1242,56 +1472,94 @@
                   {
                     "location": 0.2,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1301,36 +1569,94 @@
                   {
                     "location": 0.24,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1340,36 +1666,94 @@
                   {
                     "location": 1.0,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1744,56 +2128,94 @@
                   {
                     "location": -0.55,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1803,56 +2225,94 @@
                   {
                     "location": 0.2,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1862,36 +2322,94 @@
                   {
                     "location": 0.24,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1901,36 +2419,94 @@
                   {
                     "location": 1.0,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -1968,56 +2544,94 @@
                   {
                     "location": -0.55,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -2027,56 +2641,94 @@
                   {
                     "location": 0.2,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
-                          "value": -0.484375,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.55,
-                          "value": -0.484375,
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.45,
-                          "value": -0.4375,
+                          "location": 0.048,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.15,
-                          "value": -0.4375,
+                          "location": 0.13,
+                          "value": -0.390625,
                           "derivative": 0.0
                         },
                         {
-                          "location": -0.05,
-                          "value": -0.3828125,
+                          "location": 0.138,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.25,
-                          "value": -0.3828125,
+                          "location": 0.22,
+                          "value": -0.3046875,
                           "derivative": 0.0
                         },
                         {
-                          "location": 0.35,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.6,
-                          "value": -0.3203125,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.7,
-                          "value": -0.25,
+                          "location": 0.228,
+                          "value": -0.21875,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.25,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -2086,36 +2738,94 @@
                   {
                     "location": 0.24,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
@@ -2125,36 +2835,94 @@
                   {
                     "location": 1.0,
                     "value": {
-                      "coordinate": "pysift:the_sift/terrain/hills",
+                      "coordinate": "pysift:the_sift/terrain/buttes",
                       "points": [
                         {
                           "location": -1.0,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.04,
+                          "value": {
+                            "coordinate": "pysift:the_sift/terrain/hoodoos",
+                            "points": [
+                              {
+                                "location": -1.0,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.45,
+                                "value": -0.484375,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 0.47000000000000003,
+                                "value": -0.328125,
+                                "derivative": 0.0
+                              },
+                              {
+                                "location": 1.0,
+                                "value": -0.25,
+                                "derivative": 0.0
+                              }
+                            ]
+                          },
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.048,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.13,
+                          "value": -0.390625,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.138,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.22,
+                          "value": -0.3046875,
+                          "derivative": 0.0
+                        },
+                        {
+                          "location": 0.228,
                           "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.35,
-                          "value": -0.21875,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": -0.25,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.3,
-                          "value": -0.1484375,
-                          "derivative": 0.0
-                        },
-                        {
-                          "location": 0.4,
-                          "value": -0.078125,
                           "derivative": 0.0
                         },
                         {
                           "location": 1.0,
-                          "value": -0.078125,
+                          "value": -0.21875,
                           "derivative": 0.0
                         }
                       ]
