@@ -61,6 +61,18 @@ public class ResonantJukeboxBlockEntity extends BlockEntity {
         sync();
     }
 
+    /** 把唱片彈出來（八音走調時）。 */
+    public void ejectDisc() {
+        if (level instanceof ServerLevel server && !disc.isEmpty()) {
+            net.minecraft.world.entity.item.ItemEntity item = new net.minecraft.world.entity.item.ItemEntity(server,
+                    worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, disc);
+            item.setDeltaMovement(server.getRandom().nextGaussian() * 0.08, 0.35, server.getRandom().nextGaussian() * 0.08);
+            server.addFreshEntity(item);
+            disc = ItemStack.EMPTY;
+            sync();
+        }
+    }
+
     public BlockPos getPortalCentre() {
         return portalCentre;
     }

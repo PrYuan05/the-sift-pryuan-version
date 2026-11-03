@@ -992,8 +992,8 @@
   "item.pysift.dash_charm": "Dash Charm",
   "item.pysift.sculk_hammer": "Sculk Hammer",
   "tooltip.pysift.awakened": "✦ Awakened",
-  "tooltip.pysift.sonic_staff.use": "Right-click: sonic boom (8 damage, 15 blocks, 3 s cooldown)",
-  "tooltip.pysift.sonic_staff.use_awakened": "Right-click: wide sonic boom (12 damage, 15 blocks, 2 s cooldown)",
+  "tooltip.pysift.sonic_staff.use": "Hold right-click to chant for 0.6 s, then a sonic boom (8 damage, 15 blocks, 3 s cooldown)",
+  "tooltip.pysift.sonic_staff.use_awakened": "Hold right-click to chant for 0.6 s, then a wide sonic boom (12 damage, 15 blocks, 2 s cooldown)",
   "tooltip.pysift.sonic_staff.hit": "Hits chain to 3 nearby foes (3 damage) and inflict Soul Deprivation",
   "tooltip.pysift.sonic_staff.hit_awakened": "Hits chain to 5 nearby foes (4 damage) and inflict Soul Deprivation",
   "tooltip.pysift.dash_charm.use": "Right-click: dash, up to 2 times in a row",
@@ -1132,9 +1132,9 @@
   "message.pysift.altar.dir.here": "%s blocks above or below",
   "item.pysift.gloomcap": "Gloomcap",
   "item.pysift.sift_portal": "The Sift Portal",
-  "book.pysift.guide.page12": "The eight jukeboxes at the Ancient City are the key: break one and that portal closes. To open a portal from here, build a closed frame of Soul Crystal blocks and use an Echo Shard on it.",
+  "book.pysift.guide.page12": "The eight jukeboxes at the Ancient City are the key: break one and that portal closes. Each one's faint beam shows the disc it wants; play them out of order and the portal tears, as it did for the ancients. To open a portal from here, build a closed frame of Soul Crystal blocks and use an Echo Shard on it.",
   "block.pysift.resonant_jukebox": "Resonant Jukebox",
-  "message.pysift.ritual.wrong_disc": "This jukebox is waiting for another song...",
+  "message.pysift.ritual.wrong_disc": "This disc cannot resonate with the portal...",
   "message.pysift.ritual.disc_used": "Another jukebox is already playing that song",
   "message.pysift.ritual.progress": "%s / %s songs resonate",
   "message.pysift.ritual.already": "The jukeboxes are already in place - fill them with the eight songs",
@@ -1585,5 +1585,7 @@
   "item.pysift.siftite_block": "Block of Siftite",
   "item.pysift.raw_siftite_block": "Block of Raw Siftite",
   "item.pysift.patina_block": "Block of Patina",
-  "item.pysift.raw_patina_block": "Block of Raw Patina"
+  "item.pysift.raw_patina_block": "Block of Raw Patina",
+  "message.pysift.ritual.discord": "The eight songs fell out of tune. The portal tore open, the sculk burst out, and the Singer sang it shut again. The discs were thrown out: find the right order.",
+  "entity.pysift.sculk_maw": "Sculk Maw"
 }

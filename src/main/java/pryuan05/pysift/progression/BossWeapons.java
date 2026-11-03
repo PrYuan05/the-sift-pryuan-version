@@ -49,7 +49,13 @@ public final class BossWeapons {
             PySift.id("awakened"), DataComponentType.<Boolean>builder().persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL).build());
 
     public static final Item SONIC_STAFF = ModProgression.registerItem("sonic_staff", SonicStaffItem::new,
-            new Item.Properties().sword(SiftiteGear.TOOL, 2.0f, -2.6f).durability(1500).rarity(Rarity.EPIC));
+            // 戳刺：攻擊速度 1.1 次／秒（劍是 1.6）換來 4.5 格的攻擊距離（一般 3 格），目標碰撞箱多算 0.4 格比較容易戳中；
+            // 揮擊動作拉長到 10 tick（原版 6），收、戳、收回看得清楚（WeaponPoses 的戳刺動作照這個進度走）
+            new Item.Properties().sword(SiftiteGear.TOOL, 2.0f, -2.9f).durability(1500).rarity(Rarity.EPIC)
+                    .component(net.minecraft.core.component.DataComponents.ATTACK_RANGE,
+                            new net.minecraft.world.item.component.AttackRange(0.0f, 4.5f, 0.0f, 6.5f, 0.4f, 1.0f))
+                    .component(net.minecraft.core.component.DataComponents.ATTACK_ANIMATION,
+                            new net.minecraft.world.item.component.SwingAnimation(net.minecraft.world.item.SwingAnimationType.WHACK, 10)));
     public static final Item DASH_CHARM = ModProgression.registerItem("dash_charm", DashCharmItem::new,
             new Item.Properties().durability(600).rarity(Rarity.EPIC));
     public static final Item SCULK_HAMMER = ModProgression.registerItem("sculk_hammer", SculkHammerItem::new,
@@ -157,34 +163,15 @@ public final class BossWeapons {
     }
 
     /**
-     * 重錘留下的幽匿藤蔓：在地面長出幽匿脈絡，{@code delay} tick 後爆炸（半徑 2.5，6 點傷害、靈魂剝奪），脈絡隨之消失。
+     * 重錘留下的幽匿藤蔓：從地面竄出一個幽匿咬刺（{@link pryuan05.pysift.entity.misc.SculkMawEntity}），
+     * {@code delay} tick 後咬合炸開（半徑 2.5，6 點傷害、靈魂剝奪）。
      */
     static void plantTendril(ServerLevel level, BlockPos pos, LivingEntity owner, int delay) {
-        BlockState vein = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true);
-        boolean placed = level.getBlockState(pos).isAir() && level.getBlockState(pos.below()).isFaceSturdy(level, pos.below(), Direction.UP)
-                && level.setBlock(pos, vein, 3);
-        long end = level.getGameTime() + delay;
-        Vec3 c = Vec3.atBottomCenterOf(pos).add(0, 0.3, 0);
-        TIMED.add(now -> {
-            if (now < end) {
-                if (now % 4 == 0) {
-                    level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, c.x, c.y, c.z, 2, 0.25, 0.1, 0.25, 0.01);
-                }
-                return false;
-            }
-            if (placed && level.getBlockState(pos).is(Blocks.SCULK_VEIN)) {
-                level.removeBlock(pos, false);
-            }
-            for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(2.5), e -> isFoe(owner, e))) {
-                if (e.hurtServer(level, level.damageSources().indirectMagic(owner, owner), 6.0f)) {
-                    soulDeprive(e, owner);
-                }
-            }
-            level.sendParticles(ParticleTypes.SCULK_SOUL, c.x, c.y + 0.3, c.z, 12, 0.6, 0.4, 0.6, 0.05);
-            level.sendParticles(ParticleTypes.EXPLOSION, c.x, c.y + 0.3, c.z, 1, 0, 0, 0, 0);
-            level.playSound(null, pos, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.PLAYERS, 0.6f, 1.6f);
-            return true;
-        });
+        BlockPos ground = pos;
+        for (int i = 0; i < 3 && level.getBlockState(ground.below()).getCollisionShape(level, ground.below()).isEmpty(); i++) {
+            ground = ground.below();   // 往下找地面（砸在台階邊時）
+        }
+        pryuan05.pysift.entity.misc.SculkMawEntity.plant(level, owner, ground.getX() + 0.5, ground.getY(), ground.getZ() + 0.5, delay);
     }
 
     private static void tick() {
@@ -234,6 +221,7 @@ public final class BossWeapons {
     }
 
     static void load() {
+        DashPosePayload.register();   // 衝刺護符的雙手姿勢（客戶端 WeaponPoses）
         // 分身吃下所有傷害但不會受傷（不能用「無敵」：無敵的實體不會被怪物當成目標）
         net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
             if (entity instanceof Mannequin decoy && DECOYS.containsKey(decoy)) {

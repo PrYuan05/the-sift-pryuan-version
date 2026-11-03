@@ -18,7 +18,10 @@
 		"BannerRendererMixin",
 		"ShieldSpecialRendererMixin",
 		"ShulkerBoxRenderStateMixin",
-		"ShulkerBoxRendererMixin"
+		"ShulkerBoxRendererMixin",
+		"HumanoidModelMixin",
+		"FirstPersonHandsMixin",
+		"LivingEntitySwingMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

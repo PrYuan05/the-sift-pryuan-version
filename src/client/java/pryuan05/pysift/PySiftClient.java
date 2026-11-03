@@ -55,7 +55,11 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_cube"));
         EntityRendererRegistry.register(ModEntities.MONARCH_FEATHER, context -> new ThrownItemRenderer<>(context, 1.5f, true));
         EntityRendererRegistry.register(ModEntities.TRAPPER_NET, context -> new ThrownItemRenderer<>(context, 1.6f, false));
-        EntityRendererRegistry.register(ModEntities.SOUL_SNARE, NoopRenderer::new);   // 陷阱沒有模型，只有偶爾的靈魂微光
+        EntityRendererRegistry.register(ModEntities.SOUL_SNARE, NoopRenderer::new);
+        net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(
+                pryuan05.pysift.progression.DashPosePayload.TYPE,
+                (payload, context) -> pryuan05.pysift.client.WeaponPoses.markDash(payload.entityId()));   // 衝刺護符的雙手前刺
+        EntityRendererRegistry.register(ModEntities.SCULK_MAW, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_maw"));   // 重錘的幽匿咬刺   // 陷阱沒有模型，只有偶爾的靈魂微光
         EntityRendererRegistry.register(ModEntities.HUNTER, context -> new PysiftUniversalGeoRenderer<>(context, "hunter"));
         EntityRendererRegistry.register(ModEntities.TRAPPER, context -> new PysiftUniversalGeoRenderer<>(context, "trapper"));
         EntityRendererRegistry.register(ModEntities.BLUB, BlubRenderer::new);

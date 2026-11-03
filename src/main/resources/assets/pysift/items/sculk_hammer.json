@@ -1,6 +1,53 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "pysift:item/sculk_hammer"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:item/sculk_hammer"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "property": "minecraft:using_item",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "pysift:item/sculk_hammer_in_hand"
+      },
+      "on_true": {
+        "type": "minecraft:range_dispatch",
+        "property": "minecraft:use_duration",
+        "scale": 0.05,
+        "entries": [
+          {
+            "threshold": 0.75,
+            "model": {
+              "type": "minecraft:model",
+              "model": "pysift:item/sculk_hammer_charging_1"
+            }
+          },
+          {
+            "threshold": 2.0,
+            "model": {
+              "type": "minecraft:model",
+              "model": "pysift:item/sculk_hammer_charging_2"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "pysift:item/sculk_hammer_charging_0"
+        }
+      }
+    }
   }
 }

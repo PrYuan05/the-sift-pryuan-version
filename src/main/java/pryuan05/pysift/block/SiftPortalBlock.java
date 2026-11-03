@@ -293,23 +293,67 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
         return fallback;
     }
 
-    /** 目標維度 (x, z) 的安全落點（腳下）；優先在周圍 16 格內尋找乾燥實心地表，絕不覆蓋地形方塊。 */
+    /**
+     * 目標維度 (x, z) 的安全落點（腳下）：在周圍 LANDING_RADIUS 格內每 LANDING_STEP 格取一個候選點打分，挑最平坦、
+     * 又不是孤立高台頂端的乾燥地面（使用者回報：以前直接用最近一個能站的點，常常挑到台地或石柱頂端，到達門的坡道
+     * 就變得又高又不連貫）。分數越低越好：
+     * <ul>
+     *   <li>門和坡道的範圍（中心 ±9 格）內地面的高低差，乘 3；</li>
+     *   <li>比周圍一圈（半徑 14 格）的中位數高出多少（站在高台上），乘 2；低於周圍（在凹地裡）只算一半；</li>
+     *   <li>離目標點越遠，每 8 格加 1；</li>
+ *   <li>比所有候選點裡最低的那個高出多少，每格加 0.5（寬闊的高台頂端也不如底下的平地）。</li>
+     * </ul>
+     * 絕不覆蓋地形方塊；完全找不到地面（虛空、整片液體）時才鋪一小塊平台。
+     */
+    private static final int LANDING_RADIUS = 32;
+    private static final int LANDING_STEP = 4;
+
     private static BlockPos findLanding(ServerLevel level, int x, int z) {
-        for (int r = 0; r <= 16; r++) {
-            for (int dx = -r; dx <= r; dx++) {
-                for (int dz = -r; dz <= r; dz++) {
-                    if (r > 0 && Math.abs(dx) != r && Math.abs(dz) != r) {
-                        continue;
-                    }
-                    int tx = x + dx, tz = z + dz;
-                    level.getChunk(tx >> 4, tz >> 4);
-                    int y = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, tx, tz);
-                    BlockPos feet = new BlockPos(tx, y, tz);
-                    if (isSafeStandSpot(level, feet)) {
-                        return feet;
+        BlockPos best = null;
+        double bestScore = Double.MAX_VALUE;
+        List<BlockPos> sites = new ArrayList<>();
+        List<Double> scores = new ArrayList<>();
+        for (int dx = -LANDING_RADIUS; dx <= LANDING_RADIUS; dx += LANDING_STEP) {
+            for (int dz = -LANDING_RADIUS; dz <= LANDING_RADIUS; dz += LANDING_STEP) {
+                double dist = Math.sqrt(dx * dx + dz * dz);
+                if (dist > LANDING_RADIUS) {
+                    continue;
+                }
+                int tx = x + dx, tz = z + dz;
+                BlockPos feet = new BlockPos(tx, surface(level, tx, tz), tz);
+                if (!isSafeStandSpot(level, feet)) {
+                    continue;
+                }
+                int lo = Integer.MAX_VALUE, hi = Integer.MIN_VALUE;
+                for (int ox = -9; ox <= 9; ox += 3) {
+                    for (int oz = -9; oz <= 9; oz += 3) {
+                        int h = surface(level, tx + ox, tz + oz);
+                        lo = Math.min(lo, h);
+                        hi = Math.max(hi, h);
                     }
                 }
+                int[] ring = new int[12];
+                for (int i = 0; i < ring.length; i++) {
+                    double a = Math.PI * 2 * i / ring.length;
+                    ring[i] = surface(level, tx + (int) Math.round(Math.cos(a) * 14), tz + (int) Math.round(Math.sin(a) * 14));
+                }
+                java.util.Arrays.sort(ring);
+                int relief = feet.getY() - (ring[5] + ring[6]) / 2;
+                sites.add(feet);
+                scores.add((hi - lo) * 3.0 + (relief > 0 ? relief * 2.0 : -relief * 0.5) + dist / 8.0);
             }
+        }
+        // 再加上比所有候選點裡最低的高出多少（每格 0.5）：寬闊平坦的高台頂端也不如底下的平地
+        int lowest = sites.stream().mapToInt(BlockPos::getY).min().orElse(0);
+        for (int i = 0; i < sites.size(); i++) {
+            double score = scores.get(i) + (sites.get(i).getY() - lowest) * 0.5;
+            if (score < bestScore) {
+                bestScore = score;
+                best = sites.get(i);
+            }
+        }
+        if (best != null) {
+            return best;
         }
         // 僅在完全沒有固體地面（如虛空或整片深海）時，於不破壞地形的前提下鋪設平台
         int y = Math.max(80, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z) + 1);
@@ -325,6 +369,12 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
             }
         }
         return platform;
+    }
+
+    /** (x, z) 地面上方第一格的高度（不算樹葉；會先載入那個區塊）。 */
+    private static int surface(ServerLevel level, int x, int z) {
+        level.getChunk(x >> 4, z >> 4);
+        return level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
     }
 
     /**
@@ -358,8 +408,11 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
             }
         }
         if (level.dimension() == SIFT_DIM) {
-            // 隙浮這一端：使用者設計的到達門（依生態域色系三選一）；結構檔不在時退回程式畫的縮小版巨口
-            if (!buildArrivalPortal(level, bestCentre, bestAxis)) {
+            // 隙浮這一端：到達門直接蓋在 findLanding 挑好的那塊平地正中間（以前往旁邊挪 4 格、取較高的地面，
+            // 落點在台地邊緣時門就懸空，底下補出整座高台和很長的坡道）；只選轉向，挑門面方向比較開闊的那一個
+            Direction.Axis axis = scoreRiftPlacement(level, landing, Direction.Axis.X) >= scoreRiftPlacement(level, landing, Direction.Axis.Z)
+                    ? Direction.Axis.X : Direction.Axis.Z;
+            if (!buildArrivalPortal(level, landing, axis)) {
                 buildMouthFrame(level, bestCentre, bestAxis);
             }
         } else {
@@ -488,6 +541,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
         template.get().placeInWorld(level, origin, origin, settings, level.getRandom(), Block.UPDATE_CLIENTS);
         // 底下懸空：每一直排找結構最底下的實心方塊（只看底下兩層，拱頂的突出不算），往下補地基到實心地面為止
         BlockState footing = block(RAMP_BLOCKS.getOrDefault(design, RAMP_BLOCKS.get("silted"))[0], Blocks.STONE_BRICKS);
+        GroundPairs pairs = groundPairs(level, base);
         for (int x = box.minX(); x <= box.maxX(); x++) {
             for (int z = box.minZ(); z <= box.maxZ(); z++) {
                 for (int y = origin.getY(); y <= origin.getY() + 1; y++) {
@@ -496,7 +550,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                     if (bottom.canBeReplaced() || bottom.getCollisionShape(level, p).isEmpty()) {
                         continue;
                     }
-                    BlockState fill = bottom.isCollisionShapeFullBlock(level, p) ? bottom : footing;
+                    BlockState fill = bottom.isCollisionShapeFullBlock(level, p) ? pairs.under(bottom, footing) : footing;
                     for (int d = 1; d <= 24 && loose(level, p.below(d)); d++) {
                         level.setBlock(p.below(d), fill, Block.UPDATE_CLIENTS);
                     }
@@ -504,7 +558,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                 }
             }
         }
-        buildRamps(level, base.above(2), axis, design, box);
+        buildRamps(level, base.above(2), axis, design, box, pairs);
         return true;
     }
 
@@ -522,7 +576,7 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
      * portalBottom：傳送門最底下那一格。
      */
     private static void buildRamps(ServerLevel level, BlockPos portalBottom, Direction.Axis axis, String design,
-                                   net.minecraft.world.level.levelgen.structure.BoundingBox box) {
+                                   net.minecraft.world.level.levelgen.structure.BoundingBox box, GroundPairs pairs) {
         String[] names = RAMP_BLOCKS.getOrDefault(design, RAMP_BLOCKS.get("silted"));
         BlockState full = block(names[0], Blocks.STONE_BRICKS);
         BlockState slab = block(names[1], Blocks.STONE_BRICK_SLAB);
@@ -535,85 +589,62 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                 || level.getBlockState(portalBottom.relative(along, -doorHalf)).is(ModBlocks.SIFT_PORTAL))) {
             doorHalf++;
         }
-        for (Direction side : new Direction[]{normal, normal.getOpposite()}) {
-            BlockState[] local = sampleGround(level, portalBottom, side, along);
-            BlockState surface = local != null ? local[0] : full;
-            BlockState fill = local != null && local[1] != null ? local[1] : full;
-            BlockState surfaceHalf = local != null ? surfaceSlab(local[0], slab) : slab;
-            // 門前地板的最外緣：離門 1~3 格內、高度在門底 ±2 的實心地板，取最外面那一格（以半格為單位）
-            int startD = 0, startTop = portalBottom.getY() * 2;
-            for (int d = 1; d <= 3; d++) {
-                Integer top = surfaceTop2(level, portalBottom.relative(side, d), portalBottom.getY() + 2, portalBottom.getY() - 2);
-                if (top == null || top < portalBottom.getY() * 2) {
-                    break;
-                }
-                startD = d;
-                startTop = top;
-            }
-            // 沿著中線往外量出每一圈的高度（半格）。地面夠高就沿著地面走；地面低下去（懸崖、台地邊緣）就往下鋪。
-            // 連續 8 格都踩在地面上才算真的接上（門前只有一小塊平台、再過去是懸崖時，不會在平台上就停）。
-            List<Integer> profile = new ArrayList<>();
-            List<Boolean> onGround = new ArrayList<>();
-            profile.add(startTop);
-            onGround.add(false);
-            for (int r = 1, h = startTop, settled = 0; r <= RAMP_MAX_RADIUS && settled < 8; r++) {
-                Integer ground = surfaceTop2(level, portalBottom.relative(side, startD + r), portalBottom.getY() + 2,
-                        portalBottom.getY() - RAMP_MAX_DROP);
-                int gap = ground == null ? Integer.MAX_VALUE : h - ground;
-                if (gap <= 2) {
-                    h = ground;   // 踩在地面上（或地面比較高）
-                    settled++;
-                } else {
-                    h -= gap > 12 ? 2 + random.nextInt(3) : 1 + random.nextInt(2);   // 高：1~2 格；一般：半格~1 格
-                    h = Math.max(h, ground == null ? h : ground);
-                    settled = 0;
-                }
-                profile.add(h);
-                onGround.add(gap <= 2);
-            }
-            while (profile.size() > 2 && onGround.get(profile.size() - 1) && onGround.get(profile.size() - 2)) {
-                profile.remove(profile.size() - 1);   // 最後一路都踩在地面上的那幾格不用鋪（留一格接上地面）
-                onGround.remove(onGround.size() - 1);
-            }
-            int radius = profile.size() - 1;
-            for (int d = startD + 1; d <= startD + radius + 1; d++) {
+        // 1. 先量出前後兩邊各自的坡（材質、起點、每一圈的高度）
+        RampSide[] sides = new RampSide[2];
+        Direction[] dirs = {normal, normal.getOpposite()};
+        for (int i = 0; i < 2; i++) {
+            sides[i] = measureSide(level, portalBottom, dirs[i], along, full, slab, pairs, random);
+        }
+        // 2. 鋪兩邊的扇形。靠近門的兩側（側面方向）高度往兩邊的平均靠，前後兩片才接得起來
+        for (int i = 0; i < 2; i++) {
+            RampSide own = sides[i], other = sides[1 - i];
+            int radius = own.radius();
+            for (int d = own.startD + 1; d <= own.startD + radius + 1; d++) {
                 for (int u = -(doorHalf + radius + 1); u <= doorHalf + radius + 1; u++) {
-                    double dist = Math.hypot(d - startD, Math.max(0, Math.abs(u) - doorHalf));
+                    int lateral = Math.max(0, Math.abs(u) - doorHalf);
+                    double dist = Math.hypot(d - own.startD, lateral);
                     // 門框一格以內整齊；之外外緣參差（內部永遠填滿）
                     double reach = dist <= 1.5 ? radius + 1 : radius + 0.5 - random.nextDouble() * 1.5;
                     if (dist > reach) {
                         continue;
                     }
-                    int target = profile.get(Math.min(radius, (int) Math.round(dist)));
+                    double sideways = lateral / Math.max(dist, 1e-6);
+                    double s = sideways * sideways;   // 正前方 0（照自己的坡），貼著門的兩側 1（兩邊的平均）
+                    double mine = own.height(dist), mid = (mine + other.height(dist)) / 2.0;
+                    int target = (int) Math.round(mine + (mid - mine) * s);
                     if (dist > 1.5 && random.nextInt(4) == 0) {
                         target--;   // 自然的高低差
                     }
-                    BlockPos column = portalBottom.relative(side, d).relative(along, u);
-                    Integer ground = surfaceTop2(level, column, portalBottom.getY() + 2, portalBottom.getY() - RAMP_MAX_DROP);
-                    if (ground != null && ground >= target) {
-                        continue;   // 這裡的地面本來就比較高
-                    }
-                    BlockPos stepPos = new BlockPos(column.getX(), Math.floorDiv(target - 1, 2), column.getZ());
-                    if (loose(level, stepPos)) {
-                        level.setBlock(stepPos, target % 2 != 0 ? surfaceHalf : surface, Block.UPDATE_CLIENTS);
-                    }
-                    for (int dy = 1; dy <= 3; dy++) {   // 坡上的走道（門的結構範圍內不動）
-                        BlockPos air = stepPos.above(dy);
-                        BlockState in = level.getBlockState(air);
-                        if (!box.isInside(air) && !in.isAir() && !in.is(ModBlocks.SIFT_PORTAL) && in.getDestroySpeed(level, air) >= 0) {
-                            level.setBlock(air, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
-                        }
-                    }
-                    for (int down = 1; down <= RAMP_MAX_DROP && loose(level, stepPos.below(down)); down++) {
-                        level.setBlock(stepPos.below(down), fill, Block.UPDATE_CLIENTS);
-                    }
+                    placeStep(level, portalBottom.relative(dirs[i], d).relative(along, u), target, own, box, portalBottom);
                 }
             }
-            // 坡腳附近散落幾塊碎石（半磚或整塊），只放在實心地面上
-            for (int i = 2 + random.nextInt(5); i > 0; i--) {
-                int d = startD + radius + 1 + random.nextInt(3);
+        }
+        // 3. 門的兩側、前後兩片中間那一條：用兩邊坡的平均高度補滿，不留斷層
+        int reachMax = Math.max(sides[0].radius(), sides[1].radius()) + 1;
+        for (int sign = -1; sign <= 1; sign += 2) {
+            for (int lateral = 1; lateral <= reachMax; lateral++) {
+                int u = sign * (doorHalf + lateral);
+                for (int d = -sides[1].startD; d <= sides[0].startD; d++) {
+                    BlockPos column = portalBottom.relative(normal, d).relative(along, u);
+                    if (column.getX() >= box.minX() && column.getX() <= box.maxX() && column.getZ() >= box.minZ() && column.getZ() <= box.maxZ()) {
+                        continue;   // 門本身的範圍不動
+                    }
+                    if (lateral > reachMax - random.nextInt(2)) {
+                        continue;   // 外緣一樣參差
+                    }
+                    int target = (int) Math.round((sides[0].height(lateral) + sides[1].height(lateral)) / 2.0);
+                    placeStep(level, column, target, d >= 0 ? sides[0] : sides[1], box, portalBottom);
+                }
+            }
+        }
+        // 4. 坡腳附近散落幾塊碎石（半磚或整塊），只放在實心地面上
+        for (int i = 0; i < 2; i++) {
+            RampSide own = sides[i];
+            int radius = own.radius();
+            for (int n = 2 + random.nextInt(5); n > 0; n--) {
+                int d = own.startD + radius + 1 + random.nextInt(3);
                 int u = random.nextInt((doorHalf + radius) * 2 + 1) - doorHalf - radius;
-                BlockPos column = portalBottom.relative(side, d).relative(along, u);
+                BlockPos column = portalBottom.relative(dirs[i], d).relative(along, u);
                 Integer top = surfaceTop2(level, column, portalBottom.getY() + 2, portalBottom.getY() - RAMP_MAX_DROP);
                 if (top == null || top % 2 != 0) {
                     continue;
@@ -624,6 +655,138 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                 }
             }
         }
+    }
+
+    /** 一邊的坡：地表、同色半磚、坡下的填充、起點（離門幾格）與每一圈的高度（半格為單位）。 */
+    private record RampSide(BlockState surface, BlockState surfaceHalf, BlockState fill, int startD, List<Integer> profile) {
+        int radius() {
+            return profile.size() - 1;
+        }
+
+        /** 離起點 dist 格的坡高；超過坡的範圍就是坡腳（接上地面的那一圈）。 */
+        double height(double dist) {
+            return profile.get(Math.min(radius(), (int) Math.round(dist)));
+        }
+    }
+
+    private static RampSide measureSide(ServerLevel level, BlockPos portalBottom, Direction side, Direction along,
+                                        BlockState full, BlockState slab, GroundPairs pairs, RandomSource random) {
+        BlockState[] local = sampleGround(level, portalBottom, side, along);
+        BlockState surface = local != null ? local[0] : full;
+        // 坡下的填充：這種地表在附近地形裡底下真正的岩石；量不到就用附近最常見的地層，再不行才用門的石材
+        BlockState fill = local != null && local[1] != null ? local[1] : pairs.under(surface, full);
+        BlockState surfaceHalf = local != null ? surfaceSlab(local[0], slab) : slab;
+        // 門前地板的最外緣：離門 1~3 格內、高度在門底 ±2 的實心地板，取最外面那一格（以半格為單位）
+        int startD = 0, startTop = portalBottom.getY() * 2;
+        for (int d = 1; d <= 3; d++) {
+            Integer top = surfaceTop2(level, portalBottom.relative(side, d), portalBottom.getY() + 2, portalBottom.getY() - 2);
+            if (top == null || top < portalBottom.getY() * 2) {
+                break;
+            }
+            startD = d;
+            startTop = top;
+        }
+        // 沿著中線往外量出每一圈的高度（半格）。地面夠高就沿著地面走；地面低下去（懸崖、台地邊緣）就往下鋪。
+        // 連續 8 格都踩在地面上才算真的接上（門前只有一小塊平台、再過去是懸崖時，不會在平台上就停）。
+        List<Integer> profile = new ArrayList<>();
+        List<Boolean> onGround = new ArrayList<>();
+        profile.add(startTop);
+        onGround.add(false);
+        for (int r = 1, h = startTop, settled = 0; r <= RAMP_MAX_RADIUS && settled < 8; r++) {
+            Integer ground = surfaceTop2(level, portalBottom.relative(side, startD + r), portalBottom.getY() + 2,
+                    portalBottom.getY() - RAMP_MAX_DROP);
+            int gap = ground == null ? Integer.MAX_VALUE : h - ground;
+            if (gap <= 2) {
+                h = ground;   // 踩在地面上（或地面比較高）
+                settled++;
+            } else {
+                h -= gap > 12 ? 2 + random.nextInt(3) : 1 + random.nextInt(2);   // 高：1~2 格；一般：半格~1 格
+                h = Math.max(h, ground == null ? h : ground);
+                settled = 0;
+            }
+            profile.add(h);
+            onGround.add(gap <= 2);
+        }
+        while (profile.size() > 2 && onGround.get(profile.size() - 1) && onGround.get(profile.size() - 2)) {
+            profile.remove(profile.size() - 1);   // 最後一路都踩在地面上的那幾格不用鋪（留一格接上地面）
+            onGround.remove(onGround.size() - 1);
+        }
+        return new RampSide(surface, surfaceHalf, fill, startD, profile);
+    }
+
+    /** 在 column 鋪一格高 target（半格）的坡：坡面放地表或同色半磚，上面清出走道，底下用填充補到實心地面。 */
+    private static void placeStep(ServerLevel level, BlockPos column, int target, RampSide side,
+                                  net.minecraft.world.level.levelgen.structure.BoundingBox box, BlockPos portalBottom) {
+        Integer ground = surfaceTop2(level, column, portalBottom.getY() + 2, portalBottom.getY() - RAMP_MAX_DROP);
+        if (ground != null && ground >= target) {
+            return;   // 這裡的地面本來就比較高
+        }
+        BlockPos stepPos = new BlockPos(column.getX(), Math.floorDiv(target - 1, 2), column.getZ());
+        if (loose(level, stepPos)) {
+            level.setBlock(stepPos, target % 2 != 0 ? side.surfaceHalf : side.surface, Block.UPDATE_CLIENTS);
+        }
+        for (int dy = 1; dy <= 3; dy++) {   // 坡上的走道（門的結構範圍內不動）
+            BlockPos air = stepPos.above(dy);
+            BlockState in = level.getBlockState(air);
+            if (!box.isInside(air) && !in.isAir() && !in.is(ModBlocks.SIFT_PORTAL) && in.getDestroySpeed(level, air) >= 0) {
+                level.setBlock(air, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+            }
+        }
+        for (int down = 1; down <= RAMP_MAX_DROP && loose(level, stepPos.below(down)); down++) {
+            level.setBlock(stepPos.below(down), side.fill, Block.UPDATE_CLIENTS);
+        }
+    }
+
+    /**
+     * 門附近地形裡「地表方塊 → 它底下真正的岩石」的配對（使用者：補地層要照地形本來的配對，例如柳絮林地的赤紅覆蓋地層岩
+     * 底下是深淵地層岩，不能從名稱猜）。在門的前後左右 5～14 格取樣每一直排的地表與 deepStone。
+     */
+    private record GroundPairs(java.util.Map<Block, BlockState> unders, BlockState common) {
+        /** surface 底下該放的方塊：本來就是岩石（不是帽蓋、草地類）照原樣；地表類用量到的配對，再不行用最常見的地層。 */
+        BlockState under(BlockState surface, BlockState fallback) {
+            BlockState paired = unders.get(surface.getBlock());
+            if (paired != null) {
+                return paired;
+            }
+            if (!isSurfaceType(surface)) {
+                return surface;
+            }
+            return common != null ? common : fallback;
+        }
+    }
+
+    private static boolean isSurfaceType(BlockState state) {
+        String name = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(state.getBlock()).getPath();
+        return name.contains("capped") || name.contains("grass") || state.is(BlockTags.DIRT);
+    }
+
+    private static GroundPairs groundPairs(ServerLevel level, BlockPos centre) {
+        java.util.Map<Block, BlockState> unders = new java.util.HashMap<>();
+        java.util.Map<BlockState, Integer> deepCount = new java.util.HashMap<>();
+        for (int dx = -14; dx <= 14; dx += 2) {
+            for (int dz = -14; dz <= 14; dz += 2) {
+                if (Math.max(Math.abs(dx), Math.abs(dz)) < 5) {
+                    continue;   // 門自己的範圍
+                }
+                Integer top = surfaceTop2(level, centre.offset(dx, 0, dz), centre.getY() + 8, centre.getY() - 24);
+                if (top == null) {
+                    continue;
+                }
+                BlockPos p = new BlockPos(centre.getX() + dx, Math.floorDiv(top - 1, 2), centre.getZ() + dz);
+                BlockState surface = level.getBlockState(p);
+                if (!surface.isCollisionShapeFullBlock(level, p) || surface.hasBlockEntity()) {
+                    continue;
+                }
+                BlockState deep = deepStone(level, p, surface);
+                if (deep != null) {
+                    unders.putIfAbsent(surface.getBlock(), deep);
+                    deepCount.merge(deep, 1, Integer::sum);
+                }
+            }
+        }
+        BlockState common = deepCount.entrySet().stream().max(java.util.Map.Entry.comparingByValue())
+                .map(java.util.Map.Entry::getKey).orElse(null);
+        return new GroundPairs(unders, common);
     }
 
     private static final int RAMP_MAX_RADIUS = 40;

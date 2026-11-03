@@ -992,8 +992,8 @@
   "item.pysift.dash_charm": "衝刺護符",
   "item.pysift.sculk_hammer": "重錘",
   "tooltip.pysift.awakened": "✦ 已覺醒",
-  "tooltip.pysift.sonic_staff.use": "右鍵：發射音爆（8 點傷害，15 格，冷卻 3 秒）",
-  "tooltip.pysift.sonic_staff.use_awakened": "右鍵：寬幅音爆（12 點傷害，15 格，冷卻 2 秒）",
+  "tooltip.pysift.sonic_staff.use": "按住右鍵詠唱 0.6 秒後發射音爆（8 點傷害，15 格，冷卻 3 秒）",
+  "tooltip.pysift.sonic_staff.use_awakened": "按住右鍵詠唱 0.6 秒後發射寬幅音爆（12 點傷害，15 格，冷卻 2 秒）",
   "tooltip.pysift.sonic_staff.hit": "命中時連鎖 3 個敵人（各 3 點）並附加靈魂剝奪",
   "tooltip.pysift.sonic_staff.hit_awakened": "命中時連鎖 5 個敵人（各 4 點）並附加靈魂剝奪",
   "tooltip.pysift.dash_charm.use": "右鍵：衝刺，最多連續 2 次",
@@ -1132,9 +1132,9 @@
   "message.pysift.altar.dir.here": "就在正上方或正下方 %s 格",
   "item.pysift.gloomcap": "幽光菇",
   "item.pysift.sift_portal": "隙浮傳送門",
-  "book.pysift.guide.page12": "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。",
+  "book.pysift.guide.page12": "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。每個唱片盒淡淡的光柱會告訴你該放哪張；順序放錯，門就會被撕開，遠古人就是這樣出事的。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。",
   "block.pysift.resonant_jukebox": "共鳴唱片盒",
-  "message.pysift.ritual.wrong_disc": "這個唱片盒在等待另一首歌……",
+  "message.pysift.ritual.wrong_disc": "這張唱片沒辦法和門共鳴……",
   "message.pysift.ritual.disc_used": "另一個唱片盒已經在放這首歌了",
   "message.pysift.ritual.progress": "%s / %s 首歌產生共鳴",
   "message.pysift.ritual.already": "唱片盒都已經擺好了，把 8 首歌放進去吧",
@@ -1585,5 +1585,7 @@
   "item.pysift.siftite_block": "隙浮金錠塊",
   "item.pysift.raw_siftite_block": "粗隙浮金塊",
   "item.pysift.patina_block": "銅綠錠塊",
-  "item.pysift.raw_patina_block": "粗銅綠塊"
+  "item.pysift.raw_patina_block": "粗銅綠塊",
+  "message.pysift.ritual.discord": "八首歌走了調。門被撕開，幽匿爆了出來，歌者倒著唱把門闔上，唱片全被彈了出來：找出正確的順序再試一次。",
+  "entity.pysift.sculk_maw": "幽匿咬刺"
 }

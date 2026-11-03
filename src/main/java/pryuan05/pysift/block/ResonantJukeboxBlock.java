@@ -25,8 +25,9 @@ import pryuan05.pysift.block.entity.ResonantJukeboxBlockEntity;
 
 /**
  * 共鳴唱片盒：由歌者召喚的迴音傀儡擺在傳送門框架前（不能合成）。
- * 手持儀式唱片（{@link RitualDiscs}）右鍵放入：由左到右第 i 個只收第 i 張（紅橙黃綠藍靛紫粉）；放滿 8 張就開門（{@link SiftPortalRitual}）。
- * 還沒放唱片時，會射出一道很淡、很細的光柱，提示這裡要哪個顏色。
+ * 手持儀式唱片（{@link RitualDiscs}）右鍵放入：8 張唱片可以放進任何一個盒子，但由左到右第 i 個要放第 i 張（紅橙黃綠藍靛紫粉）
+ * 才奏得出正確的八音；放滿 8 張就奏終曲（{@link SiftPortalRitual}），放錯會重演遠古城市的災難（世界觀 4.7）。
+ * 還沒放唱片時，會射出一道很淡、很細的光柱，提示這裡該放哪個顏色。
  * 方塊本身不畫模型，交給 ResonantJukeboxRenderer 畫（才能做「從地面升起」、唱片旋轉與彩色光柱）。
  * 打破時只掉出唱片，不掉唱片盒；同時關閉這組儀式開的傳送門。
  */
@@ -60,13 +61,9 @@ public class ResonantJukeboxBlock extends Block implements EntityBlock {
         if (!box.getDisc().isEmpty()) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        RitualDiscs.Disc wanted = box.expectedDisc();
-        if (disc == null || (wanted != null && disc != wanted)) {
+        if (disc == null) {
             if (stack.has(net.minecraft.core.component.DataComponents.JUKEBOX_PLAYABLE) && !level.isClientSide()) {
-                player.sendOverlayMessage(wanted == null
-                        ? Component.translatable("message.pysift.ritual.wrong_disc").withStyle(ChatFormatting.LIGHT_PURPLE)
-                        : Component.translatable("message.pysift.ritual.wants", Component.translatable(RitualDiscs.songKey(wanted)))
-                                .withStyle(net.minecraft.network.chat.Style.EMPTY.withColor(wanted.color() & 0xFFFFFF)));
+                player.sendOverlayMessage(Component.translatable("message.pysift.ritual.wrong_disc").withStyle(ChatFormatting.LIGHT_PURPLE));
             }
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }

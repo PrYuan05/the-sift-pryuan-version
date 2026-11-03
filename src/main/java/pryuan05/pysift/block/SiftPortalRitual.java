@@ -42,7 +42,10 @@ import java.util.List;
  *   <li>手持迴音碎片右鍵儀式歌者：歌者召喚兩隻迴音傀儡，把 8 個共鳴唱片盒擺在框架前（找不到封閉框架時，
  *       改在歌者前方預留一道裂隙門的位置，唱片盒排在它前面）。</li>
  *   <li>玩家把 8 張儀式唱片（{@link RitualDiscs}）由左到右照「紅橙黃綠藍靛紫粉」放進唱片盒：每放一張就射出該顏色的光柱。</li>
- *   <li>8 張放滿：歌者唱出終曲，8 道光柱依音階閃一次後匯聚到門中心，框架填滿傳送門（或開出裂隙門）；歌者揮手道別、鑽回地底離開。</li>
+ *   <li>8 張放滿：唱片盒由左到右依序奏出八音、歌者跟著唱。全部放對：8 道光柱匯聚到門中心，框架填滿傳送門（或開出裂隙門）；
+ *       歌者揮手道別、鑽回地底離開。</li>
+ *   <li>放錯任何一張（唱片可以放進任何一個盒子）：那一格走調，畫面一暗，門被撕開又閃爍，深色幽匿從門前爆開，
+ *       歌者倒著唱出旋律把門闔上（哀悼者的歌），唱片全部彈出來，要重新放（世界觀 4.7：遠古人就是這樣放錯的）。</li>
  *   <li>唱片盒就是門的鑰匙：打破任一個，門就關閉，唱片掉出來。</li>
  * </ol>
  * 隙浮裡沒有遠古城市：用靈魂晶塊蓋一個封閉框架，手持迴音碎片右鍵框架，就能填出回主世界的傳送門。
@@ -555,41 +558,238 @@ public final class SiftPortalRitual {
         finale(level, box, all);
     }
 
-    // ------------------------------------------------------------------ step 4: finale, the portal opens
+    // ------------------------------------------------------------------ step 4: finale, the portal opens (or tears)
     private static void finale(ServerLevel level, ResonantJukeboxBlockEntity anyBox, List<ResonantJukeboxBlockEntity> all) {
         BlockPos centre = anyBox.getPortalCentre();
         if (centre == null) {
             return;
         }
-        List<ResonantJukeboxBlockEntity> scale = new ArrayList<>(all);
-        scale.sort(Comparator.comparingInt(b -> b.getRitualDisc().semitone()));
+        // 由左到右照座位奏出來：全部放對時剛好是 C 大調音階往上走
+        List<ResonantJukeboxBlockEntity> melody = new ArrayList<>(all);
+        melody.sort(Comparator.comparingInt(ResonantJukeboxBlockEntity::seatIndex));
+        boolean discord = melody.stream().anyMatch(b -> b.getRitualDisc() != b.expectedDisc());
         List<SingerEntity> singers = level.getEntitiesOfClass(SingerEntity.class, new AABB(centre).inflate(32));
         for (SingerEntity singer : singers) {
             singer.getLookControl().setLookAt(Vec3.atCenterOf(centre));
             singer.setAction(SingerEntity.ACTION_FINALE);
             singer.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.0f);
         }
-        for (int i = 0; i < scale.size(); i++) {
-            ResonantJukeboxBlockEntity box = scale.get(i);
+        for (int i = 0; i < melody.size(); i++) {
+            ResonantJukeboxBlockEntity box = melody.get(i);
             schedule(level, 10 + i * FINALE_STEP, () -> {
                 if (box.isRemoved() || box.getRitualDisc() == null) {
                     return;
                 }
                 RitualDiscs.Disc disc = box.getRitualDisc();
+                boolean wrong = disc != box.expectedDisc();
+                float pitch = wrong ? disc.pitch() * 0.94f : disc.pitch();   // 放錯的那一格走調（約低一個半音）
                 BlockPos p = box.getBlockPos();
                 box.flash(level.getGameTime());
-                level.playSound(null, p, SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.RECORDS, 3.0f, disc.pitch());
-                level.playSound(null, p, SoundEvents.NOTE_BLOCK_HARP.value(), SoundSource.RECORDS, 2.0f, disc.pitch());
+                level.playSound(null, p, SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.RECORDS, 3.0f, pitch);
+                level.playSound(null, p, SoundEvents.NOTE_BLOCK_HARP.value(), SoundSource.RECORDS, 2.0f, pitch);
                 level.sendParticles(new DustParticleOptions(disc.color() & 0xFFFFFF, 2.0f), p.getX() + 0.5, p.getY() + 3, p.getZ() + 0.5,
                         30, 0.2, 2.5, 0.2, 0.0);
+                if (wrong) {
+                    glitch(level, centre, p);
+                }
                 for (SingerEntity singer : singers) {   // 歌者跟著唱同一個音
                     if (singer.isAlive()) {
-                        singer.humNote(disc.pitch());
+                        singer.humNote(pitch);
                     }
                 }
             });
         }
-        schedule(level, 10 + scale.size() * FINALE_STEP + 14, () -> openPortal(level, anyBox, scale));
+        int after = 10 + melody.size() * FINALE_STEP + 14;
+        if (discord) {
+            schedule(level, after, () -> tearOpen(level, anyBox, melody, singers));
+        } else {
+            schedule(level, after, () -> openPortal(level, anyBox, melody));
+        }
+    }
+
+    /** 走調的那一下：附近的玩家眼前一黑、晃一下，監守者在遠處躁動，尖嘯體的聲波從唱片盒冒出來。 */
+    private static void glitch(ServerLevel level, BlockPos centre, BlockPos box) {
+        level.playSound(null, box, SoundEvents.WARDEN_AGITATED, SoundSource.HOSTILE, 2.0f, 0.6f);
+        level.playSound(null, box, SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.BLOCKS, 1.5f, 0.7f);
+        level.sendParticles(new net.minecraft.core.particles.ShriekParticleOption(0), box.getX() + 0.5, box.getY() + 1.1, box.getZ() + 0.5,
+                1, 0, 0, 0, 0);
+        for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class, new AABB(centre).inflate(32))) {
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.DARKNESS, 50, 0, false, false));
+            player.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.NAUSEA, 60, 0, false, false));
+        }
+    }
+
+    /** 走調的八音：門被撕開、閃爍，深色幽匿爆開，歌者倒著唱把門闔上，唱片全部彈出來。 */
+    private static final int TEAR_FLICKERS = 3;
+    private static final int MOURN_STEP = 9;
+
+    private static void tearOpen(ServerLevel level, ResonantJukeboxBlockEntity anyBox, List<ResonantJukeboxBlockEntity> melody,
+                                 List<SingerEntity> singers) {
+        BlockPos centre = anyBox.getPortalCentre();
+        if (melody.stream().anyMatch(b -> b.isRemoved() || b.getRitualDisc() == null) || SiftPortalBlock.hasPortalNear(level, centre)) {
+            return;
+        }
+        Direction.Axis axis = anyBox.isAxisX() ? Direction.Axis.X : Direction.Axis.Z;
+        // 1. 撕裂：門閃開又熄滅幾次（每次只開 4 tick，進不去）
+        level.playSound(null, centre, SoundEvents.WARDEN_ROAR, SoundSource.HOSTILE, 3.0f, 0.5f);
+        level.playSound(null, centre, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 2.0f, 0.6f);
+        for (int i = 0; i < TEAR_FLICKERS; i++) {
+            schedule(level, i * 12, () -> {
+                fillDoor(level, anyBox, centre, axis);
+                level.sendParticles(ParticleTypes.SONIC_BOOM, centre.getX() + 0.5, centre.getY() + 0.5, centre.getZ() + 0.5, 1, 0, 0, 0, 0);
+            });
+            schedule(level, i * 12 + 4, () -> clearDoor(level, centre));
+        }
+        // 2. 深色幽匿從門前爆開
+        schedule(level, TEAR_FLICKERS * 12, () -> sculkBurst(level, centre, melody));
+        // 3. 歌者倒著唱（哀悼者的歌）：右到左、低八度的笛聲，底下墊著監守者的心跳
+        int mournStart = TEAR_FLICKERS * 12 + 40;   // 等幽匿長得差不多（sculkBurst 約 50 tick）
+        for (int i = 0; i < melody.size(); i++) {
+            ResonantJukeboxBlockEntity box = melody.get(melody.size() - 1 - i);
+            schedule(level, mournStart + i * MOURN_STEP, () -> {
+                RitualDiscs.Disc disc = box.expectedDisc();
+                if (disc == null || box.isRemoved()) {
+                    return;
+                }
+                float pitch = Math.max(0.5f, disc.pitch() * 0.5f);
+                BlockPos p = box.getBlockPos();
+                level.playSound(null, p, SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.RECORDS, 2.5f, pitch);
+                level.playSound(null, centre, SoundEvents.WARDEN_HEARTBEAT, SoundSource.HOSTILE, 1.5f, 0.8f);
+                level.sendParticles(ParticleTypes.SCULK_SOUL, p.getX() + 0.5, p.getY() + 1.5, p.getZ() + 0.5, 3, 0.2, 0.3, 0.2, 0.02);
+                for (SingerEntity singer : singers) {
+                    if (singer.isAlive()) {
+                        singer.humNote(pitch);
+                    }
+                }
+            });
+        }
+        // 4. 門闔上，唱片全部彈出來
+        schedule(level, mournStart + melody.size() * MOURN_STEP + 10, () -> {
+            level.playSound(null, centre, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 3.0f, 0.6f);
+            for (ResonantJukeboxBlockEntity box : melody) {
+                if (!box.isRemoved()) {
+                    box.ejectDisc();
+                }
+            }
+            for (SingerEntity singer : singers) {
+                if (singer.isAlive() && singer.isRitual()) {
+                    singer.setAction(SingerEntity.ACTION_AWAIT);
+                }
+            }
+            for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class, new AABB(centre).inflate(32))) {
+                player.sendSystemMessage(Component.translatable("message.pysift.ritual.discord").withStyle(ChatFormatting.DARK_AQUA));
+            }
+        });
+    }
+
+    /**
+     * 清掉儀式開的門：門中心水平 13 格、上下 8 格內所有傳送門方塊（遠古城市的門框內寬將近 20 格）。裂隙門的形狀不規則，
+     * 角落的幾格不一定和主體相連，只清相連的那一片（SiftPortalBlock.clearPortal）會留下殘塊，之後再開門時會被當成「門已經開著」。
+     */
+    private static int clearDoor(ServerLevel level, BlockPos centre) {
+        int cleared = 0;
+        for (BlockPos p : BlockPos.betweenClosed(centre.offset(-13, -8, -13), centre.offset(13, 8, 13))) {
+            if (level.getBlockState(p).is(ModBlocks.SIFT_PORTAL)) {
+                level.setBlock(p, Blocks.AIR.defaultBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
+                cleared++;
+            }
+        }
+        return cleared;
+    }
+
+    /** 填出（之後會被清掉的）門：有強化深板岩框架就填框架，沒有就開裂隙門。 */
+    private static void fillDoor(ServerLevel level, ResonantJukeboxBlockEntity anyBox, BlockPos centre, Direction.Axis axis) {
+        SiftPortalBlock.Frame frame = anyBox.isFrame() ? SiftPortalBlock.findFrame(level, centre, 12, Blocks.REINFORCED_DEEPSLATE) : null;
+        if (frame != null) {
+            SiftPortalBlock.fillFrame(level, frame);
+        } else {
+            SiftPortalBlock.buildRiftPortal(level, centre.below(), axis);
+        }
+    }
+
+    /**
+     * 門前地面爆出一片深色幽匿（遠古城市那次災難的重演），以唱片盒那一排的正中間為中心：
+     * <ol>
+     *   <li>中心先一聲音爆，靈魂從地面湧出；</li>
+     *   <li>幽匿一圈一圈往外長（每圈隔 BURST_RING_TICKS），每一格被吞掉時噴出原本方塊的碎屑與幽匿電荷，
+     *       每一圈地面上都有一道往外推的靈魂波紋；越外圈長得越稀；</li>
+     *   <li>最後幾條幽匿觸手隨機往外再爬一段。</li>
+     * </ol>
+     * 只長在露天的地面上（整塊、半磚、階梯都會變成幽匿塊），不碰方塊實體、強化深板岩與無法破壞的方塊。
+     */
+    private static final int BURST_RADIUS = 8;
+    private static final int BURST_RING_TICKS = 3;
+    private static final int BURST_TENDRILS = 5;
+
+    private static void sculkBurst(ServerLevel level, BlockPos portalCentre, List<ResonantJukeboxBlockEntity> row) {
+        net.minecraft.util.RandomSource random = level.getRandom();
+        BlockPos mid = row.get(row.size() / 2).getBlockPos();
+        if (row.size() % 2 == 0) {   // 偶數個：取中間兩個的中點
+            BlockPos other = row.get(row.size() / 2 - 1).getBlockPos();
+            mid = new BlockPos((mid.getX() + other.getX()) / 2, mid.getY(), (mid.getZ() + other.getZ()) / 2);
+        }
+        BlockPos centre = mid;
+        double cx = centre.getX() + 0.5, cz = centre.getZ() + 0.5;
+        // 1. 音爆與湧出的靈魂
+        level.playSound(null, portalCentre, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 3.0f, 0.6f);
+        level.playSound(null, centre, SoundEvents.WARDEN_SONIC_BOOM, SoundSource.HOSTILE, 1.5f, 0.6f);
+        level.sendParticles(ParticleTypes.SONIC_BOOM, cx, centre.getY() + 0.5, cz, 1, 0, 0, 0, 0);
+        level.sendParticles(ParticleTypes.SCULK_SOUL, cx, centre.getY() + 0.3, cz, 40, 1.2, 0.2, 1.2, 0.08);
+        // 2. 一圈一圈往外長
+        for (int ring = 0; ring <= BURST_RADIUS; ring++) {
+            int r = ring;
+            schedule(level, ring * BURST_RING_TICKS, () -> {
+                level.playSound(null, centre, SoundEvents.SCULK_BLOCK_SPREAD, SoundSource.BLOCKS, 2.0f, 0.7f + r * 0.04f);
+                for (int i = 0, n = 6 + r * 6; i < n; i++) {   // 地面上往外推的靈魂波紋
+                    double a = Math.PI * 2 * i / n;
+                    level.sendParticles(ParticleTypes.SCULK_SOUL, cx + Math.cos(a) * r, centre.getY() + 0.2, cz + Math.sin(a) * r,
+                            1, 0.1, 0.05, 0.1, 0.01);
+                }
+                for (int dx = -r; dx <= r; dx++) {
+                    for (int dz = -r; dz <= r; dz++) {
+                        double d = Math.sqrt(dx * dx + dz * dz);
+                        if ((int) Math.round(d) != r || random.nextDouble() < d / (BURST_RADIUS + 1.5)) {
+                            continue;   // 只處理這一圈；越外圈越稀
+                        }
+                        consume(level, centre.offset(dx, 0, dz), random);
+                    }
+                }
+            });
+        }
+        // 3. 幾條觸手往外再爬一段
+        for (int t = 0; t < BURST_TENDRILS; t++) {
+            double a = random.nextDouble() * Math.PI * 2;
+            int length = 4 + random.nextInt(5);
+            for (int step = 0; step < length; step++) {
+                double reach = BURST_RADIUS - 1 + step;
+                a += (random.nextDouble() - 0.5) * 0.5;   // 彎彎曲曲
+                BlockPos column = BlockPos.containing(cx + Math.cos(a) * reach, centre.getY(), cz + Math.sin(a) * reach);
+                schedule(level, (BURST_RADIUS + step) * BURST_RING_TICKS + 2, () -> consume(level, column, random));
+            }
+        }
+    }
+
+    /** 把 column 這一直排最上面的露天地面吞成幽匿，噴出碎屑與幽匿電荷。 */
+    private static void consume(ServerLevel level, BlockPos column, net.minecraft.util.RandomSource random) {
+        for (int dy = 4; dy >= -6; dy--) {
+            BlockPos p = column.above(dy);
+            BlockState state = level.getBlockState(p);
+            if (state.getCollisionShape(level, p).isEmpty() || !level.getBlockState(p.above()).getCollisionShape(level, p.above()).isEmpty()) {
+                continue;   // 找最上面那一格有碰撞、上面空著（或只有草、地毯）的地面
+            }
+            if (!state.hasBlockEntity() && state.getDestroySpeed(level, p) >= 0 && !state.is(Blocks.REINFORCED_DEEPSLATE)
+                    && !state.is(ModBlocks.SIFT_PORTAL) && !state.is(Blocks.SCULK)) {
+                level.levelEvent(2001, p, net.minecraft.world.level.block.Block.getId(state));   // 原本方塊的碎屑
+                level.setBlock(p, Blocks.SCULK.defaultBlockState(), net.minecraft.world.level.block.Block.UPDATE_ALL);
+                level.sendParticles(new net.minecraft.core.particles.SculkChargeParticleOptions(random.nextFloat() * 6.28f),
+                        p.getX() + 0.5, p.getY() + 1.05, p.getZ() + 0.5, 3, 0.3, 0.02, 0.3, 0.0);
+                level.sendParticles(ParticleTypes.SCULK_CHARGE_POP, p.getX() + 0.5, p.getY() + 1.1, p.getZ() + 0.5, 2, 0.25, 0.1, 0.25, 0.02);
+                if (random.nextInt(4) == 0) {
+                    level.sendParticles(ParticleTypes.SCULK_SOUL, p.getX() + 0.5, p.getY() + 1.1, p.getZ() + 0.5, 1, 0.1, 0.1, 0.1, 0.03);
+                }
+            }
+            return;
+        }
     }
 
     private static void openPortal(ServerLevel level, ResonantJukeboxBlockEntity anyBox, List<ResonantJukeboxBlockEntity> scale) {
@@ -640,7 +840,7 @@ public final class SiftPortalRitual {
         if (centre == null || !level.isLoaded(centre)) {
             return;
         }
-        if (SiftPortalBlock.clearPortal(level, centre) > 0) {
+        if (clearDoor(level, centre) > 0) {
             level.playSound(null, centre, SoundEvents.BEACON_DEACTIVATE, SoundSource.BLOCKS, 3.0f, 0.8f);
             for (ServerPlayer player : level.getEntitiesOfClass(ServerPlayer.class, new AABB(centre).inflate(32))) {
                 player.sendSystemMessage(Component.translatable("message.pysift.ritual.closed").withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -704,29 +904,36 @@ public final class SiftPortalRitual {
                             ctx.getSource().sendSuccess(() -> Component.literal("ritual start: " + ok), false);
                             return ok ? 1 : 0;
                         }))
-                        .then(net.minecraft.commands.Commands.literal("fill").executes(ctx -> {
-                            ServerLevel level = ctx.getSource().getLevel();
-                            Plan plan = existingPlan(level, BlockPos.containing(ctx.getSource().getPosition()));
-                            if (plan == null) {
-                                ctx.getSource().sendFailure(Component.literal("No Resonant Jukeboxes nearby"));
-                                return 0;
-                            }
-                            int i = 0;
-                            ResonantJukeboxBlockEntity last = null;
-                            for (BlockPos p : plan.group()) {
-                                if (level.getBlockEntity(p) instanceof ResonantJukeboxBlockEntity box && box.expectedDisc() != null) {
-                                    box.setDisc(new ItemStack(box.expectedDisc().item()));
-                                    last = box;
-                                    i++;
-                                }
-                            }
-                            if (last != null) {
-                                onDiscInserted(level, last, null);
-                            }
-                            int filled = i;
-                            ctx.getSource().sendSuccess(() -> Component.literal("filled " + filled + " jukeboxes"), false);
-                            return filled;
-                        }))));
+                        .then(net.minecraft.commands.Commands.literal("fill")
+                                .executes(ctx -> fill(ctx.getSource(), false))
+                                .then(net.minecraft.commands.Commands.literal("wrong").executes(ctx -> fill(ctx.getSource(), true))))));
+    }
+
+    /** /pysift_ritual fill [wrong]：把附近的唱片盒放滿；wrong 會把第 3、4 張對調（測試走調的八音）。 */
+    private static int fill(net.minecraft.commands.CommandSourceStack source, boolean wrong) {
+        ServerLevel level = source.getLevel();
+        Plan plan = existingPlan(level, BlockPos.containing(source.getPosition()));
+        if (plan == null) {
+            source.sendFailure(Component.literal("No Resonant Jukeboxes nearby"));
+            return 0;
+        }
+        int i = 0;
+        ResonantJukeboxBlockEntity last = null;
+        for (BlockPos p : plan.group()) {
+            if (level.getBlockEntity(p) instanceof ResonantJukeboxBlockEntity box && box.expectedDisc() != null) {
+                int seat = box.seatIndex();
+                int use = wrong && (seat == 2 || seat == 3) ? 5 - seat : seat;
+                box.setDisc(new ItemStack(RitualDiscs.forSeat(use).item()));
+                last = box;
+                i++;
+            }
+        }
+        if (last != null) {
+            onDiscInserted(level, last, null);
+        }
+        int filled = i;
+        source.sendSuccess(() -> Component.literal("filled " + filled + " jukeboxes" + (wrong ? " (two swapped)" : "")), false);
+        return filled;
     }
 
     static boolean inSift(Level level) {

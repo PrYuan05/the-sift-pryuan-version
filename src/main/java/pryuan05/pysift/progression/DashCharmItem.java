@@ -68,6 +68,7 @@ public class DashCharmItem extends Item {
         }
         if (player instanceof ServerPlayer serverPlayer) {
             serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(player));
+            DashPosePayload.broadcast(serverPlayer);
         }
         boolean awakened = BossWeapons.isAwakened(stack);
         int max = awakened ? 3 : 2;
@@ -78,6 +79,15 @@ public class DashCharmItem extends Item {
             BossWeapons.spawnDecoy(server, player, DECOY_TICKS);   // a new chain leaves a decoy where it started
         }
         server.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, player.getX(), player.getY(0.5), player.getZ(), 15, 0.3, 0.5, 0.3, 0.05);
+        // 衝刺軌跡：沿著衝出去的方向留下一道靈魂火與青色殘影（羽刃劃過空氣）
+        for (double d = 0.5; d <= 8.0; d += 0.5) {
+            double x = player.getX() + flat.x * d, z = player.getZ() + flat.z * d;
+            server.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, x, player.getY(0.5), z, 1, 0.05, 0.15, 0.05, 0.0);
+            if (((int) (d * 2)) % 3 == 0) {
+                server.sendParticles(ParticleTypes.GLOW, x, player.getY(0.7), z, 1, 0.1, 0.1, 0.1, 0.0);
+            }
+        }
+        server.sendParticles(ParticleTypes.SWEEP_ATTACK, player.getX() + flat.x, player.getY(0.6), player.getZ() + flat.z, 1, 0, 0, 0, 0);
         server.playSound(null, player.blockPosition(), SoundEvents.BREEZE_JUMP, SoundSource.PLAYERS, 1.0f, 1.3f);
         if (awakened) {
             Vec3 ahead = player.position().add(flat.scale(3));

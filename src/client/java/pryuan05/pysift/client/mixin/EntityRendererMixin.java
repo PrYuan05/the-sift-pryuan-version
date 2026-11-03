@@ -20,6 +20,7 @@ public abstract class EntityRendererMixin {
     private void pysift$soulFire(Entity entity, EntityRenderState state, float partialTick, CallbackInfo ci) {
         boolean soul = entity.getAttachedOrElse(SoulBurn.FIRE, false) && !entity.isSpectator();
         ((SoulFireRenderState) state).pysift$setSoulFire(soul);
+        ((pryuan05.pysift.client.EntityIdRenderState) state).pysift$setEntityId(entity.getId());
         if (soul) {
             state.displayFireAnimation = true;
         }

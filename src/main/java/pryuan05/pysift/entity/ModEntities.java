@@ -131,6 +131,9 @@ public class ModEntities {
     public static final EntityType<SoulSnareEntity> SOUL_SNARE = register(
             "soul_snare", SoulSnareEntity::new, MobCategory.MISC, 0.9f, 0.2f
     );
+    public static final EntityType<pryuan05.pysift.entity.misc.SculkMawEntity> SCULK_MAW = register(
+            "sculk_maw", pryuan05.pysift.entity.misc.SculkMawEntity::new, MobCategory.MISC, 1.0f, 0.8f
+    );
 
     private static <T extends Entity> EntityType<T> register(
             String name, EntityType.EntityFactory<T> factory, MobCategory category, float width, float height

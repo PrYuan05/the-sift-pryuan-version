@@ -495,8 +495,8 @@ WEAPON_LANG = {
     "item.pysift.dash_charm": ("Dash Charm", "衝刺護符"),
     "item.pysift.sculk_hammer": ("Sculk Hammer", "重錘"),
     "tooltip.pysift.awakened": ("✦ Awakened", "✦ 已覺醒"),
-    "tooltip.pysift.sonic_staff.use": ("Right-click: sonic boom (8 damage, 15 blocks, 3 s cooldown)", "右鍵：發射音爆（8 點傷害，15 格，冷卻 3 秒）"),
-    "tooltip.pysift.sonic_staff.use_awakened": ("Right-click: wide sonic boom (12 damage, 15 blocks, 2 s cooldown)", "右鍵：寬幅音爆（12 點傷害，15 格，冷卻 2 秒）"),
+    "tooltip.pysift.sonic_staff.use": ("Hold right-click to chant for 0.6 s, then a sonic boom (8 damage, 15 blocks, 3 s cooldown)", "按住右鍵詠唱 0.6 秒後發射音爆（8 點傷害，15 格，冷卻 3 秒）"),
+    "tooltip.pysift.sonic_staff.use_awakened": ("Hold right-click to chant for 0.6 s, then a wide sonic boom (12 damage, 15 blocks, 2 s cooldown)", "按住右鍵詠唱 0.6 秒後發射寬幅音爆（12 點傷害，15 格，冷卻 2 秒）"),
     "tooltip.pysift.sonic_staff.hit": ("Hits chain to 3 nearby foes (3 damage) and inflict Soul Deprivation", "命中時連鎖 3 個敵人（各 3 點）並附加靈魂剝奪"),
     "tooltip.pysift.sonic_staff.hit_awakened": ("Hits chain to 5 nearby foes (4 damage) and inflict Soul Deprivation", "命中時連鎖 5 個敵人（各 4 點）並附加靈魂剝奪"),
     "tooltip.pysift.dash_charm.use": ("Right-click: dash, up to 2 times in a row", "右鍵：衝刺，最多連續 2 次"),
@@ -805,9 +805,9 @@ GUIDE = [
     ("Soul Berries grow beside Spirit Liquid; Gloomcaps glow in caves. Brew them in Awkward Potions for Soul Ward and "
      "Echo Sight. Tame a Blub with a Soul Crystal Block: it fights and fetches.",
      "靈莓長在靈液旁，幽光菇長在洞穴。把它們加進粗製藥水，可以釀出靈魂守護與回音視界。拿靈魂晶塊餵布魯布就有機會馴服牠，馴服後牠會幫你打架、撿東西。"),
-    ("The eight jukeboxes at the Ancient City are the key: break one and that portal closes. To open a portal from here, "
+    ("The eight jukeboxes at the Ancient City are the key: break one and that portal closes. Each one's faint beam shows the disc it wants; play them out of order and the portal tears, as it did for the ancients. To open a portal from here, "
      "build a closed frame of Soul Crystal blocks and use an Echo Shard on it.",
-     "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。"),
+     "遠古城市那 8 個共鳴唱片盒就是門的鑰匙：打破任一個，那道門就會關閉。每個唱片盒淡淡的光柱會告訴你該放哪張；順序放錯，門就會被撕開，遠古人就是這樣出事的。想從這裡開一道回去的門，用靈魂晶塊蓋一個封閉框架，再拿迴音碎片右鍵框架。"),
 ]
 GUIDE_LANG = {f"book.pysift.guide.page{i + 1}": page for i, page in enumerate(GUIDE)}
 GUIDE_LANG.update({
@@ -1035,7 +1035,8 @@ wj(ADV / "root.json", data)
 
 RITUAL_LANG = {
     "block.pysift.resonant_jukebox": ("Resonant Jukebox", "共鳴唱片盒"),
-    "message.pysift.ritual.wrong_disc": ("This jukebox is waiting for another song...", "這個唱片盒在等待另一首歌……"),
+    "message.pysift.ritual.wrong_disc": ("This disc cannot resonate with the portal...", "這張唱片沒辦法和門共鳴……"),
+    "message.pysift.ritual.discord": ("The eight songs fell out of tune. The portal tore open, the sculk burst out, and the Singer sang it shut again. The discs were thrown out: find the right order.", "八首歌走了調。門被撕開，幽匿爆了出來，歌者倒著唱把門闔上，唱片全被彈了出來：找出正確的順序再試一次。"),
     "message.pysift.ritual.wants": ("This jukebox is waiting for %s", "這個唱片盒在等待「%s」"),
     "message.pysift.ritual.disc_used": ("Another jukebox is already playing that song", "另一個唱片盒已經在放這首歌了"),
     "message.pysift.ritual.progress": ("%s / %s songs resonate", "%s / %s 首歌產生共鳴"),

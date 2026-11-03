@@ -1,5 +1,33 @@
 # Changelog
 
+## Unreleased
+
+### Changed: the Eight-Song Ritual can go wrong
+- Ritual discs now fit in any Resonant Jukebox; only left-to-right in rainbow order (each jukebox's faint beam shows
+  its colour) plays the right melody.
+- Play them out of order and the ancients' disaster repeats: the wrong note goes flat, the screen darkens, the portal
+  tears open and flickers, dark sculk bursts from the ground in front of it, and the Singer sings the melody backwards
+  to close it again. All eight discs are thrown out, ready for another try.
+- Fixed: closing a rift portal could leave a few stray portal blocks behind, which then stopped the next portal from opening.
+
+### New: 3D boss weapons with use animations
+- The Sonic Staff, Dash Charm and Sculk Hammer are 3D models in your hand (still 2D icons in the inventory, on the
+  ground and in item frames, like the spyglass).
+- **Sonic Staff**: hold right-click to chant for 0.6 s - you lift the staff to the sky with your other hand reaching out,
+  sparks stream into the crystal as it swells and shards orbit it - then the sonic boom fires. Letting go early breaks the spell (no cooldown).
+- **Sculk Hammer**: lifted overhead with both hands while charging, pulled further back as it charges, trembling when full; sculk souls spiral up into the head, a heartbeat quickens,
+  spines grow out of the head when it is ready and the core blazes at full charge.
+- **Dash Charm**: you thrust the blade forward with both hands as you dash, leaving a streak of soul fire and a sweep.
+- New left-click attacks: the Sonic Staff pokes straight ahead with a longer reach (4.5 blocks), the Sculk Hammer chops down diagonally with
+  both hands, alternating right-to-left and left-to-right.
+- The hammer's sculk tendrils are now **Sculk Maws**: a ring of fangs bursts out of the ground around a glowing soul,
+  twitches, then opens wide and snaps shut as the soul explodes, and sinks back into the ground.
+
+### Changed: arrival portals
+- The arrival spot is now picked from the flattest, lowest ground within 32 blocks that is not the top of a lone mesa or
+  pillar, and the portal is built right on it (it used to move 4 blocks aside and could end up floating over a drop), so arrival portals no longer perch on high terrain with tall, broken ramps.
+- Foundations and ramp fill use the strata under the surface block instead of stacking surface (capped) blocks.
+
 ## v1.0.3
 
 ### New biome: Soul Caldera
@@ -124,6 +152,25 @@
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## 尚未發布（繁體中文）
+
+### 修改：八音儀式可能出錯
+- 儀式唱片現在可以放進任何一個共鳴唱片盒；只有由左到右照彩虹順序放（每個唱片盒淡淡的光柱會顯示顏色），才奏得出正確的旋律。
+- 順序放錯就會重演遠古人的災難：放錯的那一格走調、畫面一暗、門被撕開並閃爍、深色幽匿從門前的地面爆開，歌者把旋律倒過來唱，把門闔上。8 張唱片全部彈出來，可以重新再試。
+- 修正：裂隙門關閉時可能留下幾格傳送門殘塊，導致下一次開不了門。
+
+### 新增：3D 的 Boss 武器與使用動畫
+- 音波法杖、衝刺護符、重錘拿在手上是 3D 模型（物品欄、地上和展示框裡維持 2D 圖示，跟望遠鏡一樣）。
+- **音波法杖**：按住右鍵詠唱 0.6 秒，把法杖舉向天空、另一隻手往前伸，火花往晶體匯聚、晶體變大，碎晶繞著它轉，接著才放出音爆；中途放開會中斷（沒有冷卻）。
+- **重錘**：蓄力時雙手把錘子舉過頭頂、越蓄越往後拉，蓄滿後全身發抖，幽匿的靈魂盤旋著被吸進錘頭，心跳越來越急；蓄到可以砸時錘頭長出尖刺，蓄滿時核心大亮。
+- **衝刺護符**：衝刺時雙手握著羽刃往前刺，沿路留下一道靈魂火和一道劃痕。
+- 新的左鍵攻擊：音波法杖改成往前戳刺，攻擊距離比較遠（4.5 格），重錘雙手斜劈，右上劈到左下、左上劈到右下輪流交替。
+- 重錘的幽匿藤蔓改成**幽匿咬刺**：一圈尖牙圍著發光的靈魂從地面竄出、抽動，接著張大口猛然咬合、靈魂炸開，再縮回地底。
+
+### 修改：到達門
+- 抵達位置改成在周圍 32 格內挑最平坦、偏低、又不是孤立台地或石柱頂端的地面，門直接蓋在那裡（以前會往旁邊挪 4 格，可能懸在落差上方），到達門不會再蓋在高處、拖出又高又斷斷續續的坡道。
+- 地基和坡道下方的填充改用地表方塊底下的地層岩，不再一直往下疊帶頂蓋的地表方塊。
 
 ## v1.0.3（繁體中文）
 

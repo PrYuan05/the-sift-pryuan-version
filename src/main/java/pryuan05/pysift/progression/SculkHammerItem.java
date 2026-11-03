@@ -28,8 +28,9 @@ import java.util.function.Consumer;
  * 2 秒後各自爆炸並造成靈魂剝奪（{@link BossWeapons#plantTendril}）。冷卻 3 秒。
  */
 public class SculkHammerItem extends Item {
-    private static final int MIN_CHARGE = 15;
-    private static final int FULL_CHARGE = 40;
+    /** 物品模型 sculk_hammer_charging_* 依同樣的時間換階段（build_weapon_models.py）。 */
+    public static final int MIN_CHARGE = 15;
+    public static final int FULL_CHARGE = 40;
     private static final int COOLDOWN = 60;
 
     public SculkHammerItem(Properties properties) {
@@ -38,7 +39,7 @@ public class SculkHammerItem extends Item {
 
     @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return ItemUseAnimation.SPEAR;
+        return ItemUseAnimation.NONE;   // 不用原版姿勢：雙手舉過頭頂蓄力的姿勢由客戶端的 WeaponPoses 畫
     }
 
     @Override
@@ -53,6 +54,39 @@ public class SculkHammerItem extends Item {
         }
         player.startUsingItem(hand);
         return InteractionResult.CONSUME;
+    }
+
+    /**
+     * 蓄力中：幽匿的靈魂從地面盤旋著被吸進錘頭（越蓄越快、越多），每 10 tick 一聲越來越急的心跳；
+     * 蓄到可以砸（MIN_CHARGE）和蓄滿（FULL_CHARGE）時各有一個提示。
+     */
+    @Override
+    public void onUseTick(Level level, LivingEntity user, ItemStack stack, int remaining) {
+        if (!(level instanceof ServerLevel server)) {
+            return;
+        }
+        int charge = getUseDuration(stack, user) - remaining;
+        float power = Mth.clamp((float) charge / FULL_CHARGE, 0.0f, 1.0f);
+        Vec3 head = user.getEyePosition().add(0, 0.45, 0).add(user.getLookAngle().multiply(1, 0, 1).scale(-0.2));
+        double r = 2.2 - 1.6 * power;
+        for (int i = 0, n = 1 + (int) (power * 3); i < n; i++) {
+            double a = charge * 0.45 + i * Math.PI * 2 / n;      // 盤旋往上
+            double y = user.getY() + 0.1 + power * 0.8;
+            Vec3 from = new Vec3(user.getX() + Math.cos(a) * r, y, user.getZ() + Math.sin(a) * r);
+            Vec3 v = head.subtract(from).scale(0.18);
+            server.sendParticles(ParticleTypes.SCULK_SOUL, from.x, from.y, from.z, 0, v.x, v.y, v.z, 1.0);
+        }
+        if (charge % Math.max(4, 10 - (int) (power * 6)) == 0) {
+            server.playSound(null, user.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, SoundSource.PLAYERS, 0.9f, 0.8f + power * 0.6f);
+        }
+        if (charge == MIN_CHARGE) {
+            server.playSound(null, user.blockPosition(), SoundEvents.SCULK_CLICKING, SoundSource.PLAYERS, 1.0f, 1.0f);
+        }
+        if (charge == FULL_CHARGE) {
+            server.playSound(null, user.blockPosition(), SoundEvents.SCULK_SHRIEKER_SHRIEK, SoundSource.PLAYERS, 0.8f, 1.3f);
+            server.sendParticles(new net.minecraft.core.particles.ShriekParticleOption(0), head.x, head.y, head.z, 1, 0, 0, 0, 0);
+            server.sendParticles(ParticleTypes.SCULK_CHARGE_POP, head.x, head.y, head.z, 12, 0.3, 0.3, 0.3, 0.05);
+        }
     }
 
     @Override

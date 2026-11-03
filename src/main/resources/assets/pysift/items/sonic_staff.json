@@ -1,6 +1,53 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "pysift:item/sonic_staff"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:item/sonic_staff"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:condition",
+      "property": "minecraft:using_item",
+      "on_false": {
+        "type": "minecraft:model",
+        "model": "pysift:item/sonic_staff_in_hand"
+      },
+      "on_true": {
+        "type": "minecraft:range_dispatch",
+        "property": "minecraft:use_duration",
+        "scale": 0.05,
+        "entries": [
+          {
+            "threshold": 0.2,
+            "model": {
+              "type": "minecraft:model",
+              "model": "pysift:item/sonic_staff_casting_1"
+            }
+          },
+          {
+            "threshold": 0.4,
+            "model": {
+              "type": "minecraft:model",
+              "model": "pysift:item/sonic_staff_casting_2"
+            }
+          }
+        ],
+        "fallback": {
+          "type": "minecraft:model",
+          "model": "pysift:item/sonic_staff_casting_0"
+        }
+      }
+    }
   }
 }
