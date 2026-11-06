@@ -13,8 +13,10 @@
 - **Ancient Page IX** ("The Choir Below") is always in the Echo Den vault; the Ancient Chronicle still binds pages I-VIII.
 
 ### New: the story's tools and its ending (story act 7 and finale)
-- **Sift Warden** is now a real companion: it hears monsters through walls and makes them glow, fights monsters that
-  hurt you or that you hit (never players, pets or villagers; 15 melee damage, sonic boom halved), keeps wild Wardens
+- **Sift Warden** is now a real companion: it hears monsters through walls and makes them glow, never hunts on its own
+  or investigates sounds, and fights only a monster that hits you or that you hit (15 melee damage, sonic boom halved). One echo shard tames
+  it; following, it stays within a few blocks and teleports to you when you are far away; right-click it to make it sit
+  and wait (new sitting pose), again to call it. It keeps wild Wardens
   within 24 blocks calm, and turns the blue sculk it walks over red again. Feed it sculk to heal it.
 - **Mourning Horn** (goat horn + Octave and Kin sherds + echo shard): plays the eight notes backwards; Wardens within
   24 blocks calm down for 30 s and Mourners stop weeping. 1 minute cooldown, 32 uses.

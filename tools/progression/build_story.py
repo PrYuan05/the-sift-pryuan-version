@@ -70,7 +70,9 @@ wj(D / "pysift/tags/entity_type/soul_starved.json", {"replace": False, "values":
 tr("message.pysift.rot.stilled", "The heart of the rot is gone. Around the rifts, the sculk begins to turn red again.",
    "腐爛的核心消失了。裂隙周圍的幽匿，開始慢慢變回紅色。")
 tr("message.pysift.sift_warden.follow", "The Sift Warden hums and starts to follow you", "隙浮守衛低聲哼著，開始跟著你走")
-tr("message.pysift.sift_warden.stay", "The Sift Warden settles down and waits here", "隙浮守衛安靜下來，在這裡等著")
+tr("message.pysift.sift_warden.stay", "The Sift Warden sits down and waits here", "隙浮守衛坐下來，在這裡等著")
+tr("message.pysift.sift_warden.tamed", "The Sift Warden takes the echo shard - it is yours now and follows you",
+   "隙浮守衛收下迴音碎片：牠現在是你的了，會跟著你走")
 tr("message.pysift.den_guard.roused", "The den's guards wake to a stranger's noise", "回音窟的守衛被陌生的聲響吵醒了")
 
 # ------------------------------------------------------------------ ancient pottery sherds (AncientPages.SHERDS)

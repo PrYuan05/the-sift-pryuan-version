@@ -535,11 +535,13 @@ MOBS.append([
      "brings darkness. Soak it in spirit liquid to bring the Singer back.",
      "在我們的世界餓壞了的歌者：毛掉光、腐成深藍色，哭著把八音倒過來唱。牠從不攻擊，但牠的歌會帶來黑暗。泡進靈液就能把歌者找回來。"),
     ("sift_warden", "Sift Warden", "隙浮守衛",
-     "A Warden that came home. Feed it an echo shard and it follows you (another: it waits); sculk heals it. "
-     "It **hears** monsters through walls and makes them glow, **guards** you from them (never you, pets or villagers), "
-     "keeps wild Wardens **calm**, and the blue sculk it walks over turns **red** again.",
-     "回到家的監守者。餵迴音碎片會跟著你（再餵一個就留下來等），餵幽匿方塊會回血。牠**聽得見**牆後的怪物並讓牠們發光，"
-     "會替你**擋下**怪物（從不攻擊你、寵物或村民），讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。")])
+     "A Warden that came home. Give it one echo shard and it is yours: it stays close to you, appearing at your side when "
+     "you get far away. Right-click it to make it sit and wait, again to call it; sculk heals it. It **hears** monsters through walls and makes them glow but never "
+     "hunts them; it **guards** you only when a monster hits you or you hit one. It keeps wild Wardens **calm**, and the blue sculk it "
+     "walks over turns **red** again.",
+     "回到家的監守者。給牠一個迴音碎片牠就是你的了：會緊跟著你，離太遠會直接出現在你身邊。右鍵牠會坐下等待，再右鍵叫牠跟上；餵幽匿方塊會回血。"
+     "牠**聽得見**牆後的怪物並讓牠們發光，但不會自己去找牠們；只有怪物打到你、或你打了怪物時才會**出手**。"
+     "牠讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。")])
 ROW_NAMES = [("Willow Grove", "柳絮林地"), ("Lullaby Hills and the Abyss", "搖籃曲山丘與深板岩區"),
              ("Crimson Strata Canyon", "赤紅沉積峽谷"), ("Amber Dunes", "琥珀沙丘"), ("The Deep Dark", "深暗之域")]
 for row, mobs in enumerate(MOBS):

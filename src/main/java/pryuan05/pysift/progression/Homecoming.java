@@ -91,6 +91,17 @@ public final class Homecoming {
         if (warden.isAlive()) {
             warden.goHome();
         }
+        // 門框打開，之後一直開著：玩家可以跟著牠們回隙浮（框架不封閉時，在門框中央開一道裂隙門）
+        if (!SiftPortalBlock.hasPortalNear(level, frame)) {
+            SiftPortalBlock.Frame door = SiftPortalBlock.findFrame(level, frame, 14, Blocks.REINFORCED_DEEPSLATE);
+            if (door != null) {
+                SiftPortalBlock.fillFrame(level, door);
+            } else {
+                SiftPortalBlock.buildRiftPortal(level, groundUnder(level, frame),
+                        warden.getDirection().getAxis() == net.minecraft.core.Direction.Axis.X
+                                ? net.minecraft.core.Direction.Axis.Z : net.minecraft.core.Direction.Axis.X);
+            }
+        }
         RotSpread.State state = RotSpread.State.get(level.getServer());
         state.setHomeward(state.homeward() + 1);
         // 門框附近的藍幽匿在 3 秒內全部變回紅色
@@ -156,6 +167,15 @@ public final class Homecoming {
     }
 
     // ---------------------------------------------------------------- helpers
+    /** 門框中心往下找到第一個實心地面，回傳它上面那一格（裂隙門的底邊）。 */
+    private static BlockPos groundUnder(ServerLevel level, BlockPos from) {
+        BlockPos p = from;
+        for (int i = 0; i < 16 && level.getBlockState(p.below()).getCollisionShape(level, p.below()).isEmpty(); i++) {
+            p = p.below();
+        }
+        return p;
+    }
+
     /** FRAME 格內的強化深板岩夠多（遠古城市的門框）：回傳它們的中心，否則 null。 */
     private static BlockPos frameCentre(ServerLevel level, BlockPos near) {
         long sx = 0, sy = 0, sz = 0;

@@ -2022,7 +2022,7 @@
   "entity.pysift.sift_warden": "隙浮守衛",
   "item.pysift.sift_warden_spawn_egg": "隙浮守衛生怪蛋",
   "message.pysift.sift_warden.follow": "隙浮守衛低聲哼著，開始跟著你走",
-  "message.pysift.sift_warden.stay": "隙浮守衛安靜下來，在這裡等著",
+  "message.pysift.sift_warden.stay": "隙浮守衛坐下來，在這裡等著",
   "book.pysift.sift_codex.journey.kin.name": "親族",
   "book.pysift.sift_codex.journey.kin.locked": "帶一隻歌者去見監守者",
   "book.pysift.sift_codex.journey.kin.p0.title": "歌者認得監守者",
@@ -2054,7 +2054,7 @@
   "book.pysift.sift_codex.bestiary.sift_warden.locked": "遇到這種生物，就會補上這一頁",
   "book.pysift.sift_codex.bestiary.sift_warden.p0.text": "深暗之域",
   "book.pysift.sift_codex.bestiary.sift_warden.p1.title": "隙浮守衛",
-  "book.pysift.sift_codex.bestiary.sift_warden.p1.text": "回到家的監守者。餵迴音碎片會跟著你（再餵一個就留下來等），餵幽匿方塊會回血。牠**聽得見**牆後的怪物並讓牠們發光，會替你**擋下**怪物（從不攻擊你、寵物或村民），讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。",
+  "book.pysift.sift_codex.bestiary.sift_warden.p1.text": "回到家的監守者。給牠一個迴音碎片牠就是你的了：會緊跟著你，離太遠會直接出現在你身邊。右鍵牠會坐下等待，再右鍵叫牠跟上；餵幽匿方塊會回血。牠**聽得見**牆後的怪物並讓牠們發光，但不會自己去找牠們；只有怪物打到你、或你打了怪物時才會**出手**。牠讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。",
   "book.pysift.sift_codex.lore.sherds.name": "陶器碎片",
   "book.pysift.sift_codex.lore.sherds.description": "在遠古城市與隙浮遺跡的箱子裡找到",
   "book.pysift.sift_codex.lore.sherds.locked": "找到八音陶器碎片",
@@ -2137,5 +2137,6 @@
   "tooltip.pysift.ancient_page_9": "地底的合唱",
   "book.pysift.ancient_page_9.page1": "（在回音窟裡唱的歌。）\n\n下來吧，孩子們，來學這首歌。八個音，八個盒子，顏色排成一列：紅、橙、黃、綠、藍、靛、紫、粉。照著唱，篩網就不會走音。",
   "book.pysift.ancient_page_9.page2": "我們的歌在晶體裡迴響，直到回音長出身體：傀儡就是這樣出生的，所以牠們一直跟著我們。覆毛的親族守著門口；我們唱歌時牠們就睡著。用陌生的聲響吵醒牠們，牠們就不會再睡了。",
-  "book.pysift.sift_codex.sift.echo_den.p3.text": "大約每分鐘，只要有人在聽，領唱的歌者就會把八音正著唱一遍，合唱團跟著唱；醒著的守衛會立刻安靜下來。吹**哀悼號角**也能讓牠們平靜。"
+  "book.pysift.sift_codex.sift.echo_den.p3.text": "大約每分鐘，只要有人在聽，領唱的歌者就會把八音正著唱一遍，合唱團跟著唱；醒著的守衛會立刻安靜下來。吹**哀悼號角**也能讓牠們平靜。",
+  "message.pysift.sift_warden.tamed": "隙浮守衛收下迴音碎片：牠現在是你的了，會跟著你走"
 }

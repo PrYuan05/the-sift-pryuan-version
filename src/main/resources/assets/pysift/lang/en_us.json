@@ -2022,7 +2022,7 @@
   "entity.pysift.sift_warden": "Sift Warden",
   "item.pysift.sift_warden_spawn_egg": "Sift Warden Spawn Egg",
   "message.pysift.sift_warden.follow": "The Sift Warden hums and starts to follow you",
-  "message.pysift.sift_warden.stay": "The Sift Warden settles down and waits here",
+  "message.pysift.sift_warden.stay": "The Sift Warden sits down and waits here",
   "book.pysift.sift_codex.journey.kin.name": "Kin",
   "book.pysift.sift_codex.journey.kin.locked": "Bring a Singer to a Warden",
   "book.pysift.sift_codex.journey.kin.p0.title": "The Singer knows the Warden",
@@ -2054,7 +2054,7 @@
   "book.pysift.sift_codex.bestiary.sift_warden.locked": "Meet this creature to fill in its page",
   "book.pysift.sift_codex.bestiary.sift_warden.p0.text": "The Deep Dark",
   "book.pysift.sift_codex.bestiary.sift_warden.p1.title": "Sift Warden",
-  "book.pysift.sift_codex.bestiary.sift_warden.p1.text": "A Warden that came home. Feed it an echo shard and it follows you (another: it waits); sculk heals it. It **hears** monsters through walls and makes them glow, **guards** you from them (never you, pets or villagers), keeps wild Wardens **calm**, and the blue sculk it walks over turns **red** again.",
+  "book.pysift.sift_codex.bestiary.sift_warden.p1.text": "A Warden that came home. Give it one echo shard and it is yours: it stays close to you, appearing at your side when you get far away. Right-click it to make it sit and wait, again to call it; sculk heals it. It **hears** monsters through walls and makes them glow but never hunts them; it **guards** you only when a monster hits you or you hit one. It keeps wild Wardens **calm**, and the blue sculk it walks over turns **red** again.",
   "book.pysift.sift_codex.lore.sherds.name": "Pottery Sherds",
   "book.pysift.sift_codex.lore.sherds.description": "Found in Ancient City and Sift ruin chests",
   "book.pysift.sift_codex.lore.sherds.locked": "Find the octave sherd",
@@ -2137,5 +2137,6 @@
   "tooltip.pysift.ancient_page_9": "The Choir Below",
   "book.pysift.ancient_page_9.page1": "(Sung in the Echo Den.)\n\nCome down, little ones, and learn the song. Eight notes, eight boxes, the colours in a row: red, orange, yellow, green, blue, indigo, violet, pink. Sing it so and the sieve stays in tune.",
   "book.pysift.ancient_page_9.page2": "Our song rings in the crystals until the echo grows a body: so the golems are born, and they follow us. Our furred kin keep the door; while we sing they sleep. Wake them with a stranger's noise and they will not.",
-  "book.pysift.sift_codex.sift.echo_den.p3.text": "Every minute or so, while someone is listening, the lead Singer starts the octave the right way round and the choir joins in; any awake guard falls quiet at once. A **Mourning Horn** calms them too."
+  "book.pysift.sift_codex.sift.echo_den.p3.text": "Every minute or so, while someone is listening, the lead Singer starts the octave the right way round and the choir joins in; any awake guard falls quiet at once. A **Mourning Horn** calms them too.",
+  "message.pysift.sift_warden.tamed": "The Sift Warden takes the echo shard - it is yours now and follows you"
 }
