@@ -314,11 +314,175 @@ EVENTS = {
                 ("entity.mourner.hush", "hush", "Mourner falls quiet", "哀悼者漸漸安靜", {})],
 }
 
+# ================================================================ creatures made from free samples (sound_sources/)
+def slices(x, count, rng, min_len=0.25, max_len=1.6, thresh=0.25, pre=0.02):
+    """Cut `count` loud events out of a recording: from just before an onset until it decays (or max_len)."""
+    n = int(S.SR * 0.05)
+    env = np.convolve(np.abs(x), np.ones(n) / n, "same")
+    top = env.max() + 1e-9
+    onsets = np.flatnonzero((env[1:] > thresh * top) & (env[:-1] <= thresh * top))
+    picked, last = [], -10 ** 9
+    for o in onsets:
+        if o - last < S.SR * min_len:
+            continue
+        start = max(0, o - int(pre * S.SR))
+        end = start + int(S.SR * min_len)
+        while end < min(len(x), start + int(S.SR * max_len)) and env[end] > 0.08 * top:
+            end += int(S.SR * 0.01)
+        picked.append(x[start:end])
+        last = end
+    if not picked:
+        picked = [x[: int(S.SR * max_len)]]
+    order = rng.permutation(len(picked))
+    return [S.fade(picked[order[i % len(picked)]], 0.004, 0.08) for i in range(count)]
+
+
+def glide_shift(x, start_semi, end_semi):
+    """Pitch shift that slides from start to end semitones over the clip (variable-rate resampling)."""
+    n = len(x)
+    rates = 2 ** (np.linspace(start_semi, end_semi, n) / 12)
+    pos = np.cumsum(rates)
+    pos = pos[pos < n - 1]
+    return np.interp(pos, np.arange(n), x)
+
+
+def rumble(seconds, rng, hz=180):
+    n = int(seconds * S.SR)
+    return S.lowpass(S.noise_band(n, 30, hz, rng, "brown"), hz) * S.adsr(n, 0.1, 0.3)
+
+
+def mix(*layers):
+    n = max(len(l) for l, _ in layers)
+    out = np.zeros(n)
+    for layer, g in layers:
+        out[: len(layer)] += g * layer / (np.max(np.abs(layer)) + 1e-9)
+    return out
+
+
+def finish(x, wet=0.2, size=0.8, peak=-3, lp=None):
+    if lp:
+        x = S.lowpass(x, lp)
+    return S.normalise(S.reverb(S.normalise(x), wet=wet, size=size), peak)
+
+
+def nuzzle(rng):
+    """蹭蹭怪：溫和、會蹭人。貓的呼嚕與喵叫（Pixabay），音高往上、加一點晶亮的閃光。"""
+    s = {}
+    purr = load_samples("nuzzle", "ambient")
+    purrs = [p for p in purr if len(p) > S.SR * 2] or purr
+    meows = [p for p in purr if len(p) <= S.SR * 2] or purr
+    for i, cut in enumerate(slices(purrs[0], 3, rng, min_len=0.9, max_len=1.8, thresh=0.15), 1):   # 平時：輕輕的呼嚕
+        s[f"ambient{i}"] = finish(pitch_shift(cut, rng.uniform(2, 4)), wet=0.15, lp=5000, peak=-6)
+    for i in (1, 2):   # 蹭人：呼嚕＋一聲撒嬌的「喵」，帶一點晶亮的閃光（給玩家回血與發光）
+        p = pitch_shift(slices(purrs[0], 1, rng, 0.8, 1.4, 0.15)[0], 3)
+        m = pitch_shift(meows[0], 4 + i)
+        out = mix((p, 0.7))
+        S.place(out, 0.8 * m / (np.max(np.abs(m)) + 1e-9), 0.35)
+        S.place(out, 0.12 * S.bell(note(A3, 24 + 2 * i), 1.0, rng), 0.4)
+        s[f"nuzzle{i}"] = finish(out, wet=0.25, peak=-4)
+    for i in (1, 2):   # 被打：尖叫（喵叫拉高、加一點刺耳的氣音）
+        m = pitch_shift(meows[0], 8 + 2 * i)[: int(0.45 * S.SR)]
+        hiss = S.noise_band(len(m), 2500, 7000, rng) * S.adsr(len(m), 0.01, 0.2)
+        s[f"hurt{i}"] = finish(mix((m, 1.0), (hiss, 0.25)), wet=0.1, peak=-3)
+    s["death1"] = finish(glide_shift(meows[0], 4, -7), wet=0.35, size=1.0, peak=-3)   # 死亡：喵叫一路往下掉
+    return s
+
+
+def slabber(rng):
+    """泥板獸：隙浮的牛，背上一塊土。牛叫（Pixabay）壓低、加一點泥土的悶響。"""
+    s = {}
+    moos = load_samples("slabber", "ambient")
+    for i in range(1, 4):   # 平時：低沉的哞
+        m = pitch_shift(moos[(i - 1) % len(moos)], -rng.uniform(3, 6))
+        s[f"ambient{i}"] = finish(mix((m, 1.0), (rumble(len(m) / S.SR, rng), 0.12)), wet=0.15, lp=3000, peak=-4)
+    for i in (1, 2):   # 受傷：短促的一聲
+        m = pitch_shift(moos[(i - 1) % len(moos)][: int(0.45 * S.SR)], 1)
+        s[f"hurt{i}"] = finish(m * S.adsr(len(m), 0.005, 0.15), wet=0.1, lp=4000, peak=-3)
+    m = glide_shift(np.concatenate([moos[0], moos[-1]]), -3, -11)   # 死亡：拉長、一路往下沉
+    s["death1"] = finish(mix((m, 1.0), (rumble(len(m) / S.SR, rng), 0.2)), wet=0.3, size=1.0, lp=2500, peak=-3)
+    for i in (1, 2):   # 吃東西：滿足的小哞一聲＋咀嚼聲
+        m = pitch_shift(moos[(i - 1) % len(moos)][: int(0.5 * S.SR)], -2)
+        m = m * S.adsr(len(m), 0.05, 0.25)
+        chew = np.zeros(int(0.9 * S.SR))
+        for k in range(4):
+            c = S.noise_band(int(0.07 * S.SR), 300, 2500, rng) * S.adsr(int(0.07 * S.SR), 0.005, 0.05)
+            S.place(chew, c, 0.1 + k * 0.17)
+        out = mix((chew, 0.6))
+        S.place(out, 0.7 * m / (np.max(np.abs(m)) + 1e-9), 0.35)
+        s[f"eat{i}"] = finish(out, wet=0.1, peak=-6)
+    return s
+
+
+def echo_golem(rng):
+    """迴音傀儡：搬運靈魂的石像。石板敲擊與石臼研磨（Freesound 社群，經 Pixabay），加上低沉的水晶共鳴。"""
+    s = {}
+    src = load_samples("echo_golem", "ambient")
+    clacks = next((x for x in src if len(x) > 20 * S.SR), src[0])      # marble boards: single stone knocks
+    grind = next((x for x in src if len(x) <= 20 * S.SR), src[-1])     # mortar and pestle: grinding
+    knocks = slices(clacks, 8, rng, min_len=0.12, max_len=0.5, thresh=0.3)
+
+    def hum(seconds, root):
+        f = np.full(int(seconds * S.SR), root)
+        h = S.organ(f, ((1, 1.0), (2, 0.5), (3, 0.25), (5, 0.12))) * S.adsr(len(f), 0.4, 0.8, 1.5)
+        for k, r in enumerate((4, 6)):
+            S.place(h, 0.15 * S.bell(root * r, seconds, rng), 0.05 + 0.2 * k)
+        return h
+
+    for i in range(1, 4):   # 平時：低沉的水晶嗡鳴，偶爾石頭喀一聲
+        out = mix((hum(2.2, note(A3 / 2, [0, 3, 7][i - 1])), 1.0))
+        S.place(out, 0.5 * pitch_shift(knocks[i], -5) / (np.max(np.abs(knocks[i])) + 1e-9), 0.6)
+        s[f"ambient{i}"] = finish(out, wet=0.35, size=1.2, peak=-6)
+    for i in range(1, 5):   # 腳步：沉重的石頭落地
+        k = pitch_shift(knocks[i + 3], -7)
+        s[f"step{i}"] = finish(mix((k, 1.0), (rumble(0.25, rng, 120), 0.4)), wet=0.05, lp=3000, peak=-8)
+    for i in (1, 2):   # 受傷：石頭裂開＋水晶叮一聲
+        k = pitch_shift(knocks[i], -2)
+        crack = S.noise_band(int(0.25 * S.SR), 1500, 6000, rng) * S.adsr(int(0.25 * S.SR), 0.002, 0.2)
+        out = mix((k, 1.0), (crack, 0.35))
+        S.place(out, 0.3 * S.bell(note(A3, 19 + i), 0.8, rng), 0.0)
+        s[f"hurt{i}"] = finish(out, wet=0.2, peak=-3)
+    g = slices(grind, 1, rng, min_len=1.2, max_len=2.0, thresh=0.15)[0]   # 死亡：碎裂、研磨、晶體散落
+    out = mix((pitch_shift(g, -5), 0.8))
+    for k in range(5):
+        S.place(out, 0.5 * pitch_shift(knocks[k], -3 - k), 0.1 + k * 0.18)
+    for k in range(6):
+        S.place(out, 0.18 * S.bell(note(A3, 14 + rng.integers(0, 12)), 1.2, rng, bright=2.0), 0.6 + k * 0.07)
+    s["death1"] = finish(out, wet=0.35, size=1.1, peak=-3)
+    for i in (1, 2):   # 工作：挖地、放下唱片盒（石頭研磨一下）
+        g = slices(grind, 1, rng, min_len=0.4, max_len=0.7, thresh=0.2)[0]
+        s[f"work{i}"] = finish(mix((pitch_shift(g, -3 - 2 * i), 1.0), (rumble(0.5, rng), 0.3)), wet=0.1, lp=4000, peak=-5)
+    for i in (1, 2):   # 送東西（吐出靈魂土、送晶塊、立約）：往上的水晶嗡鳴
+        h = hum(1.4, note(A3 / 2, 5 + 2 * i))
+        S.place(h, 0.4 * S.bell(note(A3, 12 + 5 * i), 1.2, rng), 0.5)
+        s[f"gift{i}"] = finish(h, wet=0.4, size=1.2, peak=-4)
+    return s
+
+
 RECIPES = {   # name -> (recipe, asset folder, seed)
     "singer": (singer, "mob/singer", 11),
     "mourner": (mourner, "mob/mourner", 12),
     "willow_grove": (willow_grove, "ambient/willow_grove", 13),
+    "nuzzle": (nuzzle, "mob/nuzzle", 21),
+    "slabber": (slabber, "mob/slabber", 22),
+    "echo_golem": (echo_golem, "mob/echo_golem", 23),
 }
+
+EVENTS.update({
+    "nuzzle": [("entity.nuzzle.ambient", "ambient", "Nuzzle purrs", "蹭蹭怪呼嚕", {}),
+               ("entity.nuzzle.nuzzle", "nuzzle", "Nuzzle nuzzles you", "蹭蹭怪蹭了蹭你", {}),
+               ("entity.nuzzle.hurt", "hurt", "Nuzzle shrieks", "蹭蹭怪尖叫", {}),
+               ("entity.nuzzle.death", "death", "Nuzzle dies", "蹭蹭怪死亡", {})],
+    "slabber": [("entity.slabber.ambient", "ambient", "Slabber lows", "泥板獸低鳴", {}),
+                ("entity.slabber.hurt", "hurt", "Slabber hurts", "泥板獸受傷", {}),
+                ("entity.slabber.death", "death", "Slabber dies", "泥板獸死亡", {}),
+                ("entity.slabber.eat", "eat", "Slabber eats", "泥板獸進食", {})],
+    "echo_golem": [("entity.echo_golem.ambient", "ambient", "Echo Golem hums", "迴音傀儡嗡鳴", {}),
+                   ("entity.echo_golem.step", "step", "Echo Golem steps", "迴音傀儡腳步聲", {}),
+                   ("entity.echo_golem.hurt", "hurt", "Echo Golem cracks", "迴音傀儡碎裂", {}),
+                   ("entity.echo_golem.death", "death", "Echo Golem crumbles", "迴音傀儡崩塌", {}),
+                   ("entity.echo_golem.work", "work", "Echo Golem works", "迴音傀儡工作", {}),
+                   ("entity.echo_golem.gift", "gift", "Echo Golem chimes", "迴音傀儡鳴響", {})],
+})
 
 
 def main():

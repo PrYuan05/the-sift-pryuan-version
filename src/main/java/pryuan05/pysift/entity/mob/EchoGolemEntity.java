@@ -199,8 +199,34 @@ public class EchoGolemEntity extends PysiftGeoEntity {
         if (ritualPhase() != PHASE_SINK) {
             this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
             setRitualPhase(PHASE_SINK, SINK_TICKS);
-            this.playSound(SoundEvents.WARDEN_DIG, 0.6f, 1.6f);
+            this.playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_WORK, 0.8f, 1.1f);
         }
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py：石頭與水晶）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return isRitualWorker() ? null : pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_AMBIENT;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_DEATH;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_STEP, 0.5f, 0.9f + this.random.nextFloat() * 0.2f);
     }
 
     /** 抱著唱片盒時，手臂改播 carry（用戶端依同步的手持物品判斷）。 */
@@ -315,6 +341,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
                 contractOwner = player.getUUID();
                 this.setTarget(null);
                 this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.0f, 0.8f);
+                this.playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_GIFT, 1.2f, 0.9f);   // 立約
                 level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 1.8, this.getZ(), 20, 0.5, 0.6, 0.5, 0.02);
             }
             return InteractionResult.SUCCESS;
@@ -334,7 +361,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
                 storedCrystals--;
             }
             setCrystal(true);
-            this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.0f, 1.2f);
+            this.playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_GIFT, 0.9f, 1.15f);   // 頭頂的晶塊長回來
             level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + this.getBbHeight(), this.getZ(), 12, 0.4, 0.3, 0.4, 0.02);
         }
         if (--deliverTimer > 0) {
@@ -352,7 +379,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
             spit(level, owner, new ItemStack(Items.ECHO_SHARD));
         }
         this.triggerAnim("skill", "pulse");
-        this.playSound(SoundEvents.ALLAY_THROW, 1.0f, 0.7f);
+        this.playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_GIFT, 1.2f, 1.0f);   // 把靈魂土吐給主人
     }
 
     private void spit(ServerLevel level, Player owner, ItemStack stack) {
@@ -451,7 +478,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
                 setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
                 getNavigation().stop();
                 setRitualPhase(PHASE_SINK, SINK_TICKS);
-                playSound(SoundEvents.WARDEN_DIG, 0.8f, 1.3f);
+                playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_WORK, 1.0f, 1.0f);
                 return;
             }
             setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.JUKEBOX));
@@ -487,7 +514,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
                 }
                 placing = 0;
                 triggerAnim("skill", "place");
-                playSound(SoundEvents.WARDEN_STEP, 0.8f, 1.2f);
+                playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_WORK, 1.0f, 1.2f);
                 return;
             }
             if (++walking > STUCK_LIMIT) {   // 走不過去：直接瞬移到旁邊
@@ -723,6 +750,7 @@ public class EchoGolemEntity extends PysiftGeoEntity {
             getNavigation().stop();
             setCrystal(false);
             triggerAnim("skill", "pulse");
+            playSound(pryuan05.pysift.sound.ModSounds.ECHO_GOLEM_GIFT, 1.2f, 1.0f);   // 把晶塊送給歌者
             singer.receiveSoulCrystal(EchoGolemEntity.this);
         }
 

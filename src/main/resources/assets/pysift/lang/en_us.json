@@ -2162,5 +2162,19 @@
   "subtitles.pysift.entity.singer.reborn": "Singer is reborn",
   "subtitles.pysift.entity.mourner.wail": "Mourner wails",
   "subtitles.pysift.entity.mourner.soothe": "Mourner sighs in relief",
-  "subtitles.pysift.entity.mourner.hush": "Mourner falls quiet"
+  "subtitles.pysift.entity.mourner.hush": "Mourner falls quiet",
+  "subtitles.pysift.entity.nuzzle.ambient": "Nuzzle purrs",
+  "subtitles.pysift.entity.nuzzle.nuzzle": "Nuzzle nuzzles you",
+  "subtitles.pysift.entity.nuzzle.hurt": "Nuzzle shrieks",
+  "subtitles.pysift.entity.nuzzle.death": "Nuzzle dies",
+  "subtitles.pysift.entity.slabber.ambient": "Slabber lows",
+  "subtitles.pysift.entity.slabber.hurt": "Slabber hurts",
+  "subtitles.pysift.entity.slabber.death": "Slabber dies",
+  "subtitles.pysift.entity.slabber.eat": "Slabber eats",
+  "subtitles.pysift.entity.echo_golem.ambient": "Echo Golem hums",
+  "subtitles.pysift.entity.echo_golem.step": "Echo Golem steps",
+  "subtitles.pysift.entity.echo_golem.hurt": "Echo Golem cracks",
+  "subtitles.pysift.entity.echo_golem.death": "Echo Golem crumbles",
+  "subtitles.pysift.entity.echo_golem.work": "Echo Golem works",
+  "subtitles.pysift.entity.echo_golem.gift": "Echo Golem chimes"
 }

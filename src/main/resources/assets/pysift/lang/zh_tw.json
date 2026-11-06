@@ -2162,5 +2162,19 @@
   "subtitles.pysift.entity.singer.reborn": "歌者重生",
   "subtitles.pysift.entity.mourner.wail": "哀悼者哀號",
   "subtitles.pysift.entity.mourner.soothe": "哀悼者鬆了一口氣",
-  "subtitles.pysift.entity.mourner.hush": "哀悼者漸漸安靜"
+  "subtitles.pysift.entity.mourner.hush": "哀悼者漸漸安靜",
+  "subtitles.pysift.entity.nuzzle.ambient": "蹭蹭怪呼嚕",
+  "subtitles.pysift.entity.nuzzle.nuzzle": "蹭蹭怪蹭了蹭你",
+  "subtitles.pysift.entity.nuzzle.hurt": "蹭蹭怪尖叫",
+  "subtitles.pysift.entity.nuzzle.death": "蹭蹭怪死亡",
+  "subtitles.pysift.entity.slabber.ambient": "泥板獸低鳴",
+  "subtitles.pysift.entity.slabber.hurt": "泥板獸受傷",
+  "subtitles.pysift.entity.slabber.death": "泥板獸死亡",
+  "subtitles.pysift.entity.slabber.eat": "泥板獸進食",
+  "subtitles.pysift.entity.echo_golem.ambient": "迴音傀儡嗡鳴",
+  "subtitles.pysift.entity.echo_golem.step": "迴音傀儡腳步聲",
+  "subtitles.pysift.entity.echo_golem.hurt": "迴音傀儡碎裂",
+  "subtitles.pysift.entity.echo_golem.death": "迴音傀儡崩塌",
+  "subtitles.pysift.entity.echo_golem.work": "迴音傀儡工作",
+  "subtitles.pysift.entity.echo_golem.gift": "迴音傀儡鳴響"
 }

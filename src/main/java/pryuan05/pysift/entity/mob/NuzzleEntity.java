@@ -64,11 +64,22 @@ public class NuzzleEntity extends PysiftAnimalEntity {
 
     @Override
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
-        boolean hurt = super.hurtServer(level, source, amount);
-        if (hurt) {
-            this.playSound(SoundEvents.FOX_SCREECH, 1.2f, 1.4f);
-        }
-        return hurt;
+        return super.hurtServer(level, source, amount);   // 尖叫由 getHurtSound 播放
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return pryuan05.pysift.sound.ModSounds.NUZZLE_AMBIENT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.NUZZLE_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.NUZZLE_DEATH;
     }
 
     @Override
@@ -113,7 +124,7 @@ public class NuzzleEntity extends PysiftAnimalEntity {
             getNavigation().stop();
             nuzzleCooldown = 1200;
             triggerAnim("skill", "nuzzle");
-            playSound(SoundEvents.FOX_SNIFF, 1.0f, 1.3f);
+            playSound(pryuan05.pysift.sound.ModSounds.NUZZLE_NUZZLE, 1.0f, 1.0f);
             player.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), NuzzleEntity.this);
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0), NuzzleEntity.this);
             if (level() instanceof ServerLevel level) {

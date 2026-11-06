@@ -141,7 +141,7 @@ def bell(freq, seconds, rng=None, ratios=(1.0, 2.0, 2.76, 4.07, 5.4, 8.93), brig
 # ---------------------------------------------------------------- envelopes and effects
 def adsr(n, attack=0.05, release=0.3, curve=2.0):
     env = np.ones(n)
-    a, r = int(attack * SR), int(release * SR)
+    a, r = min(int(attack * SR), n // 2), min(int(release * SR), n // 2)   # short clips: never longer than the clip
     if a:
         env[:a] = np.linspace(0, 1, a) ** curve
     if r:

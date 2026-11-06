@@ -99,17 +99,17 @@ public class SlabberEntity extends Animal implements GeoEntity {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SNIFFER_IDLE;
+        return pryuan05.pysift.sound.ModSounds.SLABBER_AMBIENT;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.SNIFFER_HURT;
+        return pryuan05.pysift.sound.ModSounds.SLABBER_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SNIFFER_DEATH;
+        return pryuan05.pysift.sound.ModSounds.SLABBER_DEATH;
     }
 
     @Override
@@ -171,7 +171,7 @@ public class SlabberEntity extends Animal implements GeoEntity {
                 this.usePlayerItem(player, hand, stack);
                 this.ageUp(getSpeedUpSecondsWhenFeeding(-this.age), true);
                 this.triggerAnim("skill", "eat");
-                this.playSound(SoundEvents.SNIFFER_EAT, 1.0f, 1.2f);
+                this.playSound(pryuan05.pysift.sound.ModSounds.SLABBER_EAT, 1.0f, 1.1f);
                 return InteractionResult.SUCCESS;
             }
             return super.mobInteract(player, hand);
@@ -211,7 +211,7 @@ public class SlabberEntity extends Animal implements GeoEntity {
             InteractionResult res = super.mobInteract(player, hand);
             if (res.consumesAction()) {
                 this.triggerAnim("skill", "eat");
-                this.playSound(SoundEvents.SNIFFER_EAT, 1.0f, 1.0f);
+                this.playSound(pryuan05.pysift.sound.ModSounds.SLABBER_EAT, 1.0f, 1.0f);
             }
             return res;
         }

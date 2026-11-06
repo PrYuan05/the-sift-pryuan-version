@@ -950,5 +950,165 @@
         "name": "pysift:mob/mourner/hush1"
       }
     ]
+  },
+  "entity.nuzzle.ambient": {
+    "subtitle": "subtitles.pysift.entity.nuzzle.ambient",
+    "sounds": [
+      {
+        "name": "pysift:mob/nuzzle/ambient1"
+      },
+      {
+        "name": "pysift:mob/nuzzle/ambient2"
+      },
+      {
+        "name": "pysift:mob/nuzzle/ambient3"
+      }
+    ]
+  },
+  "entity.nuzzle.nuzzle": {
+    "subtitle": "subtitles.pysift.entity.nuzzle.nuzzle",
+    "sounds": [
+      {
+        "name": "pysift:mob/nuzzle/nuzzle1"
+      },
+      {
+        "name": "pysift:mob/nuzzle/nuzzle2"
+      }
+    ]
+  },
+  "entity.nuzzle.hurt": {
+    "subtitle": "subtitles.pysift.entity.nuzzle.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/nuzzle/hurt1"
+      },
+      {
+        "name": "pysift:mob/nuzzle/hurt2"
+      }
+    ]
+  },
+  "entity.nuzzle.death": {
+    "subtitle": "subtitles.pysift.entity.nuzzle.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/nuzzle/death1"
+      }
+    ]
+  },
+  "entity.slabber.ambient": {
+    "subtitle": "subtitles.pysift.entity.slabber.ambient",
+    "sounds": [
+      {
+        "name": "pysift:mob/slabber/ambient1"
+      },
+      {
+        "name": "pysift:mob/slabber/ambient2"
+      },
+      {
+        "name": "pysift:mob/slabber/ambient3"
+      }
+    ]
+  },
+  "entity.slabber.hurt": {
+    "subtitle": "subtitles.pysift.entity.slabber.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/slabber/hurt1"
+      },
+      {
+        "name": "pysift:mob/slabber/hurt2"
+      }
+    ]
+  },
+  "entity.slabber.death": {
+    "subtitle": "subtitles.pysift.entity.slabber.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/slabber/death1"
+      }
+    ]
+  },
+  "entity.slabber.eat": {
+    "subtitle": "subtitles.pysift.entity.slabber.eat",
+    "sounds": [
+      {
+        "name": "pysift:mob/slabber/eat1"
+      },
+      {
+        "name": "pysift:mob/slabber/eat2"
+      }
+    ]
+  },
+  "entity.echo_golem.ambient": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.ambient",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/ambient1"
+      },
+      {
+        "name": "pysift:mob/echo_golem/ambient2"
+      },
+      {
+        "name": "pysift:mob/echo_golem/ambient3"
+      }
+    ]
+  },
+  "entity.echo_golem.step": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.step",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/step1"
+      },
+      {
+        "name": "pysift:mob/echo_golem/step2"
+      },
+      {
+        "name": "pysift:mob/echo_golem/step3"
+      },
+      {
+        "name": "pysift:mob/echo_golem/step4"
+      }
+    ]
+  },
+  "entity.echo_golem.hurt": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/hurt1"
+      },
+      {
+        "name": "pysift:mob/echo_golem/hurt2"
+      }
+    ]
+  },
+  "entity.echo_golem.death": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/death1"
+      }
+    ]
+  },
+  "entity.echo_golem.work": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.work",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/work1"
+      },
+      {
+        "name": "pysift:mob/echo_golem/work2"
+      }
+    ]
+  },
+  "entity.echo_golem.gift": {
+    "subtitle": "subtitles.pysift.entity.echo_golem.gift",
+    "sounds": [
+      {
+        "name": "pysift:mob/echo_golem/gift1"
+      },
+      {
+        "name": "pysift:mob/echo_golem/gift2"
+      }
+    ]
   }
 }

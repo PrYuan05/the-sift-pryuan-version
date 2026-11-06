@@ -48,6 +48,21 @@ public class ModSounds {
     public static final SoundEvent MOURNER_WAIL = register("entity.mourner.wail");      // 看到玩家、開始哭著唱
     public static final SoundEvent MOURNER_SOOTHE = register("entity.mourner.soothe");  // 泡靈液／聽香爐被安慰
     public static final SoundEvent MOURNER_HUSH = register("entity.mourner.hush");      // 被哀悼號角安撫
+    // 用免費素材（sound_sources/）加工的生物音效，見 tools/audio/build_sounds.py 與 assets/pysift/sounds/CREDITS.md
+    public static final SoundEvent NUZZLE_AMBIENT = register("entity.nuzzle.ambient");
+    public static final SoundEvent NUZZLE_NUZZLE = register("entity.nuzzle.nuzzle");
+    public static final SoundEvent NUZZLE_HURT = register("entity.nuzzle.hurt");
+    public static final SoundEvent NUZZLE_DEATH = register("entity.nuzzle.death");
+    public static final SoundEvent SLABBER_AMBIENT = register("entity.slabber.ambient");
+    public static final SoundEvent SLABBER_HURT = register("entity.slabber.hurt");
+    public static final SoundEvent SLABBER_DEATH = register("entity.slabber.death");
+    public static final SoundEvent SLABBER_EAT = register("entity.slabber.eat");
+    public static final SoundEvent ECHO_GOLEM_AMBIENT = register("entity.echo_golem.ambient");
+    public static final SoundEvent ECHO_GOLEM_STEP = register("entity.echo_golem.step");
+    public static final SoundEvent ECHO_GOLEM_HURT = register("entity.echo_golem.hurt");
+    public static final SoundEvent ECHO_GOLEM_DEATH = register("entity.echo_golem.death");
+    public static final SoundEvent ECHO_GOLEM_WORK = register("entity.echo_golem.work");   // 挖地、放下唱片盒
+    public static final SoundEvent ECHO_GOLEM_GIFT = register("entity.echo_golem.gift");   // 送東西、立約、長回晶塊
 
     /**
      * The Sift 各生態域的背景音樂與環境音（music.the_sift.&lt;生態域&gt;、ambient.the_sift.&lt;生態域&gt;.loop／mood／additions），
