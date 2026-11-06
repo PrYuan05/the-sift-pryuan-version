@@ -160,6 +160,7 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(MOURNER, MournerEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SIFT_WARDEN, SiftWardenEntity.createSiftAttributes());
         SiftWardenEntity.registerGuarding();
+        DenGuard.register();   // 回音窟的守衛
         WardenCure.register();
         // 哀悼者：困在主世界深暗之域（遠古城市所在的生態域）的屍化歌者，稀有
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addSpawn(

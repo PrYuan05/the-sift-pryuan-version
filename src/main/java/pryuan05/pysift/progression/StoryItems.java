@@ -173,6 +173,11 @@ public final class StoryItems {
         for (MournerEntity m : level.getEntitiesOfClass(MournerEntity.class, player.getBoundingBox().inflate(HORN_RANGE))) {
             m.hush(SOOTHE_TICKS);
         }
+        for (SiftWardenEntity g : level.getEntitiesOfClass(SiftWardenEntity.class, player.getBoundingBox().inflate(HORN_RANGE),
+                pryuan05.pysift.entity.DenGuard::isRoused)) {   // 回音窟被驚醒的守衛：聽到歌聲就安靜
+            pryuan05.pysift.entity.DenGuard.calm(g);
+            calmed++;
+        }
         if (calmed > 0 && player instanceof ServerPlayer sp) {
             StoryTriggers.wardenSoothed(sp);
             sp.sendOverlayMessage(Component.translatable("message.pysift.mourning_horn.calmed", calmed).withStyle(ChatFormatting.LIGHT_PURPLE));

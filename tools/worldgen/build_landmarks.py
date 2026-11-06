@@ -67,7 +67,7 @@ def compound(d):
         elif isinstance(v, float):
             out[k] = (5, v)
         elif isinstance(v, list):
-            out[k] = (9, (5, v))                       # only float lists (Rotation) are needed
+            out[k] = (9, (8, v)) if v and all(isinstance(i, str) for i in v) else (9, (5, v))   # Tags / Rotation
         else:
             out[k] = (8, str(v))
     return out
@@ -113,8 +113,8 @@ class Template:
                                                "final_state": final, "joint": "aligned", "placement_priority": 0,
                                                "selection_priority": 0}, orientation=f"{facing}_up")
 
-    def entity(self, x, y, z, entity_id, yaw=0.0):
-        self.entities.append((x + 0.5, float(y), z + 0.5, entity_id, float(yaw)))
+    def entity(self, x, y, z, entity_id, yaw=0.0, tags=()):
+        self.entities.append((x + 0.5, float(y), z + 0.5, entity_id, float(yaw), tuple(tags)))
 
     def to_nbt(self):
         palette, index, blocks = [], {}, []
@@ -131,8 +131,9 @@ class Template:
                 b["nbt"] = (10, compound(nbt))
             blocks.append(b)
         entities = [{"pos": (9, (6, [ex, ey, ez])), "blockPos": (9, (3, [int(ex), int(ey), int(ez)])),
-                     "nbt": (10, compound({"id": eid, "PersistenceRequired": True, "Rotation": [yaw, 0.0]}))}
-                    for ex, ey, ez, eid, yaw in self.entities]
+                     "nbt": (10, compound({"id": eid, "PersistenceRequired": True, "Rotation": [yaw, 0.0],
+                                           **({"Tags": list(tags)} if tags else {})}))}
+                    for ex, ey, ez, eid, yaw, tags in self.entities]
         return nbt_file({"DataVersion": (3, DATA_VERSION), "size": (9, (3, list(self.size))),
                          "palette": (9, (10, palette)), "blocks": (9, (10, blocks)), "entities": (9, (10, entities))})
 
@@ -365,7 +366,8 @@ def entry_door(t, w):
 
 
 def den_crystal_grotto():
-    """Charoite and soul crystals grow out of the walls; a small spirit-liquid pool and a chest."""
+    """Where echo golems are born (§4.7 Echo Den): charoite and soul crystals grow out of the walls, echo cradles on the
+    floor condense a Singer's song into golems; a small spirit-liquid pool and a chest."""
     t = Template(15, 10, 15, 1105)
     cave_room(t, 15, 10, 15)
     for _ in range(26):
@@ -383,12 +385,19 @@ def den_crystal_grotto():
         for z in range(9, 12):
             t.set(x, 0, z, "spirit_liquid")
     t.chest(7, 1, 7, "echo_den", facing="north")
+    # echo cradles (EchoCradleBlock) at different stages of resonance, and the Singer who sings to them
+    for (x, z), stage in zip(((3, 10), (11, 10), (3, 5), (11, 5), (9, 12)), (0, 1, 2, 1, 0)):
+        if t.get(x, 0, z) not in (None, "minecraft:air") and t.get(x, 1, z) == "minecraft:air":
+            t.set(x, 1, z, "echo_cradle", resonance=str(stage))
+    t.entity(5, 1, 8, "pysift:singer", yaw=90)
     entry_door(t, 15)
     return t
 
 
 def den_resonance_room():
-    """Where the golems practise: a wall organ of note blocks, a jukebox, two golems, two chests."""
+    """Where the choir practises the eight notes: a wall organ of note blocks, eight candles in the colours of the ritual
+    discs in the right order (left to right red, orange, yellow, green, blue, indigo, violet, pink; RitualDiscs), a
+    jukebox, a Singer teaching two golems, two chests."""
     t = Template(13, 9, 13, 1106)
     for x in range(13):
         for z in range(13):
@@ -402,6 +411,10 @@ def den_resonance_room():
         for y in range(1, 1 + 2 + abs(6 - x) % 3 + (2 if x == 6 else 0)):
             t.set(x, y, 11, "minecraft:note_block", note=(x * 2 + y) % 25, instrument=("chime", "bell", "flute")[y % 3])
     t.set(6, 1, 9, "minecraft:jukebox", {"id": "minecraft:jukebox"}, has_record="false")
+    # seen from the room, the organ's left is +x (it faces north, towards the door)
+    for i, colour in enumerate(("red", "orange", "yellow", "lime", "light_blue", "blue", "purple", "pink")):
+        t.set(10 - i, 1, 10, f"minecraft:{colour}_candle", candles=str(1 + i % 4), lit="true", waterlogged="false")
+    t.entity(6, 1, 7, "pysift:singer", yaw=0)
     for x in (2, 10):
         t.set(x, 1, 2, "minecraft:soul_lantern", hanging="false")
         t.set(x, 6, 6, "soul_crystal_block")
@@ -449,6 +462,9 @@ def den_vault():
         t.set(x, 2, z, "charoite_cluster", facing="up", waterlogged="false")
     t.set(5, 1, 5, "violet_strata_bricks")
     t.chest(5, 2, 5, "echo_den_vault", facing="north")
+    # two den guards (healthy wardens, §4.7) behind the crystal ring, facing the door
+    t.entity(2, 1, 8, "pysift:sift_warden", yaw=180, tags=("pysift_den_guard",))
+    t.entity(8, 1, 8, "pysift:sift_warden", yaw=180, tags=("pysift_den_guard",))
     t.set(5, 6, 5, "minecraft:soul_lantern", hanging="true")
     entry_door(t, 11)
     return t

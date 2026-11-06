@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pysift:block/echo_cradle/echo_cradle_2"
+  }
+}

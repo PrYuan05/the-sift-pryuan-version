@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:echo_cradle"
+  },
+  "title": "",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.sift.echo_den.p1.text"
+}

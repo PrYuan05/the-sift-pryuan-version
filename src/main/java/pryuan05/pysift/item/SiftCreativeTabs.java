@@ -242,7 +242,7 @@ public final class SiftCreativeTabs {
                 Map.entry("soul_compass", List.of("recovery_compass")), Map.entry("homeward_stone", List.of("recovery_compass")),
                 Map.entry("summoning_sigil", List.of("recovery_compass")),
                 Map.entry("rift_seal", List.of("recovery_compass")), Map.entry("mourning_horn", List.of("goat_horn")),
-                Map.entry("lullaby_censer", List.of("soul_lantern")), Map.entry("sift_heart", List.of("nether_star")),
+                Map.entry("lullaby_censer", List.of("soul_lantern")), Map.entry("echo_cradle", List.of("amethyst_cluster")), Map.entry("sift_heart", List.of("nether_star")),
                 Map.entry("ancient_chronicle", List.of("writable_book")),
                 // combat: the boss weapons after the mace
                 Map.entry("sonic_staff", List.of("mace")), Map.entry("dash_charm", List.of("mace")), Map.entry("sculk_hammer", List.of("mace")),

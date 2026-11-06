@@ -434,6 +434,23 @@ public class ModBlocks {
         return block;
     }
 
+    /** 回音晶簇（回音窟晶洞裡生出迴音傀儡的地方，{@link EchoCradleBlock}）。 */
+    public static final Block ECHO_CRADLE = registerEchoCradle();
+
+    private static Block registerEchoCradle() {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id("echo_cradle"));
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id("echo_cradle"));
+        Block block = new EchoCradleBlock(BlockBehaviour.Properties.ofFullCopy(net.minecraft.world.level.block.Blocks.AMETHYST_CLUSTER)
+                .noOcclusion()
+                .lightLevel(EchoCradleBlock::light)
+                .setId(blockKey));
+        Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
+        Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().setId(itemKey)));
+        ALL_BLOCKS.add(block);
+        BY_NAME.put("echo_cradle", block);
+        return block;
+    }
+
     public static void registerModBlocks() {
         PySift.LOGGER.info("Successfully registered {} Sift Blocks for {}", ALL_BLOCKS.size(), PySift.MOD_ID);
     }

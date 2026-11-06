@@ -135,6 +135,7 @@ public class SiftWardenEntity extends Warden {
                 pryuan05.pysift.entity.WardenSoothing.soothe(level, w, 120);
             }
         }
+        pryuan05.pysift.entity.DenGuard.tick(this, level);   // 回音窟的守衛：被驚醒時追趕入侵者
         if (this.tickCount % 10 == 0) {   // 走過的地方，藍幽匿慢慢變回紅色
             net.minecraft.core.BlockPos p = this.blockPosition().offset(this.random.nextInt(5) - 2, -1 - this.random.nextInt(2), this.random.nextInt(5) - 2);
             pryuan05.pysift.block.RotSpread.healOne(level, p);
@@ -156,7 +157,7 @@ public class SiftWardenEntity extends Warden {
             }
             return InteractionResult.SUCCESS;
         }
-        if (!stack.is(Items.ECHO_SHARD)) {
+        if (!stack.is(Items.ECHO_SHARD) || pryuan05.pysift.entity.DenGuard.isRoused(this)) {   // 被驚醒的守衛不收迴音碎片
             return super.mobInteract(player, hand);
         }
         if (this.level() instanceof ServerLevel level) {
@@ -166,6 +167,7 @@ public class SiftWardenEntity extends Warden {
                 this.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
                 player.sendOverlayMessage(Component.translatable("message.pysift.sift_warden.stay").withStyle(ChatFormatting.LIGHT_PURPLE));
             } else {
+                pryuan05.pysift.entity.DenGuard.release(this);   // 收服之後不再是回音窟的守衛
                 owner = player.getUUID();
                 following = true;
                 player.sendOverlayMessage(Component.translatable("message.pysift.sift_warden.follow").withStyle(ChatFormatting.LIGHT_PURPLE));

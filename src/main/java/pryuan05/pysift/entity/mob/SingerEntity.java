@@ -374,6 +374,7 @@ public class SingerEntity extends PysiftAnimalEntity {
         if (this.level() instanceof ServerLevel server && !isEmerging() && !isLeaving()) {
             tickMourning(server);
             tickHollowing(server);
+            tickChoir(server);
         }
         if (this.actionTicks > 0 && !this.level().isClientSide() && --this.actionTicks == 0) {
             // 玩夠了回去繼續等；召喚完傀儡之後，儀式歌者改成等玩家放唱片（await）
@@ -467,6 +468,38 @@ public class SingerEntity extends PysiftAnimalEntity {
             mournFor = null;
             mournCooldown = MOURN_COOLDOWN;
         }
+    }
+
+    // ---------------------------------------------------------------- the echo den choir (§4.7「回音窟」)
+    /**
+     * 回音窟舞台上的領唱（結構裡帶 pysift_den_lead 標籤）：CHOIR_RANGE 格內有玩家時，每 CHOIR_PERIOD tick 帶頭唱一次正確的八音
+     * （{@link SingerSongs#OPENING}，替篩網「調音」），其他合唱的歌者（pysift_den_choir）跟著做唱歌動作、冒出音符。
+     * 合唱期間附近被驚醒的守衛會平靜下來（DenGuard.calm）。
+     */
+    public static final String DEN_LEAD = "pysift_den_lead", DEN_CHOIR = "pysift_den_choir";
+    private static final int CHOIR_PERIOD = 1200;
+    private static final double CHOIR_RANGE = 24.0;
+
+    private void tickChoir(ServerLevel level) {
+        if (!this.entityTags().contains(DEN_LEAD) || mournTicks > 0 || (this.tickCount + this.getId()) % CHOIR_PERIOD != 0
+                || level.getNearestPlayer(this, CHOIR_RANGE) == null) {
+            return;
+        }
+        var choir = level.getEntitiesOfClass(SingerEntity.class, this.getBoundingBox().inflate(16.0),
+                s -> s.isAlive() && s.entityTags().contains(DEN_CHOIR));
+        pryuan05.pysift.progression.StoryItems.play(level, this, SingerSongs.OPENING, 8, i -> {
+            for (SingerEntity s : choir) {
+                if (i == 0) {
+                    s.triggerAnim("skill", "sing");
+                }
+                level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, (i * 3) / 24.0, 0, 0, 1.0);
+            }
+            if (i == 0) {
+                for (SiftWardenEntity w : level.getEntitiesOfClass(SiftWardenEntity.class, this.getBoundingBox().inflate(CHOIR_RANGE))) {
+                    pryuan05.pysift.entity.DenGuard.calm(w);
+                }
+            }
+        }, null);
     }
 
     // ---------------------------------------------------------------- hollowing: starving in the soulless Overworld
@@ -657,7 +690,7 @@ public class SingerEntity extends PysiftAnimalEntity {
     @Override
     protected void customServerAiStep(ServerLevel level) {
         super.customServerAiStep(level);
-        if (isRitual()) {   // 儀式歌者站在原地（仍會轉頭看玩家）
+        if (isRitual() || this.entityTags().contains(DEN_CHOIR)) {   // 儀式歌者與回音窟的合唱團站在原地（仍會轉頭看玩家）
             this.getNavigation().stop();
             this.setDeltaMovement(0.0, this.getDeltaMovement().y, 0.0);
         }

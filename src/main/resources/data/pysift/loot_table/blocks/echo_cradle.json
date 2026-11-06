@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "random_sequence": "pysift:blocks/echo_cradle",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:echo_cradle"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    }
+  ]
+}

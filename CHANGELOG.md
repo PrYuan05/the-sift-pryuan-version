@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+### New: the Echo Den choir, cradles and guards
+- The Echo Den's hub has a **Singer choir** on its stage. While someone listens, the lead Singer sings the eight notes the
+  right way round about once a minute and the choir joins in.
+- **Echo Cradle** (amethyst-like crystal in the grottoes): Singers' song builds resonance in it until a new Echo Golem
+  is born; feeding it an echo shard helps.
+- **Den guards**: Sift Wardens at the doors and the vault. Hit a Singer or golem, open the chests, or break crystals,
+  cradles or note blocks nearby and they wake and chase you. The choir's song or a Mourning Horn calms them; an awake
+  guard will not take an echo shard.
+- **Ancient Page IX** ("The Choir Below") is always in the Echo Den vault; the Ancient Chronicle still binds pages I-VIII.
+
 ### New: the story's tools and its ending (story act 7 and finale)
 - **Sift Warden** is now a real companion: it hears monsters through walls and makes them glow, fights monsters that
   hurt you or that you hit (never players, pets or villagers; 15 melee damage, sonic boom halved), keeps wild Wardens

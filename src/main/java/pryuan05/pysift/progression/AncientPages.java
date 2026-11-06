@@ -30,18 +30,21 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 /**
- * 遠古殘頁（世界觀 4.7）：8 張，各寫著一段當年的故事。撿起來時隙浮手記（Modonomicon 書 pysift:sift_codex）
+ * 遠古殘頁（世界觀 4.7）：9 張，各寫著一段當年的故事。撿起來時隙浮手記（Modonomicon 書 pysift:sift_codex）
  * 對應的條目會解鎖，手持右鍵可以像書一樣直接讀。
  * <ul>
  *   <li>其一～其四：遠古人寫的，放在原版遠古城市的箱子（約一半的箱子有一張）。</li>
  *   <li>其五～其七：歌者的歌，放在隙浮遺跡的箱子（約一半）；迴音巢穴的寶庫一定有一張。</li>
  *   <li>其八：幽匿巨怪身上一定帶著。</li>
+ *   <li>其九（番外，不算在《遠古編年史》的 8 章裡）：歌者在回音窟教唱的歌，回音窟的寶庫一定有。</li>
  * </ul>
  * 文字與手記的內容由 tools/progression/build_codex.py 產生（語系 book.pysift.ancient_page_N.pageM）。
  */
 public final class AncientPages {
     /** 每張殘頁的頁數（和 build_codex.py 的 PAGES 一致）。 */
-    private static final int[] PAGE_LENGTHS = {2, 1, 2, 2, 2, 2, 1, 2};
+    private static final int[] PAGE_LENGTHS = {2, 1, 2, 2, 2, 2, 1, 2, 2};
+    /** 《遠古編年史》收的章數：其一～其八（其九是回音窟的番外）。 */
+    private static final int CHRONICLE_PAGES = 8;
     public static final List<Item> PAGES = new ArrayList<>();
 
     static {
@@ -73,7 +76,7 @@ public final class AncientPages {
 
     private static Item.Properties chronicle() {
         List<Filterable<Component>> pages = new ArrayList<>();
-        for (int i = 1; i <= PAGE_LENGTHS.length; i++) {
+        for (int i = 1; i <= CHRONICLE_PAGES; i++) {
             for (int n = 1; n <= PAGE_LENGTHS[i - 1]; n++) {
                 pages.add(Filterable.passThrough(Component.translatable("book.pysift.ancient_page_" + i + ".page" + n)));
             }
@@ -125,6 +128,7 @@ public final class AncientPages {
                 String chest = id.getPath().substring("chests/".length());
                 if (chest.equals("echo_den_vault")) {
                     table.withPool(pool(PAGES.subList(4, 7), 0));
+                    table.withPool(pool(PAGES.subList(8, 9), 0));   // 其九：回音窟的歌
                 } else if (SIFT_RUINS.contains(chest)) {
                     table.withPool(pool(PAGES.subList(4, 7), 3));
                     table.withPool(pool(SHERDS, 8));
