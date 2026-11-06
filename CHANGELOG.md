@@ -2,6 +2,28 @@
 
 ## Unreleased
 
+### New: kin, hollowing and homecoming (story acts 4-6)
+- **Singers recognise Wardens.** Bring a Singer within 24 blocks of a Warden: it trembles, then sings the eight notes
+  backwards. The Warden calms down for 30 seconds - no anger, no targets, slowed.
+- **Mourner**, a new neutral creature: a Singer that starved in the Overworld, bald and blue with rot. It wanders the
+  Deep Dark (rare), weeps the backwards song when you come close and brings Darkness. It never attacks.
+- **Hollowing:** a Singer that spends about five minutes in the Overworld without a Soul Crystal Block or spirit liquid
+  within six blocks becomes a Mourner. Soak a Mourner in spirit liquid for ten seconds and it is a Singer again.
+- **Sift Warden:** soak a Warden in spirit liquid for 15 seconds (or keep it in The Sift for 30) and its red fur grows
+  back. It never gets angry, never spreads Darkness and never digs away. Feed it an echo shard to make it follow you,
+  another to make it wait.
+- Starved creatures (Wardens and Mourners) drink spirit liquid instead of being hurt by it (`#pysift:soul_starved`);
+  everything else, healthy Singers included, takes in too many souls and is hurt. A freshly cured creature has
+  10 seconds to climb out.
+- **The rot spreads and can be stopped.** Red sculk within 10 blocks of a rift slowly rots blue. Defeating the Sculk
+  Monstrosity stops the rot in that world, and the sculk around the rifts slowly turns red again.
+  Test command: `/pysift_rot stilled <true|false>`.
+- **Four ancient pottery sherds** (Gate, Singer, Kin, Octave) in Ancient City and Sift ruin chests; they work in
+  decorated pots like vanilla sherds. The Octave sherd's eight bars spell the right disc order.
+- New story advancements: Lullaby for the Deep, Homeward Song, Bring It Home, The Rot Recedes.
+- Sift Codex: new entries Kin, Hollowing, Homecoming, The Rot Spreads, Pottery Sherds, and bestiary pages for the
+  Mourner and the Sift Warden.
+
 ### New: aurum, tools and golden foods
 - Aurum ore (Lullaby Hills river beds) now drops **Raw Aurum**, more the richer the ore: richness 0 drops 1-2, solid
   ore (richness 4) 4-7; Fortune applies, Silk Touch keeps the ore with its richness.

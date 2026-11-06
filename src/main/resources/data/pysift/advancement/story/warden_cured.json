@@ -1,0 +1,26 @@
+{
+  "parent": "pysift:story/mourner_cured",
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "minecraft:echo_shard"
+    },
+    "title": {
+      "translate": "advancements.pysift.story.warden_cured.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.story.warden_cured.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 300
+  }
+}

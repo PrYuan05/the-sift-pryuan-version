@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:kin_pottery_sherd"
+  },
+  "title": "",
+  "id": "p3",
+  "sort_number": 3,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.sherds.p3.text"
+}

@@ -38,6 +38,8 @@ public class ModItems {
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);
     public static final Item ECHO_GOLEM_SPAWN_EGG = registerSpawnEgg("echo_golem_spawn_egg", ModEntities.ECHO_GOLEM);
     public static final Item SINGER_SPAWN_EGG = registerSpawnEgg("singer_spawn_egg", ModEntities.SINGER);
+    public static final Item MOURNER_SPAWN_EGG = registerSpawnEgg("mourner_spawn_egg", ModEntities.MOURNER);
+    public static final Item SIFT_WARDEN_SPAWN_EGG = registerSpawnEgg("sift_warden_spawn_egg", ModEntities.SIFT_WARDEN);
     public static final Item NUZZLE_SPAWN_EGG = registerSpawnEgg("nuzzle_spawn_egg", ModEntities.NUZZLE);
     public static final Item LOOTKIN_SPAWN_EGG = registerSpawnEgg("lootkin_spawn_egg", ModEntities.LOOTKIN);
     public static final Item FUSEFLY_SPAWN_EGG = registerSpawnEgg("fusefly_spawn_egg", ModEntities.FUSEFLY);
@@ -63,7 +65,7 @@ public class ModItems {
     public static final Item SCULK_MONSTROSITY_SPAWN_EGG = registerSpawnEgg("sculk_monstrosity_spawn_egg", ModEntities.SCULK_MONSTROSITY);
 
     public static final Item[] SPAWN_EGGS = new Item[] {
-            BLUB_SPAWN_EGG, ECHO_GOLEM_SPAWN_EGG, SINGER_SPAWN_EGG, NUZZLE_SPAWN_EGG, LOOTKIN_SPAWN_EGG,
+            BLUB_SPAWN_EGG, ECHO_GOLEM_SPAWN_EGG, SINGER_SPAWN_EGG, MOURNER_SPAWN_EGG, SIFT_WARDEN_SPAWN_EGG, NUZZLE_SPAWN_EGG, LOOTKIN_SPAWN_EGG,
             FUSEFLY_SPAWN_EGG, DARTBACK_SPAWN_EGG, HURLER_SPAWN_EGG, POLLINATOR_SPAWN_EGG, NESTER_SPAWN_EGG,
             SEEDLING_SPAWN_EGG, SPROUT_SPAWN_EGG, STALKER_SPAWN_EGG, SCAVENGER_SPAWN_EGG, HUNTER_SPAWN_EGG, TRAPPER_SPAWN_EGG, SLABBER_SPAWN_EGG,
             PRICKLE_SPAWN_EGG, SENTINEL_SPAWN_EGG, TUNER_SPAWN_EGG, BLOOMBUD_SPAWN_EGG, ROAMROOT_SPAWN_EGG,

@@ -1,5 +1,7 @@
 package pryuan05.pysift.fluid;
 
+import pryuan05.pysift.PySift;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -66,13 +68,23 @@ public abstract class SpiritFluid extends FlowingFluid {
         Block.dropResources(state, level, pos, blockEntity);
     }
 
+    /**
+     * 缺靈魂、會把靈液當食物吸收而不受傷的生物（data/pysift/tags/entity_type/soul_starved.json：監守者、哀悼者）。
+     * 剛治癒的生物（實體標籤 REBORN）有 REBORN_GRACE tick 的時間離開靈液池。
+     */
+    public static final net.minecraft.tags.TagKey<net.minecraft.world.entity.EntityType<?>> SOUL_STARVED =
+            net.minecraft.tags.TagKey.create(net.minecraft.core.registries.Registries.ENTITY_TYPE, PySift.id("soul_starved"));
+    public static final String REBORN = "pysift_reborn";
+    public static final int REBORN_GRACE = 200;
+
     @Override
     protected void entityInside(Level level, BlockPos pos, Entity entity, InsideBlockEffectApplier effectApplier) {
         super.entityInside(level, pos, entity, effectApplier);
         if (!level.isClientSide() && entity instanceof LivingEntity living) {
             if (living instanceof ServerPlayer player) {
                 SoulBurn.ignite(player);          // 靈魂剝奪：伏聆視野＋靈魂火＋血量抽到 0.2 倍（只在還沒中時觸發）
-            } else {
+            } else if (!living.is(SOUL_STARVED) && !(living.entityTags().contains(REBORN) && living.tickCount < REBORN_GRACE)) {
+                // 餓壞的（監守者、哀悼者）把靈液當食物吸收；其他生物、連健康的隙浮原住民都會吸收太多靈魂而受傷
                 living.addEffect(new MobEffectInstance(ModEffects.SOUL_DEPRIVATION, 60, 0, true, true));
             }
         }

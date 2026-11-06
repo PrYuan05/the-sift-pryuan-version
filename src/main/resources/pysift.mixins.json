@@ -18,7 +18,8 @@
 		"CushionMixin",
 		"ShieldDecorationRecipeMixin",
 		"MapItemSavedDataAccessor",
-		"SiftMapBannerMixin"
+		"SiftMapBannerMixin",
+		"WardenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

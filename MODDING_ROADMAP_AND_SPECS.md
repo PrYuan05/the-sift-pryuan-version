@@ -219,13 +219,13 @@ flowchart TD
 
 **玩法方向（待逐步實作）**
 - ✅ 八音儀式放錯唱片：門會閃爍、走調，接著爆出一陣深色幽匿與哀悼者的歌聲（重現遠古城市的災難），唱片全部彈出（`SiftPortalRitual.tearOpen`，測試指令 `/pysift_ritual fill wrong`）。
-- 屍化：歌者被帶到主世界會慢慢變成哀悼者（放在靈魂晶塊或靈液旁可以延緩）；哀悼者帶回隙浮、泡進靈液可以變回歌者。
-- 治癒監守者（長期目標）：把監守者帶進隙浮，或讓它接觸足夠的靈液，皮毛長回來，變回隙浮型態。
+- ✅ 屍化：歌者在主世界約 5 分鐘、6 格內沒有靈魂晶塊或靈液，就變成哀悼者（`SingerEntity.tickHollowing`，存檔欄位 `OverworldTicks`）；哀悼者泡靈液 10 秒變回歌者（`MournerEntity`）。哀悼者也在深暗之域稀有生成。
+- ✅ 治癒監守者：泡靈液 15 秒或待在隙浮 30 秒，變成隙浮守衛（`WardenCure`、`SiftWardenEntity`，沿用原版模型，貼圖 `tools/models/build_sift_warden.py`）。餵迴音碎片會跟隨。只有餓壞的監守者、哀悼者把靈液當食物吸收、不受傷（`#pysift:soul_starved`）；健康的歌者等原住民會吸收太多靈魂而受傷，剛治癒的有 10 秒爬出池子（實體標籤 `pysift_reborn`）。
 - 淨化與篩：用隙浮的工藝（靈魂動力）把深色、枯死的幽匿「篩」回赤紅幽匿。舊的靈魂隙浮輪軸 `SoulSiftAxle` 已移除，程式可以從 commit `00cf42c` 取回。
 - ✅（視覺）赤紅幽匿（`red_sculk`、`red_sculk_vein`，靈液池邊）與裂隙門周圍的紅→藍腐爛帶（`WildRiftFeature.rotHalo`）。
-- 裂縫：裂隙傳送門周圍的赤紅幽匿慢慢變藍；在隙浮這一側處理後，腐爛就會停止擴散。（會蔓延、能停止的部分還沒做）
-- 歌者與監守者的呼應：歌者在遠古城市附近顯得不安、認得監守者，會對它唱倒過來的旋律（安撫）。
-- ✅ 文字細節：《隙浮手記》（Modonomicon 書 `pysift:sift_codex`，`tools/progression/build_codex.py`）、8 張遠古殘頁（`AncientPages.java`，遠古城市／隙浮遺跡／幽匿巨怪）、強化深板岩與回響碎片的說明欄，都從這一節取材。陶片還沒做。
+- ✅ 裂縫：10 格內有隙浮傳送門的赤紅幽匿會隨機刻腐爛成藍色；擊敗幽匿巨怪後世界記下「腐爛之心已除」，藍幽匿慢慢變回紅色（`RotSpread`，測試指令 `/pysift_rot stilled <true|false>`）。
+- ✅ 歌者與監守者的呼應：24 格內有監守者時，歌者發抖、倒唱八音（`SingerSongs.MOURNING`），監守者平靜 30 秒（`WardenSoothing`、`WardenMixin`）。
+- ✅ 文字細節：《隙浮手記》（Modonomicon 書 `pysift:sift_codex`，`tools/progression/build_codex.py`）、8 張遠古殘頁（`AncientPages.java`，遠古城市／隙浮遺跡／幽匿巨怪）、強化深板岩與回響碎片的說明欄，都從這一節取材。4 種遠古陶器碎片（門扉、歌者、親族、八音，`AncientPages.SHERDS`）。故事成就 `story/*` 與相關資源由 `tools/progression/build_story.py` 產生。
 
 ---
 

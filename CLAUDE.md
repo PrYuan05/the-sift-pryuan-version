@@ -51,6 +51,7 @@ Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
 - `progression/`：第 1 階段進度循環（`ModProgression` 礦石與材料、`SiftiteGear`、`BossRewards`、`SiftAltarBlock`、`BossWeapons` 與三把武器、`SiftBeacon`、`SoulWard`）；資源由 `tools/progression/build_progression.py` 產生，規格見 MODDING_ROADMAP 4.5
 - `worldgen/`：`SoulWillowTrunkPlacer`、`SoulWillowFoliagePlacer`、`SoulWillowVineDecorator`、`StrataSpireFeature`、`BossArenaFeature`（維度與 4 個生態系 JSON 由 `tools/worldgen/build_the_sift.py` 產生；四種結構與戰利品由 `tools/worldgen/build_structures.py` 產生，26.3 結構檔調色盤欄位是 `id`／`properties`）
 - `item/ModItems.java`：核心材料、靈魂解藥、24 款生怪蛋、三個創造模式分頁（`pysift_blocks`、`pysift_unused_blocks`、`pysift_items`）
+- 故事線第四～六幕（§4.7）：`entity/WardenSoothing`（歌者安撫監守者）、`entity/WardenCure` 與 `mob/SiftWardenEntity`（隙浮守衛）、`mob/MournerEntity`（哀悼者；歌者屍化在 `SingerEntity`）、`block/RotSpread`（腐爛蔓延與止息）、`progression/StoryTriggers`；資源由 `tools/progression/build_story.py`、`tools/models/build_mourner.py`、`build_sift_warden.py` 產生
 - `entity/`：`ModEntities`、`BossMechanics`、`ai/`（11 個技能與戰術 Goal）、`projectile/`（飛鏢、投石）、`mob/`（24 款生物，共 25 個類別含 `PysiftSwarmEntity`）
 - `src/client/java/pryuan05/pysift/`：`PySiftClient`、`client/`（`PysiftUniversalGeoModel`、`PysiftUniversalGeoRenderer`、`SlabberRenderer`、`SiftPortalBlockEntityRenderer`、`SiftPortalTransition`、`SoulDeprivationVision` 等）
 - 生物資源：`assets/pysift/geckolib/models/entity/`、`assets/pysift/geckolib/animations/entity/`、`assets/pysift/textures/entity/`

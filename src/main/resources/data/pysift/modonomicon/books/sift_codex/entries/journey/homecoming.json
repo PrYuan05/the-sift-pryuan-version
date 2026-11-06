@@ -1,0 +1,38 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/homecoming",
+  "name": "book.pysift.sift_codex.journey.homecoming.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:echo_shard"
+  },
+  "x": 12,
+  "y": 0,
+  "sort_number": 1200,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/kin",
+      "line_enabled": true
+    },
+    {
+      "entry": "pysift:journey/hollowing",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/warden_cured",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.journey.homecoming.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

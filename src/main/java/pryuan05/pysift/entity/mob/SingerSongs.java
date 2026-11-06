@@ -42,10 +42,30 @@ public final class SingerSongs {
     public static final Song CELEBRATION = parse("Ode to Joy (opening)", 11,
             "E2 E2 F2 G2 G2 F2 E2 D2 C2 C2 D2 E2 E3 D1 D4");
 
+    /**
+     * 倒唱的八音（哀悼之歌）：開門旋律 1 3 7 6 5 2 4 8 倒過來唱、每個音拉長。被捲進主世界的歌者就是用它把門關上的，
+     * 歌者遇到監守者時唱給它聽、讓它平靜（{@link SingerEntity}）；哀悼者也一直哭著唱這一段。
+     */
+    public static final Song MOURNING = degrees("Mourning (reversed octave)", new int[]{8, 4, 2, 5, 6, 7, 3, 1}, 4);
+
     /** 等唱片時輪流哼的曲子。 */
     public static final List<Song> WAITING = List.of(LULLABY, ODE_TO_JOY, TWINKLE);
 
     private SingerSongs() {
+    }
+
+    /** 用八音儀式的音級（1~8，對應 RitualDiscs.DISCS）組成曲子，每個音 len 格。 */
+    static Song degrees(String name, int[] degrees, int len) {
+        int[] notes = new int[degrees.length * len];
+        boolean[] onset = new boolean[notes.length];
+        for (int i = 0; i < degrees.length; i++) {
+            int note = pryuan05.pysift.block.RitualDiscs.DISCS.get(degrees[i] - 1).semitone() + 6;   // 唱片盒 pitch 2^((s-6)/12) = 音符盒第 s+6 格
+            for (int j = 0; j < len; j++) {
+                notes[i * len + j] = j == 0 ? note : -1;
+                onset[i * len + j] = j == 0;
+            }
+        }
+        return new Song(name, notes, onset);
     }
 
     private static final String NAMES = "C D EF G A B";   // index = 相對 C 的半音

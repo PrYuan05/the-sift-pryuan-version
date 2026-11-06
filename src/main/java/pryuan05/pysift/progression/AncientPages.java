@@ -50,6 +50,23 @@ public final class AncientPages {
         }
     }
 
+    /**
+     * 遠古陶片（§4.7）：遠古人把那場災難刻在陶器上。可以像原版陶片一樣拼成飾紋陶罐（圖案在 data/pysift/decorated_pot_pattern/）。
+     * 門扉＝被撕開的門框、歌者、親族＝監守者、八音＝八根長條的高度就是正確的開門順序 1 3 7 6 5 2 4 8。
+     * 貼圖與資料：tools/progression/build_story.py。
+     */
+    public static final List<String> SHERD_NAMES = List.of("gate", "singer", "kin", "octave");
+    public static final List<Item> SHERDS = new ArrayList<>();
+
+    static {
+        for (String name : SHERD_NAMES) {
+            net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.entity.DecoratedPotPattern> pattern =
+                    net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DECORATED_POT_PATTERN, PySift.id(name));
+            SHERDS.add(ModProgression.registerItem(name + "_pottery_sherd", Item::new,
+                    new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(pattern)));
+        }
+    }
+
     private static final Set<String> SIFT_RUINS = Set.of("lullaby_shrine", "willow_hut", "strata_shrine", "abyss_obelisk",
             "dune_tomb", "echo_den");
 
@@ -72,12 +89,14 @@ public final class AncientPages {
             Identifier id = key.identifier();
             if (id.equals(Identifier.withDefaultNamespace("chests/ancient_city"))) {
                 table.withPool(pool(PAGES.subList(0, 4), 4));
+                table.withPool(pool(SHERDS, 8));
             } else if (id.getNamespace().equals("pysift") && id.getPath().startsWith("chests/")) {
                 String chest = id.getPath().substring("chests/".length());
                 if (chest.equals("echo_den_vault")) {
                     table.withPool(pool(PAGES.subList(4, 7), 0));
                 } else if (SIFT_RUINS.contains(chest)) {
                     table.withPool(pool(PAGES.subList(4, 7), 3));
+                    table.withPool(pool(SHERDS, 8));
                 }
             } else if (id.equals(PySift.id("entities/sculk_monstrosity"))) {
                 table.withPool(pool(PAGES.subList(7, 8), 0));

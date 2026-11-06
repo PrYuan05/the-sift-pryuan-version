@@ -286,6 +286,9 @@ public final class SiftCreativeTabs {
             if (path.startsWith("ancient_page_")) {
                 return List.of("writable_book");
             }
+            if (path.endsWith("_pottery_sherd")) {
+                return List.of("snort_pottery_sherd");          // vanilla's last sherd
+            }
             if (path.endsWith("_spawn_egg")) {
                 return List.of("shulker_spawn_egg");            // all of ours as one run after vanilla's last egg
             }

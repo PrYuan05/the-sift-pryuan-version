@@ -86,6 +86,22 @@ public class SingerEntity extends PysiftAnimalEntity {
     private int burrowTicks;
     private int songCooldown;
     private int emergeTicks;
+    /**
+     * 認出監守者（§4.7）：24 格內有監守者時，歌者先不安地發抖（UNEASE_TICKS），再面向它倒唱八音（{@link SingerSongs#MOURNING}），
+     * 唱完監守者平靜 SOOTHE_TICKS（{@link pryuan05.pysift.entity.WardenSoothing}）。每隻歌者之後要隔 MOURN_COOLDOWN 才會再唱。
+     */
+    public static final double WARDEN_RANGE = 24.0;
+    private static final int UNEASE_TICKS = 40, MOURN_STEP = 5, SOOTHE_TICKS = 600, MOURN_COOLDOWN = 400;
+    private net.minecraft.world.entity.monster.warden.Warden mournFor;
+    private int mournTicks, mournCooldown;
+    /**
+     * 屍化（§4.7）：歌者在主世界待著，附近 SHELTER 格內沒有靈魂晶塊或靈液時，每 tick 累積一點；累積到 HOLLOW_TICKS（5 分鐘）
+     * 就變成哀悼者（{@link MournerEntity}）。有靈魂晶塊或靈液的地方會慢慢恢復。儀式歌者不會屍化（開門後就回去了）。
+     * 存檔欄位 OverworldTicks，測試可以用 /data merge 直接設定。
+     */
+    public static final int HOLLOW_TICKS = 6000, SHELTER = 6;
+    private int overworldTicks;
+    private boolean sheltered;
 
     public SingerEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -257,6 +273,7 @@ public class SingerEntity extends PysiftAnimalEntity {
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putBoolean("Ritual", isRitual());
+        output.putInt("OverworldTicks", overworldTicks);
         if (ritualSite != null) {
             ritualSite.save(output);
         }
@@ -268,6 +285,7 @@ public class SingerEntity extends PysiftAnimalEntity {
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         this.entityData.set(DATA_RITUAL, input.getBooleanOr("Ritual", false));
+        overworldTicks = input.getIntOr("OverworldTicks", 0);
         ritualSite = pryuan05.pysift.block.SiftPortalRitual.Site.load(input);
         if (input.getBooleanOr("AwaitDiscs", false)) {
             setAction(ACTION_AWAIT);
@@ -337,13 +355,19 @@ public class SingerEntity extends PysiftAnimalEntity {
                     server.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight() + 0.2, this.getZ(), 2, 0.6, 0.2, 0.6, 1.0);
                 }
             }
-            if (ritualAction() == ACTION_AWAIT) {
+            if (mournTicks > 0) {
+                // 正在對監守者唱歌：等唱片的哼歌先停下來
+            } else if (ritualAction() == ACTION_AWAIT) {
                 if (tickSong(server, SingerSongs.WAITING.get(songIndex), HUM_STEP, SONG_REST)) {   // 一首唱完換下一首
                     songIndex = (songIndex + 1) % SingerSongs.WAITING.size();
                 }
             } else if (ritualAction() == ACTION_CELEBRATE) {
                 tickSong(server, SingerSongs.CELEBRATION, CELEBRATE_STEP, 1000);
             }
+        }
+        if (this.level() instanceof ServerLevel server && !isEmerging() && !isLeaving()) {
+            tickMourning(server);
+            tickHollowing(server);
         }
         if (this.actionTicks > 0 && !this.level().isClientSide() && --this.actionTicks == 0) {
             // 玩夠了回去繼續等；召喚完傀儡之後，儀式歌者改成等玩家放唱片（await）
@@ -375,6 +399,121 @@ public class SingerEntity extends PysiftAnimalEntity {
                 this.discard();
             }
         }
+    }
+
+    // ---------------------------------------------------------------- recognising a Warden (its kin, starved in the Overworld)
+    private void tickMourning(ServerLevel level) {
+        if (mournCooldown > 0) {
+            mournCooldown--;
+        }
+        if (mournTicks == 0) {
+            if (mournCooldown > 0 || this.tickCount % 20 != 0) {
+                return;
+            }
+            var wardens = level.getEntitiesOfClass(net.minecraft.world.entity.monster.warden.Warden.class,
+                    this.getBoundingBox().inflate(WARDEN_RANGE), w -> w.isAlive() && !pryuan05.pysift.entity.WardenSoothing.isSoothed(w));
+            if (wardens.isEmpty()) {
+                return;
+            }
+            mournFor = wardens.stream().min(java.util.Comparator.comparingDouble(this::distanceToSqr)).get();
+            mournTicks = UNEASE_TICKS + SingerSongs.MOURNING.length() * MOURN_STEP;
+            humTicks = 0;
+            this.getNavigation().stop();
+            this.playSound(SoundEvents.WARDEN_HEARTBEAT, 1.2f, 1.4f);
+            return;
+        }
+        if (mournFor == null || !mournFor.isAlive()) {   // 監守者不見了：停下來
+            mournTicks = 0;
+            mournCooldown = 100;
+            return;
+        }
+        this.getNavigation().stop();
+        this.getLookControl().setLookAt(mournFor, 30.0f, 30.0f);
+        int sung = UNEASE_TICKS + SingerSongs.MOURNING.length() * MOURN_STEP - mournTicks;
+        if (sung < UNEASE_TICKS) {   // 不安：發抖、心跳、靈魂從身上飄散
+            if (!isRitual()) {
+                this.setYBodyRot(this.yBodyRot + (this.random.nextFloat() - 0.5f) * 12.0f);
+            }
+            if (sung % 10 == 0) {
+                level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(), 3, 0.4, 0.4, 0.4, 0.01);
+            }
+            if (sung == UNEASE_TICKS - 1) {
+                this.triggerAnim("skill", "sing");
+                this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.6f, 0.6f);
+            }
+        } else {
+            tickSong(level, SingerSongs.MOURNING, MOURN_STEP, 0);
+            if (sung % 8 == 0) {   // 歌聲飄向監守者
+                double dx = mournFor.getX() - this.getX(), dy = mournFor.getEyeY() - this.getEyeY(), dz = mournFor.getZ() - this.getZ();
+                double len = Math.max(1.0, Math.sqrt(dx * dx + dy * dy + dz * dz));
+                level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getEyeY(), this.getZ(), 0, dx / len, dy / len, dz / len, 0.4);
+            }
+        }
+        if (--mournTicks == 0) {
+            pryuan05.pysift.entity.WardenSoothing.soothe(level, mournFor, SOOTHE_TICKS);
+            level.sendParticles(ParticleTypes.SCULK_SOUL, mournFor.getX(), mournFor.getY() + 1.5, mournFor.getZ(), 30, 0.6, 0.8, 0.6, 0.02);
+            level.playSound(null, mournFor.blockPosition(), SoundEvents.WARDEN_LISTENING, SoundSource.HOSTILE, 1.5f, 0.6f);
+            for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(WARDEN_RANGE))) {
+                if (p instanceof net.minecraft.server.level.ServerPlayer sp) {
+                    pryuan05.pysift.progression.StoryTriggers.wardenSoothed(sp);
+                }
+            }
+            mournFor = null;
+            mournCooldown = MOURN_COOLDOWN;
+        }
+    }
+
+    // ---------------------------------------------------------------- hollowing: starving in the soulless Overworld
+    private void tickHollowing(ServerLevel level) {
+        if (isRitual() || isRemoved()) {
+            return;
+        }
+        if (level.dimension() != Level.OVERWORLD) {
+            overworldTicks = Math.max(0, overworldTicks - 4);
+            return;
+        }
+        if (this.tickCount % 40 == 0) {
+            sheltered = nearSoul(level);
+        }
+        if (sheltered) {
+            overworldTicks = Math.max(0, overworldTicks - 2);
+            return;
+        }
+        overworldTicks++;
+        if (overworldTicks > HOLLOW_TICKS - 600 && this.tickCount % 10 == 0) {   // 最後 30 秒：發抖、毛一直掉
+            level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(), 2, 0.4, 0.5, 0.4, 0.02);
+            if (this.tickCount % 40 == 0) {
+                this.playSound(SoundEvents.WARDEN_HEARTBEAT, 0.8f, 1.6f);
+            }
+        }
+        if (overworldTicks >= HOLLOW_TICKS) {
+            MournerEntity mourner = this.convertTo(ModEntities.MOURNER,
+                    net.minecraft.world.entity.ConversionParams.single(this, false, false), m -> { });
+            if (mourner != null) {
+                mourner.playSound(SoundEvents.WARDEN_AMBIENT, 1.5f, 1.4f);
+                level.sendParticles(ParticleTypes.SCULK_SOUL, mourner.getX(), mourner.getY() + 1.5, mourner.getZ(), 40, 0.6, 0.8, 0.6, 0.03);
+            }
+        }
+    }
+
+    /** SHELTER 格內有靈魂晶塊或靈液。 */
+    private boolean nearSoul(ServerLevel level) {
+        for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(
+                this.blockPosition().offset(-SHELTER, -SHELTER, -SHELTER), this.blockPosition().offset(SHELTER, SHELTER, SHELTER))) {
+            BlockState st = level.getBlockState(p);
+            if (st.is(SoulCrystal.SOUL_CRYSTAL_BLOCK) || pryuan05.pysift.fluid.SpiritInteractions.isSpirit(st.getFluidState())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getOverworldTicks() {
+        return overworldTicks;
+    }
+
+    public boolean isMourning() {
+        return mournTicks > 0;
     }
 
     /**

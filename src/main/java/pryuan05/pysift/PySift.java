@@ -72,6 +72,8 @@ public class PySift implements ModInitializer {
         pryuan05.pysift.block.SiftColors.register();   // 9 種新顏色：染料與彩色方塊
         SiftPortalRitual.register();
         BossLocateCommand.register();
+        pryuan05.pysift.block.RotSpread.registerCommand();
+        pryuan05.pysift.block.RotSpread.registerHealing();
         pryuan05.pysift.worldgen.StructureShowcase.register();        // /pysift_showcase：在遊戲裡修改結構草稿
         LOGGER.info("The Sift initialized successfully!");
     }

@@ -177,6 +177,9 @@ public class SculkMonstrosityEntity extends PysiftMonsterEntity {
         super.die(source);
         if (this.level() instanceof ServerLevel level) {
             catalysts.clear(level);
+            // 腐爛的核心沒了：這個世界裂隙周圍的腐爛停止，並開始慢慢變回紅色（§4.7 第五幕）
+            pryuan05.pysift.block.RotSpread.still(level);
+            pryuan05.pysift.progression.StoryTriggers.rotStilled(level, this.position());
         }
     }
 

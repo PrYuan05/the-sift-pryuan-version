@@ -1,5 +1,23 @@
 [
   {
+    "id": "pysift:sift_codex/warden_soothed_hook",
+    "fact_id": "pysift:sift_codex/warden_soothed",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:story/warden_soothed"
+  },
+  {
+    "id": "pysift:sift_codex/met_mourner_hook",
+    "fact_id": "pysift:sift_codex/met_mourner",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_mourner"
+  },
+  {
+    "id": "pysift:sift_codex/warden_cured_hook",
+    "fact_id": "pysift:sift_codex/warden_cured",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:story/warden_cured"
+  },
+  {
     "id": "pysift:sift_codex/met_blub_hook",
     "fact_id": "pysift:sift_codex/met_blub",
     "trigger_type": "modonomicon:advancement",
@@ -138,6 +156,12 @@
     "trigger_target": "pysift:codex/met_lootkin"
   },
   {
+    "id": "pysift:sift_codex/met_sift_warden_hook",
+    "fact_id": "pysift:sift_codex/met_sift_warden",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_sift_warden"
+  },
+  {
     "id": "pysift:sift_codex/met_harmonizer_hook",
     "fact_id": "pysift:sift_codex/met_harmonizer",
     "trigger_type": "modonomicon:advancement",
@@ -217,6 +241,14 @@
     "trigger_type": "modonomicon:item_acquired",
     "trigger_target": {
       "id": "pysift:ancient_page_8"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/sherd_hook",
+    "fact_id": "pysift:sift_codex/sherd",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:octave_pottery_sherd"
     }
   }
 ]

@@ -1,5 +1,23 @@
 [
   {
+    "id": "pysift:sift_codex/warden_soothed",
+    "required_facts": [
+      "pysift:sift_codex/warden_soothed"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_mourner",
+    "required_facts": [
+      "pysift:sift_codex/met_mourner"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/warden_cured",
+    "required_facts": [
+      "pysift:sift_codex/warden_cured"
+    ]
+  },
+  {
     "id": "pysift:sift_codex/met_blub",
     "required_facts": [
       "pysift:sift_codex/met_blub"
@@ -138,6 +156,12 @@
     ]
   },
   {
+    "id": "pysift:sift_codex/met_sift_warden",
+    "required_facts": [
+      "pysift:sift_codex/met_sift_warden"
+    ]
+  },
+  {
     "id": "pysift:sift_codex/met_harmonizer",
     "required_facts": [
       "pysift:sift_codex/met_harmonizer"
@@ -258,6 +282,12 @@
         "id": "pysift:ancient_page_8"
       }
     }
+  },
+  {
+    "id": "pysift:sift_codex/sherd",
+    "required_facts": [
+      "pysift:sift_codex/sherd"
+    ]
   },
   {
     "id": "pysift:sift_codex/all_pages",

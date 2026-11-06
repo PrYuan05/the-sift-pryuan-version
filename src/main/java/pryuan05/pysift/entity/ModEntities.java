@@ -29,6 +29,12 @@ public class ModEntities {
     public static final EntityType<SingerEntity> SINGER = register(
             "singer", SingerEntity::new, MobCategory.CREATURE, 1.0f, 2.7f
     );
+    public static final EntityType<MournerEntity> MOURNER = register(
+            "mourner", MournerEntity::new, MobCategory.CREATURE, 1.0f, 2.7f
+    );
+    public static final EntityType<SiftWardenEntity> SIFT_WARDEN = register(
+            "sift_warden", SiftWardenEntity::new, MobCategory.CREATURE, 0.9f, 2.9f
+    );
     public static final EntityType<NuzzleEntity> NUZZLE = register(
             "nuzzle", NuzzleEntity::new, MobCategory.CREATURE, 1.0f, 1.3f
     );
@@ -151,6 +157,13 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(BLUB, BlubEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(ECHO_GOLEM, EchoGolemEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SINGER, SingerEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(MOURNER, MournerEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(SIFT_WARDEN, net.minecraft.world.entity.monster.warden.Warden.createAttributes());
+        WardenCure.register();
+        // 哀悼者：困在主世界深暗之域（遠古城市所在的生態域）的屍化歌者，稀有
+        net.fabricmc.fabric.api.biome.v1.BiomeModifications.addSpawn(
+                net.fabricmc.fabric.api.biome.v1.BiomeSelectors.includeByKey(net.minecraft.world.level.biome.Biomes.DEEP_DARK),
+                MobCategory.CREATURE, MOURNER, 2, 1, 1);
         FabricDefaultAttributeRegistry.register(NUZZLE, NuzzleEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(LOOTKIN, LootkinEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(FUSEFLY, FuseflyEntity.createAttributes());

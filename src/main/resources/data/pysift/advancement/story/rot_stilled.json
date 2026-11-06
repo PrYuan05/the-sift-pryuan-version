@@ -1,0 +1,23 @@
+{
+  "parent": "pysift:progression/kill_sculk_monstrosity",
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:red_sculk"
+    },
+    "title": {
+      "translate": "advancements.pysift.story.rot_stilled.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.story.rot_stilled.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  }
+}

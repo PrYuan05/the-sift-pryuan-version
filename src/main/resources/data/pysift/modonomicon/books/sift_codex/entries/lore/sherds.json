@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:lore",
+  "id": "pysift:lore/sherds",
+  "name": "book.pysift.sift_codex.lore.sherds.name",
+  "description": "book.pysift.sift_codex.lore.sherds.description",
+  "icon": {
+    "id": "pysift:octave_pottery_sherd"
+  },
+  "x": 0,
+  "y": 2,
+  "sort_number": 2,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gray",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:lore/guide",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/sherd",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.lore.sherds.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

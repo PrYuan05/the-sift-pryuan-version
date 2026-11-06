@@ -103,7 +103,7 @@ def text(title, en, zh):
 
 
 # hitbox (ModEntities) x the SCALE attribute, in blocks: (width, height, scale)
-HITBOX = {"blub": (0.8, 0.8, 1), "echo_golem": (1.4, 2.6, 1), "singer": (1.0, 2.7, 1.456), "nuzzle": (1.0, 1.3, 1),
+HITBOX = {"blub": (0.8, 0.8, 1), "echo_golem": (1.4, 2.6, 1), "singer": (1.0, 2.7, 1.456), "mourner": (1.0, 2.7, 1.456), "sift_warden": (0.9, 2.9, 1), "nuzzle": (1.0, 1.3, 1),
           "lootkin": (0.6, 0.8, 1), "fusefly": (0.6, 1.0, 1), "dartback": (0.6, 0.53, 3.15), "hurler": (1.0, 1.0, 1),
           "pollinator": (0.8, 1.5, 1), "nester": (0.6, 1.08, 1.67), "seedling": (0.6, 0.8, 1), "sprout": (0.7, 1.6, 1),
           "stalker": (0.8, 1.3, 1.89), "scavenger": (1.0, 1.6, 1), "hunter": (0.8, 2.1, 1), "trapper": (0.9, 1.75, 1),
@@ -199,6 +199,9 @@ ADV = D / "pysift/advancement/codex"
 
 def met(mob):
     """Hidden advancement: you met this creature - killed it, hit it, got hit by it or used an item on it."""
+    node = f"pysift:sift_codex/met_{mob}"
+    if any(f["id"] == node for f in FACTS):   # the same creature can unlock several entries
+        return node
     is_mob = {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:entity_type": f"pysift:{mob}"}}
     wj(ADV / f"met_{mob}.json", {"criteria": {
         "killed": {"trigger": "minecraft:player_killed_entity", "conditions": {"entity": is_mob}},
@@ -285,6 +288,39 @@ entry(C, "way_home", "pysift:homeward_stone", "The Way Home", "回家的路", 8,
          "在隙浮裡，指針會指向目前的目標：三座 Boss 競技場之一，或最近的遺跡。蹲下右鍵切換目標。")],
       parents=["arrival"])
 
+# story acts 4-5 (MODDING_ROADMAP 4.7): kin, hollowing, homecoming
+entry(C, "kin", "minecraft:sculk_shrieker", "Kin", "親族", 10, -1, [
+    text(("The Singer knows the Warden", "歌者認得監守者"),
+         "Bring a Singer near a **Warden** and it trembles. Then it turns to the Warden and sings the eight notes "
+         "**backwards**, slowly - the song that once shut the door.\n\nThe Warden falls quiet: for half a minute it "
+         "forgets its anger and will not hunt anyone.",
+         "讓歌者靠近**監守者**，牠會開始發抖。接著牠轉向監守者，慢慢地把八音**倒過來**唱，那首曾經把門關上的歌。\n\n"
+         "監守者會安靜下來：半分鐘內忘掉怒氣，不會追殺任何人。")],
+      parents=["way_home"], node=unlock_by_advancement("warden_soothed", "pysift:story/warden_soothed"),
+      shape=PURPLE, locked_tip=("Bring a Singer to a Warden", "帶一隻歌者去見監守者"))
+entry(C, "hollowing", "pysift:mourner_spawn_egg", "Hollowing", "屍化", 10, 1, [
+    text(("A Singer without souls", "沒有靈魂的歌者"),
+         "Our world has no souls in its air. A Singer that stays in the Overworld starves: after about **five minutes** "
+         "away from Soul Crystal Blocks and spirit liquid its fur falls out and it becomes a **Mourner**.\n\n"
+         "Keep a Soul Crystal Block or some spirit liquid within six blocks and it will hold on.",
+         "主世界的空氣裡沒有靈魂。待在主世界的歌者會挨餓：離開靈魂晶塊和靈液大約**五分鐘**，毛就會脫落，變成**哀悼者**。\n\n"
+         "在六格內放一塊靈魂晶塊或一點靈液，牠就撐得住。"),
+    text(("Bringing it back", "把牠找回來"),
+         "Mourners also wander the **Deep Dark**, weeping the backwards song and dimming the light around them.\n\n"
+         "Let a Mourner soak in **spirit liquid** for ten seconds and its fur grows back: it is a Singer again.",
+         "**深暗之域**裡也有哀悼者在徘徊，哭著唱那首倒過來的歌，讓周圍陷入黑暗。\n\n"
+         "讓哀悼者在**靈液**裡泡十秒，毛就會長回來，變回歌者。")],
+      parents=["way_home"], node=met("mourner"), shape=PURPLE,
+      locked_tip=("Meet a Mourner", "遇到一隻哀悼者"))
+entry(C, "homecoming", "minecraft:echo_shard", "Homecoming", "回家", 12, 0, [
+    text(("The Warden was one of them", "監守者原本也是牠們的一員"),
+         "Soak a **Warden** in spirit liquid long enough - or lead it into The Sift itself - and its fur grows back. "
+         "It becomes a **Sift Warden**: calm, furred, and no longer starving.\n\nFeed it an echo shard and it will follow you.",
+         "讓**監守者**在靈液裡泡得夠久，或是把牠帶進隙浮，牠的毛就會長回來，變成**隙浮守衛**：平靜、全身覆毛、不再挨餓。\n\n"
+         "餵牠一個迴音碎片，牠就會跟著你走。")],
+      parents=["kin", "hollowing"], node=unlock_by_advancement("warden_cured", "pysift:story/warden_cured"),
+      shape="star_gold", locked_tip=("Bring a Warden home", "帶監守者回家"))
+
 # ================================================================== 2. the Sift (隙浮)
 category("sift", 1, "pysift:red_sculk", "The Sift", "隙浮", "soul_willow/soul_willow_planks")
 C = "sift"
@@ -315,6 +351,14 @@ entry(C, "rifts", "minecraft:sculk", "Wild Rifts", "野外裂隙", 4, -1, [
          "*The Sift is not spreading into our world. Our world is spreading into it.*",
          "主世界的空氣裡沒有靈魂。它從裂縫倒灌進來，碰到的幽匿就餓死了。\n\n*不是隙浮在感染我們的世界，是我們的世界在感染隙浮。*")],
       parents=["red_sculk"], shape=GRAY)
+entry(C, "rot", "minecraft:sculk_vein", "The Rot Spreads", "腐爛蔓延", 6, -1, [
+    text(("It is still spreading", "它還在蔓延"),
+         "Red sculk near a rift slowly turns blue, one block at a time. The rot is fed by the deepest knot of it: the "
+         "**Sculk Monstrosity**.\n\nDefeat it, and the rot around the rifts in this world stops - and begins, very slowly, "
+         "to turn red again.",
+         "裂隙附近的赤紅幽匿會一塊一塊慢慢變藍。供養這些腐爛的，是腐得最深的那一團：**幽匿巨怪**。\n\n"
+         "擊敗牠，這個世界裂隙周圍的腐爛就會停止，並且非常緩慢地重新變紅。")],
+      parents=["rifts"], shape=GRAY)
 BIOMES = [   # (id, icon, en, zh, text en, text zh)
     ("willow_grove", "pysift:soul_willow_sapling", "Willow Grove", "柳絮林地",
      "Soft violet meadows under soul willows. Blubs, Nuzzles, Slabbers and Pollinators graze here; watch the ground for Bloombuds. "
@@ -426,8 +470,17 @@ MOBS = [   # rows by home; (id, en, zh, text en, text zh)
       "A tiny, very fast treasure goblin that flees on sight. Catch it for ores and rare Sift materials.",
       "跑得飛快、膽子很小的藏寶小鬼，一看到人就逃。抓到牠能得到礦物與稀有的隙浮材料。")],
 ]
+MOBS.append([
+    ("mourner", "Mourner", "哀悼者",
+     "A Singer that starved in our world: bald, blue with rot, weeping the eight notes backwards. It never attacks, but its song "
+     "brings darkness. Soak it in spirit liquid to bring the Singer back.",
+     "在我們的世界餓壞了的歌者：毛掉光、腐成深藍色，哭著把八音倒過來唱。牠從不攻擊，但牠的歌會帶來黑暗。泡進靈液就能把歌者找回來。"),
+    ("sift_warden", "Sift Warden", "隙浮守衛",
+     "A Warden that came home. Its red fur grew back in the spirit liquid and its rage is gone. Feed it an echo shard and it "
+     "follows you; feed it another and it waits.",
+     "回到家的監守者。赤紅的毛在靈液裡長了回來，怒氣也消失了。餵牠一個迴音碎片，牠會跟著你走；再餵一個，牠就留在原地等。")])
 ROW_NAMES = [("Willow Grove", "柳絮林地"), ("Lullaby Hills and the Abyss", "搖籃曲山丘與深板岩區"),
-             ("Crimson Strata Canyon", "赤紅沉積峽谷"), ("Amber Dunes", "琥珀沙丘")]
+             ("Crimson Strata Canyon", "赤紅沉積峽谷"), ("Amber Dunes", "琥珀沙丘"), ("The Deep Dark", "深暗之域")]
 for row, mobs in enumerate(MOBS):
     for col, (mob, en, zh, ten, tzh) in enumerate(mobs):
         node = met(mob)
@@ -600,6 +653,20 @@ for i, (where, en, zh, body) in enumerate(PAGES, 1):
           2 + (i - 1) % 4 * 2, -1 if i <= 4 else 1, pages, parents=["guide"] if i in (1, 5) else [f"page_{i - 1}"],
           node=node, shape=GRAY if i <= 4 else PURPLE, desc=PAGE_WHERE[where],
           locked_tip=(PAGE_WHERE[where][0], PAGE_WHERE[where][1]))
+entry(C, "sherds", "pysift:octave_pottery_sherd", "Pottery Sherds", "陶器碎片", 0, 2, [
+    text(("What the ancients carved", "遠古人刻下的東西"),
+         "Four sherds from Ancient Cities and Sift ruins: the **gate**, the **Singer**, its **kin** the Warden, and the **octave**. "
+         "Like any sherd they can be crafted into a decorated pot.\n\n"
+         "Look closely at the octave: the height of each of its eight bars is the right order of the discs.",
+         "遠古城市與隙浮遺跡裡有四種陶器碎片：**門扉**、**歌者**、牠的**親族**監守者，以及**八音**。和其他陶片一樣，可以拼成飾紋陶罐。\n\n"
+         "仔細看八音那一片：八根長條的高度，就是唱片正確的順序。"),
+    spotlight("pysift:gate_pottery_sherd", "The torn door.", "被撕開的門。"),
+    spotlight("pysift:singer_pottery_sherd", "The one who closed it.", "把門關上的那一位。"),
+    spotlight("pysift:kin_pottery_sherd", "Its kin, left behind as a guard.", "被留下來守門的親族。"),
+    spotlight("pysift:octave_pottery_sherd", "1 3 7 6 5 2 4 8.", "1 3 7 6 5 2 4 8。")],
+      parents=["guide"], node=unlock_by_item("sherd", "pysift:octave_pottery_sherd"), shape=GRAY,
+      desc=("Found in Ancient City and Sift ruin chests", "在遠古城市與隙浮遺跡的箱子裡找到"),
+      locked_tip=("Find the octave sherd", "找到八音陶器碎片"))
 NODES.append({"id": "pysift:sift_codex/all_pages", "required_facts": [n for n in page_nodes],
               "toast": toast("minecraft:echo_shard", "book.pysift.sift_codex.toast.all_pages", "The whole story", "完整的故事")})
 entry(C, "whole_story", "minecraft:echo_shard", "The Whole Story", "完整的故事", 10, 0, [
