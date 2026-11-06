@@ -257,6 +257,94 @@
       }
     ]
   },
+  "entity.singer.ambient": {
+    "subtitle": "subtitles.pysift.entity.singer.ambient",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/ambient1"
+      },
+      {
+        "name": "pysift:mob/singer/ambient2"
+      },
+      {
+        "name": "pysift:mob/singer/ambient3"
+      },
+      {
+        "name": "pysift:mob/singer/ambient4"
+      }
+    ]
+  },
+  "entity.singer.hurt": {
+    "subtitle": "subtitles.pysift.entity.singer.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/hurt1"
+      },
+      {
+        "name": "pysift:mob/singer/hurt2"
+      }
+    ]
+  },
+  "entity.singer.death": {
+    "subtitle": "subtitles.pysift.entity.singer.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/death1"
+      }
+    ]
+  },
+  "entity.singer.voice": {
+    "subtitle": "subtitles.pysift.entity.singer.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/voice"
+      }
+    ]
+  },
+  "entity.mourner.ambient": {
+    "subtitle": "subtitles.pysift.entity.mourner.ambient",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/ambient1"
+      },
+      {
+        "name": "pysift:mob/mourner/ambient2"
+      },
+      {
+        "name": "pysift:mob/mourner/ambient3"
+      },
+      {
+        "name": "pysift:mob/mourner/ambient4"
+      }
+    ]
+  },
+  "entity.mourner.hurt": {
+    "subtitle": "subtitles.pysift.entity.mourner.hurt",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/hurt1"
+      },
+      {
+        "name": "pysift:mob/mourner/hurt2"
+      }
+    ]
+  },
+  "entity.mourner.death": {
+    "subtitle": "subtitles.pysift.entity.mourner.death",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/death1"
+      }
+    ]
+  },
+  "entity.mourner.voice": {
+    "subtitle": "subtitles.pysift.entity.mourner.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/voice"
+      }
+    ]
+  },
   "music.the_sift.willow_grove": {
     "category": "music",
     "sounds": [
@@ -290,10 +378,9 @@
     "category": "ambient",
     "sounds": [
       {
-        "name": "minecraft:ambient.warped_forest.loop",
-        "type": "event",
-        "volume": 0.55,
-        "pitch": 1.1
+        "name": "pysift:ambient/willow_grove/loop",
+        "volume": 0.8,
+        "pitch": 1.0
       }
     ]
   },
@@ -301,10 +388,14 @@
     "category": "ambient",
     "sounds": [
       {
-        "name": "minecraft:ambient.soul_sand_valley.mood",
-        "type": "event",
-        "volume": 0.6,
-        "pitch": 1.2
+        "name": "pysift:ambient/willow_grove/mood1",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/willow_grove/mood2",
+        "volume": 0.7,
+        "pitch": 1.0
       }
     ]
   },
@@ -312,20 +403,22 @@
     "category": "ambient",
     "sounds": [
       {
-        "name": "minecraft:entity.allay.ambient_without_item",
-        "type": "event",
-        "volume": 0.35,
-        "pitch": 0.8
+        "name": "pysift:ambient/willow_grove/additions1",
+        "volume": 0.5,
+        "pitch": 1.0
       },
       {
-        "name": "minecraft:block.amethyst_block.chime",
-        "type": "event",
-        "volume": 0.6,
-        "pitch": 0.7
+        "name": "pysift:ambient/willow_grove/additions2",
+        "volume": 0.5,
+        "pitch": 1.0
       },
       {
-        "name": "minecraft:ambient.warped_forest.additions",
-        "type": "event",
+        "name": "pysift:ambient/willow_grove/additions3",
+        "volume": 0.5,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/willow_grove/additions4",
         "volume": 0.6,
         "pitch": 1.0
       }
@@ -706,6 +799,155 @@
         "type": "event",
         "volume": 0.35,
         "pitch": 0.5
+      }
+    ]
+  },
+  "entity.singer.greet": {
+    "subtitle": "subtitles.pysift.entity.singer.greet",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/greet1"
+      },
+      {
+        "name": "pysift:mob/singer/greet2"
+      }
+    ]
+  },
+  "entity.singer.beckon": {
+    "subtitle": "subtitles.pysift.entity.singer.beckon",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/beckon1"
+      },
+      {
+        "name": "pysift:mob/singer/beckon2"
+      }
+    ]
+  },
+  "entity.singer.call": {
+    "subtitle": "subtitles.pysift.entity.singer.call",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/call1"
+      },
+      {
+        "name": "pysift:mob/singer/call2"
+      }
+    ]
+  },
+  "entity.singer.sweep": {
+    "subtitle": "subtitles.pysift.entity.singer.sweep",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/sweep1"
+      }
+    ]
+  },
+  "entity.singer.summon": {
+    "subtitle": "subtitles.pysift.entity.singer.summon",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/summon1"
+      }
+    ]
+  },
+  "entity.singer.gasp": {
+    "subtitle": "subtitles.pysift.entity.singer.gasp",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/gasp1"
+      }
+    ]
+  },
+  "entity.singer.cheer": {
+    "subtitle": "subtitles.pysift.entity.singer.cheer",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/cheer1"
+      },
+      {
+        "name": "pysift:mob/singer/cheer2"
+      }
+    ]
+  },
+  "entity.singer.giggle": {
+    "subtitle": "subtitles.pysift.entity.singer.giggle",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/giggle1"
+      },
+      {
+        "name": "pysift:mob/singer/giggle2"
+      }
+    ]
+  },
+  "entity.singer.thanks": {
+    "subtitle": "subtitles.pysift.entity.singer.thanks",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/thanks1"
+      }
+    ]
+  },
+  "entity.singer.unease": {
+    "subtitle": "subtitles.pysift.entity.singer.unease",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/unease1"
+      }
+    ]
+  },
+  "entity.singer.starve": {
+    "subtitle": "subtitles.pysift.entity.singer.starve",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/starve1"
+      }
+    ]
+  },
+  "entity.singer.hollow": {
+    "subtitle": "subtitles.pysift.entity.singer.hollow",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/hollow1"
+      }
+    ]
+  },
+  "entity.singer.reborn": {
+    "subtitle": "subtitles.pysift.entity.singer.reborn",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/reborn1"
+      }
+    ]
+  },
+  "entity.mourner.wail": {
+    "subtitle": "subtitles.pysift.entity.mourner.wail",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/wail1"
+      },
+      {
+        "name": "pysift:mob/mourner/wail2"
+      }
+    ]
+  },
+  "entity.mourner.soothe": {
+    "subtitle": "subtitles.pysift.entity.mourner.soothe",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/soothe1"
+      },
+      {
+        "name": "pysift:mob/mourner/soothe2"
+      }
+    ]
+  },
+  "entity.mourner.hush": {
+    "subtitle": "subtitles.pysift.entity.mourner.hush",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/hush1"
       }
     ]
   }

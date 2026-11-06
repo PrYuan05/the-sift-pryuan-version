@@ -174,7 +174,7 @@ public class SingerEntity extends PysiftAnimalEntity {
         toy.startRiding(this, true, true);
         playBaseYaw = this.getYRot();
         setAction(ACTION_PLAY);
-        this.playSound(SoundEvents.ALLAY_AMBIENT_WITH_ITEM, 1.5f, 0.9f);
+        voice(pryuan05.pysift.sound.ModSounds.SINGER_GIGGLE, 1.5f, "giggle");
         level.sendParticles(ParticleTypes.HEART, this.getX(), this.getY() + this.getBbHeight() + 0.3, this.getZ(), 4, 0.5, 0.2, 0.5, 0);
         level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + 1.4, this.getZ(), 16, 0.4, 0.4, 0.4, 0.02);
     }
@@ -350,6 +350,9 @@ public class SingerEntity extends PysiftAnimalEntity {
         }
         if (this.level() instanceof ServerLevel server && isRitual() && !isEmerging() && !isLeaving()) {
             int action = ritualAction();
+            if (action == ACTION_BECKON && this.tickCount % 140 == 0) {   // 招手時偶爾呼喚一聲
+                voice(pryuan05.pysift.sound.ModSounds.SINGER_BECKON, 1.4f, "beckon");
+            }
             if ((action == ACTION_BECKON || action == ACTION_AWAIT) && ++beckonTicks >= BORED_AFTER) {   // 等太久：抱起小傀儡轉圈圈
                 beckonTicks = BORED_AFTER - PLAY_AGAIN;
                 waitAction = action;
@@ -427,6 +430,7 @@ public class SingerEntity extends PysiftAnimalEntity {
             humTicks = 0;
             this.getNavigation().stop();
             this.playSound(SoundEvents.WARDEN_HEARTBEAT, 1.2f, 1.4f);
+            voice(pryuan05.pysift.sound.ModSounds.SINGER_UNEASE, 1.3f, "unease");
             return;
         }
         if (mournFor == null || !mournFor.isAlive()) {   // 監守者不見了：停下來
@@ -500,7 +504,7 @@ public class SingerEntity extends PysiftAnimalEntity {
                 if (s != this) {   // 領唱的主旋律由 play() 發聲；其他人唱和聲
                     float pitch = (float) Math.pow(2.0, (note + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
                     pitch = Math.max(0.5f, Math.min(2.0f, pitch));
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.NEUTRAL, 0.7f, pitch);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.7f, pitch);
                     level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.NEUTRAL, 0.5f, pitch);
                 }
                 level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, (i * 3) / 24.0, 0, 0, 1.0);
@@ -534,13 +538,16 @@ public class SingerEntity extends PysiftAnimalEntity {
             level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(), 2, 0.4, 0.5, 0.4, 0.02);
             if (this.tickCount % 40 == 0) {
                 this.playSound(SoundEvents.WARDEN_HEARTBEAT, 0.8f, 1.6f);
+                if (this.tickCount % 120 == 0) {
+                    voice(pryuan05.pysift.sound.ModSounds.SINGER_STARVE, 1.0f, "starve");
+                }
             }
         }
         if (overworldTicks >= HOLLOW_TICKS) {
             MournerEntity mourner = this.convertTo(ModEntities.MOURNER,
                     net.minecraft.world.entity.ConversionParams.single(this, false, false), m -> { });
             if (mourner != null) {
-                mourner.playSound(SoundEvents.WARDEN_AMBIENT, 1.5f, 1.4f);
+                mourner.playSound(pryuan05.pysift.sound.ModSounds.SINGER_HOLLOW, 1.6f, 1.0f);
                 level.sendParticles(ParticleTypes.SCULK_SOUL, mourner.getX(), mourner.getY() + 1.5, mourner.getZ(), 40, 0.6, 0.8, 0.6, 0.03);
             }
         }
@@ -583,6 +590,27 @@ public class SingerEntity extends PysiftAnimalEntity {
         return false;
     }
 
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py 合成）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return isRitual() || isLeaving() || isEmerging() ? null : pryuan05.pysift.sound.ModSounds.SINGER_AMBIENT;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 240;   // 偶爾哼一小段，不要太吵
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.SINGER_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.SINGER_DEATH;
+    }
+
     /** 終曲時跟著唱片盒唱同一個音（pitch = 音符盒的音高倍率）。 */
     public void humNote(float pitch) {
         if (this.level() instanceof ServerLevel level) {
@@ -593,7 +621,11 @@ public class SingerEntity extends PysiftAnimalEntity {
     /** 笛聲唱一個音（音符盒半音 0~24），可以疊一聲輕輕的鐘聲；頭上冒出對應顏色的音符。 */
     private void hum(ServerLevel level, int note, boolean chime) {
         float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
-        level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.NEUTRAL, 0.9f, pitch);
+        level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.9f, pitch);
+        int action = ritualAction();
+        if (action != ACTION_AWAIT && action != ACTION_FINALE && action != ACTION_CELEBRATE) {   // 這幾個動作自己會張嘴
+            this.triggerAnim("face", "face_note");
+        }
         if (chime) {
             level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.35f, pitch);
         }
@@ -605,6 +637,7 @@ public class SingerEntity extends PysiftAnimalEntity {
     public void celebrate() {
         setAction(ACTION_CELEBRATE);
         this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.4f);
+        voice(pryuan05.pysift.sound.ModSounds.SINGER_CHEER, 1.8f, "cheer");
     }
 
     /** 腳下方塊的碎屑與挖掘聲；身體越出來，碎屑越往上噴。t = 已經爬了幾 tick。 */
@@ -628,6 +661,9 @@ public class SingerEntity extends PysiftAnimalEntity {
             level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, ground), this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(),
                     30, w, this.getBbHeight() * 0.3, w, 0.2);
             this.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.5f, 1.0f);
+            if (!isLeaving()) {
+                voice(pryuan05.pysift.sound.ModSounds.SINGER_GREET, 1.5f, "greet");
+            }
         }
     }
 
@@ -663,6 +699,7 @@ public class SingerEntity extends PysiftAnimalEntity {
         this.triggerAnim("skill", "sing");
         this.heal(this.getMaxHealth());
         this.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.5f, 0.8f);
+        voice(pryuan05.pysift.sound.ModSounds.SINGER_THANKS, 1.4f, "thanks");
         level.sendParticles(ParticleTypes.GLOW, this.getX(), this.getY() + this.getBbHeight() * 0.8, this.getZ(),
                 20, 0.5, 0.5, 0.5, 0.03);
     }
@@ -691,6 +728,35 @@ public class SingerEntity extends PysiftAnimalEntity {
                 default -> com.geckolib.animation.object.PlayState.STOP;
             };
         }));
+        var face = new com.geckolib.animation.AnimationController<SingerEntity>("face", 2, state -> com.geckolib.animation.object.PlayState.STOP);
+        for (String name : FACES) {
+            face.triggerableAnim("face_" + name, com.geckolib.animation.RawAnimation.begin().thenPlay(anim("face_" + name)));
+        }
+        controllers.add(face);
+    }
+
+    /** 表情（嘴巴與耳朵）：每段人聲各有一個 face_* 動畫（tools/models/singer_faces.py），排在最後，蓋過身體動作的嘴和耳朵。 */
+    private static final List<String> FACES = List.of("greet", "beckon", "call", "sweep", "summon", "gasp", "cheer", "giggle",
+            "thanks", "unease", "starve", "hurt", "ambient", "note", "reborn");
+
+    /** 說一句話：播放人聲，同時做出對應的表情。 */
+    public void voice(net.minecraft.sounds.SoundEvent sound, float volume, String face) {
+        this.playSound(sound, volume, 1.0f);
+        this.triggerAnim("face", "face_" + face);
+    }
+
+    @Override
+    public void playAmbientSound() {
+        super.playAmbientSound();
+        if (getAmbientSound() != null) {
+            this.triggerAnim("face", "face_ambient");
+        }
+    }
+
+    @Override
+    protected void playHurtSound(DamageSource source) {
+        super.playHurtSound(source);
+        this.triggerAnim("face", "face_hurt");
     }
 
     @Override
@@ -725,7 +791,7 @@ public class SingerEntity extends PysiftAnimalEntity {
         this.getLookControl().setLookAt(horn, 60.0f, 60.0f);
         this.triggerAnim("skill", "sing");
         this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.2f);
-        this.playSound(SoundEvents.NOTE_BLOCK_CHIME.value(), 2.0f, 1.0f);
+        voice(pryuan05.pysift.sound.ModSounds.SINGER_CALL, 2.0f, "call");
         level.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight() + 0.3, this.getZ(), 12, 0.8, 0.4, 0.8, 1.0);
         for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(RANGE))) {
             p.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 600, 0), this);

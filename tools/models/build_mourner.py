@@ -110,6 +110,9 @@ def animations():
         else:
             neck["rotation"] = [DROOP, 0, 0]
         out[f"animation.mourner.{name}"] = anim
+    import singer_faces   # 哀悼者自己的表情（嘴巴與耳朵），見 tools/models/singer_faces.py
+    for name, anim in singer_faces.MOURNER_FACES.items():
+        out[f"animation.mourner.face_{name}"] = json.loads(json.dumps(anim))
     return {"format_version": doc.get("format_version", "1.8.0"), "animations": out}
 
 

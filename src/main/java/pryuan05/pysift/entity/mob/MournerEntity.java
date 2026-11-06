@@ -82,7 +82,7 @@ public class MournerEntity extends PysiftAnimalEntity {
         this.getNavigation().stop();
         this.getLookControl().setLookAt(near, 30.0f, 30.0f);
         this.triggerAnim("skill", "sing");
-        this.playSound(SoundEvents.WARDEN_AMBIENT, 1.0f, 1.6f);
+        voice(pryuan05.pysift.sound.ModSounds.MOURNER_WAIL, 1.4f, "wail");
         for (Player p : level.getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(DARK_RANGE), p -> !p.isSpectator())) {
             p.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 160, 0), this);
         }
@@ -95,7 +95,10 @@ public class MournerEntity extends PysiftAnimalEntity {
         SingerSongs.Song song = SingerSongs.MOURNING;
         if (t % WEEP_STEP == 0 && i < song.length() && song.onset()[i]) {
             float pitch = (float) Math.pow(2.0, (song.notes()[i] - 12) / 12.0) * 0.94f;   // 稍微走音
-            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.NEUTRAL, 0.8f, pitch);
+            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.MOURNER_VOICE, SoundSource.NEUTRAL, 0.8f, pitch);
+            if (i > 0) {   // 第一個音和哀號同時，不要打斷哀號的表情
+                this.triggerAnim("face", "face_note");
+            }
             level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.SOUL_ESCAPE.value(), SoundSource.NEUTRAL, 0.9f, 0.7f);
             level.sendParticles(ParticleTypes.FALLING_WATER, this.getX(), this.getY() + this.getBbHeight() * 0.85, this.getZ(), 4, 0.25, 0.1, 0.25, 0);
             level.sendParticles(ParticleTypes.SCULK_SOUL, this.getX(), this.getY() + this.getBbHeight() + 0.2, this.getZ(), 2, 0.3, 0.2, 0.3, 0.01);
@@ -120,6 +123,10 @@ public class MournerEntity extends PysiftAnimalEntity {
         if (cureTicks % 40 == 0) {
             this.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.2f, 0.6f + cureTicks / 200.0f);
         }
+        if (cureTicks % 60 == 20) {   // 被靈液安慰：鬆一口氣，聲音一次比一次亮
+            this.playSound(pryuan05.pysift.sound.ModSounds.MOURNER_SOOTHE, 1.2f, 0.9f + cureTicks / 1000.0f);
+            this.triggerAnim("face", "face_soothe");
+        }
         if (cureTicks >= CURE_TICKS) {
             cure(level);
         }
@@ -135,6 +142,10 @@ public class MournerEntity extends PysiftAnimalEntity {
         }
         warmTicks += ticks;
         hush(ticks * 2);
+        if (this.random.nextInt(3) == 0) {   // 香爐的歌：偶爾鬆一口氣
+            this.playSound(pryuan05.pysift.sound.ModSounds.MOURNER_SOOTHE, 1.0f, 0.9f + warmTicks / 4000.0f);
+            this.triggerAnim("face", "face_soothe");
+        }
         level.sendParticles(ParticleTypes.GLOW, this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(), 2 + warmTicks / 200, 0.5, 0.6, 0.5, 0.02);
         if (warmTicks >= WARM_TICKS) {
             cure(level);
@@ -146,6 +157,7 @@ public class MournerEntity extends PysiftAnimalEntity {
         SingerEntity singer = this.convertTo(ModEntities.SINGER, ConversionParams.single(this, false, false), s -> {
             s.addTag(pryuan05.pysift.fluid.SpiritFluid.REBORN);   // 10 秒內爬出靈液池，不會一長回毛就被撐傷
             s.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.2f);
+            s.voice(pryuan05.pysift.sound.ModSounds.SINGER_REBORN, 1.8f, "reborn");
         });
         if (singer != null) {
             level.sendParticles(ParticleTypes.NOTE, singer.getX(), singer.getY() + singer.getBbHeight() + 0.3, singer.getZ(), 12, 0.8, 0.4, 0.8, 1.0);
@@ -157,12 +169,69 @@ public class MournerEntity extends PysiftAnimalEntity {
 
     /** 被哀悼號角安撫：ticks 內不再哭。 */
     public void hush(int ticks) {
+        if (weepTicks > 0) {   // 正在哭：哭聲漸漸收住
+            voice(pryuan05.pysift.sound.ModSounds.MOURNER_HUSH, 1.2f, "hush");
+        }
         weepTicks = 0;
         weepCooldown = Math.max(weepCooldown, ticks);
     }
 
     public int getCureTicks() {
         return cureTicks;
+    }
+
+    // ---------------------------------------------------------------- 表情（tools/models/singer_faces.py 的 MOURNER_FACES）
+    private static final List<String> FACES = List.of("ambient", "wail", "note", "hurt", "soothe", "hush");
+
+    /** 發出聲音，同時做出對應的表情。 */
+    private void voice(net.minecraft.sounds.SoundEvent sound, float volume, String face) {
+        this.playSound(sound, volume, 1.0f);
+        this.triggerAnim("face", "face_" + face);
+    }
+
+    @Override
+    public void playAmbientSound() {
+        super.playAmbientSound();
+        if (getAmbientSound() != null) {
+            this.triggerAnim("face", "face_ambient");
+        }
+    }
+
+    @Override
+    protected void playHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        super.playHurtSound(source);
+        this.triggerAnim("face", "face_hurt");
+    }
+
+    @Override
+    public void registerControllers(com.geckolib.animatable.manager.AnimatableManager.ControllerRegistrar controllers) {
+        super.registerControllers(controllers);
+        var face = new com.geckolib.animation.AnimationController<MournerEntity>("face", 2, state -> com.geckolib.animation.object.PlayState.STOP);
+        for (String name : FACES) {
+            face.triggerableAnim("face_" + name, com.geckolib.animation.RawAnimation.begin().thenPlay(anim("face_" + name)));
+        }
+        controllers.add(face);
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py 合成）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return weepTicks > 0 ? null : pryuan05.pysift.sound.ModSounds.MOURNER_AMBIENT;   // 正在哭著唱歌時不另外啜泣
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 300;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.MOURNER_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.MOURNER_DEATH;
     }
 
     @Override

@@ -22,6 +22,32 @@ public class ModSounds {
     public static final SoundEvent BLUB_GROWL = register("entity.blub.growl");
     public static final SoundEvent BLUB_WHINE = register("entity.blub.whine");
     public static final SoundEvent BLUB_SIT = register("entity.blub.sit");
+    // 歌者與哀悼者：程式合成的人聲（tools/audio/build_sounds.py）。VOICE 是一個 F#4 的唱音，用音符盒的音高倍率播放
+    public static final SoundEvent SINGER_AMBIENT = register("entity.singer.ambient");
+    public static final SoundEvent SINGER_HURT = register("entity.singer.hurt");
+    public static final SoundEvent SINGER_DEATH = register("entity.singer.death");
+    public static final SoundEvent SINGER_VOICE = register("entity.singer.voice");
+    // 歌者對世界與玩家的每個互動各有一段人聲
+    public static final SoundEvent SINGER_GREET = register("entity.singer.greet");      // 從地底爬出
+    public static final SoundEvent SINGER_BECKON = register("entity.singer.beckon");    // 儀式：招手等迴音碎片
+    public static final SoundEvent SINGER_CALL = register("entity.singer.call");        // 回應山羊角
+    public static final SoundEvent SINGER_SWEEP = register("entity.singer.sweep");      // 儀式：以歌聲清掃
+    public static final SoundEvent SINGER_SUMMON = register("entity.singer.summon");    // 儀式：召喚迴音傀儡
+    public static final SoundEvent SINGER_GASP = register("entity.singer.gasp");        // 儀式走調
+    public static final SoundEvent SINGER_CHEER = register("entity.singer.cheer");      // 開門慶祝
+    public static final SoundEvent SINGER_GIGGLE = register("entity.singer.giggle");    // 抱小傀儡玩
+    public static final SoundEvent SINGER_THANKS = register("entity.singer.thanks");    // 收到靈魂晶塊
+    public static final SoundEvent SINGER_UNEASE = register("entity.singer.unease");    // 看見監守者
+    public static final SoundEvent SINGER_STARVE = register("entity.singer.starve");    // 快要屍化
+    public static final SoundEvent SINGER_HOLLOW = register("entity.singer.hollow");    // 屍化成哀悼者
+    public static final SoundEvent SINGER_REBORN = register("entity.singer.reborn");    // 哀悼者被治好、變回歌者
+    public static final SoundEvent MOURNER_AMBIENT = register("entity.mourner.ambient");
+    public static final SoundEvent MOURNER_HURT = register("entity.mourner.hurt");
+    public static final SoundEvent MOURNER_DEATH = register("entity.mourner.death");
+    public static final SoundEvent MOURNER_VOICE = register("entity.mourner.voice");
+    public static final SoundEvent MOURNER_WAIL = register("entity.mourner.wail");      // 看到玩家、開始哭著唱
+    public static final SoundEvent MOURNER_SOOTHE = register("entity.mourner.soothe");  // 泡靈液／聽香爐被安慰
+    public static final SoundEvent MOURNER_HUSH = register("entity.mourner.hush");      // 被哀悼號角安撫
 
     /**
      * The Sift 各生態域的背景音樂與環境音（music.the_sift.&lt;生態域&gt;、ambient.the_sift.&lt;生態域&gt;.loop／mood／additions），

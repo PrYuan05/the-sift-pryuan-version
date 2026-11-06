@@ -123,8 +123,11 @@ public final class StoryItems {
             if (t % p.step == 0 && p.song.onset()[i]) {
                 int note = p.song.notes()[i];
                 float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
-                p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(),
-                        SoundSource.PLAYERS, 1.0f, pitch);
+                // 歌者／哀悼者唱的用合成人聲；玩家吹號角、陶片提示仍是笛聲
+                net.minecraft.sounds.SoundEvent voice = p.source instanceof pryuan05.pysift.entity.mob.SingerEntity ? pryuan05.pysift.sound.ModSounds.SINGER_VOICE
+                        : p.source instanceof pryuan05.pysift.entity.mob.MournerEntity ? pryuan05.pysift.sound.ModSounds.MOURNER_VOICE
+                        : SoundEvents.NOTE_BLOCK_FLUTE.value();
+                p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), voice, SoundSource.PLAYERS, 1.0f, pitch);
                 p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(),
                         SoundSource.PLAYERS, 0.4f, pitch);
                 p.level.sendParticles(ParticleTypes.NOTE, p.source.getX(), p.source.getEyeY() + 0.6, p.source.getZ(), 0, note / 24.0, 0, 0, 1.0);

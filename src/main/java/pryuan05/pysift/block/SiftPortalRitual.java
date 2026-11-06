@@ -364,12 +364,13 @@ public final class SiftPortalRitual {
         // 先打掃：歌者揮手唱歌，音波由左到右把唱片盒一帶清乾淨；掃完再召喚傀儡
         singer.setAction(SingerEntity.ACTION_SWEEP);
         singer.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.2f);
+        singer.voice(pryuan05.pysift.sound.ModSounds.SINGER_SWEEP, 1.8f, "sweep");
         int sweepTicks = sweep(level, plan);
         Plan sweptPlan = plan;
         schedule(level, sweepTicks, () -> {
             if (singer.isAlive()) {
                 singer.setAction(SingerEntity.ACTION_SUMMON);
-                singer.playSound(SoundEvents.SCULK_SHRIEKER_SHRIEK, 1.5f, 1.4f);
+                singer.voice(pryuan05.pysift.sound.ModSounds.SINGER_SUMMON, 2.0f, "summon");
                 singer.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 0.8f);
                 level.sendParticles(ParticleTypes.SCULK_SOUL, singer.getX(), singer.getY() + 0.2, singer.getZ(), 40, 2.0, 0.1, 2.0, 0.02);
             }
@@ -634,6 +635,11 @@ public final class SiftPortalRitual {
         Direction.Axis axis = anyBox.isAxisX() ? Direction.Axis.X : Direction.Axis.Z;
         // 1. 撕裂：門閃開又熄滅幾次（每次只開 4 tick，進不去）
         level.playSound(null, centre, SoundEvents.WARDEN_ROAR, SoundSource.HOSTILE, 3.0f, 0.5f);
+        for (SingerEntity singer : singers) {   // 歌者嚇得倒抽一口氣
+            if (singer.isAlive()) {
+                singer.voice(pryuan05.pysift.sound.ModSounds.SINGER_GASP, 1.8f, "gasp");
+            }
+        }
         level.playSound(null, centre, SoundEvents.PORTAL_TRIGGER, SoundSource.BLOCKS, 2.0f, 0.6f);
         for (int i = 0; i < TEAR_FLICKERS; i++) {
             schedule(level, i * 12, () -> {
@@ -655,7 +661,7 @@ public final class SiftPortalRitual {
                 }
                 float pitch = Math.max(0.5f, disc.pitch() * 0.5f);
                 BlockPos p = box.getBlockPos();
-                level.playSound(null, p, SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.RECORDS, 2.5f, pitch);
+                level.playSound(null, p, pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.RECORDS, 2.5f, pitch);   // 歌者倒著唱
                 level.playSound(null, centre, SoundEvents.WARDEN_HEARTBEAT, SoundSource.HOSTILE, 1.5f, 0.8f);
                 level.sendParticles(ParticleTypes.SCULK_SOUL, p.getX() + 0.5, p.getY() + 1.5, p.getZ() + 0.5, 3, 0.2, 0.3, 0.2, 0.02);
                 for (SingerEntity singer : singers) {

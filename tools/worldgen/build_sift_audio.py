@@ -28,11 +28,11 @@ MUSIC = {
 # 環境音：loop（持續的底噪）、mood（偶爾一聲低鳴）、additions（零星的小聲音）。值 = [(原版事件, 音量, 音高)]
 # 遠處的「歌聲」用悅靈的哼唱和紫水晶的叮噹聲代替（The Sift 是歌者的家）
 AMBIENT = {
-    "willow_grove": {
-        "loop": [("ambient.warped_forest.loop", 0.55, 1.1)],
-        "mood": [("ambient.soul_sand_valley.mood", 0.6, 1.2)],
-        "additions": [("entity.allay.ambient_without_item", 0.35, 0.8), ("block.amethyst_block.chime", 0.6, 0.7),
-                      ("ambient.warped_forest.additions", 0.6, 1.0)],
+    "willow_grove": {   # 自己合成的（tools/audio/build_sounds.py willow_grove）：柳間的風、遠處歌者的和聲、水晶叮噹與靈液滴落
+        "loop": [("pysift:ambient/willow_grove/loop", 0.8, 1.0)],
+        "mood": [("pysift:ambient/willow_grove/mood1", 0.7, 1.0), ("pysift:ambient/willow_grove/mood2", 0.7, 1.0)],
+        "additions": [("pysift:ambient/willow_grove/additions1", 0.5, 1.0), ("pysift:ambient/willow_grove/additions2", 0.5, 1.0),
+                      ("pysift:ambient/willow_grove/additions3", 0.5, 1.0), ("pysift:ambient/willow_grove/additions4", 0.6, 1.0)],
     },
     "crimson_strata_canyon": {
         "loop": [("ambient.crimson_forest.loop", 0.6, 1.0)],
@@ -92,6 +92,11 @@ def main():
         for part, entries in AMBIENT[b].items():
             sounds = []
             for ev, vol, pitch in entries:
+                if ev.startswith("pysift:"):   # 模組自己的音檔
+                    f = P / "src/main/resources/assets/pysift/sounds" / (ev.split(":", 1)[1] + ".ogg")
+                    assert f.exists(), f"missing {f} (run tools/audio/build_sounds.py --install)"
+                    sounds.append({"name": ev, "volume": vol, "pitch": pitch})
+                    continue
                 assert ev in events, f"no vanilla sound event {ev}"
                 sounds.append({"name": f"minecraft:{ev}", "type": "event", "volume": vol, "pitch": pitch})
             out[f"ambient.the_sift.{b}.{part}"] = {"category": "ambient", "sounds": sounds}

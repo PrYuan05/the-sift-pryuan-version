@@ -54,3 +54,7 @@ __pycache__/
 
 # art editing workspace (copies, rebuilt by tools/art_workspace/workspace.py)
 art_workspace/
+
+# downloaded raw sound sources (only the README is tracked)
+sound_sources/*
+!sound_sources/README.md
