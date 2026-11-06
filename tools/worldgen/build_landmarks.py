@@ -462,9 +462,8 @@ def den_vault():
         t.set(x, 2, z, "charoite_cluster", facing="up", waterlogged="false")
     t.set(5, 1, 5, "violet_strata_bricks")
     t.chest(5, 2, 5, "echo_den_vault", facing="north")
-    # two den guards (healthy wardens, §4.7) behind the crystal ring, facing the door
-    t.entity(2, 1, 8, "pysift:sift_warden", yaw=180, tags=("pysift_den_guard",))
-    t.entity(8, 1, 8, "pysift:sift_warden", yaw=180, tags=("pysift_den_guard",))
+    # one den guard (a healthy warden, §4.7) behind the crystal ring, facing the door
+    t.entity(5, 1, 9, "pysift:sift_warden", yaw=180, tags=("pysift_den_guard",))
     t.set(5, 6, 5, "minecraft:soul_lantern", hanging="true")
     entry_door(t, 11)
     return t
