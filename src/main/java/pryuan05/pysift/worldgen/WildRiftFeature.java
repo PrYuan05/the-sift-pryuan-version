@@ -60,7 +60,9 @@ public record WildRiftFeature() implements Feature {
      * 裂隙門周圍半徑 {@link #HALO} 格的腐爛帶：3 格內幾乎都是藍色幽匿，3～5.5 格藍色越來越少、換成赤紅幽匿，
      * 5.5～8 格只剩零星的赤紅幽匿。地面上再長一點同色的脈絡。只換地表那一格，而且只換 #pysift:red_sculk_replaceable 的方塊。
      */
-    private static void rotHalo(WorldGenLevel level, BlockPos centre, RandomSource random) {
+    public static void rotHalo(net.minecraft.world.level.LevelAccessor level, BlockPos centre, RandomSource random) {
+        // during worldgen only the _WG heightmaps exist; on a running world (a portal opened by a player) use the live one
+        Heightmap.Types surface = level instanceof net.minecraft.server.level.ServerLevel ? Heightmap.Types.WORLD_SURFACE : Heightmap.Types.WORLD_SURFACE_WG;
         BlockState blue = Blocks.SCULK.defaultBlockState();
         BlockState red = ModVegetation.RED_SCULK.defaultBlockState();
         BlockState blueVein = Blocks.SCULK_VEIN.defaultBlockState().setValue(MultifaceBlock.getFaceProperty(Direction.DOWN), true);
@@ -85,7 +87,7 @@ public record WildRiftFeature() implements Feature {
                     continue;
                 }
                 int x = centre.getX() + dx, z = centre.getZ() + dz;
-                BlockPos top = new BlockPos(x, level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1, z);
+                BlockPos top = new BlockPos(x, level.getHeight(surface, x, z) - 1, z);
                 for (int i = 0; i < 4 && level.getBlockState(top).canBeReplaced() && level.getFluidState(top).isEmpty(); i++) {
                     top = top.below();   // under the grass and plants
                 }

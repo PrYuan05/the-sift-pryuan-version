@@ -251,6 +251,8 @@ public final class SiftPortalRitual {
             server.playSound(null, BlockPos.containing(c), SoundEvents.BEACON_ACTIVATE, SoundSource.BLOCKS, 2.0f, 1.2f);
             server.playSound(null, BlockPos.containing(c), SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 2.0f, 0.8f);
             server.sendParticles(ParticleTypes.END_ROD, c.x, c.y, c.z, 60, 1.0, 1.5, 1.0, 0.05);
+            // 門一打開，主世界沒有靈魂的空氣就灌進來：周圍長出和野外裂隙一樣的腐爛帶（之後由 RotSpread 慢慢擴散）
+            pryuan05.pysift.worldgen.WildRiftFeature.rotHalo(server, BlockPos.containing(c), server.getRandom());
             return InteractionResult.SUCCESS_SERVER;
         });
         ServerTickEvents.END_SERVER_TICK.register(server -> {

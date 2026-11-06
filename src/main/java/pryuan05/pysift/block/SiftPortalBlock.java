@@ -415,6 +415,8 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
             if (!buildArrivalPortal(level, landing, axis)) {
                 buildMouthFrame(level, bestCentre, bestAxis);
             }
+            // 從主世界過來時在隙浮這一側開出的門也是一道裂縫：周圍長出腐爛帶
+            pryuan05.pysift.worldgen.WildRiftFeature.rotHalo(level, landing, level.getRandom());
         } else {
             buildRiftPortal(level, bestCentre, bestAxis);
         }

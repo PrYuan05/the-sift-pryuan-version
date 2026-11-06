@@ -35,6 +35,9 @@ import pryuan05.pysift.PySift;
  */
 public final class RotSpread {
     public static final int ROT_RANGE = 10;
+    /** 變回紅色時冒出的粒子：赤紅幽匿的紅（腐爛時是藍色的 SCULK_SOUL）。 */
+    private static final net.minecraft.core.particles.DustParticleOptions HEAL_DUST =
+            new net.minecraft.core.particles.DustParticleOptions(0xD4566E, 1.1f);
     private static final float ROT_CHANCE = 0.35f, HEAL_CHANCE = 0.5f;
 
     private RotSpread() {
@@ -72,7 +75,7 @@ public final class RotSpread {
         }
         if (healed != null) {
             level.setBlock(n, healed, Block.UPDATE_ALL);
-            level.sendParticles(ParticleTypes.GLOW, n.getX() + 0.5, n.getY() + 1.1, n.getZ() + 0.5, 3, 0.3, 0.1, 0.3, 0.01);
+            level.sendParticles(HEAL_DUST, n.getX() + 0.5, n.getY() + 1.1, n.getZ() + 0.5, 4, 0.3, 0.1, 0.3, 0.01);
         }
     }
 
@@ -114,7 +117,7 @@ public final class RotSpread {
                         BlockPos p = new BlockPos(x, y, z);
                         if (sift.getBlockState(p).is(Blocks.SCULK) && nearRift(sift, p)) {
                             sift.setBlock(p, ModVegetation.RED_SCULK.defaultBlockState(), Block.UPDATE_ALL);
-                            sift.sendParticles(ParticleTypes.GLOW, x + 0.5, y + 1.1, z + 0.5, 3, 0.3, 0.1, 0.3, 0.01);
+                            sift.sendParticles(HEAL_DUST, x + 0.5, y + 1.1, z + 0.5, 4, 0.3, 0.1, 0.3, 0.01);
                             break;
                         }
                     }

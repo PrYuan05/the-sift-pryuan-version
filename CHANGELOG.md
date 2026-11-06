@@ -17,6 +17,8 @@
   10 seconds to climb out.
 - **The rot spreads and can be stopped.** Red sculk within 10 blocks of a rift slowly rots blue. Defeating the Sculk
   Monstrosity stops the rot in that world, and the sculk around the rifts slowly turns red again.
+  Opening a portal on the Sift side (a Soul Crystal frame, or the portal you arrive through) grows the same ring of
+  rot around it. Healing sculk gives off red sparks.
   Test command: `/pysift_rot stilled <true|false>`.
 - **Four ancient pottery sherds** (Gate, Singer, Kin, Octave) in Ancient City and Sift ruin chests; they work in
   decorated pots like vanilla sherds. The Octave sherd's eight bars spell the right disc order.
