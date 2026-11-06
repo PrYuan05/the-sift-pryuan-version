@@ -194,6 +194,134 @@ for i, name in enumerate(SHERDS):
 (P / "build/previews").mkdir(parents=True, exist_ok=True)
 preview.resize((preview.width * 10, preview.height * 10), Image.NEAREST).save(P / "build/previews/sherds.png")
 
+# ================================================================== part 2: story items (StoryItems.java, Homecoming.java)
+import colorsys
+
+
+def recolour(img, fn):
+    """Per pixel (h, l, s) -> (h, l, s); alpha kept."""
+    out = img.copy()
+    px = out.load()
+    for y in range(out.height):
+        for x in range(out.width):
+            r, g, b, a = px[x, y]
+            if a:
+                h, l, s = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+                h, l, s = fn(h, l, s)
+                rr, gg, bb = colorsys.hls_to_rgb(h % 1.0, max(0, min(1, l)), max(0, min(1, s)))
+                px[x, y] = (round(rr * 255), round(gg * 255), round(bb * 255), a)
+    return out
+
+
+def save_new(img, rel):
+    path = A / rel
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        art_guard.save(img, path)
+
+
+SPIRIT_HUE = 0.92   # spirit liquid pink-magenta
+# Mourning Horn: the goat horn turned sculk-teal, its pale tip left as bone
+save_new(recolour(vanilla("item/goat_horn"), lambda h, l, s: (h, l, s) if l > 0.62 else (0.48, l * 0.85, min(0.55, s + 0.15))),
+         "textures/item/mourning_horn.png")
+# Rift Seal: an echo shard set in spirit-pink
+save_new(recolour(vanilla("item/echo_shard"), lambda h, l, s: (SPIRIT_HUE, l, min(0.8, s + 0.2))), "textures/item/rift_seal.png")
+# Sift Heart: the Sculk Monstrosity's heart, healed red
+heart = Image.open(A / "textures/item/sculk_monstrosity_heart.png").convert("RGBA")
+save_new(recolour(heart, lambda h, l, s: (0.95 if s > 0.12 else h, l, s)), "textures/item/sift_heart.png")
+# Ancient Chronicle: a written book with a teal sculk-leather cover
+save_new(recolour(vanilla("item/written_book"), lambda h, l, s: (h, l, s) if l > 0.7 or s < 0.15 else (0.5, l * 0.9, s * 0.8)),
+         "textures/item/ancient_chronicle.png")
+# Lullaby Censer: a soul lantern burning spirit liquid (block + item textures)
+censer = lambda h, l, s: (SPIRIT_HUE, l, min(0.85, s + 0.1)) if 0.4 < h < 0.62 and s > 0.25 else (h, l, s)
+save_new(recolour(vanilla("block/soul_lantern"), censer), "textures/block/lullaby_censer.png")
+save_new(recolour(vanilla("item/soul_lantern"), censer), "textures/item/lullaby_censer.png")
+mcmeta = VANILLA.read("assets/minecraft/textures/block/soul_lantern.png.mcmeta") if "assets/minecraft/textures/block/soul_lantern.png.mcmeta" in VANILLA.namelist() else None
+if mcmeta and not (A / "textures/block/lullaby_censer.png.mcmeta").exists():
+    (A / "textures/block/lullaby_censer.png.mcmeta").write_bytes(mcmeta)
+
+for item in ("mourning_horn", "rift_seal", "sift_heart", "ancient_chronicle"):
+    wj(A / f"items/{item}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{item}"}})
+    wj(A / f"models/item/{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"pysift:item/{item}"}})
+wj(A / "blockstates/lullaby_censer.json", {"variants": {"hanging=false": {"model": "pysift:block/lullaby_censer"},
+                                                         "hanging=true": {"model": "pysift:block/lullaby_censer_hanging"}}})
+wj(A / "models/block/lullaby_censer.json", {"parent": "minecraft:block/template_lantern", "textures": {"lantern": "pysift:block/lullaby_censer"}})
+wj(A / "models/block/lullaby_censer_hanging.json", {"parent": "minecraft:block/template_hanging_lantern",
+                                                    "textures": {"lantern": "pysift:block/lullaby_censer"}})
+wj(A / "items/lullaby_censer.json", {"model": {"type": "minecraft:model", "model": "pysift:item/lullaby_censer"}})
+wj(A / "models/item/lullaby_censer.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/lullaby_censer"}})
+censer_loot = {"type": "minecraft:block", "pools": [{"rolls": 1, "entries": [{"type": "minecraft:item", "name": "pysift:lullaby_censer"}],
+                                                     "conditions": [{"condition": "minecraft:survives_explosion"}]}]}
+wj(D / "pysift/loot_table/blocks/lullaby_censer.json", censer_loot)
+wj(D / "pysift/loot_tables/blocks/lullaby_censer.json", censer_loot)
+pick = D / "minecraft/tags/block/mineable/pickaxe.json"
+data = json.loads(pick.read_text(encoding="utf-8"))
+if "pysift:lullaby_censer" not in data["values"]:
+    data["values"].append("pysift:lullaby_censer")
+    wj(pick, data)
+
+R = D / "pysift/recipe"
+wj(R / "mourning_horn.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [
+    "minecraft:goat_horn", "pysift:octave_pottery_sherd", "pysift:kin_pottery_sherd", "minecraft:echo_shard"],
+    "result": {"id": "pysift:mourning_horn", "count": 1}})
+wj(R / "rift_seal.json", {"type": "minecraft:crafting_shaped", "category": "misc", "pattern": ["ECE", "CGC", "ECE"],
+                          "key": {"E": "minecraft:echo_shard", "C": "pysift:soul_crystal_block", "G": "pysift:gate_pottery_sherd"},
+                          "result": {"id": "pysift:rift_seal", "count": 1}})
+wj(R / "lullaby_censer.json", {"type": "minecraft:crafting_shapeless", "category": "misc", "ingredients": [
+    "minecraft:soul_lantern", "pysift:singer_pottery_sherd", "pysift:soul_crystal_block", "pysift:spirit_liquid_bucket"],
+    "result": {"id": "pysift:lullaby_censer", "count": 1}})
+wj(R / "ancient_chronicle.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
+                                  "ingredients": [f"pysift:ancient_page_{i}" for i in range(1, 9)] + ["minecraft:book"],
+                                  "result": {"id": "pysift:ancient_chronicle", "count": 1}})
+
+adv("rift_sealed", "pysift:story/warden_soothed", "pysift:rift_seal", ("Stitched Shut", "縫合"),
+    ("Seal a rift in The Sift with a Rift Seal", "用封印石封住隙浮裡的一道裂隙"), frame="goal", xp=100)
+adv("chronicle", "pysift:progression/eight_songs", "pysift:ancient_chronicle", ("The Ancient Chronicle", "遠古編年史"),
+    ("Bind the eight ancient pages into one book and read it", "把八張遠古殘頁裝訂成一本書，讀完它"), frame="goal", xp=100)
+adv("homecoming", "pysift:story/warden_cured", "pysift:sift_heart", ("They Went Home", "牠們回家了"),
+    ("At the Ancient City's door, let a Singer sing a Sift Warden home", "在遠古城市的門框前，讓歌者把隙浮守衛唱回家"),
+    frame="challenge", xp=1000)
+
+for key, en, zh in [
+    ("item.pysift.mourning_horn", "Mourning Horn", "哀悼號角"),
+    ("item.pysift.rift_seal", "Rift Seal", "封印石"),
+    ("item.pysift.sift_heart", "Sift Heart", "隙浮之心"),
+    ("item.pysift.ancient_chronicle", "Ancient Chronicle", "遠古編年史"),
+    ("block.pysift.lullaby_censer", "Lullaby Censer", "搖籃曲香爐"),
+    # echo den (another session's block, tools/worldgen/build_echo_cradle.py): names live here because this script owns lang
+    ("block.pysift.echo_cradle", "Echo Cradle", "回音晶簇"),
+    ("item.pysift.echo_cradle", "Echo Cradle", "回音晶簇"),
+    ("item.pysift.lullaby_censer", "Lullaby Censer", "搖籃曲香爐"),
+    ("tooltip.pysift.ancient_chronicle", "The whole story, in the ancients' own words", "遠古人親手寫下的完整故事"),
+    ("tooltip.pysift.mourning_horn", "Plays the eight notes backwards: Wardens within 24 blocks calm down for 30 s",
+     "倒著吹出八音：24 格內的監守者平靜 30 秒"),
+    ("tooltip.pysift.mourning_horn.finale", "At the Ancient City's door, with a Singer and a Sift Warden beside you...",
+     "在遠古城市的門框前，身邊有歌者和隙浮守衛的時候……"),
+    ("tooltip.pysift.rift_seal", "Use on a portal in The Sift: the rift closes and the rot around it heals",
+     "對隙浮裡的傳送門使用：裂隙關閉，周圍的腐爛慢慢痊癒"),
+    ("tooltip.pysift.sift_heart", "Use on a Warden or a Mourner to bring it home at once", "對監守者或哀悼者使用，立刻把牠帶回來"),
+    ("tooltip.pysift.lullaby_censer", "Singers within 16 blocks never hollow; Mourners within 8 slowly heal",
+     "16 格內的歌者不會屍化；8 格內的哀悼者慢慢痊癒"),
+    ("tooltip.pysift.octave_pottery_sherd", "Use: plays the eight jukeboxes' notes, left to right", "右鍵：由左到右奏出八個唱片盒的音"),
+    ("tooltip.pysift.sculk_monstrosity_heart.purify", "Drop it in spirit liquid to purify it", "丟進靈液可以淨化"),
+    ("message.pysift.mourning_horn.calmed", "%s Warden(s) fall quiet", "%s 隻監守者安靜了下來"),
+    ("message.pysift.octave_sherd.seat", "Jukebox %s: %s", "第 %s 個唱片盒：%s"),
+    ("message.pysift.rift_seal.sealed", "The rift closes. Around it, the rot begins to heal.", "裂隙闔上了。周圍的腐爛開始慢慢痊癒。"),
+    ("message.pysift.rift_seal.not_here", "Only rifts in The Sift can be sealed", "只能封印隙浮裡的裂隙"),
+    ("message.pysift.homecoming.missing_rot", "The door listens... but the rot still spreads. Defeat the Sculk Monstrosity first.",
+     "門在聽……但腐爛還在蔓延。先擊敗幽匿巨怪。"),
+    ("message.pysift.homecoming.missing_singer", "The door listens... but no Singer is here to sing it open.",
+     "門在聽……但這裡沒有能把它唱開的歌者。"),
+    ("message.pysift.homecoming.missing_warden", "The door listens... but no Sift Warden is here to go home.",
+     "門在聽……但這裡沒有要回家的隙浮守衛。"),
+    ("message.pysift.homecoming.begin", "The Singer turns to the door and sings the eight notes the right way round.",
+     "歌者轉向門框，把八音正著唱了一遍。"),
+    ("message.pysift.homecoming.done", "The door remembers its song. The Singer and the Sift Warden go home, and the sculk here wakes up red.",
+     "門想起了自己的歌。歌者和隙浮守衛回家了，這裡的幽匿醒了過來，變回紅色。"),
+    ("message.pysift.homecoming.reunion", "Somewhere close, you hear a familiar hum.", "附近傳來熟悉的哼唱聲。"),
+]:
+    tr(key, en, zh)
+
 # ------------------------------------------------------------------ lang
 for lang, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{lang}.json"

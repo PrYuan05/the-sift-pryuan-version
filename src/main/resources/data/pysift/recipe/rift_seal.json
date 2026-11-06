@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "ECE",
+    "CGC",
+    "ECE"
+  ],
+  "key": {
+    "E": "minecraft:echo_shard",
+    "C": "pysift:soul_crystal_block",
+    "G": "pysift:gate_pottery_sherd"
+  },
+  "result": {
+    "id": "pysift:rift_seal",
+    "count": 1
+  }
+}

@@ -74,7 +74,8 @@ with a bestiary that fills in as you meet each creature and eight **Ancient Page
 **The story goes on:** a Singer that stays too long in the Overworld starves into a weeping **Mourner** (soak it in
 spirit liquid to bring it back); Singers sing Wardens to rest; a Warden soaked in spirit liquid grows its red fur back
 and becomes a friendly **Sift Warden**; and the rot that leaks in through the rifts stops once the Sculk Monstrosity
-falls. Four ancient **pottery sherds** carry the rest of the story.
+falls. Four ancient **pottery sherds** carry the rest of the story - and craft its tools: the **Mourning Horn**, the
+**Rift Seal** and the **Lullaby Censer**. The finale takes a Singer and a Sift Warden back to the Ancient City's door.
 
 ## The dimension
 
@@ -300,7 +301,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 第一次抵達時會獲得互動式的**《隙浮手記》**（Modonomicon），介紹下面所有內容；生物圖鑑會隨著你遇到的生物補上，還有 8 張**遠古殘頁**可以收集。
 
-**故事還沒結束**：在主世界待太久的歌者會餓成哭泣的**哀悼者**（泡進靈液就能變回來）；歌者會唱歌安撫監守者；監守者泡在靈液裡會長回赤紅的毛，變成友善的**隙浮守衛**；擊敗幽匿巨怪後，從裂隙滲進來的腐爛就會停止。四種遠古**陶器碎片**刻著剩下的故事。
+**故事還沒結束**：在主世界待太久的歌者會餓成哭泣的**哀悼者**（泡進靈液就能變回來）；歌者會唱歌安撫監守者；監守者泡在靈液裡會長回赤紅的毛，變成友善的**隙浮守衛**；擊敗幽匿巨怪後，從裂隙滲進來的腐爛就會停止。四種遠古**陶器碎片**刻著剩下的故事，也能做成故事的道具：**哀悼號角**、**封印石**、**搖籃曲香爐**。終章要帶著歌者和隙浮守衛回到遠古城市的門框前。
 
 ### 維度與生態域
 永恆的黃昏、薄荷色天空、淡淡的霧，平緩起伏的大地上有懸崖台地，以及一座座每層 2 格高、逐層內縮的大型圓台。

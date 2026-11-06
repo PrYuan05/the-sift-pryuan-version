@@ -241,6 +241,9 @@ public final class SiftCreativeTabs {
                 Map.entry("spirit_liquid_bucket", List.of("milk_bucket")),
                 Map.entry("soul_compass", List.of("recovery_compass")), Map.entry("homeward_stone", List.of("recovery_compass")),
                 Map.entry("summoning_sigil", List.of("recovery_compass")),
+                Map.entry("rift_seal", List.of("recovery_compass")), Map.entry("mourning_horn", List.of("goat_horn")),
+                Map.entry("lullaby_censer", List.of("soul_lantern")), Map.entry("sift_heart", List.of("nether_star")),
+                Map.entry("ancient_chronicle", List.of("writable_book")),
                 // combat: the boss weapons after the mace
                 Map.entry("sonic_staff", List.of("mace")), Map.entry("dash_charm", List.of("mace")), Map.entry("sculk_hammer", List.of("mace")),
                 // food
@@ -266,7 +269,7 @@ public final class SiftCreativeTabs {
         /** Order inside one anchor for items vanilla lists in a fixed sequence (ingots, boss drops). */
         private static final List<String> SEQUENCE = List.of("raw_siftite", "raw_patina", "raw_aurum",
                 "siftite_ingot", "patina_ingot", "aurum_ingot", "soulite_ingot",
-                "harmonizer_core", "resonant_crystal", "monarch_crown", "monarch_feather", "sculk_monstrosity_heart", "sculk_scale",
+                "harmonizer_core", "resonant_crystal", "monarch_crown", "monarch_feather", "sculk_monstrosity_heart", "sculk_scale", "sift_heart",
                 "sift_beacon_gem", "siftite_block", "patina_block", "raw_siftite_block", "raw_patina_block",
                 "soul_compass", "homeward_stone", "summoning_sigil", "soul_willow_boat", "soul_willow_chest_boat",
                 "soul_willow_log", "soul_willow_wood", "stripped_soul_willow_log", "stripped_soul_willow_wood", "soul_willow_planks",

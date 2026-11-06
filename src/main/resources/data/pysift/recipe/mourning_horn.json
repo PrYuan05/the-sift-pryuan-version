@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:goat_horn",
+    "pysift:octave_pottery_sherd",
+    "pysift:kin_pottery_sherd",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "id": "pysift:mourning_horn",
+    "count": 1
+  }
+}

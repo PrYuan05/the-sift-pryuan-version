@@ -18,6 +18,12 @@
     ]
   },
   {
+    "id": "pysift:sift_codex/homecoming",
+    "required_facts": [
+      "pysift:sift_codex/homecoming"
+    ]
+  },
+  {
     "id": "pysift:sift_codex/met_blub",
     "required_facts": [
       "pysift:sift_codex/met_blub"

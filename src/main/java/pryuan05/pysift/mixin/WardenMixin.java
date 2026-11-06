@@ -14,6 +14,12 @@ import pryuan05.pysift.entity.WardenSoothing;
 public abstract class WardenMixin {
     @Inject(method = "increaseAngerAt(Lnet/minecraft/world/entity/Entity;IZ)V", at = @At("HEAD"), cancellable = true)
     private void pysift$soothedNoAnger(Entity entity, int amount, boolean playSound, CallbackInfo ci) {
+        if ((Object) this instanceof pryuan05.pysift.entity.mob.SiftWardenEntity) {   // 隙浮守衛只對敵對怪物生氣
+            if (!(entity instanceof net.minecraft.world.entity.monster.Enemy)) {
+                ci.cancel();
+            }
+            return;
+        }
         if (WardenSoothing.isSoothed((Warden) (Object) this)) {
             ci.cancel();
         }
@@ -30,6 +36,13 @@ public abstract class WardenMixin {
 
     @Inject(method = "canTargetEntity", at = @At("HEAD"), cancellable = true)
     private void pysift$soothedNoTarget(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        if ((Object) this instanceof pryuan05.pysift.entity.mob.SiftWardenEntity) {   // 永遠不打玩家、寵物、村民
+            if (!(entity instanceof net.minecraft.world.entity.monster.Enemy)
+                    || entity instanceof net.minecraft.world.entity.monster.warden.Warden) {
+                cir.setReturnValue(false);
+            }
+            return;
+        }
         if (WardenSoothing.isSoothed((Warden) (Object) this)) {
             cir.setReturnValue(false);
         }

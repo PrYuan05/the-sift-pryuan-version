@@ -18,10 +18,17 @@ import pryuan05.pysift.PySift;
 public final class PysiftTooltips {
     /** 一直顯示的短行（狀態，不是說明）。 */
     private static final Set<String> ALWAYS_SHOWN = Set.of("tooltip.pysift.awakened");
-    private static final java.util.Map<net.minecraft.world.item.Item, String> LORE = java.util.Map.of(
-            net.minecraft.world.item.Items.REINFORCED_DEEPSLATE, "tooltip.pysift.reinforced_deepslate",
-            net.minecraft.world.item.Items.ECHO_SHARD, "tooltip.pysift.echo_shard",
-            pryuan05.pysift.block.SoulshaleFamily.CHISELED_SOULSHALE.asItem(), "tooltip.pysift.chiseled_soulshale");
+    private static final java.util.Map<net.minecraft.world.item.Item, String> LORE = java.util.Map.ofEntries(
+            java.util.Map.entry(net.minecraft.world.item.Items.REINFORCED_DEEPSLATE, "tooltip.pysift.reinforced_deepslate"),
+            java.util.Map.entry(net.minecraft.world.item.Items.ECHO_SHARD, "tooltip.pysift.echo_shard"),
+            java.util.Map.entry(pryuan05.pysift.block.SoulshaleFamily.CHISELED_SOULSHALE.asItem(), "tooltip.pysift.chiseled_soulshale"),
+            // 故事物品（StoryItems）：用途一直顯示
+            java.util.Map.entry(pryuan05.pysift.progression.StoryItems.MOURNING_HORN, "tooltip.pysift.mourning_horn"),
+            java.util.Map.entry(pryuan05.pysift.progression.StoryItems.RIFT_SEAL, "tooltip.pysift.rift_seal"),
+            java.util.Map.entry(pryuan05.pysift.progression.StoryItems.SIFT_HEART, "tooltip.pysift.sift_heart"),
+            java.util.Map.entry(pryuan05.pysift.progression.StoryItems.LULLABY_CENSER.asItem(), "tooltip.pysift.lullaby_censer"),
+            java.util.Map.entry(pryuan05.pysift.progression.AncientPages.SHERDS.get(3), "tooltip.pysift.octave_pottery_sherd"),
+            java.util.Map.entry(pryuan05.pysift.progression.BossRewards.SCULK_MONSTROSITY_HEART, "tooltip.pysift.sculk_monstrosity_heart.purify"));
 
     private PysiftTooltips() {
     }

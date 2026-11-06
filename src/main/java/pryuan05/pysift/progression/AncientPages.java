@@ -62,8 +62,39 @@ public final class AncientPages {
         for (String name : SHERD_NAMES) {
             net.minecraft.resources.ResourceKey<net.minecraft.world.level.block.entity.DecoratedPotPattern> pattern =
                     net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DECORATED_POT_PATTERN, PySift.id(name));
-            SHERDS.add(ModProgression.registerItem(name + "_pottery_sherd", Item::new,
+            SHERDS.add(ModProgression.registerItem(name + "_pottery_sherd",
+                    name.equals("octave") ? StoryItems.OctaveSherdItem::new : Item::new,
                     new Item.Properties().rarity(Rarity.UNCOMMON).potPattern(pattern)));
+        }
+    }
+
+    /** 《遠古編年史》：8 張殘頁＋書合成，8 章依序收在一本書裡；讀它會給成就 story/chronicle。 */
+    public static final Item CHRONICLE = ModProgression.registerItem("ancient_chronicle", ChronicleItem::new, chronicle());
+
+    private static Item.Properties chronicle() {
+        List<Filterable<Component>> pages = new ArrayList<>();
+        for (int i = 1; i <= PAGE_LENGTHS.length; i++) {
+            for (int n = 1; n <= PAGE_LENGTHS[i - 1]; n++) {
+                pages.add(Filterable.passThrough(Component.translatable("book.pysift.ancient_page_" + i + ".page" + n)));
+            }
+        }
+        return new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)
+                .component(DataComponents.WRITTEN_BOOK_CONTENT,
+                        new WrittenBookContent(Filterable.passThrough("Ancient Chronicle"), "?", 3, pages, true))
+                .component(DataComponents.TOOLTIP_DISPLAY, TooltipDisplay.DEFAULT.withHidden(DataComponents.WRITTEN_BOOK_CONTENT, true));
+    }
+
+    public static class ChronicleItem extends AncientPageItem {
+        public ChronicleItem(Properties properties) {
+            super(properties);
+        }
+
+        @Override
+        public InteractionResult use(Level level, Player player, InteractionHand hand) {
+            if (player instanceof net.minecraft.server.level.ServerPlayer sp) {
+                StoryTriggers.award(sp, "chronicle");
+            }
+            return super.use(level, player, hand);
         }
     }
 

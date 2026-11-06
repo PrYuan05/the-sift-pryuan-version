@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/censer",
+  "name": "book.pysift.sift_codex.journey.censer.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:lullaby_censer"
+  },
+  "x": 12,
+  "y": 2,
+  "sort_number": 1202,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/hollowing",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

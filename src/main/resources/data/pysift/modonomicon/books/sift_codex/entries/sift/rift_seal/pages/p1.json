@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:rift_seal",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

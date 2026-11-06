@@ -102,6 +102,12 @@ public class SingerEntity extends PysiftAnimalEntity {
     public static final int HOLLOW_TICKS = 6000, SHELTER = 6;
     private int overworldTicks;
     private boolean sheltered;
+    /** 搖籃曲香爐（LullabyCenserBlock）照顧到哪個遊戲時間為止。 */
+    private long shelteredUntil;
+
+    public void shelter(long until) {
+        shelteredUntil = Math.max(shelteredUntil, until);
+    }
 
     public SingerEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -475,7 +481,7 @@ public class SingerEntity extends PysiftAnimalEntity {
         if (this.tickCount % 40 == 0) {
             sheltered = nearSoul(level);
         }
-        if (sheltered) {
+        if (sheltered || level.getGameTime() < shelteredUntil) {
             overworldTicks = Math.max(0, overworldTicks - 2);
             return;
         }

@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+### New: the story's tools and its ending (story act 7 and finale)
+- **Sift Warden** is now a real companion: it hears monsters through walls and makes them glow, fights monsters that
+  hurt you or that you hit (never players, pets or villagers; 15 melee damage, sonic boom halved), keeps wild Wardens
+  within 24 blocks calm, and turns the blue sculk it walks over red again. Feed it sculk to heal it.
+- **Mourning Horn** (goat horn + Octave and Kin sherds + echo shard): plays the eight notes backwards; Wardens within
+  24 blocks calm down for 30 s and Mourners stop weeping. 1 minute cooldown, 32 uses.
+- **Octave Pottery Sherd**: use it to hear the eight jukeboxes left to right, with the disc each one wants.
+- **Rift Seal** (Gate sherd + soul crystal blocks + echo shards): use it on a portal in The Sift to close the rift; the
+  rot within 12 blocks stops and heals, even before the Sculk Monstrosity is defeated.
+- **Lullaby Censer** (soul lantern + Singer sherd + soul crystal block + spirit liquid bucket): Singers within 16 blocks
+  never hollow and Mourners within 8 heal in about a minute.
+- **Sift Heart**: drop the Sculk Monstrosity's heart in spirit liquid to purify it; use it on a Warden or a Mourner to
+  cure it at once.
+- **Ancient Chronicle**: the eight ancient pages bound into one book.
+- **Finale - They Went Home**: once the rot is stilled, bring a Singer and a Sift Warden to an Ancient City's
+  reinforced door and blow the Mourning Horn. The Singer sings the right octave, both go home, and the city's sculk
+  turns red. Next time you enter The Sift they are waiting nearby.
+- New advancements: Stitched Shut, The Ancient Chronicle, They Went Home. New codex entries for all of the above.
+
 ### New: kin, hollowing and homecoming (story acts 4-6)
 - **Singers recognise Wardens.** Bring a Singer within 24 blocks of a Warden: it trembles, then sings the eight notes
   backwards. The Warden calms down for 30 seconds - no anger, no targets, slowed.

@@ -158,7 +158,8 @@ public class ModEntities {
         FabricDefaultAttributeRegistry.register(ECHO_GOLEM, EchoGolemEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(SINGER, SingerEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(MOURNER, MournerEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(SIFT_WARDEN, net.minecraft.world.entity.monster.warden.Warden.createAttributes());
+        FabricDefaultAttributeRegistry.register(SIFT_WARDEN, SiftWardenEntity.createSiftAttributes());
+        SiftWardenEntity.registerGuarding();
         WardenCure.register();
         // 哀悼者：困在主世界深暗之域（遠古城市所在的生態域）的屍化歌者，稀有
         net.fabricmc.fabric.api.biome.v1.BiomeModifications.addSpawn(

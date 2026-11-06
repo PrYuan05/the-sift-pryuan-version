@@ -320,6 +320,34 @@ entry(C, "homecoming", "minecraft:echo_shard", "Homecoming", "回家", 12, 0, [
          "餵牠一個迴音碎片，牠就會跟著你走。")],
       parents=["kin", "hollowing"], node=unlock_by_advancement("warden_cured", "pysift:story/warden_cured"),
       shape="star_gold", locked_tip=("Bring a Warden home", "帶監守者回家"))
+# story part 2: the tools of the story and the finale
+entry(C, "mourning_horn", "pysift:mourning_horn", "Mourning Horn", "哀悼號角", 12, -2, [
+    text(("The song, for your own breath", "用你自己的氣息吹出那首歌"),
+         "A goat horn carved with the octave and the kin. Blow it and it plays the eight notes **backwards**: every Warden "
+         "within 24 blocks falls quiet for 30 seconds, and Mourners stop weeping. One minute to recover between songs.",
+         "刻上八音與親族的山羊角。吹響時會把八音**倒過來**奏出：24 格內的監守者安靜 30 秒，哀悼者停止哭泣。每吹一次要休息一分鐘。"),
+    recipe("crafting", "pysift:mourning_horn")],
+      parents=["kin"], shape=PURPLE)
+entry(C, "censer", "pysift:lullaby_censer", "Lullaby Censer", "搖籃曲香爐", 12, 2, [
+    text(("A little Sift to carry", "一小片可以帶著走的隙浮"),
+         "A lantern burning spirit liquid that hums the lullaby. Singers within **16** blocks never hollow, and Mourners within "
+         "**8** slowly grow their fur back - about a minute - with no need to be soaked.",
+         "燒著靈液、哼著搖籃曲的燈籠。**16** 格內的歌者不會屍化；**8** 格內的哀悼者大約一分鐘後就會長回毛，不必泡進靈液。"),
+    recipe("crafting", "pysift:lullaby_censer")],
+      parents=["hollowing"], shape=PURPLE)
+entry(C, "finale", "pysift:sift_heart", "They Went Home", "回家", 14, 0, [
+    text(("The last song", "最後一首歌"),
+         "When the rot is stilled, bring a **Singer** and a **Sift Warden** to the reinforced door of an Ancient City and blow "
+         "the **Mourning Horn** there.\n\nThe Singer sings the eight notes the right way round - the song the ancients got wrong.",
+         "腐爛止息之後，帶著一隻**歌者**和一隻**隙浮守衛**來到遠古城市那道強化深板岩的門框前，吹響**哀悼號角**。\n\n"
+         "歌者會把八音正著唱一遍：那首遠古人唱錯的歌。"),
+    text(None,
+         "The door remembers. The two of them go home, the sculk of the city wakes up red, and somewhere in The Sift they are "
+         "waiting for you.",
+         "門想起來了。牠們兩個回家了，城市裡的幽匿醒來變回紅色，而在隙浮的某處，牠們正等著你。")],
+      parents=["homecoming", "mourning_horn"], node=unlock_by_advancement("homecoming", "pysift:story/homecoming"),
+      shape="star_gold", locked_tip=("Still the rot, then go back to the door with a Singer and a Sift Warden",
+                                     "先讓腐爛止息，再帶著歌者和隙浮守衛回到那道門"))
 
 # ================================================================== 2. the Sift (隙浮)
 category("sift", 1, "pysift:red_sculk", "The Sift", "隙浮", "soul_willow/soul_willow_planks")
@@ -359,6 +387,14 @@ entry(C, "rot", "minecraft:sculk_vein", "The Rot Spreads", "腐爛蔓延", 6, -1
          "裂隙附近的赤紅幽匿會一塊一塊慢慢變藍。供養這些腐爛的，是腐得最深的那一團：**幽匿巨怪**。\n\n"
          "擊敗牠，這個世界裂隙周圍的腐爛就會停止，並且非常緩慢地重新變紅。")],
       parents=["rifts"], shape=GRAY)
+entry(C, "rift_seal", "pysift:rift_seal", "Sealing a Rift", "封印裂縫", 8, -1, [
+    text(("Close the door behind you", "把身後的門關上"),
+         "Use a **Rift Seal** on a portal in The Sift: the rift closes, the rot within twelve blocks stops at once and slowly "
+         "turns red again - even while the Sculk Monstrosity still lives.\n\nEvery door you open here is a rift, too.",
+         "對隙浮裡的傳送門使用**封印石**：裂隙關閉，12 格內的腐爛立刻停止，並且慢慢變回紅色，就算幽匿巨怪還活著也一樣。\n\n"
+         "你在這裡打開的每一道門，也都是一道裂縫。"),
+    recipe("crafting", "pysift:rift_seal")],
+      parents=["rot"], shape=PURPLE)
 BIOMES = [   # (id, icon, en, zh, text en, text zh)
     ("willow_grove", "pysift:soul_willow_sapling", "Willow Grove", "柳絮林地",
      "Soft violet meadows under soul willows. Blubs, Nuzzles, Slabbers and Pollinators graze here; watch the ground for Bloombuds. "
@@ -476,9 +512,11 @@ MOBS.append([
      "brings darkness. Soak it in spirit liquid to bring the Singer back.",
      "在我們的世界餓壞了的歌者：毛掉光、腐成深藍色，哭著把八音倒過來唱。牠從不攻擊，但牠的歌會帶來黑暗。泡進靈液就能把歌者找回來。"),
     ("sift_warden", "Sift Warden", "隙浮守衛",
-     "A Warden that came home. Its red fur grew back in the spirit liquid and its rage is gone. Feed it an echo shard and it "
-     "follows you; feed it another and it waits.",
-     "回到家的監守者。赤紅的毛在靈液裡長了回來，怒氣也消失了。餵牠一個迴音碎片，牠會跟著你走；再餵一個，牠就留在原地等。")])
+     "A Warden that came home. Feed it an echo shard and it follows you (another: it waits); sculk heals it. "
+     "It **hears** monsters through walls and makes them glow, **guards** you from them (never you, pets or villagers), "
+     "keeps wild Wardens **calm**, and the blue sculk it walks over turns **red** again.",
+     "回到家的監守者。餵迴音碎片會跟著你（再餵一個就留下來等），餵幽匿方塊會回血。牠**聽得見**牆後的怪物並讓牠們發光，"
+     "會替你**擋下**怪物（從不攻擊你、寵物或村民），讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。")])
 ROW_NAMES = [("Willow Grove", "柳絮林地"), ("Lullaby Hills and the Abyss", "搖籃曲山丘與深板岩區"),
              ("Crimson Strata Canyon", "赤紅沉積峽谷"), ("Amber Dunes", "琥珀沙丘"), ("The Deep Dark", "深暗之域")]
 for row, mobs in enumerate(MOBS):
@@ -529,6 +567,14 @@ for i, (boss, en, zh, core, weapon, ten, tzh, wen, wzh) in enumerate(BOSSES):
                   "Awaken it with the boss's shard at a smithing table.", "在鍛造台用 Boss 碎片覺醒它。")],
           parents=["guide"], node=node, shape=GOLD,
           locked_tip=("Find this guardian to fill in its page", "找到這位守護者，就會補上這一頁"))
+entry(C, "sift_heart", "pysift:sift_heart", "The Sift Heart", "隙浮之心", 4, 2, [
+    text(("The rot, healed", "被治好的腐爛"),
+         "Drop the **Sculk Monstrosity's heart** into spirit liquid and wait: it is purified into a **Sift Heart**.\n\n"
+         "Use it on a **Warden** and it becomes a Sift Warden at once; use it on a **Mourner** and the Singer comes back.",
+         "把**幽匿巨怪之心**丟進靈液裡等一下，它就會被淨化成**隙浮之心**。\n\n對**監守者**使用，牠立刻變成隙浮守衛；"
+         "對**哀悼者**使用，歌者就回來了。"),
+    spotlight("pysift:sift_heart", "Purified in spirit liquid.", "在靈液裡淨化而成。")],
+      parents=["sculk_monstrosity"], line=True, shape=PURPLE)
 
 # ================================================================== 5. gear (器物)
 category("gear", 4, "pysift:siftite_ingot", "Craft", "器物", "void_stone/smooth_void_stone")
@@ -663,7 +709,12 @@ entry(C, "sherds", "pysift:octave_pottery_sherd", "Pottery Sherds", "陶器碎�
     spotlight("pysift:gate_pottery_sherd", "The torn door.", "被撕開的門。"),
     spotlight("pysift:singer_pottery_sherd", "The one who closed it.", "把門關上的那一位。"),
     spotlight("pysift:kin_pottery_sherd", "Its kin, left behind as a guard.", "被留下來守門的親族。"),
-    spotlight("pysift:octave_pottery_sherd", "1 3 7 6 5 2 4 8.", "1 3 7 6 5 2 4 8。")],
+    spotlight("pysift:octave_pottery_sherd", "Use it: it plays the eight jukeboxes left to right and names each disc.",
+              "右鍵使用：由左到右奏出八個唱片盒的音，並說出每一盒要的唱片。"),
+    text(("What the sherds make", "陶片能做什麼"),
+         "**Octave + Kin** and a goat horn: the Mourning Horn. **Gate** and soul crystals: the Rift Seal. "
+         "**Singer** and a soul lantern: the Lullaby Censer.",
+         "**八音＋親族**加山羊角：哀悼號角。**門扉**加靈魂晶塊：封印石。**歌者**加靈魂燈籠：搖籃曲香爐。")],
       parents=["guide"], node=unlock_by_item("sherd", "pysift:octave_pottery_sherd"), shape=GRAY,
       desc=("Found in Ancient City and Sift ruin chests", "在遠古城市與隙浮遺跡的箱子裡找到"),
       locked_tip=("Find the octave sherd", "找到八音陶器碎片"))
@@ -684,6 +735,12 @@ entry(C, "whole_story", "minecraft:echo_shard", "The Whole Story", "完整的故
          "裂縫至今仍把我們沒有靈魂的空氣灌進隙浮，那些腐爛聚成了**幽匿巨怪**。阻止腐爛，然後，也許，帶牠們回家。")],
       parents=["page_4", "page_8"], node="pysift:sift_codex/all_pages", shape="star_gold",
       locked_tip=("Find all eight pages", "集滿八張殘頁"))
+entry(C, "chronicle", "pysift:ancient_chronicle", "The Ancient Chronicle", "遠古編年史", 12, 0, [
+    text(("All eight, bound", "八張，裝訂成冊"),
+         "Bind the eight ancient pages with a book: the whole account in one volume, in order.",
+         "把八張遠古殘頁和一本書放在一起合成：整段記錄依序收在同一本書裡。"),
+    recipe("crafting", "pysift:ancient_chronicle")],
+      parents=["whole_story"], node="pysift:sift_codex/all_pages", shape=GOLD)
 
 wj(RESEARCH / "facts.json", FACTS)
 wj(RESEARCH / "hooks.json", HOOKS)

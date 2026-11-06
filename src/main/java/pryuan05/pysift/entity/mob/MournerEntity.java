@@ -121,16 +121,44 @@ public class MournerEntity extends PysiftAnimalEntity {
             this.playSound(SoundEvents.AMETHYST_BLOCK_CHIME, 1.2f, 0.6f + cureTicks / 200.0f);
         }
         if (cureTicks >= CURE_TICKS) {
-            SingerEntity singer = this.convertTo(ModEntities.SINGER, ConversionParams.single(this, false, false), s -> {
-                s.addTag(pryuan05.pysift.fluid.SpiritFluid.REBORN);   // 10 秒內爬出靈液池，不會一長回毛就被撐傷
-                s.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.2f);
-            });
-            if (singer != null) {
-                level.sendParticles(ParticleTypes.NOTE, singer.getX(), singer.getY() + singer.getBbHeight() + 0.3, singer.getZ(), 12, 0.8, 0.4, 0.8, 1.0);
-                level.sendParticles(ParticleTypes.SCULK_SOUL, singer.getX(), singer.getY() + 1.5, singer.getZ(), 30, 0.6, 0.8, 0.6, 0.03);
-                StoryTriggers.mournerCured(level, singer.position());
-            }
+            cure(level);
         }
+    }
+
+    /** 搖籃曲香爐的歌（LullabyCenserBlock）：累積 WARM_TICKS 也會變回歌者，不必泡靈液。 */
+    public static final int WARM_TICKS = 1200;
+    private int warmTicks;
+
+    public void warmBy(ServerLevel level, int ticks) {
+        if (!this.isAlive()) {
+            return;
+        }
+        warmTicks += ticks;
+        hush(ticks * 2);
+        level.sendParticles(ParticleTypes.GLOW, this.getX(), this.getY() + this.getBbHeight() * 0.6, this.getZ(), 2 + warmTicks / 200, 0.5, 0.6, 0.5, 0.02);
+        if (warmTicks >= WARM_TICKS) {
+            cure(level);
+        }
+    }
+
+    /** 長回毛，變回歌者。 */
+    public SingerEntity cure(ServerLevel level) {
+        SingerEntity singer = this.convertTo(ModEntities.SINGER, ConversionParams.single(this, false, false), s -> {
+            s.addTag(pryuan05.pysift.fluid.SpiritFluid.REBORN);   // 10 秒內爬出靈液池，不會一長回毛就被撐傷
+            s.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, 1.2f);
+        });
+        if (singer != null) {
+            level.sendParticles(ParticleTypes.NOTE, singer.getX(), singer.getY() + singer.getBbHeight() + 0.3, singer.getZ(), 12, 0.8, 0.4, 0.8, 1.0);
+            level.sendParticles(ParticleTypes.SCULK_SOUL, singer.getX(), singer.getY() + 1.5, singer.getZ(), 30, 0.6, 0.8, 0.6, 0.03);
+            StoryTriggers.mournerCured(level, singer.position());
+        }
+        return singer;
+    }
+
+    /** 被哀悼號角安撫：ticks 內不再哭。 */
+    public void hush(int ticks) {
+        weepTicks = 0;
+        weepCooldown = Math.max(weepCooldown, ticks);
     }
 
     public int getCureTicks() {
@@ -141,11 +169,13 @@ public class MournerEntity extends PysiftAnimalEntity {
     protected void addAdditionalSaveData(ValueOutput output) {
         super.addAdditionalSaveData(output);
         output.putInt("WeepCooldown", weepCooldown);
+        output.putInt("WarmTicks", warmTicks);
     }
 
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         super.readAdditionalSaveData(input);
         weepCooldown = input.getIntOr("WeepCooldown", 0);
+        warmTicks = input.getIntOr("WarmTicks", 0);
     }
 }

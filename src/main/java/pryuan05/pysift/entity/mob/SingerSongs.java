@@ -48,6 +48,9 @@ public final class SingerSongs {
      */
     public static final Song MOURNING = degrees("Mourning (reversed octave)", new int[]{8, 4, 2, 5, 6, 7, 3, 1}, 4);
 
+    /** 正著唱的開門旋律 1 3 7 6 5 2 4 8（終章：歌者在遠古城市門框前唱給門聽，Homecoming）。 */
+    public static final Song OPENING = degrees("Opening (the right octave)", new int[]{1, 3, 7, 6, 5, 2, 4, 8}, 2);
+
     /** 等唱片時輪流哼的曲子。 */
     public static final List<Song> WAITING = List.of(LULLABY, ODE_TO_JOY, TWINKLE);
 

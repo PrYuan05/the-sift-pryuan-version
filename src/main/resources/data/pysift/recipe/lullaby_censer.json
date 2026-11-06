@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:soul_lantern",
+    "pysift:singer_pottery_sherd",
+    "pysift:soul_crystal_block",
+    "pysift:spirit_liquid_bucket"
+  ],
+  "result": {
+    "id": "pysift:lullaby_censer",
+    "count": 1
+  }
+}

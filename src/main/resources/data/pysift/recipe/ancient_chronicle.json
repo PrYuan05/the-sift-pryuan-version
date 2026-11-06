@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:ancient_page_1",
+    "pysift:ancient_page_2",
+    "pysift:ancient_page_3",
+    "pysift:ancient_page_4",
+    "pysift:ancient_page_5",
+    "pysift:ancient_page_6",
+    "pysift:ancient_page_7",
+    "pysift:ancient_page_8",
+    "minecraft:book"
+  ],
+  "result": {
+    "id": "pysift:ancient_chronicle",
+    "count": 1
+  }
+}

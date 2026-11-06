@@ -13,6 +13,12 @@ import pryuan05.pysift.progression.BossWeapons;
 public abstract class SoulDeprivationDamageMixin {
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true)
     private float pysift$soulDeprivedTakesMore(float amount, ServerLevel level, DamageSource source) {
-        return BossWeapons.deprivedFoe((LivingEntity) (Object) this) ? amount * 1.3f : amount;
+        float a = BossWeapons.deprivedFoe((LivingEntity) (Object) this) ? amount * 1.3f : amount;
+        // 隙浮守衛的音爆（原版固定 10 點）減半；近戰的減半在 SiftWardenEntity 的攻擊力屬性
+        if (source.getEntity() instanceof pryuan05.pysift.entity.mob.SiftWardenEntity
+                && source.is(net.minecraft.world.damagesource.DamageTypes.SONIC_BOOM)) {
+            a *= 0.5f;
+        }
+        return a;
     }
 }

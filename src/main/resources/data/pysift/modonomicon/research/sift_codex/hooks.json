@@ -18,6 +18,12 @@
     "trigger_target": "pysift:story/warden_cured"
   },
   {
+    "id": "pysift:sift_codex/homecoming_hook",
+    "fact_id": "pysift:sift_codex/homecoming",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:story/homecoming"
+  },
+  {
     "id": "pysift:sift_codex/met_blub_hook",
     "fact_id": "pysift:sift_codex/met_blub",
     "trigger_type": "modonomicon:advancement",
