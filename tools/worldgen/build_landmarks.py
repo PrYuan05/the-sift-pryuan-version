@@ -2,7 +2,7 @@
 Usage: python -I tools/worldgen/build_landmarks.py <project>
 
 | what            | Dungeons II location | biome(s)                          | how                                                    |
-| echo_den        | The Echo Den         | all Sift biomes, y -36..-16       | jigsaw structure: amphitheatre hub + corridors + rooms |
+| echo_den        | The Echo Den         | all Sift biomes, 44-56 below ground | jigsaw structure: amphitheatre hub + corridors + rooms |
 | humbler_husk    | Humbler Husk         | amber_dunes                       | single-piece structure, half buried; achievement       |
 | fossil/*        | Huskland fossils     | amber_dunes                       | feature pysift:surface_fossil (SurfaceFossilFeature)   |
 | lullaby_shrine  | Lullaby Hilltop      | canyon, abyss, grove (hill tops)  | feature pysift:lullaby_shrine (LullabyShrineFeature)   |
@@ -653,8 +653,8 @@ def lullaby_shrine():
         x, z = c + round(2 * math.cos(a)), c + round(2 * math.sin(a))
         t.set(x, 1, z, "minecraft:note_block", note=(0, 2, 4, 5, 7, 9, 11, 12)[i], instrument="harp")
     t.chest(c, 1, c + 4, "lullaby_shrine", facing="north")
-    t.entity(c - 3, 1, c - 1, "pysift:echo_golem", yaw=90)
-    t.entity(c + 3, 1, c + 1, "pysift:echo_golem", yaw=270)
+    t.entity(c - 3, 1, c, "pysift:echo_golem", yaw=90)       # not beside the note blocks: a golem is 1.4 wide
+    t.entity(c + 3, 1, c, "pysift:echo_golem", yaw=270)
     return t
 
 
@@ -712,9 +712,19 @@ SIFT_BIOMES = ["pysift:crimson_strata_canyon", "pysift:violet_slate_abyss", "pys
 STRUCTURES = {
     # name: (structure json, biomes, spacing, separation, salt)
     "echo_den": ({"type": "minecraft:jigsaw", "start_pool": "pysift:echo_den/hub", "size": 7, "max_distance_from_center": 96,
-                  "start_height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": -36}, "max_inclusive": {"absolute": -16}},
-                  "step": "underground_structures", "terrain_adaptation": "beard_box", "use_expansion_hack": False,
-                  "spawn_overrides": {}}, SIFT_BIOMES, 40, 14, 70531101),
+                  # the start piece (hub, 22 tall) is placed relative to the ground so its dome never breaks out of low canyon floors:
+                  # hub floor 44..56 below the ground at the start chunk's corner, dome top 22..34 below (the canyons drop
+                  # steeply, so the ground over the far side of the 25-wide hub can be 20 blocks lower than at the corner)
+                  "project_start_to_heightmap": "OCEAN_FLOOR_WG",
+                  "start_height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": -56}, "max_inclusive": {"absolute": -44}},
+                  # "none": the templates' own air carves the rooms and structure voids keep the rock around them. beard_box would
+                  # hollow out each piece's whole bounding box (ignoring structure voids) - the open pit around the hub
+                  "step": "underground_structures", "terrain_adaptation": "none", "use_expansion_hack": False,
+                  # nothing spawns naturally inside the den's rooms: it is the choir's sanctuary, its residents (singers,
+                  # golems, guards) come with the templates and golems are born from the echo cradles
+                  "spawn_overrides": {cat: {"bounding_box": "piece", "spawns": []} for cat in
+                                      ("monster", "creature", "ambient", "axolotls", "underground_water_creature",
+                                       "water_creature", "water_ambient")}}, SIFT_BIOMES, 40, 14, 70531101),
     "humbler_husk": ({"type": "minecraft:jigsaw", "start_pool": "pysift:humbler_husk", "size": 1, "max_distance_from_center": 80,
                       "project_start_to_heightmap": "WORLD_SURFACE_WG", "start_height": {"absolute": -9},
                       # template has no air (keeps the dunes) and 6 rows of sand supports under its floor

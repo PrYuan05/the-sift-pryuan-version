@@ -696,15 +696,27 @@ public class EchoGolemEntity extends PysiftGeoEntity {
 
         @Override
         public boolean canContinueToUse() {
-            return singer != null && singer.isAlive() && hasCrystal() && getTarget() == null;
+            // 走不到（歌者站在舞台上、路太窄）或走太久就放棄，否則傀儡會一直站著對著歌者發呆
+            return singer != null && singer.isAlive() && hasCrystal() && getTarget() == null && walkTicks < 200 && stuckTicks < 60;
+        }
+
+        private int walkTicks, stuckTicks;
+
+        @Override
+        public void start() {
+            walkTicks = 0;
+            stuckTicks = 0;
         }
 
         @Override
         public void tick() {
             getLookControl().setLookAt(singer);
             if (distanceToSqr(singer) > 3.0 * 3.0) {
+                walkTicks++;
                 if (getNavigation().isDone() || tickCount % 20 == 0) {
-                    getNavigation().moveTo(singer, 0.9);
+                    if (!getNavigation().moveTo(singer, 0.9)) {
+                        stuckTicks += 20;   // 找不到路
+                    }
                 }
                 return;
             }

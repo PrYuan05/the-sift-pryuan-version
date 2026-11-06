@@ -472,12 +472,14 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     // ---------------------------------------------------------------- the echo den choir (§4.7「回音窟」)
     /**
-     * 回音窟舞台上的領唱（結構裡帶 pysift_den_lead 標籤）：CHOIR_RANGE 格內有玩家時，每 CHOIR_PERIOD tick 帶頭唱一次正確的八音
-     * （{@link SingerSongs#OPENING}，替篩網「調音」），其他合唱的歌者（pysift_den_choir）跟著做唱歌動作、冒出音符。
+     * 回音窟舞台上的領唱（結構裡帶 pysift_den_lead 標籤）：CHOIR_RANGE 格內有玩家時，每 CHOIR_PERIOD tick（20 秒）帶頭唱一次正確的八音
+     * （{@link SingerSongs#OPENING}，替篩網「調音」），其他合唱的歌者（pysift_den_choir）一起做合唱動作（choir，嘴巴隨每個音張合），唱三度／五度和聲。
      * 合唱期間附近被驚醒的守衛會平靜下來（DenGuard.calm）。
      */
     public static final String DEN_LEAD = "pysift_den_lead", DEN_CHOIR = "pysift_den_choir";
-    private static final int CHOIR_PERIOD = 1200;
+    private static final int CHOIR_PERIOD = 400;
+    /** 合唱團其他歌者對主旋律唱的和聲（半音）：三度、五度輪流。 */
+    private static final int[] CHOIR_HARMONY = {4, 7, -5};
     private static final double CHOIR_RANGE = 24.0;
 
     private void tickChoir(ServerLevel level) {
@@ -487,10 +489,19 @@ public class SingerEntity extends PysiftAnimalEntity {
         }
         var choir = level.getEntitiesOfClass(SingerEntity.class, this.getBoundingBox().inflate(16.0),
                 s -> s.isAlive() && s.entityTags().contains(DEN_CHOIR));
+        // OPENING：8 個音、每音 2 格 × 8 tick = 6.4 秒，和 animation.singer.choir 一樣長（每 0.8 秒張嘴唱一個音）
         pryuan05.pysift.progression.StoryItems.play(level, this, SingerSongs.OPENING, 8, i -> {
+            int note = SingerSongs.OPENING.notes()[i];
+            int k = 0;
             for (SingerEntity s : choir) {
                 if (i == 0) {
-                    s.triggerAnim("skill", "sing");
+                    s.triggerAnim("skill", "choir");
+                }
+                if (s != this) {   // 領唱的主旋律由 play() 發聲；其他人唱和聲
+                    float pitch = (float) Math.pow(2.0, (note + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
+                    pitch = Math.max(0.5f, Math.min(2.0f, pitch));
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.NOTE_BLOCK_FLUTE.value(), SoundSource.NEUTRAL, 0.7f, pitch);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.NEUTRAL, 0.5f, pitch);
                 }
                 level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, (i * 3) / 24.0, 0, 0, 1.0);
             }
@@ -684,7 +695,7 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     @Override
     protected List<String> skillAnimations() {
-        return List.of("sing", "summon");
+        return List.of("sing", "summon", "choir");
     }
 
     @Override
