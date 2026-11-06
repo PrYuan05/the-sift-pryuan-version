@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:polished_soulshale_slab",
+                "state": {
+                  "type": "double"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:explosion_decay"
+            }
+          ],
+          "name": "pysift:polished_soulshale_slab"
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/polished_soulshale_slab"
+}

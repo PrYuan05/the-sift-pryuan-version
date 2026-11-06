@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/discord",
+  "name": "book.pysift.sift_codex.journey.discord.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:sculk"
+  },
+  "x": 6,
+  "y": -1,
+  "sort_number": 599,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gray",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/ritual",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

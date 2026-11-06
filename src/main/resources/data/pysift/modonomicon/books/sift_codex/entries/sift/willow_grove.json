@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/willow_grove",
+  "name": "book.pysift.sift_codex.sift.willow_grove.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:soul_willow_sapling"
+  },
+  "x": 0,
+  "y": 2,
+  "sort_number": 2,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/spirit_liquid",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

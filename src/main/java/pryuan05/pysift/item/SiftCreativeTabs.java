@@ -20,6 +20,9 @@ import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.block.SoulWillowWood;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -128,32 +131,55 @@ public final class SiftCreativeTabs {
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, t.key, t.tab);
             BY_TAB.put(t.tab, t);
         }
-        // the same items in vanilla's tabs, next to the vanilla items they resemble (block_state variants only in ours)
-        Map<ResourceKey<CreativeModeTab>, List<ItemStack>> vanilla = new LinkedHashMap<>();
-        for (Tab t : Tab.values()) {
-            ResourceKey<CreativeModeTab> key = t.vanilla != null ? t.vanilla : Tab.BUILDING.vanilla;
-            vanilla.computeIfAbsent(key, k -> new ArrayList<>());
-        }
-        vanilla.computeIfAbsent(Tab.NATURAL.vanilla, k -> new ArrayList<>());
-        for (ResourceKey<CreativeModeTab> key : vanilla.keySet()) {
+        // the same items in vanilla's tabs, right after the vanilla item of the same kind (block_state variants only in ours)
+        for (ResourceKey<CreativeModeTab> key : List.of(Tab.BUILDING.vanilla, Tab.NATURAL.vanilla, Tab.COLORED.vanilla,
+                Tab.FUNCTIONAL.vanilla, Tab.TOOLS.vanilla, Tab.COMBAT.vanilla, Tab.FOOD.vanilla, Tab.INGREDIENTS.vanilla,
+                Tab.SPAWN_EGGS.vanilla)) {
             CreativeModeTabEvents.modifyOutputEvent(key).register(output -> {
-                // anchor (a vanilla item) -> our stacks that go after it, in our order
-                Map<Item, List<ItemStack>> groups = new LinkedHashMap<>();
+                Set<Item> shown = new HashSet<>();
+                output.getDisplayStacks().forEach(s -> shown.add(s.getItem()));
+                Map<Item, List<ItemStack>> groups = new LinkedHashMap<>();   // vanilla anchor -> our stacks after it
                 List<ItemStack> rest = new ArrayList<>();
-                collect().forEach((t, stacks) -> {
-                    for (ItemStack stack : stacks) {
-                        if (stack.has(DataComponents.BLOCK_STATE) || !vanillaTab(t, stack).equals(key)) {
+                Map<Item, Tab> ours = new LinkedHashMap<>();
+                Map<Item, ItemStack> stackOf = new LinkedHashMap<>();
+                collect().forEach((t, stacks) -> stacks.forEach(stack -> {
+                    if (!stack.has(DataComponents.BLOCK_STATE) && !ours.containsKey(stack.getItem())) {
+                        ours.put(stack.getItem(), t);
+                        stackOf.put(stack.getItem(), stack);
+                    }
+                }));
+                for (ItemStack stack : CreativeLayout.arrange(new ArrayList<>(stackOf.values()))) {
+                    List<String> kin = VanillaKin.of(stack);
+                    if (kin.isEmpty()) {
+                        // no vanilla item of the same kind: the tab of its category, after that category's anchor
+                        if (!vanillaTab(ours.get(stack.getItem()), stack).equals(key)) {
                             continue;
                         }
-                        Item anchor = anchorOf(stack, output.getDisplayStacks());
-                        if (anchor == null) {
-                            rest.add(stack);
-                        } else {
+                        Item anchor = SECTION_ANCHORS.get(CreativeLayout.section(stack));
+                        if (anchor != null && shown.contains(anchor)) {
                             groups.computeIfAbsent(anchor, a -> new ArrayList<>()).add(stack);
+                        } else {
+                            rest.add(stack);
+                        }
+                        continue;
+                    }
+                    // the first kin that is in this tab; a stack whose kin is in no tab here is not shown here
+                    String only = VanillaKin.ONLY_IN.get(BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath());
+                    if (only != null && !key.identifier().getPath().equals(only)) {
+                        continue;
+                    }
+                    for (String id : kin) {
+                        Item anchor = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace(id));
+                        if (shown.contains(anchor)) {
+                            groups.computeIfAbsent(anchor, a -> new ArrayList<>()).add(stack);
+                            break;
                         }
                     }
+                }
+                groups.forEach((anchor, stacks) -> {
+                    stacks.sort(Comparator.comparingInt(VanillaKin::order));   // stable: tiers and armour pieces in vanilla order
+                    output.insertAfter(anchor, stacks);
                 });
-                groups.forEach((anchor, stacks) -> output.insertAfter(anchor, stacks));
                 rest.forEach(output::accept);
             });
         }
@@ -161,10 +187,10 @@ public final class SiftCreativeTabs {
 
     /** Vanilla's last colour in its colour order: our 9 colours go right after it. */
     private static final String LAST_VANILLA_COLOUR = "pink_";
-    /** Where each kind of our items sits in vanilla's tabs (after this vanilla item). */
+    /** Where each kind of our items without a vanilla kin sits in vanilla's tabs (after this vanilla item). */
     private static final Map<CreativeLayout.Section, Item> SECTION_ANCHORS = Map.ofEntries(
             Map.entry(CreativeLayout.Section.WOOD, Items.WARPED_BUTTON),           // after the last wood family
-            Map.entry(CreativeLayout.Section.STONE, Items.PURPUR_SLAB),            // after the stone families, before copper
+            Map.entry(CreativeLayout.Section.STONE, Items.PURPUR_SLAB),            // after the stone families, before the metal blocks
             Map.entry(CreativeLayout.Section.CAPPED, Items.PURPUR_SLAB),
             Map.entry(CreativeLayout.Section.DECOR, Items.PURPUR_SLAB),
             Map.entry(CreativeLayout.Section.EARTH, Items.MUD_BRICK_WALL),
@@ -173,40 +199,144 @@ public final class SiftCreativeTabs {
             Map.entry(CreativeLayout.Section.TREE, Items.WARPED_STEM),
             Map.entry(CreativeLayout.Section.PLANT, Items.WARPED_FUNGUS),
             Map.entry(CreativeLayout.Section.SPECIAL, Items.LODESTONE),
-            Map.entry(CreativeLayout.Section.TOOL, Items.NETHERITE_HOE),
-            Map.entry(CreativeLayout.Section.COMBAT, Items.NETHERITE_BOOTS),
+            Map.entry(CreativeLayout.Section.TOOL, Items.ENDER_EYE),
+            Map.entry(CreativeLayout.Section.COMBAT, Items.MACE),
             Map.entry(CreativeLayout.Section.CONSUMABLE, Items.ENCHANTED_GOLDEN_APPLE),
-            Map.entry(CreativeLayout.Section.MATERIAL, Items.NETHERITE_INGOT));
+            Map.entry(CreativeLayout.Section.MATERIAL, Items.NETHER_STAR));
 
-    /** The vanilla item our stack goes after in a vanilla tab, or null (then it goes at the end). */
-    private static Item anchorOf(ItemStack stack, java.util.Collection<ItemStack> shown) {
-        Item anchor = null;
-        String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
-        CreativeLayout.Section section = CreativeLayout.section(stack);
-        if (stack.getItem() instanceof SiftColors.SiftDyeItem || section == CreativeLayout.Section.COLORED) {
-            // <colour>_<kind> after vanilla's pink_<kind>; slabs / stairs (no vanilla ones) after the full block
-            for (SiftColors.SiftColor c : SiftColors.SiftColor.values()) {
-                if (path.startsWith(c.id + "_")) {
-                    String kind = path.substring(c.id.length() + 1).replaceAll("_(slab|stairs)$", "");
-                    anchor = BuiltInRegistries.ITEM.getOptional(Identifier.withDefaultNamespace(LAST_VANILLA_COLOUR + kind)).orElse(null);
-                    break;
-                }
-            }
-        } else if (section == CreativeLayout.Section.SPAWN_EGG) {
-            // vanilla's spawn eggs are alphabetical: after the last one before ours
-            for (ItemStack s : shown) {
-                Identifier id = BuiltInRegistries.ITEM.getKey(s.getItem());
-                if (id.getNamespace().equals("minecraft") && id.getPath().endsWith("_spawn_egg") && id.getPath().compareTo(path) < 0) {
-                    anchor = s.getItem();
-                }
-            }
-        } else {
-            anchor = SECTION_ANCHORS.get(section);
+    /**
+     * The vanilla items our item is "the same kind" as, in order of preference: the item goes into every vanilla tab that
+     * holds the first of them it finds there, right after it (so soul willow logs sit in both the building and the natural
+     * tab, like vanilla logs, and our wools continue vanilla's wool row). Empty: no kin, use the category's anchor.
+     */
+    static final class VanillaKin {
+        private static final List<String> TIERS = List.of("siftite", "aurum", "soulite");
+        private static final List<String> TOOLS = List.of("shovel", "pickaxe", "axe", "hoe");
+        private static final List<String> ARMOUR = List.of("helmet", "chestplate", "leggings", "boots");
+        /** The soul willow pieces vanilla keeps in one wood run in the building tab (soul_willow_ / _soul_willow removed). */
+        private static final Set<String> WOOD_RUN = Set.of("log", "wood", "stripped_log", "stripped_wood", "planks", "stairs",
+                "slab", "fence", "fence_gate", "door", "trapdoor", "pressure_plate", "button");
+        private static final Map<String, List<String>> EXACT = Map.ofEntries(
+                // natural ground and sand live in the natural tab
+                Map.entry("amber_sand", List.of("red_sand")), Map.entry("pale_sand", List.of("red_sand")),
+                Map.entry("cobbled_dirt", List.of("rooted_dirt")), Map.entry("rich_dirt", List.of("rooted_dirt")),
+                Map.entry("meadow_grass_block", List.of("rooted_dirt")), Map.entry("forest_floor", List.of("rooted_dirt")),
+                Map.entry("wilting_foliage", List.of("pale_hanging_moss")), Map.entry("dense_foliage_block", List.of("pale_hanging_moss")),
+                // metal and raw metal blocks
+                Map.entry("siftite_block", List.of("netherite_block")), Map.entry("patina_block", List.of("netherite_block")),
+                Map.entry("raw_siftite_block", List.of("raw_gold_block")), Map.entry("raw_patina_block", List.of("raw_gold_block")),
+                Map.entry("red_sculk", List.of("sculk_sensor")), Map.entry("red_sculk_vein", List.of("sculk_sensor")),
+                Map.entry("soul_berries", List.of("sweet_berries")),
+                // soul willow pieces outside the building run
+                Map.entry("soul_willow_leaves", List.of("flowering_azalea_leaves")),
+                Map.entry("soul_willow_leaves_pale", List.of("flowering_azalea_leaves")),
+                Map.entry("glowing_soul_willow_leaves", List.of("flowering_azalea_leaves")),
+                Map.entry("soul_willow_sapling", List.of("poplar_sapling")),
+                Map.entry("soul_willow_vine", List.of("twisting_vines")), Map.entry("glowing_soul_willow_vine", List.of("twisting_vines")),
+                Map.entry("soul_willow_sign", List.of("warped_hanging_sign")),
+                Map.entry("soul_willow_hanging_sign", List.of("warped_hanging_sign")),
+                Map.entry("soul_willow_shelf", List.of("warped_shelf")),
+                Map.entry("soul_willow_boat", List.of("poplar_chest_boat")), Map.entry("soul_willow_chest_boat", List.of("poplar_chest_boat")),
+                // tools & utilities
+                Map.entry("spirit_liquid_bucket", List.of("milk_bucket")),
+                Map.entry("soul_compass", List.of("recovery_compass")), Map.entry("homeward_stone", List.of("recovery_compass")),
+                Map.entry("summoning_sigil", List.of("recovery_compass")),
+                // combat: the boss weapons after the mace
+                Map.entry("sonic_staff", List.of("mace")), Map.entry("dash_charm", List.of("mace")), Map.entry("sculk_hammer", List.of("mace")),
+                // food
+                Map.entry("aurum_apple", List.of("enchanted_golden_apple")), Map.entry("aurum_carrot", List.of("golden_carrot")),
+                Map.entry("aurum_berries", List.of("glow_berries")), Map.entry("gloomcap_stew", List.of("rabbit_stew")),
+                Map.entry("soul_antidote", List.of("milk_bucket")),
+                // ingredients
+                Map.entry("raw_siftite", List.of("raw_gold")), Map.entry("raw_aurum", List.of("raw_gold")), Map.entry("raw_patina", List.of("raw_gold")),
+                Map.entry("aurum_nugget", List.of("gold_nugget")),
+                Map.entry("siftite_ingot", List.of("netherite_ingot")), Map.entry("patina_ingot", List.of("netherite_ingot")),
+                Map.entry("aurum_ingot", List.of("netherite_ingot")), Map.entry("soulite_ingot", List.of("netherite_ingot")),
+                Map.entry("charoite", List.of("amethyst_shard")), Map.entry("fuse_powder", List.of("gunpowder")),
+                Map.entry("soul_essence", List.of("echo_shard")),
+                Map.entry("harmonizer_core", List.of("nether_star")), Map.entry("monarch_crown", List.of("nether_star")),
+                Map.entry("sculk_monstrosity_heart", List.of("nether_star")), Map.entry("resonant_crystal", List.of("nether_star")),
+                Map.entry("monarch_feather", List.of("nether_star")), Map.entry("sculk_scale", List.of("nether_star")),
+                Map.entry("sift_beacon_gem", List.of("nether_star")),
+                Map.entry("soulite_upgrade_smithing_template", List.of("netherite_upgrade_smithing_template")));
+        /** Items whose vanilla kin is in several tabs (milk bucket, glow berries...) but which belong in one. */
+        static final Map<String, String> ONLY_IN = Map.of(
+                "spirit_liquid_bucket", "tools_and_utilities", "summoning_sigil", "tools_and_utilities",
+                "soul_antidote", "food_and_drinks", "aurum_berries", "food_and_drinks", "aurum_carrot", "food_and_drinks");
+        /** Order inside one anchor for items vanilla lists in a fixed sequence (ingots, boss drops). */
+        private static final List<String> SEQUENCE = List.of("raw_siftite", "raw_patina", "raw_aurum",
+                "siftite_ingot", "patina_ingot", "aurum_ingot", "soulite_ingot",
+                "harmonizer_core", "resonant_crystal", "monarch_crown", "monarch_feather", "sculk_monstrosity_heart", "sculk_scale",
+                "sift_beacon_gem", "siftite_block", "patina_block", "raw_siftite_block", "raw_patina_block",
+                "soul_compass", "homeward_stone", "summoning_sigil", "soul_willow_boat", "soul_willow_chest_boat",
+                "soul_willow_log", "soul_willow_wood", "stripped_soul_willow_log", "stripped_soul_willow_wood", "soul_willow_planks",
+                "soul_willow_stairs", "soul_willow_slab", "soul_willow_fence", "soul_willow_fence_gate", "soul_willow_door",
+                "soul_willow_trapdoor", "soul_willow_pressure_plate", "soul_willow_button",
+                "soul_willow_sign", "soul_willow_hanging_sign");
+
+        private VanillaKin() {
         }
-        if (anchor == null) {
+
+        static List<String> of(ItemStack stack) {
+            String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+            List<String> exact = EXACT.get(path);
+            if (exact != null) {
+                return exact;
+            }
+            if (path.startsWith("ancient_page_")) {
+                return List.of("writable_book");
+            }
+            if (path.endsWith("_spawn_egg")) {
+                return List.of("shulker_spawn_egg");            // all of ours as one run after vanilla's last egg
+            }
+            if (path.contains("soul_willow") && WOOD_RUN.contains(path.replace("soul_willow_", "").replace("_soul_willow", ""))) {
+                return path.equals("soul_willow_log") ? List.of("warped_button", "warped_stem") : List.of("warped_button");
+            }
+            for (SiftColors.SiftColor c : SiftColors.SiftColor.values()) {
+                // <colour>_<kind> right after vanilla's pink_<kind> (wool, wool slab and wool stairs each in their own row)
+                if (path.startsWith(c.id + "_")) {
+                    String kind = path.substring(c.id.length() + 1);
+                    if (BuiltInRegistries.ITEM.containsKey(Identifier.withDefaultNamespace(LAST_VANILLA_COLOUR + kind))) {
+                        return List.of(LAST_VANILLA_COLOUR + kind);
+                    }
+                }
+            }
+            String tier = tier(path);
+            if (tier != null) {
+                String kind = path.substring(tier.length() + 1);
+                if (TOOLS.contains(kind)) {
+                    return kind.equals("axe") ? List.of("netherite_hoe", "netherite_axe") : List.of("netherite_hoe");
+                }
+                if (ARMOUR.contains(kind)) {
+                    return List.of("netherite_boots");
+                }
+                if (kind.equals("sword")) {
+                    return List.of("netherite_sword");
+                }
+            }
+            return List.of();
+        }
+
+        /** Sort key inside one anchor (stable): tools and armour tier by tier in vanilla's piece order, then SEQUENCE, else 0. */
+        static int order(ItemStack stack) {
+            String path = BuiltInRegistries.ITEM.getKey(stack.getItem()).getPath();
+            String tier = tier(path);
+            if (tier != null) {
+                String kind = path.substring(tier.length() + 1);
+                int piece = TOOLS.contains(kind) ? TOOLS.indexOf(kind) : Math.max(0, ARMOUR.indexOf(kind));
+                return TIERS.indexOf(tier) * 10 + piece;
+            }
+            int i = SEQUENCE.indexOf(path);
+            return i < 0 ? 1000 : i;                     // listed items first, the rest keep their order
+        }
+
+        private static String tier(String path) {
+            for (String t : TIERS) {
+                if (path.startsWith(t + "_")) {
+                    return t;
+                }
+            }
             return null;
         }
-        Item a = anchor;
-        return shown.stream().anyMatch(s -> s.is(a)) ? a : null;
     }
 }

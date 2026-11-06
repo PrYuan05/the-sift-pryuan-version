@@ -62,6 +62,11 @@ dependencies {
 
 	implementation "com.geckolib:geckolib-fabric-${project.minecraft_version}:5.5.7"
 
+	// Modonomicon: the in-game codex (data/pysift/modonomicon/books/sift_codex), a category map with entity, item and
+	// recipe pages like the Ice and Fire / Alex's Mobs books. Required at runtime (fabric.mod.json "depends").
+	// Pinned by Modrinth version id: "26.3-2.20.0" alone resolves to the NeoForge jar (both loaders share that number).
+	implementation "maven.modrinth:modonomicon:DwjrSwcC"   // 26.3-2.20.0 (Fabric)
+
 	// Not shipped or required: only lets SodiumFluidRendererMixin compile (it applies only when Sodium is installed)
 	clientCompileOnly "maven.modrinth:sodium:mc26.3-0.9.2-fabric"
 

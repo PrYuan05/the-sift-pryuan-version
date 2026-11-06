@@ -2,6 +2,36 @@
 
 ## Unreleased
 
+### New: aurum, tools and golden foods
+- Aurum ore (Lullaby Hills river beds) now drops **Raw Aurum**, more the richer the ore: richness 0 drops 1-2, solid
+  ore (richness 4) 4-7; Fortune applies, Silk Touch keeps the ore with its richness.
+- Smelt or blast raw aurum (or the ore) into an **Aurum Ingot**; 9 **Aurum Nuggets** make an ingot.
+- **Aurum tools** (sword, pickaxe, axe, shovel, hoe): 450 durability, mining speed 10, enchantability 22, mine
+  iron-tier blocks.
+- **Aurum Apple** (apple + 8 ingots, always edible): Regeneration II 5 s, Absorption 2 min, Soul Ward 1 min.
+- **Aurum Carrot** (carrot + 8 nuggets): very filling; Night Vision and Echo Sight 30 s.
+- **Aurum Berries** (sweet berries + 4 nuggets, quick to eat): Speed and Haste 45 s.
+
+### New: soulshale building set
+- **Soulshale**, a deep teal shale in the colours of chiseled soulshale, with the whole deepslate family: polished,
+  bricks, cracked bricks, tiles, cracked tiles (each with slab, stairs and wall) and **Chiseled Soulshale**.
+- Craft 8 abyssal strata around a soul sand or soul soil into 8 soulshale; the rest crafts, stonecuts and smelts like
+  deepslate.
+- Placing Chiseled Soulshale rings one of the eight notes of the Eight-Song Ritual.
+
+### New: the Sift Codex and the ancient pages (story prologue)
+- **New required mod: [Modonomicon](https://modrinth.com/mod/modonomicon)** (Fabric, 2.20.0 or newer).
+- The written Sift Guidebook is replaced by the **Sift Codex**, an interactive book with six maps of entries: the way in
+  (ritual and arrival), the Sift (spirit liquid, red sculk, rifts, seven biomes), a **bestiary** with a rotatable model of
+  every creature, the three **guardians** with their weapon recipes, crafting and gear, and the ancient pages.
+- Bestiary and guardian pages start as locked shadows and fill in the first time you **meet** the creature (hit it, get
+  hit by it, or use something on it).
+- Eight **Ancient Pages** tell what happened at the Ancient City. Pages I-IV are in about half of all Ancient City
+  chests, V-VII in Sift ruins (always one in the echo den vault), and VIII is carried by the Sculk Monstrosity. Use a
+  page to read it; picking it up also opens its entry in the codex. All eight unlock "The Whole Story".
+- You get the codex the first time you enter The Sift; craft another from a book and an echo shard.
+- Reinforced deepslate and echo shards have a line of lore in their tooltips.
+
 ### New: red sculk and the rot around the rifts (story act 2-3)
 - **Red Sculk** and **Red Sculk Vein**: the living sculk of The Sift, crimson with glowing pink veins, in patches beside
   the spirit ponds of the Willow Grove, Violet Slate Abyss, Lullaby Hills and Crimson Strata Canyon.
@@ -160,6 +190,21 @@
 - Monarch model lowered so it no longer floats above the ground.
 
 ## 尚未發布（繁體中文）
+
+### 新增：魂頁岩建材
+- **魂頁岩**：深青色的頁岩，用雕紋魂頁岩的配色做出原版深板岩的整組建材：磨製、磚、裂紋磚、磚瓦、裂紋磚瓦（都有半磚、階梯、牆）與**雕紋魂頁岩**。
+- 8 個深淵地層圍住 1 個靈魂沙或靈魂土，合成 8 個魂頁岩；其他合成、切石與燒製都和深板岩一樣。
+- 放下雕紋魂頁岩時，會響起八音儀式 8 個音的其中一個。
+
+### 新增：隙浮手記與遠古殘頁（故事序幕）
+- **新的必要前置模組：[Modonomicon](https://modrinth.com/mod/modonomicon)**（Fabric 版，2.20.0 以上）。
+- 原本的成書《隙浮指南書》改成互動式的**《隙浮手記》**，共六張條目地圖：啟程（儀式與抵達）、隙浮（靈液、赤紅幽匿、裂隙、七個生態域）、
+  每種生物都有可旋轉模型的**生物圖鑑**、三位**守護者**與牠們的武器配方、器物與裝備，以及遠古殘頁。
+- 生物圖鑑與守護者的頁面一開始只是上鎖的影子，第一次**遇到**那種生物（打牠、被牠打，或對牠用東西）就會補上。
+- 8 張**遠古殘頁**講述遠古城市當年發生的事：其一～其四在約一半的遠古城市箱子裡，其五～其七在隙浮遺跡（迴音巢穴的寶庫一定有一張），
+  其八在幽匿巨怪身上。手持殘頁右鍵可以直接閱讀，撿起來時手記裡對應的條目也會打開；集滿 8 張會解鎖「完整的故事」。
+- 第一次進入隙浮時會獲得手記；也可以用書＋迴音碎片合成。
+- 強化深板岩與迴音碎片的說明欄多了一行世界觀文字。
 
 ### 新增：赤紅幽匿與裂隙門周圍的腐爛（故事第二、三幕）
 - **赤紅幽匿**與**赤紅幽匿脈絡**：隙浮原生、活著的幽匿，赤紅色帶著發光的粉紅脈絡，成片長在柳絮林地、紫晶深板岩區、搖籃曲山丘和赤紅沉積峽谷的靈液池邊。

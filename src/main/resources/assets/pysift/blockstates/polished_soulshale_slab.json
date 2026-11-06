@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/polished_soulshale_slab/polished_soulshale_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/polished_soulshale/polished_soulshale"
+    },
+    "type=top": {
+      "model": "pysift:block/polished_soulshale_slab/polished_soulshale_slab_top"
+    }
+  }
+}

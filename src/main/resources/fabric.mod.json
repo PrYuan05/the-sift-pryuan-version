@@ -35,6 +35,7 @@
 		"minecraft": "~26.3",
 		"java": ">=25",
 		"fabric-api": "*",
-		"geckolib": ">=5.5.7"
+		"geckolib": ">=5.5.7",
+		"modonomicon": ">=2.20.0"
 	}
 }

@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:dash_charm",
+  "id": "p2",
+  "sort_number": 2,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bosses.monarch.p2.text"
+}

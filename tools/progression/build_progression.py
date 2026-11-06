@@ -836,12 +836,7 @@ for lang, i in (("en_us", 0), ("zh_tw", 1)):
         data[key] = names[i]
     wj(f, data)
 
-# the guidebook can also be crafted (book + charoite)
-wj(D / "pysift/recipe/sift_guidebook.json", {"type": "minecraft:crafting_shapeless", "category": "misc",
-    "ingredients": ["minecraft:book", "pysift:charoite"], "result": {"id": "minecraft:written_book", "components": {
-        "minecraft:custom_name": {"translate": "book.pysift.guide.title", "color": "light_purple"},
-        "minecraft:written_book_content": {"title": "Sift Guide", "author": "PrYuan05", "resolved": True,
-                                           "pages": [{"translate": k} for k in GUIDE_LANG if ".page" in k]}}}})
+# the written guidebook is replaced by the Sift Codex (tools/progression/build_codex.py writes its recipe)
 
 wj(D / "pysift/tags/worldgen/structure/soul_compass_targets.json", {"values": [
     "pysift:strata_shrine", "pysift:abyss_obelisk", "pysift:willow_hut", "pysift:dune_tomb"]})

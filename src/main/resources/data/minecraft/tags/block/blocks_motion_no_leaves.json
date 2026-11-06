@@ -306,6 +306,13 @@
     "pysift:raw_siftite_block",
     "pysift:patina_block",
     "pysift:raw_patina_block",
-    "pysift:red_sculk"
+    "pysift:red_sculk",
+    "pysift:soulshale",
+    "pysift:polished_soulshale",
+    "pysift:soulshale_bricks",
+    "pysift:cracked_soulshale_bricks",
+    "pysift:soulshale_tiles",
+    "pysift:cracked_soulshale_tiles",
+    "pysift:chiseled_soulshale"
   ]
 }

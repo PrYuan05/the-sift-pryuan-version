@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:smithing_recipe",
+  "recipe_id_1": "pysift:sculk_hammer_awakening",
+  "id": "p3",
+  "sort_number": 3,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bosses.sculk_monstrosity.p3.text"
+}

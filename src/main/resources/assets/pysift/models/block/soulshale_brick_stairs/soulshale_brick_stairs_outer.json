@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/soulshale/soulshale_bricks",
+    "side": "pysift:block/soulshale/soulshale_bricks",
+    "top": "pysift:block/soulshale/soulshale_bricks"
+  }
+}

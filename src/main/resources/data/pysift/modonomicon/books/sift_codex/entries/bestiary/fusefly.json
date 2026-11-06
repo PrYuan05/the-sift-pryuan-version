@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bestiary",
+  "id": "pysift:bestiary/fusefly",
+  "name": "book.pysift.sift_codex.bestiary.fusefly.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:fusefly_spawn_egg"
+  },
+  "x": 4,
+  "y": 1,
+  "sort_number": 401,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bestiary/guide",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_fusefly",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bestiary.fusefly.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

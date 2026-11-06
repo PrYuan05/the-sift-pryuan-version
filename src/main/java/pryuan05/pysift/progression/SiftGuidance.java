@@ -16,6 +16,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -55,13 +56,14 @@ import java.util.function.Consumer;
  *   <li><b>靈魂羅盤</b>：在隙浮右鍵，指針指向目前模式的目標（調和者／君王／幽匿巨怪的競技場，或最近的遺跡結構）；
  *       蹲下右鍵切換模式。還沒生成的競技場會改指向該 Boss 所在的生態域。</li>
  *   <li><b>回程符石</b>：在隙浮按住右鍵 3 秒，傳送回你在主世界的重生點（床／重生錨，沒有就世界重生點）。</li>
- *   <li><b>隙浮指南書</b>：第一次進入隙浮時自動獲得（也能用書＋紫龍晶合成），介紹靈液、解藥、礦石、Boss、祭壇、覺醒、信標與靈髓。</li>
+ *   <li><b>隙浮手記</b>（Modonomicon 書 {@code pysift:sift_codex}，取代舊的成書指南）：第一次進入隙浮時自動獲得，也能用書＋迴音碎片合成。
+ *       內容與解鎖條件由 tools/progression/build_codex.py 產生（生物圖鑑遇到才解鎖、遠古殘頁撿到才解鎖）。</li>
  * </ul>
  */
 public final class SiftGuidance {
     public static final ResourceKey<Level> THE_SIFT = ResourceKey.create(Registries.DIMENSION, PySift.id("the_sift"));
     public static final TagKey<Structure> COMPASS_STRUCTURES = TagKey.create(Registries.STRUCTURE, PySift.id("soul_compass_targets"));
-    public static final int GUIDE_PAGES = 12;
+    public static final Identifier CODEX = PySift.id("sift_codex");
 
     public static final DataComponentType<Integer> COMPASS_MODE = Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE,
             PySift.id("compass_mode"), DataComponentType.<Integer>builder().persistent(Codec.INT).networkSynchronized(ByteBufCodecs.VAR_INT).build());
@@ -87,15 +89,15 @@ public final class SiftGuidance {
     private SiftGuidance() {
     }
 
-    // ------------------------------------------------------------ guide book
-    public static ItemStack guideBook() {
-        List<Filterable<Component>> pages = new ArrayList<>();
-        for (int i = 1; i <= GUIDE_PAGES; i++) {
-            pages.add(Filterable.passThrough(Component.translatable("book.pysift.guide.page" + i)));
+    // ------------------------------------------------------------ codex
+    /** Modonomicon 生成的書：modonomicon:modonomicon 加上 modonomicon:book_id 元件（用註冊表查，不依賴 Modonomicon 內部類別）。 */
+    @SuppressWarnings("unchecked")
+    public static ItemStack codex() {
+        ItemStack book = new ItemStack(BuiltInRegistries.ITEM.getValue(Identifier.fromNamespaceAndPath("modonomicon", "modonomicon")));
+        var bookId = (DataComponentType<Identifier>) BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.fromNamespaceAndPath("modonomicon", "book_id"));
+        if (bookId != null) {
+            book.set(bookId, CODEX);
         }
-        ItemStack book = new ItemStack(Items.WRITTEN_BOOK);
-        book.set(DataComponents.WRITTEN_BOOK_CONTENT, new WrittenBookContent(Filterable.passThrough("Sift Guide"), "PrYuan05", 0, pages, true));
-        book.set(DataComponents.CUSTOM_NAME, Component.translatable("book.pysift.guide.title").withStyle(ChatFormatting.LIGHT_PURPLE));
         return book;
     }
 
@@ -230,12 +232,12 @@ public final class SiftGuidance {
     }
 
     static void load() {
-        // 第一次進入隙浮：送一本指南書
+        // 第一次進入隙浮：送一本隙浮手記
         ServerEntityLevelChangeEvents.AFTER_PLAYER_CHANGE_LEVEL.register((player, origin, destination) -> {
             if (destination.dimension().equals(THE_SIFT) && !player.getAttachedOrElse(RECEIVED_GUIDE, false)) {
                 player.setAttached(RECEIVED_GUIDE, true);
-                player.getInventory().placeItemBackInInventory(guideBook(), net.minecraft.util.Prediction.SERVER_ONLY);
-                player.sendSystemMessage(Component.translatable("message.pysift.guide.received").withStyle(ChatFormatting.LIGHT_PURPLE));
+                player.getInventory().placeItemBackInInventory(codex(), net.minecraft.util.Prediction.SERVER_ONLY);
+                player.sendSystemMessage(Component.translatable("message.pysift.codex.received").withStyle(ChatFormatting.LIGHT_PURPLE));
             }
         });
     }

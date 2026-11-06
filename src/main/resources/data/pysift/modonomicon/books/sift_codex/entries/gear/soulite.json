@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:gear",
+  "id": "pysift:gear/soulite",
+  "name": "book.pysift.sift_codex.gear.soulite.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:soulite_ingot"
+  },
+  "x": 6,
+  "y": 0,
+  "sort_number": 600,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:gear/beacon",
+      "line_enabled": true
+    },
+    {
+      "entry": "pysift:gear/patina",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

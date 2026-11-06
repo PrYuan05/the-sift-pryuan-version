@@ -1,27 +1,175 @@
 {
   "type": "minecraft:block",
+  "random_sequence": "pysift:blocks/aurum_ore",
   "pools": [
     {
-      "condition": {
-        "type": "minecraft:survives_explosion"
-      },
+      "rolls": 1,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "pysift:aurum_ore",
-          "modifier": [
+          "type": "minecraft:alternatives",
+          "children": [
             {
-              "type": "minecraft:copy_state",
-              "block": "pysift:aurum_ore",
-              "properties": [
-                "richness"
+              "type": "minecraft:item",
+              "name": "pysift:aurum_ore",
+              "condition": "minecraft:tool/can_silk_touch",
+              "modifier": [
+                {
+                  "type": "minecraft:copy_state",
+                  "block": "pysift:aurum_ore",
+                  "properties": [
+                    "richness"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "pysift:raw_aurum",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:aurum_ore",
+                "state": {
+                  "richness": "0"
+                }
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 1,
+                    "max": 2
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "pysift:raw_aurum",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:aurum_ore",
+                "state": {
+                  "richness": "1"
+                }
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 1,
+                    "max": 3
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "pysift:raw_aurum",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:aurum_ore",
+                "state": {
+                  "richness": "2"
+                }
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 2,
+                    "max": 4
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "pysift:raw_aurum",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:aurum_ore",
+                "state": {
+                  "richness": "3"
+                }
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 3,
+                    "max": 5
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
+              ]
+            },
+            {
+              "type": "minecraft:item",
+              "name": "pysift:raw_aurum",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:aurum_ore",
+                "state": {
+                  "richness": "4"
+                }
+              },
+              "modifier": [
+                {
+                  "type": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 4,
+                    "max": 7
+                  }
+                },
+                {
+                  "type": "minecraft:apply_bonus",
+                  "enchantment": "minecraft:fortune",
+                  "formula": "minecraft:ore_drops"
+                },
+                {
+                  "type": "minecraft:explosion_decay"
+                }
               ]
             }
           ]
         }
-      ],
-      "rolls": 1
+      ]
     }
-  ],
-  "random_sequence": "pysift:blocks/aurum_ore"
+  ]
 }

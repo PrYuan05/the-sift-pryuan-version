@@ -1,0 +1,282 @@
+[
+  {
+    "id": "pysift:sift_codex/met_blub",
+    "required_facts": [
+      "pysift:sift_codex/met_blub"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_nuzzle",
+    "required_facts": [
+      "pysift:sift_codex/met_nuzzle"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_slabber",
+    "required_facts": [
+      "pysift:sift_codex/met_slabber"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_pollinator",
+    "required_facts": [
+      "pysift:sift_codex/met_pollinator"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_roamroot",
+    "required_facts": [
+      "pysift:sift_codex/met_roamroot"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_bloombud",
+    "required_facts": [
+      "pysift:sift_codex/met_bloombud"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_singer",
+    "required_facts": [
+      "pysift:sift_codex/met_singer"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_echo_golem",
+    "required_facts": [
+      "pysift:sift_codex/met_echo_golem"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_sentinel",
+    "required_facts": [
+      "pysift:sift_codex/met_sentinel"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_stalker",
+    "required_facts": [
+      "pysift:sift_codex/met_stalker"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_tuner",
+    "required_facts": [
+      "pysift:sift_codex/met_tuner"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_hunter",
+    "required_facts": [
+      "pysift:sift_codex/met_hunter"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_dartback",
+    "required_facts": [
+      "pysift:sift_codex/met_dartback"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_fusefly",
+    "required_facts": [
+      "pysift:sift_codex/met_fusefly"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_prickle",
+    "required_facts": [
+      "pysift:sift_codex/met_prickle"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_nester",
+    "required_facts": [
+      "pysift:sift_codex/met_nester"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_seedling",
+    "required_facts": [
+      "pysift:sift_codex/met_seedling"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_sprout",
+    "required_facts": [
+      "pysift:sift_codex/met_sprout"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_scavenger",
+    "required_facts": [
+      "pysift:sift_codex/met_scavenger"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_hurler",
+    "required_facts": [
+      "pysift:sift_codex/met_hurler"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_wobble",
+    "required_facts": [
+      "pysift:sift_codex/met_wobble"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_trapper",
+    "required_facts": [
+      "pysift:sift_codex/met_trapper"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_lootkin",
+    "required_facts": [
+      "pysift:sift_codex/met_lootkin"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_harmonizer",
+    "required_facts": [
+      "pysift:sift_codex/met_harmonizer"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_monarch",
+    "required_facts": [
+      "pysift:sift_codex/met_monarch"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/met_sculk_monstrosity",
+    "required_facts": [
+      "pysift:sift_codex/met_sculk_monstrosity"
+    ]
+  },
+  {
+    "id": "pysift:sift_codex/page_1",
+    "required_facts": [
+      "pysift:sift_codex/page_1"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_1",
+      "icon": {
+        "id": "pysift:ancient_page_1"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_2",
+    "required_facts": [
+      "pysift:sift_codex/page_2"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_2",
+      "icon": {
+        "id": "pysift:ancient_page_2"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_3",
+    "required_facts": [
+      "pysift:sift_codex/page_3"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_3",
+      "icon": {
+        "id": "pysift:ancient_page_3"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_4",
+    "required_facts": [
+      "pysift:sift_codex/page_4"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_4",
+      "icon": {
+        "id": "pysift:ancient_page_4"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_5",
+    "required_facts": [
+      "pysift:sift_codex/page_5"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_5",
+      "icon": {
+        "id": "pysift:ancient_page_5"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_6",
+    "required_facts": [
+      "pysift:sift_codex/page_6"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_6",
+      "icon": {
+        "id": "pysift:ancient_page_6"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_7",
+    "required_facts": [
+      "pysift:sift_codex/page_7"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_7",
+      "icon": {
+        "id": "pysift:ancient_page_7"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_8",
+    "required_facts": [
+      "pysift:sift_codex/page_8"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_8",
+      "icon": {
+        "id": "pysift:ancient_page_8"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/all_pages",
+    "required_facts": [
+      "pysift:sift_codex/page_1",
+      "pysift:sift_codex/page_2",
+      "pysift:sift_codex/page_3",
+      "pysift:sift_codex/page_4",
+      "pysift:sift_codex/page_5",
+      "pysift:sift_codex/page_6",
+      "pysift:sift_codex/page_7",
+      "pysift:sift_codex/page_8"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.all_pages",
+      "icon": {
+        "id": "minecraft:echo_shard"
+      }
+    }
+  }
+]

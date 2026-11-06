@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/ritual",
+  "name": "book.pysift.sift_codex.journey.ritual.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:jukebox"
+  },
+  "x": 4,
+  "y": 0,
+  "sort_number": 400,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/singer",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

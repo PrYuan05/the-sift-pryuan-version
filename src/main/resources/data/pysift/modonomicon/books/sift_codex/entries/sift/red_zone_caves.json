@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/red_zone_caves",
+  "name": "book.pysift.sift_codex.sift.red_zone_caves.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:void_stone"
+  },
+  "x": 4,
+  "y": 4,
+  "sort_number": 404,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/spirit_liquid",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

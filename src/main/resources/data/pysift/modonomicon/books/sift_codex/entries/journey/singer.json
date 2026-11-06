@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/singer",
+  "name": "book.pysift.sift_codex.journey.singer.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:singer_spawn_egg"
+  },
+  "x": 2,
+  "y": 0,
+  "sort_number": 200,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/intro",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

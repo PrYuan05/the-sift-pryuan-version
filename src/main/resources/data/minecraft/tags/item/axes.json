@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "pysift:siftite_axe",
-    "pysift:soulite_axe"
+    "pysift:soulite_axe",
+    "pysift:aurum_axe"
   ]
 }

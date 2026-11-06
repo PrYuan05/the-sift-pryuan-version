@@ -1,0 +1,25 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/spirit_liquid",
+  "name": "book.pysift.sift_codex.sift.spirit_liquid.name",
+  "description": "book.pysift.sift_codex.sift.spirit_liquid.description",
+  "icon": {
+    "id": "pysift:spirit_liquid_bucket"
+  },
+  "x": 0,
+  "y": 0,
+  "sort_number": 0,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

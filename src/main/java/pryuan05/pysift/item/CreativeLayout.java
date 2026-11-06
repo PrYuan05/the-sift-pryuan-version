@@ -65,6 +65,13 @@ public final class CreativeLayout {
                 groups.computeIfAbsent(group(stack), k -> new ArrayList<>()).add(stack);
             }
         }
+        groups.forEach((key, members) -> {
+            // building families: the plain block first (family members registered elsewhere were collected before it)
+            if (key instanceof String k && k.startsWith("root:")) {
+                String root = k.substring(5);
+                members.sort(Comparator.comparingInt(st -> path(st.getItem()).equals(root) ? 0 : 1));
+            }
+        });
         List<List<ItemStack>> ordered = new ArrayList<>(groups.values());
         ordered.sort(Comparator.<List<ItemStack>>comparingInt(g -> section(g.get(0)).ordinal())
                 .thenComparing(g -> g.stream().anyMatch(s -> s.is(IN_WORLDGEN)) ? 0 : 1));   // List.sort 是穩定排序
@@ -80,7 +87,7 @@ public final class CreativeLayout {
         if (block != Blocks.AIR) {
             Block base = ModBlocks.SET_BASE.get(block);
             if (base != null) {
-                return base;
+                return "root:" + root(path(base.asItem()));
             }
             if (SoulWillowWood.ITEMS.contains(item)) {
                 return "soul_willow_wood";
@@ -92,8 +99,34 @@ public final class CreativeLayout {
             if (path.contains("pale_sandstone")) {
                 return "pale_sandstone";
             }
+            return "root:" + root(path);
         }
         return item;
+    }
+
+    /**
+     * 建材家族的本體：去掉 _slab／_stairs／_wall、cracked_／polished_／smooth_／chiseled_／cut_ 與 _bricks／_tiles，
+     * 取最短、而且真的是 pysift 方塊的那一個。虛黑岩、魂頁岩、平滑灰大理石這些另外註冊的家族成員就會跟本體排在一起。
+     */
+    static String root(String path) {
+        String best = path;
+        String p = path.replaceAll("_(slab|stairs|wall)$", "").replaceAll("_brick$", "_bricks").replaceAll("_tile$", "_tiles");
+        if (isBlock(p)) {
+            best = p;
+        }
+        String q = p.replaceFirst("^(cracked|polished|smooth|chiseled|cut)_", "");
+        if (isBlock(q)) {
+            best = q;
+        }
+        String r = q.replaceAll("_(bricks|tiles)$", "");
+        if (!r.equals(q) && isBlock(r)) {
+            best = r;
+        }
+        return best;
+    }
+
+    private static boolean isBlock(String path) {
+        return BuiltInRegistries.BLOCK.containsKey(PySift.id(path));
     }
 
     public static Section section(ItemStack stack) {

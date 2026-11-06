@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": "pysift:aurum_nugget",
+    "C": "minecraft:carrot"
+  },
+  "pattern": [
+    "NNN",
+    "NCN",
+    "NNN"
+  ],
+  "result": {
+    "id": "pysift:aurum_carrot"
+  }
+}

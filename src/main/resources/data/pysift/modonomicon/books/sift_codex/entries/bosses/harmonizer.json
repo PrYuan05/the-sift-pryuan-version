@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bosses",
+  "id": "pysift:bosses/harmonizer",
+  "name": "book.pysift.sift_codex.bosses.harmonizer.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:harmonizer_core"
+  },
+  "x": 2,
+  "y": -2,
+  "sort_number": 198,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bosses/guide",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_harmonizer",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bosses.harmonizer.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

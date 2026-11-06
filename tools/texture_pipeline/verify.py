@@ -41,6 +41,8 @@ veg_ids += wood_ids
 sandstone_ids = re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/SandstoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/SandstoneFamily.java").exists() else []
 # void stone family (VoidStoneFamily.java, tools/worldgen/build_void_stone_family.py): same vanilla-style resources
 sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/VoidStoneFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/VoidStoneFamily.java").exists() else []
+# soulshale family (SoulshaleFamily.java, tools/worldgen/build_soulshale_family.py): vanilla deepslate forms
+sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/SoulshaleFamily.java").read_text(encoding="utf-8"))     if (_blk / "block/SoulshaleFamily.java").exists() else []
 sandstone_ids += re.findall(r'block\("([a-z0-9_]+)",', (_blk / "block/StoneFamilies.java").read_text(encoding="utf-8"))     if (_blk / "block/StoneFamilies.java").exists() else []
 veg_ids += sandstone_ids
 # other single blocks registered outside ModBlocks.DEFS / ModVegetation (vanilla-style resources)
@@ -337,7 +339,12 @@ for bid in all_ids:
 out["item_definition_missing_models"] = bad_item_refs
 out["files_with_sift_or_custom_namespace"] = sorted(p.relative_to(RES).as_posix() for p in RES.rglob("*.json")
                                                     if re.search(r'"(sift|custom):', p.read_text(encoding="utf-8-sig")))
-errors += [k for k in ("companion_gaps", "item_definition_missing_models", "files_with_sift_or_custom_namespace") if out[k]]
+# every item needs item.pysift.<id> in both languages: 26.3 block items read the item key, not block.* (the registrations
+# do not call useBlockDescriptionPrefix), so a missing key shows the raw key in the inventory. sift_codex is a model only.
+_langs = {c: json.loads((A / f"lang/{c}.json").read_text(encoding="utf-8-sig")) for c in ("en_us", "zh_tw")}
+out["item_missing_name"] = sorted(f"{c}:{p.stem}" for p in (A / "items").glob("*.json") if p.stem != "sift_codex"
+                                  for c, d in _langs.items() if f"item.pysift.{p.stem}" not in d)
+errors += [k for k in ("companion_gaps", "item_definition_missing_models", "files_with_sift_or_custom_namespace", "item_missing_name") if out[k]]
 out["errors"] = errors
 
 if "--json" in sys.argv:

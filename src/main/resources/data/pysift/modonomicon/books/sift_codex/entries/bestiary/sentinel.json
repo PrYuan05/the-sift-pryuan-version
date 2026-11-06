@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bestiary",
+  "id": "pysift:bestiary/sentinel",
+  "name": "book.pysift.sift_codex.bestiary.sentinel.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:sentinel_spawn_egg"
+  },
+  "x": 6,
+  "y": -1,
+  "sort_number": 599,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bestiary/guide",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_sentinel",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bestiary.sentinel.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

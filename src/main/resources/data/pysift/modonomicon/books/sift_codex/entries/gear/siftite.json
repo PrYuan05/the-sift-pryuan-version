@@ -1,0 +1,25 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:gear",
+  "id": "pysift:gear/siftite",
+  "name": "book.pysift.sift_codex.gear.siftite.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:siftite_ingot"
+  },
+  "x": 0,
+  "y": 0,
+  "sort_number": 0,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

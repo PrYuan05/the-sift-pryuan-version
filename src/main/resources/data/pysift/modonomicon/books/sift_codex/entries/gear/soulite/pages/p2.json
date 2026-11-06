@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:smithing_recipe",
+  "recipe_id_1": "pysift:soulite_chestplate_smithing",
+  "id": "p2",
+  "sort_number": 2,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

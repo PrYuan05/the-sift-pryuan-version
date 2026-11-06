@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:homeward_stone",
+  "recipe_id_2": "pysift:soul_compass",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

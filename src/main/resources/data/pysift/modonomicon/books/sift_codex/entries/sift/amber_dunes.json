@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/amber_dunes",
+  "name": "book.pysift.sift_codex.sift.amber_dunes.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:amber_sandstone"
+  },
+  "x": 2,
+  "y": 2,
+  "sort_number": 202,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/spirit_liquid",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

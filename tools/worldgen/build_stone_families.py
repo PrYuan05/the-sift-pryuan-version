@@ -91,6 +91,7 @@ def main():
             lang = lj(A / f"lang/{code}.json")
             for suf, (es, zs) in SUFFIX.items():
                 lang[f"block.pysift.{ours}{suf}"] = en + es if code == "en_us" else zh + zs
+                lang[f"item.pysift.{ours}{suf}"] = lang[f"block.pysift.{ours}{suf}"]   # block items read item.* in 26.3
             wj(A / f"lang/{code}.json", lang)
     print("made:", made)
     import subprocess, sys as _sys                          # keep models grouped per block (tools/texture_pipeline/group_models.py)

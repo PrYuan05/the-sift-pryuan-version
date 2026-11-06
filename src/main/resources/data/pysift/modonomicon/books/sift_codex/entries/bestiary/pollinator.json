@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bestiary",
+  "id": "pysift:bestiary/pollinator",
+  "name": "book.pysift.sift_codex.bestiary.pollinator.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:pollinator_spawn_egg"
+  },
+  "x": 8,
+  "y": -3,
+  "sort_number": 797,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bestiary/guide",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_pollinator",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bestiary.pollinator.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

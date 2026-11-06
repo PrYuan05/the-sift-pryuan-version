@@ -11,6 +11,7 @@ import pryuan05.pysift.block.entity.ModBlockEntities;
 import pryuan05.pysift.block.ModVegetation;
 import pryuan05.pysift.block.SoulCrystal;
 import pryuan05.pysift.block.SandstoneFamily;
+import pryuan05.pysift.block.SoulshaleFamily;
 import pryuan05.pysift.block.VoidStoneFamily;
 import pryuan05.pysift.block.StoneFamilies;
 import pryuan05.pysift.block.SoulWillowWood;
@@ -51,6 +52,7 @@ public class PySift implements ModInitializer {
         SoulWillowWood.register();
         SandstoneFamily.register();          // 每種沙的砂岩建材組
         VoidStoneFamily.register();          // 虛黑岩的磨製、磚瓦、裂紋、平滑建材
+        SoulshaleFamily.register();          // 魂頁岩：深板岩家族的形式，雕紋魂頁岩的配色
         StoneFamilies.register();            // 升級石材的額外建材形式（平滑灰大理石…）
         SoulCrystal.register();
         ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具

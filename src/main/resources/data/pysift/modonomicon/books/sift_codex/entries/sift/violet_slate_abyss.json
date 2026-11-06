@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/violet_slate_abyss",
+  "name": "book.pysift.sift_codex.sift.violet_slate_abyss.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:violet_capped_dark_slate"
+  },
+  "x": 4,
+  "y": 2,
+  "sort_number": 402,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/spirit_liquid",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

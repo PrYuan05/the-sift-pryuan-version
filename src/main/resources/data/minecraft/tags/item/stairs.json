@@ -80,6 +80,12 @@
     "pysift:cracked_void_stone_brick_stairs",
     "pysift:cracked_void_stone_tile_stairs",
     "pysift:smooth_void_stone_stairs",
-    "pysift:smooth_ash_marble_stairs"
+    "pysift:smooth_ash_marble_stairs",
+    "pysift:soulshale_stairs",
+    "pysift:polished_soulshale_stairs",
+    "pysift:soulshale_brick_stairs",
+    "pysift:soulshale_tile_stairs",
+    "pysift:cracked_soulshale_brick_stairs",
+    "pysift:cracked_soulshale_tile_stairs"
   ]
 }

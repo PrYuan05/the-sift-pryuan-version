@@ -22,7 +22,7 @@ for code, terrain generation and texture pipelines — see [How it was made](#ho
 | 🌌 Dimension | 5 biomes, stepped mesas, ponds of Spirit Liquid, ruins with loot, underground soul geodes |
 | 🐾 Creatures | 26 animated creatures, 3 bosses with enrage phases and death sequences |
 | ⚔️ Progression | Siftite → boss weapons → Sift Beacon → **Soulite** gear with boss powers |
-| 🧭 Helpers | Sift Guidebook, Soul Compass, Homeward Stone |
+| 🧭 Helpers | Sift Codex (interactive book with a bestiary), Soul Compass, Homeward Stone |
 | 🌱 Life | Soul Berries, Gloomcaps, two new potions, a tameable Blub that fights and fetches |
 | 🧱 Blocks | 450+ blocks, 38 building sets, the full Soul Willow wood set |
 | 🤖 Made with | hand-drawn art + AI-powered development tools |
@@ -34,7 +34,7 @@ for code, terrain generation and texture pipelines — see [How it was made](#ho
 | Minecraft | 26.3 |
 | Mod loader | Fabric Loader 0.19.5 or newer |
 | Java | 25 or newer |
-| Required mods | [Fabric API](https://modrinth.com/mod/fabric-api), [GeckoLib](https://modrinth.com/mod/geckolib) 5.5.7 or newer |
+| Required mods | [Fabric API](https://modrinth.com/mod/fabric-api), [GeckoLib](https://modrinth.com/mod/geckolib) 5.5.7 or newer, [Modonomicon](https://modrinth.com/mod/modonomicon) 2.20.0 or newer (Fabric) |
 
 Install the mod on **both the client and the server** (it adds blocks, entities and a dimension).
 
@@ -68,7 +68,8 @@ The way into The Sift is hidden in an **Ancient City** — and it takes eight so
 **Coming home:** in The Sift, build a closed frame of **Soul Crystal** blocks and right-click it with an Echo Shard to open
 a portal back to the overworld — or use a Homeward Stone.
 
-The first time you arrive you receive the **Sift Guidebook**, a 12-page in-game guide to everything below.
+The first time you arrive you receive the **Sift Codex**, an interactive book (Modonomicon) covering everything below,
+with a bestiary that fills in as you meet each creature and eight **Ancient Pages** to collect.
 
 ## The dimension
 
@@ -113,7 +114,7 @@ Mobs suffer from it too: deprived mobs burn with blue soul fire, take 30 % more 
 
 | Item | How to use | Recipe |
 | :-- | :-- | :-- |
-| **Sift Guidebook** | given on your first visit (12 pages); covers spirit liquid, ores, bosses, the altar, awakening, the beacon, Soulite, farming and pets | Book + Charoite |
+| **Sift Codex** | given on your first visit; maps of entries for the ritual, biomes, a bestiary, the guardians, gear and the ancient pages | Book + Echo Shard |
 | **Soul Compass** | use it in The Sift: the needle points to a boss arena or the nearest ruins (it shows the distance). Sneak + use to switch target. If an arena has not been found yet, it points to that boss's biome | Compass + 3 Charoite + Soul Essence |
 | **Homeward Stone** | hold use for 3 seconds in The Sift to return to your overworld spawn point (bed / respawn anchor) | Soul Essence + Charoite + Ender Pearl → 2 |
 
@@ -259,14 +260,14 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | 🌌 維度 | 4 個生態域、階梯圓台、靈液池塘、附戰利品的遺跡、地底靈魂晶洞 |
 | 🐾 生物 | 26 種有動畫的生物、3 隻會狂暴並有死亡演出的 Boss |
 | ⚔️ 進度 | 篩金石 → Boss 武器 → 篩靈信標 → 帶有 Boss 能力的**靈髓**裝備 |
-| 🧭 上手輔助 | 篩靈指南書、靈魂羅盤、回程符石 |
+| 🧭 上手輔助 | 隙浮手記（附生物圖鑑的互動書）、靈魂羅盤、回程符石 |
 | 🌱 生活 | 靈莓、幽光菇、兩種新藥水、會打架和撿東西的布魯布 |
 | 🧱 方塊 | 450 種以上、38 組建材、完整靈魂柳木組 |
 | 🤖 製作 | 親手繪製的美術 ＋ AI-powered 開發工具 |
 
 ### 需求
 - Minecraft 26.3、Fabric Loader 0.19.5 以上、Java 25 以上
-- 前置模組：Fabric API、GeckoLib 5.5.7 以上
+- 前置模組：Fabric API、GeckoLib 5.5.7 以上、Modonomicon 2.20.0 以上（Fabric 版）
 - 用戶端與伺服器都要安裝
 
 ### 如何前往
@@ -292,7 +293,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 **回家的路**：在篩靈界用**靈魂晶塊**蓋一個封閉框架，手持迴音碎片右鍵框架，就能開出回主世界的傳送門；也可以用回程符石。
 
-第一次抵達時會獲得 12 頁的**《篩靈指南書》**，介紹下面所有內容。
+第一次抵達時會獲得互動式的**《隙浮手記》**（Modonomicon），介紹下面所有內容；生物圖鑑會隨著你遇到的生物補上，還有 8 張**遠古殘頁**可以收集。
 
 ### 維度與生態域
 永恆的黃昏、薄荷色天空、淡淡的霧，平緩起伏的大地上有懸崖台地，以及一座座每層 2 格高、逐層內縮的大型圓台。
@@ -328,7 +329,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 
 | 物品 | 用法 | 合成 |
 | :-- | :-- | :-- |
-| **篩靈指南書** | 第一次進入篩靈界時自動獲得；介紹靈液、礦石、Boss、祭壇、覺醒、信標、靈髓、種植與寵物 | 書＋紫龍晶 |
+| **隙浮手記** | 第一次進入篩靈界時自動獲得；儀式、生態域、生物圖鑑、守護者、裝備與遠古殘頁的條目地圖 | 書＋迴音碎片 |
 | **靈魂羅盤** | 在篩靈界右鍵：指針指向 Boss 競技場或最近的遺跡，並顯示距離；蹲下右鍵切換目標。還沒發現競技場時，會先指向那隻 Boss 的生態域 | 羅盤＋3 紫龍晶＋靈魂精華 |
 | **回程符石** | 在篩靈界按住右鍵 3 秒，傳回主世界的重生點（床／重生錨） | 靈魂精華＋紫龍晶＋終界珍珠 → 2 個 |
 

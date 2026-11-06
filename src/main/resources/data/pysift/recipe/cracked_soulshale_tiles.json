@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:soulshale_tiles",
+  "result": {
+    "id": "pysift:cracked_soulshale_tiles"
+  }
+}

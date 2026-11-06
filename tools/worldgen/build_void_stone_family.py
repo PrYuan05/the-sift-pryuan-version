@@ -223,6 +223,7 @@ def main():
         lang = lj(A / f"lang/{code}.json")
         for bid, (en, zh) in NAMES.items():
             lang[f"block.pysift.{bid}"] = en if code == "en_us" else zh
+            lang[f"item.pysift.{bid}"] = lang[f"block.pysift.{bid}"]   # block items read item.* in 26.3
         wj(A / f"lang/{code}.json", lang)
     print(f"{len(PARTS)} blocks, {len(models)} models, {len(textures)} textures, {recipes} recipes, {tags} tags")
     import subprocess, sys as _sys                          # keep models grouped per block (tools/texture_pipeline/group_models.py)

@@ -77,11 +77,13 @@ public final class ModProgression {
 
     public static void register() {
         SiftiteGear.load();
+        AurumGear.load();
         BossRewards.load();
         BossWeapons.load();
         SiftBeacon.load();
         SouliteGear.load();
         SiftGuidance.load();
+        AncientPages.load();
         SiftFarming.load();
         SiftFlora.load();
         // 進度相關的物品排在「物品」分頁；方塊（礦石、祭壇、作物、草叢）由 ModItems 放進方塊分頁

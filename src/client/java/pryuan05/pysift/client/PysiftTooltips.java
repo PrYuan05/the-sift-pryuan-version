@@ -11,17 +11,28 @@ import pryuan05.pysift.PySift;
 
 /**
  * 物品說明太長：本模組物品的說明文字（翻譯鍵 tooltip.pysift.*）預設收起來，只顯示一行「按住 Shift 查看說明」，
- * 按住 Shift 才展開。狀態類的短行（已覺醒、羅盤目前的目標）一直顯示。
+ * 按住 Shift 才展開。狀態類的短行（已覺醒、羅盤目前的目標）與遠古殘頁的標題一直顯示。
+ * <p>
+ * 另外替兩個原版物品加一行世界觀（4.7）：強化深板岩裡砌著遠古人的骨頭、回響碎片還記得那首歌。
  */
 public final class PysiftTooltips {
     /** 一直顯示的短行（狀態，不是說明）。 */
     private static final Set<String> ALWAYS_SHOWN = Set.of("tooltip.pysift.awakened");
+    private static final java.util.Map<net.minecraft.world.item.Item, String> LORE = java.util.Map.of(
+            net.minecraft.world.item.Items.REINFORCED_DEEPSLATE, "tooltip.pysift.reinforced_deepslate",
+            net.minecraft.world.item.Items.ECHO_SHARD, "tooltip.pysift.echo_shard",
+            pryuan05.pysift.block.SoulshaleFamily.CHISELED_SOULSHALE.asItem(), "tooltip.pysift.chiseled_soulshale");
 
     private PysiftTooltips() {
     }
 
     public static void register() {
         ItemTooltipCallback.EVENT.register((stack, context, flag, lines) -> {
+            String lore = LORE.get(stack.getItem());
+            if (lore != null) {
+                lines.add(Math.min(1, lines.size()), Component.translatable(lore).withStyle(ChatFormatting.DARK_AQUA, ChatFormatting.ITALIC));
+                return;
+            }
             if (!PySift.MOD_ID.equals(BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace())) {
                 return;
             }
@@ -44,6 +55,7 @@ public final class PysiftTooltips {
     private static boolean isDescription(Component line) {
         return line.getContents() instanceof TranslatableContents tc
                 && tc.getKey().startsWith("tooltip.pysift.")
-                && !ALWAYS_SHOWN.contains(tc.getKey());
+                && !ALWAYS_SHOWN.contains(tc.getKey())
+                && !tc.getKey().startsWith("tooltip.pysift.ancient_page_");
     }
 }

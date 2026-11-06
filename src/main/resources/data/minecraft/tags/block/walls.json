@@ -78,6 +78,12 @@
     "pysift:cracked_void_stone_brick_wall",
     "pysift:cracked_void_stone_tile_wall",
     "pysift:smooth_void_stone_wall",
-    "pysift:smooth_ash_marble_wall"
+    "pysift:smooth_ash_marble_wall",
+    "pysift:soulshale_wall",
+    "pysift:polished_soulshale_wall",
+    "pysift:soulshale_brick_wall",
+    "pysift:soulshale_tile_wall",
+    "pysift:cracked_soulshale_brick_wall",
+    "pysift:cracked_soulshale_tile_wall"
   ]
 }

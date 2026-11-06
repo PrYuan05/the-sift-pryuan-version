@@ -466,6 +466,25 @@
     "pysift:siftite_block",
     "pysift:raw_siftite_block",
     "pysift:patina_block",
-    "pysift:raw_patina_block"
+    "pysift:raw_patina_block",
+    "pysift:soulshale",
+    "pysift:soulshale_slab",
+    "pysift:soulshale_stairs",
+    "pysift:polished_soulshale",
+    "pysift:polished_soulshale_slab",
+    "pysift:polished_soulshale_stairs",
+    "pysift:soulshale_bricks",
+    "pysift:soulshale_brick_slab",
+    "pysift:soulshale_brick_stairs",
+    "pysift:cracked_soulshale_bricks",
+    "pysift:soulshale_tiles",
+    "pysift:soulshale_tile_slab",
+    "pysift:soulshale_tile_stairs",
+    "pysift:cracked_soulshale_tiles",
+    "pysift:chiseled_soulshale",
+    "pysift:cracked_soulshale_brick_slab",
+    "pysift:cracked_soulshale_brick_stairs",
+    "pysift:cracked_soulshale_tile_slab",
+    "pysift:cracked_soulshale_tile_stairs"
   ]
 }

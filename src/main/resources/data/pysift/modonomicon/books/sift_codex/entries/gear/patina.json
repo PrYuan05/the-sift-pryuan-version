@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:gear",
+  "id": "pysift:gear/patina",
+  "name": "book.pysift.sift_codex.gear.patina.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:patina_ingot"
+  },
+  "x": 2,
+  "y": 1,
+  "sort_number": 201,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:gear/siftite",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

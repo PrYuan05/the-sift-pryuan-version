@@ -6,6 +6,7 @@
 - Minecraft `26.3`、Java `25`（JDK：`C:/Users/hoeyl/.jdks/ms-25.0.4.1`，已寫在 `gradle.properties`）
 - Fabric Loader `0.19.5`、Fabric Loom `1.18.4`（固定版本，`settings.gradle` 直接載入 `net.fabricmc:fabric-loom` 模組；不要改回 `1.18-SNAPSHOT`，這台電腦的 HTTPS 被攔截，SNAPSHOT 每次都要上網檢查而失敗）、fabric-api `0.162.0+26.3`
 - GeckoLib 5：`com.geckolib:geckolib-fabric-26.3:5.5.7`
+- Modonomicon（隙浮手記）：`maven.modrinth:modonomicon:DwjrSwcC`（= 26.3-2.20.0 Fabric 版；寫版本號會抓到 NeoForge 版）。書與研究解鎖資料由 `tools/progression/build_codex.py` 產生
 
 ## 映射：只用 Mojang 官方映射，禁止 Yarn 命名
 | 使用 (Mojang) | 禁止 (Yarn) |

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "pysift:sift_codex/met_blub_hook",
+    "fact_id": "pysift:sift_codex/met_blub",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_blub"
+  },
+  {
+    "id": "pysift:sift_codex/met_nuzzle_hook",
+    "fact_id": "pysift:sift_codex/met_nuzzle",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_nuzzle"
+  },
+  {
+    "id": "pysift:sift_codex/met_slabber_hook",
+    "fact_id": "pysift:sift_codex/met_slabber",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_slabber"
+  },
+  {
+    "id": "pysift:sift_codex/met_pollinator_hook",
+    "fact_id": "pysift:sift_codex/met_pollinator",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_pollinator"
+  },
+  {
+    "id": "pysift:sift_codex/met_roamroot_hook",
+    "fact_id": "pysift:sift_codex/met_roamroot",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_roamroot"
+  },
+  {
+    "id": "pysift:sift_codex/met_bloombud_hook",
+    "fact_id": "pysift:sift_codex/met_bloombud",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_bloombud"
+  },
+  {
+    "id": "pysift:sift_codex/met_singer_hook",
+    "fact_id": "pysift:sift_codex/met_singer",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_singer"
+  },
+  {
+    "id": "pysift:sift_codex/met_echo_golem_hook",
+    "fact_id": "pysift:sift_codex/met_echo_golem",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_echo_golem"
+  },
+  {
+    "id": "pysift:sift_codex/met_sentinel_hook",
+    "fact_id": "pysift:sift_codex/met_sentinel",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_sentinel"
+  },
+  {
+    "id": "pysift:sift_codex/met_stalker_hook",
+    "fact_id": "pysift:sift_codex/met_stalker",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_stalker"
+  },
+  {
+    "id": "pysift:sift_codex/met_tuner_hook",
+    "fact_id": "pysift:sift_codex/met_tuner",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_tuner"
+  },
+  {
+    "id": "pysift:sift_codex/met_hunter_hook",
+    "fact_id": "pysift:sift_codex/met_hunter",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_hunter"
+  },
+  {
+    "id": "pysift:sift_codex/met_dartback_hook",
+    "fact_id": "pysift:sift_codex/met_dartback",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_dartback"
+  },
+  {
+    "id": "pysift:sift_codex/met_fusefly_hook",
+    "fact_id": "pysift:sift_codex/met_fusefly",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_fusefly"
+  },
+  {
+    "id": "pysift:sift_codex/met_prickle_hook",
+    "fact_id": "pysift:sift_codex/met_prickle",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_prickle"
+  },
+  {
+    "id": "pysift:sift_codex/met_nester_hook",
+    "fact_id": "pysift:sift_codex/met_nester",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_nester"
+  },
+  {
+    "id": "pysift:sift_codex/met_seedling_hook",
+    "fact_id": "pysift:sift_codex/met_seedling",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_seedling"
+  },
+  {
+    "id": "pysift:sift_codex/met_sprout_hook",
+    "fact_id": "pysift:sift_codex/met_sprout",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_sprout"
+  },
+  {
+    "id": "pysift:sift_codex/met_scavenger_hook",
+    "fact_id": "pysift:sift_codex/met_scavenger",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_scavenger"
+  },
+  {
+    "id": "pysift:sift_codex/met_hurler_hook",
+    "fact_id": "pysift:sift_codex/met_hurler",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_hurler"
+  },
+  {
+    "id": "pysift:sift_codex/met_wobble_hook",
+    "fact_id": "pysift:sift_codex/met_wobble",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_wobble"
+  },
+  {
+    "id": "pysift:sift_codex/met_trapper_hook",
+    "fact_id": "pysift:sift_codex/met_trapper",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_trapper"
+  },
+  {
+    "id": "pysift:sift_codex/met_lootkin_hook",
+    "fact_id": "pysift:sift_codex/met_lootkin",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_lootkin"
+  },
+  {
+    "id": "pysift:sift_codex/met_harmonizer_hook",
+    "fact_id": "pysift:sift_codex/met_harmonizer",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_harmonizer"
+  },
+  {
+    "id": "pysift:sift_codex/met_monarch_hook",
+    "fact_id": "pysift:sift_codex/met_monarch",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_monarch"
+  },
+  {
+    "id": "pysift:sift_codex/met_sculk_monstrosity_hook",
+    "fact_id": "pysift:sift_codex/met_sculk_monstrosity",
+    "trigger_type": "modonomicon:advancement",
+    "trigger_target": "pysift:codex/met_sculk_monstrosity"
+  },
+  {
+    "id": "pysift:sift_codex/page_1_hook",
+    "fact_id": "pysift:sift_codex/page_1",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_1"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_2_hook",
+    "fact_id": "pysift:sift_codex/page_2",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_2"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_3_hook",
+    "fact_id": "pysift:sift_codex/page_3",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_3"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_4_hook",
+    "fact_id": "pysift:sift_codex/page_4",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_4"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_5_hook",
+    "fact_id": "pysift:sift_codex/page_5",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_5"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_6_hook",
+    "fact_id": "pysift:sift_codex/page_6",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_6"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_7_hook",
+    "fact_id": "pysift:sift_codex/page_7",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_7"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_8_hook",
+    "fact_id": "pysift:sift_codex/page_8",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_8"
+    }
+  }
+]

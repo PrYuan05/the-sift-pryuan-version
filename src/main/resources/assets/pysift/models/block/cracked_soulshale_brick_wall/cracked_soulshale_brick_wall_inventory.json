@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/soulshale/cracked_soulshale_bricks"
+  }
+}

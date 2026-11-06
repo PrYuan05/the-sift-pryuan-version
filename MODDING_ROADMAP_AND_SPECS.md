@@ -225,7 +225,7 @@ flowchart TD
 - ✅（視覺）赤紅幽匿（`red_sculk`、`red_sculk_vein`，靈液池邊）與裂隙門周圍的紅→藍腐爛帶（`WildRiftFeature.rotHalo`）。
 - 裂縫：裂隙傳送門周圍的赤紅幽匿慢慢變藍；在隙浮這一側處理後，腐爛就會停止擴散。（會蔓延、能停止的部分還沒做）
 - 歌者與監守者的呼應：歌者在遠古城市附近顯得不安、認得監守者，會對它唱倒過來的旋律（安撫）。
-- 文字細節：強化深板岩、回響碎片、陶片的說明和指南書，都從這一節取材。
+- ✅ 文字細節：《隙浮手記》（Modonomicon 書 `pysift:sift_codex`，`tools/progression/build_codex.py`）、8 張遠古殘頁（`AncientPages.java`，遠古城市／隙浮遺跡／幽匿巨怪）、強化深板岩與回響碎片的說明欄，都從這一節取材。陶片還沒做。
 
 ---
 
