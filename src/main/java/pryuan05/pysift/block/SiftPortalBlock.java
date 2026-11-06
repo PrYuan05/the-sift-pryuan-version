@@ -148,7 +148,9 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
         if (target == null) {
             return null;
         }
-        BlockPos landing = prepareLanding(target, pos.getX(), pos.getZ());
+        // 從遠古城市的強化深板岩門過來 → 隙浮這一側蓋到達門（不腐爛）；從裂隙門過來 → 蓋裂隙門（有腐爛帶、會蔓延）
+        boolean fromRift = level.dimension() != SIFT_DIM && !nearAncientFrame(level, pos);
+        BlockPos landing = prepareLanding(target, pos.getX(), pos.getZ(), fromRift);
         Vec3 at = Vec3.atBottomCenterOf(landing);
         return new TeleportTransition(target, at, Vec3.ZERO, entity.getYRot(), entity.getXRot(), TeleportTransition.PLAY_PORTAL_SOUND);
     }
@@ -158,12 +160,20 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
      * 再重新找一次門前的空地（落點是蓋門之前選的，門框、緩坡或地基可能剛好蓋在上面，玩家會卡在方塊裡）。
      */
     public static BlockPos prepareLanding(ServerLevel target, int x, int z) {
+        return prepareLanding(target, x, z, false);
+    }
+
+    /** fromRift：來源是裂隙門（隙浮這一側蓋裂隙門並長腐爛帶）；否則是遠古城市的門（蓋到達門，不腐爛）。 */
+    public static BlockPos prepareLanding(ServerLevel target, int x, int z, boolean fromRift) {
         BlockPos existing = findExistingPortalLanding(target, x, z);
         if (existing != null) {
+            if (!fromRift && target.dimension() == SIFT_DIM) {
+                RotSpread.markArrival(target, existing);   // 舊世界裡已經蓋好的到達門：之後不再蔓延，殘留的腐爛慢慢退掉
+            }
             return existing;
         }
         BlockPos landing = findLanding(target, x, z);
-        ensureReturnPortal(target, landing);
+        ensureReturnPortal(target, landing, fromRift);
         BlockPos afterBuild = findExistingPortalLanding(target, landing.getX(), landing.getZ());
         if (afterBuild != null && isSafeStandSpot(target, afterBuild)) {
             return afterBuild;
@@ -381,7 +391,17 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
      * 落點 16 格內沒有傳送門時，在落點旁挑選最開闊的方向生成裂隙型傳送門（中央 5×3 主要進入區域 + 邊緣擴散效果），
      * 只取代空氣與薄層植被，不取代任何實心地形方塊。
      */
-    private static void ensureReturnPortal(ServerLevel level, BlockPos landing) {
+    /** pos 附近有強化深板岩（遠古城市的傳送門框，或歌者儀式蓋的框）。 */
+    private static boolean nearAncientFrame(ServerLevel level, BlockPos pos) {
+        for (BlockPos p : BlockPos.betweenClosed(pos.offset(-12, -8, -12), pos.offset(12, 8, 12))) {
+            if (level.getBlockState(p).is(Blocks.REINFORCED_DEEPSLATE)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void ensureReturnPortal(ServerLevel level, BlockPos landing, boolean fromRift) {
         Block portal = ModBlocks.SIFT_PORTAL;
         for (BlockPos p : BlockPos.betweenClosed(landing.offset(-16, -12, -16), landing.offset(16, 12, 16))) {
             if (level.getBlockState(p).is(portal)) {
@@ -407,7 +427,11 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
                 }
             }
         }
-        if (level.dimension() == SIFT_DIM) {
+        if (level.dimension() == SIFT_DIM && fromRift) {
+            // 從主世界的裂隙門過來：隙浮這一側也是一道裂縫，周圍長出腐爛帶（之後由 RotSpread 慢慢擴散）
+            buildRiftPortal(level, bestCentre, bestAxis);
+            pryuan05.pysift.worldgen.WildRiftFeature.rotHalo(level, bestCentre, level.getRandom());
+        } else if (level.dimension() == SIFT_DIM) {
             // 隙浮這一端：到達門直接蓋在 findLanding 挑好的那塊平地正中間（以前往旁邊挪 4 格、取較高的地面，
             // 落點在台地邊緣時門就懸空，底下補出整座高台和很長的坡道）；只選轉向，挑門面方向比較開闊的那一個
             Direction.Axis axis = scoreRiftPlacement(level, landing, Direction.Axis.X) >= scoreRiftPlacement(level, landing, Direction.Axis.Z)
@@ -415,10 +439,12 @@ public class SiftPortalBlock extends Block implements EntityBlock, Portal {
             if (!buildArrivalPortal(level, landing, axis)) {
                 buildMouthFrame(level, bestCentre, bestAxis);
             }
-            // 從主世界過來時在隙浮這一側開出的門也是一道裂縫：周圍長出腐爛帶
-            pryuan05.pysift.worldgen.WildRiftFeature.rotHalo(level, landing, level.getRandom());
+            // 從遠古城市過來的到達門是蓋好的門，不是裂縫：不長腐爛帶，附近的腐爛也不會蔓延
+            RotSpread.markArrival(level, landing);
         } else {
             buildRiftPortal(level, bestCentre, bestAxis);
+            // 主世界這一側的裂隙門：顏色和隙浮那邊相反，門邊漏出赤紅幽匿，往外變回原版藍幽匿（不會蔓延）
+            pryuan05.pysift.worldgen.WildRiftFeature.rotHalo(level, bestCentre, level.getRandom(), false);
         }
     }
 

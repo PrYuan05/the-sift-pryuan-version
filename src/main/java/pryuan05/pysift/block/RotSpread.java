@@ -51,6 +51,9 @@ public final class RotSpread {
 
         @Override
         protected void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+            if (level.dimension() != SiftPortalBlock.SIFT_DIM) {
+                return;   // 主世界裂隙門邊漏出來的赤紅幽匿：不腐爛、也不治癒
+            }
             if (State.get(level.getServer()).stilled || nearSealed(level, pos)) {
                 heal(level, pos, random);
             } else if (random.nextFloat() < ROT_CHANCE && nearRift(level, pos)) {
@@ -103,13 +106,27 @@ public final class RotSpread {
         if (level.dimension() != SiftPortalBlock.SIFT_DIM) {
             return false;
         }
-        for (BlockPos s : State.get(level.getServer()).sealed) {
+        State state = State.get(level.getServer());
+        return within(state.sealed, pos) || within(state.arrivals, pos);
+    }
+
+    private static boolean within(java.util.List<BlockPos> list, BlockPos pos) {
+        for (BlockPos s : list) {
             if (Math.abs(s.getX() - pos.getX()) <= SEAL_RANGE && Math.abs(s.getZ() - pos.getZ()) <= SEAL_RANGE
                     && Math.abs(s.getY() - pos.getY()) <= 8) {
                 return true;
             }
         }
         return false;
+    }
+
+    /** 從遠古城市過來的到達門（隙浮座標）：不是裂縫，附近的腐爛不蔓延，殘留的藍幽匿也會慢慢變回紅色。 */
+    public static void markArrival(ServerLevel level, BlockPos at) {
+        State s = State.get(level.getServer());
+        if (!within(s.arrivals, at)) {
+            s.arrivals.add(at.immutable());
+            s.setDirty();
+        }
     }
 
     /** 封印一道裂隙：關掉傳送門、記下座標。回傳是否成功（附近要有傳送門）。 */
@@ -142,7 +159,7 @@ public final class RotSpread {
     public static void registerHealing() {
         net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents.END_SERVER_TICK.register(server -> {
             State state = State.get(server);
-            if (server.getTickCount() % 5 != 0 || !state.stilled && state.sealed.isEmpty()) {
+            if (server.getTickCount() % 5 != 0 || !state.stilled && state.sealed.isEmpty() && state.arrivals.isEmpty()) {
                 return;
             }
             ServerLevel sift = server.getLevel(SiftPortalBlock.SIFT_DIM);
@@ -189,17 +206,21 @@ public final class RotSpread {
         boolean stilled;
         /** 用封印石關掉的裂隙（隙浮裡的座標）：附近的腐爛不再蔓延、而且會變回紅色。 */
         final java.util.List<BlockPos> sealed = new java.util.ArrayList<>();
+        /** 從遠古城市過來的到達門（隙浮裡的座標）：效果和封印一樣，只是門還開著。 */
+        final java.util.List<BlockPos> arrivals = new java.util.ArrayList<>();
         /** 終章送回隙浮、還沒在隙浮重逢的守衛數（Homecoming）。 */
         int homeward;
 
         public static final Codec<State> CODEC = RecordCodecBuilder.create(i -> i.group(
                 Codec.BOOL.optionalFieldOf("stilled", false).forGetter(s -> s.stilled),
                 BlockPos.CODEC.listOf().optionalFieldOf("sealed", java.util.List.of()).forGetter(s -> s.sealed),
-                Codec.INT.optionalFieldOf("homeward", 0).forGetter(s -> s.homeward)
-        ).apply(i, (stilled, sealed, homeward) -> {
+                Codec.INT.optionalFieldOf("homeward", 0).forGetter(s -> s.homeward),
+                BlockPos.CODEC.listOf().optionalFieldOf("arrivals", java.util.List.of()).forGetter(s -> s.arrivals)
+        ).apply(i, (stilled, sealed, homeward, arrivals) -> {
             State s = new State();
             s.stilled = stilled;
             s.sealed.addAll(sealed);
+            s.arrivals.addAll(arrivals);
             s.homeward = homeward;
             return s;
         }));

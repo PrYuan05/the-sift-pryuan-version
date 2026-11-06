@@ -61,6 +61,15 @@ public record WildRiftFeature() implements Feature {
      * 5.5～8 格只剩零星的赤紅幽匿。地面上再長一點同色的脈絡。只換地表那一格，而且只換 #pysift:red_sculk_replaceable 的方塊。
      */
     public static void rotHalo(net.minecraft.world.level.LevelAccessor level, BlockPos centre, RandomSource random) {
+        rotHalo(level, centre, random, true);
+    }
+
+    /**
+     * siftSide = false：主世界那一側的裂隙門，顏色反過來。隙浮的赤紅幽匿從裂縫漏出來，所以門邊是赤紅幽匿，
+     * 往外紅藍交錯，最外圈是主世界原本的藍色幽匿。赤紅幽匿在主世界不會隨機刻（{@link pryuan05.pysift.block.RotSpread}），
+     * 所以這一圈不會蔓延，也不會退去。
+     */
+    public static void rotHalo(net.minecraft.world.level.LevelAccessor level, BlockPos centre, RandomSource random, boolean siftSide) {
         // during worldgen only the _WG heightmaps exist; on a running world (a portal opened by a player) use the live one
         Heightmap.Types surface = level instanceof net.minecraft.server.level.ServerLevel ? Heightmap.Types.WORLD_SURFACE : Heightmap.Types.WORLD_SURFACE_WG;
         BlockState blue = Blocks.SCULK.defaultBlockState();
@@ -99,6 +108,9 @@ public record WildRiftFeature() implements Feature {
                 }
                 for (int up = 1; up <= 2 && !level.getBlockState(top.above(up)).isAir() && level.getBlockState(top.above(up)).canBeReplaced(); up++) {
                     level.setBlock(top.above(up), Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);   // the rot kills the plants
+                }
+                if (!siftSide) {
+                    rotten = !rotten;   // 主世界：門邊紅、外圈藍
                 }
                 level.setBlock(top, rotten ? blue : red, Block.UPDATE_CLIENTS);
                 if (level.getBlockState(top.above()).isAir() && random.nextFloat() < 0.2f) {
