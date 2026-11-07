@@ -49,7 +49,11 @@ V.element_transform = element_transform
 
 
 def model(ref):
-    return V.load_model(ref)
+    el, tx = V.load_model(ref)
+    if el is None and "all" in tx:   # minecraft:block/cube_all
+        el = [{"from": [0, 0, 0], "to": [16, 16, 16],
+               "faces": {f: {"texture": "#all"} for f in ("north", "south", "east", "west", "up", "down")}}]
+    return el, tx
 
 
 # ------------------------------------------------------------------ items
