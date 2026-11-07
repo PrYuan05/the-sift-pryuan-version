@@ -269,7 +269,31 @@ def fan():
     r("kill @e[type=minecraft:item]")
 
 
-parts = {"shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def resonance():
+    clear()
+    X, Z = 220, 200
+    r(f"setblock {X} {Y - 1} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f'setblock {X} {Y} {Z} pysift:resonance_core{{Item:{{id:"minecraft:amethyst_cluster",count:1}}}}')
+    for dx, dz in ((3, 0), (-3, 0), (0, 3), (0, -3)):
+        r(f'setblock {X + dx} {Y} {Z + dz} pysift:resonance_pedestal{{Item:{{id:"pysift:soul_essence",count:1}}}}')
+    settle(2)
+    check("core turns", abs(num(X, Y, Z, "Speed") or 0), 32)
+    out = r(f"data get block {X} {Y} {Z} Crafting")
+    print(("PASS" if "1b" in out else "FAIL"), "the array resonates:", out)
+    if "1b" not in out:
+        fails.append("resonance starts")
+    time.sleep(9)
+    out = r(f"data get block {X} {Y} {Z} Item")
+    print(("PASS" if "charoite" in out and "count: 4" in out else "FAIL"), "amethyst cluster + 4 soul essence -> 4 charoite:", out)
+    if "charoite" not in out:
+        fails.append("resonance result")
+    left = r(f"data get block {X + 3} {Y} {Z} Item")
+    print(("PASS" if "Found no" in left or "no element" in left.lower() or "soul_essence" not in left else "FAIL"), "pedestals emptied:", left)
+    if "soul_essence" in left:
+        fails.append("pedestals emptied")
+
+
+parts = {"resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

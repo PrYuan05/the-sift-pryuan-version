@@ -507,6 +507,8 @@
     "pysift:soul_hand_crank",
     "pysift:soul_clutch",
     "pysift:soul_gearshift",
-    "pysift:soul_fan"
+    "pysift:soul_fan",
+    "pysift:resonance_core",
+    "pysift:resonance_pedestal"
   ]
 }

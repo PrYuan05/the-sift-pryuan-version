@@ -41,6 +41,8 @@ public final class SoulPowerClient {
         animate(SoulPower.SPIRIT_PUMP_ENTITY);
         animate(SoulPower.SOUL_HAND_CRANK_ENTITY);
         animate(SoulPower.SOUL_FAN_ENTITY);
+        animate(SoulPower.RESONANCE_CORE_ENTITY);
+        BlockEntityRendererRegistry.register(SoulPower.RESONANCE_PEDESTAL_ENTITY, PedestalRenderer::new);
     }
 
     private static <E extends pryuan05.pysift.soulpower.KineticBlockEntity> void animate(net.minecraft.world.level.block.entity.BlockEntityType<E> type) {

@@ -48,6 +48,8 @@ BLOCKS = {
     "soul_clutch": ("Soul Clutch", "靈魂離合器", False),
     "soul_gearshift": ("Soul Gearshift", "靈魂換向器", False),
     "soul_fan": ("Soul Fan", "靈魂風扇", False),
+    "resonance_core": ("Resonance Core", "共鳴核心", False),
+    "resonance_pedestal": ("Resonance Pedestal", "共鳴台座", False),
     "soul_veined_stone": ("Soul-Veined Stone", "靈脈石", True),
 }
 
@@ -286,6 +288,10 @@ def shift_case(side, lamp):
             Box([0.5, 14, 0.5], [15.5, 15.5, 15.5], CUT_COPPER)]
 
 
+RES_CORE = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([3.5, 3, 3.5], [12.5, 11, 12.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([2, 11, 2], [14, 13, 14], {**{f: CUT_COPPER for f in ("north", "south", "east", "west", "down")}, "up": DEEP}),
+       Box([5, 13, 5], [11, 13.3, 11], CRYSTAL)]
+RES_PEDESTAL = [Box([3, 0, 3], [13, 2, 13], DEEP)]     + octagon([5.5, 2, 5.5], [10.5, 10, 10.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([3.5, 10, 3.5], [12.5, 12, 12.5], {**{f: CUT_COPPER for f in ("north", "south", "east", "west", "down")},
+                                            "up": "minecraft:block/amethyst_block"})]
 GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
            Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
            Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
@@ -300,7 +306,7 @@ STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
     "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
     "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "spirit_pump": PUMP,
-    "soul_hand_crank": CRANK_BASE, "soul_fan": FAN,
+    "soul_hand_crank": CRANK_BASE, "soul_fan": FAN, "resonance_core": RES_CORE, "resonance_pedestal": RES_PEDESTAL,
     "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp"),
     "soul_clutch_on": shift_case(PATINA, "minecraft:block/redstone_lamp_on"),
     "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp"),
@@ -349,6 +355,9 @@ for d, (f, t) in PIPE_ARM.items():
 wj(A / "blockstates/spirit_pipe.json", {"multipart": [{"apply": {"model": "pysift:block/spirit_pipe/spirit_pipe_core"}}] + [
     {"when": {d: "true"}, "apply": {"model": f"pysift:block/spirit_pipe/spirit_pipe_{d}"}} for d in PIPE_ARM]})
 states("soul_hand_crank", UPROT, "facing")
+wj(A / "blockstates/resonance_core.json", {"variants": {f"powered={v}": {"model": "pysift:block/resonance_core/resonance_core"}
+                                                         for v in ("false", "true")}})
+wj(A / "blockstates/resonance_pedestal.json", {"variants": {"": {"model": "pysift:block/resonance_pedestal/resonance_pedestal"}}})
 states("soul_fan", UPROT, "facing")
 for name in ("soul_clutch", "soul_gearshift"):
     wj(A / f"blockstates/{name}.json", {"variants": {
@@ -374,6 +383,8 @@ ITEMS = {
     "charoite_prism": PRISM,
     "spirit_pump": PUMP + FLYWHEEL_EAST + SHAFT_X,
     "soul_hand_crank": CRANK_BASE + PARTS["crank"],
+    "resonance_core": RES_CORE,
+    "resonance_pedestal": RES_PEDESTAL,
     "soul_fan": FAN + PARTS["fan"],
     "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp") + SHAFT[:1],
     "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp") + SHAFT[:1],
@@ -438,6 +449,10 @@ SHAPED = {
                                                        "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
     "spirit_pump": (["IGI", "IBI", "III"], {"I": "pysift:patina_ingot", "G": "pysift:patina_gear", "B": "minecraft:bucket"}, 1),
     "spirit_pipe": (["III"], {"I": "pysift:patina_ingot"}, 6),
+    "resonance_core": (["CEC", "GXG", "DDD"], {"C": "pysift:charoite", "E": "minecraft:echo_shard", "G": "pysift:patina_gear",
+                                               "X": "pysift:soul_crystal_block", "D": "minecraft:polished_deepslate"}, 1),
+    "resonance_pedestal": ([" A ", "PPP", "DDD"], {"A": "minecraft:amethyst_shard", "P": "pysift:patina_ingot",
+                                                   "D": "minecraft:polished_deepslate"}, 2),
     "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
     "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:patina_gear",
                                          "S": "pysift:soul_shaft"}, 1),

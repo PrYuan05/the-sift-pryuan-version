@@ -40,6 +40,13 @@
 - **Soul Fan**: blows (or, turned the other way, pulls) creatures and items up to 8 blocks. A stream that passes through
   **soul fire** haunts the items behind it: sand → soul sand, dirt → soul soil, torches, lanterns and campfires turn into
   their soul versions, sculk veins turn red.
+- **Resonance array**: a powered **Resonance Core** with up to eight **Resonance Pedestals** around it (3 blocks away,
+  on the four sides and the four diagonals). Put a catalyst on the core and ingredients on the pedestals; while the
+  core turns, violet beams run from the pedestals to it and the catalyst becomes the result: amethyst shard + 4 sculk
+  + 4 soul essence → 2 echo shards; amethyst cluster + 4 soul essence → 4 charoite; deepslate + 4 bone blocks + 4 soul
+  crystal blocks → reinforced deepslate; a resonant music disc + 4 amethyst shards + 2 soul essence + 2 note blocks →
+  2 copies of the disc (for more wave frequencies). A running core also makes grinders and sifters within 8 blocks work
+  50% faster.
 - **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
@@ -340,6 +347,10 @@
 - **靈魂離合器**與**靈魂換向器**：外殼裡兩段半軸，頂上有指示燈。收到紅石訊號時，離合器放開另一頭，換向器讓另一頭反轉。
 - **靈魂風扇**：把生物和掉落物吹走（反轉時是吸過來），最遠 8 格。氣流穿過**靈魂火**時，後面的掉落物會被靈魂薰染：沙 → 靈魂沙、
   泥土 → 靈魂土，火把、燈籠、營火變成靈魂版本，幽匿脈變紅。
+- **共鳴靈陣**：通了動力的**共鳴核心**，周圍最多八個**共鳴台座**（距離 3 格，東南西北與四個斜角）。核心放觸媒、台座放材料；
+  核心轉動時，台座射出紫色光束連到核心，觸媒變成成品：紫水晶碎片＋4 幽匿＋4 靈魂精華 → 2 迴音碎片；紫水晶簇＋4 靈魂精華 → 4 紫龍晶；
+  深板岩＋4 骨塊＋4 靈魂晶塊 → 強化深板岩；共鳴唱片＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片（振波頻率不夠用時）。
+  運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。
 - **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；

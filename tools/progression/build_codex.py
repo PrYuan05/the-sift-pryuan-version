@@ -747,6 +747,24 @@ entry(C, "fan", "pysift:soul_fan", "Soul Fan", "靈魂風扇", 6, -1, [
          "泥土變靈魂土，火把、燈籠與營火變成靈魂版本。"),
     recipe("crafting", "pysift:soul_fan")], parents=["gauge"])
 
+entry(C, "resonance", "pysift:resonance_core", "Resonance Array", "共鳴靈陣", 8, 0, [
+    text(("The ancients' craft", "遠古人的工藝"),
+         "Place up to eight Resonance Pedestals around a Resonance Core, 3 blocks away on the sides and diagonals. "
+         "Put a catalyst on the core, ingredients on the pedestals, and turn the core (128 SP at 32 RPM).\n\n"
+         "A running core also makes grinders and sifters within 8 blocks 50% faster.",
+         "在共鳴核心周圍 3 格處（四邊與四個斜角）擺最多八個共鳴台座。核心放觸媒、台座放材料，讓核心轉起來（32 RPM 時吃 128 SP）。\n\n"
+         "運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。"),
+    text(("Resonances", "共鳴配方"),
+         "**Amethyst shard** + 4 sculk + 4 soul essence → 2 echo shards.\n"
+         "**Amethyst cluster** + 4 soul essence → 4 charoite.\n"
+         "**Deepslate** + 4 bone blocks + 4 soul crystal blocks → reinforced deepslate.\n"
+         "**A resonant disc** + 4 amethyst shards + 2 soul essence + 2 note blocks → 2 of that disc.",
+         "**紫水晶碎片**＋4 幽匿＋4 靈魂精華 → 2 迴音碎片。\n"
+         "**紫水晶簇**＋4 靈魂精華 → 4 紫龍晶。\n"
+         "**深板岩**＋4 骨塊＋4 靈魂晶塊 → 強化深板岩。\n"
+         "**共鳴唱片**＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片。"),
+    recipe("crafting", "pysift:resonance_core", "pysift:resonance_pedestal")], parents=["sifter"])
+
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")
 C = "lore"

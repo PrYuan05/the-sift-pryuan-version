@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "pysift:charoite",
+    "E": "minecraft:echo_shard",
+    "G": "pysift:patina_gear",
+    "X": "pysift:soul_crystal_block",
+    "D": "minecraft:polished_deepslate"
+  },
+  "pattern": [
+    "CEC",
+    "GXG",
+    "DDD"
+  ],
+  "result": {
+    "id": "pysift:resonance_core"
+  }
+}

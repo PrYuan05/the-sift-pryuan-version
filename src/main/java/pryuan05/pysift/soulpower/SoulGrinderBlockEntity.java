@@ -41,6 +41,7 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
         }
     };
     private float progress;
+    private float aura = 1f;
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int i) {
@@ -110,7 +111,10 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
         if (!grinder.fits(1, result)) {
             return;
         }
-        grinder.progress += Math.abs(grinder.speed) / SoulNetwork.SPEED;
+        if (now % 20 == 0) {
+            grinder.aura = ResonanceCoreBlockEntity.aura(level, pos);   // a running resonance core nearby: 50% faster
+        }
+        grinder.progress += Math.abs(grinder.speed) / SoulNetwork.SPEED * grinder.aura;
         if ((now + pos.hashCode()) % 18 == 0) {
             level.playSound(null, pos, grinder.workSound(), net.minecraft.sounds.SoundSource.BLOCKS,
                     0.5f, 0.85f + Math.abs(grinder.speed) / SoulNetwork.SPEED * 0.15f);

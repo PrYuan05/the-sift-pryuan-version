@@ -2403,5 +2403,14 @@
   "book.pysift.sift_codex.soul_power.shift.p0.text": "兩者裡面都是兩段半軸。給它紅石訊號（燈會亮）：**離合器**放開遠端那一段（東、南或上方那一頭）；**換向器**讓那一段反轉。",
   "book.pysift.sift_codex.soul_power.fan.name": "靈魂風扇",
   "book.pysift.sift_codex.soul_power.fan.p0.title": "風與靈魂薰染",
-  "book.pysift.sift_codex.soul_power.fan.p0.text": "把生物和掉落物吹走，最遠 8 格（反轉時是吸過來）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、泥土變靈魂土，火把、燈籠與營火變成靈魂版本。"
+  "book.pysift.sift_codex.soul_power.fan.p0.text": "把生物和掉落物吹走，最遠 8 格（反轉時是吸過來）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、泥土變靈魂土，火把、燈籠與營火變成靈魂版本。",
+  "block.pysift.resonance_core": "共鳴核心",
+  "block.pysift.resonance_pedestal": "共鳴台座",
+  "item.pysift.resonance_core": "共鳴核心",
+  "item.pysift.resonance_pedestal": "共鳴台座",
+  "book.pysift.sift_codex.soul_power.resonance.name": "共鳴靈陣",
+  "book.pysift.sift_codex.soul_power.resonance.p0.title": "遠古人的工藝",
+  "book.pysift.sift_codex.soul_power.resonance.p0.text": "在共鳴核心周圍 3 格處（四邊與四個斜角）擺最多八個共鳴台座。核心放觸媒、台座放材料，讓核心轉起來（32 RPM 時吃 128 SP）。\n\n運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。",
+  "book.pysift.sift_codex.soul_power.resonance.p1.title": "共鳴配方",
+  "book.pysift.sift_codex.soul_power.resonance.p1.text": "**紫水晶碎片**＋4 幽匿＋4 靈魂精華 → 2 迴音碎片。\n**紫水晶簇**＋4 靈魂精華 → 4 紫龍晶。\n**深板岩**＋4 骨塊＋4 靈魂晶塊 → 強化深板岩。\n**共鳴唱片**＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片。"
 }

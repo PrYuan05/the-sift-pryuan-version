@@ -2403,5 +2403,14 @@
   "book.pysift.sift_codex.soul_power.shift.p0.text": "Both hold two half-shafts. Give them a redstone signal (the lamp lights up): the **clutch** lets go of the half on the far side (east, south or up); the **gearshift** turns that half the other way.",
   "book.pysift.sift_codex.soul_power.fan.name": "Soul Fan",
   "book.pysift.sift_codex.soul_power.fan.p0.title": "Wind and haunting",
-  "book.pysift.sift_codex.soul_power.fan.p0.text": "Blows creatures and items away up to 8 blocks (turned the other way, it pulls). Put **soul fire** in the stream: items resting behind it are haunted - sand into soul sand, dirt into soul soil, torches, lanterns and campfires into their soul versions."
+  "book.pysift.sift_codex.soul_power.fan.p0.text": "Blows creatures and items away up to 8 blocks (turned the other way, it pulls). Put **soul fire** in the stream: items resting behind it are haunted - sand into soul sand, dirt into soul soil, torches, lanterns and campfires into their soul versions.",
+  "block.pysift.resonance_core": "Resonance Core",
+  "block.pysift.resonance_pedestal": "Resonance Pedestal",
+  "item.pysift.resonance_core": "Resonance Core",
+  "item.pysift.resonance_pedestal": "Resonance Pedestal",
+  "book.pysift.sift_codex.soul_power.resonance.name": "Resonance Array",
+  "book.pysift.sift_codex.soul_power.resonance.p0.title": "The ancients' craft",
+  "book.pysift.sift_codex.soul_power.resonance.p0.text": "Place up to eight Resonance Pedestals around a Resonance Core, 3 blocks away on the sides and diagonals. Put a catalyst on the core, ingredients on the pedestals, and turn the core (128 SP at 32 RPM).\n\nA running core also makes grinders and sifters within 8 blocks 50% faster.",
+  "book.pysift.sift_codex.soul_power.resonance.p1.title": "Resonances",
+  "book.pysift.sift_codex.soul_power.resonance.p1.text": "**Amethyst shard** + 4 sculk + 4 soul essence → 2 echo shards.\n**Amethyst cluster** + 4 soul essence → 4 charoite.\n**Deepslate** + 4 bone blocks + 4 soul crystal blocks → reinforced deepslate.\n**A resonant disc** + 4 amethyst shards + 2 soul essence + 2 note blocks → 2 of that disc."
 }

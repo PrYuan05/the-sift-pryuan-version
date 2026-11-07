@@ -38,6 +38,8 @@ import pryuan05.pysift.soulpower.SoulHandCrankBlock;
 import pryuan05.pysift.soulpower.SoulFanBlock;
 import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
+import pryuan05.pysift.soulpower.ResonanceCoreBlockEntity;
+import pryuan05.pysift.soulpower.ResonancePedestalBlock;
 import pryuan05.pysift.soulpower.SoulWaveBlock;
 import pryuan05.pysift.soulpower.SpiritEngineBlock;
 import pryuan05.pysift.soulpower.SpiritPumpBlock;
@@ -150,6 +152,26 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             Direction side = facing.getAxis() == Direction.Axis.Y ? Direction.EAST : facing.getClockWise();
             add(s, Part.SHAFT, spin(positive(side.getAxis()), angle));
             add(s, Part.FLYWHEEL, spin(side, angle * sign(side)));
+        } else if (be instanceof ResonanceCoreBlockEntity core) {
+            add(s, Part.WAVE_RING, spin(Direction.UP, angle).translate(0f, 0.25f, 0f));
+            add(s, Part.WAVE_RING, spin(Direction.UP, -angle * 1.5f).translate(0f, 0.35f, 0f));
+            ItemStack item = core.item();
+            if (!item.isEmpty()) {
+                float bob = (float) Math.sin(time * 0.08) * 0.05f;
+                itemModels.updateForTopItem(s.item, item, ItemDisplayContext.GROUND, be.getLevel(), null, (int) pos.asLong());
+                s.itemPose = new Matrix4f().translate(0.5f, 1.05f + bob, 0.5f).rotateY((float) (time * 0.05)).scale(1.2f);
+            }
+            if (core.crafting()) {
+                for (BlockPos p : ResonanceCoreBlockEntity.ring(pos)) {
+                    if (be.getLevel().getBlockEntity(p) instanceof ResonancePedestalBlock.Entity pedestal && !pedestal.item().isEmpty()) {
+                        BlockPos rel = p.subtract(pos);
+                        float dx = -rel.getX(), dz = -rel.getZ();
+                        float len = (float) Math.sqrt(dx * dx + dz * dz);
+                        s.beams.add(new float[]{rel.getX() + 0.5f, 1.1f, rel.getZ() + 0.5f, dx / len, 0f, dz / len, len});
+                    }
+                }
+                s.time = (float) time;
+            }
         } else if (be instanceof SoulVeinNodeBlockEntity) {
             add(s, Part.WAVE_CORE, spin(Direction.UP, angle).translate(0f, -0.15f, 0f));
             add(s, Part.WAVE_RING, spin(Direction.UP, -angle * 0.5f).translate(0f, -0.2f, 0f));

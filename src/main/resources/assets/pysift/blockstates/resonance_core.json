@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pysift:block/resonance_core/resonance_core"
+    },
+    "powered=true": {
+      "model": "pysift:block/resonance_core/resonance_core"
+    }
+  }
+}
