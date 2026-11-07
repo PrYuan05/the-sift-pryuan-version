@@ -326,6 +326,11 @@ for name, boxes in ITEMS.items():
     wj(A / f"models/item/{name}.json", model(boxes, PATINA))
     wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
 
+# plain blocks: the item is the block model
+for name in [n for n in BLOCKS if n not in ITEMS]:
+    wj(A / f"models/item/{name}.json", {"parent": f"pysift:block/{name}/{name}"})
+    wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
+
 for name in BLOCKS:
     loot = {"type": "minecraft:block", "pools": [{"rolls": 1, "condition": {"type": "minecraft:survives_explosion"},
                                                    "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}],
