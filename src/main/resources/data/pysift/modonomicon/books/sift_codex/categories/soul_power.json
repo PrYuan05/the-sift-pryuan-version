@@ -2,7 +2,7 @@
   "name": "book.pysift.sift_codex.soul_power.name",
   "description": "",
   "icon": {
-    "id": "pysift:patina_gear"
+    "id": "pysift:siftite_gear"
   },
   "sort_number": 6,
   "display_mode": "node",

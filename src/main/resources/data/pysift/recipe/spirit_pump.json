@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "I": "pysift:patina_ingot",
-    "G": "pysift:patina_gear",
+    "G": "pysift:siftite_gear",
     "B": "minecraft:bucket"
   },
   "pattern": [

@@ -177,7 +177,8 @@ you which boss it is linked to, or how far and in which direction the nearest ar
   on the sword, exploding sculk tendrils on the axe, glowing enemies, a decoy that saves you at low health, sculk thorns,
   walking on Spirit Liquid — and the full set makes you immune to Soul Deprivation.
 - An advancement line guides you from your first step into The Sift to Soulite.
-- **Patina** from the Soul Caldera (raw patina, patina ingots) becomes **Patina Gears**, the parts of every soul machine.
+- **Patina** from the Soul Caldera (raw patina, patina ingots) builds the frames, shafts and pipes of the soul machines;
+  their gears are **Siftite Gears**.
   Metal blocks for siftite and patina.
 - **Soul Essence** reshapes blocks: use it on a block to switch to its next variant (sneak to pick which one).
 
@@ -390,7 +391,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - 比獄髓更強的**靈髓**：用獄髓錠、三隻 Boss 的碎片與紫龍晶鍛造靈髓錠，再用**靈髓升級模板**（Boss 掉落、遺跡寶箱）把獄髓裝備升級。
   每件都帶著 Boss 的能力：劍的音波連鎖、斧的爆炸幽匿藤蔓、讓敵人發光、瀕死時留下分身、幽匿荊棘、在靈液上行走；整套免疫靈魂剝奪。
 - 一條成就線，從踏進篩靈界一路引導到靈髓。
-- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠）做成**銅綠齒輪**，是所有靈魂機械的零件。隙浮金與銅綠都有金屬方塊。
+- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠）用來做靈魂機械的機殼、傳動軸與管線；機械裡會動的齒輪則是**隙浮金齒輪**。隙浮金與銅綠都有金屬方塊。
 - **靈魂精華**能改變方塊型態：對方塊右鍵換成下一種型態（潛行可以選要換哪一種）。
 
 ### 靈魂動力

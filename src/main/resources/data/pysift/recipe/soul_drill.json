@@ -5,7 +5,7 @@
     "I": "minecraft:iron_ingot",
     "X": "minecraft:iron_block",
     "P": "pysift:patina_ingot",
-    "G": "pysift:patina_gear"
+    "G": "pysift:siftite_gear"
   },
   "pattern": [
     " I ",

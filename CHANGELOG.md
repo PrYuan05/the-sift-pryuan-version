@@ -52,7 +52,9 @@
 - **Soul Drill**: its bit spins and bores out the block in front of it, dropping what an iron pickaxe would. Harder
   blocks take longer, faster rotation digs faster, bedrock and obsidian-like blocks resist it, and it hurts whatever
   stands in front of it.
-- **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
+- **Siftite Gear** (4 siftite ingots + soul essence → 2), the moving part of every machine; a cogwheel is a shaft with a
+  siftite gear, a large cogwheel adds two more gears. Patina finally has a use too: frames, shafts, pipes and pumps.
+  Every soul power recipe unlocks in the recipe book once you carry one of its ingredients.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
 - **Look**: Create-style chunky models (a casing and one or two big moving parts per machine) with their own hand-painted
@@ -372,7 +374,8 @@
   運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。
 - **靈魂鑽頭**：鑽頭旋轉著鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久、轉越快鑽越快，基岩與黑曜石這類方塊鑽不動；
   站在鑽頭前的東西會被鑽傷。
-- **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
+- **隙浮金齒輪**（4 隙浮金錠＋靈魂精華 → 2 個）：所有機器會動的零件；靈魂齒輪＝傳動軸＋隙浮金齒輪，大齒輪再多加兩個齒輪。
+  銅綠也終於有用途：機殼、傳動軸、管線與泵。拿到任何一種材料，靈魂動力的配方就會出現在配方書裡。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - **外觀**：Create 式的大塊模型（每台機器一個機殼加一兩個會動的大部件），貼圖全部自己畫：帶鏽斑的銅綠青銅框、嵌進機殼的深板岩面板、
   染色靈柳木齒輪配青銅齒、靈魂晶的光（引擎的火焰和晶核用原版的靈魂粒子圖案）。每張貼圖也附有 LabPBR 法線與高光貼圖，

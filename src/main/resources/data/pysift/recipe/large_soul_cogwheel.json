@@ -1,12 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "redstone",
-  "key": {
-    "P": "pysift:soul_willow_planks",
-    "C": "pysift:soul_cogwheel"
-  },
-  "pattern": [
-    "PCP"
+  "ingredients": [
+    "pysift:soul_cogwheel",
+    "pysift:siftite_gear",
+    "pysift:siftite_gear"
   ],
   "result": {
     "id": "pysift:large_soul_cogwheel"

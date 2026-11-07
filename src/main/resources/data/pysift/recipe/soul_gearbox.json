@@ -1,14 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "redstone",
-  "key": {
-    "C": "pysift:soul_cogwheel",
-    "P": "pysift:patina_gear"
-  },
-  "pattern": [
-    " C ",
-    "CPC",
-    " C "
+  "ingredients": [
+    "pysift:soul_cogwheel",
+    "minecraft:polished_deepslate",
+    "pysift:patina_ingot"
   ],
   "result": {
     "id": "pysift:soul_gearbox"

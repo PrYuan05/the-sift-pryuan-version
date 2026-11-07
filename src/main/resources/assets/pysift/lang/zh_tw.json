@@ -1822,7 +1822,7 @@
   "book.pysift.sift_codex.gear.charoite.p0.text": "長在紫晶深板岩區，以及地底深處的靈魂晶洞。靈魂羅盤、回程符石、召喚符印與靈髓都會用到。",
   "book.pysift.sift_codex.gear.patina.name": "銅綠",
   "book.pysift.sift_codex.gear.patina.p0.title": "銅綠",
-  "book.pysift.sift_codex.gear.patina.p0.text": "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。所有靈魂機械都用銅綠齒輪打造（見「靈魂動力」）。",
+  "book.pysift.sift_codex.gear.patina.p0.text": "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。靈魂機械的機殼、傳動軸、管線與泵都用銅綠打造（見「靈魂動力」）；裡面的齒輪則是隙浮金。",
   "book.pysift.sift_codex.gear.beacon.name": "隙浮信標",
   "book.pysift.sift_codex.gear.beacon.p0.title": "隙浮信標",
   "book.pysift.sift_codex.gear.beacon.p0.text": "在鍛造台把隙浮信標寶石鑲進胸甲。穿著時，8 格內的所有玩家都免疫靈魂剝奪。",
@@ -2332,7 +2332,6 @@
   "item.pysift.soul_wave_emitter": "靈魂振波發送器",
   "item.pysift.soul_wave_receiver": "靈魂振波接收器",
   "item.pysift.soul_grinder": "靈魂研磨機",
-  "item.pysift.patina_gear": "銅綠齒輪",
   "subtitles.pysift.block.spirit_engine.chug": "靈液引擎運轉",
   "subtitles.pysift.block.soul_grinder.grind": "靈魂研磨機研磨",
   "subtitles.pysift.block.soul_wave.pulse": "靈魂振波發送",
@@ -2424,5 +2423,6 @@
   "item.pysift.soul_gearbox": "靈魂齒輪箱",
   "book.pysift.sift_codex.soul_power.gearbox.name": "靈魂齒輪箱",
   "book.pysift.sift_codex.soul_power.gearbox.p0.title": "轉個彎",
-  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "軸向四周有四片傘齒輪：任何一面接進來的轉動，都會傳到另外三面，所以動力可以轉 90°。正對面那一根會反著轉。"
+  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "軸向四周有四片傘齒輪：任何一面接進來的轉動，都會傳到另外三面，所以動力可以轉 90°。正對面那一根會反著轉。",
+  "item.pysift.siftite_gear": "隙浮金齒輪"
 }

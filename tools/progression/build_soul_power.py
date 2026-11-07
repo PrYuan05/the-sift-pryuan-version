@@ -434,42 +434,39 @@ tag("minecraft/tags/block/blocks_motion_no_leaves.json", [f"pysift:{n}" for n, v
 
 # ------------------------------------------------------------------ recipes
 SHAPED = {
-    "patina_gear": ([" I ", "IEI", " I "], {"I": "pysift:patina_ingot", "E": "pysift:soul_essence"}, 2),
-    "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:patina_gear",
+    "siftite_gear": ([" I ", "IEI", " I "], {"I": "pysift:siftite_ingot", "E": "pysift:soul_essence"}, 2),
+    "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:siftite_gear",
                                               "B": "minecraft:blast_furnace", "E": "pysift:soul_essence"}, 1),
     "soul_shaft": (["I", "S", "I"], {"I": "pysift:patina_ingot", "S": "pysift:stripped_soul_willow_log"}, 8),
-    "soul_cogwheel": ([" P ", "PSP", " P "], {"P": "pysift:soul_willow_planks", "S": "pysift:soul_shaft"}, 1),
-    "large_soul_cogwheel": (["PCP"], {"P": "pysift:soul_willow_planks", "C": "pysift:soul_cogwheel"}, 1),
     "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_shaft", "C": "pysift:patina_ingot"}, 1),
     "soul_wave_emitter": (["PAP", "ESE", "PIP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                   "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                  "I": "pysift:patina_gear"}, 1),
+                                                  "I": "pysift:siftite_gear"}, 1),
     "soul_wave_receiver": (["PIP", "ESE", "PAP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                    "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                   "I": "pysift:patina_gear"}, 1),
+                                                   "I": "pysift:siftite_gear"}, 1),
     "soul_sifter": (["LCL", "GSG", "LTL"], {"L": "pysift:stripped_soul_willow_log", "C": "minecraft:crafting_table",
-                                            "G": "pysift:patina_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
-    "charoite_beam_emitter": (["CCC", "GEG", "PGP"], {"C": "pysift:charoite", "G": "pysift:patina_gear",
+                                            "G": "pysift:siftite_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
+    "charoite_beam_emitter": (["CCC", "GEG", "PGP"], {"C": "pysift:charoite", "G": "pysift:siftite_gear",
                                                       "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
-    "charoite_beam_receiver": (["PGP", "GEG", "CCC"], {"C": "pysift:charoite", "G": "pysift:patina_gear",
+    "charoite_beam_receiver": (["PGP", "GEG", "CCC"], {"C": "pysift:charoite", "G": "pysift:siftite_gear",
                                                        "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
-    "spirit_pump": (["IGI", "IBI", "III"], {"I": "pysift:patina_ingot", "G": "pysift:patina_gear", "B": "minecraft:bucket"}, 1),
+    "spirit_pump": (["IGI", "IBI", "III"], {"I": "pysift:patina_ingot", "G": "pysift:siftite_gear", "B": "minecraft:bucket"}, 1),
     "spirit_pipe": (["III"], {"I": "pysift:patina_ingot"}, 6),
     "soul_drill": ([" I ", "IXI", "PGP"], {"I": "minecraft:iron_ingot", "X": "minecraft:iron_block", "P": "pysift:patina_ingot",
-                                           "G": "pysift:patina_gear"}, 1),
-    "resonance_core": (["CEC", "GXG", "DDD"], {"C": "pysift:charoite", "E": "minecraft:echo_shard", "G": "pysift:patina_gear",
+                                           "G": "pysift:siftite_gear"}, 1),
+    "resonance_core": (["CEC", "GXG", "DDD"], {"C": "pysift:charoite", "E": "minecraft:echo_shard", "G": "pysift:siftite_gear",
                                                "X": "pysift:soul_crystal_block", "D": "minecraft:polished_deepslate"}, 1),
     "resonance_pedestal": ([" A ", "PPP", "DDD"], {"A": "minecraft:amethyst_shard", "P": "pysift:patina_ingot",
                                                    "D": "minecraft:polished_deepslate"}, 2),
-    "soul_gearbox": ([" C ", "CPC", " C "], {"C": "pysift:soul_cogwheel", "P": "pysift:patina_gear"}, 1),
     "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
-    "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:patina_gear",
+    "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:siftite_gear",
                                          "S": "pysift:soul_shaft"}, 1),
-    "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:patina_gear",
+    "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:siftite_gear",
                                                "C": "pysift:soul_crystal_block"}, 2),
     "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
     "soul_grinder": (["PSP", "IGI", "PEP"], {"P": "minecraft:polished_deepslate", "S": "minecraft:stonecutter",
-                                             "I": "pysift:patina_gear", "G": "minecraft:grindstone",
+                                             "I": "pysift:siftite_gear", "G": "minecraft:grindstone",
                                              "E": "pysift:soul_essence"}, 1),
 }
 for name, (pattern, key, count) in SHAPED.items():
@@ -488,6 +485,13 @@ GRINDING = {
     "bone": ("minecraft:bone", "minecraft:bone_meal", 6),
     "soul_soil": ("minecraft:soul_soil", "minecraft:soul_sand", 1),
 }
+# siftite cogwheels: the gear goes on a shaft; a large one is a cogwheel with two more gears; the gearbox is a cogwheel
+# encased in deepslate and patina (Create's way)
+for name, ingredients in (("soul_cogwheel", ["pysift:soul_shaft", "pysift:siftite_gear"]),
+                          ("large_soul_cogwheel", ["pysift:soul_cogwheel", "pysift:siftite_gear", "pysift:siftite_gear"]),
+                          ("soul_gearbox", ["pysift:soul_cogwheel", "minecraft:polished_deepslate", "pysift:patina_ingot"])):
+    wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shapeless", "category": "redstone",
+                                          "ingredients": ingredients, "result": {"id": f"pysift:{name}"}})
 # clutch / gearshift: a shaft (or cog), patina and redstone
 for name, core in (("soul_clutch", "pysift:soul_shaft"), ("soul_gearshift", "pysift:soul_cogwheel")):
     wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shapeless", "category": "redstone",
@@ -505,6 +509,19 @@ HAUNTING = {
 for name, (ingredient, item) in HAUNTING.items():
     wj(D / f"pysift/recipe/soul_haunting/{name}.json",
        {"type": "pysift:soul_haunting", "ingredient": ingredient, "result": {"id": item}})
+# recipe-book unlocks (like the rest of the mod): a recipe shows up once you carry one of its pysift ingredients
+for f in sorted((D / "pysift/recipe").glob("*.json")):
+    r = json.loads(f.read_text(encoding="utf-8"))
+    if r.get("category") != "redstone" or r.get("result", {}).get("id", "").removeprefix("pysift:") not in set(BLOCKS) | {"siftite_gear"}:
+        continue
+    used = list(r["key"].values()) if "key" in r else r["ingredients"]
+    needs = sorted({u for u in used if isinstance(u, str) and u.startswith("pysift:")}) or sorted({u for u in used if isinstance(u, str)})
+    crit = {f"has_{n.split(':')[1]}": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": n}]}} for n in needs}
+    crit["has_the_recipe"] = {"trigger": "minecraft:recipe_unlocked", "conditions": {"recipes": f"pysift:{f.stem}"}}
+    wj(D / f"pysift/advancement/recipes/redstone/{f.stem}.json", {
+        "parent": "minecraft:recipes/root", "criteria": crit, "requirements": [sorted(crit)],
+        "rewards": {"recipes": [f"pysift:{f.stem}"]}})
+(D / "pysift/advancement/recipes/redstone/patina_gear.json").unlink(missing_ok=True)
 # soul sifting: rotten (blue) sculk back to red; a few sifting classics
 SIFTING = {
     "sculk": ("minecraft:sculk", "pysift:red_sculk", 1),
@@ -622,8 +639,8 @@ for name, im in (("spirit_engine", engine_gui), ("soul_grinder", grinder_gui)):
     art_guard.save(im, out)
 
 
-def patina_gear():
-    """16x16 item: an 8-tooth patina gear in the patina ingot's palette. Hand-made mask; lit from the top left,
+def siftite_gear():
+    """16x16 item: an 8-tooth gear in the siftite ingot's palette (pink gold, like every gear). Hand-made mask; lit from the top left,
     sel-out outline (lighter on the lit side), shaded rim around the hole."""
     mask = ["................",
             "......XXXX......",
@@ -641,7 +658,7 @@ def patina_gear():
             "..XX.XXXXXX.XX..",
             "......XXXX......",
             "................"]
-    pal = [(29, 59, 71), (40, 88, 95), (54, 118, 116), (71, 145, 133), (100, 171, 149), (148, 201, 166), (198, 226, 182)]
+    pal = [(61, 16, 36), (125, 28, 71), (184, 46, 106), (220, 62, 133), (240, 98, 156), (250, 130, 181), (252, 196, 214)]
     on = lambda u, v: 0 <= u < 16 and 0 <= v < 16 and mask[v][u] == "X"
     im = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
     for v in range(16):
@@ -662,15 +679,18 @@ def patina_gear():
     return im
 
 
-art_guard.save(patina_gear(), A / "textures/item/patina_gear.png")
-wj(A / "models/item/patina_gear.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/patina_gear"}})
-wj(A / "items/patina_gear.json", {"model": {"type": "minecraft:model", "model": "pysift:item/patina_gear"}})
+art_guard.save(siftite_gear(), A / "textures/item/siftite_gear.png")
+wj(A / "models/item/siftite_gear.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/siftite_gear"}})
+wj(A / "items/siftite_gear.json", {"model": {"type": "minecraft:model", "model": "pysift:item/siftite_gear"}})
+for stale in ("textures/item/patina_gear.png", "models/item/patina_gear.json", "items/patina_gear.json"):
+    (A / stale).unlink(missing_ok=True)
+(D / "pysift/recipe/patina_gear.json").unlink(missing_ok=True)
 
 # ------------------------------------------------------------------ lang (merge, keep line endings)
 LANG = {f"block.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()}
 # 26.3 block items read item.pysift.<id> (the registration may not use the block key)
 LANG.update({f"item.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()})
-LANG["item.pysift.patina_gear"] = ("Patina Gear", "銅綠齒輪")
+LANG["item.pysift.siftite_gear"] = ("Siftite Gear", "隙浮金齒輪")
 LANG["advancements.pysift.story.sifted.title"] = ("Sifted Back to Red", "篩回赤紅")
 LANG["advancements.pysift.story.sifted.description"] = ("Let a Soul Sifter turn rotten blue sculk back into red sculk",
                                                        "讓靈魂淨化篩把腐爛的藍色幽匿篩回赤紅幽匿")

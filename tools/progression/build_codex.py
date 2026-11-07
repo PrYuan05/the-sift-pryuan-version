@@ -619,8 +619,8 @@ entry(C, "charoite", "pysift:charoite", "Charoite", "紫龍晶", 2, -1, [
 entry(C, "patina", "pysift:patina_ingot", "Patina", "銅綠", 2, 1, [
     text(("Patina", "銅綠"),
          "Patina ore grows in the rift walls of the Soul Caldera, weathered green near the surface. "
-         "Its gears build every soul machine (see **Soul Power**).",
-         "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。所有靈魂機械都用銅綠齒輪打造（見「靈魂動力」）。"),
+         "It builds the frames, shafts, pipes and pumps of the soul machines (see **Soul Power**); their gears are siftite.",
+         "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。靈魂機械的機殼、傳動軸、管線與泵都用銅綠打造（見「靈魂動力」）；裡面的齒輪則是隙浮金。"),
     spotlight("pysift:patina_ingot", "", "")], parents=["siftite"])
 entry(C, "beacon", "pysift:sift_beacon_gem", "Sift Beacon", "隙浮信標", 4, -1, [
     text(("Sift Beacon", "隙浮信標"),
@@ -650,7 +650,7 @@ entry(C, "brewing", "pysift:soul_berries", "Brewing", "釀造", 0, 2, [
       parents=["siftite"])
 
 # ================================================================== 7. soul power (靈魂動力)
-category("soul_power", 6, "pysift:patina_gear", "Soul Power", "靈魂動力", "patina_block/patina_block")
+category("soul_power", 6, "pysift:siftite_gear", "Soul Power", "靈魂動力", "patina_block/patina_block")
 C = "soul_power"
 entry(C, "engine", "pysift:spirit_engine", "Spirit Engine", "靈液引擎", 0, 0, [
     text(("Turning souls into motion", "把靈魂變成轉動"),
@@ -659,7 +659,7 @@ entry(C, "engine", "pysift:spirit_engine", "Spirit Engine", "靈液引擎", 0, 0
          "right-hand side; shafts take the power from any side but the front.",
          "靈魂動力是**轉動**，用靈壓（SP）計算。靈液引擎燒一桶靈液（或靈魂精華、靈魂沙、靈魂土），以 **32 RPM** 轉動，提供 "
          "**256 SP**。飛輪在右手邊轉；除了正面，其他面都能接傳動軸。"),
-    recipe("crafting", "pysift:patina_gear", "pysift:spirit_engine")])
+    recipe("crafting", "pysift:siftite_gear", "pysift:spirit_engine")])
 entry(C, "shafts", "pysift:soul_cogwheel", "Shafts and Cogwheels", "傳動軸與齒輪", 2, 0, [
     text(("Gearing", "變速"),
          "Shafts carry rotation along their axis. Cogwheels side by side drive each other and **turn the other way**. "

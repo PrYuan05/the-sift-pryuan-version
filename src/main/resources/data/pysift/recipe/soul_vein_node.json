@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "D": "minecraft:polished_deepslate",
-    "G": "pysift:patina_gear",
+    "G": "pysift:siftite_gear",
     "C": "pysift:soul_crystal_block"
   },
   "pattern": [

@@ -59,10 +59,10 @@ public final class SoulPower {
     public static final Block SOUL_VEINED_STONE = registerStone("soul_veined_stone");
 
     /** 傳動軸與齒輪：只記轉速，讓用戶端畫出轉動。 */
-    /** 銅綠齒輪：靈魂動力機器的零件（4 銅綠錠＋靈魂精華 → 2 個），讓銅綠錠有用途。 */
-    private static final ResourceKey<Item> PATINA_GEAR_KEY = ResourceKey.create(Registries.ITEM, PySift.id("patina_gear"));
-    public static final Item PATINA_GEAR = Registry.register(BuiltInRegistries.ITEM, PATINA_GEAR_KEY,
-            new Item(new Item.Properties().setId(PATINA_GEAR_KEY)));
+    /** 隙浮金齒輪：靈魂動力機器會動的零件（4 隙浮金錠＋靈魂精華 → 2 個），和齒輪、飛輪一樣是隙浮金做的。 */
+    private static final ResourceKey<Item> SIFTITE_GEAR_KEY = ResourceKey.create(Registries.ITEM, PySift.id("siftite_gear"));
+    public static final Item SIFTITE_GEAR = Registry.register(BuiltInRegistries.ITEM, SIFTITE_GEAR_KEY,
+            new Item(new Item.Properties().setId(SIFTITE_GEAR_KEY)));
 
     public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
@@ -175,7 +175,7 @@ public final class SoulPower {
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("soul_sifting"), SoulSiftingRecipe.SERIALIZER);
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("soul_haunting"), SoulHauntingRecipe.SERIALIZER);
         SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> BLOCKS.forEach(output::accept));
-        SiftCreativeTabs.source(ModItems.ITEMS_TAB_KEY, output -> output.accept(PATINA_GEAR));
+        SiftCreativeTabs.source(ModItems.ITEMS_TAB_KEY, output -> output.accept(SIFTITE_GEAR));
         PySift.LOGGER.info("Registered {} soul power blocks", BLOCKS.size());
     }
 }

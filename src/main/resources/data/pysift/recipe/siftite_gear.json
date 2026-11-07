@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "redstone",
   "key": {
-    "I": "pysift:patina_ingot",
+    "I": "pysift:siftite_ingot",
     "E": "pysift:soul_essence"
   },
   "pattern": [
@@ -11,7 +11,7 @@
     " I "
   ],
   "result": {
-    "id": "pysift:patina_gear",
+    "id": "pysift:siftite_gear",
     "count": 2
   }
 }

@@ -1822,7 +1822,7 @@
   "book.pysift.sift_codex.gear.charoite.p0.text": "Grows in the Violet Slate Abyss and in soul geodes deep below. Used for the Soul Compass, Homeward Stones, Summoning Sigils and Soulite.",
   "book.pysift.sift_codex.gear.patina.name": "Patina",
   "book.pysift.sift_codex.gear.patina.p0.title": "Patina",
-  "book.pysift.sift_codex.gear.patina.p0.text": "Patina ore grows in the rift walls of the Soul Caldera, weathered green near the surface. Its gears build every soul machine (see **Soul Power**).",
+  "book.pysift.sift_codex.gear.patina.p0.text": "Patina ore grows in the rift walls of the Soul Caldera, weathered green near the surface. It builds the frames, shafts, pipes and pumps of the soul machines (see **Soul Power**); their gears are siftite.",
   "book.pysift.sift_codex.gear.beacon.name": "Sift Beacon",
   "book.pysift.sift_codex.gear.beacon.p0.title": "Sift Beacon",
   "book.pysift.sift_codex.gear.beacon.p0.text": "Inlay a Sift Beacon gem into a chestplate at a smithing table. While worn, every player within 8 blocks is immune to Soul Deprivation.",
@@ -2332,7 +2332,6 @@
   "item.pysift.soul_wave_emitter": "Soul Wave Emitter",
   "item.pysift.soul_wave_receiver": "Soul Wave Receiver",
   "item.pysift.soul_grinder": "Soul Grinder",
-  "item.pysift.patina_gear": "Patina Gear",
   "subtitles.pysift.block.spirit_engine.chug": "Spirit Engine chugs",
   "subtitles.pysift.block.soul_grinder.grind": "Soul Grinder grinds",
   "subtitles.pysift.block.soul_wave.pulse": "Soul wave sent",
@@ -2424,5 +2423,6 @@
   "item.pysift.soul_gearbox": "Soul Gearbox",
   "book.pysift.sift_codex.soul_power.gearbox.name": "Soul Gearbox",
   "book.pysift.sift_codex.soul_power.gearbox.p0.title": "Turning the corner",
-  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "Four bevel gears round its axis: a shaft on any of the four sides drives the other three, so the power can turn 90 degrees. The shaft straight across turns the other way."
+  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "Four bevel gears round its axis: a shaft on any of the four sides drives the other three, so the power can turn 90 degrees. The shaft straight across turns the other way.",
+  "item.pysift.siftite_gear": "Siftite Gear"
 }
