@@ -133,6 +133,9 @@ shoot darts, Echo Golems that grow soul crystals, Slabbers with flowers growing 
 Blub · Bloombud · Dartback · Echo Golem · Fusefly · Hunter · Hurler · Lootkin · Nester · Nuzzle · Pollinator ·
 Prickle · Roamroot · Scavenger · Seedling · Sentinel · Singer · Slabber · Sprout · Stalker · Trapper · Tuner · Wobble
 
+Every creature has its own voice, with a sound for each of its skills; the Singers sing in a synthesised choir voice.
+Each biome has its own ambience, and the three bosses have their own fight music.
+
 ### Taming the Blub
 
 Feed a wild Blub **Soul Sand or Soul Soil** (each try has a 1 in 3 chance; hearts mean success).
@@ -245,6 +248,7 @@ use the Summoning Sigil without sneaking, and make sure the arena's original bos
 
 Made by **PrYuan05** — hand-drawn art, AI-powered development.
 Released under the [MIT License](LICENSE).
+Sound sources and music are credited in [`sounds/CREDITS.md`](src/main/resources/assets/pysift/sounds/CREDITS.md).
 
 *Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.*
 
@@ -344,6 +348,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 ### 生物
 26 種生物，包括會標記獵物的獵人、設陷阱丟網的陷阱師、死後會爆炸的引信蠅（請從遠處解決）、投石的投擲者、
 發射飛鏢的飛鏢背、頭頂長出靈魂晶塊的迴音傀儡、背上長花的泥板獸，以及溫和的布魯布。
+每隻生物都有自己的聲音，每個技能也各有音效；歌者用合成的合唱嗓音唱歌。每個生態域有自己的環境音，三隻 Boss 各有戰鬥配樂。
 
 #### 馴服布魯布
 拿**靈魂晶塊**餵野生布魯布（只吃這個）（每次 1/3 機率，冒愛心就是成功）。馴服後牠會跟著你，空手右鍵讓牠坐下，而且：
@@ -416,5 +421,6 @@ AI-powered 開發讓一個人也能做出這種規模的維度；但要放什麼
 
 ### 製作與授權
 由 **PrYuan05** 製作：親手繪製的美術，AI-powered 的開發。以 [MIT 授權](LICENSE) 釋出。
+聲音素材與配樂的出處見 [`sounds/CREDITS.md`](src/main/resources/assets/pysift/sounds/CREDITS.md)。
 
 *本模組並非 Minecraft 官方產品，與 Mojang 或 Microsoft 無關，亦未經其認可。*

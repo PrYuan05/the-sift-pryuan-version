@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v1.0.4
 
 ### New: the Singers' own voices
 - Singers and Mourners have their own synthesised voices (no vanilla or third-party recordings): a shouted, organ-like
@@ -270,7 +270,7 @@
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
 
-## 尚未發布（繁體中文）
+## v1.0.4（繁體中文）
 
 ### 新增：歌者自己的聲音
 - 歌者與哀悼者有自己合成的聲音（沒有用原版或第三方錄音）：歌者是吶喊式、帶風琴感的齊唱；哀悼者是同一副嗓子餓壞了，走音、帶抽泣。
