@@ -337,7 +337,40 @@ def shapes():
     r("kill @e[type=minecraft:armor_stand,tag=shape_test]")
 
 
-parts = {"shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def connect():
+    """Automatic neighbour detection (block/AutoConnect): blocks put down with /setblock still connect."""
+    clear()
+    Z = 230
+
+    def has(x, z, block, prop):
+        return "passed" in r(f"execute if block {x} {Y} {z} {block}[{prop}]")
+
+    r(f"setblock 200 {Y} {Z} pysift:spirit_engine[facing=north]")
+    for x in range(201, 205):
+        r(f"setblock {x} {Y} {Z} pysift:spirit_pipe")
+    settle(1)
+    ok = has(201, Z, "pysift:spirit_pipe", "west=true,east=true") and has(204, Z, "pysift:spirit_pipe", "west=true,east=false")
+    print(("PASS" if ok else "FAIL"), "a /setblock row of pipes joins up, the first one to the engine")
+    fails.append("pipe connect") if not ok else None
+    for x in range(201, 204):
+        r(f"setblock {x} {Y} {Z + 3} pysift:abyssal_strata_brick_wall")
+        r(f"setblock {x} {Y} {Z + 6} pysift:amber_stained_glass_pane")
+    settle(1)
+    ok = has(202, Z + 3, "pysift:abyssal_strata_brick_wall", "east=low,west=low")
+    print(("PASS" if ok else "FAIL"), "walls join up")
+    fails.append("wall connect") if not ok else None
+    ok = has(202, Z + 6, "pysift:amber_stained_glass_pane", "east=true,west=true")
+    print(("PASS" if ok else "FAIL"), "glass panes join up")
+    fails.append("pane connect") if not ok else None
+    r(f"setblock 201 {Y} {Z + 9} pysift:abyssal_strata_brick_stairs[facing=north]")
+    r(f"setblock 202 {Y} {Z + 9} pysift:abyssal_strata_brick_stairs[facing=east]")
+    settle(1)
+    ok = not has(201, Z + 9, "pysift:abyssal_strata_brick_stairs", "shape=straight") or not has(202, Z + 9, "pysift:abyssal_strata_brick_stairs", "shape=straight")
+    print(("PASS" if ok else "FAIL"), "stairs set side by side turn into a corner")
+    fails.append("stairs corner") if not ok else None
+
+
+parts = {"connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

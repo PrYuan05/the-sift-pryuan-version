@@ -63,6 +63,9 @@
 - **Shapes follow the models**: every block with a model of its own (all soul power blocks, the Blockbench plants)
   now has an outline, collision and occlusion that match what is drawn, generated from the models
   (`tools/models/build_block_shapes.py` -> `assets/pysift/block_shapes.json`, applied by `ModelShapeMixin`).
+- **Automatic connections**: spirit pipes and every Sift wall, fence, glass pane and stair now detect their neighbours
+  however they are placed - /setblock, /fill, structures, WorldEdit or Axiom - not only when a player places them
+  by hand (`block/AutoConnect`, `AutoConnectMixin`).
 - Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
   network checks on the test server: `tools/progression/test_soul_power.py`.
 
@@ -374,6 +377,8 @@
   機殼借用原版幽匿家族的造型、配色維持原樣：尖嘯體般的爪形轉角、催化體般的骨肋、面板上發光的孔。齒輪、飛輪與曲柄輪整個改用隙浮金（粉色金礦）；靈壓計是一個小小的深色錶盤配彩色刻度；靈液引擎與研磨機的介面也改成自己畫的底圖。
 - **方塊外框跟著模型**：所有有自己模型的方塊（全部靈魂動力方塊、Blockbench 做的植物）的外框、碰撞與遮光都和看到的模型一致，
   由模型自動產生（`tools/models/build_block_shapes.py` → `assets/pysift/block_shapes.json`，由 `ModelShapeMixin` 套用）。
+- **自動偵測連接**：靈液管與所有隙浮的牆、柵欄、玻璃片、階梯，不管是怎麼放的（/setblock、/fill、結構、WorldEdit、Axiom）
+  都會自己偵測鄰居接起來，不再只有玩家親手放才會接（`block/AutoConnect`、`AutoConnectMixin`）。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
   測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
 

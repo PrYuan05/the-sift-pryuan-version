@@ -12,12 +12,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.util.RandomSource;
+import pryuan05.pysift.block.AutoConnect;
 
 /**
  * 靈液管：自動接上相鄰的靈液管、靈液泵（背面）與靈液引擎。靈液泵把靈液沿著管子送到引擎；
  * 只接了一頭、另一頭空著的管子是<b>漏口</b>：送不出去的靈液會從那裡漏出來，弄髒地面（{@link SpiritPumpBlockEntity}）。
  */
-public class SpiritPipeBlock extends Block {
+public class SpiritPipeBlock extends Block implements AutoConnect.Connecting {
 
     public SpiritPipeBlock(Properties properties) {
         super(properties);
