@@ -2342,5 +2342,11 @@
   "item.pysift.soul_sifter": "Soul Sifter",
   "advancements.pysift.story.sifted.title": "Sifted Back to Red",
   "advancements.pysift.story.sifted.description": "Let a Soul Sifter turn rotten blue sculk back into red sculk",
-  "subtitles.pysift.block.soul_sifter.sift": "Soul Sifter rattles"
+  "subtitles.pysift.block.soul_sifter.sift": "Soul Sifter rattles",
+  "block.pysift.charoite_beam_emitter": "Charoite Beam Emitter",
+  "block.pysift.charoite_beam_receiver": "Charoite Beam Receiver",
+  "block.pysift.charoite_prism": "Charoite Prism",
+  "item.pysift.charoite_beam_emitter": "Charoite Beam Emitter",
+  "item.pysift.charoite_beam_receiver": "Charoite Beam Receiver",
+  "item.pysift.charoite_prism": "Charoite Prism"
 }

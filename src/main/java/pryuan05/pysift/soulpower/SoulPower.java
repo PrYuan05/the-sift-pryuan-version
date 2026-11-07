@@ -41,6 +41,9 @@ public final class SoulPower {
     public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
     public static final Block SOUL_SIFTER = register("soul_sifter", SoulSifterBlock::new, 3.0f);
+    public static final Block CHAROITE_BEAM_EMITTER = register("charoite_beam_emitter", p -> new CharoiteBeamBlock(true, p), 3.0f);
+    public static final Block CHAROITE_BEAM_RECEIVER = register("charoite_beam_receiver", p -> new CharoiteBeamBlock(false, p), 3.0f);
+    public static final Block CHAROITE_PRISM = register("charoite_prism", CharoitePrismBlock::new, 1.5f);
 
     /** 傳動軸與齒輪：只記轉速，讓用戶端畫出轉動。 */
     /** 銅綠齒輪：靈魂動力機器的零件（4 銅綠錠＋靈魂精華 → 2 個），讓銅綠錠有用途。 */
@@ -67,6 +70,10 @@ public final class SoulPower {
     public static final BlockEntityType<SoulSifterBlockEntity> SOUL_SIFTER_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_sifter"),
             FabricBlockEntityTypeBuilder.create(SoulSifterBlockEntity::new, SOUL_SIFTER).build());
+
+    public static final BlockEntityType<CharoiteBeamBlockEntity> CHAROITE_BEAM_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("charoite_beam"),
+            FabricBlockEntityTypeBuilder.create(CharoiteBeamBlockEntity::new, CHAROITE_BEAM_EMITTER, CHAROITE_BEAM_RECEIVER).build());
 
     public static final MenuType<SpiritEngineMenu> SPIRIT_ENGINE_MENU = Registry.register(BuiltInRegistries.MENU,
             PySift.id("spirit_engine"), new MenuType<>(SpiritEngineMenu::new, FeatureFlags.VANILLA_SET));

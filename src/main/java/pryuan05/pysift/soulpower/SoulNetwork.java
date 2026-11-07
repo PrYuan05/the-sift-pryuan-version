@@ -38,6 +38,7 @@ public final class SoulNetwork {
     public static final int SPEED = 32;                 // 引擎的轉速（RPM）
     public static final float MAX_SPEED = 256;
     public static final float WAVE_EFFICIENCY = 0.9f;
+    public static final float BEAM_EFFICIENCY = 0.95f;
     public static final int OVERLOAD_HAZARD_TICKS = 100;
     public static final int HAZARD_RADIUS = 6;
     private static final int MAX_NODES = 1024;
@@ -67,6 +68,7 @@ public final class SoulNetwork {
         ArrayDeque<BlockPos> queue = new ArrayDeque<>();
         List<BlockPos> members = new ArrayList<>();
         boolean wireless = false;
+        boolean beamed = false;
         boolean conflict = false;
         ratio.put(start.immutable(), 1f);
         queue.add(start.immutable());
@@ -117,6 +119,14 @@ public final class SoulNetwork {
                     }
                 }
             }
+            // 無線（紫龍晶光束）
+            if (level.getBlockEntity(pos) instanceof CharoiteBeamBlockEntity beam) {
+                for (BlockPos link : beam.findLinks(level)) {
+                    beamed = true;
+                    next.add(link);
+                    nextRatio.add(r);
+                }
+            }
             // 無線（靈魂振波）
             if (level.getBlockEntity(pos) instanceof SoulWaveBlockEntity wave) {
                 for (BlockPos link : wave.findLinks(level)) {
@@ -156,6 +166,8 @@ public final class SoulNetwork {
         }
         if (wireless) {
             capacity = Math.round(capacity * WAVE_EFFICIENCY);
+        } else if (beamed) {
+            capacity = Math.round(capacity * BEAM_EFFICIENCY);
         }
         float stress = 0;
         float fastest = 0;

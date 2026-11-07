@@ -54,7 +54,8 @@ def model(ref):
 
 # ------------------------------------------------------------------ items
 names = ["spirit_engine", "soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "soul_gauge", "soul_grinder",
-         "soul_wave_emitter", "soul_wave_receiver", "soul_sifter"]
+         "soul_wave_emitter", "soul_wave_receiver", "soul_sifter",
+         "charoite_beam_emitter", "charoite_beam_receiver", "charoite_prism"]
 tiles = []
 for n in names:
     el, tx = model(f"pysift:item/{n}")

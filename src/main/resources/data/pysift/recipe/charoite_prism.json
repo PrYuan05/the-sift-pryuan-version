@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "G": "minecraft:glass",
+    "C": "pysift:charoite",
+    "A": "minecraft:amethyst_shard"
+  },
+  "pattern": [
+    "GCG",
+    "CAC",
+    "GCG"
+  ],
+  "result": {
+    "id": "pysift:charoite_prism",
+    "count": 2
+  }
+}

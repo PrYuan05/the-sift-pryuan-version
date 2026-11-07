@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "C": "pysift:charoite",
+    "G": "pysift:patina_gear",
+    "E": "pysift:soul_essence",
+    "P": "minecraft:polished_deepslate"
+  },
+  "pattern": [
+    "PGP",
+    "GEG",
+    "CCC"
+  ],
+  "result": {
+    "id": "pysift:charoite_beam_receiver"
+  }
+}

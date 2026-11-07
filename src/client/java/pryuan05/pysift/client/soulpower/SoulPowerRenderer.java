@@ -1,6 +1,8 @@
 package pryuan05.pysift.client.soulpower;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.BlockModelResolver;
@@ -21,6 +23,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
+import pryuan05.pysift.soulpower.CharoiteBeam;
+import pryuan05.pysift.soulpower.CharoiteBeamBlockEntity;
 import pryuan05.pysift.soulpower.KineticBlockEntity;
 import pryuan05.pysift.soulpower.SoulCogBlock;
 import pryuan05.pysift.soulpower.SoulGaugeBlock;
@@ -75,6 +79,7 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
         BlockEntityRenderer.super.extractRenderState(be, s, partialTick, cameraPos, breakProgress);
         s.count = 0;
         s.item.clear();
+        s.beams.clear();
         if (be.getLevel() == null) {
             return;
         }
@@ -120,6 +125,17 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             add(s, Part.WAVE_RING, spin(facing, -a * 0.5f));
             float pulse = be.speed() == 0 ? 1f : 1f + 0.12f * (float) Math.sin(time * 0.35);
             add(s, Part.WAVE_CORE, spin(facing, a * 0.25f).translate(0.5f, 0.6f, 0.5f).scale(pulse).translate(-0.5f, -0.6f, -0.5f));
+        } else if (be instanceof CharoiteBeamBlockEntity beam) {
+            Direction facing = state.getValue(SoulMachineBlock.FACING);
+            add(s, Part.LENS, spin(facing, angle * sign(facing)));
+            if (beam.isEmitter() && be.speed() != 0) {
+                for (CharoiteBeam.Segment seg : CharoiteBeam.trace(be.getLevel(), pos, facing).segments()) {
+                    BlockPos rel = seg.from().subtract(pos);
+                    s.beams.add(new float[]{rel.getX() + 0.5f, rel.getY() + 0.5f, rel.getZ() + 0.5f,
+                            seg.dir().getStepX(), seg.dir().getStepY(), seg.dir().getStepZ(), seg.length()});
+                }
+                s.time = (float) time;
+            }
         } else if (be instanceof SoulSifterBlockEntity sifter) {
             // 曲柄輪在右手邊轉，篩網沿著朝向前後搖晃（每圈兩下），正在篩的東西躺在篩網上一起晃
             Direction facing = state.getValue(SoulMachineBlock.FACING);
@@ -215,6 +231,13 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             s.parts.get(i).submit(poseStack, collector, s.lightCoords, OverlayTexture.NO_OVERLAY, 0);
             poseStack.popPose();
         }
+        if (!s.beams.isEmpty()) {
+            collector.submitCustomGeometry(poseStack, RenderTypes.lightning(), (pose, vc) -> {
+                for (float[] b : s.beams) {
+                    beam(vc, pose, b, s.time);
+                }
+            });
+        }
         if (!s.item.isEmpty()) {
             poseStack.pushPose();
             poseStack.mulPose(s.itemPose);
@@ -224,7 +247,45 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
         poseStack.popPose();
     }
 
+    // ---------------------------------------------------------------- 紫龍晶光束
+    private static final float CORE = 0.05f, GLOW = 0.14f, PIECE = 0.5f;
+
+    /** 一段光束：兩片交叉的面（核心＋外暈），切成 0.5 格一段，亮度沿著光束往前流動。 */
+    private static void beam(VertexConsumer vc, PoseStack.Pose pose, float[] b, float time) {
+        float x = b[0], y = b[1], z = b[2], dx = b[3], dy = b[4], dz = b[5], len = b[6];
+        // two directions across the beam
+        float ax = dy != 0 ? 1 : 0, ay = dy != 0 ? 0 : 1, az = 0;
+        float bx = dy * az - dz * ay, by = dz * ax - dx * az, bz = dx * ay - dy * ax;
+        for (float d = 0; d < len - 1e-3f; d += PIECE) {
+            float e = Math.min(len, d + PIECE);
+            float flow = 0.5f + 0.5f * (float) Math.sin(d * 2.4f - time * 0.45f);
+            int core = argb((int) (150 + 100 * flow), 235, 205, 255);
+            int glow = argb((int) (40 + 60 * flow), 160, 80, 230);
+            for (int k = 0; k < 2; k++) {
+                float ux = k == 0 ? ax : bx, uy = k == 0 ? ay : by, uz = k == 0 ? az : bz;
+                strip(vc, pose, x + dx * d, y + dy * d, z + dz * d, x + dx * e, y + dy * e, z + dz * e, ux, uy, uz, CORE, core);
+                strip(vc, pose, x + dx * d, y + dy * d, z + dz * d, x + dx * e, y + dy * e, z + dz * e, ux, uy, uz, GLOW, glow);
+            }
+        }
+    }
+
+    /** 一片雙面的長條：從 p0 到 p1，寬度往 ±u 方向各 w。 */
+    private static void strip(VertexConsumer vc, PoseStack.Pose pose, float x0, float y0, float z0, float x1, float y1, float z1,
+                              float ux, float uy, float uz, float w, int color) {
+        float[][] q = {{x0 - ux * w, y0 - uy * w, z0 - uz * w}, {x0 + ux * w, y0 + uy * w, z0 + uz * w},
+                {x1 + ux * w, y1 + uy * w, z1 + uz * w}, {x1 - ux * w, y1 - uy * w, z1 - uz * w}};
+        for (int i : new int[]{0, 1, 2, 3, 3, 2, 1, 0}) {
+            vc.addVertex(pose, q[i][0], q[i][1], q[i][2]).setColor(color);
+        }
+    }
+
+    private static int argb(int a, int r, int g, int b) {
+        return Math.clamp(a, 0, 255) << 24 | r << 16 | g << 8 | b;
+    }
+
     public static class State extends BlockEntityRenderState {
+        final List<float[]> beams = new ArrayList<>();
+        float time;
         final List<BlockModelRenderState> parts = new ArrayList<>();
         final List<Matrix4f> poses = new ArrayList<>();
         int count;

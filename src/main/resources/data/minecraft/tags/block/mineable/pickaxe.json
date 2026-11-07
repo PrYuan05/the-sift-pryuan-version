@@ -496,6 +496,9 @@
     "pysift:soul_cogwheel",
     "pysift:large_soul_cogwheel",
     "pysift:soul_gauge",
-    "pysift:soul_sifter"
+    "pysift:soul_sifter",
+    "pysift:charoite_beam_emitter",
+    "pysift:charoite_beam_receiver",
+    "pysift:charoite_prism"
   ]
 }

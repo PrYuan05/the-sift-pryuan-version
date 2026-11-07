@@ -138,7 +138,39 @@ def sifter():
         fails.append("purify floor")
 
 
-parts = {"gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def beam():
+    clear()
+    Z = 215
+    r(f"setblock 200 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 201 {Y} {Z} pysift:charoite_beam_emitter[facing=east]")       # back (west) takes the engine
+    r(f"setblock 207 {Y} {Z} pysift:charoite_prism[facing=north]")            # turns the beam north
+    r(f"setblock 207 {Y} {Z - 5} pysift:charoite_beam_receiver[facing=south]")  # its front faces the beam
+    r(f"setblock 207 {Y} {Z - 6} pysift:soul_grinder[facing=north]")
+    r("kill @e[type=minecraft:pig]")
+    r(f"summon minecraft:pig 204 {Y - 0.4} {Z} {{NoAI:1b,Health:10f}}")
+    r(f"setblock 204 {Y - 1} {Z} minecraft:glass")
+    settle(3)
+    check("receiver turns through the prism", abs(num(207, Y, Z - 5, "Speed") or 0), 32)
+    check("grinder behind the receiver", abs(num(207, Y, Z - 6, "Speed") or 0), 32)
+    check("beam loses 5%", num(207, Y, Z - 6, "Load"), 64 / 243, tol=0.02)
+    hp = r("data get entity @e[type=minecraft:pig,limit=1] Health")
+    print(("PASS" if "10.0f" not in hp else "FAIL"), "the beam burns a pig in its way:", hp)
+    if "10.0f" in hp:
+        fails.append("beam damage")
+    r(f"setblock 207 {Y} {Z} pysift:charoite_prism[facing=up]")               # turn the prism away
+    settle(3)
+    check("prism turned away: no link", num(207, Y, Z - 6, "Speed"), 0)
+    r(f"setblock 207 {Y} {Z} pysift:charoite_prism[facing=north]")
+    r(f"setblock 205 {Y} {Z} minecraft:stone")                                # block the beam
+    settle(3)
+    check("stone blocks the beam", num(207, Y, Z - 6, "Speed"), 0)
+    r(f"setblock 205 {Y} {Z} minecraft:glass")                                # glass lets it through
+    settle(3)
+    check("glass lets it through", abs(num(207, Y, Z - 6, "Speed") or 0), 32)
+    r("kill @e[type=minecraft:pig]")
+
+
+parts = {"beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

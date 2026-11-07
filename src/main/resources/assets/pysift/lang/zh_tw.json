@@ -2342,5 +2342,11 @@
   "item.pysift.soul_sifter": "靈魂淨化篩",
   "advancements.pysift.story.sifted.title": "篩回赤紅",
   "advancements.pysift.story.sifted.description": "讓靈魂淨化篩把腐爛的藍色幽匿篩回赤紅幽匿",
-  "subtitles.pysift.block.soul_sifter.sift": "靈魂淨化篩沙沙作響"
+  "subtitles.pysift.block.soul_sifter.sift": "靈魂淨化篩沙沙作響",
+  "block.pysift.charoite_beam_emitter": "紫龍晶光束發射器",
+  "block.pysift.charoite_beam_receiver": "紫龍晶光束接收器",
+  "block.pysift.charoite_prism": "紫龍晶稜鏡",
+  "item.pysift.charoite_beam_emitter": "紫龍晶光束發射器",
+  "item.pysift.charoite_beam_receiver": "紫龍晶光束接收器",
+  "item.pysift.charoite_prism": "紫龍晶稜鏡"
 }

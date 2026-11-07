@@ -38,6 +38,9 @@ BLOCKS = {
     "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", False),
     "soul_grinder": ("Soul Grinder", "靈魂研磨機", True),
     "soul_sifter": ("Soul Sifter", "靈魂淨化篩", False),
+    "charoite_beam_emitter": ("Charoite Beam Emitter", "紫龍晶光束發射器", False),
+    "charoite_beam_receiver": ("Charoite Beam Receiver", "紫龍晶光束接收器", False),
+    "charoite_prism": ("Charoite Prism", "紫龍晶稜鏡", False),
 }
 
 # ------------------------------------------------------------------ textures
@@ -185,7 +188,9 @@ PARTS = {
               Box([2.5, 9, 2.5], [10.5, 10.6, 3], LOG), Box([2.5, 9, 13], [10.5, 10.6, 13.5], LOG),
               Box([2.5, 9, 3], [3, 10.6, 13], LOG), Box([10, 9, 3], [10.5, 10.6, 13], LOG),
               Box([10.5, 9.5, 7.5], [13.5, 10.1, 8.5], CUT_COPPER)],   # the rod to the crank
-    "lens": octagon([5, 6, 5], [11, 10, 11], "minecraft:block/amethyst_block"),
+    # the turning lens of the charoite beam blocks (modelled facing up, on top of the housing)
+    "lens": octagon([5, 10, 5], [11, 12.5, 11], "minecraft:block/amethyst_block") + ring(5, 4, 10.3, 11.5, COPPER)
+            + [Box([7, 12.5, 7], [9, 13, 9], CRYSTAL)],
 }
 
 
@@ -228,6 +233,11 @@ SIFTER = [Box([1, 0, 1], [12, 3, 15], {**{f: CUT_COPPER for f in ("north", "sout
           Box([1, 3, 13.5], [2.5, 13, 15], LOG), Box([10.5, 3, 13.5], [12, 13, 15], LOG),
           Box([1, 12, 1], [12, 13, 2.5], PATINA), Box([1, 12, 13.5], [12, 13, 15], PATINA),
           Box([12, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
+BEAM_EMITTER = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([3.5, 3, 3.5], [12.5, 9.5, 12.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([3, 9, 3], [13, 10, 13], CUT_COPPER)]
+BEAM_RECEIVER = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([4, 3, 4], [12, 8, 12], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([2.5, 6, 7], [4, 12, 9], CUT_COPPER), Box([12, 6, 7], [13.5, 12, 9], CUT_COPPER),
+       Box([7, 6, 2.5], [9, 12, 4], CUT_COPPER), Box([7, 6, 12], [9, 12, 13.5], CUT_COPPER)]
+PRISM = octagon([4, 3.5, 4], [12, 11.5, 12], "minecraft:block/amethyst_block")     + [Box([6, 11.5, 6], [10, 13.5, 10], CUT_COPPER), Box([7, 13.5, 7], [9, 14, 9], CRYSTAL),
+       Box([5, 2.5, 5], [11, 3.5, 11], CUT_COPPER)]
 GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
            Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
            Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
@@ -240,7 +250,8 @@ GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", 
 
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
-    "soul_grinder": GRINDER, "soul_sifter": SIFTER, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
+    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -271,6 +282,10 @@ def states(name, rots, prop, powered_model=None):
 states("spirit_engine", YROT, "facing", "pysift:block/spirit_engine/spirit_engine_on")
 states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
 states("soul_sifter", {**YROT, "up": {}, "down": {}}, "facing")
+states("charoite_beam_emitter", UPROT, "facing")
+states("charoite_beam_receiver", UPROT, "facing")
+wj(A / "blockstates/charoite_prism.json",
+   {"variants": {f"facing={f}": {"model": "pysift:block/charoite_prism/charoite_prism", **rot} for f, rot in UPROT.items()}})
 states("soul_wave_emitter", UPROT, "facing")
 states("soul_wave_receiver", UPROT, "facing")
 states("soul_gauge", AXIS, "axis")
@@ -284,6 +299,9 @@ ITEMS = {
     "spirit_engine": engine(False) + FLYWHEEL_EAST + SHAFT_X + PARTS["piston"],
     "soul_grinder": GRINDER + PARTS["millstone"],
     "soul_sifter": SIFTER + PARTS["sieve"] + FLYWHEEL_EAST,
+    "charoite_beam_emitter": BEAM_EMITTER + PARTS["lens"],
+    "charoite_beam_receiver": BEAM_RECEIVER + PARTS["lens"],
+    "charoite_prism": PRISM,
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_gauge": GAUGE + SHAFT[:1] + PARTS["dial"] + PARTS["needle"],
@@ -332,6 +350,11 @@ SHAPED = {
                                                    "I": "pysift:patina_gear"}, 1),
     "soul_sifter": (["LCL", "GSG", "LTL"], {"L": "pysift:stripped_soul_willow_log", "C": "minecraft:crafting_table",
                                             "G": "pysift:patina_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
+    "charoite_beam_emitter": (["CCC", "GEG", "PGP"], {"C": "pysift:charoite", "G": "pysift:patina_gear",
+                                                      "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
+    "charoite_beam_receiver": (["PGP", "GEG", "CCC"], {"C": "pysift:charoite", "G": "pysift:patina_gear",
+                                                       "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
+    "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
     "soul_grinder": (["PSP", "IGI", "PEP"], {"P": "minecraft:polished_deepslate", "S": "minecraft:stonecutter",
                                              "I": "pysift:patina_gear", "G": "minecraft:grindstone",
                                              "E": "pysift:soul_essence"}, 1),
