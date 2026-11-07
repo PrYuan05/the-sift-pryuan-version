@@ -47,6 +47,7 @@ public class PySiftClient implements ClientModInitializer {
         // 靈魂晶塊：4 象限 CTM 外殼 + 3×3×3 子方塊無縫晶核（消除 2×2 空洞與側面暗影）
         SoulCrystalModel.register();
         SoulWillowWoodClient.register();
+        pryuan05.pysift.client.soulpower.SoulPowerClient.register();   // 靈魂動力機器的介面
         SoulParticlesClient.register();
         // 投射物：飛鏢用原版箭矢、碎石用鵝卵石物品的渲染器
         EntityRendererRegistry.register(ModEntities.DART, context -> new SiftArrowRenderer<>(context, "sift_dart", 1.0f));

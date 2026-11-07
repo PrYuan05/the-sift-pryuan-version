@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/polished_deepslate",
+    "side": "minecraft:block/polished_deepslate",
+    "front": "minecraft:block/sculk_shrieker_can_summon_inner_top",
+    "particle": "minecraft:block/polished_deepslate"
+  }
+}

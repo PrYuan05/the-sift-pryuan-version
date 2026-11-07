@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_grinding",
+  "ingredient": "minecraft:soul_soil",
+  "result": {
+    "id": "minecraft:soul_sand",
+    "count": 1
+  }
+}

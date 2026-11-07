@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": "minecraft:polished_deepslate",
+    "A": "minecraft:amethyst_shard",
+    "E": "pysift:soul_essence",
+    "S": "minecraft:sculk_sensor",
+    "I": "pysift:siftite_ingot"
+  },
+  "pattern": [
+    "PIP",
+    "ESE",
+    "PAP"
+  ],
+  "result": {
+    "id": "pysift:soul_wave_receiver"
+  }
+}

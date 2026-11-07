@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": "minecraft:polished_deepslate",
+    "S": "minecraft:stonecutter",
+    "I": "pysift:siftite_ingot",
+    "G": "minecraft:grindstone",
+    "E": "pysift:soul_essence"
+  },
+  "pattern": [
+    "PSP",
+    "IGI",
+    "PEP"
+  ],
+  "result": {
+    "id": "pysift:soul_grinder"
+  }
+}

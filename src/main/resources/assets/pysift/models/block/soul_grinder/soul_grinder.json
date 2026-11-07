@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/smithing_table_top",
+    "side": "minecraft:block/deepslate_tiles",
+    "front": "minecraft:block/smithing_table_front",
+    "particle": "minecraft:block/deepslate_tiles"
+  }
+}

@@ -70,6 +70,7 @@ public class PySift implements ModInitializer {
         ModEntities.registerModEntities();
         ModItems.registerModItems();
         pryuan05.pysift.block.SiftColors.register();   // 9 種新顏色：染料與彩色方塊
+        pryuan05.pysift.soulpower.SoulPower.register();  // 靈魂動力：引擎、傳動軸、靈魂振波、研磨機
         SiftPortalRitual.register();
         BossLocateCommand.register();
         pryuan05.pysift.block.RotSpread.registerCommand();
