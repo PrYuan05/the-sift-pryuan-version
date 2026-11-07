@@ -132,7 +132,9 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
                 || state.getBlock() instanceof SoulDrillBlock) {
             Direction facing = state.getValue(SoulMachineBlock.FACING);
             Part part = state.getBlock() instanceof SoulFanBlock ? Part.FAN : state.getBlock() instanceof SoulDrillBlock ? Part.DRILL : Part.CRANK;
-            add(s, part, spin(facing, angle * sign(facing)));
+            // the crank is not round: orient it exactly like its blockstate (vanilla x then y), so at rest the arm lies
+            // where the static model and the VoxelShape (block_shapes.json) put it on every side
+            add(s, part, part == Part.CRANK ? blockstateSpin(facing, angle * sign(facing)) : spin(facing, angle * sign(facing)));
         } else if (state.getBlock() instanceof SoulShaftBlock) {
             add(s, Part.SHAFT, spin(positive(state.getValue(SoulShaftBlock.AXIS)), angle));
         } else if (state.getBlock() instanceof SpiritEngineBlock) {
@@ -237,6 +239,23 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             }
         }
         return m.rotateY(Mth.DEG_TO_RAD * angle).translate(-0.5f, -0.5f, -0.5f);
+    }
+
+    /**
+     * Turns a part modelled facing up the same way a blockstate variant does (UPROT in build_soul_power.py: up {}, down
+     * x180, north x90, south x90 y180, east x90 y90, west x90 y270; vanilla applies x first, then y, and a positive
+     * angle turns +Y towards -Z / -Z towards +X), then spins it by angle about its own axis.
+     */
+    static Matrix4f blockstateSpin(Direction dir, float angle) {
+        int x = dir == Direction.UP ? 0 : dir == Direction.DOWN ? 180 : 90;
+        int y = switch (dir) {
+            case SOUTH -> 180;
+            case EAST -> 90;
+            case WEST -> 270;
+            default -> 0;
+        };
+        return new Matrix4f().translate(0.5f, 0.5f, 0.5f).rotateY(-Mth.DEG_TO_RAD * y).rotateX(-Mth.DEG_TO_RAD * x)
+                .rotateY(Mth.DEG_TO_RAD * angle).translate(-0.5f, -0.5f, -0.5f);
     }
 
     /** 和方塊狀態的 y 旋轉一樣（模型朝北），用在不會轉的部件（活塞）。 */
