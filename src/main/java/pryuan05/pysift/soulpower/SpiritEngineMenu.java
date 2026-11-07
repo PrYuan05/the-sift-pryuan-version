@@ -16,7 +16,7 @@ public class SpiritEngineMenu extends AbstractContainerMenu {
     private final ContainerData data;
 
     public SpiritEngineMenu(int id, Inventory inventory) {
-        this(id, inventory, new SimpleContainer(1), new SimpleContainerData(6));
+        this(id, inventory, new SimpleContainer(1), new SimpleContainerData(7));
     }
 
     public SpiritEngineMenu(int id, Inventory inventory, Container fuel, ContainerData data) {
@@ -52,6 +52,11 @@ public class SpiritEngineMenu extends AbstractContainerMenu {
 
     public boolean overloaded() {
         return data.get(5) != 0;
+    }
+
+    /** 靈液泵送進來、還沒燒的靈液（mB）。 */
+    public int liquid() {
+        return data.get(6);
     }
 
     @Override

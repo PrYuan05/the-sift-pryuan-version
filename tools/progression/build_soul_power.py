@@ -688,6 +688,7 @@ LANG.update({
     "gui.pysift.soul_power.overloaded": ("Overloaded!", "過載！"),
     "gui.pysift.soul_power.running": ("Running at %s RPM", "運轉中：%s RPM"),
     "gui.pysift.soul_power.idle": ("No soul power", "沒有靈魂動力"),
+    "gui.pysift.soul_power.liquid": ("Piped: %s mB", "管線靈液：%s mB"),
     "message.pysift.soul_wave.frequency": ("Tuned to %s", "頻率：%s"),
     "message.pysift.soul_wave.empty": ("Tune it with a resonant music disc", "放入一張共鳴唱片來設定頻率"),
     "message.pysift.soul_gauge.status": ("%s RPM · load %s / %s SP (%s%%)", "%s RPM · 負載 %s / %s SP（%s%%）"),

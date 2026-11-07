@@ -2417,5 +2417,6 @@
   "item.pysift.soul_drill": "靈魂鑽頭",
   "book.pysift.sift_codex.soul_power.drill.name": "靈魂鑽頭",
   "book.pysift.sift_codex.soul_power.drill.p0.title": "鑽穿岩石",
-  "book.pysift.sift_codex.soul_power.drill.p0.text": "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。別站在鑽頭前面。"
+  "book.pysift.sift_codex.soul_power.drill.p0.text": "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。別站在鑽頭前面。",
+  "gui.pysift.soul_power.liquid": "管線靈液：%s mB"
 }

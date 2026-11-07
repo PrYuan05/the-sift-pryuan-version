@@ -2417,5 +2417,6 @@
   "item.pysift.soul_drill": "Soul Drill",
   "book.pysift.sift_codex.soul_power.drill.name": "Soul Drill",
   "book.pysift.sift_codex.soul_power.drill.p0.title": "Boring through rock",
-  "book.pysift.sift_codex.soul_power.drill.p0.text": "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit."
+  "book.pysift.sift_codex.soul_power.drill.p0.text": "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit.",
+  "gui.pysift.soul_power.liquid": "Piped: %s mB"
 }

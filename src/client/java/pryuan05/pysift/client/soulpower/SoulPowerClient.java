@@ -81,6 +81,9 @@ public final class SoulPowerClient {
         protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
             super.extractLabels(g, mouseX, mouseY);
             status(g, font, 84, menu.speed(), menu.capacity(), menu.stress(), menu.overloaded());
+            if (menu.liquid() > 0) {   // spirit liquid piped in by a pump
+                g.text(font, Component.translatable("gui.pysift.soul_power.liquid", menu.liquid()), 84, 56, SOUL, false);
+            }
         }
     }
 

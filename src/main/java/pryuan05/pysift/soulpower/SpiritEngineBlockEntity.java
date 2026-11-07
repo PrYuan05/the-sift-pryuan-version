@@ -52,7 +52,8 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
                 case 2 -> network.speed();
                 case 3 -> network.capacity();
                 case 4 -> network.stress();
-                default -> network.overloaded() ? 1 : 0;
+                case 5 -> network.overloaded() ? 1 : 0;
+                default -> liquid;
             };
         }
 
@@ -62,7 +63,7 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
 
         @Override
         public int getCount() {
-            return 6;
+            return 7;
         }
     };
 
