@@ -29,6 +29,18 @@
     "facing=west,powered=true": {
       "model": "pysift:block/spirit_engine/spirit_engine_on",
       "y": 270
+    },
+    "facing=up,powered=false": {
+      "model": "pysift:block/spirit_engine/spirit_engine"
+    },
+    "facing=up,powered=true": {
+      "model": "pysift:block/spirit_engine/spirit_engine_on"
+    },
+    "facing=down,powered=false": {
+      "model": "pysift:block/spirit_engine/spirit_engine"
+    },
+    "facing=down,powered=true": {
+      "model": "pysift:block/spirit_engine/spirit_engine_on"
     }
   }
 }

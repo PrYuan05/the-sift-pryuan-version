@@ -338,7 +338,7 @@ def states(name, rots, prop, powered_model=None):
     wj(A / f"blockstates/{name}.json", {"variants": v})
 
 
-states("spirit_engine", YROT, "facing", "pysift:block/spirit_engine/spirit_engine_on")
+states("spirit_engine", {**YROT, "up": {}, "down": {}}, "facing", "pysift:block/spirit_engine/spirit_engine_on")
 states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
 states("soul_sifter", {**YROT, "up": {}, "down": {}}, "facing")
 states("charoite_beam_emitter", UPROT, "facing")
