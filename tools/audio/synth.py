@@ -206,6 +206,8 @@ def make_loop(x, cross=2.0):
 def place(dst, src, at):
     i = int(at * SR)
     j = min(len(dst), i + len(src))
+    if j <= i:
+        return
     dst[i:j] += src[: j - i]
 
 

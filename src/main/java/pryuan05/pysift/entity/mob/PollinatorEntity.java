@@ -78,6 +78,9 @@ public class PollinatorEntity extends PysiftGeoEntity {
     public boolean hurtServer(ServerLevel level, DamageSource source, float amount) {
         boolean hurt = super.hurtServer(level, source, amount);
         if (hurt && source.getEntity() instanceof Player player && !player.isCreative()) {
+            if (this.getTarget() != player) {
+                voice("alarm");   // 整群被激怒
+            }
             for (PollinatorEntity other : level.getEntitiesOfClass(PollinatorEntity.class, this.getBoundingBox().inflate(8.0))) {
                 other.setTarget(player);
             }
@@ -89,8 +92,7 @@ public class PollinatorEntity extends PysiftGeoEntity {
     public boolean doHurtTarget(ServerLevel level, Entity target) {
         boolean hit = super.doHurtTarget(level, target);
         if (hit && target instanceof LivingEntity living) {
-            living.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0), this);
-            this.playSound(SoundEvents.BEE_STING, 1.0f, 1.0f);
+            living.addEffect(new MobEffectInstance(MobEffects.POISON, 100, 0), this);   // 螫的聲音由 sting 動畫播放
         }
         return hit;
     }

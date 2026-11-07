@@ -10,6 +10,9 @@ import com.geckolib.util.GeckoLibUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import pryuan05.pysift.sound.ModSounds;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -86,6 +89,57 @@ public abstract class PysiftGeoEntity extends PathfinderMob implements GeoEntity
                 this.remove(RemovalReason.KILLED);
             }
         }
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/creatures.py 產生的生物聲音）
+    /** 聲音名稱，預設是實體 ID（entity.&lt;名稱&gt;.&lt;種類&gt;）。 */
+    protected String voiceName() {
+        return BuiltInRegistries.ENTITY_TYPE.getKey(this.getType()).getPath();
+    }
+
+    /** 播放這隻生物的 kind 聲音（伺服器端）；沒有這個聲音就回傳 false。 */
+    public boolean voice(String kind, float volume) {
+        SoundEvent sound = ModSounds.voice(voiceName(), kind);
+        if (sound == null || this.level().isClientSide()) {
+            return false;
+        }
+        this.playSound(sound, this.getSoundVolume() * volume, this.getVoicePitch());
+        return true;
+    }
+
+    public boolean voice(String kind) {
+        return voice(kind, 1.0f);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        SoundEvent s = ModSounds.voice(voiceName(), "ambient");
+        return s != null ? s : super.getAmbientSound();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource source) {
+        SoundEvent s = ModSounds.voice(voiceName(), "hurt");
+        return s != null ? s : super.getHurtSound(source);
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        SoundEvent s = ModSounds.voice(voiceName(), "death");
+        return s != null ? s : super.getDeathSound();
+    }
+
+    /** 技能動畫開始時，自動播放同名的聲音（attack2、attack_left 這類連擊用 attack）。 */
+    @Override
+    public void triggerAnim(String controllerName, String animName) {
+        GeoEntity.super.triggerAnim(controllerName, animName);
+        if ("skill".equals(controllerName) && animName != null && !voice(animName) && animName.startsWith("attack")) {
+            voice("attack");
+        }
+    }
+
+    /** 技能（TimedSkillGoal）開始時呼叫：子類別可以在這裡發出自己的叫聲。 */
+    public void onSkillStart(String animation) {
     }
 
     /** 一般近戰命中時要播放的可觸發動畫（需同時列在 {@link #skillAnimations()}）；null 表示不播放。 */

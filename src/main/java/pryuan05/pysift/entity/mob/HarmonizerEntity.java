@@ -135,7 +135,7 @@ public class HarmonizerEntity extends PysiftMonsterEntity {
     }
 
     private void roarSummon(ServerLevel level, LivingEntity target) {
-        this.playSound(SoundEvents.WARDEN_ROAR, 2.5f, 1.3f);
+        this.playSound(SoundEvents.WARDEN_ROAR, 1.2f, 1.3f);
         GroundSlamGoal.slamAt(level, this, this.position(), 5.0 * SCALE, 6.0f, 0.4, e -> !(e instanceof Enemy));
         for (int i = 0; i < 5; i++) {
             Mob minion = SUMMONS.get(this.random.nextInt(SUMMONS.size())).create(level, EntitySpawnReason.MOB_SUMMONED);
@@ -179,7 +179,7 @@ public class HarmonizerEntity extends PysiftMonsterEntity {
         if (target == null || !target.isAlive() || this.distanceTo(target) > 7.0 * SCALE) {
             return;
         }
-        this.playSound(SoundEvents.SLIME_SQUISH, 2.0f, 0.5f);
+        this.playSound(SoundEvents.SLIME_SQUISH, 1.2f, 0.5f);
         Vec3 to = this.position().subtract(target.position()).multiply(1, 0, 1);
         double d = to.length() - this.getBbWidth() * 0.5 - 1.0;
         if (target.hurtServer(level, this.damageSources().mobAttack(this), 7.0f) && d > 0) {
@@ -207,6 +207,44 @@ public class HarmonizerEntity extends PysiftMonsterEntity {
             e.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 0), this);
             level.sendParticles(ParticleTypes.ANGRY_VILLAGER, e.getX(), e.getY() + e.getBbHeight() + 0.3, e.getZ(), 2, 0.2, 0.1, 0.2, 0);
         }
+    }
+
+    /** 每個技能開始時，整團合唱發出對應的一聲（roar、音波錐、共鳴環、漩渦、砸地、觸手）。 */
+    @Override
+    public void onSkillStart(String animation) {
+        net.minecraft.sounds.SoundEvent voice = switch (animation) {
+            case "roar" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_ROAR;
+            case "sonic_cone" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_CONE;
+            case "resonance" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_RESONANCE;
+            case "vortex" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_VORTEX;
+            case "slam" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_SLAM;
+            case "tentacle_grab" -> pryuan05.pysift.sound.ModSounds.HARMONIZER_GRAB;
+            default -> null;
+        };
+        if (voice != null) {
+            this.playSound(voice, 3.0f, 1.0f);
+        }
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py 合成）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return pryuan05.pysift.sound.ModSounds.HARMONIZER_AMBIENT;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 200;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.HARMONIZER_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.HARMONIZER_DEATH;
     }
 
     @Override

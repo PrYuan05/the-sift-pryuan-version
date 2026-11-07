@@ -89,7 +89,8 @@ public class DartbackEntity extends PysiftMonsterEntity {
             Vec3 toSource = from.subtract(this.position()).multiply(1, 0, 1);
             if (toSource.lengthSqr() > 1.0E-4 && forward.dot(toSource.normalize()) < -0.3) {
                 amount *= 0.5f;   // 背甲擋下一半
-                this.playSound(SoundEvents.SHIELD_BLOCK.value(), 0.8f, 1.2f);
+                this.playSound(SoundEvents.SHIELD_BLOCK.value(), 0.5f, 1.2f);
+                voice("block");
             }
         }
         return super.hurtServer(level, source, amount);

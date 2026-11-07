@@ -101,7 +101,7 @@ public class FuseflyEntity extends PysiftMonsterEntity {
         super.tickDeath();
         if (this.level() instanceof ServerLevel level) {
             if (this.deathTime == 1) {
-                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0f, 1.6f);
+                this.playSound(pryuan05.pysift.sound.ModSounds.FUSEFLY_FUSE, 1.2f, 1.0f);
             } else if (this.deathTime < BLAST_DEATH_TICK) {
                 level.sendParticles(ParticleTypes.ELECTRIC_SPARK, this.getX(), this.getY(0.5), this.getZ(), 3, 0.2, 0.2, 0.2, 0.05);
                 if (this.deathTime % 3 == 0) {
@@ -173,5 +173,26 @@ public class FuseflyEntity extends PysiftMonsterEntity {
                     c.z + Math.sin(a) * r * BLAST_RADIUS, 1, 0, 0, 0, 0);
         }
         this.playSound(SoundEvents.GENERIC_EXPLODE.value(), 2.0f, 1.3f);
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py 合成）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return pryuan05.pysift.sound.ModSounds.FUSEFLY_AMBIENT;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 100;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.FUSEFLY_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.FUSEFLY_DEATH;
     }
 }

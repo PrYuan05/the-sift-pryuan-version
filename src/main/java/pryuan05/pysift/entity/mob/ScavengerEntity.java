@@ -67,6 +67,9 @@ public class ScavengerEntity extends PysiftMonsterEntity {
     public boolean doHurtTarget(ServerLevel level, Entity target) {
         boolean hit = super.doHurtTarget(level, target);
         if (hit && target instanceof LivingEntity living) {
+            if (!bleeding.containsKey(living)) {
+                voice("bleed");
+            }
             bleeding.put(living, BLEED_TICKS);
         }
         return hit;

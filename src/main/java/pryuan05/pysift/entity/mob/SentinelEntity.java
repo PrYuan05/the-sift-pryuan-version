@@ -70,6 +70,7 @@ public class SentinelEntity extends PysiftMonsterEntity {
             }
             player.stopUsingItem();
             this.playSound(SoundEvents.SHIELD_BREAK.value(), 1.0f, 0.8f);
+            voice("guard_break");
         }
         if (target.hurtServer(level, this.damageSources().mobAttack(this), 12.0f)) {
             Vec3 away = target.position().subtract(this.position()).multiply(1, 0, 1);

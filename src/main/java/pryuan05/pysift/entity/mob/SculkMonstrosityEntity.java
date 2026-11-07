@@ -71,6 +71,13 @@ public class SculkMonstrosityEntity extends PysiftMonsterEntity {
         super(entityType, level);
     }
 
+    private boolean phaseVoiced;
+
+    @Override
+    protected float getSoundVolume() {
+        return 3.0f;   // Boss：遠處也聽得到
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return PysiftMonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 520.0)
@@ -239,6 +246,10 @@ public class SculkMonstrosityEntity extends PysiftMonsterEntity {
             roared = true;
             this.triggerAnim("skill", "roar");
             this.playSound(SoundEvents.WARDEN_ROAR, 3.0f, 0.8f);
+        }
+        if (isPhaseTwo() && !phaseVoiced) {
+            phaseVoiced = true;
+            voice("phase");   // 進入第二階段
         }
         if (isPhaseTwo() && this.tickCount % 100 == 0) {
             for (Player p : serverLevel.getEntitiesOfClass(Player.class, new AABB(this.blockPosition()).inflate(20.0 * RANGE_SCALE))) {

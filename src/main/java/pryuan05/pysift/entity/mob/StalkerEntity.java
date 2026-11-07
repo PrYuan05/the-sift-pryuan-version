@@ -108,6 +108,7 @@ public class StalkerEntity extends PysiftMonsterEntity {
         if (hit && backstab) {
             backstabReady = false;
             this.playSound(SoundEvents.PLAYER_ATTACK_CRIT, 1.0f, 0.8f);
+            voice("backstab");
             level.sendParticles(ParticleTypes.CRIT, target.getX(), target.getY(0.6), target.getZ(), 15, 0.3, 0.3, 0.3, 0.2);
         }
         return hit;
@@ -130,6 +131,9 @@ public class StalkerEntity extends PysiftMonsterEntity {
             return;
         }
         if (level.getMaxLocalRawBrightness(this.blockPosition()) < 7) {
+            if (!this.hasEffect(MobEffects.INVISIBILITY)) {
+                voice("vanish", 0.6f);   // 隱入黑暗
+            }
             this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 40, 0, false, false));
         } else if (this.hasEffect(MobEffects.INVISIBILITY)) {
             this.removeEffect(MobEffects.INVISIBILITY);

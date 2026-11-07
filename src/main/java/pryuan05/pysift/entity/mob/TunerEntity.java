@@ -67,7 +67,7 @@ public class TunerEntity extends PysiftMonsterEntity {
             return;
         }
         this.triggerAnim("skill", "aura");
-        this.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 1.5f, 1.5f);
+        this.playSound(pryuan05.pysift.sound.ModSounds.TUNER_AURA, 1.5f, 1.0f);
         for (int i = 0; i < 24; i++) {
             double a = i * Math.PI * 2 / 24;
             level.sendParticles(ParticleTypes.NOTE, this.getX() + Math.cos(a) * 2.5, this.getY() + 0.5, this.getZ() + Math.sin(a) * 2.5,
@@ -77,5 +77,26 @@ public class TunerEntity extends PysiftMonsterEntity {
             ally.addEffect(new MobEffectInstance(MobEffects.SPEED, 80, 0), this);
             ally.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 80, 0), this);
         }
+    }
+
+    // ---------------------------------------------------------------- 聲音（tools/audio/build_sounds.py 合成）
+    @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return pryuan05.pysift.sound.ModSounds.TUNER_AMBIENT;
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 160;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getHurtSound(net.minecraft.world.damagesource.DamageSource source) {
+        return pryuan05.pysift.sound.ModSounds.TUNER_HURT;
+    }
+
+    @Override
+    protected net.minecraft.sounds.SoundEvent getDeathSound() {
+        return pryuan05.pysift.sound.ModSounds.TUNER_DEATH;
     }
 }

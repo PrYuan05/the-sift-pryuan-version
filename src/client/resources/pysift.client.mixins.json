@@ -21,7 +21,8 @@
 		"ShulkerBoxRendererMixin",
 		"HumanoidModelMixin",
 		"FirstPersonHandsMixin",
-		"LivingEntitySwingMixin"
+		"LivingEntitySwingMixin",
+		"MinecraftMusicMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

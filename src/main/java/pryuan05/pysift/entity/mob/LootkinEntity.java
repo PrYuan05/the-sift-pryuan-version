@@ -37,4 +37,18 @@ public class LootkinEntity extends PysiftAnimalEntity {
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
+
+    private int fleeCooldown;
+
+    /** 看到玩家就叮叮噹噹地逃跑。 */
+    @Override
+    protected void customServerAiStep(net.minecraft.server.level.ServerLevel level) {
+        super.customServerAiStep(level);
+        if (fleeCooldown > 0) {
+            fleeCooldown--;
+        } else if (level.getNearestPlayer(this, 12.0) instanceof Player p && !p.isCreative() && !p.isSpectator()) {
+            voice("flee");
+            fleeCooldown = 60 + this.random.nextInt(40);
+        }
+    }
 }

@@ -38,6 +38,7 @@ public class PySiftClient implements ClientModInitializer {
         SoulDeprivationVision.register();   // 靈魂剝奪：伏聆色調的視野後製
         SiftPortalTransition.register();     // 隙浮傳送門的過場動畫
         SiftAurora.register();               // 隙浮夜晚的極光
+        pryuan05.pysift.client.BossMusic.register();   // Boss 戰音樂
         // 隙浮傳送門：大面積珠光流光 + 邊緣破曉聖光
         BlockEntityRendererRegistry.register(ModBlockEntities.SIFT_PORTAL, context -> new SiftPortalBlockEntityRenderer());
         // 八音儀式的共鳴唱片盒：升起動畫、旋轉的唱片、彩色光柱

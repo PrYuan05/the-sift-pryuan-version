@@ -72,6 +72,11 @@ public class MonarchEntity extends PysiftMonsterEntity {
         super(entityType, level);
     }
 
+    @Override
+    protected float getSoundVolume() {
+        return 3.0f;   // Boss：遠處也聽得到
+    }
+
     public static AttributeSupplier.Builder createAttributes() {
         return PysiftMonsterEntity.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 420.0)
@@ -235,7 +240,8 @@ public class MonarchEntity extends PysiftMonsterEntity {
         level.addFreshEntity(echo);
         echo.setTarget(this.getTarget());
         echoId = echo.getUUID();
-        this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 2.0f, 0.7f);
+        this.playSound(SoundEvents.ILLUSIONER_MIRROR_MOVE, 1.0f, 0.7f);
+        voice("echo");
         level.sendParticles(ParticleTypes.REVERSE_PORTAL, echo.getX(), echo.getY(0.5), echo.getZ(), 50,
                 echo.getBbWidth() * 0.4, echo.getBbHeight() * 0.4, echo.getBbWidth() * 0.4, 0.05);
     }

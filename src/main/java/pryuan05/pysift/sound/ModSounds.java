@@ -5,7 +5,13 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import pryuan05.pysift.PySift;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ModSounds {
     public static final SoundEvent BLUB_IDLE = register("entity.blub.idle");
@@ -63,6 +69,24 @@ public class ModSounds {
     public static final SoundEvent ECHO_GOLEM_DEATH = register("entity.echo_golem.death");
     public static final SoundEvent ECHO_GOLEM_WORK = register("entity.echo_golem.work");   // 挖地、放下唱片盒
     public static final SoundEvent ECHO_GOLEM_GIFT = register("entity.echo_golem.gift");   // 送東西、立約、長回晶塊
+    // 完全合成的生物音效
+    public static final SoundEvent TUNER_AMBIENT = register("entity.tuner.ambient");
+    public static final SoundEvent TUNER_AURA = register("entity.tuner.aura");
+    public static final SoundEvent TUNER_HURT = register("entity.tuner.hurt");
+    public static final SoundEvent TUNER_DEATH = register("entity.tuner.death");
+    public static final SoundEvent FUSEFLY_AMBIENT = register("entity.fusefly.ambient");
+    public static final SoundEvent FUSEFLY_HURT = register("entity.fusefly.hurt");
+    public static final SoundEvent FUSEFLY_DEATH = register("entity.fusefly.death");
+    public static final SoundEvent FUSEFLY_FUSE = register("entity.fusefly.fuse");
+    public static final SoundEvent HARMONIZER_AMBIENT = register("entity.harmonizer.ambient");
+    public static final SoundEvent HARMONIZER_HURT = register("entity.harmonizer.hurt");
+    public static final SoundEvent HARMONIZER_DEATH = register("entity.harmonizer.death");
+    public static final SoundEvent HARMONIZER_ROAR = register("entity.harmonizer.roar");
+    public static final SoundEvent HARMONIZER_CONE = register("entity.harmonizer.cone");
+    public static final SoundEvent HARMONIZER_RESONANCE = register("entity.harmonizer.resonance");
+    public static final SoundEvent HARMONIZER_VORTEX = register("entity.harmonizer.vortex");
+    public static final SoundEvent HARMONIZER_SLAM = register("entity.harmonizer.slam");
+    public static final SoundEvent HARMONIZER_GRAB = register("entity.harmonizer.grab");
 
     /**
      * The Sift 各生態域的背景音樂與環境音（music.the_sift.&lt;生態域&gt;、ambient.the_sift.&lt;生態域&gt;.loop／mood／additions），
@@ -80,11 +104,49 @@ public class ModSounds {
         }
     }
 
+    /**
+     * 用 Pixabay 素材加工的生物聲音（tools/audio/creatures.py）：不逐一寫常數，啟動時從 sounds.json 找出
+     * entity.&lt;生物&gt;.&lt;種類&gt; 全部註冊。種類 = ambient／hurt／death，或技能動畫的名稱（動畫開始時自動播放，
+     * 見 PysiftGeoEntity），或程式另外呼叫的動作（PysiftGeoEntity.voice）。
+     */
+    public static final Set<String> VOICED_MOBS = Set.of("pollinator", "roamroot", "bloombud", "sentinel", "stalker", "hunter",
+            "trapper", "dartback", "prickle", "nester", "seedling", "sprout", "scavenger", "hurler", "wobble", "lootkin", "monarch",
+            "sculk_monstrosity");
+    private static final Map<String, SoundEvent> VOICES = new HashMap<>();
+    // Boss 戰音樂（tools/audio/music.py；client/BossMusic 在 Boss 附近播放）
+    public static final SoundEvent MUSIC_BOSS_HARMONIZER = register("music.boss.harmonizer");
+    public static final SoundEvent MUSIC_BOSS_MONARCH = register("music.boss.monarch");
+    public static final SoundEvent MUSIC_BOSS_SCULK_MONSTROSITY = register("music.boss.sculk_monstrosity");
+
+    static {
+        try (InputStream in = ModSounds.class.getResourceAsStream("/assets/pysift/sounds.json")) {
+            com.google.gson.JsonObject json = com.google.gson.JsonParser.parseReader(new InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+            for (String id : json.keySet()) {
+                String[] parts = id.split("\\.");
+                if (parts.length == 3 && parts[0].equals("entity") && VOICED_MOBS.contains(parts[1])) {
+                    VOICES.put(parts[1] + "." + parts[2], register(id));
+                }
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("cannot read pysift sounds.json", e);
+        }
+    }
+
+    /** 生物 mob 的 kind 聲音；沒有就回傳 null。 */
+    public static SoundEvent voice(String mob, String kind) {
+        return VOICES.get(mob + "." + kind);
+    }
+
+    /** 已註冊的生物聲音數（啟動檢查用）。 */
+    public static int voiceCount() {
+        return VOICES.size();
+    }
+
     private static SoundEvent register(String id) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, PySift.id(id), SoundEvent.createVariableRangeEvent(PySift.id(id)));
     }
 
     public static void register() {
-        PySift.LOGGER.info("Registering sounds for {}", PySift.MOD_ID);
+        PySift.LOGGER.info("Registering sounds for {} ({} creature voices)", PySift.MOD_ID, VOICES.size());
     }
 }

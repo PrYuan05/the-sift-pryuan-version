@@ -52,7 +52,7 @@ public class WobbleEntity extends PysiftMonsterEntity {
         }
         this.setDeltaMovement(this.getDeltaMovement().x * 0.3, 0.6, this.getDeltaMovement().z * 0.3);
         this.needsSync = true;
-        this.playSound(SoundEvents.SLIME_JUMP, 1.2f, 0.7f);
+        voice("burst", 1.2f);
         AreaEffectCloud cloud = new AreaEffectCloud(level, this.getX(), this.getY(), this.getZ());
         cloud.setOwner(this);
         cloud.setRadius(3.0f);

@@ -89,7 +89,8 @@ public class NesterEntity extends PysiftMonsterEntity {
             return;
         }
         level.sendParticles(ParticleTypes.SONIC_BOOM, this.getX(), this.getY() + 0.8, this.getZ(), 1, 0, 0, 0, 0);
-        this.playSound(SoundEvents.WARDEN_SONIC_BOOM, 1.5f, 1.4f);
+        this.playSound(SoundEvents.WARDEN_SONIC_BOOM, 0.8f, 1.4f);
+        voice("rally", 1.5f);
         LivingEntity killer = source.getEntity() instanceof LivingEntity l ? l : null;
         for (PysiftSwarmEntity kin : level.getEntitiesOfClass(PysiftSwarmEntity.class, this.getBoundingBox().inflate(16.0))) {
             kin.addEffect(new MobEffectInstance(MobEffects.SPEED, 600, 1), this);

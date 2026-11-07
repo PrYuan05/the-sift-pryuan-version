@@ -71,6 +71,7 @@ public abstract class PysiftSwarmEntity extends PysiftMonsterEntity {
         if (target == null || propagating || !(this.level() instanceof ServerLevel level)) {
             return;
         }
+        voice("alert");   // 叫同伴一起上
         for (PysiftSwarmEntity kin : level.getEntitiesOfClass(PysiftSwarmEntity.class, this.getBoundingBox().inflate(12.0),
                 k -> k != this && k.getTarget() == null && k.isAlive())) {
             kin.propagating = true;

@@ -64,8 +64,7 @@ public class BloombudEntity extends PysiftMonsterEntity {
         }
         biteCooldown = 40;
         this.getLookControl().setLookAt(victim, 90.0f, 90.0f);
-        this.triggerAnim("skill", "bite");
-        this.playSound(SoundEvents.PHANTOM_BITE, 1.2f, 0.8f);
+        this.triggerAnim("skill", "bite");   // 咬合聲由 bite 動畫播放
         if (victim.hurtServer(level, this.damageSources().mobAttack(this), (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE))) {
             victim.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 60, 3), this);
         }

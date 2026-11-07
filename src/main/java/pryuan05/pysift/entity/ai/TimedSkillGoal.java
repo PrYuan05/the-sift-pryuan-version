@@ -62,6 +62,7 @@ public abstract class TimedSkillGoal extends Goal {
         mob.setUsingSkill(true);
         mob.getNavigation().stop();
         mob.triggerAnim("skill", animation);
+        mob.onSkillStart(animation);
         onStart();
     }
 

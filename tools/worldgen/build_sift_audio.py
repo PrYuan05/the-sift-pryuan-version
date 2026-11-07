@@ -89,6 +89,15 @@ def main():
             assert f"minecraft/sounds/music/game/{t}.ogg" in idx, f"no vanilla track {t}"
             tracks.append({"name": f"minecraft:music/game/{t}", "stream": True})
         out[f"music.the_sift.{b}"] = {"category": "music", "sounds": tracks}
+        own = P / "src/main/resources/assets/pysift/sounds/ambient" / b   # tools/audio/build_sounds.py 合成的環境音優先
+        if own.is_dir():
+            vol = {"loop": 0.8, "mood": 0.7, "additions": 0.55}
+            for part in ("loop", "mood", "additions"):
+                files = sorted(f.stem for f in own.glob(f"{part}*.ogg"))
+                assert files, f"no {part} sound in {own}"
+                out[f"ambient.the_sift.{b}.{part}"] = {"category": "ambient", "sounds": [
+                    {"name": f"pysift:ambient/{b}/{f}", "volume": vol[part], "pitch": 1.0} for f in files]}
+            continue
         for part, entries in AMBIENT[b].items():
             sounds = []
             for ev, vol, pitch in entries:
