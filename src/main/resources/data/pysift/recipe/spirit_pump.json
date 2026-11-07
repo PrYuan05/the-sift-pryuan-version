@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": "pysift:patina_ingot",
+    "G": "pysift:patina_gear",
+    "B": "minecraft:bucket"
+  },
+  "pattern": [
+    "IGI",
+    "IBI",
+    "III"
+  ],
+  "result": {
+    "id": "pysift:spirit_pump"
+  }
+}

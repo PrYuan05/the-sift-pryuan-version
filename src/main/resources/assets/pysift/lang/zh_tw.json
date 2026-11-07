@@ -2379,5 +2379,12 @@
   "book.pysift.sift_codex.soul_power.beams.p0.text": "發射器射出最遠 32 格的紫色光束；**稜鏡**會讓它轉向（右鍵換方向、潛行右鍵往回換）。光束能穿過玻璃與花草，打中接收器的**正面**就連通。損耗只有 5%，但要瞄準，而且會灼傷站在光束裡的東西。",
   "book.pysift.sift_codex.soul_power.veins.name": "靈脈",
   "book.pysift.sift_codex.soul_power.veins.p0.title": "無線：穿過岩層",
-  "book.pysift.sift_codex.soul_power.veins.p0.text": "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。損耗 15%。運轉時，沿路的岩石會長成發光的靈脈石。"
+  "book.pysift.sift_codex.soul_power.veins.p0.text": "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。損耗 15%。運轉時，沿路的岩石會長成發光的靈脈石。",
+  "block.pysift.spirit_pump": "靈液泵",
+  "block.pysift.spirit_pipe": "靈液管",
+  "item.pysift.spirit_pump": "靈液泵",
+  "item.pysift.spirit_pipe": "靈液管",
+  "book.pysift.sift_codex.soul_power.pump.name": "靈液泵",
+  "book.pysift.sift_codex.soul_power.pump.p0.title": "用管子送靈液",
+  "book.pysift.sift_codex.soul_power.pump.p0.text": "把泵的吸口對著靈液池、轉動側面的曲柄：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。"
 }

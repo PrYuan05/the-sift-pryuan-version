@@ -29,6 +29,10 @@
 - **Soul veins** (the third wireless link, for buried machines): two **Soul Vein Nodes** within 16 blocks link when
   every block between them is rock (stone, deepslate, netherrack...); air or a cave cuts them. They lose 15%. While
   they run, the rock along the link slowly grows into glowing **Soul-Veined Stone**, and soul wisps drift through it.
+- **Spirit Pump** and **Spirit Pipes**: the pump drinks the spirit liquid source in front of it (a bucket every 2 s at
+  32 RPM) and sends it down the pipes to Spirit Engines, which burn it when their fuel slot is empty, so a pool can keep
+  a whole power plant running. A pipe left open at one end **leaks**: spirit liquid spills out and the dirt or sand
+  below turns into soul soil.
 - **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
@@ -323,6 +327,8 @@
   損耗只有 5%（振波是 10%），但要瞄準，而且會灼傷站在光束裡的生物。光束畫成流動的紫色光線，透鏡會轉。
 - **靈脈**（第三種無線傳動，給埋在地底的機器）：16 格內的兩個**靈脈節點**，只要中間每一格都是岩石（石頭、深板岩、地獄岩…）
   就連通，中間有空氣或洞穴就斷。損耗 15%。運轉時，連線上的岩石會慢慢長成發光的**靈脈石**，靈魂在裡面飄動。
+- **靈液泵**與**靈液管**：靈液泵吸走正前方的靈液源頭（32 RPM 時每 2 秒一桶），沿著靈液管送給靈液引擎；引擎的燃料格空著時就燒管子送來的靈液，
+  一池靈液就能讓整座發電站一直運轉。只接一頭、另一頭空著的管子會**漏**：靈液漏出來，下面的泥土或沙子變成靈魂土。
 - **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；

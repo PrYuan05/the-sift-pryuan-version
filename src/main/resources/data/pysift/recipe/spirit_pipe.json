@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": "pysift:patina_ingot"
+  },
+  "pattern": [
+    "III"
+  ],
+  "result": {
+    "id": "pysift:spirit_pipe",
+    "count": 6
+  }
+}

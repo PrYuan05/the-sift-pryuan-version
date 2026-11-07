@@ -191,7 +191,36 @@ def vein():
     check("air breaks the vein", num(211, Y, Z, "Speed"), 0)
 
 
-parts = {"vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def pump():
+    clear()
+    Z = 235
+    r(f"fill 195 {Y - 1} {Z - 2} 199 {Y - 1} {Z + 2} minecraft:glass")
+    r(f"fill 195 {Y} {Z - 2} 199 {Y} {Z + 2} pysift:spirit_liquid")              # a pool in front of the pump
+    r(f"setblock 200 {Y} {Z} pysift:spirit_pump[facing=west]")
+    r(f"setblock 200 {Y} {Z - 1} pysift:spirit_engine[facing=north]{FUEL}")      # on the crank side
+    r(f"setblock 201 {Y} {Z} pysift:spirit_pipe")
+    r(f"setblock 202 {Y} {Z} pysift:spirit_pipe")
+    r(f"setblock 203 {Y} {Z} pysift:spirit_engine[facing=north]")                 # no fuel: runs on piped liquid
+    settle(2)
+    check("pump turns", abs(num(200, Y, Z, "Speed") or 0), 32)
+    time.sleep(8)
+    liquid = num(203, Y, Z, "Liquid") or 0
+    burn = num(203, Y, Z, "Burn") or 0
+    ok = liquid > 0 or burn > 0
+    print(("PASS" if ok else "FAIL"), f"the second engine gets piped spirit liquid (liquid {liquid}, burn {burn})")
+    if not ok:
+        fails.append("pump to engine")
+    # a dead-end pipe over dirt leaks and pollutes it
+    r(f"setblock 203 {Y} {Z} minecraft:air")
+    r(f"setblock 203 {Y - 2} {Z} minecraft:dirt")
+    time.sleep(6)
+    soil = r(f"execute if block 203 {Y - 2} {Z} minecraft:soul_soil")
+    print(("PASS" if "passed" in soil else "FAIL"), "a leaking pipe pollutes the dirt below:", soil)
+    if "passed" not in soil:
+        fails.append("leak pollution")
+
+
+parts = {"pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

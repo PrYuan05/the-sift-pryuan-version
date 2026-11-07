@@ -2379,5 +2379,12 @@
   "book.pysift.sift_codex.soul_power.beams.p0.text": "The emitter shoots a violet beam up to 32 blocks; **prisms** turn it (right-click to point them, sneak to go back). It passes glass and plants and links on the **front** of a receiver. Loses only 5%, but it must be aimed, and it burns whatever stands in it.",
   "book.pysift.sift_codex.soul_power.veins.name": "Soul Veins",
   "book.pysift.sift_codex.soul_power.veins.p0.title": "Wireless: through the rock",
-  "book.pysift.sift_codex.soul_power.veins.p0.text": "Two vein nodes within 16 blocks link when **every block between them is rock**. A cave cuts the vein. Loses 15%. While it runs, the rock along it grows into glowing soul-veined stone."
+  "book.pysift.sift_codex.soul_power.veins.p0.text": "Two vein nodes within 16 blocks link when **every block between them is rock**. A cave cuts the vein. Loses 15%. While it runs, the rock along it grows into glowing soul-veined stone.",
+  "block.pysift.spirit_pump": "Spirit Pump",
+  "block.pysift.spirit_pipe": "Spirit Pipe",
+  "item.pysift.spirit_pump": "Spirit Pump",
+  "item.pysift.spirit_pipe": "Spirit Pipe",
+  "book.pysift.sift_codex.soul_power.pump.name": "Spirit Pump",
+  "book.pysift.sift_codex.soul_power.pump.p0.title": "Piping spirit liquid",
+  "book.pysift.sift_codex.soul_power.pump.p0.text": "Point the pump's nozzle at a spirit liquid pool and turn its crank: it drinks the source in front of it and sends the liquid down Spirit Pipes to your engines, which burn it when their fuel slot is empty.\n\nA pipe left open at one end **leaks**, and the ground below it rots into soul soil."
 }

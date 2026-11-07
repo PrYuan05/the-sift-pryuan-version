@@ -206,7 +206,8 @@ flowchart TD
 | 機器 | 研磨機（impact 2，`pysift:soul_grinding`）；淨化篩（impact 3，8 格內藍幽匿 → 赤紅，`pysift:soul_sifting`，成就 `story/sifted`） | `SoulGrinderBlockEntity`、`SoulSifterBlockEntity` |
 | 動畫 | Create 式部件模型（`SoulParts`，永不放置的方塊掛模型）由 `client/soulpower/SoulPowerRenderer` 依「遊戲時間 × 轉速」旋轉；齒輪奇偶格錯開半齒；過載抖動 | 資源 `tools/progression/build_soul_power.py`，預覽 `preview_soul_power.py`，伺服器測試 `test_soul_power.py` |
 | 聲音 | 引擎每行程噗聲、研磨、篩、振波、過載、衝突 | `tools/audio/machines.py` |
-| 待做 | 靈液泵與管線（漏液汙染地面）、共鳴靈陣多方塊結構、專屬貼圖（`art_requests/soul_power_todo.md`） | |
+| 靈液 | 靈液泵（impact 2，吸正前方源頭，4000 mB 槽）→ 靈液管（自動連接）→ 引擎（4000 mB 槽，燃料格空時每 1000 mB 燒一桶的時間）；只接一頭的管子漏液，下方泥土／沙變靈魂土 | `SpiritPumpBlock(Entity)`、`SpiritPipeBlock` |
+| 待做 | 共鳴靈陣多方塊結構、專屬貼圖（`art_requests/soul_power_todo.md`） | |
 
 ## 4.7 世界觀：不是幽匿感染主世界，是主世界感染了幽匿（2026-11-03 改版）
 

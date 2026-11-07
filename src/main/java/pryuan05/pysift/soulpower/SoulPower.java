@@ -45,6 +45,8 @@ public final class SoulPower {
     public static final Block CHAROITE_BEAM_RECEIVER = register("charoite_beam_receiver", p -> new CharoiteBeamBlock(false, p), 3.0f);
     public static final Block CHAROITE_PRISM = register("charoite_prism", CharoitePrismBlock::new, 1.5f);
     public static final Block SOUL_VEIN_NODE = register("soul_vein_node", SoulVeinNodeBlock::new, 3.0f);
+    public static final Block SPIRIT_PUMP = register("spirit_pump", SpiritPumpBlock::new, 3.0f);
+    public static final Block SPIRIT_PIPE = register("spirit_pipe", SpiritPipeBlock::new, 1.5f);
     /** 靈脈石：靈脈節點之間的岩石慢慢長成的發光石頭（也算岩石，靈脈照樣穿過）。 */
     public static final Block SOUL_VEINED_STONE = registerStone("soul_veined_stone");
 
@@ -81,6 +83,10 @@ public final class SoulPower {
     public static final BlockEntityType<SoulVeinNodeBlockEntity> SOUL_VEIN_NODE_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_vein_node"),
             FabricBlockEntityTypeBuilder.create(SoulVeinNodeBlockEntity::new, SOUL_VEIN_NODE).build());
+
+    public static final BlockEntityType<SpiritPumpBlockEntity> SPIRIT_PUMP_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("spirit_pump"),
+            FabricBlockEntityTypeBuilder.create(SpiritPumpBlockEntity::new, SPIRIT_PUMP).build());
 
     public static final MenuType<SpiritEngineMenu> SPIRIT_ENGINE_MENU = Registry.register(BuiltInRegistries.MENU,
             PySift.id("spirit_engine"), new MenuType<>(SpiritEngineMenu::new, FeatureFlags.VANILLA_SET));

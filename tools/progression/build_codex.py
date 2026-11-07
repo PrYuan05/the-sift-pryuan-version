@@ -717,6 +717,15 @@ entry(C, "veins", "pysift:soul_vein_node", "Soul Veins", "靈脈", 0, 4, [
          "沿路的岩石會長成發光的靈脈石。"),
     recipe("crafting", "pysift:soul_vein_node")], parents=["waves"])
 
+entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
+    text(("Piping spirit liquid", "用管子送靈液"),
+         "Point the pump's nozzle at a spirit liquid pool and turn its crank: it drinks the source in front of it and sends "
+         "the liquid down Spirit Pipes to your engines, which burn it when their fuel slot is empty.\n\n"
+         "A pipe left open at one end **leaks**, and the ground below it rots into soul soil.",
+         "把泵的吸口對著靈液池、轉動側面的曲柄：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n"
+         "只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。"),
+    recipe("crafting", "pysift:spirit_pump", "pysift:spirit_pipe")], parents=["engine"])
+
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")
 C = "lore"

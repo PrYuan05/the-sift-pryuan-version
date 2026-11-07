@@ -38,6 +38,9 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
         }
     };
     private int burn;
+    /** 靈液泵經由靈液管送進來的靈液（mB）；燃料格空著時，每 1000 mB 燒一桶的時間。 */
+    private int liquid;
+    public static final int LIQUID_CAPACITY = 4000;
     private int burnMax;
     private int overload;
     private final ContainerData data = new ContainerData() {
@@ -89,7 +92,10 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
         if (engine.burn == 0) {
             ItemStack stack = engine.fuel.getItem(0);
             int time = burnTime(stack);
-            if (time > 0) {
+            if (time <= 0 && engine.liquid >= 1000) {   // piped spirit liquid
+                engine.liquid -= 1000;
+                engine.burn = engine.burnMax = burnTime(new ItemStack(ModFluids.SPIRIT_LIQUID_BUCKET));
+            } else if (time > 0) {
                 engine.burn = engine.burnMax = time;
                 engine.fuel.setItem(0, stack.is(ModFluids.SPIRIT_LIQUID_BUCKET) ? new ItemStack(Items.BUCKET) : stack.copyWithCount(stack.getCount() - 1));
             }
@@ -106,6 +112,20 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
         if (engine.isBurning() != was) {
             engine.setChanged();
         }
+    }
+
+    /** 靈液泵送來 amount mB：裝得下就收下。 */
+    public boolean acceptLiquid(int amount) {
+        if (liquid + amount > LIQUID_CAPACITY) {
+            return false;
+        }
+        liquid += amount;
+        setChanged();
+        return true;
+    }
+
+    public int liquid() {
+        return liquid;
     }
 
     public boolean isBurning() {
@@ -154,6 +174,7 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
         }
         output.putInt("Burn", burn);
         output.putInt("BurnMax", burnMax);
+        output.putInt("Liquid", liquid);
     }
 
     @Override
@@ -162,5 +183,6 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
         fuel.setItem(0, input.read("Fuel", ItemStack.CODEC).orElse(ItemStack.EMPTY));
         burn = input.getIntOr("Burn", 0);
         burnMax = input.getIntOr("BurnMax", 0);
+        liquid = input.getIntOr("Liquid", 0);
     }
 }

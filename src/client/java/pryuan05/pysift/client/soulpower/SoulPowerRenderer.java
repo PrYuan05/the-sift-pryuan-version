@@ -37,6 +37,7 @@ import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
 import pryuan05.pysift.soulpower.SoulWaveBlock;
 import pryuan05.pysift.soulpower.SpiritEngineBlock;
+import pryuan05.pysift.soulpower.SpiritPumpBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +127,12 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             add(s, Part.WAVE_RING, spin(facing, -a * 0.5f));
             float pulse = be.speed() == 0 ? 1f : 1f + 0.12f * (float) Math.sin(time * 0.35);
             add(s, Part.WAVE_CORE, spin(facing, a * 0.25f).translate(0.5f, 0.6f, 0.5f).scale(pulse).translate(-0.5f, -0.6f, -0.5f));
+        } else if (state.getBlock() instanceof SpiritPumpBlock) {
+            // 側面的曲柄輪轉動（朝上下擺時，曲柄在東側）
+            Direction facing = state.getValue(SoulMachineBlock.FACING);
+            Direction side = facing.getAxis() == Direction.Axis.Y ? Direction.EAST : facing.getClockWise();
+            add(s, Part.SHAFT, spin(positive(side.getAxis()), angle));
+            add(s, Part.FLYWHEEL, spin(side, angle * sign(side)));
         } else if (be instanceof SoulVeinNodeBlockEntity) {
             add(s, Part.WAVE_CORE, spin(Direction.UP, angle).translate(0f, -0.15f, 0f));
             add(s, Part.WAVE_RING, spin(Direction.UP, -angle * 0.5f).translate(0f, -0.2f, 0f));
