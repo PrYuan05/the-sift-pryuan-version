@@ -321,7 +321,23 @@ def drill():
     r("kill @e[type=minecraft:item]")
 
 
-parts = {"drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def shapes():
+    """Model shapes (tools/models/build_block_shapes.py): an armor stand dropped on a block rests on the model's top."""
+    clear()
+    for x, block, top in ((200, "pysift:resonance_pedestal", 0.75), (203, "pysift:soul_grinder[facing=north]", 0.875),
+                          (206, "pysift:soul_shaft[axis=x]", 0.625), (209, "pysift:spirit_engine[facing=north]", 1.0)):   # its 8x8 px footprint lands on the piston (top 16)
+        r(f"setblock {x} {Y} 240 {block}")
+        r(f"summon minecraft:armor_stand {x}.5 {Y + 2} 240.5 {{Tags:[\"shape_test\"],Invisible:0b}}")
+    time.sleep(3)
+    for x, block, top in ((200, "resonance_pedestal", 0.75), (203, "soul_grinder", 0.875), (206, "soul_shaft", 0.625),
+                          (209, "spirit_engine", 1.0)):
+        out = r(f"data get entity @e[type=minecraft:armor_stand,tag=shape_test,x={x}.5,y={Y + 1},z=240.5,distance=..2,limit=1] Pos[1]")
+        m = re.search(r"(-?[0-9.]+)d", out)
+        check(f"rests on the {block} model top", float(m.group(1)) - Y if m else None, top, tol=0.02)
+    r("kill @e[type=minecraft:armor_stand,tag=shape_test]")
+
+
+parts = {"shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

@@ -60,6 +60,9 @@
   The casings take the vanilla sculk family's shapes in our colours: claw corners like the shrieker's, ribs like the
   catalyst's, glowing pores over the plates. Gears, flywheels and crank wheels are solid siftite (pink gold). The gauge has a small dark dial with a coloured scale, and the
   Spirit Engine and Soul Grinder screens have their own painted backgrounds.
+- **Shapes follow the models**: every block with a model of its own (all soul power blocks, the Blockbench plants)
+  now has an outline, collision and occlusion that match what is drawn, generated from the models
+  (`tools/models/build_block_shapes.py` -> `assets/pysift/block_shapes.json`, applied by `ModelShapeMixin`).
 - Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
   network checks on the test server: `tools/progression/test_soul_power.py`.
 
@@ -369,6 +372,8 @@
   染色靈柳木齒輪配青銅齒、靈魂晶的光（引擎的火焰和晶核用原版的靈魂粒子圖案）。每張貼圖也附有 LabPBR 法線與高光貼圖，
   用 Iris 光影時青銅會反光、靈魂會發光。
   機殼借用原版幽匿家族的造型、配色維持原樣：尖嘯體般的爪形轉角、催化體般的骨肋、面板上發光的孔。齒輪、飛輪與曲柄輪整個改用隙浮金（粉色金礦）；靈壓計是一個小小的深色錶盤配彩色刻度；靈液引擎與研磨機的介面也改成自己畫的底圖。
+- **方塊外框跟著模型**：所有有自己模型的方塊（全部靈魂動力方塊、Blockbench 做的植物）的外框、碰撞與遮光都和看到的模型一致，
+  由模型自動產生（`tools/models/build_block_shapes.py` → `assets/pysift/block_shapes.json`，由 `ModelShapeMixin` 套用）。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
   測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
 

@@ -13,7 +13,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -22,23 +21,15 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * 共鳴台座：共鳴核心周圍的八個台座之一（核心的東南西北與四個斜角，距離 3 格，同一高度）。拿東西右鍵放一個上去，
  * 空手右鍵拿回來；放上去的東西浮在台座上慢慢轉（client/soulpower/SoulPowerRenderer）。
  */
 public class ResonancePedestalBlock extends BaseEntityBlock {
-    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 12, 14);
 
     public ResonancePedestalBlock(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
     }
 
     @Override

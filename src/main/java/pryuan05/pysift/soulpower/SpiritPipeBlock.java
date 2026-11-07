@@ -12,30 +12,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * 靈液管：自動接上相鄰的靈液管、靈液泵（背面）與靈液引擎。靈液泵把靈液沿著管子送到引擎；
  * 只接了一頭、另一頭空著的管子是<b>漏口</b>：送不出去的靈液會從那裡漏出來，弄髒地面（{@link SpiritPumpBlockEntity}）。
  */
 public class SpiritPipeBlock extends Block {
-    private static final VoxelShape CORE = Block.box(5, 5, 5, 11, 11, 11);
-    private static final VoxelShape[] ARMS = new VoxelShape[6];
-
-    static {
-        for (Direction d : Direction.values()) {
-            ARMS[d.ordinal()] = switch (d) {
-                case DOWN -> Block.box(5, 0, 5, 11, 5, 11);
-                case UP -> Block.box(5, 11, 5, 11, 16, 11);
-                case NORTH -> Block.box(5, 5, 0, 11, 11, 5);
-                case SOUTH -> Block.box(5, 5, 11, 11, 11, 16);
-                case WEST -> Block.box(0, 5, 5, 5, 11, 11);
-                case EAST -> Block.box(11, 5, 5, 16, 11, 11);
-            };
-        }
-    }
 
     public SpiritPipeBlock(Properties properties) {
         super(properties);
@@ -78,14 +60,4 @@ public class SpiritPipeBlock extends Block {
         return state.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(dir), accepts(level, neighborPos, dir));
     }
 
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        VoxelShape shape = CORE;
-        for (Direction d : Direction.values()) {
-            if (state.getValue(PipeBlock.PROPERTY_BY_DIRECTION.get(d))) {
-                shape = Shapes.or(shape, ARMS[d.ordinal()]);
-            }
-        }
-        return shape;
-    }
 }

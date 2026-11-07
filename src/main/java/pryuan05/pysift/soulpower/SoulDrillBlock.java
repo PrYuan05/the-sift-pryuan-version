@@ -9,7 +9,6 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -19,8 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * 靈魂鑽頭（Create 的 mechanical drill）：背面接傳動，正面的鑽頭旋轉著挖掉正前方的方塊，掉落物（像用鐵鎬挖的一樣）噴在原地。
@@ -29,20 +26,9 @@ import net.minecraft.world.phys.shapes.VoxelShape;
  */
 public class SoulDrillBlock extends SoulMachineBlock {
     public static final float WORK_PER_HARDNESS = 30f;
-    private final VoxelShape[] shapes = new VoxelShape[6];
 
     public SoulDrillBlock(Properties properties) {
         super(true, properties);
-        for (Direction d : Direction.values()) {
-            shapes[d.ordinal()] = switch (d) {   // the casing; the bit sticks out of the front
-                case UP -> Block.box(0, 0, 0, 16, 10, 16);
-                case DOWN -> Block.box(0, 6, 0, 16, 16, 16);
-                case NORTH -> Block.box(0, 0, 6, 16, 16, 16);
-                case SOUTH -> Block.box(0, 0, 0, 16, 16, 10);
-                case WEST -> Block.box(6, 0, 0, 16, 16, 16);
-                case EAST -> Block.box(0, 0, 0, 10, 16, 16);
-            };
-        }
     }
 
     @Override
@@ -58,11 +44,6 @@ public class SoulDrillBlock extends SoulMachineBlock {
     @Override
     public float impact(BlockState state) {
         return 2f;
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return shapes[state.getValue(FACING).ordinal()];
     }
 
     @Override

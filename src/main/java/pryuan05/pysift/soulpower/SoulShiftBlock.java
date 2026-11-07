@@ -4,15 +4,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.redstone.Orientation;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * 靈魂離合器／靈魂換向器（Create 的 clutch / gearshift）：外殼裡是兩段傳動軸。收到紅石訊號（SHIFTED）時：
@@ -55,11 +52,6 @@ public class SoulShiftBlock extends SoulShaftBlock {
     @Override
     public float transfer(BlockState state, Direction side) {
         return gearshift && state.getValue(SHIFTED) && side.getAxisDirection() == Direction.AxisDirection.POSITIVE ? -1f : 1f;
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return Block.box(1, 1, 1, 15, 15, 15);
     }
 
     @Override

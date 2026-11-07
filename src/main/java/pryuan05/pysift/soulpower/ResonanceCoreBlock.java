@@ -10,7 +10,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -20,15 +19,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
  * 共鳴核心：六面都能接傳動，每 1 RPM 吃 4 SP。拿東西右鍵放上觸媒（一個），空手右鍵拿回成品或觸媒。
  * 共鳴的規則見 {@link ResonanceCoreBlockEntity}。
  */
 public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic {
-    private static final VoxelShape SHAPE = Block.box(1, 0, 1, 15, 13, 15);
 
     public ResonanceCoreBlock(Properties properties) {
         super(properties);
@@ -53,11 +49,6 @@ public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic {
     @Override
     public float impact(BlockState state) {
         return 4f;
-    }
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
     }
 
     @Override

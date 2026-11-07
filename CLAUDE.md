@@ -43,6 +43,7 @@ Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
    - **實心方塊還要加進 `#minecraft:blocks_motion_no_leaves`**（26.3 的 heightmap 只看這個標籤）。漏掉的話，樹木、地表生成、生物生成都會把這些方塊當成空氣，例如樹會被放到世界底部然後靜默失敗。`tools/worldgen/build_vegetation.py` 會自動把所有非植物、非流體、非 slab/stairs/wall 的 pysift 方塊加進去，新增方塊後重跑一次即可。
 6. `assets/pysift/lang/` 語系檔
 7. Java 註冊（`ModBlocks.java`）
+8. 模型不是整塊方塊的話，重跑 `python -I tools/models/build_block_shapes.py .`：依模型產生 `assets/pysift/block_shapes.json`，`block/ModelShapes` 加 `mixin/ModelShapeMixin` 讓外框、碰撞與遮光都跟著模型（不必再手寫 `getShape`）
 
 ## 程式結構
 - `PySift.java`：主入口，註冊狀態效果、靈魂灼燒、方塊、流體、植被、靈柳木組、靈魂晶塊、粒子、世界生成特徵、實體、物品與傳送門儀式
