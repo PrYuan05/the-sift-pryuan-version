@@ -760,6 +760,10 @@ import music as MU  # noqa: E402  boss-fight music (tools/audio/music.py)
 MU.B = sys.modules[__name__]
 RECIPES.update(MU.RECIPES)
 EVENTS.update(MU.EVENTS)
+import machines as MA  # noqa: E402  soul power machines (tools/audio/machines.py)
+MA.B = sys.modules[__name__]
+RECIPES.update(MA.RECIPES)
+EVENTS.update(MA.EVENTS)
 
 
 def main():

@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_sifting",
+  "ingredient": "minecraft:gravel",
+  "result": {
+    "id": "minecraft:flint",
+    "count": 1
+  }
+}

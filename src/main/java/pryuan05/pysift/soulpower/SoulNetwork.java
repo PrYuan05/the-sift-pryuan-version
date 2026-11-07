@@ -8,7 +8,9 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.sounds.SoundSource;
 import pryuan05.pysift.effect.ModEffects;
+import pryuan05.pysift.sound.ModSounds;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -183,6 +185,10 @@ public final class SoulNetwork {
             hazard |= engine.countOverload(overloaded, INTERVAL) >= OVERLOAD_HAZARD_TICKS;
         }
         if ((overloaded || conflict) && capacity > 0) {
+            if (now % 40 == 0 && !members.isEmpty()) {
+                level.playSound(null, members.get(0), conflict ? ModSounds.SOUL_POWER_CONFLICT : ModSounds.SOUL_POWER_OVERLOAD,
+                        SoundSource.BLOCKS, 0.8f, 1.0f);
+            }
             for (BlockPos pos : members) {
                 level.sendParticles(conflict ? ParticleTypes.LARGE_SMOKE : ParticleTypes.SOUL_FIRE_FLAME,
                         pos.getX() + 0.5, pos.getY() + 0.8, pos.getZ() + 0.5, 2, 0.3, 0.1, 0.3, 0.01);

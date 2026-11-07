@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "facing=north,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    },
+    "facing=north,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    },
+    "facing=east,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 90
+    },
+    "facing=south,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 180
+    },
+    "facing=west,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter",
+      "y": 270
+    },
+    "facing=up,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    },
+    "facing=up,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    },
+    "facing=down,powered=false": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    },
+    "facing=down,powered=true": {
+      "model": "pysift:block/soul_sifter/soul_sifter"
+    }
+  }
+}

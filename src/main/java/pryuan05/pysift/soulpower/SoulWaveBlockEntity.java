@@ -99,6 +99,9 @@ public class SoulWaveBlockEntity extends KineticBlockEntity {
             return;
         }
         Vec3 a = Vec3.atCenterOf(pos);
+        if (!wave.links.isEmpty() && (now + pos.hashCode()) % 40 == 0) {
+            level.playSound(null, pos, pryuan05.pysift.sound.ModSounds.SOUL_WAVE_PULSE, net.minecraft.sounds.SoundSource.BLOCKS, 0.45f, 1.0f);
+        }
         for (BlockPos link : wave.links) {
             Vec3 b = Vec3.atCenterOf(link);
             int period = Math.max(10, (int) (a.distanceTo(b) * 2));       // ~ 1 block per 2 ticks

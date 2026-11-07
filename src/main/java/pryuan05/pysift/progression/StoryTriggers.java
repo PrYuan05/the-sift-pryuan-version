@@ -35,6 +35,11 @@ public final class StoryTriggers {
         nearby(level, at, "rot_stilled");
     }
 
+    /** 靈魂淨化篩第一次把藍色幽匿篩回赤紅幽匿。 */
+    public static void sifted(ServerLevel level, Vec3 at) {
+        nearby(level, at, "sifted");
+    }
+
     private static void nearby(ServerLevel level, Vec3 at, String name) {
         for (ServerPlayer p : level.getEntitiesOfClass(ServerPlayer.class, new AABB(at, at).inflate(32.0))) {
             award(p, name);

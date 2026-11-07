@@ -37,6 +37,7 @@ BLOCKS = {
     "soul_wave_emitter": ("Soul Wave Emitter", "靈魂振波發送器", False),
     "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", False),
     "soul_grinder": ("Soul Grinder", "靈魂研磨機", True),
+    "soul_sifter": ("Soul Sifter", "靈魂淨化篩", False),
 }
 
 # ------------------------------------------------------------------ textures
@@ -178,7 +179,12 @@ PARTS = {
     "needle": [Box([7.6, 15.2, 4], [8.4, 15.45, 8.4], "minecraft:block/redstone_block"),
                Box([7.3, 15.2, 7.3], [8.7, 15.55, 8.7], "minecraft:block/gold_block")],
     # placeholders for the next machines
-    "sieve": [Box([1, 11, 1], [15, 12, 15], "minecraft:block/scaffolding_top")],
+    # the sieve of the soul sifter (sifter faces north; the renderer shakes it along the facing axis)
+    "sieve": [Box([3, 9.4, 3], [10, 9.8, 13], {"up": "minecraft:block/crafting_table_top", "down": "minecraft:block/crafting_table_top",
+                                                 **{f: LOG for f in ("north", "south", "east", "west")}}),
+              Box([2.5, 9, 2.5], [10.5, 10.6, 3], LOG), Box([2.5, 9, 13], [10.5, 10.6, 13.5], LOG),
+              Box([2.5, 9, 3], [3, 10.6, 13], LOG), Box([10, 9, 3], [10.5, 10.6, 13], LOG),
+              Box([10.5, 9.5, 7.5], [13.5, 10.1, 8.5], CUT_COPPER)],   # the rod to the crank
     "lens": octagon([5, 6, 5], [11, 10, 11], "minecraft:block/amethyst_block"),
 }
 
@@ -216,6 +222,12 @@ def engine(powered):
             Box([13, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
 
 
+RED_SCULK = "pysift:block/red_sculk/red_sculk"
+SIFTER = [Box([1, 0, 1], [12, 3, 15], {**{f: CUT_COPPER for f in ("north", "south", "east", "west")}, "up": RED_SCULK, "down": DEEP}),
+          Box([1, 3, 1], [2.5, 13, 2.5], LOG), Box([10.5, 3, 1], [12, 13, 2.5], LOG),
+          Box([1, 3, 13.5], [2.5, 13, 15], LOG), Box([10.5, 3, 13.5], [12, 13, 15], LOG),
+          Box([1, 12, 1], [12, 13, 2.5], PATINA), Box([1, 12, 13.5], [12, 13, 15], PATINA),
+          Box([12, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
 GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
            Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
            Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
@@ -228,7 +240,7 @@ GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", 
 
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
-    "soul_grinder": GRINDER, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "soul_grinder": GRINDER, "soul_sifter": SIFTER, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -258,6 +270,7 @@ def states(name, rots, prop, powered_model=None):
 
 states("spirit_engine", YROT, "facing", "pysift:block/spirit_engine/spirit_engine_on")
 states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
+states("soul_sifter", {**YROT, "up": {}, "down": {}}, "facing")
 states("soul_wave_emitter", UPROT, "facing")
 states("soul_wave_receiver", UPROT, "facing")
 states("soul_gauge", AXIS, "axis")
@@ -270,6 +283,7 @@ SHAFT_X = [b.turned_east() for b in SHAFT[:1]]
 ITEMS = {
     "spirit_engine": engine(False) + FLYWHEEL_EAST + SHAFT_X + PARTS["piston"],
     "soul_grinder": GRINDER + PARTS["millstone"],
+    "soul_sifter": SIFTER + PARTS["sieve"] + FLYWHEEL_EAST,
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_gauge": GAUGE + SHAFT[:1] + PARTS["dial"] + PARTS["needle"],
@@ -303,20 +317,23 @@ tag("minecraft/tags/block/blocks_motion_no_leaves.json", [f"pysift:{n}" for n, v
 
 # ------------------------------------------------------------------ recipes
 SHAPED = {
-    "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:siftite_ingot",
+    "patina_gear": ([" I ", "IEI", " I "], {"I": "pysift:patina_ingot", "E": "pysift:soul_essence"}, 2),
+    "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:patina_gear",
                                               "B": "minecraft:blast_furnace", "E": "pysift:soul_essence"}, 1),
-    "soul_shaft": (["I", "S", "I"], {"I": "pysift:siftite_ingot", "S": "pysift:stripped_soul_willow_log"}, 8),
+    "soul_shaft": (["I", "S", "I"], {"I": "pysift:patina_ingot", "S": "pysift:stripped_soul_willow_log"}, 8),
     "soul_cogwheel": ([" P ", "PSP", " P "], {"P": "pysift:soul_willow_planks", "S": "pysift:soul_shaft"}, 1),
     "large_soul_cogwheel": (["PCP"], {"P": "pysift:soul_willow_planks", "C": "pysift:soul_cogwheel"}, 1),
-    "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_shaft", "C": "minecraft:copper_ingot"}, 1),
+    "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_shaft", "C": "pysift:patina_ingot"}, 1),
     "soul_wave_emitter": (["PAP", "ESE", "PIP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                   "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                  "I": "pysift:siftite_ingot"}, 1),
+                                                  "I": "pysift:patina_gear"}, 1),
     "soul_wave_receiver": (["PIP", "ESE", "PAP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                    "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                   "I": "pysift:siftite_ingot"}, 1),
+                                                   "I": "pysift:patina_gear"}, 1),
+    "soul_sifter": (["LCL", "GSG", "LTL"], {"L": "pysift:stripped_soul_willow_log", "C": "minecraft:crafting_table",
+                                            "G": "pysift:patina_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
     "soul_grinder": (["PSP", "IGI", "PEP"], {"P": "minecraft:polished_deepslate", "S": "minecraft:stonecutter",
-                                             "I": "pysift:siftite_ingot", "G": "minecraft:grindstone",
+                                             "I": "pysift:patina_gear", "G": "minecraft:grindstone",
                                              "E": "pysift:soul_essence"}, 1),
 }
 for name, (pattern, key, count) in SHAPED.items():
@@ -335,6 +352,24 @@ GRINDING = {
     "bone": ("minecraft:bone", "minecraft:bone_meal", 6),
     "soul_soil": ("minecraft:soul_soil", "minecraft:soul_sand", 1),
 }
+# soul sifting: rotten (blue) sculk back to red; a few sifting classics
+SIFTING = {
+    "sculk": ("minecraft:sculk", "pysift:red_sculk", 1),
+    "sculk_vein": ("minecraft:sculk_vein", "pysift:red_sculk_vein", 1),
+    "gravel": ("minecraft:gravel", "minecraft:flint", 1),
+    "soul_sand": ("minecraft:soul_sand", "minecraft:soul_soil", 1),
+    "sand": ("#minecraft:sand", "minecraft:clay_ball", 1),
+}
+for name, (ingredient, item, count) in SIFTING.items():
+    wj(D / f"pysift/recipe/soul_sifting/{name}.json",
+       {"type": "pysift:soul_sifting", "ingredient": ingredient, "result": {"id": item, "count": count}})
+wj(D / "pysift/advancement/story/sifted.json", {
+    "parent": "pysift:story/warden_soothed",
+    "criteria": {"done": {"trigger": "minecraft:impossible"}},
+    "display": {"icon": {"id": "pysift:soul_sifter"}, "title": {"translate": "advancements.pysift.story.sifted.title"},
+                "description": {"translate": "advancements.pysift.story.sifted.description"},
+                "frame": "goal", "show_toast": True, "announce_to_chat": True, "hidden": False},
+    "rewards": {"experience": 100}})
 for name, (ingredient, item, count) in GRINDING.items():
     wj(D / f"pysift/recipe/soul_grinding/{name}.json",
        {"type": "pysift:soul_grinding", "ingredient": ingredient, "result": {"id": item, "count": count}})
@@ -388,10 +423,59 @@ def dial():
 
 art_guard.save(dial(), A / "textures/block/soul_gauge/soul_gauge_dial.png")
 
+
+def patina_gear():
+    """16x16 item: an 8-tooth patina gear in the patina ingot's palette. Hand-made mask; lit from the top left,
+    sel-out outline (lighter on the lit side), shaded rim around the hole."""
+    mask = ["................",
+            "......XXXX......",
+            "..XX.XXXXXX.XX..",
+            "..XXXXXXXXXXXX..",
+            "...XXXXXXXXXX...",
+            "..XXXXXXXXXXXX..",
+            ".XXXXXX..XXXXXX.",
+            ".XXXXX....XXXXX.",
+            ".XXXXX....XXXXX.",
+            ".XXXXXX..XXXXXX.",
+            "..XXXXXXXXXXXX..",
+            "...XXXXXXXXXX...",
+            "..XXXXXXXXXXXX..",
+            "..XX.XXXXXX.XX..",
+            "......XXXX......",
+            "................"]
+    pal = [(29, 59, 71), (40, 88, 95), (54, 118, 116), (71, 145, 133), (100, 171, 149), (148, 201, 166), (198, 226, 182)]
+    on = lambda u, v: 0 <= u < 16 and 0 <= v < 16 and mask[v][u] == "X"
+    im = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    for v in range(16):
+        for u in range(16):
+            if not on(u, v):
+                continue
+            dx, dy = u - 7.5, v - 7.5
+            r = math.hypot(dx, dy)
+            light = -(dx + dy)
+            outer = [(du, dv) for du, dv in ((1, 0), (-1, 0), (0, 1), (0, -1)) if not on(u + du, v + dv)]
+            if outer and r > 3:
+                idx = 1 if light > 0 else 0
+            elif outer:   # rim of the hole: the side facing the light is in shadow, the far side catches it
+                idx = 1 if light > 0 else 4
+            else:
+                idx = 5 if light > 6 else 4 if light > 2 else 2 if light < -3 else 3
+            im.putpixel((u, v), (*pal[idx], 255))
+    return im
+
+
+art_guard.save(patina_gear(), A / "textures/item/patina_gear.png")
+wj(A / "models/item/patina_gear.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/patina_gear"}})
+wj(A / "items/patina_gear.json", {"model": {"type": "minecraft:model", "model": "pysift:item/patina_gear"}})
+
 # ------------------------------------------------------------------ lang (merge, keep line endings)
 LANG = {f"block.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()}
 # 26.3 block items read item.pysift.<id> (the registration may not use the block key)
 LANG.update({f"item.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()})
+LANG["item.pysift.patina_gear"] = ("Patina Gear", "銅綠齒輪")
+LANG["advancements.pysift.story.sifted.title"] = ("Sifted Back to Red", "篩回赤紅")
+LANG["advancements.pysift.story.sifted.description"] = ("Let a Soul Sifter turn rotten blue sculk back into red sculk",
+                                                       "讓靈魂淨化篩把腐爛的藍色幽匿篩回赤紅幽匿")
 LANG.update({
     "block.pysift.soul_power_part": ("Soul Power Part", "靈魂動力部件"),
     "gui.pysift.soul_power.speed": ("Speed: %s RPM", "轉速：%s RPM"),

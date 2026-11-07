@@ -1,0 +1,26 @@
+{
+  "parent": "pysift:story/warden_soothed",
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:soul_sifter"
+    },
+    "title": {
+      "translate": "advancements.pysift.story.sifted.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.story.sifted.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

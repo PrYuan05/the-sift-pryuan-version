@@ -2394,5 +2394,74 @@
         "stream": true
       }
     ]
+  },
+  "block.spirit_engine.chug": {
+    "subtitle": "subtitles.pysift.block.spirit_engine.chug",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/chug1"
+      },
+      {
+        "name": "pysift:block/soul_power/chug2"
+      },
+      {
+        "name": "pysift:block/soul_power/chug3"
+      }
+    ]
+  },
+  "block.soul_grinder.grind": {
+    "subtitle": "subtitles.pysift.block.soul_grinder.grind",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/grind1"
+      },
+      {
+        "name": "pysift:block/soul_power/grind2"
+      },
+      {
+        "name": "pysift:block/soul_power/grind3"
+      }
+    ]
+  },
+  "block.soul_wave.pulse": {
+    "subtitle": "subtitles.pysift.block.soul_wave.pulse",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/pulse1"
+      },
+      {
+        "name": "pysift:block/soul_power/pulse2"
+      }
+    ]
+  },
+  "block.soul_power.overload": {
+    "subtitle": "subtitles.pysift.block.soul_power.overload",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/overload1"
+      },
+      {
+        "name": "pysift:block/soul_power/overload2"
+      }
+    ]
+  },
+  "block.soul_power.conflict": {
+    "subtitle": "subtitles.pysift.block.soul_power.conflict",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/conflict1"
+      }
+    ]
+  },
+  "block.soul_sifter.sift": {
+    "subtitle": "subtitles.pysift.block.soul_sifter.sift",
+    "sounds": [
+      {
+        "name": "pysift:block/soul_power/sift1"
+      },
+      {
+        "name": "pysift:block/soul_power/sift2"
+      }
+    ]
   }
 }

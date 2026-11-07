@@ -40,8 +40,14 @@ public final class SoulPower {
     public static final Block SOUL_WAVE_EMITTER = register("soul_wave_emitter", p -> new SoulWaveBlock(true, p), 3.0f);
     public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
+    public static final Block SOUL_SIFTER = register("soul_sifter", SoulSifterBlock::new, 3.0f);
 
     /** 傳動軸與齒輪：只記轉速，讓用戶端畫出轉動。 */
+    /** 銅綠齒輪：靈魂動力機器的零件（4 銅綠錠＋靈魂精華 → 2 個），讓銅綠錠有用途。 */
+    private static final ResourceKey<Item> PATINA_GEAR_KEY = ResourceKey.create(Registries.ITEM, PySift.id("patina_gear"));
+    public static final Item PATINA_GEAR = Registry.register(BuiltInRegistries.ITEM, PATINA_GEAR_KEY,
+            new Item(new Item.Properties().setId(PATINA_GEAR_KEY)));
+
     public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
             FabricBlockEntityTypeBuilder.<KineticBlockEntity>create(KineticBlockEntity::new, SOUL_SHAFT, SOUL_COGWHEEL, LARGE_SOUL_COGWHEEL).build());
@@ -58,6 +64,10 @@ public final class SoulPower {
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_grinder"),
             FabricBlockEntityTypeBuilder.create(SoulGrinderBlockEntity::new, SOUL_GRINDER).build());
 
+    public static final BlockEntityType<SoulSifterBlockEntity> SOUL_SIFTER_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_sifter"),
+            FabricBlockEntityTypeBuilder.create(SoulSifterBlockEntity::new, SOUL_SIFTER).build());
+
     public static final MenuType<SpiritEngineMenu> SPIRIT_ENGINE_MENU = Registry.register(BuiltInRegistries.MENU,
             PySift.id("spirit_engine"), new MenuType<>(SpiritEngineMenu::new, FeatureFlags.VANILLA_SET));
     public static final MenuType<SoulGrinderMenu> SOUL_GRINDER_MENU = Registry.register(BuiltInRegistries.MENU,
@@ -68,6 +78,14 @@ public final class SoulPower {
                 @Override
                 public String toString() {
                     return "pysift:soul_grinding";
+                }
+            });
+
+    public static final RecipeType<SoulSiftingRecipe> SOUL_SIFTING = Registry.register(BuiltInRegistries.RECIPE_TYPE,
+            PySift.id("soul_sifting"), new RecipeType<>() {
+                @Override
+                public String toString() {
+                    return "pysift:soul_sifting";
                 }
             });
 
@@ -88,7 +106,9 @@ public final class SoulPower {
     public static void register() {
         SoulParts.init();
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("soul_grinding"), SoulGrindingRecipe.SERIALIZER);
+        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("soul_sifting"), SoulSiftingRecipe.SERIALIZER);
         SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> BLOCKS.forEach(output::accept));
+        SiftCreativeTabs.source(ModItems.ITEMS_TAB_KEY, output -> output.accept(PATINA_GEAR));
         PySift.LOGGER.info("Registered {} soul power blocks", BLOCKS.size());
     }
 }

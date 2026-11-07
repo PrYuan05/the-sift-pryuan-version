@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "L": "pysift:stripped_soul_willow_log",
+    "C": "minecraft:crafting_table",
+    "G": "pysift:patina_gear",
+    "S": "pysift:soul_crystal_block",
+    "T": "minecraft:hopper"
+  },
+  "pattern": [
+    "LCL",
+    "GSG",
+    "LTL"
+  ],
+  "result": {
+    "id": "pysift:soul_sifter"
+  }
+}

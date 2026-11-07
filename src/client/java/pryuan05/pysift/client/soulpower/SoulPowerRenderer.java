@@ -29,6 +29,7 @@ import pryuan05.pysift.soulpower.SoulMachineBlock;
 import pryuan05.pysift.soulpower.SoulParts;
 import pryuan05.pysift.soulpower.SoulParts.Part;
 import pryuan05.pysift.soulpower.SoulShaftBlock;
+import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulWaveBlock;
 import pryuan05.pysift.soulpower.SpiritEngineBlock;
 
@@ -119,6 +120,19 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             add(s, Part.WAVE_RING, spin(facing, -a * 0.5f));
             float pulse = be.speed() == 0 ? 1f : 1f + 0.12f * (float) Math.sin(time * 0.35);
             add(s, Part.WAVE_CORE, spin(facing, a * 0.25f).translate(0.5f, 0.6f, 0.5f).scale(pulse).translate(-0.5f, -0.6f, -0.5f));
+        } else if (be instanceof SoulSifterBlockEntity sifter) {
+            // 曲柄輪在右手邊轉，篩網沿著朝向前後搖晃（每圈兩下），正在篩的東西躺在篩網上一起晃
+            Direction facing = state.getValue(SoulMachineBlock.FACING);
+            Direction side = facing.getClockWise();
+            add(s, Part.SHAFT, spin(positive(side.getAxis()), angle));
+            add(s, Part.FLYWHEEL, spin(side, angle * sign(side)));
+            float shake = (float) Math.sin(Mth.DEG_TO_RAD * angle * 2f) * 0.055f;
+            add(s, Part.SIEVE, yaw(facing).translate(0f, 0f, shake));
+            ItemStack input = sifter.input();
+            if (!input.isEmpty()) {
+                itemModels.updateForTopItem(s.item, input, ItemDisplayContext.FIXED, be.getLevel(), null, (int) pos.asLong());
+                s.itemPose = yaw(facing).translate(6.5f / 16f, 10.1f / 16f, 0.5f + shake).rotateX(Mth.HALF_PI).scale(0.35f);
+            }
         } else if (be instanceof SoulGrinderBlockEntity grinder) {
             add(s, Part.MILLSTONE, spin(Direction.UP, angle));
             ItemStack input = grinder.input();

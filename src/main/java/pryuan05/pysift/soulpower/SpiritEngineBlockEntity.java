@@ -95,6 +95,11 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
             }
         }
         long now = level.getGameTime();
+        // 每一次活塞行程（32 RPM ≈ 每 38 tick 轉一圈）噗一聲
+        if (engine.speed != 0 && (now + pos.hashCode()) % Math.max(8, Math.round(1200f / Math.abs(engine.speed) / 1.0f)) == 0) {
+            level.playSound(null, pos, pryuan05.pysift.sound.ModSounds.SPIRIT_ENGINE_CHUG, net.minecraft.sounds.SoundSource.BLOCKS,
+                    0.55f, 0.9f + level.getRandom().nextFloat() * 0.15f);
+        }
         if (engine.isBurning() != was || (now % SoulNetwork.INTERVAL == 0 && engine.network.time() != now)) {
             SoulNetwork.update((ServerLevel) level, pos);
         }

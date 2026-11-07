@@ -115,7 +115,30 @@ def wave():
     check("wool cuts the wave", num(211, Y, 210, "Speed"), 0)
 
 
-parts = {"gears": gears, "conflict": conflict, "overload": overload, "wave": wave}
+def sifter():
+    clear()
+    r(f"fill 194 {Y - 1} 194 206 {Y - 1} 206 minecraft:sculk")       # rotten floor around the sifter
+    r(f"setblock 200 {Y} 200 pysift:soul_sifter[facing=north]")
+    r(f"setblock 201 {Y} 200 pysift:spirit_engine[facing=north]{FUEL}")   # on the crank side (east)
+    r(f'data modify block 200 {Y} 200 Slot0 set value {{id:"minecraft:sculk",count:2}}')
+    settle(1)
+    check("sifter turns", abs(num(200, Y, 200, "Speed") or 0), 32)
+    check("load 96/256", num(200, Y, 200, "Load"), 0.375)
+    time.sleep(9)
+    healed = r("data get block 200 %d 200 Slot1" % Y)
+    print(("PASS" if "red_sculk" in healed else "FAIL"), "sifted sculk -> red sculk:", healed)
+    if "red_sculk" not in healed:
+        fails.append("sifting recipe")
+    # count red sculk in the floor: clone the layer onto itself, keeping only red sculk
+    cnt = r(f"clone 194 {Y - 1} 194 206 {Y - 1} 206 194 {Y - 1} 194 filtered pysift:red_sculk force")
+    m = re.search(r"(\d+) block", cnt)
+    ok = bool(m) and int(m.group(1)) >= 2
+    print(("PASS" if ok else "FAIL"), "the floor around it is purified:", cnt)
+    if not ok:
+        fails.append("purify floor")
+
+
+parts = {"gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

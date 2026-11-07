@@ -2331,5 +2331,16 @@
   "item.pysift.soul_gauge": "靈壓計",
   "item.pysift.soul_wave_emitter": "靈魂振波發送器",
   "item.pysift.soul_wave_receiver": "靈魂振波接收器",
-  "item.pysift.soul_grinder": "靈魂研磨機"
+  "item.pysift.soul_grinder": "靈魂研磨機",
+  "item.pysift.patina_gear": "銅綠齒輪",
+  "subtitles.pysift.block.spirit_engine.chug": "靈液引擎運轉",
+  "subtitles.pysift.block.soul_grinder.grind": "靈魂研磨機研磨",
+  "subtitles.pysift.block.soul_wave.pulse": "靈魂振波發送",
+  "subtitles.pysift.block.soul_power.overload": "靈魂機械過載",
+  "subtitles.pysift.block.soul_power.conflict": "齒輪互相卡住",
+  "block.pysift.soul_sifter": "靈魂淨化篩",
+  "item.pysift.soul_sifter": "靈魂淨化篩",
+  "advancements.pysift.story.sifted.title": "篩回赤紅",
+  "advancements.pysift.story.sifted.description": "讓靈魂淨化篩把腐爛的藍色幽匿篩回赤紅幽匿",
+  "subtitles.pysift.block.soul_sifter.sift": "靈魂淨化篩沙沙作響"
 }

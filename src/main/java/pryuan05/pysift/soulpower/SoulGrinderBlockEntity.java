@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -65,7 +64,26 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
     };
 
     public SoulGrinderBlockEntity(BlockPos pos, BlockState state) {
-        super(SoulPower.SOUL_GRINDER_ENTITY, pos, state);
+        this(SoulPower.SOUL_GRINDER_ENTITY, pos, state);
+    }
+
+    protected SoulGrinderBlockEntity(net.minecraft.world.level.block.entity.BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
+    }
+
+    /** 這台機器的配方（研磨機：pysift:soul_grinding；淨化篩改成 pysift:soul_sifting）。 */
+    protected Optional<ItemStack> result(ServerLevel level, SingleRecipeInput input) {
+        return level.getServer().getRecipeManager().getRecipeFor(SoulPower.SOUL_GRINDING, input, level)
+                .map(r -> r.value().assemble(input));
+    }
+
+    /** 轉動時每 tick 呼叫一次（淨化篩在這裡淨化周圍的幽匿）。 */
+    protected void worldWork(ServerLevel level, BlockPos pos, long now) {
+    }
+
+    /** 加工時的聲音。 */
+    protected net.minecraft.sounds.SoundEvent workSound() {
+        return pryuan05.pysift.sound.ModSounds.SOUL_GRINDER_GRIND;
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulGrinderBlockEntity grinder) {
@@ -75,23 +93,28 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
             grinder.network = SoulNetwork.Result.IDLE;
             SoulNetwork.update(server, pos);
         }
+        if (grinder.speed != 0) {
+            grinder.worldWork(server, pos, now);
+        }
         ItemStack input = grinder.items.getItem(0);
         if (grinder.speed == 0 || input.isEmpty()) {
             grinder.progress = 0;
             return;
         }
-        SingleRecipeInput recipeInput = new SingleRecipeInput(input);
-        Optional<RecipeHolder<SoulGrindingRecipe>> recipe = server.getServer().getRecipeManager()
-                .getRecipeFor(SoulPower.SOUL_GRINDING, recipeInput, level);
+        Optional<ItemStack> recipe = grinder.result(server, new SingleRecipeInput(input));
         if (recipe.isEmpty()) {
             grinder.progress = 0;
             return;
         }
-        ItemStack result = recipe.get().value().assemble(recipeInput);
+        ItemStack result = recipe.get();
         if (!grinder.fits(1, result)) {
             return;
         }
         grinder.progress += Math.abs(grinder.speed) / SoulNetwork.SPEED;
+        if ((now + pos.hashCode()) % 18 == 0) {
+            level.playSound(null, pos, grinder.workSound(), net.minecraft.sounds.SoundSource.BLOCKS,
+                    0.5f, 0.85f + Math.abs(grinder.speed) / SoulNetwork.SPEED * 0.15f);
+        }
         if (now % 4 == 0) {   // 碎屑
             server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM,
                             net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(input)),
@@ -132,7 +155,7 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("block.pysift.soul_grinder");
+        return Component.translatable(getBlockState().getBlock().getDescriptionId());
     }
 
     @Override

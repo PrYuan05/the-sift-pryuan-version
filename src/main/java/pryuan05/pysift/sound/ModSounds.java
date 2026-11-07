@@ -114,6 +114,13 @@ public class ModSounds {
             "sculk_monstrosity");
     private static final Map<String, SoundEvent> VOICES = new HashMap<>();
     // Boss 戰音樂（tools/audio/music.py；client/BossMusic 在 Boss 附近播放）
+    // 靈魂動力機器（tools/audio/machines.py）
+    public static final SoundEvent SPIRIT_ENGINE_CHUG = register("block.spirit_engine.chug");
+    public static final SoundEvent SOUL_GRINDER_GRIND = register("block.soul_grinder.grind");
+    public static final SoundEvent SOUL_SIFTER_SIFT = register("block.soul_sifter.sift");
+    public static final SoundEvent SOUL_WAVE_PULSE = register("block.soul_wave.pulse");
+    public static final SoundEvent SOUL_POWER_OVERLOAD = register("block.soul_power.overload");
+    public static final SoundEvent SOUL_POWER_CONFLICT = register("block.soul_power.conflict");
     public static final SoundEvent MUSIC_BOSS_HARMONIZER = register("music.boss.harmonizer");
     public static final SoundEvent MUSIC_BOSS_MONARCH = register("music.boss.monarch");
     public static final SoundEvent MUSIC_BOSS_SCULK_MONSTROSITY = register("music.boss.sculk_monstrosity");

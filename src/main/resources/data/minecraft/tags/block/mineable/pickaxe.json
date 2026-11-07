@@ -495,6 +495,7 @@
     "pysift:echo_cradle",
     "pysift:soul_cogwheel",
     "pysift:large_soul_cogwheel",
-    "pysift:soul_gauge"
+    "pysift:soul_gauge",
+    "pysift:soul_sifter"
   ]
 }

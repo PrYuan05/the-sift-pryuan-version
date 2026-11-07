@@ -17,6 +17,13 @@
   piston pumps, the millstone turns with the item being ground lying on it and throws its crumbs, the wave dishes and
   rings spin and the soul crystal pulses. Overloaded machines shake; after 5 seconds of overload, creatures nearby lose
   their souls (soul deprivation).
+- **Soul Sifter** (the story's "sift the rot back to red"): its crank wheel turns and shakes a sieve. While it runs it
+  slowly turns rotten blue sculk within 8 blocks back into red sculk (advancement **Sifted Back to Red**), and it
+  sifts what you put on the sieve: sculk → red sculk, sculk vein → red sculk vein, gravel → flint, sand → clay,
+  soul sand → soul soil.
+- **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
+- Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
+  overloads and speed conflicts groan and screech.
 - Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
   network checks on the test server: `tools/progression/test_soul_power.py`.
 
@@ -301,6 +308,10 @@
 - **靈壓計**：四面錶盤，指針擺到目前的負載；右鍵顯示轉速與負載，比較器讀得到負載（0～15）。
 - **全部會動**：傳動軸與齒輪會轉（齒卡在齒縫裡），引擎的飛輪轉、活塞上下，石磨轉動、正在磨的東西躺在上面一起轉並噴出碎屑，
   振波的天線碟與外環旋轉、靈魂晶核脈動。過載的機器會抖動；過載 5 秒後，附近的生物會被奪走靈魂（靈魂剝奪）。
+- **靈魂淨化篩**（故事裡的「把腐爛篩回赤紅」）：曲柄輪轉動、帶著篩網搖晃。運轉時會慢慢把 8 格內腐爛的藍色幽匿變回赤紅幽匿
+  （成就「篩回赤紅」），篩網上的東西也會被篩：幽匿 → 赤紅幽匿、幽匿脈 → 赤紅幽匿脈、礫石 → 燧石、沙 → 黏土球、靈魂沙 → 靈魂土。
+- **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
+- 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
   測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
 

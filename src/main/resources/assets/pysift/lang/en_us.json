@@ -2331,5 +2331,16 @@
   "item.pysift.soul_gauge": "Soul Gauge",
   "item.pysift.soul_wave_emitter": "Soul Wave Emitter",
   "item.pysift.soul_wave_receiver": "Soul Wave Receiver",
-  "item.pysift.soul_grinder": "Soul Grinder"
+  "item.pysift.soul_grinder": "Soul Grinder",
+  "item.pysift.patina_gear": "Patina Gear",
+  "subtitles.pysift.block.spirit_engine.chug": "Spirit Engine chugs",
+  "subtitles.pysift.block.soul_grinder.grind": "Soul Grinder grinds",
+  "subtitles.pysift.block.soul_wave.pulse": "Soul wave sent",
+  "subtitles.pysift.block.soul_power.overload": "Soul machines strain",
+  "subtitles.pysift.block.soul_power.conflict": "Gears grind",
+  "block.pysift.soul_sifter": "Soul Sifter",
+  "item.pysift.soul_sifter": "Soul Sifter",
+  "advancements.pysift.story.sifted.title": "Sifted Back to Red",
+  "advancements.pysift.story.sifted.description": "Let a Soul Sifter turn rotten blue sculk back into red sculk",
+  "subtitles.pysift.block.soul_sifter.sift": "Soul Sifter rattles"
 }

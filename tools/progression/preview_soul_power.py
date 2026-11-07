@@ -54,12 +54,12 @@ def model(ref):
 
 # ------------------------------------------------------------------ items
 names = ["spirit_engine", "soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "soul_gauge", "soul_grinder",
-         "soul_wave_emitter", "soul_wave_receiver"]
+         "soul_wave_emitter", "soul_wave_receiver", "soul_sifter"]
 tiles = []
 for n in names:
     el, tx = model(f"pysift:item/{n}")
     tiles.append(V.render(el, tx, None, size=160, yaw=35, pitch=-28))
-sheet = Image.new("RGBA", (160 * 4, 160 * 2), (40, 44, 52, 255))
+sheet = Image.new("RGBA", (160 * 4, 160 * 3), (40, 44, 52, 255))
 for i, im in enumerate(tiles):
     sheet.alpha_composite(im, ((i % 4) * 160, (i // 4) * 160))
 sheet.save(OUT / "items.png")
