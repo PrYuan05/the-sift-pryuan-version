@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "axis=y,powered=false,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch"
+    },
+    "axis=y,powered=false,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on"
+    },
+    "axis=y,powered=true,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch"
+    },
+    "axis=y,powered=true,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on"
+    },
+    "axis=x,powered=false,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,powered=false,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,powered=true,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,powered=true,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z,powered=false,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch",
+      "x": 90
+    },
+    "axis=z,powered=false,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on",
+      "x": 90
+    },
+    "axis=z,powered=true,shifted=false": {
+      "model": "pysift:block/soul_clutch/soul_clutch",
+      "x": 90
+    },
+    "axis=z,powered=true,shifted=true": {
+      "model": "pysift:block/soul_clutch/soul_clutch_on",
+      "x": 90
+    }
+  }
+}

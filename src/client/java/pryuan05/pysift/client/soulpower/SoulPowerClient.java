@@ -39,6 +39,8 @@ public final class SoulPowerClient {
         animate(SoulPower.CHAROITE_BEAM_ENTITY);
         animate(SoulPower.SOUL_VEIN_NODE_ENTITY);
         animate(SoulPower.SPIRIT_PUMP_ENTITY);
+        animate(SoulPower.SOUL_HAND_CRANK_ENTITY);
+        animate(SoulPower.SOUL_FAN_ENTITY);
     }
 
     private static <E extends pryuan05.pysift.soulpower.KineticBlockEntity> void animate(net.minecraft.world.level.block.entity.BlockEntityType<E> type) {

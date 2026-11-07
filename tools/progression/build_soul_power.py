@@ -44,6 +44,10 @@ BLOCKS = {
     "soul_vein_node": ("Soul Vein Node", "靈脈節點", False),
     "spirit_pump": ("Spirit Pump", "靈液泵", False),
     "spirit_pipe": ("Spirit Pipe", "靈液管", False),
+    "soul_hand_crank": ("Soul Hand Crank", "靈魂手搖曲柄", False),
+    "soul_clutch": ("Soul Clutch", "靈魂離合器", False),
+    "soul_gearshift": ("Soul Gearshift", "靈魂換向器", False),
+    "soul_fan": ("Soul Fan", "靈魂風扇", False),
     "soul_veined_stone": ("Soul-Veined Stone", "靈脈石", True),
 }
 
@@ -193,6 +197,15 @@ PARTS = {
               Box([2.5, 9, 3], [3, 10.6, 13], LOG), Box([10, 9, 3], [10.5, 10.6, 13], LOG),
               Box([10.5, 9.5, 7.5], [13.5, 10.1, 8.5], CUT_COPPER)],   # the rod to the crank
     # the turning lens of the charoite beam blocks (modelled facing up, on top of the housing)
+    # hand crank (facing up from the face it is mounted on): hub, arm and a wooden grip
+    "crank": [Box([6, 1.5, 6], [10, 4.5, 10], CUT_COPPER), Box([7, 3, 7], [9, 4.5, 14], LOG),
+              Box([6.5, 4.5, 12], [9.5, 9, 15], {**{f: LOG for f in ("north", "south", "east", "west")}, "up": LOG_TOP, "down": LOG_TOP})],
+    # one half of a split shaft (the +Y half; the renderer turns it to either end)
+    "half_shaft": [Box([6, 8, 6], [10, 16, 10], {"north": LOG, "south": LOG, "east": LOG, "west": LOG, "up": LOG_TOP, "down": PATINA}),
+                   Box([5.9, 9, 7], [6.1, 15, 9], CRYSTAL, faces=("west",))],
+    # fan: hub and four blades (facing up)
+    "fan": [Box([6, 9, 6], [10, 13, 10], CUT_COPPER)] + bars(6.5, 1.5, 10.5, 11.5, COPPER, [("x", 0), ("z", 0)])
+           + bars(6, 1, 10.7, 11.3, PATINA, [("x", 45), ("z", 45)]),
     "lens": octagon([5, 10, 5], [11, 12.5, 11], "minecraft:block/amethyst_block") + ring(5, 4, 10.3, 11.5, COPPER)
             + [Box([7, 12.5, 7], [9, 13, 9], CRYSTAL)],
 }
@@ -257,6 +270,22 @@ PIPE_ARM = {"north": ([5.5, 5.5, 0], [10.5, 10.5, 5]), "south": ([5.5, 5.5, 11],
             "west": ([0, 5.5, 5.5], [5, 10.5, 10.5]), "east": ([11, 5.5, 5.5], [16, 10.5, 10.5]),
             "down": ([5.5, 0, 5.5], [10.5, 5, 10.5]), "up": ([5.5, 11, 5.5], [10.5, 16, 10.5])}
 PIPE_CORE = [Box([5, 5, 5], [11, 11, 11], CUT_COPPER)]
+CRANK_BASE = [Box([4, 0, 4], [12, 1.5, 12], DEEP)]
+FAN = [Box([0, 0, 0], [16, 3, 16], {**{f: CUT_COPPER for f in ("north", "south", "east", "west")}, "up": "minecraft:block/iron_bars",
+                                     "down": DEEP}),
+       Box([0, 3, 0], [16, 16, 2], PATINA), Box([0, 3, 14], [16, 16, 16], PATINA),
+       Box([0, 3, 2], [2, 16, 14], PATINA), Box([14, 3, 2], [16, 16, 14], PATINA)]
+
+
+def shift_case(side, lamp):
+    """Casing of the clutch / gearshift (shaft along Y): four walls round the shaft, a lamp on one wall."""
+    walls = {**{f: side for f in ("north", "south", "east", "west")}, "up": CUT_COPPER, "down": CUT_COPPER}
+    return [Box([1, 1, 1], [15, 15, 3], walls), Box([1, 1, 13], [15, 15, 15], walls),
+            Box([1, 1, 3], [3, 15, 13], walls), Box([13, 1, 3], [15, 15, 13], walls),
+            Box([6, 6, 15], [10, 10, 15.5], lamp), Box([0.5, 0.5, 0.5], [15.5, 2, 15.5], CUT_COPPER),
+            Box([0.5, 14, 0.5], [15.5, 15.5, 15.5], CUT_COPPER)]
+
+
 GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
            Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
            Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
@@ -270,7 +299,12 @@ GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", 
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
     "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
-    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "spirit_pump": PUMP, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "spirit_pump": PUMP,
+    "soul_hand_crank": CRANK_BASE, "soul_fan": FAN,
+    "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp"),
+    "soul_clutch_on": shift_case(PATINA, "minecraft:block/redstone_lamp_on"),
+    "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp"),
+    "soul_gearshift_on": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp_on"), "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -314,6 +348,12 @@ for d, (f, t) in PIPE_ARM.items():
     wj(A / f"models/block/spirit_pipe/spirit_pipe_{d}.json", model([Box(f, t, COPPER)], CUT_COPPER))
 wj(A / "blockstates/spirit_pipe.json", {"multipart": [{"apply": {"model": "pysift:block/spirit_pipe/spirit_pipe_core"}}] + [
     {"when": {d: "true"}, "apply": {"model": f"pysift:block/spirit_pipe/spirit_pipe_{d}"}} for d in PIPE_ARM]})
+states("soul_hand_crank", UPROT, "facing")
+states("soul_fan", UPROT, "facing")
+for name in ("soul_clutch", "soul_gearshift"):
+    wj(A / f"blockstates/{name}.json", {"variants": {
+        f"axis={a},powered={pw},shifted={sh}": {"model": f"pysift:block/{name}/{name}{'_on' if sh == 'true' else ''}", **rot}
+        for a, rot in AXIS.items() for pw in ("false", "true") for sh in ("false", "true")}})
 wj(A / "blockstates/charoite_prism.json",
    {"variants": {f"facing={f}": {"model": "pysift:block/charoite_prism/charoite_prism", **rot} for f, rot in UPROT.items()}})
 states("soul_wave_emitter", UPROT, "facing")
@@ -333,6 +373,10 @@ ITEMS = {
     "charoite_beam_receiver": BEAM_RECEIVER + PARTS["lens"],
     "charoite_prism": PRISM,
     "spirit_pump": PUMP + FLYWHEEL_EAST + SHAFT_X,
+    "soul_hand_crank": CRANK_BASE + PARTS["crank"],
+    "soul_fan": FAN + PARTS["fan"],
+    "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp") + SHAFT[:1],
+    "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp") + SHAFT[:1],
     "spirit_pipe": PIPE_CORE + [Box(*PIPE_ARM["north"], COPPER), Box(*PIPE_ARM["south"], COPPER)],
     "soul_vein_node": VEIN_NODE + PARTS["wave_core"],
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
@@ -394,6 +438,9 @@ SHAPED = {
                                                        "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
     "spirit_pump": (["IGI", "IBI", "III"], {"I": "pysift:patina_ingot", "G": "pysift:patina_gear", "B": "minecraft:bucket"}, 1),
     "spirit_pipe": (["III"], {"I": "pysift:patina_ingot"}, 6),
+    "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
+    "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:patina_gear",
+                                         "S": "pysift:soul_shaft"}, 1),
     "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:patina_gear",
                                                "C": "pysift:soul_crystal_block"}, 2),
     "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
@@ -417,6 +464,23 @@ GRINDING = {
     "bone": ("minecraft:bone", "minecraft:bone_meal", 6),
     "soul_soil": ("minecraft:soul_soil", "minecraft:soul_sand", 1),
 }
+# clutch / gearshift: a shaft (or cog), patina and redstone
+for name, core in (("soul_clutch", "pysift:soul_shaft"), ("soul_gearshift", "pysift:soul_cogwheel")):
+    wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shapeless", "category": "redstone",
+                                          "ingredients": [core, "pysift:patina_ingot", "minecraft:redstone"],
+                                          "result": {"id": f"pysift:{name}"}})
+# soul haunting: a soul fan blowing through soul fire
+HAUNTING = {
+    "sand": ("#minecraft:sand", "minecraft:soul_sand"),
+    "dirt": ("minecraft:dirt", "minecraft:soul_soil"),
+    "torch": ("minecraft:torch", "minecraft:soul_torch"),
+    "lantern": ("minecraft:lantern", "minecraft:soul_lantern"),
+    "campfire": ("minecraft:campfire", "minecraft:soul_campfire"),
+    "sculk_vein": ("minecraft:sculk_vein", "pysift:red_sculk_vein"),
+}
+for name, (ingredient, item) in HAUNTING.items():
+    wj(D / f"pysift/recipe/soul_haunting/{name}.json",
+       {"type": "pysift:soul_haunting", "ingredient": ingredient, "result": {"id": item}})
 # soul sifting: rotten (blue) sculk back to red; a few sifting classics
 SIFTING = {
     "sculk": ("minecraft:sculk", "pysift:red_sculk", 1),

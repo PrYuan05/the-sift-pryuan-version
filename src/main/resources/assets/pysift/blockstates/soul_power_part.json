@@ -33,6 +33,15 @@
     "part=sieve": {
       "model": "pysift:block/soul_power_parts/sieve"
     },
+    "part=crank": {
+      "model": "pysift:block/soul_power_parts/crank"
+    },
+    "part=half_shaft": {
+      "model": "pysift:block/soul_power_parts/half_shaft"
+    },
+    "part=fan": {
+      "model": "pysift:block/soul_power_parts/fan"
+    },
     "part=lens": {
       "model": "pysift:block/soul_power_parts/lens"
     },

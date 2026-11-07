@@ -503,6 +503,10 @@
     "pysift:soul_vein_node",
     "pysift:soul_veined_stone",
     "pysift:spirit_pump",
-    "pysift:spirit_pipe"
+    "pysift:spirit_pipe",
+    "pysift:soul_hand_crank",
+    "pysift:soul_clutch",
+    "pysift:soul_gearshift",
+    "pysift:soul_fan"
   ]
 }

@@ -34,6 +34,11 @@ public interface SoulKinetic {
         return Cog.NONE;
     }
 
+    /** 轉動經過這一面時乘上的倍率（換向器通電時其中一面是 -1）；同軸相接時兩端各乘一次。 */
+    default float transfer(BlockState state, Direction side) {
+        return 1f;
+    }
+
     /** 每 1 RPM 的負載（SP）。 */
     default float impact(BlockState state) {
         return 0;

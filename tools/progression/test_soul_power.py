@@ -35,8 +35,8 @@ def check(name, got, want, tol=0.01):
 
 
 def clear():
-    r(f"forceload add 190 190 230 230")
-    r(f"fill 190 {Y - 2} 190 230 {Y + 8} 230 minecraft:air")
+    r(f"forceload add 190 190 230 260")
+    r(f"fill 190 {Y - 2} 190 230 {Y + 8} 260 minecraft:air")   # 41 x 11 x 71 < the 32768-block fill limit
 
 
 def settle(seconds=2.0):
@@ -220,7 +220,56 @@ def pump():
         fails.append("leak pollution")
 
 
-parts = {"pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def shift():
+    clear()
+    Z = 245
+    r(f"setblock 200 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 201 {Y} {Z} pysift:soul_gearshift[axis=x]")
+    r(f"setblock 202 {Y} {Z} pysift:soul_shaft[axis=x]")
+    r(f"setblock 203 {Y} {Z} pysift:soul_clutch[axis=x]")
+    r(f"setblock 204 {Y} {Z} pysift:soul_shaft[axis=x]")
+    settle(2)
+    check("through gearshift and clutch", num(204, Y, Z, "Speed"), 32)
+    r(f"setblock 201 {Y + 1} {Z} minecraft:redstone_block")     # gearshift on: the far side turns the other way
+    settle(2)
+    check("gearshift reverses", num(202, Y, Z, "Speed"), -32)
+    check("and everything after it", num(204, Y, Z, "Speed"), -32)
+    r(f"setblock 203 {Y + 1} {Z} minecraft:redstone_block")     # clutch on: the far side stops
+    settle(2)
+    check("clutch disengages", num(204, Y, Z, "Speed"), 0)
+    check("the near side still turns", num(202, Y, Z, "Speed"), -32)
+    r(f"setblock 203 {Y + 1} {Z} minecraft:air")
+    settle(2)
+    check("clutch engages again", num(204, Y, Z, "Speed"), -32)
+
+
+def fan():
+    clear()
+    Z = 255
+    r(f"setblock 200 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 201 {Y} {Z} pysift:soul_fan[facing=east]")             # back (west) takes the engine
+    r(f"fill 202 {Y - 1} {Z} 210 {Y - 1} {Z} minecraft:glass")
+    r(f"setblock 203 {Y - 1} {Z} minecraft:soul_soil")
+    r(f"setblock 203 {Y} {Z} minecraft:soul_fire")
+    r(f"setblock 208 {Y} {Z} minecraft:glass")                            # a wall: items rest in the stream against it
+    settle(2)
+    check("fan turns", abs(num(201, Y, Z, "Speed") or 0), 32)
+    r(f'summon minecraft:item 205 {Y} {Z} {{Item:{{id:"minecraft:sand",count:4}},PickupDelay:32767}}')
+    time.sleep(5)
+    out = r(f"data get entity @e[type=minecraft:item,limit=1,sort=nearest,x=205,y={Y},z={Z}] Item")
+    print(("PASS" if "soul_sand" in out else "FAIL"), "sand blown through soul fire becomes soul sand:", out)
+    if "soul_sand" not in out:
+        fails.append("haunting")
+    pos = r(f"data get entity @e[type=minecraft:item,limit=1,sort=nearest,x=205,y={Y},z={Z}] Pos[0]")
+    m = re.search(r"(-?[0-9.]+)d", pos)
+    ok = m and float(m.group(1)) > 206.5
+    print(("PASS" if ok else "FAIL"), "the stream pushes it away from the fan, against the wall:", pos)
+    if not ok:
+        fails.append("fan push")
+    r("kill @e[type=minecraft:item]")
+
+
+parts = {"shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

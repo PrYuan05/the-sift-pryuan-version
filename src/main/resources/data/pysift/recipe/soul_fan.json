@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "B": "minecraft:iron_bars",
+    "I": "pysift:patina_ingot",
+    "G": "pysift:patina_gear",
+    "S": "pysift:soul_shaft"
+  },
+  "pattern": [
+    " B ",
+    "IGI",
+    " S "
+  ],
+  "result": {
+    "id": "pysift:soul_fan"
+  }
+}

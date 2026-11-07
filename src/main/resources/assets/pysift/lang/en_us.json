@@ -2386,5 +2386,22 @@
   "item.pysift.spirit_pipe": "Spirit Pipe",
   "book.pysift.sift_codex.soul_power.pump.name": "Spirit Pump",
   "book.pysift.sift_codex.soul_power.pump.p0.title": "Piping spirit liquid",
-  "book.pysift.sift_codex.soul_power.pump.p0.text": "Point the pump's nozzle at a spirit liquid pool and turn its crank: it drinks the source in front of it and sends the liquid down Spirit Pipes to your engines, which burn it when their fuel slot is empty.\n\nA pipe left open at one end **leaks**, and the ground below it rots into soul soil."
+  "book.pysift.sift_codex.soul_power.pump.p0.text": "Point the pump's nozzle at a spirit liquid pool and turn its crank: it drinks the source in front of it and sends the liquid down Spirit Pipes to your engines, which burn it when their fuel slot is empty.\n\nA pipe left open at one end **leaks**, and the ground below it rots into soul soil.",
+  "block.pysift.soul_hand_crank": "Soul Hand Crank",
+  "block.pysift.soul_clutch": "Soul Clutch",
+  "block.pysift.soul_gearshift": "Soul Gearshift",
+  "block.pysift.soul_fan": "Soul Fan",
+  "item.pysift.soul_hand_crank": "Soul Hand Crank",
+  "item.pysift.soul_clutch": "Soul Clutch",
+  "item.pysift.soul_gearshift": "Soul Gearshift",
+  "item.pysift.soul_fan": "Soul Fan",
+  "book.pysift.sift_codex.soul_power.crank.name": "Hand Crank",
+  "book.pysift.sift_codex.soul_power.crank.p0.title": "Muscle power",
+  "book.pysift.sift_codex.soul_power.crank.p0.text": "Mount it on a shaft or a machine and hold right-click: 32 RPM, but only 32 SP. Enough for one grinder, slowly. Cranking makes you hungry.",
+  "book.pysift.sift_codex.soul_power.shift.name": "Clutch and Gearshift",
+  "book.pysift.sift_codex.soul_power.shift.p0.title": "Redstone control",
+  "book.pysift.sift_codex.soul_power.shift.p0.text": "Both hold two half-shafts. Give them a redstone signal (the lamp lights up): the **clutch** lets go of the half on the far side (east, south or up); the **gearshift** turns that half the other way.",
+  "book.pysift.sift_codex.soul_power.fan.name": "Soul Fan",
+  "book.pysift.sift_codex.soul_power.fan.p0.title": "Wind and haunting",
+  "book.pysift.sift_codex.soul_power.fan.p0.text": "Blows creatures and items away up to 8 blocks (turned the other way, it pulls). Put **soul fire** in the stream: items resting behind it are haunted - sand into soul sand, dirt into soul soil, torches, lanterns and campfires into their soul versions."
 }

@@ -1,0 +1,369 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "minecraft:block/oxidized_cut_copper",
+    "t1": "minecraft:block/oxidized_copper",
+    "t2": "pysift:block/patina_block/patina_block",
+    "particle": "minecraft:block/oxidized_cut_copper"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        9,
+        6
+      ],
+      "to": [
+        10,
+        13,
+        10
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6,
+            3,
+            10,
+            7
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            6,
+            3,
+            10,
+            7
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            6,
+            3,
+            10,
+            7
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            6,
+            3,
+            10,
+            7
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            6,
+            6,
+            10,
+            10
+          ],
+          "texture": "#t0"
+        },
+        "down": {
+          "uv": [
+            6,
+            6,
+            10,
+            10
+          ],
+          "texture": "#t0"
+        }
+      }
+    },
+    {
+      "from": [
+        1.5,
+        10.5,
+        6.5
+      ],
+      "to": [
+        14.5,
+        11.5,
+        9.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1.5,
+            4.5,
+            14.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "south": {
+          "uv": [
+            1.5,
+            4.5,
+            14.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "east": {
+          "uv": [
+            6.5,
+            4.5,
+            9.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "west": {
+          "uv": [
+            6.5,
+            4.5,
+            9.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "up": {
+          "uv": [
+            1.5,
+            6.5,
+            14.5,
+            9.5
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            1.5,
+            6.5,
+            14.5,
+            9.5
+          ],
+          "texture": "#t1"
+        }
+      }
+    },
+    {
+      "from": [
+        6.5,
+        10.5,
+        1.5
+      ],
+      "to": [
+        9.5,
+        11.5,
+        14.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            6.5,
+            4.5,
+            9.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "south": {
+          "uv": [
+            6.5,
+            4.5,
+            9.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "east": {
+          "uv": [
+            1.5,
+            4.5,
+            14.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "west": {
+          "uv": [
+            1.5,
+            4.5,
+            14.5,
+            5.5
+          ],
+          "texture": "#t1"
+        },
+        "up": {
+          "uv": [
+            6.5,
+            1.5,
+            9.5,
+            14.5
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            6.5,
+            1.5,
+            9.5,
+            14.5
+          ],
+          "texture": "#t1"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        10.7,
+        7
+      ],
+      "to": [
+        14,
+        11.3,
+        9
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            4.7,
+            14,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "south": {
+          "uv": [
+            2,
+            4.7,
+            14,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "east": {
+          "uv": [
+            7,
+            4.7,
+            9,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "west": {
+          "uv": [
+            7,
+            4.7,
+            9,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "up": {
+          "uv": [
+            2,
+            7,
+            14,
+            9
+          ],
+          "texture": "#t2"
+        },
+        "down": {
+          "uv": [
+            2,
+            7,
+            14,
+            9
+          ],
+          "texture": "#t2"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    },
+    {
+      "from": [
+        7,
+        10.7,
+        2
+      ],
+      "to": [
+        9,
+        11.3,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            7,
+            4.7,
+            9,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "south": {
+          "uv": [
+            7,
+            4.7,
+            9,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "east": {
+          "uv": [
+            2,
+            4.7,
+            14,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "west": {
+          "uv": [
+            2,
+            4.7,
+            14,
+            5.3
+          ],
+          "texture": "#t2"
+        },
+        "up": {
+          "uv": [
+            7,
+            2,
+            9,
+            14
+          ],
+          "texture": "#t2"
+        },
+        "down": {
+          "uv": [
+            7,
+            2,
+            9,
+            14
+          ],
+          "texture": "#t2"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    }
+  ]
+}

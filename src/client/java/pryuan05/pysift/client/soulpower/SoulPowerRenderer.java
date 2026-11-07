@@ -33,6 +33,9 @@ import pryuan05.pysift.soulpower.SoulMachineBlock;
 import pryuan05.pysift.soulpower.SoulParts;
 import pryuan05.pysift.soulpower.SoulParts.Part;
 import pryuan05.pysift.soulpower.SoulShaftBlock;
+import pryuan05.pysift.soulpower.SoulShiftBlock;
+import pryuan05.pysift.soulpower.SoulHandCrankBlock;
+import pryuan05.pysift.soulpower.SoulFanBlock;
 import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
 import pryuan05.pysift.soulpower.SoulWaveBlock;
@@ -111,6 +114,20 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
                     add(s, Part.NEEDLE, new Matrix4f(dial).translate(0.5f, 0f, 0.5f).rotateY(Mth.DEG_TO_RAD * needle).translate(-0.5f, 0f, -0.5f));
                 }
             }
+        } else if (state.getBlock() instanceof SoulShiftBlock shift) {
+            // 兩段半軸：負方向那段跟著網路轉；正方向那段在換向器通電時反轉、在離合器分開時跟著另一頭（或停住）
+            Direction.Axis axis = state.getValue(SoulShaftBlock.AXIS);
+            Direction pos2 = positive(axis), neg = pos2.getOpposite();
+            add(s, Part.HALF_SHAFT, spin(neg, angle * sign(neg)));
+            float other = be.speed();
+            if (state.getValue(SoulShiftBlock.SHIFTED)) {
+                other = shift.gearshift ? -be.speed()
+                        : be.getLevel().getBlockEntity(pos.relative(pos2)) instanceof KineticBlockEntity k ? k.speed() : 0f;
+            }
+            add(s, Part.HALF_SHAFT, spin(pos2, (float) ((time * other * 0.3) % 360.0)));
+        } else if (state.getBlock() instanceof SoulHandCrankBlock || state.getBlock() instanceof SoulFanBlock) {
+            Direction facing = state.getValue(SoulMachineBlock.FACING);
+            add(s, state.getBlock() instanceof SoulFanBlock ? Part.FAN : Part.CRANK, spin(facing, angle * sign(facing)));
         } else if (state.getBlock() instanceof SoulShaftBlock) {
             add(s, Part.SHAFT, spin(positive(state.getValue(SoulShaftBlock.AXIS)), angle));
         } else if (state.getBlock() instanceof SpiritEngineBlock) {

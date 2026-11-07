@@ -93,7 +93,7 @@ public final class SoulNetwork {
                 BlockState ns = level.getBlockState(n);
                 if (ns.getBlock() instanceof SoulKinetic other && other.connects(ns, dir.getOpposite())) {
                     next.add(n);
-                    nextRatio.add(r);
+                    nextRatio.add(r * kinetic.transfer(state, dir) * other.transfer(ns, dir.getOpposite()));
                 }
             }
             // 齒輪咬合

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "pysift:soul_shaft",
+    "pysift:patina_ingot",
+    "minecraft:redstone"
+  ],
+  "result": {
+    "id": "pysift:soul_clutch"
+  }
+}

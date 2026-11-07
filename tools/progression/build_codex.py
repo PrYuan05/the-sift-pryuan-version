@@ -726,6 +726,27 @@ entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
          "只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。"),
     recipe("crafting", "pysift:spirit_pump", "pysift:spirit_pipe")], parents=["engine"])
 
+entry(C, "crank", "pysift:soul_hand_crank", "Hand Crank", "手搖曲柄", -2, 0, [
+    text(("Muscle power", "人力"),
+         "Mount it on a shaft or a machine and hold right-click: 32 RPM, but only 32 SP. Enough for one grinder, slowly. "
+         "Cranking makes you hungry.",
+         "裝在傳動軸或機器的一面，按住右鍵：32 RPM，但只有 32 SP，夠一台研磨機慢慢磨。搖久了會餓。"),
+    recipe("crafting", "pysift:soul_hand_crank")], parents=["engine"])
+entry(C, "shift", "pysift:soul_gearshift", "Clutch and Gearshift", "離合器與換向器", 4, -3, [
+    text(("Redstone control", "紅石控制"),
+         "Both hold two half-shafts. Give them a redstone signal (the lamp lights up): the **clutch** lets go of the half on "
+         "the far side (east, south or up); the **gearshift** turns that half the other way.",
+         "兩者裡面都是兩段半軸。給它紅石訊號（燈會亮）：**離合器**放開遠端那一段（東、南或上方那一頭）；**換向器**讓那一段反轉。"),
+    recipe("crafting", "pysift:soul_clutch", "pysift:soul_gearshift")], parents=["gauge"])
+entry(C, "fan", "pysift:soul_fan", "Soul Fan", "靈魂風扇", 6, -1, [
+    text(("Wind and haunting", "風與靈魂薰染"),
+         "Blows creatures and items away up to 8 blocks (turned the other way, it pulls). Put **soul fire** in the stream: "
+         "items resting behind it are haunted - sand into soul sand, dirt into soul soil, torches, lanterns and campfires "
+         "into their soul versions.",
+         "把生物和掉落物吹走，最遠 8 格（反轉時是吸過來）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、"
+         "泥土變靈魂土，火把、燈籠與營火變成靈魂版本。"),
+    recipe("crafting", "pysift:soul_fan")], parents=["gauge"])
+
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")
 C = "lore"

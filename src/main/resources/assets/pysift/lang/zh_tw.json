@@ -2386,5 +2386,22 @@
   "item.pysift.spirit_pipe": "靈液管",
   "book.pysift.sift_codex.soul_power.pump.name": "靈液泵",
   "book.pysift.sift_codex.soul_power.pump.p0.title": "用管子送靈液",
-  "book.pysift.sift_codex.soul_power.pump.p0.text": "把泵的吸口對著靈液池、轉動側面的曲柄：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。"
+  "book.pysift.sift_codex.soul_power.pump.p0.text": "把泵的吸口對著靈液池、轉動側面的曲柄：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。",
+  "block.pysift.soul_hand_crank": "靈魂手搖曲柄",
+  "block.pysift.soul_clutch": "靈魂離合器",
+  "block.pysift.soul_gearshift": "靈魂換向器",
+  "block.pysift.soul_fan": "靈魂風扇",
+  "item.pysift.soul_hand_crank": "靈魂手搖曲柄",
+  "item.pysift.soul_clutch": "靈魂離合器",
+  "item.pysift.soul_gearshift": "靈魂換向器",
+  "item.pysift.soul_fan": "靈魂風扇",
+  "book.pysift.sift_codex.soul_power.crank.name": "手搖曲柄",
+  "book.pysift.sift_codex.soul_power.crank.p0.title": "人力",
+  "book.pysift.sift_codex.soul_power.crank.p0.text": "裝在傳動軸或機器的一面，按住右鍵：32 RPM，但只有 32 SP，夠一台研磨機慢慢磨。搖久了會餓。",
+  "book.pysift.sift_codex.soul_power.shift.name": "離合器與換向器",
+  "book.pysift.sift_codex.soul_power.shift.p0.title": "紅石控制",
+  "book.pysift.sift_codex.soul_power.shift.p0.text": "兩者裡面都是兩段半軸。給它紅石訊號（燈會亮）：**離合器**放開遠端那一段（東、南或上方那一頭）；**換向器**讓那一段反轉。",
+  "book.pysift.sift_codex.soul_power.fan.name": "靈魂風扇",
+  "book.pysift.sift_codex.soul_power.fan.p0.title": "風與靈魂薰染",
+  "book.pysift.sift_codex.soul_power.fan.p0.text": "把生物和掉落物吹走，最遠 8 格（反轉時是吸過來）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、泥土變靈魂土，火把、燈籠與營火變成靈魂版本。"
 }
