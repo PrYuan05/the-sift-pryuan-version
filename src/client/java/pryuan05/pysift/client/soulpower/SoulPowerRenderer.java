@@ -36,6 +36,7 @@ import pryuan05.pysift.soulpower.SoulShaftBlock;
 import pryuan05.pysift.soulpower.SoulShiftBlock;
 import pryuan05.pysift.soulpower.SoulHandCrankBlock;
 import pryuan05.pysift.soulpower.SoulFanBlock;
+import pryuan05.pysift.soulpower.SoulDrillBlock;
 import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
 import pryuan05.pysift.soulpower.ResonanceCoreBlockEntity;
@@ -127,9 +128,11 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
                         : be.getLevel().getBlockEntity(pos.relative(pos2)) instanceof KineticBlockEntity k ? k.speed() : 0f;
             }
             add(s, Part.HALF_SHAFT, spin(pos2, (float) ((time * other * 0.3) % 360.0)));
-        } else if (state.getBlock() instanceof SoulHandCrankBlock || state.getBlock() instanceof SoulFanBlock) {
+        } else if (state.getBlock() instanceof SoulHandCrankBlock || state.getBlock() instanceof SoulFanBlock
+                || state.getBlock() instanceof SoulDrillBlock) {
             Direction facing = state.getValue(SoulMachineBlock.FACING);
-            add(s, state.getBlock() instanceof SoulFanBlock ? Part.FAN : Part.CRANK, spin(facing, angle * sign(facing)));
+            Part part = state.getBlock() instanceof SoulFanBlock ? Part.FAN : state.getBlock() instanceof SoulDrillBlock ? Part.DRILL : Part.CRANK;
+            add(s, part, spin(facing, angle * sign(facing)));
         } else if (state.getBlock() instanceof SoulShaftBlock) {
             add(s, Part.SHAFT, spin(positive(state.getValue(SoulShaftBlock.AXIS)), angle));
         } else if (state.getBlock() instanceof SpiritEngineBlock) {

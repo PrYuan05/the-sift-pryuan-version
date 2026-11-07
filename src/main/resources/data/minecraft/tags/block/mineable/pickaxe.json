@@ -509,6 +509,7 @@
     "pysift:soul_gearshift",
     "pysift:soul_fan",
     "pysift:resonance_core",
-    "pysift:resonance_pedestal"
+    "pysift:resonance_pedestal",
+    "pysift:soul_drill"
   ]
 }

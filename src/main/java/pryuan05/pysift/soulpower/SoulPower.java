@@ -51,6 +51,7 @@ public final class SoulPower {
     public static final Block SOUL_CLUTCH = register("soul_clutch", p -> new SoulShiftBlock(false, p), 2.5f);
     public static final Block SOUL_GEARSHIFT = register("soul_gearshift", p -> new SoulShiftBlock(true, p), 2.5f);
     public static final Block SOUL_FAN = register("soul_fan", SoulFanBlock::new, 2.5f);
+    public static final Block SOUL_DRILL = register("soul_drill", SoulDrillBlock::new, 3.0f);
     public static final Block RESONANCE_CORE = register("resonance_core", ResonanceCoreBlock::new, 3.5f);
     public static final Block RESONANCE_PEDESTAL = register("resonance_pedestal", ResonancePedestalBlock::new, 2.0f);
     /** 靈脈石：靈脈節點之間的岩石慢慢長成的發光石頭（也算岩石，靈脈照樣穿過）。 */
@@ -108,6 +109,10 @@ public final class SoulPower {
     public static final BlockEntityType<ResonancePedestalBlock.Entity> RESONANCE_PEDESTAL_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("resonance_pedestal"),
             FabricBlockEntityTypeBuilder.create(ResonancePedestalBlock.Entity::new, RESONANCE_PEDESTAL).build());
+
+    public static final BlockEntityType<SoulDrillBlock.Entity> SOUL_DRILL_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_drill"),
+            FabricBlockEntityTypeBuilder.create(SoulDrillBlock.Entity::new, SOUL_DRILL).build());
 
     public static final MenuType<SpiritEngineMenu> SPIRIT_ENGINE_MENU = Registry.register(BuiltInRegistries.MENU,
             PySift.id("spirit_engine"), new MenuType<>(SpiritEngineMenu::new, FeatureFlags.VANILLA_SET));

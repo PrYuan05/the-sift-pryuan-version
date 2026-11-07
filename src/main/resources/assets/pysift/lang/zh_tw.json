@@ -2412,5 +2412,10 @@
   "book.pysift.sift_codex.soul_power.resonance.p0.title": "遠古人的工藝",
   "book.pysift.sift_codex.soul_power.resonance.p0.text": "在共鳴核心周圍 3 格處（四邊與四個斜角）擺最多八個共鳴台座。核心放觸媒、台座放材料，讓核心轉起來（32 RPM 時吃 128 SP）。\n\n運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。",
   "book.pysift.sift_codex.soul_power.resonance.p1.title": "共鳴配方",
-  "book.pysift.sift_codex.soul_power.resonance.p1.text": "**紫水晶碎片**＋4 幽匿＋4 靈魂精華 → 2 迴音碎片。\n**紫水晶簇**＋4 靈魂精華 → 4 紫龍晶。\n**深板岩**＋4 骨塊＋4 靈魂晶塊 → 強化深板岩。\n**共鳴唱片**＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片。"
+  "book.pysift.sift_codex.soul_power.resonance.p1.text": "**紫水晶碎片**＋4 幽匿＋4 靈魂精華 → 2 迴音碎片。\n**紫水晶簇**＋4 靈魂精華 → 4 紫龍晶。\n**深板岩**＋4 骨塊＋4 靈魂晶塊 → 強化深板岩。\n**共鳴唱片**＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片。",
+  "block.pysift.soul_drill": "靈魂鑽頭",
+  "item.pysift.soul_drill": "靈魂鑽頭",
+  "book.pysift.sift_codex.soul_power.drill.name": "靈魂鑽頭",
+  "book.pysift.sift_codex.soul_power.drill.p0.title": "鑽穿岩石",
+  "book.pysift.sift_codex.soul_power.drill.p0.text": "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。別站在鑽頭前面。"
 }

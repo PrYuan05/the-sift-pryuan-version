@@ -41,6 +41,7 @@ public final class SoulPowerClient {
         animate(SoulPower.SPIRIT_PUMP_ENTITY);
         animate(SoulPower.SOUL_HAND_CRANK_ENTITY);
         animate(SoulPower.SOUL_FAN_ENTITY);
+        animate(SoulPower.SOUL_DRILL_ENTITY);
         animate(SoulPower.RESONANCE_CORE_ENTITY);
         BlockEntityRendererRegistry.register(SoulPower.RESONANCE_PEDESTAL_ENTITY, PedestalRenderer::new);
     }

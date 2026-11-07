@@ -765,6 +765,14 @@ entry(C, "resonance", "pysift:resonance_core", "Resonance Array", "共鳴靈陣"
          "**共鳴唱片**＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片。"),
     recipe("crafting", "pysift:resonance_core", "pysift:resonance_pedestal")], parents=["sifter"])
 
+entry(C, "drill", "pysift:soul_drill", "Soul Drill", "靈魂鑽頭", 6, 3, [
+    text(("Boring through rock", "鑽穿岩石"),
+         "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks "
+         "take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit.",
+         "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。"
+         "別站在鑽頭前面。"),
+    recipe("crafting", "pysift:soul_drill")], parents=["grinder"])
+
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")
 C = "lore"

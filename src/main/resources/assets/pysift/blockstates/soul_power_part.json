@@ -42,6 +42,9 @@
     "part=fan": {
       "model": "pysift:block/soul_power_parts/fan"
     },
+    "part=drill": {
+      "model": "pysift:block/soul_power_parts/drill"
+    },
     "part=lens": {
       "model": "pysift:block/soul_power_parts/lens"
     },

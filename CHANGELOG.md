@@ -47,6 +47,9 @@
   crystal blocks → reinforced deepslate; a resonant music disc + 4 amethyst shards + 2 soul essence + 2 note blocks →
   2 copies of the disc (for more wave frequencies). A running core also makes grinders and sifters within 8 blocks work
   50% faster.
+- **Soul Drill**: its bit spins and bores out the block in front of it, dropping what an iron pickaxe would. Harder
+  blocks take longer, faster rotation digs faster, bedrock and obsidian-like blocks resist it, and it hurts whatever
+  stands in front of it.
 - **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
@@ -351,6 +354,8 @@
   核心轉動時，台座射出紫色光束連到核心，觸媒變成成品：紫水晶碎片＋4 幽匿＋4 靈魂精華 → 2 迴音碎片；紫水晶簇＋4 靈魂精華 → 4 紫龍晶；
   深板岩＋4 骨塊＋4 靈魂晶塊 → 強化深板岩；共鳴唱片＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片（振波頻率不夠用時）。
   運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。
+- **靈魂鑽頭**：鑽頭旋轉著鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久、轉越快鑽越快，基岩與黑曜石這類方塊鑽不動；
+  站在鑽頭前的東西會被鑽傷。
 - **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；

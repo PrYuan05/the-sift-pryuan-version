@@ -293,7 +293,35 @@ def resonance():
         fails.append("pedestals emptied")
 
 
-parts = {"resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def drill():
+    clear()
+    Z = 205
+    r(f"setblock 210 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 211 {Y} {Z} pysift:soul_drill[facing=east]")
+    r(f"setblock 212 {Y} {Z} minecraft:stone")
+    r(f"setblock 212 {Y - 1} {Z} minecraft:glass")
+    settle(2)
+    check("drill turns", abs(num(211, Y, Z, "Speed") or 0), 32)
+    time.sleep(4)   # stone: hardness 1.5 x 30 = 45 ticks at 32 RPM
+    gone = r(f"execute if block 212 {Y} {Z} minecraft:air")
+    print(("PASS" if "passed" in gone else "FAIL"), "the drill breaks the stone in front:", gone)
+    if "passed" not in gone:
+        fails.append("drill breaks")
+    # the drop may fall off the test platform: look for the cobblestone anywhere below the drill
+    drops = r(f"execute if entity @e[type=minecraft:item,x=200,y=0,z={Z - 15},dx=30,dy={Y + 5},dz=30,nbt={{Item:{{id:\"minecraft:cobblestone\"}}}}]")
+    print(("PASS" if "passed" in drops else "FAIL"), "and drops cobblestone (mined like an iron pickaxe):", drops)
+    if "passed" not in drops:
+        fails.append("drill drops")
+    r(f"setblock 212 {Y} {Z} minecraft:bedrock")
+    time.sleep(3)
+    still = r(f"execute if block 212 {Y} {Z} minecraft:bedrock")
+    print(("PASS" if "passed" in still else "FAIL"), "bedrock is too hard:", still)
+    if "passed" not in still:
+        fails.append("drill bedrock")
+    r("kill @e[type=minecraft:item]")
+
+
+parts = {"drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):
