@@ -53,6 +53,10 @@
 - **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
+- **Look**: Create-style chunky models (a casing and one or two big moving parts per machine) with their own hand-painted
+  textures: verdigris-crusted bronze frames, deepslate plates set into the casings, stained soul-willow cogwheels with
+  bronze teeth, soul-crystal light (the engine's flames and the crystal cores use the vanilla soul particle sprites).
+  Every texture also has LabPBR normal and specular maps for Iris shader packs (bronze shines as copper, souls glow).
 - Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
   network checks on the test server: `tools/progression/test_soul_power.py`.
 
@@ -358,6 +362,9 @@
   站在鑽頭前的東西會被鑽傷。
 - **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
+- **外觀**：Create 式的大塊模型（每台機器一個機殼加一兩個會動的大部件），貼圖全部自己畫：帶鏽斑的銅綠青銅框、嵌進機殼的深板岩面板、
+  染色靈柳木齒輪配青銅齒、靈魂晶的光（引擎的火焰和晶核用原版的靈魂粒子圖案）。每張貼圖也附有 LabPBR 法線與高光貼圖，
+  用 Iris 光影時青銅會反光、靈魂會發光。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
   測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
 

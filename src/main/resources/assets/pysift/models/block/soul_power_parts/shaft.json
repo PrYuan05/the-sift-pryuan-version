@@ -1,10 +1,9 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "pysift:block/soul_willow/stripped_soul_willow_log",
-    "t1": "pysift:block/soul_willow/stripped_soul_willow_log_top",
-    "t2": "pysift:block/soul_crystal_block/soul_crystal_block_core_0",
-    "particle": "pysift:block/soul_willow/stripped_soul_willow_log"
+    "t0": "pysift:block/soul_power/shaft",
+    "t1": "pysift:block/soul_power/shaft_end",
+    "particle": "pysift:block/soul_power/shaft"
   },
   "elements": [
     {
@@ -72,52 +71,6 @@
             10
           ],
           "texture": "#t1"
-        }
-      }
-    },
-    {
-      "from": [
-        5.9,
-        2,
-        7
-      ],
-      "to": [
-        6.1,
-        14,
-        9
-      ],
-      "faces": {
-        "west": {
-          "uv": [
-            7,
-            2,
-            9,
-            14
-          ],
-          "texture": "#t2"
-        }
-      }
-    },
-    {
-      "from": [
-        9.9,
-        2,
-        7
-      ],
-      "to": [
-        10.1,
-        14,
-        9
-      ],
-      "faces": {
-        "east": {
-          "uv": [
-            7,
-            2,
-            9,
-            14
-          ],
-          "texture": "#t2"
         }
       }
     }

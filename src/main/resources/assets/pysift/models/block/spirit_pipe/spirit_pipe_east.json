@@ -1,73 +1,73 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "minecraft:block/oxidized_copper",
-    "particle": "minecraft:block/oxidized_cut_copper"
+    "t0": "pysift:block/soul_power/pipe",
+    "particle": "pysift:block/soul_power/pipe"
   },
   "elements": [
     {
       "from": [
         11,
-        5.5,
-        5.5
+        5,
+        5
       ],
       "to": [
         16,
-        10.5,
-        10.5
+        11,
+        11
       ],
       "faces": {
         "north": {
           "uv": [
             0,
-            5.5,
             5,
-            10.5
+            5,
+            11
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
             11,
-            5.5,
+            5,
             16,
-            10.5
+            11
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
             11,
-            5.5,
+            5,
             16,
-            10.5
+            11
           ],
           "texture": "#t0"
         },
         "down": {
           "uv": [
             11,
-            5.5,
+            5,
             16,
-            10.5
+            11
           ],
           "texture": "#t0"
         }

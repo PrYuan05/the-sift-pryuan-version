@@ -1,75 +1,75 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "minecraft:block/oxidized_cut_copper",
-    "t1": "pysift:block/soul_willow/stripped_soul_willow_log",
-    "t2": "pysift:block/soul_willow/stripped_soul_willow_log_top",
-    "particle": "minecraft:block/oxidized_cut_copper"
+    "t0": "pysift:block/soul_power/ring",
+    "t1": "pysift:block/soul_power/crank",
+    "t2": "pysift:block/soul_power/shaft_end",
+    "particle": "pysift:block/soul_power/ring"
   },
   "elements": [
     {
       "from": [
-        6,
+        5.5,
         1.5,
-        6
+        5.5
       ],
       "to": [
-        10,
-        4.5,
-        10
+        10.5,
+        5,
+        10.5
       ],
       "faces": {
         "north": {
           "uv": [
-            6,
-            11.5,
-            10,
+            5.5,
+            11,
+            10.5,
             14.5
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
-            6,
-            11.5,
-            10,
+            5.5,
+            11,
+            10.5,
             14.5
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            6,
-            11.5,
-            10,
+            5.5,
+            11,
+            10.5,
             14.5
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            6,
-            11.5,
-            10,
+            5.5,
+            11,
+            10.5,
             14.5
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
-            6,
-            6,
-            10,
-            10
+            5.5,
+            5.5,
+            10.5,
+            10.5
           ],
           "texture": "#t0"
         },
         "down": {
           "uv": [
-            6,
-            6,
-            10,
-            10
+            5.5,
+            5.5,
+            10.5,
+            10.5
           ],
           "texture": "#t0"
         }
@@ -78,48 +78,48 @@
     {
       "from": [
         7,
-        3,
+        3.5,
         7
       ],
       "to": [
         9,
-        4.5,
+        5.5,
         14
       ],
       "faces": {
         "north": {
           "uv": [
             7,
-            11.5,
+            10.5,
             9,
-            13.0
+            12.5
           ],
           "texture": "#t1"
         },
         "south": {
           "uv": [
             7,
-            11.5,
+            10.5,
             9,
-            13.0
+            12.5
           ],
           "texture": "#t1"
         },
         "east": {
           "uv": [
             2,
-            11.5,
+            10.5,
             9,
-            13.0
+            12.5
           ],
           "texture": "#t1"
         },
         "west": {
           "uv": [
             7,
-            11.5,
+            10.5,
             14,
-            13.0
+            12.5
           ],
           "texture": "#t1"
         },
@@ -145,67 +145,67 @@
     },
     {
       "from": [
-        6.5,
-        4.5,
-        12
+        6,
+        5.5,
+        11
       ],
       "to": [
-        9.5,
-        9,
+        10,
+        11,
         15
       ],
       "faces": {
         "north": {
           "uv": [
-            6.5,
-            7,
-            9.5,
-            11.5
+            6,
+            5,
+            10,
+            10.5
           ],
           "texture": "#t1"
         },
         "south": {
           "uv": [
-            6.5,
-            7,
-            9.5,
-            11.5
+            6,
+            5,
+            10,
+            10.5
           ],
           "texture": "#t1"
         },
         "east": {
           "uv": [
             1,
-            7,
-            4,
-            11.5
+            5,
+            5,
+            10.5
           ],
           "texture": "#t1"
         },
         "west": {
           "uv": [
-            12,
-            7,
+            11,
+            5,
             15,
-            11.5
+            10.5
           ],
           "texture": "#t1"
         },
         "up": {
           "uv": [
-            6.5,
-            12,
-            9.5,
+            6,
+            11,
+            10,
             15
           ],
           "texture": "#t2"
         },
         "down": {
           "uv": [
-            6.5,
+            6,
             1,
-            9.5,
-            4
+            10,
+            5
           ],
           "texture": "#t2"
         }

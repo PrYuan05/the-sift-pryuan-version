@@ -1,144 +1,145 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "minecraft:block/oxidized_cut_copper",
-    "t1": "pysift:block/patina_block/patina_block",
-    "particle": "minecraft:block/oxidized_cut_copper"
+    "t0": "pysift:block/soul_power/shaft",
+    "t1": "pysift:block/soul_power/shaft_end",
+    "t2": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/shaft"
   },
   "elements": [
     {
       "from": [
-        8.5,
-        13,
-        4.5
+        8,
+        12,
+        4
       ],
       "to": [
-        10.5,
-        16.5,
-        6.5
+        11,
+        16,
+        7
       ],
       "faces": {
         "north": {
           "uv": [
-            5.5,
+            5,
             0,
-            7.5,
-            3.5
+            8,
+            4
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
-            8.5,
+            8,
             0,
-            10.5,
-            3.5
+            11,
+            4
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            9.5,
+            9,
             0,
-            11.5,
-            3.5
+            12,
+            4
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            4.5,
+            4,
             0,
-            6.5,
-            3.5
+            7,
+            4
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
-            8.5,
-            4.5,
-            10.5,
-            6.5
+            8,
+            4,
+            11,
+            7
           ],
-          "texture": "#t0"
+          "texture": "#t1"
         },
         "down": {
           "uv": [
-            8.5,
-            9.5,
-            10.5,
-            11.5
+            8,
+            9,
+            11,
+            12
           ],
-          "texture": "#t0"
+          "texture": "#t1"
         }
       }
     },
     {
       "from": [
-        7.5,
-        16.5,
-        3.5
+        7,
+        16,
+        3
       ],
       "to": [
-        11.5,
-        17.5,
-        7.5
+        12,
+        18,
+        8
       ],
       "faces": {
         "north": {
           "uv": [
-            4.5,
+            4,
             0,
-            8.5,
-            1.0
+            9,
+            2
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         },
         "south": {
           "uv": [
-            7.5,
+            7,
             0,
-            11.5,
-            1.0
+            12,
+            2
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         },
         "east": {
           "uv": [
-            8.5,
+            8,
             0,
-            12.5,
-            1.0
+            13,
+            2
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         },
         "west": {
           "uv": [
-            3.5,
+            3,
             0,
-            7.5,
-            1.0
+            8,
+            2
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         },
         "up": {
           "uv": [
-            7.5,
-            3.5,
-            11.5,
-            7.5
+            7,
+            3,
+            12,
+            8
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         },
         "down": {
           "uv": [
-            7.5,
-            8.5,
-            11.5,
-            12.5
+            7,
+            8,
+            12,
+            13
           ],
-          "texture": "#t1"
+          "texture": "#t2"
         }
       }
     }

@@ -7,8 +7,8 @@ variant per part); all of them are modelled around the Y axis with the block cen
 
 Writes blockstates, block / part / item models, item definitions, loot tables, recipes (crafting +
 pysift:soul_grinding), mineable / blocks_motion_no_leaves tags, lang, the two GUI backgrounds (cut from vanilla's
-furnace GUI) and the gauge dial texture. Textures: patina, soul willow and soul crystal from the mod, the rest vanilla
-(art_requests/soul_power_todo.md lists what still wants its own art). Existing PNGs are never rewritten (art_guard)."""
+furnace GUI) and the patina gear icon. The block textures are painted by tools/progression/paint_soul_power.py (run it
+first); models follow Create: a few chunky elements per block, details painted in the textures."""
 import copy, io, json, math, sys, zipfile
 from pathlib import Path
 from PIL import Image
@@ -54,17 +54,24 @@ BLOCKS = {
     "soul_veined_stone": ("Soul-Veined Stone", "靈脈石", True),
 }
 
-# ------------------------------------------------------------------ textures
-PATINA = "pysift:block/patina_block/patina_block"
-LOG = "pysift:block/soul_willow/stripped_soul_willow_log"
-LOG_TOP = "pysift:block/soul_willow/stripped_soul_willow_log_top"
-PLANKS = "pysift:block/soul_willow/soul_willow_planks"
-CRYSTAL = "pysift:block/soul_crystal_block/soul_crystal_block_core_0"
-DIAL = "pysift:block/soul_gauge/soul_gauge_dial"
-DEEP = "minecraft:block/polished_deepslate"
-TILES = "minecraft:block/deepslate_tiles"
-COPPER = "minecraft:block/oxidized_copper"
-CUT_COPPER = "minecraft:block/oxidized_cut_copper"
+# ------------------------------------------------------------------ textures (painted by tools/progression/paint_soul_power.py)
+def T(name):
+    return f"pysift:block/soul_power/{name}"
+
+
+CASING, CASING_TOP = T("casing"), T("casing_top")
+PATINA = T("ring")                 # plain bronze (rims, bands, flanges)
+SHAFT_SIDE, SHAFT_END = T("shaft"), T("shaft_end")
+CORE = T("core")
+
+
+def faces(side, top=None, bottom=None, **extra):
+    """A face map: the same texture on the four sides, top / bottom (default: the casing top), single faces overridden."""
+    f = {d: side for d in ("north", "south", "east", "west")}
+    f["up"] = top or CASING_TOP
+    f["down"] = bottom or CASING_TOP
+    f.update(extra)
+    return f
 
 
 # ------------------------------------------------------------------ element helpers
@@ -160,174 +167,130 @@ def bars(length_half, width_half, y1, y2, tex, lines):
     return out
 
 
-SHAFT = [Box([6, 0, 6], [10, 16, 10], {"north": LOG, "south": LOG, "east": LOG, "west": LOG, "up": LOG_TOP, "down": LOG_TOP}),
-         # two soul streaks so the turning is easy to see
-         Box([5.9, 2, 7], [6.1, 14, 9], CRYSTAL, faces=("west",)), Box([9.9, 2, 7], [10.1, 14, 9], CRYSTAL, faces=("east",))]
-
-TEETH = {"up": CUT_COPPER, "down": CUT_COPPER, **{f: DEEP for f in ("north", "south", "east", "west")}}
-BODY = {"up": LOG_TOP, "down": LOG_TOP, "north": PLANKS, "south": PLANKS, "east": PLANKS, "west": PLANKS}
+# Create-style parts: few, chunky elements; the details are painted in the textures.
+SHAFT = [Box([6, 0, 6], [10, 16, 10], faces(SHAFT_SIDE, SHAFT_END, SHAFT_END))]
+TOOTH = T("cog_tooth")
+COG_BODY = faces(T("cog_edge"), T("cog_face"), T("cog_face"))
+LARGE_BODY = faces(T("cog_edge"), T("large_cog_face"), T("large_cog_face"))
 PARTS = {
     "shaft": SHAFT,
-    # 8 teeth: bars along x and z, and the same turned 45°
-    "cog": SHAFT[:1] + octagon([3, 6, 3], [13, 10, 13], BODY)
-           + bars(8, 1, 6.5, 9.5, TEETH, [("x", 0), ("z", 0), ("x", 45), ("z", 45)]),
-    # 16 teeth: 8 bars, every 22.5°
-    "large_cog": SHAFT[:1] + [Box([-1, 6, -1], [17, 10, 17], BODY, rot=("y", a) if a else None) for a in (0, 22.5, 45, -22.5)]
-                 + bars(12, 1, 6.5, 9.5, TEETH, [("x", 0), ("x", 22.5), ("x", 45), ("x", -22.5),
-                                                   ("z", 0), ("z", 22.5), ("z", -22.5), ("z", 45)]),
-    # flywheel near the +Y face: copper rim, spokes, hub and a soul crystal weight that shows the turning
-    "flywheel": ring(5.5, 4.5, 13.5, 15.5, COPPER) + bars(4.5, 0.5, 14, 15, PATINA, [("x", 0), ("z", 0), ("x", 45), ("z", 45)])
-                + [Box([7, 13, 7], [9, 16, 9], DEEP), Box([7, 13.2, 2], [9, 15.8, 3.6], CRYSTAL)],
-    # piston rod and head on top of the engine (engine faces north)
-    "piston": [Box([8.5, 13, 4.5], [10.5, 16.5, 6.5], CUT_COPPER), Box([7.5, 16.5, 3.5], [11.5, 17.5, 7.5], PATINA)],
-    # two millstones, a crank handle
-    "millstone": octagon([2, 10, 2], [14, 12.5, 14], {"up": "minecraft:block/smooth_stone", "down": "minecraft:block/smooth_stone",
-                                                       **{f: "minecraft:block/smooth_stone_slab_side" for f in ("north", "south", "east", "west")}})
-                 + octagon([3, 12.5, 3], [13, 14.5, 13], {"up": "minecraft:block/grindstone_round", "down": "minecraft:block/grindstone_round",
-                                                          **{f: "minecraft:block/grindstone_side" for f in ("north", "south", "east", "west")}})
-                 + [Box([7.5, 14.5, 2.5], [8.5, 15.5, 6], LOG), Box([7, 14.5, 1.5], [9, 16.5, 3], PATINA)],
-    "wave_ring": ring(7, 6, 11, 11.6, COPPER),
-    "wave_core": octagon([6.5, 9, 6.5], [9.5, 12.5, 9.5], CRYSTAL),
-    # dial plate on the top face of the gauge (box 1..15) and the needle above it; the needle points to -Z at 0°
-    "dial": [Box([3, 15, 3], [13, 15.2, 13], {"up": DIAL, **{f: PATINA for f in ("north", "south", "east", "west", "down")}})],
-    "needle": [Box([7.6, 15.2, 4], [8.4, 15.45, 8.4], "minecraft:block/redstone_block"),
-               Box([7.3, 15.2, 7.3], [8.7, 15.55, 8.7], "minecraft:block/gold_block")],
-    # placeholders for the next machines
-    # the sieve of the soul sifter (sifter faces north; the renderer shakes it along the facing axis)
-    "sieve": [Box([3, 9.4, 3], [10, 9.8, 13], {"up": "minecraft:block/crafting_table_top", "down": "minecraft:block/crafting_table_top",
-                                                 **{f: LOG for f in ("north", "south", "east", "west")}}),
-              Box([2.5, 9, 2.5], [10.5, 10.6, 3], LOG), Box([2.5, 9, 13], [10.5, 10.6, 13.5], LOG),
-              Box([2.5, 9, 3], [3, 10.6, 13], LOG), Box([10, 9, 3], [10.5, 10.6, 13], LOG),
-              Box([10.5, 9.5, 7.5], [13.5, 10.1, 8.5], CUT_COPPER)],   # the rod to the crank
-    # the turning lens of the charoite beam blocks (modelled facing up, on top of the housing)
-    # hand crank (facing up from the face it is mounted on): hub, arm and a wooden grip
-    "crank": [Box([6, 1.5, 6], [10, 4.5, 10], CUT_COPPER), Box([7, 3, 7], [9, 4.5, 14], LOG),
-              Box([6.5, 4.5, 12], [9.5, 9, 15], {**{f: LOG for f in ("north", "south", "east", "west")}, "up": LOG_TOP, "down": LOG_TOP})],
-    # one half of a split shaft (the +Y half; the renderer turns it to either end)
-    "half_shaft": [Box([6, 8, 6], [10, 16, 10], {"north": LOG, "south": LOG, "east": LOG, "west": LOG, "up": LOG_TOP, "down": PATINA}),
-                   Box([5.9, 9, 7], [6.1, 15, 9], CRYSTAL, faces=("west",))],
-    # fan: hub and four blades (facing up)
-    "fan": [Box([6, 9, 6], [10, 13, 10], CUT_COPPER)] + bars(6.5, 1.5, 10.5, 11.5, COPPER, [("x", 0), ("z", 0)])
-           + bars(6, 1, 10.7, 11.3, PATINA, [("x", 45), ("z", 45)]),
-    # drill bit (facing up): a stepped cone of iron with a charoite tip, spiral flutes as offset blocks
-    "drill": [Box([3, 10, 3], [13, 12, 13], "minecraft:block/iron_block", rot=("y", 0)),
-              Box([4, 12, 4], [12, 14, 12], "minecraft:block/iron_block", rot=("y", 22.5)),
-              Box([5.5, 14, 5.5], [10.5, 16, 10.5], "minecraft:block/iron_block", rot=("y", 45)),
-              Box([6.5, 16, 6.5], [9.5, 18, 9.5], "minecraft:block/iron_block", rot=("y", 67.5)),
-              Box([7.25, 18, 7.25], [8.75, 20, 8.75], "pysift:block/progression/charoite_cluster"),
-              Box([2.5, 10.5, 7.5], [4, 13, 8.5], DEEP), Box([12, 12.5, 7.5], [13.5, 15, 8.5], DEEP)],
-    "lens": octagon([5, 10, 5], [11, 12.5, 11], "minecraft:block/amethyst_block") + ring(5, 4, 10.3, 11.5, COPPER)
-            + [Box([7, 12.5, 7], [9, 13, 9], CRYSTAL)],
+    # Create's cogwheel: an octagonal wooden wheel on the shaft, 8 bronze teeth (4 bars through the centre)
+    "cog": SHAFT + octagon([2, 6, 2], [14, 10, 14], COG_BODY)
+           + bars(8, 1.5, 6.5, 9.5, TOOTH, [("x", 0), ("z", 0), ("x", 45), ("z", 45)]),
+    # large cogwheel: 16 teeth (8 bars every 22.5 degrees)
+    "large_cog": SHAFT + octagon([-2, 6, -2], [18, 10, 18], LARGE_BODY)
+                 + bars(12, 1.5, 6.5, 9.5, TOOTH, [("x", 0), ("x", 22.5), ("x", 45), ("x", -22.5),
+                                                    ("z", 0), ("z", 22.5), ("z", -22.5), ("z", 45)]),
+    # flywheel near the +Y face: one wheel (spokes and the crystal weight are painted) and a hub
+    "flywheel": octagon([1.5, 13, 1.5], [14.5, 15.5, 14.5], faces(T("flywheel_edge"), T("flywheel"), T("flywheel")))
+                + [Box([6, 12, 6], [10, 16, 10], faces(SHAFT_SIDE, SHAFT_END, SHAFT_END))],
+    # piston on top of the engine: a rod and a heavy head
+    "piston": [Box([8, 12, 4], [11, 16, 7], faces(SHAFT_SIDE, SHAFT_END, SHAFT_END)),
+               Box([7, 16, 3], [12, 18, 8], faces(PATINA, PATINA, PATINA))],
+    # millstone: one thick stone wheel
+    "millstone": octagon([2, 10, 2], [14, 14, 14], faces(T("millstone_side"), T("millstone_top"), T("millstone_top"))),
+    "wave_ring": [Box([1, 11, 1], [15, 11.75, 2.5], PATINA), Box([1, 11, 13.5], [15, 11.75, 15], PATINA),
+                  Box([1, 11, 2.5], [2.5, 11.75, 13.5], PATINA), Box([13.5, 11, 2.5], [15, 11.75, 13.5], PATINA)],
+    "wave_core": octagon([6, 9, 6], [10, 13, 10], CORE),
+    "dial": [Box([7.5, 15, 7.5], [8.5, 15.05, 8.5], PATINA)],   # (the dial itself is painted on the gauge casing)
+    "needle": [Box([7.5, 15.1, 3.5], [8.5, 15.5, 8.5], T("needle")),
+               Box([7, 15.05, 7], [9, 15.7, 9], faces(PATINA, PATINA, PATINA))],
+    # the sieve of the soul sifter: one framed mesh and the rod to the crank
+    "sieve": [Box([1.5, 9, 2], [11, 10.5, 14], faces(T("sifter_frame"), T("sieve"), T("sieve"))),
+              Box([11, 9.25, 7], [13, 10.25, 9], PATINA)],
+    # hand crank: hub, arm and grip
+    "crank": [Box([5.5, 1.5, 5.5], [10.5, 5, 10.5], faces(PATINA, PATINA, PATINA)),
+              Box([7, 3.5, 7], [9, 5.5, 14], T("crank")),
+              Box([6, 5.5, 11], [10, 11, 15], faces(T("crank"), SHAFT_END, SHAFT_END))],
+    "half_shaft": [Box([6, 8, 6], [10, 16, 10], faces(SHAFT_SIDE, SHAFT_END, SHAFT_END))],
+    # fan: hub and two broad blades
+    "fan": [Box([6, 8, 6], [10, 13, 10], faces(PATINA, SHAFT_END, SHAFT_END))]
+           + bars(6.5, 2, 10, 11, T("fan_blade"), [("x", 22.5), ("z", 22.5)]),
+    # drill bit: three iron steps, each turned a little more (the flutes are painted), a charoite tip
+    "drill": [Box([3, 10, 3], [13, 13, 13], T("drill_bit")),
+              Box([4.5, 13, 4.5], [11.5, 16, 11.5], T("drill_bit"), rot=("y", 22.5)),
+              Box([6, 16, 6], [10, 19, 10], T("drill_bit"), rot=("y", 45)),
+              Box([7, 19, 7], [9, 21, 9], T("lens"))],
+    "lens": octagon([4.5, 10, 4.5], [11.5, 13, 11.5], T("lens")),
+    "emitter_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_emitter"), PATINA)),
+    "receiver_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_receiver"), PATINA)),
 }
 
-
-def dish(tex):
-    """A hub with four petals tilted 22.5° outwards (the dish of the wave emitter / receiver)."""
-    return [Box([5, 8, 5], [11, 9, 11], PATINA),
-            Box([6, 8.5, 1], [10, 9.25, 5], tex, rot=("x", 22.5), origin=(8, 8.75, 5)),
-            Box([6, 8.5, 11], [10, 9.25, 15], tex, rot=("x", -22.5), origin=(8, 8.75, 11)),
-            Box([11, 8.5, 6], [15, 9.25, 10], tex, rot=("z", 22.5), origin=(11, 8.75, 8)),
-            Box([1, 8.5, 6], [5, 9.25, 10], tex, rot=("z", -22.5), origin=(5, 8.75, 8))]
-
-
-PARTS["emitter_dish"] = dish("minecraft:block/amethyst_block")
-PARTS["receiver_dish"] = dish("minecraft:block/sculk_sensor_top")
-
 for name, boxes in PARTS.items():
-    wj(A / f"models/block/soul_power_parts/{name}.json", model(boxes, boxes[0].tex.get("north") or next(iter(boxes[0].tex.values()))))
+    wj(A / f"models/block/soul_power_parts/{name}.json", model(boxes, next(iter(boxes[0].tex.values()))))
 wj(A / "blockstates/soul_power_part.json",
    {"variants": {f"part={n}": {"model": f"pysift:block/soul_power_parts/{n}"} for n in PARTS}})
 
-# ------------------------------------------------------------------ static casings
-ENGINE_FRONT = {False: "pysift:block/spirit_engine/spirit_engine_front", True: "pysift:block/spirit_engine/spirit_engine_front_on"}
+# ------------------------------------------------------------------ static casings (one or two big boxes each)
+ENGINE_FRONT = {False: T("engine_front"), True: T("engine_front_on")}
 
 
 def engine(powered):
-    """Facing north: the flywheel sits on the east side (the renderer turns it), the chimney at the back left."""
-    fire = {"north": ENGINE_FRONT[powered], "south": PATINA, "east": PATINA, "west": PATINA, "up": TILES, "down": TILES}
-    return [Box([0, 0, 0], [16, 2, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
-            Box([1, 2, 1], [13, 11, 15], fire),
-            Box([0.5, 10, 0.5], [13.5, 11.5, 15.5], CUT_COPPER),
-            Box([3, 11.5, 10], [6, 16, 13], DEEP),
-            Box([2.5, 15, 9.5], [6.5, 16, 13.5], CUT_COPPER),
-            Box([7, 11.5, 3], [12, 13.5, 8], PATINA),
-            Box([13, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
+    """Facing north: casing 0..12 wide (the flywheel turns on the east side, 12.5..15), a chimney at the back left."""
+    return [Box([0, 0, 0], [12, 12, 16], faces(T("engine_side"), T("engine_top"), CASING_TOP, north=ENGINE_FRONT[powered])),
+            Box([2, 12, 10], [6, 16, 14], faces(CASING, SHAFT_END, SHAFT_END)),
+            Box([7, 12, 3], [12, 13, 8], faces(PATINA, PATINA, PATINA))]
 
 
-RED_SCULK = "pysift:block/red_sculk/red_sculk"
-SIFTER = [Box([1, 0, 1], [12, 3, 15], {**{f: CUT_COPPER for f in ("north", "south", "east", "west")}, "up": RED_SCULK, "down": DEEP}),
-          Box([1, 3, 1], [2.5, 13, 2.5], LOG), Box([10.5, 3, 1], [12, 13, 2.5], LOG),
-          Box([1, 3, 13.5], [2.5, 13, 15], LOG), Box([10.5, 3, 13.5], [12, 13, 15], LOG),
-          Box([1, 12, 1], [12, 13, 2.5], PATINA), Box([1, 12, 13.5], [12, 13, 15], PATINA),
-          Box([12, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
-BEAM_EMITTER = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([3.5, 3, 3.5], [12.5, 9.5, 12.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([3, 9, 3], [13, 10, 13], CUT_COPPER)]
-BEAM_RECEIVER = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([4, 3, 4], [12, 8, 12], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([2.5, 6, 7], [4, 12, 9], CUT_COPPER), Box([12, 6, 7], [13.5, 12, 9], CUT_COPPER),
-       Box([7, 6, 2.5], [9, 12, 4], CUT_COPPER), Box([7, 6, 12], [9, 12, 13.5], CUT_COPPER)]
-PRISM = octagon([4, 3.5, 4], [12, 11.5, 12], "minecraft:block/amethyst_block")     + [Box([6, 11.5, 6], [10, 13.5, 10], CUT_COPPER), Box([7, 13.5, 7], [9, 14, 9], CRYSTAL),
-       Box([5, 2.5, 5], [11, 3.5, 11], CUT_COPPER)]
-VEINED = "pysift:block/soul_veined_stone/soul_veined_stone"
-# vein node: a deepslate frame (12 edges) with the turning soul core inside
-VEIN_NODE = [Box(f, t, DEEP) for f, t in (
-    ([0, 0, 0], [16, 2, 2]), ([0, 0, 14], [16, 2, 16]), ([0, 14, 0], [16, 16, 2]), ([0, 14, 14], [16, 16, 16]),
-    ([0, 0, 2], [2, 2, 14]), ([14, 0, 2], [16, 2, 14]), ([0, 14, 2], [2, 16, 14]), ([14, 14, 2], [16, 16, 14]),
-    ([0, 2, 0], [2, 14, 2]), ([14, 2, 0], [16, 14, 2]), ([0, 2, 14], [2, 14, 16]), ([14, 2, 14], [16, 14, 16]))]     + [Box([2, 0.5, 2], [14, 1.5, 14], VEINED), Box([2, 14.5, 2], [14, 15.5, 14], VEINED)]
-# pump: faces north (the intake nozzle at the front, the outlet flange at the back, the crank bearing on the east)
-PUMP = [Box([1, 1, 3], [12, 13, 15], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": CUT_COPPER, "down": CUT_COPPER}),
-        Box([3.5, 3.5, 0], [9.5, 9.5, 3], {**{f: CUT_COPPER for f in ("south", "east", "west", "up", "down")}, "north": DEEP}),
-        Box([3, 3, 15], [10, 10, 16], COPPER), Box([12, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP),
-        Box([0.5, 0, 2.5], [12.5, 1, 15.5], CUT_COPPER)]
-PIPE_ARM = {"north": ([5.5, 5.5, 0], [10.5, 10.5, 5]), "south": ([5.5, 5.5, 11], [10.5, 10.5, 16]),
-            "west": ([0, 5.5, 5.5], [5, 10.5, 10.5]), "east": ([11, 5.5, 5.5], [16, 10.5, 10.5]),
-            "down": ([5.5, 0, 5.5], [10.5, 5, 10.5]), "up": ([5.5, 11, 5.5], [10.5, 16, 10.5])}
-PIPE_CORE = [Box([5, 5, 5], [11, 11, 11], CUT_COPPER)]
-CRANK_BASE = [Box([4, 0, 4], [12, 1.5, 12], DEEP)]
-FAN = [Box([0, 0, 0], [16, 3, 16], {**{f: CUT_COPPER for f in ("north", "south", "east", "west")}, "up": "minecraft:block/iron_bars",
-                                     "down": DEEP}),
-       Box([0, 3, 0], [16, 16, 2], PATINA), Box([0, 3, 14], [16, 16, 16], PATINA),
-       Box([0, 3, 2], [2, 16, 14], PATINA), Box([14, 3, 2], [16, 16, 14], PATINA)]
+SIFTER = [Box([0, 0, 1], [12, 3, 15], faces(PATINA, T("sifter_tray"), CASING_TOP)),
+          Box([0, 3, 0], [12, 13, 2], faces(T("sifter_frame"), T("sifter_frame"))),
+          Box([0, 3, 14], [12, 13, 16], faces(T("sifter_frame"), T("sifter_frame"))),
+          Box([12, 4, 4], [13, 12, 12], faces(CASING))]
+BEAM_EMITTER = [Box([0, 0, 0], [16, 4, 16], faces(CASING, T("beam_top"))),
+                Box([2, 4, 2], [14, 10, 14], faces(T("beam_housing"), T("beam_top")))]
+BEAM_RECEIVER = [Box([0, 0, 0], [16, 4, 16], faces(CASING, T("beam_top"))),
+                 Box([3, 4, 3], [13, 9, 13], faces(T("beam_housing"), T("beam_top"))),
+                 Box([1, 8, 7], [15, 12, 9], faces(PATINA, PATINA, PATINA)),
+                 Box([7, 8, 1], [9, 12, 15], faces(PATINA, PATINA, PATINA))]
+PRISM = octagon([3, 3, 3], [13, 13, 13], faces(T("prism"), T("lens"), T("lens")))
+VEIN_NODE = [Box([0, 0, 0], [16, 10, 16], faces(T("vein_node_side"), T("vein_node_top"), CASING_TOP))]
+PUMP = [Box([1, 0, 3], [12, 12, 15], faces(T("pump_side"))),
+        Box([3, 3, 0], [10, 10, 3], faces(PATINA, PATINA, PATINA, north=T("pump_front"))),
+        Box([3, 3, 15], [10, 10, 16], faces(PATINA, PATINA, PATINA, south=T("pipe_end")))]
+PIPE_ARM = {"north": ([5, 5, 0], [11, 11, 5]), "south": ([5, 5, 11], [11, 11, 16]),
+            "west": ([0, 5, 5], [5, 11, 11]), "east": ([11, 5, 5], [16, 11, 11]),
+            "down": ([5, 0, 5], [11, 5, 11]), "up": ([5, 11, 5], [11, 16, 11])}
+PIPE_CORE = [Box([4.5, 4.5, 4.5], [11.5, 11.5, 11.5], faces(T("pipe"), T("pipe_end"), T("pipe_end")))]
+CRANK_BASE = [Box([3, 0, 3], [13, 2, 13], faces(PATINA, CASING_TOP))]
+FAN = [Box([0, 0, 0], [16, 4, 16], faces(CASING, T("fan_side"))),
+       Box([0, 4, 0], [16, 16, 2], faces(T("fan_side"), PATINA)), Box([0, 4, 14], [16, 16, 16], faces(T("fan_side"), PATINA)),
+       Box([0, 4, 2], [2, 16, 14], faces(T("fan_side"), PATINA)), Box([14, 4, 2], [16, 16, 14], faces(T("fan_side"), PATINA))]
 
 
-def shift_case(side, lamp):
-    """Casing of the clutch / gearshift (shaft along Y): four walls round the shaft, a lamp on one wall."""
-    walls = {**{f: side for f in ("north", "south", "east", "west")}, "up": CUT_COPPER, "down": CUT_COPPER}
-    return [Box([1, 1, 1], [15, 15, 3], walls), Box([1, 1, 13], [15, 15, 15], walls),
-            Box([1, 1, 3], [3, 15, 13], walls), Box([13, 1, 3], [15, 15, 13], walls),
-            Box([6, 6, 15], [10, 10, 15.5], lamp), Box([0.5, 0.5, 0.5], [15.5, 2, 15.5], CUT_COPPER),
-            Box([0.5, 14, 0.5], [15.5, 15.5, 15.5], CUT_COPPER)]
+def shift_case(name, on):
+    """Clutch / gearshift: one encased box round the shaft (the shaft ends stick out); the lamp is painted."""
+    side = T(name + ("_on" if on else ""))
+    return [Box([1, 1, 1], [15, 15, 15], faces(side, T("shift_end"), T("shift_end")))]
 
 
-DRILL = [Box([0, 0, 0], [16, 10, 16], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": CUT_COPPER}),
-         Box([0.5, 9, 0.5], [15.5, 10.5, 15.5], CUT_COPPER)]
-RES_CORE = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER)]     + octagon([3.5, 3, 3.5], [12.5, 11, 12.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([2, 11, 2], [14, 13, 14], {**{f: CUT_COPPER for f in ("north", "south", "east", "west", "down")}, "up": DEEP}),
-       Box([5, 13, 5], [11, 13.3, 11], CRYSTAL)]
-RES_PEDESTAL = [Box([3, 0, 3], [13, 2, 13], DEEP)]     + octagon([5.5, 2, 5.5], [10.5, 10, 10.5], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP})     + [Box([3.5, 10, 3.5], [12.5, 12, 12.5], {**{f: CUT_COPPER for f in ("north", "south", "east", "west", "down")},
-                                            "up": "minecraft:block/amethyst_block"})]
-GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
-           Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
-           Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
-           Box([0, 10, 1.5], [1.5, 11, 14.5], PATINA), Box([14.5, 10, 1.5], [16, 11, 14.5], PATINA)]
+DRILL = [Box([0, 0, 0], [16, 10, 16], faces(T("drill_side"), CASING_TOP))]
+RES_CORE = [Box([0, 0, 0], [16, 3, 16], faces(CASING, CASING_TOP))] \
+    + octagon([2.5, 3, 2.5], [13.5, 11, 13.5], faces(T("res_core_side"), T("res_core_top"))) \
+    + [Box([1.5, 11, 1.5], [14.5, 13, 14.5], faces(PATINA, T("res_core_top")))]
+RES_PEDESTAL = [Box([3, 0, 3], [13, 2, 13], faces(PATINA, CASING_TOP)),
+                Box([5, 2, 5], [11, 10, 11], faces(T("pedestal_side"))),
+                Box([3, 10, 3], [13, 12, 13], faces(PATINA, T("pedestal_top")))]
+GRINDER = [Box([0, 0, 0], [16, 10, 16], faces(T("grinder_side"), CASING_TOP))]
 # wave blocks: modelled facing up (the back, which takes the shaft, is the bottom)
-WAVE = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER),
-        Box([6, 3, 6], [10, 8, 10], PATINA), Box([5, 7, 5], [11, 8, 11], COPPER)]
-GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": CUT_COPPER, "down": CUT_COPPER}),
-         Box([0.5, 0.5, 0.5], [15.5, 2, 15.5], CUT_COPPER), Box([0.5, 14, 0.5], [15.5, 15.5, 15.5], CUT_COPPER)]
+WAVE = [Box([0, 0, 0], [16, 4, 16], faces(T("wave_base_side"), T("wave_base_top"))),
+        Box([6, 4, 6], [10, 8, 10], faces(SHAFT_SIDE, SHAFT_END))]
+GAUGE = [Box([1, 1, 1], [15, 15, 15], faces(T("gauge_side"), T("shift_end"), T("shift_end")))]
 
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
     "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
     "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "spirit_pump": PUMP,
     "soul_hand_crank": CRANK_BASE, "soul_fan": FAN, "resonance_core": RES_CORE, "resonance_pedestal": RES_PEDESTAL, "soul_drill": DRILL,
-    "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp"),
-    "soul_clutch_on": shift_case(PATINA, "minecraft:block/redstone_lamp_on"),
-    "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp"),
-    "soul_gearshift_on": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp_on"), "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "soul_clutch": shift_case("clutch", False), "soul_clutch_on": shift_case("clutch", True),
+    "soul_gearshift": shift_case("gearshift", False), "soul_gearshift_on": shift_case("gearshift", True),
+    "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
-    wj(A / f"models/block/{base}/{name}.json", model(boxes, PATINA))
+    wj(A / f"models/block/{base}/{name}.json", model(boxes, CASING))
 # shaft and cogs: the renderer draws everything; the block model only gives the breaking particles
 for name in ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel"):
-    wj(A / f"models/block/{name}/{name}.json", {"textures": {"particle": LOG}})
+    wj(A / f"models/block/{name}/{name}.json", {"textures": {"particle": SHAFT_SIDE}})
 for stale in ("soul_shaft/soul_shaft_on", "soul_grinder/soul_grinder_on", "soul_wave_emitter/soul_wave_emitter_on",
               "soul_wave_receiver/soul_wave_receiver_on"):
     (A / f"models/block/{stale}.json").unlink(missing_ok=True)
@@ -355,13 +318,13 @@ states("charoite_beam_emitter", UPROT, "facing")
 states("charoite_beam_receiver", UPROT, "facing")
 wj(A / "blockstates/soul_vein_node.json", {"variants": {f"powered={v}": {"model": "pysift:block/soul_vein_node/soul_vein_node"}
                                                          for v in ("false", "true")}})
-wj(A / "models/block/soul_veined_stone/soul_veined_stone.json", {"parent": "minecraft:block/cube_all", "textures": {"all": VEINED}})
+wj(A / "models/block/soul_veined_stone/soul_veined_stone.json", {"parent": "minecraft:block/cube_all", "textures": {"all": T("soul_veined_stone")}})
 wj(A / "blockstates/soul_veined_stone.json", {"variants": {"": {"model": "pysift:block/soul_veined_stone/soul_veined_stone"}}})
 states("spirit_pump", {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}, "up": {"x": 270},
                       "down": {"x": 90}}, "facing")
-wj(A / "models/block/spirit_pipe/spirit_pipe_core.json", model(PIPE_CORE, CUT_COPPER))
+wj(A / "models/block/spirit_pipe/spirit_pipe_core.json", model(PIPE_CORE, T("pipe")))
 for d, (f, t) in PIPE_ARM.items():
-    wj(A / f"models/block/spirit_pipe/spirit_pipe_{d}.json", model([Box(f, t, COPPER)], CUT_COPPER))
+    wj(A / f"models/block/spirit_pipe/spirit_pipe_{d}.json", model([Box(f, t, T("pipe"))], T("pipe")))
 wj(A / "blockstates/spirit_pipe.json", {"multipart": [{"apply": {"model": "pysift:block/spirit_pipe/spirit_pipe_core"}}] + [
     {"when": {d: "true"}, "apply": {"model": f"pysift:block/spirit_pipe/spirit_pipe_{d}"}} for d in PIPE_ARM]})
 states("soul_hand_crank", UPROT, "facing")
@@ -398,19 +361,19 @@ ITEMS = {
     "soul_drill": DRILL + PARTS["drill"],
     "resonance_pedestal": RES_PEDESTAL,
     "soul_fan": FAN + PARTS["fan"],
-    "soul_clutch": shift_case(PATINA, "minecraft:block/redstone_lamp") + SHAFT[:1],
-    "soul_gearshift": shift_case(CUT_COPPER, "minecraft:block/redstone_lamp") + SHAFT[:1],
-    "spirit_pipe": PIPE_CORE + [Box(*PIPE_ARM["north"], COPPER), Box(*PIPE_ARM["south"], COPPER)],
+    "soul_clutch": shift_case("clutch", False) + SHAFT,
+    "soul_gearshift": shift_case("gearshift", False) + SHAFT,
+    "spirit_pipe": PIPE_CORE + [Box(*PIPE_ARM["north"], T("pipe")), Box(*PIPE_ARM["south"], T("pipe"))],
     "soul_vein_node": VEIN_NODE + PARTS["wave_core"],
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
-    "soul_gauge": GAUGE + SHAFT[:1] + PARTS["dial"] + PARTS["needle"],
+    "soul_gauge": GAUGE + PARTS["needle"],
     "soul_shaft": SHAFT,
     "soul_cogwheel": PARTS["cog"],
     "large_soul_cogwheel": PARTS["large_cog"],
 }
 for name, boxes in ITEMS.items():
-    wj(A / f"models/item/{name}.json", model(boxes, PATINA))
+    wj(A / f"models/item/{name}.json", model(boxes, CASING))
     wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
 
 # plain blocks: the item is the block model
@@ -554,80 +517,6 @@ for name, im in (("spirit_engine", engine_gui), ("soul_grinder", grinder_gui)):
 
 
 # ------------------------------------------------------------------ gauge dial (new texture)
-def dial():
-    """16x16: dark patina bezel, cream face, a 270° scale from the lower left (green) over the top to the lower
-    right (red). The needle points up at 0° and swings clockwise as the load rises (SoulPowerRenderer)."""
-    im = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
-    bezel, bezel_hi, face, face_lo = (41, 74, 68, 255), (72, 112, 98, 255), (226, 214, 184, 255), (204, 190, 160, 255)
-    green, yellow, red = (78, 146, 84, 255), (214, 170, 58, 255), (180, 56, 46, 255)
-    for v in range(16):
-        for u in range(16):
-            dx, dy = u - 7.5, v - 7.5
-            r = math.hypot(dx, dy)
-            if r > 7.9:
-                continue
-            if r > 6.6:
-                im.putpixel((u, v), bezel_hi if dx + dy < -2 else bezel)
-                continue
-            im.putpixel((u, v), face if dx + dy < 3 else face_lo)
-            phi = math.degrees(math.atan2(dx, -dy))       # clockwise from up
-            if 4.6 < r <= 6.6 and -135 <= phi <= 135:
-                load = (phi + 135) / 270
-                im.putpixel((u, v), green if load < 0.6 else yellow if load < 0.85 else red)
-    for u, v in ((7, 7), (8, 7), (7, 8), (8, 8)):
-        im.putpixel((u, v), bezel)
-    return im
-
-
-art_guard.save(dial(), A / "textures/block/soul_gauge/soul_gauge_dial.png")
-
-
-def veined_stone():
-    """Vanilla deepslate with a seamless, glowing cyan soul vein (core + softer glow beside it)."""
-    base = Image.open(io.BytesIO(CLIENT.read("assets/minecraft/textures/block/deepslate.png"))).convert("RGBA")
-    core = [(0, 5), (1, 5), (2, 6), (3, 6), (4, 6), (5, 7), (6, 7), (7, 8), (8, 8), (9, 8), (10, 7), (11, 6), (12, 6),
-            (13, 5), (14, 5), (15, 5), (8, 9), (8, 10), (9, 11), (9, 12), (10, 13), (10, 14), (10, 15),
-            (10, 0), (10, 1), (9, 2), (9, 3), (8, 4), (4, 7), (3, 8), (3, 9), (2, 10)]
-    bright, mid = (150, 238, 236), (84, 176, 186)
-    im = base.copy()
-    cs = set(core)
-    for x, y in core:
-        im.putpixel((x, y), (*(bright if (x + y) % 3 else mid), 255))
-    for x, y in core:
-        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            q = ((x + dx) % 16, (y + dy) % 16)
-            if q not in cs:
-                b = base.getpixel(q)
-                im.putpixel(q, tuple((b[i] + (60, 140, 150)[i]) // 2 for i in range(3)) + (255,))
-    return im
-
-
-art_guard.save(veined_stone(), A / "textures/block/soul_veined_stone/soul_veined_stone.png")
-
-
-def engine_front(lit):
-    """The spirit engine's firebox: vanilla blast furnace front (its grate and frame), the four flame colours swapped for
-    spirit-liquid fire (deep teal -> cyan -> pale aqua, the same light steps) and the grey stone given a faint patina cast."""
-    name = "blast_furnace_front_on" if lit else "blast_furnace_front"
-    im = Image.open(io.BytesIO(CLIENT.read(f"assets/minecraft/textures/block/{name}.png"))).convert("RGBA")
-    fire = {(208, 84, 13): (22, 120, 132), (237, 93, 10): (38, 168, 176), (237, 135, 10): (92, 214, 210), (240, 162, 66): (176, 240, 228)}
-    px = im.load()
-    for y in range(im.height):
-        for x in range(im.width):
-            r, gg, b, a = px[x, y]
-            if (r, gg, b) in fire:
-                px[x, y] = (*fire[(r, gg, b)], a)
-            elif a and abs(r - gg) < 12 and abs(gg - b) < 12:   # grey stone: lean towards patina
-                px[x, y] = (max(0, r - 6), min(255, gg + 4), min(255, b + 3), a)
-    return im
-
-
-art_guard.save(engine_front(False), A / "textures/block/spirit_engine/spirit_engine_front.png")
-art_guard.save(engine_front(True), A / "textures/block/spirit_engine/spirit_engine_front_on.png")
-mc = A / "textures/block/spirit_engine/spirit_engine_front_on.png.mcmeta"
-mc.write_text(json.dumps({"animation": {"interpolate": True, "frametime": 6}}, indent=2) + chr(10), encoding="utf-8")
-
-
 def patina_gear():
     """16x16 item: an 8-tooth patina gear in the patina ingot's palette. Hand-made mask; lit from the top left,
     sel-out outline (lighter on the lit side), shaded rim around the hole."""

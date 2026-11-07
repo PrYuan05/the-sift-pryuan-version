@@ -1,73 +1,73 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "pysift:block/soul_crystal_block/soul_crystal_block_core_0",
-    "particle": "pysift:block/soul_crystal_block/soul_crystal_block_core_0"
+    "t0": "pysift:block/soul_power/core",
+    "particle": "pysift:block/soul_power/core"
   },
   "elements": [
     {
       "from": [
-        6.5,
+        6,
         9,
-        6.5
+        6
       ],
       "to": [
-        9.5,
-        12.5,
-        9.5
+        10,
+        13,
+        10
       ],
       "faces": {
         "north": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
-            6.5,
-            6.5,
-            9.5,
-            9.5
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#t0"
         },
         "down": {
           "uv": [
-            6.5,
-            6.5,
-            9.5,
-            9.5
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#t0"
         }
@@ -75,67 +75,67 @@
     },
     {
       "from": [
-        6.5,
+        6,
         9,
-        6.5
+        6
       ],
       "to": [
-        9.5,
-        12.5,
-        9.5
+        10,
+        13,
+        10
       ],
       "faces": {
         "north": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            6.5,
-            3.5,
-            9.5,
-            7.0
+            6,
+            3,
+            10,
+            7
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
-            6.5,
-            6.5,
-            9.5,
-            9.5
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#t0"
         },
         "down": {
           "uv": [
-            6.5,
-            6.5,
-            9.5,
-            9.5
+            6,
+            6,
+            10,
+            10
           ],
           "texture": "#t0"
         }

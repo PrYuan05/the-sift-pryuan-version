@@ -1,76 +1,75 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "pysift:block/soul_gauge/soul_gauge_dial",
-    "t1": "pysift:block/patina_block/patina_block",
-    "particle": "pysift:block/patina_block/patina_block"
+    "t0": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/ring"
   },
   "elements": [
     {
       "from": [
-        3,
+        7.5,
         15,
-        3
+        7.5
       ],
       "to": [
-        13,
-        15.2,
-        13
+        8.5,
+        15.05,
+        8.5
       ],
       "faces": {
-        "up": {
+        "north": {
           "uv": [
-            3,
-            3,
-            13,
-            13
+            7.5,
+            0.95,
+            8.5,
+            1.0
           ],
           "texture": "#t0"
         },
-        "north": {
-          "uv": [
-            3,
-            0.8,
-            13,
-            1.0
-          ],
-          "texture": "#t1"
-        },
         "south": {
           "uv": [
-            3,
-            0.8,
-            13,
+            7.5,
+            0.95,
+            8.5,
             1.0
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "east": {
           "uv": [
-            3,
-            0.8,
-            13,
+            7.5,
+            0.95,
+            8.5,
             1.0
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "west": {
           "uv": [
-            3,
-            0.8,
-            13,
+            7.5,
+            0.95,
+            8.5,
             1.0
           ],
-          "texture": "#t1"
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            7.5,
+            8.5,
+            8.5
+          ],
+          "texture": "#t0"
         },
         "down": {
           "uv": [
-            3,
-            3,
-            13,
-            13
+            7.5,
+            7.5,
+            8.5,
+            8.5
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         }
       }
     }

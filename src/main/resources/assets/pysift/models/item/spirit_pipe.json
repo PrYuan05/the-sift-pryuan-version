@@ -1,212 +1,212 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "minecraft:block/oxidized_cut_copper",
-    "t1": "minecraft:block/oxidized_copper",
-    "particle": "pysift:block/patina_block/patina_block"
+    "t0": "pysift:block/soul_power/pipe",
+    "t1": "pysift:block/soul_power/pipe_end",
+    "particle": "pysift:block/soul_power/casing"
   },
   "elements": [
     {
       "from": [
-        5,
-        5,
-        5
+        4.5,
+        4.5,
+        4.5
       ],
       "to": [
-        11,
-        11,
-        11
+        11.5,
+        11.5,
+        11.5
       ],
       "faces": {
         "north": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
           "texture": "#t0"
         },
         "south": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
           "texture": "#t0"
         },
         "east": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
           "texture": "#t0"
         },
         "west": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
           "texture": "#t0"
         },
         "up": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
-          "texture": "#t0"
+          "texture": "#t1"
         },
         "down": {
           "uv": [
-            5,
-            5,
-            11,
-            11
+            4.5,
+            4.5,
+            11.5,
+            11.5
           ],
-          "texture": "#t0"
+          "texture": "#t1"
         }
       }
     },
     {
       "from": [
-        5.5,
-        5.5,
+        5,
+        5,
         0
       ],
       "to": [
-        10.5,
-        10.5,
+        11,
+        11,
         5
       ],
       "faces": {
         "north": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "south": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "east": {
           "uv": [
             11,
-            5.5,
+            5,
             16,
-            10.5
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "west": {
           "uv": [
             0,
-            5.5,
             5,
-            10.5
+            5,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "up": {
           "uv": [
-            5.5,
+            5,
             0,
-            10.5,
+            11,
             5
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "down": {
           "uv": [
-            5.5,
+            5,
             11,
-            10.5,
+            11,
             16
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         }
       }
     },
     {
       "from": [
-        5.5,
-        5.5,
+        5,
+        5,
         11
       ],
       "to": [
-        10.5,
-        10.5,
+        11,
+        11,
         16
       ],
       "faces": {
         "north": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "south": {
           "uv": [
-            5.5,
-            5.5,
-            10.5,
-            10.5
+            5,
+            5,
+            11,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "east": {
           "uv": [
             0,
-            5.5,
             5,
-            10.5
+            5,
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "west": {
           "uv": [
             11,
-            5.5,
+            5,
             16,
-            10.5
+            11
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "up": {
           "uv": [
-            5.5,
+            5,
             11,
-            10.5,
+            11,
             16
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         },
         "down": {
           "uv": [
-            5.5,
+            5,
             0,
-            10.5,
+            11,
             5
           ],
-          "texture": "#t1"
+          "texture": "#t0"
         }
       }
     }

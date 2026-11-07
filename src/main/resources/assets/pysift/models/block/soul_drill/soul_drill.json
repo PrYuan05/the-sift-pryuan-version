@@ -1,10 +1,9 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "t0": "pysift:block/patina_block/patina_block",
-    "t1": "minecraft:block/polished_deepslate",
-    "t2": "minecraft:block/oxidized_cut_copper",
-    "particle": "pysift:block/patina_block/patina_block"
+    "t0": "pysift:block/soul_power/drill_side",
+    "t1": "pysift:block/soul_power/casing_top",
+    "particle": "pysift:block/soul_power/casing"
   },
   "elements": [
     {
@@ -71,75 +70,7 @@
             16,
             16
           ],
-          "texture": "#t2"
-        }
-      }
-    },
-    {
-      "from": [
-        0.5,
-        9,
-        0.5
-      ],
-      "to": [
-        15.5,
-        10.5,
-        15.5
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0.5,
-            5.5,
-            15.5,
-            7.0
-          ],
-          "texture": "#t2"
-        },
-        "south": {
-          "uv": [
-            0.5,
-            5.5,
-            15.5,
-            7.0
-          ],
-          "texture": "#t2"
-        },
-        "east": {
-          "uv": [
-            0.5,
-            5.5,
-            15.5,
-            7.0
-          ],
-          "texture": "#t2"
-        },
-        "west": {
-          "uv": [
-            0.5,
-            5.5,
-            15.5,
-            7.0
-          ],
-          "texture": "#t2"
-        },
-        "up": {
-          "uv": [
-            0.5,
-            0.5,
-            15.5,
-            15.5
-          ],
-          "texture": "#t2"
-        },
-        "down": {
-          "uv": [
-            0.5,
-            0.5,
-            15.5,
-            15.5
-          ],
-          "texture": "#t2"
+          "texture": "#t1"
         }
       }
     }
