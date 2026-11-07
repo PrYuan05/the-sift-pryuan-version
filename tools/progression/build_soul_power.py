@@ -239,7 +239,7 @@ wj(A / "blockstates/soul_power_part.json",
    {"variants": {f"part={n}": {"model": f"pysift:block/soul_power_parts/{n}"} for n in PARTS}})
 
 # ------------------------------------------------------------------ static casings
-ENGINE_FRONT = {False: "minecraft:block/blast_furnace_front", True: "minecraft:block/blast_furnace_front_on"}
+ENGINE_FRONT = {False: "pysift:block/spirit_engine/spirit_engine_front", True: "pysift:block/spirit_engine/spirit_engine_front_on"}
 
 
 def engine(powered):
@@ -603,6 +603,29 @@ def veined_stone():
 
 
 art_guard.save(veined_stone(), A / "textures/block/soul_veined_stone/soul_veined_stone.png")
+
+
+def engine_front(lit):
+    """The spirit engine's firebox: vanilla blast furnace front (its grate and frame), the four flame colours swapped for
+    spirit-liquid fire (deep teal -> cyan -> pale aqua, the same light steps) and the grey stone given a faint patina cast."""
+    name = "blast_furnace_front_on" if lit else "blast_furnace_front"
+    im = Image.open(io.BytesIO(CLIENT.read(f"assets/minecraft/textures/block/{name}.png"))).convert("RGBA")
+    fire = {(208, 84, 13): (22, 120, 132), (237, 93, 10): (38, 168, 176), (237, 135, 10): (92, 214, 210), (240, 162, 66): (176, 240, 228)}
+    px = im.load()
+    for y in range(im.height):
+        for x in range(im.width):
+            r, gg, b, a = px[x, y]
+            if (r, gg, b) in fire:
+                px[x, y] = (*fire[(r, gg, b)], a)
+            elif a and abs(r - gg) < 12 and abs(gg - b) < 12:   # grey stone: lean towards patina
+                px[x, y] = (max(0, r - 6), min(255, gg + 4), min(255, b + 3), a)
+    return im
+
+
+art_guard.save(engine_front(False), A / "textures/block/spirit_engine/spirit_engine_front.png")
+art_guard.save(engine_front(True), A / "textures/block/spirit_engine/spirit_engine_front_on.png")
+mc = A / "textures/block/spirit_engine/spirit_engine_front_on.png.mcmeta"
+mc.write_text(json.dumps({"animation": {"interpolate": True, "frametime": 6}}, indent=2) + chr(10), encoding="utf-8")
 
 
 def patina_gear():

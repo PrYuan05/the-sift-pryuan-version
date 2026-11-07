@@ -3,7 +3,7 @@
   "textures": {
     "t0": "minecraft:block/deepslate_tiles",
     "t1": "minecraft:block/polished_deepslate",
-    "t2": "minecraft:block/blast_furnace_front",
+    "t2": "pysift:block/spirit_engine/spirit_engine_front",
     "t3": "pysift:block/patina_block/patina_block",
     "t4": "minecraft:block/oxidized_cut_copper",
     "t5": "minecraft:block/oxidized_copper",
