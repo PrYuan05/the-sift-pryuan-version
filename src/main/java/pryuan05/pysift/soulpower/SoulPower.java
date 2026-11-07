@@ -37,6 +37,7 @@ public final class SoulPower {
     public static final Block SOUL_COGWHEEL = register("soul_cogwheel", p -> new SoulCogBlock(false, p), 2.0f);
     public static final Block LARGE_SOUL_COGWHEEL = register("large_soul_cogwheel", p -> new SoulCogBlock(true, p), 2.0f);
     public static final Block SOUL_GAUGE = register("soul_gauge", SoulGaugeBlock::new, 2.5f);
+    public static final Block SOUL_GEARBOX = register("soul_gearbox", SoulGearboxBlock::new, 2.5f);
     public static final Block SOUL_WAVE_EMITTER = register("soul_wave_emitter", p -> new SoulWaveBlock(true, p), 3.0f);
     public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
@@ -66,7 +67,7 @@ public final class SoulPower {
     public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
             FabricBlockEntityTypeBuilder.<KineticBlockEntity>create(KineticBlockEntity::new, SOUL_SHAFT, SOUL_COGWHEEL, LARGE_SOUL_COGWHEEL,
-                    SOUL_CLUTCH, SOUL_GEARSHIFT).build());
+                    SOUL_CLUTCH, SOUL_GEARSHIFT, SOUL_GEARBOX).build());
     public static final BlockEntityType<SoulGaugeBlock.Entity> SOUL_GAUGE_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_gauge"),
             FabricBlockEntityTypeBuilder.create(SoulGaugeBlock.Entity::new, SOUL_GAUGE).build());

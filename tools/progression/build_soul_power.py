@@ -34,6 +34,7 @@ BLOCKS = {
     "soul_cogwheel": ("Soul Cogwheel", "靈魂齒輪", False),
     "large_soul_cogwheel": ("Large Soul Cogwheel", "大靈魂齒輪", False),
     "soul_gauge": ("Soul Gauge", "靈壓計", False),
+    "soul_gearbox": ("Soul Gearbox", "靈魂齒輪箱", False),
     "soul_wave_emitter": ("Soul Wave Emitter", "靈魂振波發送器", False),
     "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", False),
     "soul_grinder": ("Soul Grinder", "靈魂研磨機", True),
@@ -99,6 +100,19 @@ class Box:
         if self.rot:
             axis, angle = self.rot
             b.rot = ({"y": "x", "x": "y", "z": "z"}[axis], angle if axis != "x" else -angle)
+        return b
+
+    def mirrored_x(self):
+        """The same element mirrored across x = 8 (east <-> west)."""
+        b = copy.deepcopy(self)
+        b.frm = [16 - self.to[0], self.frm[1], self.frm[2]]
+        b.to = [16 - self.frm[0], self.to[1], self.to[2]]
+        b.origin = [16 - self.origin[0], self.origin[1], self.origin[2]]
+        swap = {"east": "west", "west": "east"}
+        b.tex = {swap.get(k, k): v for k, v in self.tex.items()}
+        if self.rot:
+            axis, angle = self.rot
+            b.rot = (axis, -angle if axis != "x" else angle)
         return b
 
     def json(self, textures):
@@ -218,6 +232,9 @@ PARTS = {
               Box([6, 16, 6], [10, 19, 10], T("drill_bit"), rot=("y", 45)),
               Box([7, 19, 7], [9, 21, 9], T("lens"))],
     "lens": octagon([4.5, 10, 4.5], [11.5, 13, 11.5], T("lens")),
+    # bevel gear of the gearbox: a small siftite wheel near the +Y face, 8 teeth, turned to each side by the renderer
+    "bevel": octagon([3.5, 11, 3.5], [12.5, 13, 12.5], COG_BODY)
+             + bars(5.5, 1, 11.25, 12.75, TOOTH, [("x", 0), ("z", 0), ("x", 45), ("z", 45)]),
     "emitter_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_emitter"), PATINA)),
     "receiver_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_receiver"), PATINA)),
 }
@@ -280,6 +297,11 @@ GRINDER = [Box([0, 0, 0], [16, 10, 16], faces(T("grinder_side"), CASING_TOP))]
 # wave blocks: modelled facing up (the back, which takes the shaft, is the bottom)
 WAVE = [Box([0, 0, 0], [16, 4, 16], faces(T("wave_base_side"), T("wave_base_top"))),
         Box([6, 4, 6], [10, 8, 10], faces(SHAFT_SIDE, SHAFT_END))]
+# gearbox (axis Y): top and bottom casing plates and four bronze corner posts; the sides are open so the four bevel
+# gears inside show
+GEARBOX = [Box([0, 0, 0], [16, 2, 16], faces(CASING, CASING_TOP)), Box([0, 14, 0], [16, 16, 16], faces(CASING, CASING_TOP)),
+           Box([0, 2, 0], [2, 14, 2], PATINA), Box([14, 2, 0], [16, 14, 2], PATINA),
+           Box([0, 2, 14], [2, 14, 16], PATINA), Box([14, 2, 14], [16, 14, 16], PATINA)]
 GAUGE = [Box([1, 1, 1], [15, 15, 15], faces(T("gauge_side"), T("shift_end"), T("shift_end")))]
 
 STATIC = {
@@ -289,7 +311,7 @@ STATIC = {
     "soul_hand_crank": CRANK_BASE, "soul_fan": FAN, "resonance_core": RES_CORE, "resonance_pedestal": RES_PEDESTAL, "soul_drill": DRILL,
     "soul_clutch": shift_case("clutch", False), "soul_clutch_on": shift_case("clutch", True),
     "soul_gearshift": shift_case("gearshift", False), "soul_gearshift_on": shift_case("gearshift", True),
-    "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE, "soul_gearbox": GEARBOX,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -348,6 +370,7 @@ wj(A / "blockstates/charoite_prism.json",
 states("soul_wave_emitter", UPROT, "facing")
 states("soul_wave_receiver", UPROT, "facing")
 states("soul_gauge", AXIS, "axis")
+states("soul_gearbox", AXIS, "axis")
 for name in ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel"):
     states(name, {a: {} for a in AXIS}, "axis")
 
@@ -374,6 +397,8 @@ ITEMS = {
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_gauge": GAUGE + PARTS["needle"],
+    "soul_gearbox": GEARBOX + [b.turned_east() for b in PARTS["bevel"] + PARTS["half_shaft"]]
+                    + [b.mirrored_x() for b in (b2.turned_east() for b2 in PARTS["bevel"] + PARTS["half_shaft"])],
     "soul_shaft": SHAFT,
     "soul_cogwheel": PARTS["cog"],
     "large_soul_cogwheel": PARTS["large_cog"],
@@ -436,6 +461,7 @@ SHAPED = {
                                                "X": "pysift:soul_crystal_block", "D": "minecraft:polished_deepslate"}, 1),
     "resonance_pedestal": ([" A ", "PPP", "DDD"], {"A": "minecraft:amethyst_shard", "P": "pysift:patina_ingot",
                                                    "D": "minecraft:polished_deepslate"}, 2),
+    "soul_gearbox": ([" C ", "CPC", " C "], {"C": "pysift:soul_cogwheel", "P": "pysift:patina_gear"}, 1),
     "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
     "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:patina_gear",
                                          "S": "pysift:soul_shaft"}, 1),

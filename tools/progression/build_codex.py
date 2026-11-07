@@ -773,6 +773,13 @@ entry(C, "drill", "pysift:soul_drill", "Soul Drill", "靈魂鑽頭", 6, 3, [
          "別站在鑽頭前面。"),
     recipe("crafting", "pysift:soul_drill")], parents=["grinder"])
 
+entry(C, "gearbox", "pysift:soul_gearbox", "Soul Gearbox", "靈魂齒輪箱", 2, -2, [
+    text(("Turning the corner", "轉個彎"),
+         "Four bevel gears round its axis: a shaft on any of the four sides drives the other three, so the power can turn "
+         "90 degrees. The shaft straight across turns the other way.",
+         "軸向四周有四片傘齒輪：任何一面接進來的轉動，都會傳到另外三面，所以動力可以轉 90°。正對面那一根會反著轉。"),
+    recipe("crafting", "pysift:soul_gearbox")], parents=["shafts"])
+
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")
 C = "lore"

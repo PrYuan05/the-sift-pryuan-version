@@ -386,7 +386,24 @@ def crank():
     check("two grinders are too heavy", num(200, Y, Z, "Speed"), 0)
 
 
-parts = {"crank": crank, "connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def gearbox():
+    """Soul gearbox: power in from the west turns the south shaft (90 degrees) and the east shaft the other way."""
+    clear()
+    Z = 255
+    r(f"setblock 199 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 200 {Y} {Z} pysift:soul_shaft[axis=x]")              # west input
+    r(f"setblock 201 {Y} {Z} pysift:soul_gearbox[axis=y]")
+    r(f"setblock 202 {Y} {Z} pysift:soul_shaft[axis=x]")              # east, straight through
+    r(f"setblock 201 {Y} {Z + 1} pysift:soul_shaft[axis=z]")          # south, turned 90 degrees
+    r(f"setblock 201 {Y} {Z + 2} pysift:soul_grinder[facing=north]")
+    settle(2)
+    west, east, south = num(200, Y, Z, "Speed"), num(202, Y, Z, "Speed"), num(201, Y, Z + 1, "Speed")
+    check("the shaft turned 90 degrees turns", abs(south or 0), 32)
+    check("and drives the grinder after it", abs(num(201, Y, Z + 2, "Speed") or 0), 32)
+    check("the opposite shaft turns the other way (east = -west)", east, -(west or 0))
+
+
+parts = {"gearbox": gearbox, "crank": crank, "connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

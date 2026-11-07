@@ -2419,5 +2419,10 @@
   "book.pysift.sift_codex.soul_power.drill.p0.title": "Boring through rock",
   "book.pysift.sift_codex.soul_power.drill.p0.text": "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit.",
   "gui.pysift.soul_power.liquid": "Piped: %s mB",
-  "message.pysift.soul_crank.too_heavy": "Too heavy to crank: load %s / %s SP"
+  "message.pysift.soul_crank.too_heavy": "Too heavy to crank: load %s / %s SP",
+  "block.pysift.soul_gearbox": "Soul Gearbox",
+  "item.pysift.soul_gearbox": "Soul Gearbox",
+  "book.pysift.sift_codex.soul_power.gearbox.name": "Soul Gearbox",
+  "book.pysift.sift_codex.soul_power.gearbox.p0.title": "Turning the corner",
+  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "Four bevel gears round its axis: a shaft on any of the four sides drives the other three, so the power can turn 90 degrees. The shaft straight across turns the other way."
 }

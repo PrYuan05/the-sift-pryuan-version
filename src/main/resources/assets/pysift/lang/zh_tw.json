@@ -2419,5 +2419,10 @@
   "book.pysift.sift_codex.soul_power.drill.p0.title": "鑽穿岩石",
   "book.pysift.sift_codex.soul_power.drill.p0.text": "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。別站在鑽頭前面。",
   "gui.pysift.soul_power.liquid": "管線靈液：%s mB",
-  "message.pysift.soul_crank.too_heavy": "負載太大，搖不動：%s / %s SP"
+  "message.pysift.soul_crank.too_heavy": "負載太大，搖不動：%s / %s SP",
+  "block.pysift.soul_gearbox": "靈魂齒輪箱",
+  "item.pysift.soul_gearbox": "靈魂齒輪箱",
+  "book.pysift.sift_codex.soul_power.gearbox.name": "靈魂齒輪箱",
+  "book.pysift.sift_codex.soul_power.gearbox.p0.title": "轉個彎",
+  "book.pysift.sift_codex.soul_power.gearbox.p0.text": "軸向四周有四片傘齒輪：任何一面接進來的轉動，都會傳到另外三面，所以動力可以轉 90°。正對面那一根會反著轉。"
 }

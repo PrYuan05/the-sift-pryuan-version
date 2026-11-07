@@ -48,6 +48,9 @@
     "part=lens": {
       "model": "pysift:block/soul_power_parts/lens"
     },
+    "part=bevel": {
+      "model": "pysift:block/soul_power_parts/bevel"
+    },
     "part=emitter_dish": {
       "model": "pysift:block/soul_power_parts/emitter_dish"
     },

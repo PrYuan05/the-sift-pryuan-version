@@ -34,6 +34,7 @@ import pryuan05.pysift.soulpower.SoulParts;
 import pryuan05.pysift.soulpower.SoulParts.Part;
 import pryuan05.pysift.soulpower.SoulShaftBlock;
 import pryuan05.pysift.soulpower.SoulShiftBlock;
+import pryuan05.pysift.soulpower.SoulGearboxBlock;
 import pryuan05.pysift.soulpower.SoulHandCrankBlock;
 import pryuan05.pysift.soulpower.SoulFanBlock;
 import pryuan05.pysift.soulpower.SoulDrillBlock;
@@ -116,6 +117,18 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
                     add(s, Part.DIAL, dial);
                     add(s, Part.NEEDLE, new Matrix4f(dial).translate(0.5f, 0f, 0.5f).rotateY(Mth.DEG_TO_RAD * needle).translate(-0.5f, 0f, -0.5f));
                 }
+            }
+        } else if (state.getBlock() instanceof SoulGearboxBlock) {
+            // four bevel gears round the axis, one per side, each with a shaft stub out of that side; seen from outside
+            // every one turns the same way (the box's speed), so per face's +axis it is speed x +-1
+            Direction.Axis axis = state.getValue(SoulGearboxBlock.AXIS);
+            for (Direction d : Direction.values()) {
+                if (d.getAxis() == axis) {
+                    continue;
+                }
+                float a = (float) ((time * be.speed() * 0.3 + (d.ordinal() % 2 == 0 ? 0 : 22.5)) % 360.0);
+                add(s, Part.HALF_SHAFT, spin(d, a));
+                add(s, Part.BEVEL, spin(d, a));
             }
         } else if (state.getBlock() instanceof SoulShiftBlock shift) {
             // 兩段半軸：負方向那段跟著網路轉；正方向那段在換向器通電時反轉、在離合器分開時跟著另一頭（或停住）
