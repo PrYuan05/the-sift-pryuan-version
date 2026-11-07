@@ -214,8 +214,28 @@ def stamp(t, sprite, ox, oy, remap=None, scale=1):
 TEX = {}
 
 
+def solid(t):
+    """Machine models render as solid blocks: a transparent pixel would show as a hole (the side wheels looked cut).
+    Fill every unpainted pixel from its nearest painted neighbour, one ring at a time."""
+    while any(c is None for row in t.px for c in row):
+        filled = []
+        for y in range(t.h):
+            for x in range(t.w):
+                if t.px[y][x] is None:
+                    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)):
+                        c = t.get(x + dx, y + dy)
+                        if c is not None:
+                            filled.append((x, y, c))
+                            break
+        if not filled:
+            break
+        for x, y, c in filled:
+            t.px[y][x] = c
+    return t
+
+
 def save(name, t):
-    TEX[name] = t.image() if isinstance(t, Tex) else t
+    TEX[name] = solid(t).image() if isinstance(t, Tex) else t
 
 
 # casing (shared look of the soul machines)
@@ -291,6 +311,8 @@ for y in range(16):
             t.set(x, y, IRON[3 + round(light * 2)])
         elif d <= 1.8:
             t.set(x, y, IRON[4])
+        elif d <= 4.6:
+            t.set(x, y, SLATE[1] if dx + dy > 0 else SLATE[2])
 for (x, y) in ((7, 2), (8, 2), (7, 3), (8, 3)):
     t.set(x, y, SOUL[3] if y == 2 else SOUL[2])
 save("flywheel", t)
@@ -347,23 +369,23 @@ save("cog_tooth", t)
 
 # ---------------------------------------------------------------- gauge
 t = casing(14)
-for y in range(16):                         # dial window: cream face, a coloured scale arc, ticks, bronze bezel
+# a small round dial set in the casing plate (Create's gauge): bronze bezel, dark face, a thin coloured scale arc
+# from the lower left (no load) over the top to the lower right (full); the red needle part turns over it
+for y in range(16):
     for x in range(16):
         dx, dy = x - 7.5, y - 7.5
         d = math.hypot(dx, dy)
-        if d <= 5.2:
-            t.set(x, y, CREAM[3] if dx + dy < -2 else CREAM[2] if dx + dy < 3 else CREAM[1])
-        elif d <= 6.2:
-            t.set(x, y, PATINA[4] if dx + dy < 0 else PATINA[1])
-SCALE = [((3, 11), (78, 146, 84)), ((3, 10), (78, 146, 84)), ((3, 9), (78, 146, 84)), ((3, 8), (78, 146, 84)),
-         ((3, 7), (96, 156, 82)), ((4, 5), (120, 164, 74)), ((4, 4), (150, 170, 66)), ((5, 3), (180, 172, 60)),
-         ((6, 3), (198, 170, 58)), ((7, 3), (214, 170, 58)), ((8, 3), (214, 160, 56)), ((9, 3), (210, 140, 54)),
-         ((10, 3), (204, 118, 52)), ((11, 4), (196, 96, 50)), ((11, 5), (188, 76, 48)), ((12, 7), (180, 60, 46)),
-         ((12, 8), (176, 56, 46)), ((12, 9), (176, 56, 46)), ((12, 10), (176, 56, 46)), ((12, 11), (176, 56, 46))]
-for (x, y), c in SCALE:
-    t.set(x, y, c)
-for (x, y) in ((4, 12), (11, 12)):         # the two ends of the scale: short dark stops
-    t.set(x, y, CREAM[0])
+        lit = dx + dy < 0
+        if d <= 4.4:
+            t.set(x, y, SLATE[1] if d > 3.4 else SLATE[2] if lit else SLATE[1])
+            phi = math.degrees(math.atan2(dx, -dy))       # clockwise from up
+            if 3.2 < d <= 4.4 and -135 <= phi <= 135:
+                load = (phi + 135) / 270
+                t.set(x, y, (70, 142, 86) if load < 0.55 else (200, 166, 64) if load < 0.8 else (176, 58, 50))
+        elif d <= 5.5:
+            t.set(x, y, IRON[5] if d < 5.0 and lit else IRON[3] if d < 5.0 else IRON[1])
+for (x, y) in ((4, 10), (11, 10)):          # end stops of the scale
+    t.set(x, y, CREAM[3])
 save("gauge_side", t)
 t = Tex(15)                                 # needle: red with a lighter edge, brass hub
 t.rect(0, 0, 15, 15, (150, 40, 36))

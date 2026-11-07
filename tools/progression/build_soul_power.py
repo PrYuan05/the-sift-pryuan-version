@@ -6,8 +6,8 @@ Create-style: every block has a static model (the casing) plus moving parts that
 variant per part); all of them are modelled around the Y axis with the block centre as the pivot.
 
 Writes blockstates, block / part / item models, item definitions, loot tables, recipes (crafting +
-pysift:soul_grinding), mineable / blocks_motion_no_leaves tags, lang, the two GUI backgrounds (cut from vanilla's
-furnace GUI) and the patina gear icon. The block textures are painted by tools/progression/paint_soul_power.py (run it
+pysift:soul_grinding), mineable / blocks_motion_no_leaves tags, lang, the two GUI backgrounds
+(painted here) and the patina gear icon. The block textures are painted by tools/progression/paint_soul_power.py (run it
 first); models follow Create: a few chunky elements per block, details painted in the textures."""
 import copy, io, json, math, sys, zipfile
 from pathlib import Path
@@ -139,8 +139,14 @@ def model(boxes, particle, parent="minecraft:block/block"):
 
 
 def octagon(frm, to, tex, faces=None):
-    """A square and the same square turned 45° (an octagon)."""
-    return [Box(frm, to, tex, faces), Box(frm, to, tex, faces, rot=("y", 45))]
+    """A square and the same square turned 45° (an octagon). The turned square is 0.05 px thinner at both ends: if their
+    end faces sat in the same plane they would z-fight (the wheel looked cut and jagged), now the square's face always
+    wins and only the turned square's corners show around it."""
+    inset = 0.05
+    frm2, to2 = list(frm), list(to)
+    frm2[1] += inset
+    to2[1] -= inset
+    return [Box(frm, to, tex, faces), Box(frm2, to2, tex, faces, rot=("y", 45))]
 
 
 def ring(half_out, half_in, y1, y2, tex, angles=(0, 45)):
@@ -495,28 +501,101 @@ for name, (ingredient, item, count) in GRINDING.items():
     wj(D / f"pysift/recipe/soul_grinding/{name}.json",
        {"type": "pysift:soul_grinding", "ingredient": ingredient, "result": {"id": item, "count": count}})
 
-# ------------------------------------------------------------------ GUI backgrounds from vanilla's furnace (only if missing)
-furnace = Image.open(io.BytesIO(CLIENT.read("assets/minecraft/textures/gui/container/furnace.png"))).convert("RGBA")
-BG = furnace.getpixel((60, 70))
-slot = furnace.crop((55, 16, 73, 34))
+# ------------------------------------------------------------------ GUI backgrounds (176 x 166 on a 256 x 256 sheet), painted
+# Same layout as vanilla containers (title at 8,6, inventory label at 8,72, player slots at 8,84 / hotbar 8,142) and
+# the slot positions of SpiritEngineMenu / SoulGrinderMenu. The panel stays light so the dark label text reads.
+G_OUT = (24, 30, 38)
+G_HI = (236, 244, 240)
+G_PANEL = (188, 200, 199)
+G_PANEL2 = (178, 191, 191)
+G_SHADOW = (92, 108, 112)
+G_SLOT_IN = (132, 144, 146)
+G_SLOT_DARK = (58, 66, 74)
+G_SOUL = [(18, 70, 84), (30, 116, 126), (60, 170, 172)]
+G_GEAR = [(110, 28, 64), (184, 46, 106), (230, 92, 148)]
 
 
-def clear(im, box):
-    im.paste(Image.new("RGBA", (box[2] - box[0], box[3] - box[1]), BG), box[:2])
+def gui_panel():
+    im = Image.new("RGBA", (256, 256), (0, 0, 0, 0))
+    px = im.load()
+    W, H = 176, 166
+    for y in range(H):
+        for x in range(W):
+            corner = (x < 2 or x > W - 3) and (y < 2 or y > H - 3)
+            if corner and (x in (0, W - 1) or y in (0, H - 1)):
+                continue                                   # rounded outer corners
+            edge = x == 0 or y == 0 or x == W - 1 or y == H - 1
+            if edge or (corner and (x in (1, W - 2) or y in (1, H - 2))):
+                px[x, y] = (*G_OUT, 255)
+            elif x <= 2 or y <= 2:
+                px[x, y] = (*G_HI, 255)
+            elif x >= W - 3 or y >= H - 3:
+                px[x, y] = (*G_SHADOW, 255)
+            else:   # a faint diagonal brushed texture so the panel is not flat
+                px[x, y] = (*(G_PANEL2 if (x + 2 * y) % 11 == 0 else G_PANEL), 255)
+    return im
 
 
-engine_gui = furnace.copy()
-clear(engine_gui, (55, 16, 73, 34))
-clear(engine_gui, (78, 32, 140, 60))
-grinder_gui = furnace.copy()
-clear(grinder_gui, (55, 16, 73, 71))
-grinder_gui.paste(slot, (55, 34))
-grinder_gui.paste(slot, (115, 59))
+def recess(im, x0, y0, w, h, inner=G_SLOT_IN):
+    """A recessed box (slot style): dark top-left edge, light bottom-right edge."""
+    px = im.load()
+    for y in range(y0, y0 + h):
+        for x in range(x0, x0 + w):
+            if x == x0 or y == y0:
+                px[x, y] = (*G_SLOT_DARK, 255)
+            elif x == x0 + w - 1 or y == y0 + h - 1:
+                px[x, y] = (*G_HI, 255)
+            else:
+                px[x, y] = (*inner, 255)
+
+
+def slot(im, x, y):
+    recess(im, x - 1, y - 1, 18, 18)
+
+
+def inventory(im):
+    for r in range(3):
+        for c in range(9):
+            slot(im, 8 + c * 18, 84 + r * 18)
+    for c in range(9):
+        slot(im, 8 + c * 18, 142)
+
+
+def gear_emblem(im, cx, cy):
+    """A small siftite cogwheel emblem (8 teeth) in the corner of the panel."""
+    px = im.load()
+    for y in range(cy - 7, cy + 8):
+        for x in range(cx - 7, cx + 8):
+            dx, dy = x - cx, y - cy
+            d = math.hypot(dx, dy)
+            a = math.degrees(math.atan2(dy, dx)) % 45
+            tooth = abs(a - 22.5) > 11
+            if d <= 2:
+                continue
+            if d <= 5 or (d <= 7 and tooth):
+                px[x, y] = (*G_GEAR[2 if dx + dy < -2 else 1 if dx + dy < 3 else 0], 255)
+
+
+engine_gui = gui_panel()
+inventory(engine_gui)
+slot(engine_gui, 56, 53)                                    # fuel
+recess(engine_gui, 55, 35, 16, 16, inner=G_SOUL[0])         # the firebox (the screen fills it with the burn level)
+recess(engine_gui, 82, 17, 88, 52, inner=(200, 212, 210))   # read-out plaque for speed / capacity / load
+gear_emblem(engine_gui, 160, 8)
+grinder_gui = gui_panel()
+inventory(grinder_gui)
+slot(grinder_gui, 56, 35)                                   # input
+slot(grinder_gui, 116, 35)                                  # result
+slot(grinder_gui, 116, 60)                                  # soul essence
+recess(grinder_gui, 79, 38, 26, 8, inner=G_SOUL[0])         # progress trough (filled by the screen)
+for x in (83, 89, 95, 101):                                 # trough ribs
+    grinder_gui.putpixel((x, 41), (*G_SOUL[1], 255))
+gear_emblem(grinder_gui, 160, 8)
 for name, im in (("spirit_engine", engine_gui), ("soul_grinder", grinder_gui)):
-    art_guard.save(im, A / f"textures/gui/container/{name}.png")
+    out = A / f"textures/gui/container/{name}.png"
+    art_guard.save(im, out)
 
 
-# ------------------------------------------------------------------ gauge dial (new texture)
 def patina_gear():
     """16x16 item: an 8-tooth patina gear in the patina ingot's palette. Hand-made mask; lit from the top left,
     sel-out outline (lighter on the lit side), shaded rim around the hole."""

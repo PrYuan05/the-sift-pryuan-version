@@ -9,4 +9,5 @@
 - **PBR**：每張貼圖都附有 LabPBR 1.3 的 `_n.png`（法線、AO、高度）與 `_s.png`（光滑度、金屬、孔隙度、自發光），
   材質依像素的色盤決定：銅綠算銅、鑽頭算鐵，靈魂光、燈、赤紅幽匿會發光。原版看不到，需要 Iris 加上支援 LabPBR 的光影。
 - 想手繪替換時，直接用同檔名覆蓋 PNG，腳本重跑也不會蓋掉（`tools/art_guard.py`）；換了底圖記得一起重畫或刪掉對應的 `_n`／`_s`。
-- GUI 底圖（`textures/gui/container/spirit_engine.png`、`soul_grinder.png`）仍是從原版熔爐介面改的。
+- GUI 底圖（`textures/gui/container/spirit_engine.png`、`soul_grinder.png`）由 `build_soul_power.py` 繪製：淡青灰面板、凹陷格子、靈魂火箱與進度槽、隙浮金齒輪徽章。
+- 所有機器貼圖都是**不透明**的：機器用實心方式繪製，透明像素會變成破洞（側面輪子曾因此看起來被截斷），所以繪製腳本會把空白補滿。
