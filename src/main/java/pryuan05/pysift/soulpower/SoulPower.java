@@ -24,7 +24,8 @@ import java.util.List;
 import java.util.function.Function;
 
 /**
- * 靈魂動力（第一階段）：以「靈壓（SP）」計的轉動動力，靈液引擎產生、傳動軸或靈魂振波傳送、靈魂研磨機使用。
+ * 靈魂動力：以「靈壓（SP）」計的轉動動力（Create 式），靈液引擎產生，傳動軸、齒輪（可以變速、反轉）或靈魂振波傳送，
+ * 靈魂研磨機等機器使用，靈壓計讀出負載。
  * 網路的計算見 {@link SoulNetwork}；資源由 tools/progression/build_soul_power.py 產生。
  */
 public final class SoulPower {
@@ -33,10 +34,20 @@ public final class SoulPower {
 
     public static final Block SPIRIT_ENGINE = register("spirit_engine", SpiritEngineBlock::new, 3.5f);
     public static final Block SOUL_SHAFT = register("soul_shaft", SoulShaftBlock::new, 2.0f);
+    public static final Block SOUL_COGWHEEL = register("soul_cogwheel", p -> new SoulCogBlock(false, p), 2.0f);
+    public static final Block LARGE_SOUL_COGWHEEL = register("large_soul_cogwheel", p -> new SoulCogBlock(true, p), 2.0f);
+    public static final Block SOUL_GAUGE = register("soul_gauge", SoulGaugeBlock::new, 2.5f);
     public static final Block SOUL_WAVE_EMITTER = register("soul_wave_emitter", p -> new SoulWaveBlock(true, p), 3.0f);
     public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
 
+    /** 傳動軸與齒輪：只記轉速，讓用戶端畫出轉動。 */
+    public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
+            FabricBlockEntityTypeBuilder.<KineticBlockEntity>create(KineticBlockEntity::new, SOUL_SHAFT, SOUL_COGWHEEL, LARGE_SOUL_COGWHEEL).build());
+    public static final BlockEntityType<SoulGaugeBlock.Entity> SOUL_GAUGE_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_gauge"),
+            FabricBlockEntityTypeBuilder.create(SoulGaugeBlock.Entity::new, SOUL_GAUGE).build());
     public static final BlockEntityType<SpiritEngineBlockEntity> SPIRIT_ENGINE_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("spirit_engine"),
             FabricBlockEntityTypeBuilder.create(SpiritEngineBlockEntity::new, SPIRIT_ENGINE).build());
@@ -75,6 +86,7 @@ public final class SoulPower {
     }
 
     public static void register() {
+        SoulParts.init();
         Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, PySift.id("soul_grinding"), SoulGrindingRecipe.SERIALIZER);
         SiftCreativeTabs.source(ModItems.BLOCKS_TAB_KEY, output -> BLOCKS.forEach(output::accept));
         PySift.LOGGER.info("Registered {} soul power blocks", BLOCKS.size());

@@ -2316,5 +2316,20 @@
   "subtitles.pysift.entity.sculk_monstrosity.attack": "幽匿巨怪攻擊",
   "subtitles.pysift.entity.sculk_monstrosity.hurt": "幽匿巨怪受傷",
   "subtitles.pysift.entity.sculk_monstrosity.phase": "幽匿巨怪狂暴",
-  "subtitles.pysift.entity.sculk_monstrosity.death": "幽匿巨怪死亡"
+  "subtitles.pysift.entity.sculk_monstrosity.death": "幽匿巨怪死亡",
+  "block.pysift.soul_cogwheel": "靈魂齒輪",
+  "block.pysift.large_soul_cogwheel": "大靈魂齒輪",
+  "block.pysift.soul_gauge": "靈壓計",
+  "block.pysift.soul_power_part": "靈魂動力部件",
+  "message.pysift.soul_gauge.status": "%s RPM · 負載 %s / %s SP（%s%%）",
+  "message.pysift.soul_gauge.overloaded": "過載！%s / %s SP",
+  "message.pysift.soul_gauge.conflict": "轉速衝突：齒輪互相卡住了",
+  "item.pysift.spirit_engine": "靈液引擎",
+  "item.pysift.soul_shaft": "靈魂傳動軸",
+  "item.pysift.soul_cogwheel": "靈魂齒輪",
+  "item.pysift.large_soul_cogwheel": "大靈魂齒輪",
+  "item.pysift.soul_gauge": "靈壓計",
+  "item.pysift.soul_wave_emitter": "靈魂振波發送器",
+  "item.pysift.soul_wave_receiver": "靈魂振波接收器",
+  "item.pysift.soul_grinder": "靈魂研磨機"
 }

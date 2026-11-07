@@ -4,14 +4,14 @@
       "model": "pysift:block/soul_grinder/soul_grinder"
     },
     "facing=north,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on"
+      "model": "pysift:block/soul_grinder/soul_grinder"
     },
     "facing=east,powered=false": {
       "model": "pysift:block/soul_grinder/soul_grinder",
       "y": 90
     },
     "facing=east,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on",
+      "model": "pysift:block/soul_grinder/soul_grinder",
       "y": 90
     },
     "facing=south,powered=false": {
@@ -19,7 +19,7 @@
       "y": 180
     },
     "facing=south,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on",
+      "model": "pysift:block/soul_grinder/soul_grinder",
       "y": 180
     },
     "facing=west,powered=false": {
@@ -27,24 +27,20 @@
       "y": 270
     },
     "facing=west,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on",
+      "model": "pysift:block/soul_grinder/soul_grinder",
       "y": 270
     },
     "facing=up,powered=false": {
-      "model": "pysift:block/soul_grinder/soul_grinder",
-      "x": 270
+      "model": "pysift:block/soul_grinder/soul_grinder"
     },
     "facing=up,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on",
-      "x": 270
+      "model": "pysift:block/soul_grinder/soul_grinder"
     },
     "facing=down,powered=false": {
-      "model": "pysift:block/soul_grinder/soul_grinder",
-      "x": 90
+      "model": "pysift:block/soul_grinder/soul_grinder"
     },
     "facing=down,powered=true": {
-      "model": "pysift:block/soul_grinder/soul_grinder_on",
-      "x": 90
+      "model": "pysift:block/soul_grinder/soul_grinder"
     }
   }
 }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "P": "pysift:soul_willow_planks",
+    "S": "pysift:soul_shaft"
+  },
+  "pattern": [
+    " P ",
+    "PSP",
+    " P "
+  ],
+  "result": {
+    "id": "pysift:soul_cogwheel"
+  }
+}

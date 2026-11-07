@@ -12,7 +12,6 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -20,8 +19,12 @@ import net.minecraft.world.MenuProvider;
 import pryuan05.pysift.fluid.ModFluids;
 import pryuan05.pysift.progression.ModProgression;
 
-/** 靈液引擎：一格燃料，燒著的時候為網路提供 {@link SoulNetwork#ENGINE_CAPACITY} SP，並定期重算網路。 */
-public class SpiritEngineBlockEntity extends BlockEntity implements MenuProvider, SoulKinetic.Member {
+/**
+ * 靈液引擎：一格燃料，燒著的時候以 {@link SoulNetwork#SPEED} RPM 轉動、提供 {@link #CAPACITY_PER_RPM} × RPM 的靈壓，
+ * 並定期重算網路。
+ */
+public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuProvider, SoulKinetic.Source {
+    public static final float CAPACITY_PER_RPM = 8f;   // 32 RPM → 256 SP
     private final SimpleContainer fuel = new SimpleContainer(1) {
         @Override
         public void setChanged() {
@@ -37,7 +40,6 @@ public class SpiritEngineBlockEntity extends BlockEntity implements MenuProvider
     private int burn;
     private int burnMax;
     private int overload;
-    private SoulNetwork.Result network = SoulNetwork.Result.IDLE;
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int i) {
@@ -112,8 +114,13 @@ public class SpiritEngineBlockEntity extends BlockEntity implements MenuProvider
     }
 
     @Override
-    public void setNetwork(SoulNetwork.Result result) {
-        this.network = result;
+    public float sourceSpeed() {
+        return isBurning() ? SoulNetwork.SPEED : 0;
+    }
+
+    @Override
+    public float capacityPerRpm() {
+        return CAPACITY_PER_RPM;
     }
 
     @Override

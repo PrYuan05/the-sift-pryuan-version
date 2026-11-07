@@ -6,17 +6,23 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-/** 靈魂傳動軸：沿著自己的軸向（AXIS）兩端傳動。運轉時模型換成會動的貼圖。 */
-public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic {
-    private static final VoxelShape X = Block.box(0, 5, 5, 16, 11, 11);
-    private static final VoxelShape Y = Block.box(5, 0, 5, 11, 16, 11);
-    private static final VoxelShape Z = Block.box(5, 5, 0, 11, 11, 16);
+/**
+ * 靈魂傳動軸：沿著自己的軸向（AXIS）兩端傳動。方塊模型是空的，整根軸由用戶端的渲染器依轉速轉動著畫出來
+ * （client/soulpower/SoulPowerRenderer，部件模型 models/block/soul_power_parts/）。
+ * 齒輪（{@link SoulCogBlock}）與靈壓計（{@link SoulGaugeBlock}）也從這裡延伸。
+ */
+public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic, EntityBlock {
+    private static final VoxelShape X = Block.box(0, 6, 6, 16, 10, 10);
+    private static final VoxelShape Y = Block.box(6, 0, 6, 10, 16, 10);
+    private static final VoxelShape Z = Block.box(6, 6, 0, 10, 10, 16);
 
     public SoulShaftBlock(Properties properties) {
         super(properties);
@@ -32,6 +38,16 @@ public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic {
     @Override
     public boolean connects(BlockState state, Direction side) {
         return side.getAxis() == state.getValue(AXIS);
+    }
+
+    @Override
+    public Direction.Axis axis(BlockState state) {
+        return state.getValue(AXIS);
+    }
+
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new KineticBlockEntity(pos, state);
     }
 
     @Override

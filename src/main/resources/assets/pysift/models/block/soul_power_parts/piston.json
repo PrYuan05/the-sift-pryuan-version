@@ -1,0 +1,146 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "minecraft:block/oxidized_cut_copper",
+    "t1": "pysift:block/patina_block/patina_block",
+    "particle": "minecraft:block/oxidized_cut_copper"
+  },
+  "elements": [
+    {
+      "from": [
+        8.5,
+        13,
+        4.5
+      ],
+      "to": [
+        10.5,
+        16.5,
+        6.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5.5,
+            0,
+            7.5,
+            3.5
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            8.5,
+            0,
+            10.5,
+            3.5
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            9.5,
+            0,
+            11.5,
+            3.5
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            4.5,
+            0,
+            6.5,
+            3.5
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            8.5,
+            4.5,
+            10.5,
+            6.5
+          ],
+          "texture": "#t0"
+        },
+        "down": {
+          "uv": [
+            8.5,
+            9.5,
+            10.5,
+            11.5
+          ],
+          "texture": "#t0"
+        }
+      }
+    },
+    {
+      "from": [
+        7.5,
+        16.5,
+        3.5
+      ],
+      "to": [
+        11.5,
+        17.5,
+        7.5
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4.5,
+            0,
+            8.5,
+            1.0
+          ],
+          "texture": "#t1"
+        },
+        "south": {
+          "uv": [
+            7.5,
+            0,
+            11.5,
+            1.0
+          ],
+          "texture": "#t1"
+        },
+        "east": {
+          "uv": [
+            8.5,
+            0,
+            12.5,
+            1.0
+          ],
+          "texture": "#t1"
+        },
+        "west": {
+          "uv": [
+            3.5,
+            0,
+            7.5,
+            1.0
+          ],
+          "texture": "#t1"
+        },
+        "up": {
+          "uv": [
+            7.5,
+            3.5,
+            11.5,
+            7.5
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            7.5,
+            8.5,
+            11.5,
+            12.5
+          ],
+          "texture": "#t1"
+        }
+      }
+    }
+  ]
+}

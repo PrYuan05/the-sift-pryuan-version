@@ -22,6 +22,18 @@ public class SoulGrinderBlock extends SoulMachineBlock {
         return true;
     }
 
+    /** 石磨繞垂直軸轉。 */
+    @Override
+    public Direction.Axis axis(BlockState state) {
+        return Direction.Axis.Y;
+    }
+
+    /** 每 1 RPM 吃 2 SP（32 RPM = 64 SP，一台引擎帶得動 4 台）。 */
+    @Override
+    public float impact(BlockState state) {
+        return 2f;
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new SoulGrinderBlockEntity(pos, state);

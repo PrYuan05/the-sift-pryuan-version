@@ -1,13 +1,20 @@
-"""Resources for the soul power blocks (src/main/java/pryuan05/pysift/soulpower/, first stage).
+"""Resources for the soul power blocks (src/main/java/pryuan05/pysift/soulpower/).
 Usage: python -I tools/progression/build_soul_power.py <project>
 
-Writes blockstates, block / item models, item definitions, loot tables, recipes (crafting + pysift:soul_grinding),
-mineable / blocks_motion_no_leaves tags, lang and the two GUI backgrounds (cut from vanilla's furnace GUI).
-Textures are vanilla placeholders until the art lands (art_requests/soul_power_todo.md); POWERED=true uses
-animated vanilla textures so a running network is visible."""
-import io, json, sys, zipfile
+Create-style: every block has a static model (the casing) plus moving parts that the client renderer turns
+(client/soulpower/SoulPowerRenderer). The parts hang on a block that is never placed (soul_power_part, one
+variant per part); all of them are modelled around the Y axis with the block centre as the pivot.
+
+Writes blockstates, block / part / item models, item definitions, loot tables, recipes (crafting +
+pysift:soul_grinding), mineable / blocks_motion_no_leaves tags, lang, the two GUI backgrounds (cut from vanilla's
+furnace GUI) and the gauge dial texture. Textures: patina, soul willow and soul crystal from the mod, the rest vanilla
+(art_requests/soul_power_todo.md lists what still wants its own art). Existing PNGs are never rewritten (art_guard)."""
+import copy, io, json, math, sys, zipfile
 from pathlib import Path
 from PIL import Image
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import art_guard  # noqa: E402
 
 P = Path(sys.argv[1])
 A = P / "src/main/resources/assets/pysift"
@@ -22,60 +29,259 @@ def wj(path, obj):
 
 # name: (English, 繁中, solid full cube)
 BLOCKS = {
-    "spirit_engine": ("Spirit Engine", "靈液引擎", True),
+    "spirit_engine": ("Spirit Engine", "靈液引擎", False),
     "soul_shaft": ("Soul Shaft", "靈魂傳動軸", False),
-    "soul_wave_emitter": ("Soul Wave Emitter", "靈魂振波發送器", True),
-    "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", True),
+    "soul_cogwheel": ("Soul Cogwheel", "靈魂齒輪", False),
+    "large_soul_cogwheel": ("Large Soul Cogwheel", "大靈魂齒輪", False),
+    "soul_gauge": ("Soul Gauge", "靈壓計", False),
+    "soul_wave_emitter": ("Soul Wave Emitter", "靈魂振波發送器", False),
+    "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", False),
     "soul_grinder": ("Soul Grinder", "靈魂研磨機", True),
 }
-SIDE = "minecraft:block/polished_deepslate"
-# orientable machines: textures for (unpowered, powered)
-MACHINES = {
-    "spirit_engine": {"top": SIDE, "side": "minecraft:block/deepslate_tiles",
-                      "front": ("minecraft:block/blast_furnace_front", "minecraft:block/blast_furnace_front_on")},
-    "soul_grinder": {"top": ("minecraft:block/smithing_table_top", "minecraft:block/sculk"), "side": "minecraft:block/deepslate_tiles",
-                     "front": "minecraft:block/smithing_table_front"},
-    "soul_wave_emitter": {"top": SIDE, "side": SIDE,
-                          "front": ("minecraft:block/sculk_catalyst_top", "minecraft:block/sculk_catalyst_top_bloom")},
-    "soul_wave_receiver": {"top": SIDE, "side": SIDE,
-                           "front": ("minecraft:block/sculk_shrieker_inner_top", "minecraft:block/sculk_shrieker_can_summon_inner_top")},
+
+# ------------------------------------------------------------------ textures
+PATINA = "pysift:block/patina_block/patina_block"
+LOG = "pysift:block/soul_willow/stripped_soul_willow_log"
+LOG_TOP = "pysift:block/soul_willow/stripped_soul_willow_log_top"
+PLANKS = "pysift:block/soul_willow/soul_willow_planks"
+CRYSTAL = "pysift:block/soul_crystal_block/soul_crystal_block_core_0"
+DIAL = "pysift:block/soul_gauge/soul_gauge_dial"
+DEEP = "minecraft:block/polished_deepslate"
+TILES = "minecraft:block/deepslate_tiles"
+COPPER = "minecraft:block/oxidized_copper"
+CUT_COPPER = "minecraft:block/oxidized_cut_copper"
+
+
+# ------------------------------------------------------------------ element helpers
+class Box:
+    """One model element: from/to in pixels, a texture per face (or one for all), optional Y/X/Z rotation."""
+
+    def __init__(self, frm, to, tex, faces=None, rot=None, origin=(8, 8, 8)):
+        self.frm, self.to = list(frm), list(to)
+        self.tex = tex if isinstance(tex, dict) else {f: tex for f in ("north", "south", "east", "west", "up", "down")}
+        if faces is not None:
+            self.tex = {f: t for f, t in self.tex.items() if f in faces}
+        self.rot = rot            # (axis, angle)
+        self.origin = list(origin)
+
+    def turned_east(self):
+        """The same element with +Y turned to +X (a part modelled around Y, used on a side of a machine)."""
+        b = copy.deepcopy(self)
+        f = lambda p: [p[1], 16 - p[0], p[2]]
+        a, c = f(self.frm), f(self.to)
+        b.frm = [min(a[i], c[i]) for i in range(3)]
+        b.to = [max(a[i], c[i]) for i in range(3)]
+        b.origin = f(self.origin)
+        remap = {"up": "east", "down": "west", "east": "down", "west": "up", "north": "north", "south": "south"}
+        b.tex = {remap[k]: v for k, v in self.tex.items()}
+        if self.rot:
+            axis, angle = self.rot
+            b.rot = ({"y": "x", "x": "y", "z": "z"}[axis], angle if axis != "x" else -angle)
+        return b
+
+    def json(self, textures):
+        x1, y1, z1 = self.frm
+        x2, y2, z2 = self.to
+        raw = {"up": [x1, z1, x2, z2], "down": [x1, 16 - z2, x2, 16 - z1], "north": [16 - x2, 16 - y2, 16 - x1, 16 - y1],
+               "south": [x1, 16 - y2, x2, 16 - y1], "east": [16 - z2, 16 - y2, 16 - z1, 16 - y1], "west": [z1, 16 - y2, z2, 16 - y1]}
+        faces = {}
+        for face, tex in self.tex.items():
+            if tex not in textures:
+                textures[tex] = f"t{len(textures)}"
+            faces[face] = {"uv": fit_uv(raw[face]), "texture": "#" + textures[tex]}
+        e = {"from": self.frm, "to": self.to, "faces": faces}
+        if self.rot:
+            e["rotation"] = {"origin": self.origin, "axis": self.rot[0], "angle": self.rot[1]}
+        return e
+
+
+def fit_uv(uv):
+    """Keep UVs inside 0..16 (elements of the large cog stick out of the block)."""
+    u1, v1, u2, v2 = uv
+    out = []
+    for a, b in ((u1, u2), (v1, v2)):
+        lo, hi = min(a, b), max(a, b)
+        w = min(16, hi - lo)
+        lo = min(max(lo, 0), 16 - w)
+        out.append((lo, lo + w) if a <= b else (lo + w, lo))
+    return [round(out[0][0], 3), round(out[1][0], 3), round(out[0][1], 3), round(out[1][1], 3)]
+
+
+def model(boxes, particle, parent="minecraft:block/block"):
+    textures = {}
+    elements = [b.json(textures) for b in boxes]
+    tex = {v: k for k, v in textures.items()}
+    tex["particle"] = particle
+    out = {"parent": parent, "textures": tex, "elements": elements}
+    return out
+
+
+def octagon(frm, to, tex, faces=None):
+    """A square and the same square turned 45° (an octagon)."""
+    return [Box(frm, to, tex, faces), Box(frm, to, tex, faces, rot=("y", 45))]
+
+
+def ring(half_out, half_in, y1, y2, tex, angles=(0, 45)):
+    """A square ring (4 bars) at each angle: an octagonal rim."""
+    bars = []
+    for ang in angles:
+        r = ("y", ang) if ang else None
+        o, i = 8 - half_out, 8 + half_out
+        n, s = 8 - half_in, 8 + half_in
+        bars += [Box([o, y1, o], [i, y2, n], tex, rot=r), Box([o, y1, s], [i, y2, i], tex, rot=r),
+                 Box([o, y1, n], [n, y2, s], tex, rot=r), Box([s, y1, n], [i, y2, s], tex, rot=r)]
+    return bars
+
+
+def bars(length_half, width_half, y1, y2, tex, lines):
+    """Bars through the centre (pairs of opposite teeth); lines = (along, angle) with along 'x' or 'z'."""
+    out = []
+    for along, ang in lines:
+        if along == "x":
+            frm, to = [8 - length_half, y1, 8 - width_half], [8 + length_half, y2, 8 + width_half]
+        else:
+            frm, to = [8 - width_half, y1, 8 - length_half], [8 + width_half, y2, 8 + length_half]
+        out.append(Box(frm, to, tex, rot=("y", ang) if ang else None))
+    return out
+
+
+SHAFT = [Box([6, 0, 6], [10, 16, 10], {"north": LOG, "south": LOG, "east": LOG, "west": LOG, "up": LOG_TOP, "down": LOG_TOP}),
+         # two soul streaks so the turning is easy to see
+         Box([5.9, 2, 7], [6.1, 14, 9], CRYSTAL, faces=("west",)), Box([9.9, 2, 7], [10.1, 14, 9], CRYSTAL, faces=("east",))]
+
+TEETH = {"up": CUT_COPPER, "down": CUT_COPPER, **{f: DEEP for f in ("north", "south", "east", "west")}}
+BODY = {"up": LOG_TOP, "down": LOG_TOP, "north": PLANKS, "south": PLANKS, "east": PLANKS, "west": PLANKS}
+PARTS = {
+    "shaft": SHAFT,
+    # 8 teeth: bars along x and z, and the same turned 45°
+    "cog": SHAFT[:1] + octagon([3, 6, 3], [13, 10, 13], BODY)
+           + bars(8, 1, 6.5, 9.5, TEETH, [("x", 0), ("z", 0), ("x", 45), ("z", 45)]),
+    # 16 teeth: 8 bars, every 22.5°
+    "large_cog": SHAFT[:1] + [Box([-1, 6, -1], [17, 10, 17], BODY, rot=("y", a) if a else None) for a in (0, 22.5, 45, -22.5)]
+                 + bars(12, 1, 6.5, 9.5, TEETH, [("x", 0), ("x", 22.5), ("x", 45), ("x", -22.5),
+                                                   ("z", 0), ("z", 22.5), ("z", -22.5), ("z", 45)]),
+    # flywheel near the +Y face: copper rim, spokes, hub and a soul crystal weight that shows the turning
+    "flywheel": ring(5.5, 4.5, 13.5, 15.5, COPPER) + bars(4.5, 0.5, 14, 15, PATINA, [("x", 0), ("z", 0), ("x", 45), ("z", 45)])
+                + [Box([7, 13, 7], [9, 16, 9], DEEP), Box([7, 13.2, 2], [9, 15.8, 3.6], CRYSTAL)],
+    # piston rod and head on top of the engine (engine faces north)
+    "piston": [Box([8.5, 13, 4.5], [10.5, 16.5, 6.5], CUT_COPPER), Box([7.5, 16.5, 3.5], [11.5, 17.5, 7.5], PATINA)],
+    # two millstones, a crank handle
+    "millstone": octagon([2, 10, 2], [14, 12.5, 14], {"up": "minecraft:block/smooth_stone", "down": "minecraft:block/smooth_stone",
+                                                       **{f: "minecraft:block/smooth_stone_slab_side" for f in ("north", "south", "east", "west")}})
+                 + octagon([3, 12.5, 3], [13, 14.5, 13], {"up": "minecraft:block/grindstone_round", "down": "minecraft:block/grindstone_round",
+                                                          **{f: "minecraft:block/grindstone_side" for f in ("north", "south", "east", "west")}})
+                 + [Box([7.5, 14.5, 2.5], [8.5, 15.5, 6], LOG), Box([7, 14.5, 1.5], [9, 16.5, 3], PATINA)],
+    "wave_ring": ring(7, 6, 11, 11.6, COPPER),
+    "wave_core": octagon([6.5, 9, 6.5], [9.5, 12.5, 9.5], CRYSTAL),
+    # dial plate on the top face of the gauge (box 1..15) and the needle above it; the needle points to -Z at 0°
+    "dial": [Box([3, 15, 3], [13, 15.2, 13], {"up": DIAL, **{f: PATINA for f in ("north", "south", "east", "west", "down")}})],
+    "needle": [Box([7.6, 15.2, 4], [8.4, 15.45, 8.4], "minecraft:block/redstone_block"),
+               Box([7.3, 15.2, 7.3], [8.7, 15.55, 8.7], "minecraft:block/gold_block")],
+    # placeholders for the next machines
+    "sieve": [Box([1, 11, 1], [15, 12, 15], "minecraft:block/scaffolding_top")],
+    "lens": octagon([5, 6, 5], [11, 10, 11], "minecraft:block/amethyst_block"),
 }
-# FACING -> rotation of minecraft:block/orientable (front faces north)
-ROT = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}, "up": {"x": 270}, "down": {"x": 90}}
 
-for name, tex in MACHINES.items():
-    for powered in (False, True):
-        t = {k: (v[powered] if isinstance(v, tuple) else v) for k, v in tex.items()}
-        suffix = "_on" if powered else ""
-        wj(A / f"models/block/{name}{suffix}.json", {"parent": "minecraft:block/orientable",
-                                                     "textures": {"top": t["top"], "side": t["side"], "front": t["front"],
-                                                                  "particle": t["side"]}})
-    variants = {}
-    for facing, rot in ROT.items():
+
+def dish(tex):
+    """A hub with four petals tilted 22.5° outwards (the dish of the wave emitter / receiver)."""
+    return [Box([5, 8, 5], [11, 9, 11], PATINA),
+            Box([6, 8.5, 1], [10, 9.25, 5], tex, rot=("x", 22.5), origin=(8, 8.75, 5)),
+            Box([6, 8.5, 11], [10, 9.25, 15], tex, rot=("x", -22.5), origin=(8, 8.75, 11)),
+            Box([11, 8.5, 6], [15, 9.25, 10], tex, rot=("z", 22.5), origin=(11, 8.75, 8)),
+            Box([1, 8.5, 6], [5, 9.25, 10], tex, rot=("z", -22.5), origin=(5, 8.75, 8))]
+
+
+PARTS["emitter_dish"] = dish("minecraft:block/amethyst_block")
+PARTS["receiver_dish"] = dish("minecraft:block/sculk_sensor_top")
+
+for name, boxes in PARTS.items():
+    wj(A / f"models/block/soul_power_parts/{name}.json", model(boxes, boxes[0].tex.get("north") or next(iter(boxes[0].tex.values()))))
+wj(A / "blockstates/soul_power_part.json",
+   {"variants": {f"part={n}": {"model": f"pysift:block/soul_power_parts/{n}"} for n in PARTS}})
+
+# ------------------------------------------------------------------ static casings
+ENGINE_FRONT = {False: "minecraft:block/blast_furnace_front", True: "minecraft:block/blast_furnace_front_on"}
+
+
+def engine(powered):
+    """Facing north: the flywheel sits on the east side (the renderer turns it), the chimney at the back left."""
+    fire = {"north": ENGINE_FRONT[powered], "south": PATINA, "east": PATINA, "west": PATINA, "up": TILES, "down": TILES}
+    return [Box([0, 0, 0], [16, 2, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
+            Box([1, 2, 1], [13, 11, 15], fire),
+            Box([0.5, 10, 0.5], [13.5, 11.5, 15.5], CUT_COPPER),
+            Box([3, 11.5, 10], [6, 16, 13], DEEP),
+            Box([2.5, 15, 9.5], [6.5, 16, 13.5], CUT_COPPER),
+            Box([7, 11.5, 3], [12, 13.5, 8], PATINA),
+            Box([13, 5.5, 5.5], [13.5, 10.5, 10.5], DEEP)]
+
+
+GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
+           Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
+           Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
+           Box([0, 10, 1.5], [1.5, 11, 14.5], PATINA), Box([14.5, 10, 1.5], [16, 11, 14.5], PATINA)]
+# wave blocks: modelled facing up (the back, which takes the shaft, is the bottom)
+WAVE = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1, 15.5], CUT_COPPER),
+        Box([6, 3, 6], [10, 8, 10], PATINA), Box([5, 7, 5], [11, 8, 11], COPPER)]
+GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", "east", "west")}, "up": CUT_COPPER, "down": CUT_COPPER}),
+         Box([0.5, 0.5, 0.5], [15.5, 2, 15.5], CUT_COPPER), Box([0.5, 14, 0.5], [15.5, 15.5, 15.5], CUT_COPPER)]
+
+STATIC = {
+    "spirit_engine": engine(False), "spirit_engine_on": engine(True),
+    "soul_grinder": GRINDER, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+}
+for name, boxes in STATIC.items():
+    base = name.removesuffix("_on")
+    wj(A / f"models/block/{base}/{name}.json", model(boxes, PATINA))
+# shaft and cogs: the renderer draws everything; the block model only gives the breaking particles
+for name in ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel"):
+    wj(A / f"models/block/{name}/{name}.json", {"textures": {"particle": LOG}})
+for stale in ("soul_shaft/soul_shaft_on", "soul_grinder/soul_grinder_on", "soul_wave_emitter/soul_wave_emitter_on",
+              "soul_wave_receiver/soul_wave_receiver_on"):
+    (A / f"models/block/{stale}.json").unlink(missing_ok=True)
+
+# ------------------------------------------------------------------ blockstates
+YROT = {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}}
+UPROT = {"up": {}, "down": {"x": 180}, "north": {"x": 90}, "south": {"x": 90, "y": 180}, "east": {"x": 90, "y": 90},
+         "west": {"x": 90, "y": 270}}
+AXIS = {"y": {}, "x": {"x": 90, "y": 90}, "z": {"x": 90}}
+
+
+def states(name, rots, prop, powered_model=None):
+    v = {}
+    for value, rot in rots.items():
         for powered in ("false", "true"):
-            variants[f"facing={facing},powered={powered}"] = {"model": f"pysift:block/{name}{'_on' if powered == 'true' else ''}", **rot}
-    wj(A / f"blockstates/{name}.json", {"variants": variants})
+            m = powered_model if powered == "true" and powered_model else f"pysift:block/{name}/{name}"
+            v[f"{prop}={value},powered={powered}"] = {"model": m, **rot}
+    wj(A / f"blockstates/{name}.json", {"variants": v})
 
-# shaft: a 6x6 rod along Y, rotated for the other axes
-for powered in (False, True):
-    side = "minecraft:block/sculk" if powered else "minecraft:block/polished_basalt_side"
-    end = "minecraft:block/polished_basalt_top"
-    faces = {d: {"uv": [5, 0, 11, 16], "texture": "#side"} for d in ("north", "south", "east", "west")}
-    faces["up"] = {"uv": [5, 5, 11, 11], "texture": "#end", "cullface": "up"}
-    faces["down"] = {"uv": [5, 5, 11, 11], "texture": "#end", "cullface": "down"}
-    wj(A / f"models/block/soul_shaft{'_on' if powered else ''}.json", {
-        "parent": "minecraft:block/block",
-        "textures": {"side": side, "end": end, "particle": "minecraft:block/polished_basalt_side"},
-        "elements": [{"from": [5, 0, 5], "to": [11, 16, 11], "faces": faces}]})
-shaft = {}
-for axis, rot in (("y", {}), ("x", {"x": 90, "y": 90}), ("z", {"x": 90})):
-    for powered in ("false", "true"):
-        shaft[f"axis={axis},powered={powered}"] = {"model": f"pysift:block/soul_shaft/soul_shaft{'_on' if powered == 'true' else ''}", **rot}
-wj(A / "blockstates/soul_shaft.json", {"variants": shaft})
+
+states("spirit_engine", YROT, "facing", "pysift:block/spirit_engine/spirit_engine_on")
+states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
+states("soul_wave_emitter", UPROT, "facing")
+states("soul_wave_receiver", UPROT, "facing")
+states("soul_gauge", AXIS, "axis")
+for name in ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel"):
+    states(name, {a: {} for a in AXIS}, "axis")
+
+# ------------------------------------------------------------------ item models (casing + parts in their resting pose)
+FLYWHEEL_EAST = [b.turned_east() for b in PARTS["flywheel"]]
+SHAFT_X = [b.turned_east() for b in SHAFT[:1]]
+ITEMS = {
+    "spirit_engine": engine(False) + FLYWHEEL_EAST + SHAFT_X + PARTS["piston"],
+    "soul_grinder": GRINDER + PARTS["millstone"],
+    "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
+    "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
+    "soul_gauge": GAUGE + SHAFT[:1] + PARTS["dial"] + PARTS["needle"],
+    "soul_shaft": SHAFT,
+    "soul_cogwheel": PARTS["cog"],
+    "large_soul_cogwheel": PARTS["large_cog"],
+}
+for name, boxes in ITEMS.items():
+    wj(A / f"models/item/{name}.json", model(boxes, PATINA))
+    wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
 
 for name in BLOCKS:
-    wj(A / f"models/item/{name}.json", {"parent": f"pysift:block/{name}"})
-    wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
     loot = {"type": "minecraft:block", "pools": [{"rolls": 1, "condition": {"type": "minecraft:survives_explosion"},
                                                    "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}],
             "random_sequence": f"pysift:blocks/{name}"}
@@ -83,21 +289,26 @@ for name in BLOCKS:
         wj(D / f"pysift/{folder}/blocks/{name}.json", loot)
 
 
-def add_tag(path, values):
+def tag(path, values, remove=()):
     f = D / path
     cur = json.loads(f.read_text(encoding="utf-8-sig")) if f.exists() else {"replace": False, "values": []}
+    cur["values"] = [v for v in cur["values"] if v not in remove]
     cur["values"] += [v for v in values if v not in cur["values"]]
     wj(f, cur)
 
 
-add_tag("minecraft/tags/block/mineable/pickaxe.json", [f"pysift:{n}" for n in BLOCKS])
-add_tag("minecraft/tags/block/blocks_motion_no_leaves.json", [f"pysift:{n}" for n, v in BLOCKS.items() if v[2]])
+tag("minecraft/tags/block/mineable/pickaxe.json", [f"pysift:{n}" for n in BLOCKS])
+tag("minecraft/tags/block/blocks_motion_no_leaves.json", [f"pysift:{n}" for n, v in BLOCKS.items() if v[2]],
+    remove=[f"pysift:{n}" for n, v in BLOCKS.items() if not v[2]])
 
 # ------------------------------------------------------------------ recipes
 SHAPED = {
     "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:siftite_ingot",
                                               "B": "minecraft:blast_furnace", "E": "pysift:soul_essence"}, 1),
-    "soul_shaft": (["I", "S", "I"], {"I": "pysift:siftite_ingot", "S": "minecraft:polished_basalt"}, 4),
+    "soul_shaft": (["I", "S", "I"], {"I": "pysift:siftite_ingot", "S": "pysift:stripped_soul_willow_log"}, 8),
+    "soul_cogwheel": ([" P ", "PSP", " P "], {"P": "pysift:soul_willow_planks", "S": "pysift:soul_shaft"}, 1),
+    "large_soul_cogwheel": (["PCP"], {"P": "pysift:soul_willow_planks", "C": "pysift:soul_cogwheel"}, 1),
+    "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_shaft", "C": "minecraft:copper_ingot"}, 1),
     "soul_wave_emitter": (["PAP", "ESE", "PIP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                   "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
                                                   "I": "pysift:siftite_ingot"}, 1),
@@ -114,7 +325,6 @@ for name, (pattern, key, count) in SHAPED.items():
         result["count"] = count
     wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shaped", "category": "redstone",
                                           "key": key, "pattern": pattern, "result": result})
-# soul grinding: ores double, stone breaks down (like a mill)
 GRINDING = {
     "siftite_ore": ("pysift:siftite_ore", "pysift:raw_siftite", 2),
     "iron_ores": ("#minecraft:iron_ores", "minecraft:raw_iron", 2),
@@ -129,31 +339,61 @@ for name, (ingredient, item, count) in GRINDING.items():
     wj(D / f"pysift/recipe/soul_grinding/{name}.json",
        {"type": "pysift:soul_grinding", "ingredient": ingredient, "result": {"id": item, "count": count}})
 
-# ------------------------------------------------------------------ GUI backgrounds from vanilla's furnace
+# ------------------------------------------------------------------ GUI backgrounds from vanilla's furnace (only if missing)
 furnace = Image.open(io.BytesIO(CLIENT.read("assets/minecraft/textures/gui/container/furnace.png"))).convert("RGBA")
-BG = furnace.getpixel((60, 70))           # the panel grey
-slot = furnace.crop((55, 16, 73, 34))     # an 18x18 slot
+BG = furnace.getpixel((60, 70))
+slot = furnace.crop((55, 16, 73, 34))
 
 
 def clear(im, box):
     im.paste(Image.new("RGBA", (box[2] - box[0], box[3] - box[1]), BG), box[:2])
 
 
-engine = furnace.copy()                    # keep the fuel slot and the flame; no input, arrow or result
-clear(engine, (55, 16, 73, 34))
-clear(engine, (78, 32, 140, 60))
-grinder = furnace.copy()                   # input in the middle, arrow, result, essence slot under it
-clear(grinder, (55, 16, 73, 71))
-grinder.paste(slot, (55, 34))
-grinder.paste(slot, (115, 59))
-for name, im in (("spirit_engine", engine), ("soul_grinder", grinder)):
-    out = A / f"textures/gui/container/{name}.png"
-    out.parent.mkdir(parents=True, exist_ok=True)
-    im.save(out)
+engine_gui = furnace.copy()
+clear(engine_gui, (55, 16, 73, 34))
+clear(engine_gui, (78, 32, 140, 60))
+grinder_gui = furnace.copy()
+clear(grinder_gui, (55, 16, 73, 71))
+grinder_gui.paste(slot, (55, 34))
+grinder_gui.paste(slot, (115, 59))
+for name, im in (("spirit_engine", engine_gui), ("soul_grinder", grinder_gui)):
+    art_guard.save(im, A / f"textures/gui/container/{name}.png")
+
+
+# ------------------------------------------------------------------ gauge dial (new texture)
+def dial():
+    """16x16: dark patina bezel, cream face, a 270° scale from the lower left (green) over the top to the lower
+    right (red). The needle points up at 0° and swings clockwise as the load rises (SoulPowerRenderer)."""
+    im = Image.new("RGBA", (16, 16), (0, 0, 0, 0))
+    bezel, bezel_hi, face, face_lo = (41, 74, 68, 255), (72, 112, 98, 255), (226, 214, 184, 255), (204, 190, 160, 255)
+    green, yellow, red = (78, 146, 84, 255), (214, 170, 58, 255), (180, 56, 46, 255)
+    for v in range(16):
+        for u in range(16):
+            dx, dy = u - 7.5, v - 7.5
+            r = math.hypot(dx, dy)
+            if r > 7.9:
+                continue
+            if r > 6.6:
+                im.putpixel((u, v), bezel_hi if dx + dy < -2 else bezel)
+                continue
+            im.putpixel((u, v), face if dx + dy < 3 else face_lo)
+            phi = math.degrees(math.atan2(dx, -dy))       # clockwise from up
+            if 4.6 < r <= 6.6 and -135 <= phi <= 135:
+                load = (phi + 135) / 270
+                im.putpixel((u, v), green if load < 0.6 else yellow if load < 0.85 else red)
+    for u, v in ((7, 7), (8, 7), (7, 8), (8, 8)):
+        im.putpixel((u, v), bezel)
+    return im
+
+
+art_guard.save(dial(), A / "textures/block/soul_gauge/soul_gauge_dial.png")
 
 # ------------------------------------------------------------------ lang (merge, keep line endings)
 LANG = {f"block.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()}
+# 26.3 block items read item.pysift.<id> (the registration may not use the block key)
+LANG.update({f"item.pysift.{n}": (v[0], v[1]) for n, v in BLOCKS.items()})
 LANG.update({
+    "block.pysift.soul_power_part": ("Soul Power Part", "靈魂動力部件"),
     "gui.pysift.soul_power.speed": ("Speed: %s RPM", "轉速：%s RPM"),
     "gui.pysift.soul_power.capacity": ("Capacity: %s SP", "靈壓容量：%s SP"),
     "gui.pysift.soul_power.stress": ("Load: %s SP", "需求：%s SP"),
@@ -162,6 +402,9 @@ LANG.update({
     "gui.pysift.soul_power.idle": ("No soul power", "沒有靈魂動力"),
     "message.pysift.soul_wave.frequency": ("Tuned to %s", "頻率：%s"),
     "message.pysift.soul_wave.empty": ("Tune it with a resonant music disc", "放入一張共鳴唱片來設定頻率"),
+    "message.pysift.soul_gauge.status": ("%s RPM · load %s / %s SP (%s%%)", "%s RPM · 負載 %s / %s SP（%s%%）"),
+    "message.pysift.soul_gauge.overloaded": ("Overloaded! %s / %s SP", "過載！%s / %s SP"),
+    "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),
 })
 for code, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{code}.json"
@@ -173,4 +416,4 @@ for code, i in (("en_us", 0), ("zh_tw", 1)):
     if "\r\n" in raw:
         out = out.replace("\n", "\r\n")
     f.write_bytes((out + ("\r\n" if raw.endswith("\n") else "")).encode("utf-8"))
-print(f"{len(BLOCKS)} soul power blocks, {len(GRINDING)} grinding recipes")
+print(f"{len(BLOCKS)} soul power blocks, {len(PARTS)} moving parts, {len(GRINDING)} grinding recipes")

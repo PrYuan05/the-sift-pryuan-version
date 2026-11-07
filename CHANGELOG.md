@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased
+
+### New: soul power (Create-style machines)
+- **Soul power** turns machines with rotation, measured in soul pressure (SP). The **Spirit Engine** burns spirit
+  liquid (or soul essence, soul sand / soil) and turns at 32 RPM with 256 SP; **Soul Shafts** carry it, the **Soul Wave
+  Emitter / Receiver** send it wirelessly to a receiver tuned to the same resonant disc (wool blocks the wave), and the
+  **Soul Grinder** uses it (ores ×2, cobblestone → gravel → sand, bones → bone meal, sometimes soul essence).
+- **Soul Cogwheels** and **Large Soul Cogwheels**: neighbouring cogs drive each other and turn the other way; a large
+  cog meshes with small cogs on its diagonals, which turn twice as fast. Gearing up makes machines work faster but
+  they load the network more (load = impact × RPM). Two paths that want different speeds are a **speed conflict**: the
+  network stops and smokes.
+- **Soul Gauge**: dials on four sides with a needle that swings to the load; right-click for RPM and load, comparators
+  read the load (0-15).
+- **Everything moves**: shafts and cogs turn (teeth sit in each other's gaps), the engine's flywheel spins and its
+  piston pumps, the millstone turns with the item being ground lying on it and throws its crumbs, the wave dishes and
+  rings spin and the soul crystal pulses. Overloaded machines shake; after 5 seconds of overload, creatures nearby lose
+  their souls (soul deprivation).
+- Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
+  network checks on the test server: `tools/progression/test_soul_power.py`.
+
 ## v1.0.4
 
 ### New: the Singers' own voices
@@ -269,6 +289,20 @@
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## 尚未發布（繁體中文）
+
+### 新增：靈魂動力（Create 式的機械）
+- **靈魂動力**以轉動帶動機器，單位是靈壓（SP）。**靈液引擎**燒靈液（或靈魂精華、靈魂沙／靈魂土），以 32 RPM 轉動、
+  提供 256 SP；**靈魂傳動軸**傳遞；**靈魂振波發送器／接收器**把動力無線送給放了同一張共鳴唱片的接收器（羊毛會擋住）；
+  **靈魂研磨機**使用動力（礦石變兩倍、鵝卵石 → 礫石 → 沙、骨頭 → 骨粉，偶爾多出靈魂精華）。
+- **靈魂齒輪**與**大靈魂齒輪**：相鄰的齒輪互相帶動、方向相反；大齒輪和斜角的小齒輪咬合，小齒輪轉兩倍快。加速會讓機器做得更快，
+  但也更吃靈壓（負載 = 衝擊值 × RPM）。兩條路要求不同的轉速就是**轉速衝突**：整個網路停下來冒煙。
+- **靈壓計**：四面錶盤，指針擺到目前的負載；右鍵顯示轉速與負載，比較器讀得到負載（0～15）。
+- **全部會動**：傳動軸與齒輪會轉（齒卡在齒縫裡），引擎的飛輪轉、活塞上下，石磨轉動、正在磨的東西躺在上面一起轉並噴出碎屑，
+  振波的天線碟與外環旋轉、靈魂晶核脈動。過載的機器會抖動；過載 5 秒後，附近的生物會被奪走靈魂（靈魂剝奪）。
+- 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
+  測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
 
 ## v1.0.4（繁體中文）
 

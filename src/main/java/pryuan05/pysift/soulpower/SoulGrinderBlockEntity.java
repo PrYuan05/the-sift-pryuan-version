@@ -14,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.SingleRecipeInput;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -24,16 +23,17 @@ import java.util.Optional;
 
 /**
  * 靈魂研磨機：0 材料、1 結果、2 靈魂精華。轉速 {@link SoulNetwork#SPEED} RPM 時一次研磨 {@link #WORK} tick，
- * 轉速越快越快（進度每 tick 加 speed / SPEED）。網路太久沒更新（拆了引擎、振波斷線）就自己重算。
+ * 轉速越快越快（進度每 tick 加 |RPM| / SPEED），但負載也跟著轉速變大。網路太久沒更新（拆了引擎、振波斷線）就自己重算。
+ * 磨的時候噴出材料的碎屑；材料格同步給用戶端，渲染器把它畫在石磨上（client/soulpower/SoulPowerRenderer）。
  */
-public class SoulGrinderBlockEntity extends BlockEntity implements MenuProvider, SoulKinetic.Member {
+public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuProvider {
     public static final int WORK = 100;
     public static final float ESSENCE_CHANCE = 0.1f;
     private final SimpleContainer items = new SimpleContainer(3) {
         @Override
         public void setChanged() {
             super.setChanged();
-            SoulGrinderBlockEntity.this.setChanged();
+            SoulGrinderBlockEntity.this.sync();   // 用戶端要知道石磨上正在磨什麼
         }
 
         @Override
@@ -42,13 +42,12 @@ public class SoulGrinderBlockEntity extends BlockEntity implements MenuProvider,
         }
     };
     private float progress;
-    private SoulNetwork.Result network = SoulNetwork.Result.IDLE;
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int i) {
             return switch (i) {
                 case 0 -> Math.round(progress);
-                case 1 -> network.speed();
+                case 1 -> Math.round(Math.abs(speed));
                 case 2 -> network.capacity();
                 case 3 -> network.stress();
                 default -> network.overloaded() ? 1 : 0;
@@ -77,7 +76,7 @@ public class SoulGrinderBlockEntity extends BlockEntity implements MenuProvider,
             SoulNetwork.update(server, pos);
         }
         ItemStack input = grinder.items.getItem(0);
-        if (grinder.network.speed() <= 0 || input.isEmpty()) {
+        if (grinder.speed == 0 || input.isEmpty()) {
             grinder.progress = 0;
             return;
         }
@@ -92,7 +91,12 @@ public class SoulGrinderBlockEntity extends BlockEntity implements MenuProvider,
         if (!grinder.fits(1, result)) {
             return;
         }
-        grinder.progress += (float) grinder.network.speed() / SoulNetwork.SPEED;
+        grinder.progress += Math.abs(grinder.speed) / SoulNetwork.SPEED;
+        if (now % 4 == 0) {   // 碎屑
+            server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM,
+                            net.minecraft.world.item.ItemStackTemplate.fromNonEmptyStack(input)),
+                    pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, 3, 0.25, 0.05, 0.25, 0.05);
+        }
         if (grinder.progress < WORK) {
             return;
         }
@@ -121,9 +125,9 @@ public class SoulGrinderBlockEntity extends BlockEntity implements MenuProvider,
         }
     }
 
-    @Override
-    public void setNetwork(SoulNetwork.Result result) {
-        this.network = result;
+    /** 正在磨的材料（用戶端畫在石磨上）。 */
+    public ItemStack input() {
+        return items.getItem(0);
     }
 
     @Override

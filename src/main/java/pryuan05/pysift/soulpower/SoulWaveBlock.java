@@ -36,6 +36,12 @@ public class SoulWaveBlock extends SoulMachineBlock {
         return side == state.getValue(FACING).getOpposite();
     }
 
+    /** 天線碟繞朝向的軸轉。 */
+    @Override
+    public Direction.Axis axis(BlockState state) {
+        return state.getValue(FACING).getAxis();
+    }
+
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new SoulWaveBlockEntity(pos, state);

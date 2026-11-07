@@ -2316,5 +2316,20 @@
   "subtitles.pysift.entity.sculk_monstrosity.attack": "Sculk Monstrosity attacks",
   "subtitles.pysift.entity.sculk_monstrosity.hurt": "Sculk Monstrosity hurts",
   "subtitles.pysift.entity.sculk_monstrosity.phase": "Sculk Monstrosity awakens",
-  "subtitles.pysift.entity.sculk_monstrosity.death": "Sculk Monstrosity dies"
+  "subtitles.pysift.entity.sculk_monstrosity.death": "Sculk Monstrosity dies",
+  "block.pysift.soul_cogwheel": "Soul Cogwheel",
+  "block.pysift.large_soul_cogwheel": "Large Soul Cogwheel",
+  "block.pysift.soul_gauge": "Soul Gauge",
+  "block.pysift.soul_power_part": "Soul Power Part",
+  "message.pysift.soul_gauge.status": "%s RPM · load %s / %s SP (%s%%)",
+  "message.pysift.soul_gauge.overloaded": "Overloaded! %s / %s SP",
+  "message.pysift.soul_gauge.conflict": "Speed conflict: gears are fighting each other",
+  "item.pysift.spirit_engine": "Spirit Engine",
+  "item.pysift.soul_shaft": "Soul Shaft",
+  "item.pysift.soul_cogwheel": "Soul Cogwheel",
+  "item.pysift.large_soul_cogwheel": "Large Soul Cogwheel",
+  "item.pysift.soul_gauge": "Soul Gauge",
+  "item.pysift.soul_wave_emitter": "Soul Wave Emitter",
+  "item.pysift.soul_wave_receiver": "Soul Wave Receiver",
+  "item.pysift.soul_grinder": "Soul Grinder"
 }

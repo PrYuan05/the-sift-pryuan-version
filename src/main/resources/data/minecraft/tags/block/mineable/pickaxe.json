@@ -492,6 +492,9 @@
     "pysift:cracked_soulshale_tile_slab",
     "pysift:cracked_soulshale_tile_stairs",
     "pysift:lullaby_censer",
-    "pysift:echo_cradle"
+    "pysift:echo_cradle",
+    "pysift:soul_cogwheel",
+    "pysift:large_soul_cogwheel",
+    "pysift:soul_gauge"
   ]
 }

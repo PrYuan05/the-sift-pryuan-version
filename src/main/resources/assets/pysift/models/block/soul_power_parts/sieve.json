@@ -1,0 +1,77 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "minecraft:block/scaffolding_top",
+    "particle": "minecraft:block/scaffolding_top"
+  },
+  "elements": [
+    {
+      "from": [
+        1,
+        11,
+        1
+      ],
+      "to": [
+        15,
+        12,
+        15
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            1,
+            4,
+            15,
+            5
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            1,
+            4,
+            15,
+            5
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            1,
+            4,
+            15,
+            5
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            1,
+            4,
+            15,
+            5
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#t0"
+        },
+        "down": {
+          "uv": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "texture": "#t0"
+        }
+      }
+    }
+  ]
+}

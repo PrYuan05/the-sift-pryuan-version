@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "I": "pysift:siftite_ingot",
-    "S": "minecraft:polished_basalt"
+    "S": "pysift:stripped_soul_willow_log"
   },
   "pattern": [
     "I",
@@ -12,6 +12,6 @@
   ],
   "result": {
     "id": "pysift:soul_shaft",
-    "count": 4
+    "count": 8
   }
 }

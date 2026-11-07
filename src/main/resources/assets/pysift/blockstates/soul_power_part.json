@@ -1,0 +1,46 @@
+{
+  "variants": {
+    "part=shaft": {
+      "model": "pysift:block/soul_power_parts/shaft"
+    },
+    "part=cog": {
+      "model": "pysift:block/soul_power_parts/cog"
+    },
+    "part=large_cog": {
+      "model": "pysift:block/soul_power_parts/large_cog"
+    },
+    "part=flywheel": {
+      "model": "pysift:block/soul_power_parts/flywheel"
+    },
+    "part=piston": {
+      "model": "pysift:block/soul_power_parts/piston"
+    },
+    "part=millstone": {
+      "model": "pysift:block/soul_power_parts/millstone"
+    },
+    "part=wave_ring": {
+      "model": "pysift:block/soul_power_parts/wave_ring"
+    },
+    "part=wave_core": {
+      "model": "pysift:block/soul_power_parts/wave_core"
+    },
+    "part=dial": {
+      "model": "pysift:block/soul_power_parts/dial"
+    },
+    "part=needle": {
+      "model": "pysift:block/soul_power_parts/needle"
+    },
+    "part=sieve": {
+      "model": "pysift:block/soul_power_parts/sieve"
+    },
+    "part=lens": {
+      "model": "pysift:block/soul_power_parts/lens"
+    },
+    "part=emitter_dish": {
+      "model": "pysift:block/soul_power_parts/emitter_dish"
+    },
+    "part=receiver_dish": {
+      "model": "pysift:block/soul_power_parts/receiver_dish"
+    }
+  }
+}

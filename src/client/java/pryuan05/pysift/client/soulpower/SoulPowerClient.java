@@ -1,5 +1,6 @@
 package pryuan05.pysift.client.soulpower;
 
+import net.fabricmc.fabric.api.client.rendering.v1.BlockEntityRendererRegistry;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -28,6 +29,17 @@ public final class SoulPowerClient {
     public static void register() {
         MenuScreens.register(SoulPower.SPIRIT_ENGINE_MENU, EngineScreen::new);
         MenuScreens.register(SoulPower.SOUL_GRINDER_MENU, GrinderScreen::new);
+        // Create 式的轉動動畫：所有靈魂動力方塊共用一個渲染器
+        animate(SoulPower.SOUL_KINETIC_ENTITY);
+        animate(SoulPower.SOUL_GAUGE_ENTITY);
+        animate(SoulPower.SPIRIT_ENGINE_ENTITY);
+        animate(SoulPower.SOUL_WAVE_ENTITY);
+        animate(SoulPower.SOUL_GRINDER_ENTITY);
+    }
+
+    private static <E extends pryuan05.pysift.soulpower.KineticBlockEntity> void animate(net.minecraft.world.level.block.entity.BlockEntityType<E> type) {
+        net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<pryuan05.pysift.soulpower.KineticBlockEntity, SoulPowerRenderer.State> provider = SoulPowerRenderer::new;
+        BlockEntityRendererRegistry.register(type, provider);
     }
 
     /** 右側三行：轉速、容量、需求（過載時第三行變成「過載！」）。 */

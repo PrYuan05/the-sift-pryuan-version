@@ -31,11 +31,10 @@ import java.util.Set;
  * 振波發送器／接收器的資料：頻率唱片，以及每個世界裡所有振波方塊的位置（找連線用，不用掃描整個範圍）。
  * 發送器運轉時，每條連線上都有一顆靈魂波球從發送器飛到接收器（距離越遠飛越久，只是外觀）。
  */
-public class SoulWaveBlockEntity extends BlockEntity implements SoulKinetic.Member {
+public class SoulWaveBlockEntity extends KineticBlockEntity {
     public static final int RANGE = 16;
     private static final Map<ResourceKey<Level>, Set<BlockPos>> WAVES = new HashMap<>();
     private ItemStack disc = ItemStack.EMPTY;
-    private SoulNetwork.Result network = SoulNetwork.Result.IDLE;
     private List<BlockPos> links = List.of();
 
     public SoulWaveBlockEntity(BlockPos pos, BlockState state) {
@@ -96,7 +95,7 @@ public class SoulWaveBlockEntity extends BlockEntity implements SoulKinetic.Memb
             wave.network = SoulNetwork.Result.IDLE;
             SoulNetwork.update(server, pos);
         }
-        if (!wave.isEmitter() || wave.network.speed() <= 0 || now % 2 != 0) {
+        if (!wave.isEmitter() || wave.speed == 0 || now % 2 != 0) {
             return;
         }
         Vec3 a = Vec3.atCenterOf(pos);
@@ -106,11 +105,6 @@ public class SoulWaveBlockEntity extends BlockEntity implements SoulKinetic.Memb
             Vec3 p = a.lerp(b, (double) (now % period) / period);
             server.sendParticles(ModParticles.SOUL_TRAIL, p.x, p.y, p.z, 2, 0.05, 0.05, 0.05, 0.0);
         }
-    }
-
-    @Override
-    public void setNetwork(SoulNetwork.Result result) {
-        this.network = result;
     }
 
     @Override
@@ -153,15 +147,5 @@ public class SoulWaveBlockEntity extends BlockEntity implements SoulKinetic.Memb
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         disc = input.read("Disc", ItemStack.CODEC).orElse(ItemStack.EMPTY);
-    }
-
-    @Override
-    public Packet<ClientGamePacketListener> getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        return saveCustomOnly(registries);
     }
 }

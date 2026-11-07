@@ -61,6 +61,9 @@ if _colors.exists():
 _power = _blk / "soulpower/SoulPower.java"
 if _power.exists():
     veg_ids += re.findall(r'= register\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
+    # the never-placed block that holds the moving parts (soulpower/SoulParts.java)
+    if (_blk / "soulpower/SoulParts.java").exists():
+        veg_ids += re.findall(r'PySift\.id\("([a-z0-9_]+)"\)', (_blk / "soulpower/SoulParts.java").read_text(encoding="utf-8"))
 out["vegetation_and_fluid_blocks"] = len(veg_ids)
 all_ids = ids + set_ids + veg_ids
 enum_vals = {}

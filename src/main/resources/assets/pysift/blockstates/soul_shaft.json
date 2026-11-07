@@ -4,25 +4,19 @@
       "model": "pysift:block/soul_shaft/soul_shaft"
     },
     "axis=y,powered=true": {
-      "model": "pysift:block/soul_shaft/soul_shaft_on"
+      "model": "pysift:block/soul_shaft/soul_shaft"
     },
     "axis=x,powered=false": {
-      "model": "pysift:block/soul_shaft/soul_shaft",
-      "x": 90,
-      "y": 90
+      "model": "pysift:block/soul_shaft/soul_shaft"
     },
     "axis=x,powered=true": {
-      "model": "pysift:block/soul_shaft/soul_shaft_on",
-      "x": 90,
-      "y": 90
+      "model": "pysift:block/soul_shaft/soul_shaft"
     },
     "axis=z,powered=false": {
-      "model": "pysift:block/soul_shaft/soul_shaft",
-      "x": 90
+      "model": "pysift:block/soul_shaft/soul_shaft"
     },
     "axis=z,powered=true": {
-      "model": "pysift:block/soul_shaft/soul_shaft_on",
-      "x": 90
+      "model": "pysift:block/soul_shaft/soul_shaft"
     }
   }
 }

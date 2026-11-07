@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": "minecraft:compass",
+    "S": "pysift:soul_shaft",
+    "C": "minecraft:copper_ingot"
+  },
+  "pattern": [
+    "I",
+    "S",
+    "C"
+  ],
+  "result": {
+    "id": "pysift:soul_gauge"
+  }
+}
