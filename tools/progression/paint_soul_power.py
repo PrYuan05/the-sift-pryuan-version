@@ -7,8 +7,9 @@ the machines. UVs in the models follow the element positions (like vanilla), so 
 16x16 block grid: discs around (7.5, 7.5), shafts in columns 6..9, the dial window in the middle of the face.
 
 Material brief (minecraft-texture-crafter, step 0)
-  identity    Create-style soul machines built by the ancients: patina-bronze frames, dark deepslate plates, stained
-              soul-willow wheels, soul-crystal light. Deep, cool ambient light (The Sift); shared dark = blue-black.
+  identity    Create-style soul machines built by the ancients, shaped like the vanilla sculk family (shrieker claw
+              corners, catalyst ribs, glowing pores) in our own colours: patina-bronze frames, dark deepslate plates,
+              siftite (pink gold) gears and wheels, soul-crystal light. Deep, cool ambient light (The Sift); shared dark = blue-black.
   surfaces    patina bronze: metal, high contrast, sheen along the long axis, rivets; deepslate plate: matte, narrow
               value span, 2-4 px clusters; stained willow: soft grain along the fibre, end-grain rings on discs;
               soul glow / charoite: 80 % muted base, 20 % saturated focus.
@@ -129,22 +130,60 @@ def crust(t, cells, n):
             t.set(x, y + 1, PATINA[1])
 
 
+CLAW = [(0, 0), (1, 0), (2, 0), (3, 0), (0, 1), (1, 1), (2, 1), (0, 2), (1, 2), (0, 3), (2, 2)]
+
+
+def claw(t, cx, cy, sx, sy):
+    """A bone-claw corner piece (the sculk shrieker's top corners), drawn in bronze: a thick L that tapers to a point
+    along both edges, lit on its outer top/left side, a dark notch where it bites into the plate."""
+    for (dx, dy) in CLAW:
+        x, y = cx + dx * sx, cy + dy * sy
+        lit = (sx > 0 and sy > 0)
+        tone = 6 if (dx, dy) in ((0, 0), (1, 0), (0, 1)) and lit else 5 if dx + dy <= 1 else 4 if dx + dy <= 2 else 3
+        if not lit:
+            tone -= 1
+        t.set(x, y, PATINA[tone])
+    t.set(cx + 2 * sx, cy + 2 * sy, PATINA[1])           # the notch
+
+
 def frame(t, width=2):
-    """Create-style casing frame: a 2 px bronze border, raised (outer edge lit top-left, inner edge shadowed so the
-    plate looks set into it), with verdigris crust and rivets in the corners."""
+    """The casing frame in the sculk family's shape language: a 2 px bronze border (outer edge lit top-left, inner
+    edge shadowed so the plate sits inside it), heavy claw pieces at the four corners like the shrieker's bones, and
+    a little dark growth creeping over the bars (sculk spreading on bone)."""
     cells = [(x, y) for y in range(16) for x in range(16) if x < width or y < width or x > 15 - width or y > 15 - width]
     for (x, y) in cells:
         outer = min(x, y, 15 - x, 15 - y) == 0
         lit = x + y < 15
         t.set(x, y, PATINA[(5 if outer else 4) if lit else (2 if outer else 3)])
-    crust(t, cells, 7)
-    for (x, y) in ((1, 1), (13, 1), (1, 13), (13, 13)):
-        rivet(t, x, y)
+    for _ in range(5):                                    # creeping growth: 2-3 px dark clumps on the bars
+        x, y = t.rng.choice(cells)
+        if 4 <= x <= 11 or 4 <= y <= 11:
+            t.set(x, y, SLATE[1])
+            t.set(x + (1 if x < 8 else -1), y, SLATE[2]) if (x + (1 if x < 8 else -1), y) in cells else None
+    claw(t, 0, 0, 1, 1)
+    claw(t, 15, 0, -1, 1)
+    claw(t, 0, 15, 1, -1)
+    claw(t, 15, 15, -1, -1)
 
 
-def plate(t, x0=2, y0=2, x1=13, y1=13, base=3):
-    """The deepslate plate set INTO the casing: the frame casts a shadow on its top/left edge, its bottom/right edge
-    catches the light; a seam across the middle splits it into two panels with a bolt on each."""
+def pores(t, x0, y0, x1, y1, n):
+    """Sculk's glowing pores: a bright soul pixel with one or two dimmer pixels beside it, scattered over the plate,
+    and a few darker clumps between them (the vanilla sculk block's pattern, in our soul-cyan palette)."""
+    for k in range(n):
+        x, y = t.rng.randint(x0 + 1, x1 - 1), t.rng.randint(y0 + 1, y1 - 1)
+        t.set(x, y, SOUL[4] if k % 3 == 0 else SOUL[3])
+        for dx, dy in t.rng.sample([(1, 0), (0, 1), (-1, 0), (0, -1)], t.rng.randint(1, 2)):
+            if x0 < x + dx < x1 and y0 < y + dy < y1:
+                t.set(x + dx, y + dy, SOUL[1] if dx + dy > 0 else SOUL[2])
+    for _ in range(n // 2 + 1):
+        x, y = t.rng.randint(x0 + 1, x1 - 2), t.rng.randint(y0 + 1, y1 - 1)
+        t.set(x, y, SLATE[0])
+        t.set(x + 1, y, SLATE[1])
+
+
+def plate(t, x0=2, y0=2, x1=13, y1=13, base=3, glow=4):
+    """The deepslate plate set INTO the casing (the frame shades its top/left edge, its bottom/right edge catches the
+    light), grown over with sculk: glowing pores and dark clumps instead of seams and bolts."""
     grain(t, x0, y0, x1, y1, SLATE, base)
     for x in range(x0, x1 + 1):
         t.set(x, y0, SLATE[base - 2])
@@ -153,20 +192,27 @@ def plate(t, x0=2, y0=2, x1=13, y1=13, base=3):
     for y in range(y0, y1 + 1):
         t.set(x0, y, SLATE[base - 2])
         t.set(x1, y, SLATE[base + 2])
-    mid = (y0 + y1) // 2
-    for x in range(x0 + 1, x1):              # panel seam: a dark groove with a lit lip below it
-        t.set(x, mid, SLATE[base - 2])
-        t.set(x, mid + 1, SLATE[base + 1])
-    for (bx, by) in ((x0 + 2, y0 + 2), (x1 - 3, mid + 3)):
-        t.set(bx, by, SLATE[base + 3] if base + 3 < len(SLATE) else SLATE[-1])
-        t.set(bx + 1, by + 1, SLATE[base - 2])
-        t.set(bx + 1, by, SLATE[base + 1])
-        t.set(bx, by + 1, SLATE[base + 1])
+    pores(t, x0, y0, x1, y1, glow)
 
 
-def casing(seed, base=3):
+def ribs(t):
+    """The sculk catalyst's side: bone ribs arching up from the bottom edge toward the middle (in bronze), a glowing
+    pore cradled between them."""
+    for side in (-1, 1):
+        for i, (dx, y) in enumerate(((5, 13), (5, 12), (4, 11), (4, 10), (3, 9), (3, 8), (2, 7))):
+            x = int(7.5 + side * dx + (0.5 if side > 0 else -0.5))
+            t.set(x, y, PATINA[5 if side < 0 else 4])
+            t.set(x - side, y, PATINA[3 if side < 0 else 2])
+        t.set(int(7.5 + side * 2.5 + (0.5 if side > 0 else -0.5)), 6, PATINA[4])
+    t.rect(7, 9, 8, 10, SOUL[3])
+    t.set(7, 9, SOUL[4])
+
+
+def casing(seed, base=3, rib=False, glow=4):
     t = Tex(seed)
-    plate(t, base=base)
+    plate(t, base=base, glow=glow)
+    if rib:
+        ribs(t)
     frame(t)
     return t
 
@@ -239,7 +285,7 @@ def save(name, t):
 
 
 # casing (shared look of the soul machines)
-save("casing", casing(1))
+save("casing", casing(1, rib=True, glow=2))   # the catalyst look on every plain casing side
 t = casing(2, base=2)
 for y in range(5, 11):                      # top: a recessed square for whatever sits on it
     for x in range(5, 11):
@@ -308,11 +354,13 @@ for y in range(16):
         if 4.6 < d <= 6.2:
             t.set(x, y, SIFTITE[3 + round(light * 2)] if d < 5.9 else SIFTITE[1])
         elif d <= 4.6 and (abs(dx) < 1 or abs(dy) < 1):
-            t.set(x, y, IRON[3 + round(light * 2)])
+            t.set(x, y, SIFTITE[4 + round(light * 2)])
         elif d <= 1.8:
-            t.set(x, y, IRON[4])
+            t.set(x, y, SIFTITE[5])
         elif d <= 4.6:
-            t.set(x, y, SLATE[1] if dx + dy > 0 else SLATE[2])
+            t.set(x, y, SIFTITE[0])         # the deep web between the spokes
+        else:
+            t.set(x, y, SIFTITE[1] if dx + dy > 0 else SIFTITE[2])   # octagon corners outside the rim
 for (x, y) in ((7, 2), (8, 2), (7, 3), (8, 3)):
     t.set(x, y, SOUL[3] if y == 2 else SOUL[2])
 save("flywheel", t)
@@ -346,25 +394,25 @@ for y in range(16):
 save("shaft_end", t)
 
 t = Tex(10)
-disc(t, 7.5, 7.5, 6.0, WOOD, ring_every=1.6, hub=PATINA, hub_r=2.2)
+disc(t, 7.5, 7.5, 6.0, SIFTITE[:4], ring_every=1.6, hub=SIFTITE, hub_r=2.2)
 save("cog_face", t)
 t = Tex(11)
-disc(t, 7.5, 7.5, 7.6, WOOD, ring_every=1.8, hub=PATINA, hub_r=2.6)
+disc(t, 7.5, 7.5, 7.6, SIFTITE[:4], ring_every=1.8, hub=SIFTITE, hub_r=2.6)
 save("large_cog_face", t)
 t = Tex(12)
-grain(t, 0, 0, 15, 15, WOOD, 2)
+grain(t, 0, 0, 15, 15, SIFTITE, 2)
 for x in range(16):
-    t.set(x, 6, WOOD[4]); t.set(x, 9, WOOD[1])
+    t.set(x, 6, SIFTITE[4]); t.set(x, 9, SIFTITE[1])
 save("cog_edge", t)
-t = Tex(13)                                 # teeth: bronze bars, tips brighter (the ends of each bar stick out)
-grain(t, 0, 0, 15, 15, SIFTITE, 3)
+t = Tex(13)                                 # teeth: siftite bars one step brighter than the wheel, tips brightest
+grain(t, 0, 0, 15, 15, SIFTITE, 4)
 for i in range(16):
     t.set(i, 6, SIFTITE[5]); t.set(i, 9, SIFTITE[1])
     t.set(6, i, SIFTITE[5]); t.set(9, i, SIFTITE[1])
 for i in (0, 1, 14, 15):
     for j in range(6, 10):
-        t.set(i, j, SIFTITE[4] if i < 8 else SIFTITE[2])
-        t.set(j, i, SIFTITE[4] if i < 8 else SIFTITE[2])
+        t.set(i, j, SIFTITE[6] if i < 8 else SIFTITE[3])
+        t.set(j, i, SIFTITE[6] if i < 8 else SIFTITE[3])
 save("cog_tooth", t)
 
 # ---------------------------------------------------------------- gauge
