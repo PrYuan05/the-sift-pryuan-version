@@ -39,6 +39,7 @@ public final class SoulNetwork {
     public static final float MAX_SPEED = 256;
     public static final float WAVE_EFFICIENCY = 0.9f;
     public static final float BEAM_EFFICIENCY = 0.95f;
+    public static final float VEIN_EFFICIENCY = 0.85f;
     public static final int OVERLOAD_HAZARD_TICKS = 100;
     public static final int HAZARD_RADIUS = 6;
     private static final int MAX_NODES = 1024;
@@ -69,6 +70,7 @@ public final class SoulNetwork {
         List<BlockPos> members = new ArrayList<>();
         boolean wireless = false;
         boolean beamed = false;
+        boolean veined = false;
         boolean conflict = false;
         ratio.put(start.immutable(), 1f);
         queue.add(start.immutable());
@@ -119,6 +121,14 @@ public final class SoulNetwork {
                     }
                 }
             }
+            // 無線（靈脈：穿過岩石）
+            if (level.getBlockEntity(pos) instanceof SoulVeinNodeBlockEntity node) {
+                for (BlockPos link : node.findLinks(level)) {
+                    veined = true;
+                    next.add(link);
+                    nextRatio.add(r);
+                }
+            }
             // 無線（紫龍晶光束）
             if (level.getBlockEntity(pos) instanceof CharoiteBeamBlockEntity beam) {
                 for (BlockPos link : beam.findLinks(level)) {
@@ -164,11 +174,9 @@ public final class SoulNetwork {
                 capacity += Math.round(source.capacityPerRpm() * Math.abs(source.sourceSpeed()));
             }
         }
-        if (wireless) {
-            capacity = Math.round(capacity * WAVE_EFFICIENCY);
-        } else if (beamed) {
-            capacity = Math.round(capacity * BEAM_EFFICIENCY);
-        }
+        // 無線連結的損耗：用到哪幾種就取最差的那一種（靈脈 15%、振波 10%、光束 5%）
+        float efficiency = veined ? VEIN_EFFICIENCY : wireless ? WAVE_EFFICIENCY : beamed ? BEAM_EFFICIENCY : 1f;
+        capacity = Math.round(capacity * efficiency);
         float stress = 0;
         float fastest = 0;
         for (BlockPos pos : members) {

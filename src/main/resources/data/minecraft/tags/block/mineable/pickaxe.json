@@ -499,6 +499,8 @@
     "pysift:soul_sifter",
     "pysift:charoite_beam_emitter",
     "pysift:charoite_beam_receiver",
-    "pysift:charoite_prism"
+    "pysift:charoite_prism",
+    "pysift:soul_vein_node",
+    "pysift:soul_veined_stone"
   ]
 }

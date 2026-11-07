@@ -41,6 +41,8 @@ BLOCKS = {
     "charoite_beam_emitter": ("Charoite Beam Emitter", "紫龍晶光束發射器", False),
     "charoite_beam_receiver": ("Charoite Beam Receiver", "紫龍晶光束接收器", False),
     "charoite_prism": ("Charoite Prism", "紫龍晶稜鏡", False),
+    "soul_vein_node": ("Soul Vein Node", "靈脈節點", False),
+    "soul_veined_stone": ("Soul-Veined Stone", "靈脈石", True),
 }
 
 # ------------------------------------------------------------------ textures
@@ -238,6 +240,12 @@ BEAM_RECEIVER = [Box([1, 0, 1], [15, 3, 15], DEEP), Box([0.5, 0, 0.5], [15.5, 1,
        Box([7, 6, 2.5], [9, 12, 4], CUT_COPPER), Box([7, 6, 12], [9, 12, 13.5], CUT_COPPER)]
 PRISM = octagon([4, 3.5, 4], [12, 11.5, 12], "minecraft:block/amethyst_block")     + [Box([6, 11.5, 6], [10, 13.5, 10], CUT_COPPER), Box([7, 13.5, 7], [9, 14, 9], CRYSTAL),
        Box([5, 2.5, 5], [11, 3.5, 11], CUT_COPPER)]
+VEINED = "pysift:block/soul_veined_stone/soul_veined_stone"
+# vein node: a deepslate frame (12 edges) with the turning soul core inside
+VEIN_NODE = [Box(f, t, DEEP) for f, t in (
+    ([0, 0, 0], [16, 2, 2]), ([0, 0, 14], [16, 2, 16]), ([0, 14, 0], [16, 16, 2]), ([0, 14, 14], [16, 16, 16]),
+    ([0, 0, 2], [2, 2, 14]), ([14, 0, 2], [16, 2, 14]), ([0, 14, 2], [2, 16, 14]), ([14, 14, 2], [16, 16, 14]),
+    ([0, 2, 0], [2, 14, 2]), ([14, 2, 0], [16, 14, 2]), ([0, 2, 14], [2, 14, 16]), ([14, 2, 14], [16, 14, 16]))]     + [Box([2, 0.5, 2], [14, 1.5, 14], VEINED), Box([2, 14.5, 2], [14, 15.5, 14], VEINED)]
 GRINDER = [Box([0, 0, 0], [16, 9, 16], {**{f: TILES for f in ("north", "south", "east", "west")}, "up": DEEP, "down": DEEP}),
            Box([0, 9, 0], [16, 10, 16], CUT_COPPER),
            Box([0, 10, 0], [16, 11, 1.5], PATINA), Box([0, 10, 14.5], [16, 11, 16], PATINA),
@@ -251,7 +259,7 @@ GAUGE = [Box([1, 1, 1], [15, 15, 15], {**{f: PATINA for f in ("north", "south", 
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
     "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
-    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
+    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -284,6 +292,10 @@ states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
 states("soul_sifter", {**YROT, "up": {}, "down": {}}, "facing")
 states("charoite_beam_emitter", UPROT, "facing")
 states("charoite_beam_receiver", UPROT, "facing")
+wj(A / "blockstates/soul_vein_node.json", {"variants": {f"powered={v}": {"model": "pysift:block/soul_vein_node/soul_vein_node"}
+                                                         for v in ("false", "true")}})
+wj(A / "models/block/soul_veined_stone/soul_veined_stone.json", {"parent": "minecraft:block/cube_all", "textures": {"all": VEINED}})
+wj(A / "blockstates/soul_veined_stone.json", {"variants": {"": {"model": "pysift:block/soul_veined_stone/soul_veined_stone"}}})
 wj(A / "blockstates/charoite_prism.json",
    {"variants": {f"facing={f}": {"model": "pysift:block/charoite_prism/charoite_prism", **rot} for f, rot in UPROT.items()}})
 states("soul_wave_emitter", UPROT, "facing")
@@ -302,6 +314,7 @@ ITEMS = {
     "charoite_beam_emitter": BEAM_EMITTER + PARTS["lens"],
     "charoite_beam_receiver": BEAM_RECEIVER + PARTS["lens"],
     "charoite_prism": PRISM,
+    "soul_vein_node": VEIN_NODE + PARTS["wave_core"],
     "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_gauge": GAUGE + SHAFT[:1] + PARTS["dial"] + PARTS["needle"],
@@ -354,6 +367,8 @@ SHAPED = {
                                                       "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
     "charoite_beam_receiver": (["PGP", "GEG", "CCC"], {"C": "pysift:charoite", "G": "pysift:patina_gear",
                                                        "E": "pysift:soul_essence", "P": "minecraft:polished_deepslate"}, 1),
+    "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:patina_gear",
+                                               "C": "pysift:soul_crystal_block"}, 2),
     "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
     "soul_grinder": (["PSP", "IGI", "PEP"], {"P": "minecraft:polished_deepslate", "S": "minecraft:stonecutter",
                                              "I": "pysift:patina_gear", "G": "minecraft:grindstone",
@@ -445,6 +460,29 @@ def dial():
 
 
 art_guard.save(dial(), A / "textures/block/soul_gauge/soul_gauge_dial.png")
+
+
+def veined_stone():
+    """Vanilla deepslate with a seamless, glowing cyan soul vein (core + softer glow beside it)."""
+    base = Image.open(io.BytesIO(CLIENT.read("assets/minecraft/textures/block/deepslate.png"))).convert("RGBA")
+    core = [(0, 5), (1, 5), (2, 6), (3, 6), (4, 6), (5, 7), (6, 7), (7, 8), (8, 8), (9, 8), (10, 7), (11, 6), (12, 6),
+            (13, 5), (14, 5), (15, 5), (8, 9), (8, 10), (9, 11), (9, 12), (10, 13), (10, 14), (10, 15),
+            (10, 0), (10, 1), (9, 2), (9, 3), (8, 4), (4, 7), (3, 8), (3, 9), (2, 10)]
+    bright, mid = (150, 238, 236), (84, 176, 186)
+    im = base.copy()
+    cs = set(core)
+    for x, y in core:
+        im.putpixel((x, y), (*(bright if (x + y) % 3 else mid), 255))
+    for x, y in core:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            q = ((x + dx) % 16, (y + dy) % 16)
+            if q not in cs:
+                b = base.getpixel(q)
+                im.putpixel(q, tuple((b[i] + (60, 140, 150)[i]) // 2 for i in range(3)) + (255,))
+    return im
+
+
+art_guard.save(veined_stone(), A / "textures/block/soul_veined_stone/soul_veined_stone.png")
 
 
 def patina_gear():

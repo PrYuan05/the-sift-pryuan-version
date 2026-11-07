@@ -2348,5 +2348,9 @@
   "block.pysift.charoite_prism": "紫龍晶稜鏡",
   "item.pysift.charoite_beam_emitter": "紫龍晶光束發射器",
   "item.pysift.charoite_beam_receiver": "紫龍晶光束接收器",
-  "item.pysift.charoite_prism": "紫龍晶稜鏡"
+  "item.pysift.charoite_prism": "紫龍晶稜鏡",
+  "block.pysift.soul_vein_node": "靈脈節點",
+  "block.pysift.soul_veined_stone": "靈脈石",
+  "item.pysift.soul_vein_node": "靈脈節點",
+  "item.pysift.soul_veined_stone": "靈脈石"
 }

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pysift:block/soul_vein_node/soul_vein_node"
+    },
+    "powered=true": {
+      "model": "pysift:block/soul_vein_node/soul_vein_node"
+    }
+  }
+}

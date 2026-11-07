@@ -170,7 +170,28 @@ def beam():
     r("kill @e[type=minecraft:pig]")
 
 
-parts = {"beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def vein():
+    clear()
+    Z = 225
+    r(f"fill 199 {Y - 2} {Z - 2} 212 {Y + 2} {Z + 2} minecraft:stone")       # solid rock
+    r(f"setblock 199 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+    r(f"setblock 200 {Y} {Z} pysift:soul_vein_node")
+    r(f"setblock 210 {Y} {Z} pysift:soul_vein_node")
+    r(f"setblock 211 {Y} {Z} pysift:soul_grinder[facing=north]")
+    settle(3)
+    check("vein carries power through rock", abs(num(211, Y, Z, "Speed") or 0), 32)
+    check("vein loses 15%", num(211, Y, Z, "Load"), 64 / 218, tol=0.02)
+    time.sleep(6)
+    cnt = r(f"clone 201 {Y} {Z} 209 {Y} {Z} 201 {Y} {Z} filtered pysift:soul_veined_stone force")
+    print(("PASS" if re.search(r"[1-9]\d* block", cnt) else "FAIL"), "the vein grows into the rock:", cnt)
+    if not re.search(r"[1-9]\d* block", cnt):
+        fails.append("vein growth")
+    r(f"setblock 205 {Y} {Z} minecraft:air")                                 # a cave cuts the vein
+    settle(3)
+    check("air breaks the vein", num(211, Y, Z, "Speed"), 0)
+
+
+parts = {"vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

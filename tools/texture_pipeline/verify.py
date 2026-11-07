@@ -60,7 +60,7 @@ if _colors.exists():
 # soul power blocks (soulpower/SoulPower.java, resources from tools/progression/build_soul_power.py)
 _power = _blk / "soulpower/SoulPower.java"
 if _power.exists():
-    veg_ids += re.findall(r'= register\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
+    veg_ids += re.findall(r'= register(?:Stone)?\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
     # the never-placed block that holds the moving parts (soulpower/SoulParts.java)
     if (_blk / "soulpower/SoulParts.java").exists():
         veg_ids += re.findall(r'PySift\.id\("([a-z0-9_]+)"\)', (_blk / "soulpower/SoulParts.java").read_text(encoding="utf-8"))

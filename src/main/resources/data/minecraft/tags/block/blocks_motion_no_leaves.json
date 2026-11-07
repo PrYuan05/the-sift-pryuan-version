@@ -314,6 +314,7 @@
     "pysift:cracked_soulshale_bricks",
     "pysift:soulshale_tiles",
     "pysift:cracked_soulshale_tiles",
-    "pysift:chiseled_soulshale"
+    "pysift:chiseled_soulshale",
+    "pysift:soul_veined_stone"
   ]
 }

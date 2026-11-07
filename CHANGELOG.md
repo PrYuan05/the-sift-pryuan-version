@@ -26,6 +26,9 @@
   through glass and plants but stops at solid blocks, and it links when it hits the front of a **Charoite Beam
   Receiver**. It loses only 5% (waves lose 10%) but has to be aimed, and it burns creatures that stand in it. The beam
   is drawn as a flowing violet ray and the lens turns.
+- **Soul veins** (the third wireless link, for buried machines): two **Soul Vein Nodes** within 16 blocks link when
+  every block between them is rock (stone, deepslate, netherrack...); air or a cave cuts them. They lose 15%. While
+  they run, the rock along the link slowly grows into glowing **Soul-Veined Stone**, and soul wisps drift through it.
 - **Patina Gear** (4 patina ingots + soul essence → 2): patina finally has a use; the machines are built from it.
 - Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
   overloads and speed conflicts groan and screech.
@@ -318,6 +321,8 @@
 - **紫龍晶光束**（第二種無線傳動）：**紫龍晶光束發射器**從正面射出紫色光束，最遠 32 格；**紫龍晶稜鏡**會讓光束轉向
   （右鍵換方向、潛行右鍵往回換），光束能穿過玻璃與花草，碰到實心方塊就停下，打中**紫龍晶光束接收器**的正面就連通。
   損耗只有 5%（振波是 10%），但要瞄準，而且會灼傷站在光束裡的生物。光束畫成流動的紫色光線，透鏡會轉。
+- **靈脈**（第三種無線傳動，給埋在地底的機器）：16 格內的兩個**靈脈節點**，只要中間每一格都是岩石（石頭、深板岩、地獄岩…）
+  就連通，中間有空氣或洞穴就斷。損耗 15%。運轉時，連線上的岩石會慢慢長成發光的**靈脈石**，靈魂在裡面飄動。
 - **銅綠齒輪**（4 銅綠錠＋靈魂精華 → 2 個）：銅綠終於有用途，機器都要用它做。
 - 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
 - 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；

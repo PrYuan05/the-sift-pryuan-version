@@ -2348,5 +2348,9 @@
   "block.pysift.charoite_prism": "Charoite Prism",
   "item.pysift.charoite_beam_emitter": "Charoite Beam Emitter",
   "item.pysift.charoite_beam_receiver": "Charoite Beam Receiver",
-  "item.pysift.charoite_prism": "Charoite Prism"
+  "item.pysift.charoite_prism": "Charoite Prism",
+  "block.pysift.soul_vein_node": "Soul Vein Node",
+  "block.pysift.soul_veined_stone": "Soul-Veined Stone",
+  "item.pysift.soul_vein_node": "Soul Vein Node",
+  "item.pysift.soul_veined_stone": "Soul-Veined Stone"
 }
