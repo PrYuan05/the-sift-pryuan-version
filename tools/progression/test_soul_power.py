@@ -370,7 +370,23 @@ def connect():
     fails.append("stairs corner") if not ok else None
 
 
-parts = {"connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+def crank():
+    """Hand crank (cranking is stored as Cranking, so the test can turn it): 96 SP turns one grinder, not two."""
+    clear()
+    Z = 250
+    r(f"setblock 200 {Y} {Z} pysift:soul_grinder[facing=north]")
+    r(f"setblock 199 {Y} {Z} pysift:soul_hand_crank[facing=west]")       # mounted on the grinder's west side
+    r(f"data merge block 199 {Y} {Z} {{Cranking:200}}")
+    settle(1.5)
+    check("one grinder turns from the crank", abs(num(200, Y, Z, "Speed") or 0), 32)
+    check("load 64 / 96", num(200, Y, Z, "Load"), 64 / 96, tol=0.02)
+    r(f"setblock 201 {Y} {Z} pysift:soul_grinder[facing=north]")
+    r(f"data merge block 199 {Y} {Z} {{Cranking:200}}")
+    settle(1.5)
+    check("two grinders are too heavy", num(200, Y, Z, "Speed"), 0)
+
+
+parts = {"crank": crank, "connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

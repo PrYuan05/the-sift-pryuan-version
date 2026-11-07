@@ -2397,7 +2397,7 @@
   "item.pysift.soul_fan": "Soul Fan",
   "book.pysift.sift_codex.soul_power.crank.name": "Hand Crank",
   "book.pysift.sift_codex.soul_power.crank.p0.title": "Muscle power",
-  "book.pysift.sift_codex.soul_power.crank.p0.text": "Mount it on a shaft or a machine and hold right-click: 32 RPM, but only 32 SP. Enough for one grinder, slowly. Cranking makes you hungry.",
+  "book.pysift.sift_codex.soul_power.crank.p0.text": "Mount it on a shaft or a machine and hold right-click: 32 RPM and 96 SP, enough for one grinder or one sifter. Cranking makes you hungry.",
   "book.pysift.sift_codex.soul_power.shift.name": "Clutch and Gearshift",
   "book.pysift.sift_codex.soul_power.shift.p0.title": "Redstone control",
   "book.pysift.sift_codex.soul_power.shift.p0.text": "Both hold two half-shafts. Give them a redstone signal (the lamp lights up): the **clutch** lets go of the half on the far side (east, south or up); the **gearshift** turns that half the other way.",
@@ -2418,5 +2418,6 @@
   "book.pysift.sift_codex.soul_power.drill.name": "Soul Drill",
   "book.pysift.sift_codex.soul_power.drill.p0.title": "Boring through rock",
   "book.pysift.sift_codex.soul_power.drill.p0.text": "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit.",
-  "gui.pysift.soul_power.liquid": "Piped: %s mB"
+  "gui.pysift.soul_power.liquid": "Piped: %s mB",
+  "message.pysift.soul_crank.too_heavy": "Too heavy to crank: load %s / %s SP"
 }

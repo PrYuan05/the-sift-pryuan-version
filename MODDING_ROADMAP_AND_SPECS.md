@@ -207,7 +207,7 @@ flowchart TD
 | 動畫 | Create 式部件模型（`SoulParts`，永不放置的方塊掛模型）由 `client/soulpower/SoulPowerRenderer` 依「遊戲時間 × 轉速」旋轉；齒輪奇偶格錯開半齒；過載抖動 | 資源 `tools/progression/build_soul_power.py`，預覽 `preview_soul_power.py`，伺服器測試 `test_soul_power.py` |
 | 聲音 | 引擎每行程噗聲、研磨、篩、振波、過載、衝突 | `tools/audio/machines.py` |
 | 靈液 | 靈液泵（impact 2，吸正前方源頭，4000 mB 槽）→ 靈液管（自動連接）→ 引擎（4000 mB 槽，燃料格空時每 1000 mB 燒一桶的時間）；只接一頭的管子漏液，下方泥土／沙變靈魂土 | `SpiritPumpBlock(Entity)`、`SpiritPipeBlock` |
-| 控制與其他 | 手搖曲柄（右鍵 32 RPM、每 RPM 1 SP）；離合器／換向器（紅石：放開正方向那一頭／正方向那一頭反轉，`SoulKinetic.transfer`）；風扇（氣流 = \|RPM\|÷4 格，反轉時吸；穿過靈魂火 → `pysift:soul_haunting`） | `SoulHandCrankBlock`、`SoulShiftBlock`、`SoulFanBlock(Entity)` |
+| 控制與其他 | 手搖曲柄（右鍵 32 RPM、每 RPM 3 SP = 96 SP，夠一台研磨機或淨化篩；過載時動作列提示）；離合器／換向器（紅石：放開正方向那一頭／正方向那一頭反轉，`SoulKinetic.transfer`）；風扇（氣流 = \|RPM\|÷4 格，反轉時吸；穿過靈魂火 → `pysift:soul_haunting`） | `SoulHandCrankBlock`、`SoulShiftBlock`、`SoulFanBlock(Entity)` |
 | 共鳴靈陣 | 共鳴核心（impact 4）＋ 8 個共鳴台座（距 3 格），配方寫在 `ResonanceCoreBlockEntity.RECIPES`（迴音碎片、紫龍晶、強化深板岩、8 張共鳴唱片複製）；核心 8 格內研磨機／淨化篩 ×1.5 | `ResonanceCoreBlock(Entity)`、`ResonancePedestalBlock`、`client/soulpower/PedestalRenderer` |
 | 鑽頭 | 靈魂鑽頭（impact 2）：工作量 = 硬度 × 30 tick ÷ (\|RPM\|/32)，掉落物以鐵鎬計算，`#wither_immune` 鑽不動，前方生物 3 傷害／0.5 秒 | `SoulDrillBlock` |
 | 待做 | 專屬貼圖（`art_requests/soul_power_todo.md`） | |

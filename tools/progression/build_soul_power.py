@@ -661,6 +661,7 @@ LANG.update({
     "message.pysift.soul_wave.empty": ("Tune it with a resonant music disc", "放入一張共鳴唱片來設定頻率"),
     "message.pysift.soul_gauge.status": ("%s RPM · load %s / %s SP (%s%%)", "%s RPM · 負載 %s / %s SP（%s%%）"),
     "message.pysift.soul_gauge.overloaded": ("Overloaded! %s / %s SP", "過載！%s / %s SP"),
+    "message.pysift.soul_crank.too_heavy": ("Too heavy to crank: load %s / %s SP", "負載太大，搖不動：%s / %s SP"),
     "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),
 })
 for code, i in (("en_us", 0), ("zh_tw", 1)):

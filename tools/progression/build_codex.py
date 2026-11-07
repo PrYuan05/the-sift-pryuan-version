@@ -728,9 +728,9 @@ entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
 
 entry(C, "crank", "pysift:soul_hand_crank", "Hand Crank", "手搖曲柄", -2, 0, [
     text(("Muscle power", "人力"),
-         "Mount it on a shaft or a machine and hold right-click: 32 RPM, but only 32 SP. Enough for one grinder, slowly. "
+         "Mount it on a shaft or a machine and hold right-click: 32 RPM and 96 SP, enough for one grinder or one sifter. "
          "Cranking makes you hungry.",
-         "裝在傳動軸或機器的一面，按住右鍵：32 RPM，但只有 32 SP，夠一台研磨機慢慢磨。搖久了會餓。"),
+         "裝在傳動軸或機器的一面，按住右鍵：32 RPM、96 SP，夠帶一台研磨機或一台淨化篩。搖久了會餓。"),
     recipe("crafting", "pysift:soul_hand_crank")], parents=["engine"])
 entry(C, "shift", "pysift:soul_gearshift", "Clutch and Gearshift", "離合器與換向器", 4, -3, [
     text(("Redstone control", "紅石控制"),

@@ -16,7 +16,7 @@ import net.minecraft.world.phys.BlockHitResult;
 
 /**
  * 靈魂手搖曲柄（Create 的 hand crank）：裝在傳動軸或機器的一面（背面接上），按住右鍵就以 32 RPM 轉動，
- * 但只提供 32 SP——夠一台研磨機慢慢磨，或在還沒有靈液時救急。搖久了會餓。
+ * 提供 96 SP——夠一台研磨機或一台淨化篩，在還沒有靈液時救急；負載太大時動作列會說明。搖久了會餓。
  */
 public class SoulHandCrankBlock extends SoulMachineBlock {
 
@@ -47,6 +47,11 @@ public class SoulHandCrankBlock extends SoulMachineBlock {
             player.causeFoodExhaustion(0.02f);
             if (!was) {
                 SoulNetwork.update(server, pos);
+            }
+            SoulNetwork.Result n = crank.network();
+            if (n.overloaded()) {   // tell the player why it does not turn
+                player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.pysift.soul_crank.too_heavy",
+                        n.stress(), n.capacity()).withStyle(net.minecraft.ChatFormatting.RED));
             }
         }
         return InteractionResult.SUCCESS;
@@ -84,9 +89,22 @@ public class SoulHandCrankBlock extends SoulMachineBlock {
             return cranking > 0 ? SoulNetwork.SPEED : 0;
         }
 
+        /** 3 SP per RPM: 96 SP at 32 RPM - one grinder (64) or one sifter (96), not two grinders. */
         @Override
         public float capacityPerRpm() {
-            return 1f;
+            return 3f;
+        }
+
+        @Override
+        protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput output) {
+            super.saveAdditional(output);
+            output.putInt("Cranking", cranking);
+        }
+
+        @Override
+        protected void loadAdditional(net.minecraft.world.level.storage.ValueInput input) {
+            super.loadAdditional(input);
+            cranking = input.getIntOr("Cranking", 0);
         }
     }
 }

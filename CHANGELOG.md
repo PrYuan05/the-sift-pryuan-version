@@ -33,7 +33,7 @@
   32 RPM) and sends it down the pipes to Spirit Engines, which burn it when their fuel slot is empty, so a pool can keep
   a whole power plant running. A pipe left open at one end **leaks**: spirit liquid spills out and the dirt or sand
   below turns into soul soil.
-- **Soul Hand Crank**: hold right-click to turn it at 32 RPM (32 SP) - enough to run a grinder slowly before you have
+- **Soul Hand Crank**: hold right-click to turn it at 32 RPM (96 SP) - enough for one grinder or one sifter before you have
   spirit liquid. Cranking makes you hungry.
 - **Soul Clutch** and **Soul Gearshift**: two half-shafts in a casing with a lamp. With a redstone signal the clutch lets
   go of its far half; the gearshift turns its far half the other way.
@@ -359,7 +359,7 @@
   就連通，中間有空氣或洞穴就斷。損耗 15%。運轉時，連線上的岩石會慢慢長成發光的**靈脈石**，靈魂在裡面飄動。
 - **靈液泵**與**靈液管**：靈液泵吸走正前方的靈液源頭（32 RPM 時每 2 秒一桶），沿著靈液管送給靈液引擎；引擎的燃料格空著時就燒管子送來的靈液，
   一池靈液就能讓整座發電站一直運轉。只接一頭、另一頭空著的管子會**漏**：靈液漏出來，下面的泥土或沙子變成靈魂土。
-- **靈魂手搖曲柄**：按住右鍵就以 32 RPM 轉動（32 SP），在還沒有靈液時也能讓研磨機慢慢磨。搖久了會餓。
+- **靈魂手搖曲柄**：按住右鍵就以 32 RPM 轉動（96 SP），在還沒有靈液時也能帶動一台研磨機或一台淨化篩；負載太大時動作列會顯示原因。搖久了會餓。
 - **靈魂離合器**與**靈魂換向器**：外殼裡兩段半軸，頂上有指示燈。收到紅石訊號時，離合器放開另一頭，換向器讓另一頭反轉。
 - **靈魂風扇**：把生物和掉落物吹走（反轉時是吸過來），最遠 8 格。氣流穿過**靈魂火**時，後面的掉落物會被靈魂薰染：沙 → 靈魂沙、
   泥土 → 靈魂土，火把、燈籠、營火變成靈魂版本，幽匿脈變紅。
