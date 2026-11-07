@@ -22,8 +22,8 @@
   Wobble bursting, the Nester's dying cry, the Lootkin running off jingling, the Monarch's echo, the Sculk
   Monstrosity's second phase and the Sentinel breaking a shield.
 - The six remaining biomes have synthesised ambience (wind, drips, distant choirs, chimes, lava bubbles, soul whooshes).
-- **Boss music**: the Harmonizer (a choir), the Monarch (a brass march with timpani) and the Sculk Monstrosity (a
-  heartbeat in the deep) each have their own fight music. It starts when you come within 48 blocks of the boss and
+- **Boss music**: the Harmonizer (an epic choir), the Monarch (a heroic orchestral march) and the Sculk Monstrosity
+  (dark epic orchestra) each have their own fight music, real orchestral tracks from Pixabay Music. It starts when you come within 48 blocks of the boss and
   stops as soon as it dies.
 - `tools/audio/verify_sounds.py` checks that every sound is registered, has its files and subtitles, and that every
   creature skill has a sound.
@@ -285,7 +285,7 @@
 - 每個技能都有專屬的聲音，其他動作也有：蟲群被激怒、追蹤者隱入黑暗與背刺、飛鏢背用背甲擋下攻擊、清道夫咬出血、搖晃怪炸開、
   築巢者死前的爆鳴、掠奪精叮叮噹噹地逃跑、君王分出鏡像、幽匿巨怪進入第二階段、哨兵劈碎盾牌。
 - 其餘 6 個生態域也換成合成的環境音（風聲、滴水、遠處的合唱、水晶叮噹、岩漿冒泡、靈魂呼嘯）。
-- **Boss 戰配樂**：調和者（合唱）、君王（銅管與定音鼓的進行曲）、幽匿巨怪（深處的心跳）各有自己的戰鬥曲。
+- **Boss 戰配樂**：調和者（史詩合唱）、君王（英雄管弦進行曲）、幽匿巨怪（暗黑史詩管弦）各有自己的戰鬥曲，用的是 Pixabay Music 的真實管弦配樂。
   走到 Boss 48 格內就開始播，Boss 死掉就立刻停。
 - `tools/audio/verify_sounds.py` 會檢查每個聲音都有註冊、有音檔與字幕，以及每個生物技能都有聲音。
 

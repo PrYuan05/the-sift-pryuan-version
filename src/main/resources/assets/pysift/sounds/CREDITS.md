@@ -1,7 +1,7 @@
 # Sound credits
 
 All sounds in `assets/pysift/sounds/` except `mob/blub/` are made by `tools/audio/build_sounds.py`
-(creatures from recordings: `tools/audio/creatures.py`; boss music, fully synthesised: `tools/audio/music.py`).
+(creatures from recordings: `tools/audio/creatures.py`; boss music: `tools/audio/music.py`).
 Most are fully synthesised. A few mix in free recordings that are cut, pitch-shifted, filtered and layered with
 synthesis (never shipped unmodified). Those recordings are listed below.
 
@@ -62,6 +62,15 @@ synthesis (never shipped unmodified). Those recordings are listed below.
 | Sculk Monstrosity | `horror-low-monster-roar-97413` | Pixabay, freesound_community | Pixabay Content License |
 | Sculk Monstrosity | `horror-deep-sea-monster-roar-329857` | Pixabay, dragon-studio | Pixabay Content License |
 | Sculk Monstrosity | `nature-powerful-lion-roar-sound-effect-high-quality-sfx-444190` | Pixabay, pwlpl | Pixabay Content License |
+
+Boss music uses whole tracks from Pixabay Music, levelled, trimmed and faded
+(`https://pixabay.com/music/<name>/`):
+
+| Used in | Track (page slug) | Site / author | Licence |
+| :-- | :-- | :-- | :-- |
+| Harmonizer fight | `epic-classical-epic-choir-orchestral-music-loop-504417` (Epic Choir Orchestral Music Loop) | Pixabay Music, sonican | Pixabay Content License |
+| Monarch fight | `main-title-march-of-resolve-powerful-orchestral-heroic-epic-418169` (March Of Resolve) | Pixabay Music, studiokolomna | Pixabay Content License |
+| Sculk Monstrosity fight | `main-title-the-fall-of-empires-dark-epic-orchestral-for-trailers-442348` (The Fall of Empires) | Pixabay Music, nickpanek | Pixabay Content License |
 
 The number at the end of each name is the Pixabay sound id
 (`https://pixabay.com/sound-effects/<name>/`; the newer rows give the full page slug).

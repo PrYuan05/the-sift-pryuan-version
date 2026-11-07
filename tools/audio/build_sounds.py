@@ -770,10 +770,13 @@ def main():
         gap = np.zeros(int(0.7 * S.SR))
         reel = []
         for key, x in sounds.items():
-            x = S.fade(x, 0.003, 0.03) if not key.startswith("loop") else x
+            if x.ndim == 1 and not key.startswith("loop"):   # stereo music is faded by music.py
+                x = S.fade(x, 0.003, 0.03)
             S.write_ogg(PREVIEW / name / f"{key}.ogg", x)
             if INSTALL:
                 S.write_ogg(ASSETS / folder / f"{key}.ogg", x)
+            if x.ndim == 2:   # music: preview the first 30 s in mono
+                x = x.mean(axis=1)[: int(30 * S.SR)]
             reel += [x if not key.startswith("loop") else np.tile(x, 1)[: int(12 * S.SR)], gap]
         S.write_wav(PREVIEW / f"{name}_preview.wav", np.concatenate(reel))
         lengths = ", ".join(f"{k} {len(v) / S.SR:.1f}s" for k, v in sounds.items())

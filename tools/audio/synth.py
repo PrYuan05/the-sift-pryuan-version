@@ -216,7 +216,8 @@ def write_ogg(path, x):
     path.parent.mkdir(parents=True, exist_ok=True)
     data = np.clip(x, -1, 1).astype(np.float32)
     # libsndfile's Vorbis encoder overflows the stack on long single writes (Windows): write in blocks
-    with sf.SoundFile(str(path), "w", SR, 1, format="OGG", subtype="VORBIS") as f:
+    channels = 1 if data.ndim == 1 else data.shape[1]   # music is stereo
+    with sf.SoundFile(str(path), "w", SR, channels, format="OGG", subtype="VORBIS") as f:
         for i in range(0, len(data), 16384):
             f.write(data[i:i + 16384])
 
