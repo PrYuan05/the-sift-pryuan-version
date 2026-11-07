@@ -177,9 +177,19 @@ you which boss it is linked to, or how far and in which direction the nearest ar
   on the sword, exploding sculk tendrils on the axe, glowing enemies, a decoy that saves you at low health, sculk thorns,
   walking on Spirit Liquid — and the full set makes you immune to Soul Deprivation.
 - An advancement line guides you from your first step into The Sift to Soulite.
-- **Patina** from the Soul Caldera (raw patina, patina ingots), kept for the coming soul power machines. Metal blocks
-  for siftite and patina.
+- **Patina** from the Soul Caldera (raw patina, patina ingots) becomes **Patina Gears**, the parts of every soul machine.
+  Metal blocks for siftite and patina.
 - **Soul Essence** reshapes blocks: use it on a block to switch to its next variant (sneak to pick which one).
+
+## Soul power
+
+Create-style machines that run on rotation (soul pressure, SP). The **Spirit Engine** burns spirit liquid; **shafts**
+and **cogwheels** carry and gear the rotation (neighbouring cogs reverse, large cogs double the speed of small ones);
+the **Soul Gauge** shows the load. Three wireless links: **soul waves** through the air (tuned with resonant discs),
+**charoite beams** turned by prisms, and **soul veins** through solid rock. Machines: the **Soul Grinder** and the
+**Soul Sifter**, which sifts the rot out of blue sculk and turns it red again. Everything moves - flywheels, pistons,
+millstones, sieves, dishes, needles and beams - and an overloaded network burns the souls around it.
+See the Soul Power chapter of the Sift Codex.
 
 ## Farming and brewing
 
@@ -380,8 +390,15 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - 比獄髓更強的**靈髓**：用獄髓錠、三隻 Boss 的碎片與紫龍晶鍛造靈髓錠，再用**靈髓升級模板**（Boss 掉落、遺跡寶箱）把獄髓裝備升級。
   每件都帶著 Boss 的能力：劍的音波連鎖、斧的爆炸幽匿藤蔓、讓敵人發光、瀕死時留下分身、幽匿荊棘、在靈液上行走；整套免疫靈魂剝奪。
 - 一條成就線，從踏進篩靈界一路引導到靈髓。
-- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠），留給之後的靈魂動力機器使用。隙浮金與銅綠都有金屬方塊。
+- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠）做成**銅綠齒輪**，是所有靈魂機械的零件。隙浮金與銅綠都有金屬方塊。
 - **靈魂精華**能改變方塊型態：對方塊右鍵換成下一種型態（潛行可以選要換哪一種）。
+
+### 靈魂動力
+
+Create 式的機械，靠轉動運作（單位是靈壓 SP）。**靈液引擎**燒靈液；**傳動軸**與**齒輪**傳遞並變速（相鄰齒輪反轉、大齒輪讓小齒輪轉兩倍快）；
+**靈壓計**顯示負載。三種無線傳動：穿過空氣的**靈魂振波**（用共鳴唱片調頻）、靠稜鏡轉向的**紫龍晶光束**、穿過岩層的**靈脈**。
+機器：**靈魂研磨機**，以及把藍色幽匿的腐爛篩掉、變回赤紅的**靈魂淨化篩**。所有東西都會動：飛輪、活塞、石磨、篩網、天線碟、
+指針與光束；過載的網路會燒掉周圍的靈魂。詳見《隙浮手記》的「靈魂動力」章。
 
 ### 種植與釀造
 

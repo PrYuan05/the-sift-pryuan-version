@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:charoite_beam_emitter",
+  "recipe_id_2": "pysift:charoite_prism",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

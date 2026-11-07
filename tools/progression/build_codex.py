@@ -619,8 +619,8 @@ entry(C, "charoite", "pysift:charoite", "Charoite", "紫龍晶", 2, -1, [
 entry(C, "patina", "pysift:patina_ingot", "Patina", "銅綠", 2, 1, [
     text(("Patina", "銅綠"),
          "Patina ore grows in the rift walls of the Soul Caldera, weathered green near the surface. "
-         "It will power the soul machines of a later age.",
-         "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。它將來會用來驅動靈魂機械。"),
+         "Its gears build every soul machine (see **Soul Power**).",
+         "銅綠礦長在靈魂火山高原的裂縫岩壁裡，靠近地表的已經風化成綠色。所有靈魂機械都用銅綠齒輪打造（見「靈魂動力」）。"),
     spotlight("pysift:patina_ingot", "", "")], parents=["siftite"])
 entry(C, "beacon", "pysift:sift_beacon_gem", "Sift Beacon", "隙浮信標", 4, -1, [
     text(("Sift Beacon", "隙浮信標"),
@@ -648,6 +648,74 @@ entry(C, "brewing", "pysift:soul_berries", "Brewing", "釀造", 0, 2, [
          "**Echo Sight**.",
          "靈莓長在靈液旁，幽光菇長在洞穴裡。把它們加進粗製藥水，可以釀出**靈魂守護**與**回音視界**。")],
       parents=["siftite"])
+
+# ================================================================== 7. soul power (靈魂動力)
+category("soul_power", 6, "pysift:patina_gear", "Soul Power", "靈魂動力", "patina_block/patina_block")
+C = "soul_power"
+entry(C, "engine", "pysift:spirit_engine", "Spirit Engine", "靈液引擎", 0, 0, [
+    text(("Turning souls into motion", "把靈魂變成轉動"),
+         "Soul power is **rotation**, measured in soul pressure (SP). The Spirit Engine burns a bucket of spirit liquid "
+         "(or soul essence, soul sand, soul soil) and turns at **32 RPM**, giving **256 SP**. Its flywheel spins on the "
+         "right-hand side; shafts take the power from any side but the front.",
+         "靈魂動力是**轉動**，用靈壓（SP）計算。靈液引擎燒一桶靈液（或靈魂精華、靈魂沙、靈魂土），以 **32 RPM** 轉動，提供 "
+         "**256 SP**。飛輪在右手邊轉；除了正面，其他面都能接傳動軸。"),
+    recipe("crafting", "pysift:patina_gear", "pysift:spirit_engine")])
+entry(C, "shafts", "pysift:soul_cogwheel", "Shafts and Cogwheels", "傳動軸與齒輪", 2, 0, [
+    text(("Gearing", "變速"),
+         "Shafts carry rotation along their axis. Cogwheels side by side drive each other and **turn the other way**. "
+         "A **large cogwheel** meshes with small ones on its diagonals: the small one turns **twice as fast**.\n\n"
+         "Faster machines work faster but cost more: a machine's load is its impact x RPM.",
+         "傳動軸沿著自己的軸傳遞轉動。並排的齒輪互相帶動，**方向相反**。**大齒輪**和斜角的小齒輪咬合，小齒輪轉**兩倍快**。"
+         "\n\n機器轉越快做得越快，但也越吃力：負載 = 衝擊值 × RPM。"),
+    recipe("crafting", "pysift:soul_shaft", "pysift:large_soul_cogwheel"),
+    text(("Speed conflict", "轉速衝突"),
+         "If two paths ask one block to turn at different speeds (or two engines disagree), the gears jam: the whole "
+         "network stops and smokes until you fix it.",
+         "如果兩條路要求同一個方塊轉不同的速度（或兩台引擎方向相反），齒輪就會卡住：整個網路停下來冒煙，直到你修好為止。")],
+      parents=["engine"])
+entry(C, "gauge", "pysift:soul_gauge", "Soul Gauge", "靈壓計", 4, -1, [
+    text(("Reading the load", "讀取負載"),
+         "The needle swings from green to red as the load nears the capacity. Right-click it for the exact numbers; "
+         "a comparator reads the load (0-15).\n\nPast 100% the network is **overloaded**: everything stops, and after 5 "
+         "seconds the machines tear the souls out of every creature nearby.",
+         "負載接近容量時，指針從綠區擺到紅區。右鍵看精確的數字；比較器讀得到負載（0～15）。\n\n超過 100% 網路就**過載**："
+         "全部停下來，5 秒後機器會把附近所有生物的靈魂扯出來。"),
+    recipe("crafting", "pysift:soul_gauge")], parents=["shafts"])
+entry(C, "grinder", "pysift:soul_grinder", "Soul Grinder", "靈魂研磨機", 4, 1, [
+    text(("Grinding", "研磨"),
+         "Doubles ores, breaks cobblestone into gravel and sand, bones into bone meal, and sometimes leaves a soul essence. "
+         "64 SP at 32 RPM.",
+         "礦石變兩倍，鵝卵石磨成礫石再磨成沙，骨頭磨成骨粉，偶爾還多出一個靈魂精華。32 RPM 時吃 64 SP。"),
+    recipe("crafting", "pysift:soul_grinder")], parents=["shafts"])
+entry(C, "sifter", "pysift:soul_sifter", "Soul Sifter", "靈魂淨化篩", 6, 1, [
+    text(("Sifting the rot back to red", "把腐爛篩回赤紅"),
+         "The craft of the ancients. While it turns, the sifter slowly turns **rotten blue sculk within 8 blocks back into "
+         "red sculk**. Put sculk on its sieve to sift it red; gravel gives flint, sand gives clay, soul sand gives soul soil. "
+         "96 SP at 32 RPM; drive it from the crank side.",
+         "遠古人的工藝。轉動時，淨化篩會慢慢把 **8 格內腐爛的藍色幽匿變回赤紅幽匿**。把幽匿放上篩網就能篩紅；礫石篩出燧石、"
+         "沙篩出黏土、靈魂沙篩出靈魂土。32 RPM 時吃 96 SP，從曲柄那一側接動力。"),
+    recipe("crafting", "pysift:soul_sifter")], parents=["grinder"])
+entry(C, "waves", "pysift:soul_wave_emitter", "Soul Waves", "靈魂振波", 0, 2, [
+    text(("Wireless: through the air", "無線：穿過空氣"),
+         "An emitter and a receiver with **the same resonant disc** link within 16 blocks. Wool and carpets block the wave. "
+         "Loses 10%.",
+         "放了**同一張共鳴唱片**的發送器與接收器，16 格內就會連通。羊毛與地毯會擋住振波。損耗 10%。"),
+    recipe("crafting", "pysift:soul_wave_emitter", "pysift:soul_wave_receiver")], parents=["engine"])
+entry(C, "beams", "pysift:charoite_beam_emitter", "Charoite Beams", "紫龍晶光束", 2, 3, [
+    text(("Wireless: a beam of light", "無線：一道光"),
+         "The emitter shoots a violet beam up to 32 blocks; **prisms** turn it (right-click to point them, sneak to go back). "
+         "It passes glass and plants and links on the **front** of a receiver. Loses only 5%, but it must be aimed, and it "
+         "burns whatever stands in it.",
+         "發射器射出最遠 32 格的紫色光束；**稜鏡**會讓它轉向（右鍵換方向、潛行右鍵往回換）。光束能穿過玻璃與花草，"
+         "打中接收器的**正面**就連通。損耗只有 5%，但要瞄準，而且會灼傷站在光束裡的東西。"),
+    recipe("crafting", "pysift:charoite_beam_emitter", "pysift:charoite_prism")], parents=["waves"])
+entry(C, "veins", "pysift:soul_vein_node", "Soul Veins", "靈脈", 0, 4, [
+    text(("Wireless: through the rock", "無線：穿過岩層"),
+         "Two vein nodes within 16 blocks link when **every block between them is rock**. A cave cuts the vein. "
+         "Loses 15%. While it runs, the rock along it grows into glowing soul-veined stone.",
+         "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。損耗 15%。運轉時，"
+         "沿路的岩石會長成發光的靈脈石。"),
+    recipe("crafting", "pysift:soul_vein_node")], parents=["waves"])
 
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")

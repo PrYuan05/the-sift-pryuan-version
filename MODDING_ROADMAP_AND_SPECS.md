@@ -195,6 +195,19 @@ flowchart TD
 | B 原住民聚落 | 使用者決定不做村民型聚落 | ✖ 取消 |
 | D 世界再充實 | 地底生態域（晶洞、靈液河）、更多結構與大型地下遺跡、用未使用方塊做裝飾方塊 | 待做 |
 
+## 4.6b 靈魂動力（2026-11-07，Create 式）
+
+| 項目 | 內容 | 實作 |
+| :--- | :--- | :--- |
+| 網路 | 有正負號的轉速＋傳動比（同軸 ×1、相鄰小齒輪 ×-1、大↔小斜向 ×-2／×-1/2）；轉速衝突（兩條路不同速、兩台引擎不一致、超過 256 RPM）→ 全網停轉冒煙；負載 = impact × \|RPM\|；過載 5 秒 → 6 格內靈魂剝奪 | `soulpower/SoulNetwork`、`SoulKinetic`、`KineticBlockEntity`（每個方塊都有方塊實體，同步 Speed／Load） |
+| 動力源 | 靈液引擎：32 RPM，每 RPM 8 SP（256 SP） | `SpiritEngineBlock(Entity)` |
+| 傳動 | 傳動軸、靈魂齒輪、大靈魂齒輪、靈壓計（比較器 0～15） | `SoulShaftBlock`、`SoulCogBlock`、`SoulGaugeBlock` |
+| 無線 | 振波（同唱片、16 格、羊毛擋、損耗 10%）；紫龍晶光束（32 格、稜鏡轉向、玻璃可穿、灼傷 2/秒、損耗 5%）；靈脈（16 格內整條是岩石、長出靈脈石、損耗 15%） | `SoulWaveBlock(Entity)`、`CharoiteBeam*`、`CharoitePrismBlock`、`SoulVeinNode*` |
+| 機器 | 研磨機（impact 2，`pysift:soul_grinding`）；淨化篩（impact 3，8 格內藍幽匿 → 赤紅，`pysift:soul_sifting`，成就 `story/sifted`） | `SoulGrinderBlockEntity`、`SoulSifterBlockEntity` |
+| 動畫 | Create 式部件模型（`SoulParts`，永不放置的方塊掛模型）由 `client/soulpower/SoulPowerRenderer` 依「遊戲時間 × 轉速」旋轉；齒輪奇偶格錯開半齒；過載抖動 | 資源 `tools/progression/build_soul_power.py`，預覽 `preview_soul_power.py`，伺服器測試 `test_soul_power.py` |
+| 聲音 | 引擎每行程噗聲、研磨、篩、振波、過載、衝突 | `tools/audio/machines.py` |
+| 待做 | 靈液泵與管線（漏液汙染地面）、共鳴靈陣多方塊結構、專屬貼圖（`art_requests/soul_power_todo.md`） | |
+
 ## 4.7 世界觀：不是幽匿感染主世界，是主世界感染了幽匿（2026-11-03 改版）
 
 > 之後新增的內容（結構、生物、道具、成就文字、指南書）都以這一節為依據。
@@ -222,7 +235,7 @@ flowchart TD
 - ✅ 八音儀式放錯唱片：門會閃爍、走調，接著爆出一陣深色幽匿與哀悼者的歌聲（重現遠古城市的災難），唱片全部彈出（`SiftPortalRitual.tearOpen`，測試指令 `/pysift_ritual fill wrong`）。
 - ✅ 屍化：歌者在主世界約 5 分鐘、6 格內沒有靈魂晶塊或靈液，就變成哀悼者（`SingerEntity.tickHollowing`，存檔欄位 `OverworldTicks`）；哀悼者泡靈液 10 秒變回歌者（`MournerEntity`）。哀悼者也在深暗之域稀有生成。
 - ✅ 治癒監守者：泡靈液 15 秒或待在隙浮 30 秒，變成隙浮守衛（`WardenCure`、`SiftWardenEntity`，沿用原版模型，貼圖 `tools/models/build_sift_warden.py`）。餵迴音碎片會跟隨。只有餓壞的監守者、哀悼者把靈液當食物吸收、不受傷（`#pysift:soul_starved`）；健康的歌者等原住民會吸收太多靈魂而受傷，剛治癒的有 10 秒爬出池子（實體標籤 `pysift_reborn`）。
-- 淨化與篩：用隙浮的工藝（靈魂動力）把深色、枯死的幽匿「篩」回赤紅幽匿。舊的靈魂隙浮輪軸 `SoulSiftAxle` 已移除，程式可以從 commit `00cf42c` 取回。
+- ✅ 淨化與篩：靈魂淨化篩（靈魂動力）把 8 格內腐爛的藍色幽匿篩回赤紅幽匿（`SoulSifterBlockEntity`，見 4.6b）。
 - ✅（視覺）赤紅幽匿（`red_sculk`、`red_sculk_vein`，靈液池邊）與裂隙門周圍的紅→藍腐爛帶（`WildRiftFeature.rotHalo`）。
 - ✅ 裂縫：10 格內有隙浮傳送門的赤紅幽匿會隨機刻腐爛成藍色；擊敗幽匿巨怪後世界記下「腐爛之心已除」，藍幽匿慢慢變回紅色（`RotSpread`，測試指令 `/pysift_rot stilled <true|false>`）。
 - ✅ 歌者與監守者的呼應：24 格內有監守者時，歌者發抖、倒唱八音（`SingerSongs.MOURNING`），監守者平靜 30 秒（`WardenSoothing`、`WardenMixin`）。
