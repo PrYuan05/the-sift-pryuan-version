@@ -182,14 +182,30 @@ you which boss it is linked to, or how far and in which direction the nearest ar
   Metal blocks for siftite and patina.
 - **Soul Essence** reshapes blocks: use it on a block to switch to its next variant (sneak to pick which one).
 
-## Soul power
+## Soul power: soul redstone
 
-Create-style machines that run on rotation (soul pressure, SP). The **Spirit Engine** burns spirit liquid; **shafts**
-and **cogwheels** carry and gear the rotation (neighbouring cogs reverse, large cogs double the speed of small ones);
-the **Soul Gauge** shows the load. Three wireless links: **soul waves** through the air (tuned with resonant discs),
-**charoite beams** turned by prisms, and **soul veins** through solid rock. Machines: the **Soul Grinder** and the
-**Soul Sifter**, which sifts the rot out of blue sculk and turns it red again. Everything moves - flywheels, pistons,
-millstones, sieves, dishes, needles and beams - and an overloaded network burns the souls around it.
+Redstone with a soul in it. A **soul signal** is a redstone signal (0-15) that also carries soul pressure (SP), so it
+can run machines. The **Spirit Engine** burns spirit liquid and sends out strength 15 with 256 SP.
+
+| | Vanilla redstone | Soul redstone |
+| :-- | :-- | :-- |
+| Range | 15 blocks | about 30 (one level every 2 blocks) |
+| Wiring | on top of blocks | **Soul Conduit**: joins on all six sides, runs up walls and through the air |
+| Power | none | machines run on it; a stronger signal works faster |
+| Wireless | none | **soul waves**, **charoite beams**, **soul veins** |
+
+- **Both ways with vanilla.** A conduit is a redstone source: dust, lamps, pistons, repeaters and comparators read it.
+  A lever, repeater, comparator, torch or redstone block against a conduit sends its signal down the wire - but that
+  signal has no soul, so machines do not run on it (the wire turns the dead blue of Overworld sculk).
+- **Control.** A vanilla signal on a machine pauses it; on the engine it switches the engine off.
+- **Sculk joins in.** A Sculk Catalyst against a conduit feeds it for 10 seconds when a creature dies nearby; a Sculk
+  Shrieker against a conduit shrieks when the circuit is overloaded.
+- **Machines:** Soul Grinder, Soul Sifter (sifts the rot out of blue sculk), Soul Drill, Soul Fan, Spirit Pump,
+  Resonance Array. The **Soul Gauge** shows the load; an overloaded circuit burns the souls around it.
+
+Shafts and cogwheels are not part of the base game any more. With the Create mod, The Sift is meant to add abilities on
+top of Create's own kinetics (spec: `docs/CREATE_ADDON.md`; waiting for a Create release for this Minecraft version).
+The Sift's own shafts and cogwheels remain as a test layer behind `kinetic_addon=on` in `config/pysift.properties`.
 See the Soul Power chapter of the Sift Codex.
 
 ## Farming and brewing
@@ -391,15 +407,30 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - 比獄髓更強的**靈髓**：用獄髓錠、三隻 Boss 的碎片與紫龍晶鍛造靈髓錠，再用**靈髓升級模板**（Boss 掉落、遺跡寶箱）把獄髓裝備升級。
   每件都帶著 Boss 的能力：劍的音波連鎖、斧的爆炸幽匿藤蔓、讓敵人發光、瀕死時留下分身、幽匿荊棘、在靈液上行走；整套免疫靈魂剝奪。
 - 一條成就線，從踏進篩靈界一路引導到靈髓。
-- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠）用來做靈魂機械的機殼、傳動軸與管線；機械裡會動的齒輪則是**隙浮金齒輪**。隙浮金與銅綠都有金屬方塊。
+- 靈魂火山高原的**銅綠**（粗銅綠、銅綠錠）用來做靈魂機械的機殼、導線與管線；機械裡會動的齒輪則是**隙浮金齒輪**。隙浮金與銅綠都有金屬方塊。
 - **靈魂精華**能改變方塊型態：對方塊右鍵換成下一種型態（潛行可以選要換哪一種）。
 
-### 靈魂動力
+### 靈魂動力：靈魂紅石
 
-Create 式的機械，靠轉動運作（單位是靈壓 SP）。**靈液引擎**燒靈液；**傳動軸**與**齒輪**傳遞並變速（相鄰齒輪反轉、大齒輪讓小齒輪轉兩倍快）；
-**靈壓計**顯示負載。三種無線傳動：穿過空氣的**靈魂振波**（用共鳴唱片調頻）、靠稜鏡轉向的**紫龍晶光束**、穿過岩層的**靈脈**。
-機器：**靈魂研磨機**，以及把藍色幽匿的腐爛篩掉、變回赤紅的**靈魂淨化篩**。所有東西都會動：飛輪、活塞、石磨、篩網、天線碟、
-指針與光束；過載的網路會燒掉周圍的靈魂。詳見《隙浮手記》的「靈魂動力」章。
+帶著靈魂的紅石。**靈魂訊號**是一種紅石訊號（0～15），但還帶著靈壓（SP），所以能推動機器。**靈液引擎**燒靈液，送出強度 15、256 SP。
+
+| | 原版紅石 | 靈魂紅石 |
+| :-- | :-- | :-- |
+| 距離 | 15 格 | 約 30 格（每 2 格少一級） |
+| 走線 | 鋪在方塊頂面 | **靈魂導線**：六個方向都能接，可以貼牆往上、懸在空中 |
+| 動力 | 沒有 | 機器靠它運轉，訊號越強做得越快 |
+| 無線 | 沒有 | **靈魂振波**、**紫龍晶光束**、**靈脈** |
+
+- **和原版雙向相接。** 導線對原版元件就是訊號源：紅石粉、紅石燈、活塞、中繼器、比較器都讀得到。把拉桿、中繼器、比較器、紅石火把或
+  紅石塊貼著導線，訊號就沿著線傳出去；但那訊號沒有靈魂，機器不會動（導線變成主世界幽匿那種枯死的藍色）。
+- **控制。** 機器貼著原版訊號會暫停；引擎貼著原版訊號會關閉。
+- **幽匿也接得上。** 幽匿催化體貼著導線：附近有生物死亡時，供應 10 秒的靈魂訊號。幽匿尖嘯體貼著導線：迴路過載時尖叫示警。
+- **機器：** 靈魂研磨機、靈魂淨化篩（把藍色幽匿的腐爛篩掉）、靈魂鑽頭、靈魂風扇、靈液泵、共鳴靈陣。**靈壓計**顯示負載；
+  過載的迴路會燒掉周圍的靈魂。
+
+傳動軸與齒輪不再是基礎內容。裝了 Create 模組時，隙浮的定位是在 Create 自己的傳動上疊加能力（規格在 `docs/CREATE_ADDON.md`，
+要等 Create 出這個 Minecraft 版本）。隙浮自己的傳動軸與齒輪保留成測試用的一層，在 `config/pysift.properties` 設定
+`kinetic_addon=on` 才會出現。詳見《隙浮手記》的「靈魂動力」章。
 
 ### 種植與釀造
 

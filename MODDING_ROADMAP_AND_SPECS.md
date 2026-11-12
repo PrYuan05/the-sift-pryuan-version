@@ -195,7 +195,24 @@ flowchart TD
 | B 原住民聚落 | 使用者決定不做村民型聚落 | ✖ 取消 |
 | D 世界再充實 | 地底生態域（晶洞、靈液河）、更多結構與大型地下遺跡、用未使用方塊做裝飾方塊 | 待做 |
 
-## 4.6b 靈魂動力（2026-11-07，Create 式）
+## 4.6b 靈魂動力：靈魂紅石（2026-11-13 改版）
+
+> 2026-11-13：靈魂動力和 Create 過分重疊，改成在原版紅石上拓展。下面這張表是現行的基礎系統；再下面一張表
+> （Create 式的轉動）只在 `config/pysift.properties` 設定 `kinetic_addon=on` 時存在，程式在 `soulpower/kinetic/`。
+> 裝了 Create 時的定位（在 Create 的傳動上疊加能力）寫在 `docs/CREATE_ADDON.md`，尚未實作。
+
+| 項目 | 內容 | 實作 |
+| :--- | :--- | :--- |
+| 設定 | 靈魂訊號就是歌聲：活的赤紅幽匿脈把靈魂傳到遠處。原版紅石是「沒有靈魂的訊號」。遠古城市地下的紅石室是遠古人仿造失敗的版本（遠古殘頁其十、手記「靈魂導線」）。 | `tools/progression/build_codex.py` |
+| 迴路 | 強度 0～15；引擎旁 15，每 2 格少 1 級（花費以半級計：相鄰 1，強度 = 15 − 花費 ÷ 2）。機器速度 = 32 × 強度 ÷ 15，負載 = impact × 32 × 強度 ÷ 15。容量 = 每台運轉中的引擎 256 SP。過載：靈魂訊號歸零，5 秒後 6 格內靈魂剝奪。 | `soulpower/SoulCircuit`、`SoulSignal`、`SoulConductor` |
+| 靈魂導線 | 六向；`power`（對外的紅石強度）＋ `charged`（有沒有靈魂訊號）。對原版是訊號源；收拉桿、中繼器、比較器、紅石火把、紅石塊的訊號（不收紅石粉、不收隔著方塊的強充能）。原版訊號只驅動原版元件。三種外觀：赤紅／枯藍／灰。徒手可拆。 | `SoulConduitBlock` |
+| 控制 | 機器貼著原版訊號：暫停、不計負載。引擎貼著原版訊號：關閉、燃料暫停。貼著的靈魂元件不算。 | `SoulSignal.externalRedstone` |
+| 無線 | 振波少 1 級、光束 0、靈脈 2 級；振波與光束只從發送端到接收端，靈脈雙向。 | `SoulConductor.Relay`（三個無線方塊實體） |
+| 幽匿接點 | 催化體綻放時，貼著它的導線 10 秒內是來源（強度 15、32 SP）。迴路過載時，貼著導線的尖嘯體尖叫（不召喚監守者）。感測器的輸出是原版訊號。 | `SoulCircuit.charge`／`shriek` |
+| 兩個求解器 | 機械層啟用時，方塊實體同時收到靈魂迴路與轉速網路的結果：只有一邊有動力源就聽那一邊，兩邊都有就聽負載重的那一邊；POWERED 由方塊實體決定。引擎的過載計時兩邊各算各的。 | `KineticBlockEntity.apply` |
+| 測試 | `tools/progression/test_soul_redstone.py`（機械層關閉，60 項）；`test_soul_power.py`（`kinetic_addon=on`）。 | |
+
+### 機械層（`kinetic_addon=on` 才有；2026-11-07，Create 式）
 
 | 項目 | 內容 | 實作 |
 | :--- | :--- | :--- |
@@ -240,6 +257,8 @@ flowchart TD
 - ✅ 屍化：歌者在主世界約 5 分鐘、6 格內沒有靈魂晶塊或靈液，就變成哀悼者（`SingerEntity.tickHollowing`，存檔欄位 `OverworldTicks`）；哀悼者泡靈液 10 秒變回歌者（`MournerEntity`）。哀悼者也在深暗之域稀有生成。
 - ✅ 治癒監守者：泡靈液 15 秒或待在隙浮 30 秒，變成隙浮守衛（`WardenCure`、`SiftWardenEntity`，沿用原版模型，貼圖 `tools/models/build_sift_warden.py`）。餵迴音碎片會跟隨。只有餓壞的監守者、哀悼者把靈液當食物吸收、不受傷（`#pysift:soul_starved`）；健康的歌者等原住民會吸收太多靈魂而受傷，剛治癒的有 10 秒爬出池子（實體標籤 `pysift_reborn`）。
 - ✅ 淨化與篩：靈魂淨化篩（靈魂動力）把 8 格內腐爛的藍色幽匿篩回赤紅幽匿（`SoulSifterBlockEntity`，見 4.6b）。
+- ✅ 歌聲的線路：靈魂導線是活的赤紅幽匿脈，靈魂訊號就是歌聲；原版紅石是沒有靈魂的訊號。遠古殘頁其十〈不會唱歌的線〉
+  解釋遠古城市地下的紅石室（`AncientPages`，遠古城市箱子，不算在「完整的故事」的八張裡）。見 4.6b。
 - ✅（視覺）赤紅幽匿（`red_sculk`、`red_sculk_vein`，靈液池邊）與裂隙門周圍的紅→藍腐爛帶（`WildRiftFeature.rotHalo`）。
 - ✅ 裂縫：10 格內有隙浮傳送門的赤紅幽匿會隨機刻腐爛成藍色；擊敗幽匿巨怪後世界記下「腐爛之心已除」，藍幽匿慢慢變回紅色（`RotSpread`，測試指令 `/pysift_rot stilled <true|false>`）。
 - ✅ 歌者與監守者的呼應：24 格內有監守者時，歌者發抖、倒唱八音（`SingerSongs.MOURNING`），監守者平靜 30 秒（`WardenSoothing`、`WardenMixin`）。

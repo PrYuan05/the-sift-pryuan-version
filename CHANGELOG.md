@@ -2,6 +2,29 @@
 
 ## Unreleased
 
+### Changed: soul power is now soul redstone
+- Soul power no longer runs on shafts and cogwheels. A **soul signal** is a redstone signal (0-15) that carries soul
+  pressure: 15 at a running Spirit Engine, one level less every 2 blocks (about 30 blocks). Machines run at
+  strength / 15 and load the circuit by the same share. Capacity (256 SP per engine) and overload are unchanged.
+- New block: the **Soul Conduit** (redstone, soul essence and 2 patina ingots make 6). It joins on all six sides. To
+  vanilla parts it is a signal source; a lever, repeater, comparator, torch or redstone block against it sends a
+  vanilla signal down the wire, which lights lamps but runs no machine. Redstone dust is not an input. The wire is
+  red with a soul signal, dead blue with only a vanilla one, grey when off.
+- A vanilla redstone signal **pauses a machine** and **switches an engine off**.
+- **Soul waves, charoite beams and soul veins** now relay the soul signal: a beam costs nothing, a wave one level,
+  a vein two.
+- **Sculk Catalyst** against a conduit: a creature dying nearby gives strength 15 for 10 seconds (32 SP).
+  **Sculk Shrieker** against a conduit: shrieks while the circuit is overloaded; it calls no Warden.
+- The Soul Gauge sits in the conduit line; GUIs and the gauge show the signal as n/15. The gauge and the fan are now
+  crafted with a conduit instead of a shaft.
+- **Soul Shafts, Cogwheels, Gearbox, Clutch, Gearshift and Hand Crank** are no longer registered by default. They are
+  kept as a stand-alone mechanical layer behind `kinetic_addon=on` in `config/pysift.properties`. Worlds that already
+  have these blocks placed lose them unless that option is set.
+- Create: `docs/CREATE_ADDON.md` describes what The Sift will add on top of Create (engine as a stress source,
+  wireless rotation, resonance speed-up). Not implemented: Create has no release for this Minecraft version.
+- Sift Codex: the Soul Power chapter is rewritten; a tenth Ancient Page, *The Wires That Do Not Sing*, can be found
+  in Ancient City chests.
+
 ### New: soul power (Create-style machines)
 - **Soul power** turns machines with rotation, measured in soul pressure (SP). The **Spirit Engine** burns spirit
   liquid (or soul essence, soul sand / soil) and turns at 32 RPM with 256 SP; **Soul Shafts** carry it, the **Soul Wave
@@ -344,6 +367,23 @@
 - Monarch model lowered so it no longer floats above the ground.
 
 ## 尚未發布（繁體中文）
+
+### 變更：靈魂動力改成靈魂紅石
+- 靈魂動力不再靠傳動軸與齒輪。**靈魂訊號**是帶著靈壓的紅石訊號（0～15）：運轉中的靈液引擎旁是 15，每 2 格少一級（約 30 格）。
+  機器的速度是強度 ÷ 15，吃的負載也是同樣的比例。容量（每台引擎 256 SP）與過載規則不變。
+- 新方塊：**靈魂導線**（紅石、靈魂精華加 2 個銅綠錠，做 6 個）。六個方向都能接。對原版元件它是訊號源；拉桿、中繼器、比較器、
+  紅石火把或紅石塊貼著它，原版訊號就沿著線傳，能點亮紅石燈，但推不動機器。紅石粉不能當輸入。導線有靈魂訊號時是赤紅色，
+  只有原版訊號時是枯死的藍色，沒有訊號時是灰色。
+- 原版紅石訊號會**暫停機器**、**關閉引擎**。
+- **靈魂振波、紫龍晶光束、靈脈**改成轉送靈魂訊號：光束不損耗，振波少一級，靈脈少兩級。
+- **幽匿催化體**貼著導線：附近有生物死亡時，供應 10 秒強度 15 的訊號（32 SP）。**幽匿尖嘯體**貼著導線：迴路過載時尖叫示警，
+  不會召喚監守者。
+- 靈壓計串在導線中間；介面與靈壓計以 n/15 顯示訊號。靈壓計與風扇的配方從傳動軸改成導線。
+- **靈魂傳動軸、齒輪、齒輪箱、離合器、換向器、手搖曲柄**預設不再註冊，保留成獨立的機械層，在 `config/pysift.properties`
+  設定 `kinetic_addon=on` 才會出現。已經放了這些方塊的世界，沒有開這個設定就會失去它們。
+- Create：`docs/CREATE_ADDON.md` 寫了隙浮要在 Create 上疊加的能力（引擎當應力來源、無線傳動、共鳴加速）。尚未實作，
+  因為 Create 還沒有這個 Minecraft 版本。
+- 隙浮手記：「靈魂動力」章改寫；新增第十張遠古殘頁〈不會唱歌的線〉，在遠古城市的箱子裡找得到。
 
 ### 新增：靈魂動力（Create 式的機械）
 - **靈魂動力**以轉動帶動機器，單位是靈壓（SP）。**靈液引擎**燒靈液（或靈魂精華、靈魂沙／靈魂土），以 32 RPM 轉動、
