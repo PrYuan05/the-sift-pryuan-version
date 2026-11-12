@@ -204,7 +204,10 @@
     "pysift:soul_blue_wool_slab",
     "pysift:soul_blue_wool_stairs",
     "pysift:soul_grinder",
-    "pysift:soul_shaft",
+    {
+      "id": "pysift:soul_shaft",
+      "required": false
+    },
     "pysift:soul_wave_emitter",
     "pysift:soul_wave_receiver",
     "pysift:soul_willow_button",

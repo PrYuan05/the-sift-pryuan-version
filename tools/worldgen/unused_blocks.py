@@ -58,7 +58,10 @@ item_tag.write_text(json.dumps({"replace": False, "values": [f"pysift:{i}" for i
 unused = sorted(blocks - used - members)
 tag = D / "tags/block/not_in_worldgen.json"
 tag.parent.mkdir(parents=True, exist_ok=True)
-tag.write_text(json.dumps({"replace": False, "values": [f"pysift:{b}" for b in unused]}, indent=2) + "\n", encoding="utf-8")
+# the mechanical add-on's blocks are only registered when it is on (soulpower/kinetic/KineticAddon): optional entries
+KINETIC = {"soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "soul_gearbox", "soul_hand_crank", "soul_clutch", "soul_gearshift"}
+tag.write_text(json.dumps({"replace": False, "values": [
+    {"id": f"pysift:{b}", "required": False} if b in KINETIC else f"pysift:{b}" for b in unused]}, indent=2) + "\n", encoding="utf-8")
 print(f"{len(blocks - members)} base blocks: {len(used - members)} used by worldgen, {len(unused)} not -> {tag.relative_to(P)}")
 print("used:", ", ".join(sorted(used - members)))
 print("not used:", ", ".join(unused))

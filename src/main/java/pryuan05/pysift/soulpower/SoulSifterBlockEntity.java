@@ -40,7 +40,7 @@ public class SoulSifterBlockEntity extends SoulGrinderBlockEntity {
 
     @Override
     protected void worldWork(ServerLevel level, BlockPos pos, long now) {
-        purify += Math.abs(speed) / SoulNetwork.SPEED;
+        purify += Math.abs(speed) / SoulSignal.SPEED;
         if (purify < PERIOD) {
             return;
         }

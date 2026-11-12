@@ -1,4 +1,6 @@
-package pryuan05.pysift.soulpower;
+package pryuan05.pysift.soulpower.kinetic;
+
+import pryuan05.pysift.soulpower.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

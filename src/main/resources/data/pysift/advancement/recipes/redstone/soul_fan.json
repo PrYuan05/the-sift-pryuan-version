@@ -21,12 +21,12 @@
         ]
       }
     },
-    "has_soul_shaft": {
+    "has_soul_conduit": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": "pysift:soul_shaft"
+            "items": "pysift:soul_conduit"
           }
         ]
       }
@@ -42,7 +42,7 @@
     [
       "has_patina_ingot",
       "has_siftite_gear",
-      "has_soul_shaft",
+      "has_soul_conduit",
       "has_the_recipe"
     ]
   ],

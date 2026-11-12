@@ -61,9 +61,9 @@ public class SoulFanBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulFanBlockEntity fan) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - fan.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 0) {
-            fan.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - fan.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 0) {
+            fan.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (fan.speed == 0) {
             fan.haunting.clear();
@@ -81,7 +81,7 @@ public class SoulFanBlockEntity extends KineticBlockEntity {
             }
         }
         AABB stream = new AABB(pos.relative(facing)).expandTowards(Vec3.atLowerCornerOf(facing.getUnitVec3i()).scale(range - 1));
-        Vec3 push = Vec3.atLowerCornerOf(fan.flow().getUnitVec3i()).scale(0.045 * Math.min(2.0, Math.abs(fan.speed) / SoulNetwork.SPEED));
+        Vec3 push = Vec3.atLowerCornerOf(fan.flow().getUnitVec3i()).scale(0.045 * Math.min(2.0, Math.abs(fan.speed) / SoulSignal.SPEED));
         for (Entity e : level.getEntitiesOfClass(Entity.class, stream)) {
             if (e instanceof Player p && (p.isSpectator() || p.getAbilities().flying)) {
                 continue;

@@ -22,7 +22,23 @@ import java.util.Set;
  * （主世界與地獄的基岩石、深板岩、靈脈石）。運轉時每 {@link #GROW_INTERVAL} tick，連線路徑上的一格岩石長成靈脈石，
  * 並沿著路徑冒出靈魂粒子。
  */
-public class SoulVeinNodeBlockEntity extends KineticBlockEntity {
+public class SoulVeinNodeBlockEntity extends KineticBlockEntity implements SoulConductor.Relay {
+    @Override
+    public boolean sends() {
+        return true;
+    }
+
+    @Override
+    public boolean receives() {
+        return true;
+    }
+
+    /** 每跳一次扣的強度，以半級計（2 = 少 1 級）。 */
+    @Override
+    public int hopCost() {
+        return 4;
+    }
+
     public static final int RANGE = 16;
     public static final int GROW_INTERVAL = 100;
     private static final Map<ResourceKey<Level>, Set<BlockPos>> NODES = new HashMap<>();
@@ -37,6 +53,7 @@ public class SoulVeinNodeBlockEntity extends KineticBlockEntity {
                 || state.is(SoulPower.SOUL_VEINED_STONE);
     }
 
+    @Override
     public List<BlockPos> findLinks(ServerLevel level) {
         List<BlockPos> out = new ArrayList<>();
         for (BlockPos other : NODES.getOrDefault(level.dimension(), Set.of())) {
@@ -70,9 +87,9 @@ public class SoulVeinNodeBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulVeinNodeBlockEntity node) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - node.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 5) {
-            node.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - node.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 5) {
+            node.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (node.speed == 0 || node.links.isEmpty()) {
             return;

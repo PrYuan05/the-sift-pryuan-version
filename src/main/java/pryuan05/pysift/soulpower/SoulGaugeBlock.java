@@ -1,5 +1,6 @@
 package pryuan05.pysift.soulpower;
 
+import pryuan05.pysift.soulpower.kinetic.SoulShaftBlock;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,7 +17,12 @@ import net.minecraft.world.phys.BlockHitResult;
  * 靈壓計（Create 的應力計＋轉速計）：一段傳動軸外面包著錶盒，軸四周的四面錶盤上，指針平滑擺到負載比例
  * （超過 100% 進紅區、指針發抖）。右鍵在動作列顯示轉速、容量與負載；比較器輸出負載比例（0～15）。
  */
-public class SoulGaugeBlock extends SoulShaftBlock {
+public class SoulGaugeBlock extends SoulShaftBlock implements SoulConductor {
+    @Override
+    public boolean conducts(BlockState state, Direction side) {
+        return connects(state, side);
+    }
+
 
     public SoulGaugeBlock(Properties properties) {
         super(properties);
@@ -30,14 +36,14 @@ public class SoulGaugeBlock extends SoulShaftBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof KineticBlockEntity gauge) {
-            SoulNetwork.Result n = gauge.network();
+            SoulSignal.Result n = gauge.network();
             Component status;
             if (n.conflict()) {
                 status = Component.translatable("message.pysift.soul_gauge.conflict").withStyle(ChatFormatting.RED);
             } else if (n.overloaded()) {
                 status = Component.translatable("message.pysift.soul_gauge.overloaded", n.stress(), n.capacity()).withStyle(ChatFormatting.RED);
             } else {
-                status = Component.translatable("message.pysift.soul_gauge.status", Math.round(Math.abs(gauge.speed())),
+                status = Component.translatable("message.pysift.soul_gauge.status", gauge.strength(),
                         n.stress(), n.capacity(), Math.round(n.load() * 100));
             }
             player.sendOverlayMessage(status);
@@ -67,8 +73,7 @@ public class SoulGaugeBlock extends SoulShaftBlock {
         }
 
         @Override
-        public void setNetwork(SoulNetwork.Result result, float speed) {
-            super.setNetwork(result, speed);
+        protected void onState(SoulSignal.Result result, float speed) {
             int s = result.capacity() > 0 ? Math.min(15, Math.round(result.load() * 15)) : 0;
             if (s != signal && level != null) {
                 signal = s;

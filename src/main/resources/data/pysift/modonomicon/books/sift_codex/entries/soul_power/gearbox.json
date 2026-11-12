@@ -1,4 +1,13 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "registry": "minecraft:item",
+      "values": [
+        "pysift:soul_shaft"
+      ]
+    }
+  ],
   "type": "modonomicon:content",
   "category": "pysift:soul_power",
   "id": "pysift:soul_power/gearbox",
@@ -7,9 +16,9 @@
   "icon": {
     "id": "pysift:soul_gearbox"
   },
-  "x": 2,
+  "x": -4,
   "y": -2,
-  "sort_number": 198,
+  "sort_number": -402,
   "background": {
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26,

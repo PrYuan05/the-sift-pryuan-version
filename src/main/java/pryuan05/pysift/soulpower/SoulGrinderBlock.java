@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
-/** 靈魂研磨機：每一面都接得上傳動，需求 {@link SoulNetwork#GRINDER_STRESS} SP。 */
+/** 靈魂研磨機：每一面都接得上傳動，滿載 64 SP。 */
 public class SoulGrinderBlock extends SoulMachineBlock {
     public SoulGrinderBlock(Properties properties) {
         super(false, properties);

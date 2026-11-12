@@ -21,7 +21,7 @@ import pryuan05.pysift.progression.ModProgression;
 import java.util.Optional;
 
 /**
- * 靈魂研磨機：0 材料、1 結果、2 靈魂精華。轉速 {@link SoulNetwork#SPEED} RPM 時一次研磨 {@link #WORK} tick，
+ * 靈魂研磨機：0 材料、1 結果、2 靈魂精華。靈魂訊號強度 15 時一次研磨 {@link #WORK} tick，
  * 轉速越快越快（進度每 tick 加 |RPM| / SPEED），但負載也跟著轉速變大。網路太久沒更新（拆了引擎、振波斷線）就自己重算。
  * 磨的時候噴出材料的碎屑；材料格同步給用戶端，渲染器把它畫在石磨上（client/soulpower/SoulPowerRenderer）。
  */
@@ -90,9 +90,9 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulGrinderBlockEntity grinder) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - grinder.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 0) {
-            grinder.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - grinder.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 0) {
+            grinder.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (grinder.speed != 0) {
             grinder.worldWork(server, pos, now);
@@ -114,10 +114,10 @@ public class SoulGrinderBlockEntity extends KineticBlockEntity implements MenuPr
         if (now % 20 == 0) {
             grinder.aura = ResonanceCoreBlockEntity.aura(level, pos);   // a running resonance core nearby: 50% faster
         }
-        grinder.progress += Math.abs(grinder.speed) / SoulNetwork.SPEED * grinder.aura;
+        grinder.progress += Math.abs(grinder.speed) / SoulSignal.SPEED * grinder.aura;
         if ((now + pos.hashCode()) % 18 == 0) {
             level.playSound(null, pos, grinder.workSound(), net.minecraft.sounds.SoundSource.BLOCKS,
-                    0.5f, 0.85f + Math.abs(grinder.speed) / SoulNetwork.SPEED * 0.15f);
+                    0.5f, 0.85f + Math.abs(grinder.speed) / SoulSignal.SPEED * 0.15f);
         }
         if (now % 4 == 0) {   // 碎屑
             server.sendParticles(new net.minecraft.core.particles.ItemParticleOption(net.minecraft.core.particles.ParticleTypes.ITEM,

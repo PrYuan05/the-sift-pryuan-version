@@ -1,4 +1,6 @@
-package pryuan05.pysift.soulpower;
+package pryuan05.pysift.soulpower.kinetic;
+
+import pryuan05.pysift.soulpower.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,13 +14,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 
 /**
- * 靈魂傳動軸：沿著自己的軸向（AXIS）兩端傳動。方塊模型是空的，整根軸由用戶端的渲染器依轉速轉動著畫出來
- * （client/soulpower/SoulPowerRenderer，部件模型 models/block/soul_power_parts/）。
- * 齒輪（{@link SoulCogBlock}）與靈壓計（{@link SoulGaugeBlock}）也從這裡延伸。
+ * 靈魂齒輪箱（Create 的 gearbox）：四片傘齒輪裝在軸向（AXIS）四周的四個側面上，從任何一面輸入的轉動都傳到另外三面，
+ * 所以動力可以轉 90°。四面的軸「由外往內看」都朝同一個方向轉：換成各自 +軸 的轉速，就是正方向那一面 ×1、
+ * 負方向那一面 ×-1（{@link #transfer}）——對面的軸反轉，旁邊的軸轉 90°。
+ * 會轉的傘齒輪與軸頭由 client/soulpower/SoulPowerRenderer 畫出來。
  */
-public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic, EntityBlock {
-
-    public SoulShaftBlock(Properties properties) {
+public class SoulGearboxBlock extends RotatedPillarBlock implements SoulKinetic, EntityBlock {
+    public SoulGearboxBlock(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(POWERED, false));
     }
@@ -31,7 +33,13 @@ public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic, E
 
     @Override
     public boolean connects(BlockState state, Direction side) {
-        return side.getAxis() == state.getValue(AXIS);
+        return side.getAxis() != state.getValue(AXIS);
+    }
+
+    /** The box's own speed is "seen from outside, looking in" on every face; per face's +axis that is ±1. */
+    @Override
+    public float transfer(BlockState state, Direction side) {
+        return side.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1f : -1f;
     }
 
     @Override
@@ -48,7 +56,7 @@ public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic, E
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (level instanceof ServerLevel server && !oldState.is(this)) {
-            SoulNetwork.update(server, pos);
+            SoulSignal.update(server, pos);
         }
     }
 
@@ -56,7 +64,7 @@ public class SoulShaftBlock extends RotatedPillarBlock implements SoulKinetic, E
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         if (!level.getBlockState(pos).is(this)) {
-            SoulNetwork.updateAround(level, pos);
+            SoulSignal.updateAround(level, pos);
         }
     }
 }

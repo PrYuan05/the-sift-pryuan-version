@@ -18,6 +18,12 @@ import net.minecraft.world.level.material.MapColor;
 import pryuan05.pysift.PySift;
 import pryuan05.pysift.item.ModItems;
 import pryuan05.pysift.item.SiftCreativeTabs;
+import pryuan05.pysift.soulpower.kinetic.KineticAddon;
+import pryuan05.pysift.soulpower.kinetic.SoulCogBlock;
+import pryuan05.pysift.soulpower.kinetic.SoulGearboxBlock;
+import pryuan05.pysift.soulpower.kinetic.SoulHandCrankBlock;
+import pryuan05.pysift.soulpower.kinetic.SoulShaftBlock;
+import pryuan05.pysift.soulpower.kinetic.SoulShiftBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +32,21 @@ import java.util.function.Function;
 /**
  * 靈魂動力：以「靈壓（SP）」計的轉動動力（Create 式），靈液引擎產生，傳動軸、齒輪（可以變速、反轉）或靈魂振波傳送，
  * 靈魂研磨機等機器使用，靈壓計讀出負載。
- * 網路的計算見 {@link SoulNetwork}；資源由 tools/progression/build_soul_power.py 產生。
+ * 迴路的計算見 {@link SoulCircuit}；資源由 tools/progression/build_soul_power.py 產生。
  */
 public final class SoulPower {
     /** 所有靈魂動力方塊（創造模式分頁、CreativeLayout 用）。 */
     public static final List<Block> BLOCKS = new ArrayList<>();
 
     public static final Block SPIRIT_ENGINE = register("spirit_engine", SpiritEngineBlock::new, 3.5f);
-    public static final Block SOUL_SHAFT = register("soul_shaft", SoulShaftBlock::new, 2.0f);
-    public static final Block SOUL_COGWHEEL = register("soul_cogwheel", p -> new SoulCogBlock(false, p), 2.0f);
-    public static final Block LARGE_SOUL_COGWHEEL = register("large_soul_cogwheel", p -> new SoulCogBlock(true, p), 2.0f);
+    /** 靈魂導線：靈魂紅石的線（{@link SoulConduitBlock}）。 */
+    public static final Block SOUL_CONDUIT = registerConduit("soul_conduit");
+    // 機械擴充（{@link KineticAddon}）：沒啟用時這七個是 null，完全不註冊
+    public static final Block SOUL_SHAFT = kinetic("soul_shaft", SoulShaftBlock::new, 2.0f);
+    public static final Block SOUL_COGWHEEL = kinetic("soul_cogwheel", p -> new SoulCogBlock(false, p), 2.0f);
+    public static final Block LARGE_SOUL_COGWHEEL = kinetic("large_soul_cogwheel", p -> new SoulCogBlock(true, p), 2.0f);
     public static final Block SOUL_GAUGE = register("soul_gauge", SoulGaugeBlock::new, 2.5f);
-    public static final Block SOUL_GEARBOX = register("soul_gearbox", SoulGearboxBlock::new, 2.5f);
+    public static final Block SOUL_GEARBOX = kinetic("soul_gearbox", SoulGearboxBlock::new, 2.5f);
     public static final Block SOUL_WAVE_EMITTER = register("soul_wave_emitter", p -> new SoulWaveBlock(true, p), 3.0f);
     public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
@@ -48,9 +57,9 @@ public final class SoulPower {
     public static final Block SOUL_VEIN_NODE = register("soul_vein_node", SoulVeinNodeBlock::new, 3.0f);
     public static final Block SPIRIT_PUMP = register("spirit_pump", SpiritPumpBlock::new, 3.0f);
     public static final Block SPIRIT_PIPE = register("spirit_pipe", SpiritPipeBlock::new, 1.5f);
-    public static final Block SOUL_HAND_CRANK = register("soul_hand_crank", SoulHandCrankBlock::new, 1.5f);
-    public static final Block SOUL_CLUTCH = register("soul_clutch", p -> new SoulShiftBlock(false, p), 2.5f);
-    public static final Block SOUL_GEARSHIFT = register("soul_gearshift", p -> new SoulShiftBlock(true, p), 2.5f);
+    public static final Block SOUL_HAND_CRANK = kinetic("soul_hand_crank", SoulHandCrankBlock::new, 1.5f);
+    public static final Block SOUL_CLUTCH = kinetic("soul_clutch", p -> new SoulShiftBlock(false, p), 2.5f);
+    public static final Block SOUL_GEARSHIFT = kinetic("soul_gearshift", p -> new SoulShiftBlock(true, p), 2.5f);
     public static final Block SOUL_FAN = register("soul_fan", SoulFanBlock::new, 2.5f);
     public static final Block SOUL_DRILL = register("soul_drill", SoulDrillBlock::new, 3.0f);
     public static final Block RESONANCE_CORE = register("resonance_core", ResonanceCoreBlock::new, 3.5f);
@@ -64,7 +73,7 @@ public final class SoulPower {
     public static final Item SIFTITE_GEAR = Registry.register(BuiltInRegistries.ITEM, SIFTITE_GEAR_KEY,
             new Item(new Item.Properties().setId(SIFTITE_GEAR_KEY)));
 
-    public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = Registry.register(
+    public static final BlockEntityType<KineticBlockEntity> SOUL_KINETIC_ENTITY = !KineticAddon.enabled() ? null : Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
             FabricBlockEntityTypeBuilder.<KineticBlockEntity>create(KineticBlockEntity::new, SOUL_SHAFT, SOUL_COGWHEEL, LARGE_SOUL_COGWHEEL,
                     SOUL_CLUTCH, SOUL_GEARSHIFT, SOUL_GEARBOX).build());
@@ -97,7 +106,7 @@ public final class SoulPower {
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("spirit_pump"),
             FabricBlockEntityTypeBuilder.create(SpiritPumpBlockEntity::new, SPIRIT_PUMP).build());
 
-    public static final BlockEntityType<SoulHandCrankBlock.Entity> SOUL_HAND_CRANK_ENTITY = Registry.register(
+    public static final BlockEntityType<SoulHandCrankBlock.Entity> SOUL_HAND_CRANK_ENTITY = !KineticAddon.enabled() ? null : Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_hand_crank"),
             FabricBlockEntityTypeBuilder.create(SoulHandCrankBlock.Entity::new, SOUL_HAND_CRANK).build());
     public static final BlockEntityType<SoulFanBlockEntity> SOUL_FAN_ENTITY = Registry.register(
@@ -152,6 +161,24 @@ public final class SoulPower {
         Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey, factory.apply(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.COLOR_CYAN).strength(strength).requiresCorrectToolForDrops()
                 .sound(SoundType.POLISHED_DEEPSLATE).noOcclusion().setId(blockKey)));
+        ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
+        Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
+        BLOCKS.add(block);
+        return block;
+    }
+
+    /** 機械擴充的方塊：沒啟用就不註冊（回傳 null）。 */
+    private static Block kinetic(String name, Function<BlockBehaviour.Properties, Block> factory, float strength) {
+        return KineticAddon.enabled() ? register(name, factory, strength) : null;
+    }
+
+    /** 靈魂導線：徒手就拆得掉；有靈魂訊號時發光最亮，只有原版訊號時微亮。 */
+    private static Block registerConduit(String name) {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
+        Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey, new SoulConduitBlock(BlockBehaviour.Properties.of()
+                .mapColor(MapColor.COLOR_RED).strength(0.4f).sound(SoundType.SCULK_VEIN).noOcclusion()
+                .lightLevel(st -> st.getValue(SoulConduitBlock.CHARGED) ? 7 : st.getValue(SoulConduitBlock.POWER) > 0 ? 3 : 0)
+                .setId(blockKey)));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
         Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));
         BLOCKS.add(block);

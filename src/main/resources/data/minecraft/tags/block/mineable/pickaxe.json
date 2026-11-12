@@ -446,7 +446,6 @@
     "pysift:void_concrete_slab",
     "pysift:dusk_gold_concrete_slab",
     "pysift:spirit_engine",
-    "pysift:soul_shaft",
     "pysift:soul_wave_emitter",
     "pysift:soul_wave_receiver",
     "pysift:soul_grinder",
@@ -493,8 +492,6 @@
     "pysift:cracked_soulshale_tile_stairs",
     "pysift:lullaby_censer",
     "pysift:echo_cradle",
-    "pysift:soul_cogwheel",
-    "pysift:large_soul_cogwheel",
     "pysift:soul_gauge",
     "pysift:soul_sifter",
     "pysift:charoite_beam_emitter",
@@ -504,13 +501,37 @@
     "pysift:soul_veined_stone",
     "pysift:spirit_pump",
     "pysift:spirit_pipe",
-    "pysift:soul_hand_crank",
-    "pysift:soul_clutch",
-    "pysift:soul_gearshift",
     "pysift:soul_fan",
     "pysift:resonance_core",
     "pysift:resonance_pedestal",
     "pysift:soul_drill",
-    "pysift:soul_gearbox"
+    {
+      "id": "pysift:soul_shaft",
+      "required": false
+    },
+    {
+      "id": "pysift:soul_cogwheel",
+      "required": false
+    },
+    {
+      "id": "pysift:large_soul_cogwheel",
+      "required": false
+    },
+    {
+      "id": "pysift:soul_gearbox",
+      "required": false
+    },
+    {
+      "id": "pysift:soul_hand_crank",
+      "required": false
+    },
+    {
+      "id": "pysift:soul_clutch",
+      "required": false
+    },
+    {
+      "id": "pysift:soul_gearshift",
+      "required": false
+    }
   ]
 }

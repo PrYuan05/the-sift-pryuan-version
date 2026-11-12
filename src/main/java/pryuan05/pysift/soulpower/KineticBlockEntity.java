@@ -19,8 +19,12 @@ import net.minecraft.world.level.storage.ValueOutput;
  * 所以整個網路的齒輪、傳動軸完全同步，重新載入也不會錯位。
  */
 public class KineticBlockEntity extends BlockEntity implements SoulKinetic.Member {
-    protected SoulNetwork.Result network = SoulNetwork.Result.IDLE;
+    protected SoulSignal.Result network = SoulSignal.Result.IDLE;
     protected float speed;
+    private SoulSignal.Result circuit = SoulSignal.Result.IDLE;
+    private SoulSignal.Result kinetic = SoulSignal.Result.IDLE;
+    private float circuitSpeed;
+    private float kineticSpeed;
     /** 只在用戶端有意義（從同步資料讀來）。 */
     private boolean overloaded;
     private boolean conflict;
@@ -34,15 +38,48 @@ public class KineticBlockEntity extends BlockEntity implements SoulKinetic.Membe
         this(SoulPower.SOUL_KINETIC_ENTITY, pos, state);
     }
 
+    /** 機械擴充的轉速網路算出來的結果（沒啟用擴充時不會被呼叫）。 */
     @Override
-    public void setNetwork(SoulNetwork.Result result, float speed) {
+    public void setNetwork(SoulSignal.Result result, float speed) {
+        kinetic = result;
+        kineticSpeed = speed;
+        apply();
+    }
+
+    /** 靈魂迴路（{@link SoulCircuit}）算出來的結果：speed 由靈魂訊號強度換算。 */
+    public void setCircuit(SoulSignal.Result result, float speed) {
+        circuit = result;
+        circuitSpeed = speed;
+        apply();
+    }
+
+    /** 有機械動力源接著（傳動軸那一邊有容量）就聽轉速網路的，否則聽靈魂迴路的。 */
+    private void apply() {
+        boolean mechanical = kinetic.capacity() > 0;
+        SoulSignal.Result result = mechanical ? kinetic : circuit;
+        float speed = mechanical ? kineticSpeed : circuitSpeed;
         boolean changed = Math.abs(this.speed - speed) > 1e-3f || network.overloaded() != result.overloaded()
                 || network.conflict() != result.conflict() || Math.abs(network.load() - result.load()) > 0.02f;
         this.network = result;
         this.speed = speed;
+        BlockState state = getBlockState();
+        boolean powered = speed != 0;
+        if (level != null && !level.isClientSide() && state.hasProperty(SoulKinetic.POWERED) && state.getValue(SoulKinetic.POWERED) != powered) {
+            level.setBlock(worldPosition, state.setValue(SoulKinetic.POWERED, powered), 2);
+        }
+        onState(result, speed);
         if (changed) {
             sync();
         }
+    }
+
+    /** 狀態更新之後（靈壓計用來通知比較器）。 */
+    protected void onState(SoulSignal.Result result, float speed) {
+    }
+
+    /** 靈魂訊號強度 0–15（由速度換算；機械動力直接帶動時可能更快，這裡封頂）。 */
+    public int strength() {
+        return Math.min(SoulSignal.MAX_STRENGTH, SoulSignal.strength(speed));
     }
 
     /** 存檔並把方塊實體資料送給用戶端。 */
@@ -53,7 +90,7 @@ public class KineticBlockEntity extends BlockEntity implements SoulKinetic.Membe
         }
     }
 
-    public SoulNetwork.Result network() {
+    public SoulSignal.Result network() {
         return network;
     }
 

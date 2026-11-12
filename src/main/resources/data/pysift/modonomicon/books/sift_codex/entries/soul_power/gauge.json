@@ -17,7 +17,7 @@
   },
   "parents": [
     {
-      "entry": "pysift:soul_power/shafts",
+      "entry": "pysift:soul_power/conduit",
       "line_enabled": true
     }
   ],

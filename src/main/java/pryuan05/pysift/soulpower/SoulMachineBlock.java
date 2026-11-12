@@ -19,7 +19,12 @@ import net.minecraft.world.item.context.BlockPlaceContext;
  * 有方塊實體的靈魂動力方塊（引擎、振波發送／接收器、研磨機）：有朝向（FACING）與運轉狀態（POWERED），
  * 放下或拆掉時重算網路。
  */
-public abstract class SoulMachineBlock extends BaseEntityBlock implements SoulKinetic {
+public abstract class SoulMachineBlock extends BaseEntityBlock implements SoulKinetic, SoulConductor {
+    @Override
+    public boolean conducts(BlockState state, Direction side) {
+        return connects(state, side);
+    }
+
     public static final EnumProperty<Direction> FACING = BlockStateProperties.FACING;
     private final boolean anyFacing;
 
@@ -54,7 +59,7 @@ public abstract class SoulMachineBlock extends BaseEntityBlock implements SoulKi
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (level instanceof ServerLevel server && !oldState.is(this)) {
-            SoulNetwork.update(server, pos);
+            SoulSignal.update(server, pos);
         }
     }
 
@@ -62,7 +67,7 @@ public abstract class SoulMachineBlock extends BaseEntityBlock implements SoulKi
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         if (!level.getBlockState(pos).is(this)) {
-            SoulNetwork.updateAround(level, pos);
+            SoulSignal.updateAround(level, pos);
         }
     }
 

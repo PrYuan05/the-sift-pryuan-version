@@ -67,9 +67,9 @@ public class SoulDrillBlock extends SoulMachineBlock {
         static void serverTick(Level level, BlockPos pos, BlockState state, Entity drill) {
             ServerLevel server = (ServerLevel) level;
             long now = level.getGameTime();
-            if (now - drill.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 0) {
-                drill.network = SoulNetwork.Result.IDLE;
-                SoulNetwork.update(server, pos);
+            if (now - drill.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 0) {
+                drill.network = SoulSignal.Result.IDLE;
+                SoulSignal.poll(server, pos);
             }
             BlockPos front = pos.relative(state.getValue(FACING));
             if (drill.speed == 0) {
@@ -92,7 +92,7 @@ public class SoulDrillBlock extends SoulMachineBlock {
                 drill.target = front.immutable();
             }
             float work = Math.max(1f, hardness * WORK_PER_HARDNESS);
-            drill.progress += Math.abs(drill.speed) / SoulNetwork.SPEED;
+            drill.progress += Math.abs(drill.speed) / SoulSignal.SPEED;
             int stage = (int) Math.min(9, drill.progress / work * 10);
             level.destroyBlockProgress(pos.hashCode(), front, stage);
             if (now % 4 == 0) {

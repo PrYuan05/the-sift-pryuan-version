@@ -60,7 +60,7 @@ if _colors.exists():
 # soul power blocks (soulpower/SoulPower.java, resources from tools/progression/build_soul_power.py)
 _power = _blk / "soulpower/SoulPower.java"
 if _power.exists():
-    veg_ids += re.findall(r'= register(?:Stone)?\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
+    veg_ids += re.findall(r'= (?:register(?:Stone|Conduit)?|kinetic)\("([a-z0-9_]+)"', _power.read_text(encoding="utf-8"))
     # the never-placed block that holds the moving parts (soulpower/SoulParts.java)
     if (_blk / "soulpower/SoulParts.java").exists():
         veg_ids += re.findall(r'PySift\.id\("([a-z0-9_]+)"\)', (_blk / "soulpower/SoulParts.java").read_text(encoding="utf-8"))
@@ -282,7 +282,11 @@ out["info_stage_jumps"] = stage_jumps
 
 # ---- 5. companion files ----
 lang = {l: lj(A / "lang" / f"{l}.json") for l in ("en_us", "zh_tw")}
-tags = {t.stem: set(lj(t)["values"]) for t in (D / "minecraft/tags/block/mineable").glob("*.json")}
+def tag_ids(values):  # optional entries are objects: {"id": ..., "required": false}
+    return {v["id"] if isinstance(v, dict) else v for v in values}
+
+
+tags = {t.stem: tag_ids(lj(t)["values"]) for t in (D / "minecraft/tags/block/mineable").glob("*.json")}
 gaps = collections.defaultdict(list)
 fluid_ids = set(veg_ids) - set(re.findall(r'register\("([a-z0-9_]+)"', (_blk / "block/ModVegetation.java").read_text(encoding="utf-8")))
 
@@ -306,7 +310,7 @@ for bid in all_ids:
         if not rel.exists() and bid not in wall_variants and not ((bid in wood_ids or bid in sandstone_ids) and label == "models_item"):
             gaps[label].append(bid)
     if bid in wood_ids:
-        if not any(f"pysift:{bid}" in lj(t)["values"] for t in (*(D / "minecraft/tags/block").glob("*.json"),
+        if not any(f"pysift:{bid}" in tag_ids(lj(t)["values"]) for t in (*(D / "minecraft/tags/block").glob("*.json"),
                                                                 *(D / "pysift/tags/block").glob("*.json"))):
             gaps["wood_without_block_tag"].append(bid)
         if bid in wall_variants:

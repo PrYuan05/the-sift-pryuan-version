@@ -22,7 +22,23 @@ import java.util.Set;
  * 紫龍晶光束發射器／接收器的資料：每個世界裡所有光束方塊的位置（找連線用）。發射器運轉時每
  * {@link #BURN_INTERVAL} tick 灼傷光束上的生物 {@link #BURN_DAMAGE} 點，並在光束的終點冒出紫色火花。
  */
-public class CharoiteBeamBlockEntity extends KineticBlockEntity {
+public class CharoiteBeamBlockEntity extends KineticBlockEntity implements SoulConductor.Relay {
+    @Override
+    public boolean sends() {
+        return isEmitter();
+    }
+
+    @Override
+    public boolean receives() {
+        return !isEmitter();
+    }
+
+    /** 每跳一次扣的強度，以半級計（2 = 少 1 級）。 */
+    @Override
+    public int hopCost() {
+        return 0;
+    }
+
     public static final int BURN_INTERVAL = 20;
     public static final float BURN_DAMAGE = 2f;
     private static final Map<ResourceKey<Level>, Set<BlockPos>> BEAMS = new HashMap<>();
@@ -40,6 +56,7 @@ public class CharoiteBeamBlockEntity extends KineticBlockEntity {
     }
 
     /** 發射器：光束打中的接收器；接收器：光束打中自己的發射器。 */
+    @Override
     public List<BlockPos> findLinks(ServerLevel level) {
         List<BlockPos> out = new ArrayList<>();
         if (isEmitter()) {
@@ -62,7 +79,7 @@ public class CharoiteBeamBlockEntity extends KineticBlockEntity {
     public static void refreshNear(ServerLevel level, BlockPos pos) {
         for (BlockPos p : List.copyOf(BEAMS.getOrDefault(level.dimension(), Set.of()))) {
             if (p.closerThan(pos, CharoiteBeam.RANGE + 1)) {
-                SoulNetwork.update(level, p);
+                SoulSignal.poll(level, p);
             }
         }
     }
@@ -70,9 +87,9 @@ public class CharoiteBeamBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, CharoiteBeamBlockEntity beam) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - beam.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 5) {
-            beam.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - beam.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 5) {
+            beam.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (!beam.isEmitter() || beam.speed == 0 || (now + pos.hashCode()) % BURN_INTERVAL != 0) {
             return;

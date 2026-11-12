@@ -30,6 +30,7 @@ def wj(path, obj):
 # name: (English, 繁中, solid full cube)
 BLOCKS = {
     "spirit_engine": ("Spirit Engine", "靈液引擎", False),
+    "soul_conduit": ("Soul Conduit", "靈魂導線", False),
     "soul_shaft": ("Soul Shaft", "靈魂傳動軸", False),
     "soul_cogwheel": ("Soul Cogwheel", "靈魂齒輪", False),
     "large_soul_cogwheel": ("Large Soul Cogwheel", "大靈魂齒輪", False),
@@ -54,6 +55,17 @@ BLOCKS = {
     "resonance_pedestal": ("Resonance Pedestal", "共鳴台座", False),
     "soul_veined_stone": ("Soul-Veined Stone", "靈脈石", True),
 }
+
+# The mechanical add-on (soulpower/kinetic/KineticAddon): these blocks are only registered when the add-on is on (Create
+# installed, or kinetic_addon=on in config/pysift.properties). Their recipes, loot tables and recipe-book unlocks carry a
+# Fabric load condition, and tags list them as optional, so nothing fails to parse when they are missing.
+KINETIC = ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "soul_gearbox", "soul_hand_crank", "soul_clutch", "soul_gearshift")
+KINETIC_CONDITION = [{"condition": "fabric:registry_contains", "registry": "minecraft:item", "values": ["pysift:soul_shaft"]}]
+
+
+def conditional(name, obj):
+    return {"fabric:load_conditions": KINETIC_CONDITION, **obj} if name in KINETIC else obj
+
 
 # ------------------------------------------------------------------ textures (painted by tools/progression/paint_soul_power.py)
 def T(name):
@@ -355,6 +367,36 @@ for d, (f, t) in PIPE_ARM.items():
     wj(A / f"models/block/spirit_pipe/spirit_pipe_{d}.json", model([Box(f, t, T("pipe"))], T("pipe")))
 wj(A / "blockstates/spirit_pipe.json", {"multipart": [{"apply": {"model": "pysift:block/spirit_pipe/spirit_pipe_core"}}] + [
     {"when": {d: "true"}, "apply": {"model": f"pysift:block/spirit_pipe/spirit_pipe_{d}"}} for d in PIPE_ARM]})
+# soul conduit: a thin six-way wire in three looks. soul = a soul signal runs through it (living red sculk vein, glowing);
+# plain = only a vanilla redstone signal (dead blue sculk, faint); off = no signal (dull grey)
+CONDUIT_ARM = {"north": ([6, 6, 0], [10, 10, 6]), "south": ([6, 6, 10], [10, 10, 16]), "west": ([0, 6, 6], [6, 10, 10]),
+               "east": ([10, 6, 6], [16, 10, 10]), "down": ([6, 0, 6], [10, 6, 10]), "up": ([6, 10, 6], [10, 16, 10])}
+CONDUIT_CORE = ([5.5, 5.5, 5.5], [10.5, 10.5, 10.5])
+CONDUIT_LOOKS = {"off": ({"power": "0"}, 0), "plain": ({"charged": "false", "power": "|".join(str(i) for i in range(1, 16))}, 5),
+                 "soul": ({"charged": "true"}, 13)}
+
+
+def conduit_model(boxes, look, light):
+    els = []
+    for f, t in boxes:
+        el = {"from": f, "to": t, "faces": {d: {"texture": "#t"} for d in ("north", "south", "east", "west", "up", "down")}}
+        if light:
+            el["light_emission"] = light
+        els.append(el)
+    return {"parent": "minecraft:block/block", "textures": {"t": T(f"conduit_{look}"), "particle": T(f"conduit_{look}")},
+            "elements": els}
+
+
+parts = []
+for look, (when, light) in CONDUIT_LOOKS.items():
+    wj(A / f"models/block/soul_conduit/soul_conduit_{look}_core.json", conduit_model([CONDUIT_CORE], look, light))
+    parts.append({"when": when, "apply": {"model": f"pysift:block/soul_conduit/soul_conduit_{look}_core"}})
+    for d, box in CONDUIT_ARM.items():
+        wj(A / f"models/block/soul_conduit/soul_conduit_{look}_{d}.json", conduit_model([box], look, light))
+        parts.append({"when": {d: "true", **when}, "apply": {"model": f"pysift:block/soul_conduit/soul_conduit_{look}_{d}"}})
+wj(A / "blockstates/soul_conduit.json", {"multipart": parts})
+wj(A / "models/block/soul_conduit/soul_conduit.json",
+   conduit_model([CONDUIT_CORE, CONDUIT_ARM["north"], CONDUIT_ARM["south"]], "soul", 0))
 states("soul_hand_crank", UPROT, "facing")
 wj(A / "blockstates/resonance_core.json", {"variants": {f"powered={v}": {"model": "pysift:block/resonance_core/resonance_core"}
                                                          for v in ("false", "true")}})
@@ -417,7 +459,7 @@ for name in BLOCKS:
                                                    "entries": [{"type": "minecraft:item", "name": f"pysift:{name}"}]}],
             "random_sequence": f"pysift:blocks/{name}"}
     for folder in ("loot_table", "loot_tables"):
-        wj(D / f"pysift/{folder}/blocks/{name}.json", loot)
+        wj(D / f"pysift/{folder}/blocks/{name}.json", conditional(name, loot))
 
 
 def tag(path, values, remove=()):
@@ -428,7 +470,23 @@ def tag(path, values, remove=()):
     wj(f, cur)
 
 
-tag("minecraft/tags/block/mineable/pickaxe.json", [f"pysift:{n}" for n in BLOCKS])
+def optional_kinetic(path):
+    """The add-on's blocks may not be registered: list them as optional so the tag still loads."""
+    f = D / path
+    if not f.exists():
+        return
+    cur = json.loads(f.read_text(encoding="utf-8-sig"))
+    ids = {f"pysift:{n}" for n in KINETIC}
+    cur["values"] = [{"id": v, "required": False} if v in ids else v for v in cur["values"]]
+    wj(f, cur)
+
+
+# the conduit breaks by hand (no tool tag); the add-on's blocks are optional entries
+tag("minecraft/tags/block/mineable/pickaxe.json", [f"pysift:{n}" for n in BLOCKS if n not in KINETIC and n != "soul_conduit"],
+    remove=["pysift:soul_conduit"])
+tag("minecraft/tags/block/mineable/pickaxe.json", [{"id": f"pysift:{n}", "required": False} for n in KINETIC],
+    remove=[f"pysift:{n}" for n in KINETIC])
+optional_kinetic("pysift/tags/block/not_in_worldgen.json")
 tag("minecraft/tags/block/blocks_motion_no_leaves.json", [f"pysift:{n}" for n, v in BLOCKS.items() if v[2]],
     remove=[f"pysift:{n}" for n, v in BLOCKS.items() if not v[2]])
 
@@ -438,7 +496,9 @@ SHAPED = {
     "spirit_engine": (["PIP", "IBI", "PEP"], {"P": "minecraft:polished_deepslate", "I": "pysift:siftite_gear",
                                               "B": "minecraft:blast_furnace", "E": "pysift:soul_essence"}, 1),
     "soul_shaft": (["I", "S", "I"], {"I": "pysift:patina_ingot", "S": "pysift:stripped_soul_willow_log"}, 8),
-    "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_shaft", "C": "pysift:patina_ingot"}, 1),
+    # soul conduit: redstone carried by a soul (soul essence) in a patina sleeve
+    "soul_conduit": ([" R ", "PEP", " R "], {"R": "minecraft:redstone", "P": "pysift:patina_ingot", "E": "pysift:soul_essence"}, 6),
+    "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_conduit", "C": "pysift:patina_ingot"}, 1),
     "soul_wave_emitter": (["PAP", "ESE", "PIP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
                                                   "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
                                                   "I": "pysift:siftite_gear"}, 1),
@@ -461,7 +521,7 @@ SHAPED = {
                                                    "D": "minecraft:polished_deepslate"}, 2),
     "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
     "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:siftite_gear",
-                                         "S": "pysift:soul_shaft"}, 1),
+                                         "S": "pysift:soul_conduit"}, 1),
     "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:siftite_gear",
                                                "C": "pysift:soul_crystal_block"}, 2),
     "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
@@ -473,8 +533,8 @@ for name, (pattern, key, count) in SHAPED.items():
     result = {"id": f"pysift:{name}"}
     if count > 1:
         result["count"] = count
-    wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shaped", "category": "redstone",
-                                          "key": key, "pattern": pattern, "result": result})
+    wj(D / f"pysift/recipe/{name}.json", conditional(name, {"type": "minecraft:crafting_shaped", "category": "redstone",
+                                                            "key": key, "pattern": pattern, "result": result}))
 GRINDING = {
     "siftite_ore": ("pysift:siftite_ore", "pysift:raw_siftite", 2),
     "iron_ores": ("#minecraft:iron_ores", "minecraft:raw_iron", 2),
@@ -490,13 +550,13 @@ GRINDING = {
 for name, ingredients in (("soul_cogwheel", ["pysift:soul_shaft", "pysift:siftite_gear"]),
                           ("large_soul_cogwheel", ["pysift:soul_cogwheel", "pysift:siftite_gear", "pysift:siftite_gear"]),
                           ("soul_gearbox", ["pysift:soul_cogwheel", "minecraft:polished_deepslate", "pysift:patina_ingot"])):
-    wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shapeless", "category": "redstone",
-                                          "ingredients": ingredients, "result": {"id": f"pysift:{name}"}})
+    wj(D / f"pysift/recipe/{name}.json", conditional(name, {"type": "minecraft:crafting_shapeless", "category": "redstone",
+                                                            "ingredients": ingredients, "result": {"id": f"pysift:{name}"}}))
 # clutch / gearshift: a shaft (or cog), patina and redstone
 for name, core in (("soul_clutch", "pysift:soul_shaft"), ("soul_gearshift", "pysift:soul_cogwheel")):
-    wj(D / f"pysift/recipe/{name}.json", {"type": "minecraft:crafting_shapeless", "category": "redstone",
-                                          "ingredients": [core, "pysift:patina_ingot", "minecraft:redstone"],
-                                          "result": {"id": f"pysift:{name}"}})
+    wj(D / f"pysift/recipe/{name}.json", conditional(name, {"type": "minecraft:crafting_shapeless", "category": "redstone",
+                                                            "ingredients": [core, "pysift:patina_ingot", "minecraft:redstone"],
+                                                            "result": {"id": f"pysift:{name}"}}))
 # soul haunting: a soul fan blowing through soul fire
 HAUNTING = {
     "sand": ("#minecraft:sand", "minecraft:soul_sand"),
@@ -518,9 +578,9 @@ for f in sorted((D / "pysift/recipe").glob("*.json")):
     needs = sorted({u for u in used if isinstance(u, str) and u.startswith("pysift:")}) or sorted({u for u in used if isinstance(u, str)})
     crit = {f"has_{n.split(':')[1]}": {"trigger": "minecraft:inventory_changed", "conditions": {"items": [{"items": n}]}} for n in needs}
     crit["has_the_recipe"] = {"trigger": "minecraft:recipe_unlocked", "conditions": {"recipes": f"pysift:{f.stem}"}}
-    wj(D / f"pysift/advancement/recipes/redstone/{f.stem}.json", {
+    wj(D / f"pysift/advancement/recipes/redstone/{f.stem}.json", conditional(f.stem, {
         "parent": "minecraft:recipes/root", "criteria": crit, "requirements": [sorted(crit)],
-        "rewards": {"recipes": [f"pysift:{f.stem}"]}})
+        "rewards": {"recipes": [f"pysift:{f.stem}"]}}))
 (D / "pysift/advancement/recipes/redstone/patina_gear.json").unlink(missing_ok=True)
 # soul sifting: rotten (blue) sculk back to red; a few sifting classics
 SIFTING = {
@@ -696,16 +756,16 @@ LANG["advancements.pysift.story.sifted.description"] = ("Let a Soul Sifter turn 
                                                        "讓靈魂淨化篩把腐爛的藍色幽匿篩回赤紅幽匿")
 LANG.update({
     "block.pysift.soul_power_part": ("Soul Power Part", "靈魂動力部件"),
-    "gui.pysift.soul_power.speed": ("Speed: %s RPM", "轉速：%s RPM"),
+    "gui.pysift.soul_power.speed": ("Signal: %s/15", "訊號：%s/15"),
     "gui.pysift.soul_power.capacity": ("Capacity: %s SP", "靈壓容量：%s SP"),
     "gui.pysift.soul_power.stress": ("Load: %s SP", "需求：%s SP"),
     "gui.pysift.soul_power.overloaded": ("Overloaded!", "過載！"),
-    "gui.pysift.soul_power.running": ("Running at %s RPM", "運轉中：%s RPM"),
-    "gui.pysift.soul_power.idle": ("No soul power", "沒有靈魂動力"),
+    "gui.pysift.soul_power.running": ("Running: signal %s/15", "運轉中：訊號 %s/15"),
+    "gui.pysift.soul_power.idle": ("No soul signal", "沒有靈魂訊號"),
     "gui.pysift.soul_power.liquid": ("Piped: %s mB", "管線靈液：%s mB"),
     "message.pysift.soul_wave.frequency": ("Tuned to %s", "頻率：%s"),
     "message.pysift.soul_wave.empty": ("Tune it with a resonant music disc", "放入一張共鳴唱片來設定頻率"),
-    "message.pysift.soul_gauge.status": ("%s RPM · load %s / %s SP (%s%%)", "%s RPM · 負載 %s / %s SP（%s%%）"),
+    "message.pysift.soul_gauge.status": ("Signal %s/15 · load %s / %s SP (%s%%)", "訊號 %s/15 · 負載 %s / %s SP（%s%%）"),
     "message.pysift.soul_gauge.overloaded": ("Overloaded! %s / %s SP", "過載！%s / %s SP"),
     "message.pysift.soul_crank.too_heavy": ("Too heavy to crank: load %s / %s SP", "負載太大，搖不動：%s / %s SP"),
     "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),

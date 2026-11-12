@@ -41,6 +41,10 @@ STONE = [(52, 52, 58), (70, 70, 76), (88, 88, 92), (106, 106, 108), (126, 124, 1
 RED = [(52, 16, 30), (86, 24, 40), (128, 38, 54), (170, 62, 72), (210, 104, 104)]
 CREAM = [(120, 104, 84), (168, 152, 124), (206, 192, 160), (228, 218, 190)]
 LAMP_OFF = [(54, 38, 34), (82, 56, 44), (112, 76, 54)]
+# soul conduit: living red sculk (the mod's red_sculk colours), dead blue sculk (vanilla sculk's), and a dry husk
+LIVE_SCULK = [(116, 46, 99), (138, 58, 94), (168, 74, 102), (189, 86, 110), (204, 98, 118), (230, 119, 136), (251, 176, 168)]
+DEAD_SCULK = [(13, 18, 23), (17, 27, 33), (5, 42, 50), (3, 65, 80), (5, 98, 93), (0, 146, 149), (41, 223, 235)]
+HUSK = [(24, 25, 32), (33, 35, 43), (44, 46, 55), (57, 59, 68), (72, 74, 83), (90, 92, 100)]
 LAMP_ON = [(150, 72, 30), (220, 132, 52), (246, 196, 104), (252, 234, 170)]
 
 
@@ -734,6 +738,40 @@ for y in range(16):
 bevel(t, 0, 0, 15, 15, PATINA, 5, 1)
 save("pedestal_top", t)
 
+# soul conduit (three looks). The model's arms are 4 px thick and take their UVs from where they sit, so only the cross
+# through the middle of the sheet is ever seen: rows 6..9 on arms that run sideways, columns 6..9 on upright ones, the
+# 5 px knot in the centre on the core. Each band is a round vein (light on the upper / left edge, shadow on the other)
+# with a brighter strand wandering along it and a pore every few pixels.
+def conduit(seed, pal, pores):
+    t = Tex(seed)
+    n = len(pal)
+    body, lit, shade, deep = pal[min(2, n - 1)], pal[min(3, n - 1)], pal[1], pal[0]
+    t.rect(0, 0, 15, 15, deep)
+    for i in range(16):
+        strand = 7 if (i // 3 + seed) % 2 == 0 else 8             # the strand shifts one pixel every three
+        for k, c in ((6, lit), (7, body), (8, body), (9, shade)):
+            t.set(i, k, c)                                          # sideways band
+            t.set(k, i, c)                                          # upright band
+        t.set(i, strand, pal[min(4, n - 1)] if pores else lit)
+        t.set(strand, i, pal[min(4, n - 1)] if pores else lit)
+    for y in range(5, 11):                                          # the knot where arms meet
+        for x in range(5, 11):
+            edge = x in (5, 10) or y in (5, 10)
+            t.set(x, y, shade if edge and (x + y) >= 16 else lit if edge else body)
+    t.rect(7, 7, 8, 8, pal[min(4, n - 1)])
+    if pores:
+        for i in (1, 4, 11, 14):                                    # glowing pores along both bands
+            t.set(i, 7 if i % 2 else 8, pal[-2])
+            t.set(7 if i % 2 else 8, i, pal[-2])
+        t.set(7, 7, pal[-1])
+        t.set(8, 8, pal[-2])
+    return t
+
+
+save("conduit_soul", conduit(301, LIVE_SCULK, True))
+save("conduit_plain", conduit(302, DEAD_SCULK, True))
+save("conduit_off", conduit(303, HUSK, False))
+
 # ------------------------------------------------------------------ write
 OUT.mkdir(parents=True, exist_ok=True)
 for name, im in TEX.items():
@@ -772,6 +810,9 @@ MATERIALS = [   # (palette, smoothness, F0 or metal id, porosity/SSS, emissive?)
     (SOUL, 210, 20, 0, True),
     (LAMP_ON, 180, 12, 0, True),
     (LAMP_OFF, 120, 12, 0, False),
+    (LIVE_SCULK, 110, 10, 150, True),      # living sculk vein: subsurface, glows
+    (DEAD_SCULK, 90, 10, 90, True),        # dead sculk carrying a plain signal: only its pores glow
+    (HUSK, 40, 10, 40, False),
 ]
 LOOKUP = {}
 for pal, smooth, f0, poro, glow in MATERIALS:

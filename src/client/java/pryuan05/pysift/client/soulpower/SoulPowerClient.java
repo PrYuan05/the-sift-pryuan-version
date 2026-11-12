@@ -16,7 +16,7 @@ import pryuan05.pysift.soulpower.SpiritEngineMenu;
 
 /**
  * 靈魂動力機器的介面（底圖由 tools/progression/build_soul_power.py 從原版熔爐介面改出來）：
- * 右側顯示轉速、靈壓容量與需求；過載時改成紅字。
+ * 右側顯示靈魂訊號強度（n/15）、靈壓容量與需求；過載時改成紅字。
  */
 public final class SoulPowerClient {
     private static final int TEXT = 0xFF404040;
@@ -47,13 +47,16 @@ public final class SoulPowerClient {
     }
 
     private static <E extends pryuan05.pysift.soulpower.KineticBlockEntity> void animate(net.minecraft.world.level.block.entity.BlockEntityType<E> type) {
+        if (type == null) {
+            return;     // 機械擴充沒啟用
+        }
         net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider<pryuan05.pysift.soulpower.KineticBlockEntity, SoulPowerRenderer.State> provider = SoulPowerRenderer::new;
         BlockEntityRendererRegistry.register(type, provider);
     }
 
     /** 右側三行：轉速、容量、需求（過載時第三行變成「過載！」）。 */
     private static void status(GuiGraphicsExtractor g, Font font, int x, int speed, int capacity, int stress, boolean overloaded) {
-        g.text(font, Component.translatable("gui.pysift.soul_power.speed", speed), x, 20, TEXT, false);
+        g.text(font, Component.translatable("gui.pysift.soul_power.speed", pryuan05.pysift.soulpower.SoulSignal.strength(speed)), x, 20, TEXT, false);
         g.text(font, Component.translatable("gui.pysift.soul_power.capacity", capacity), x, 32, TEXT, false);
         g.text(font, overloaded ? Component.translatable("gui.pysift.soul_power.overloaded")
                 : Component.translatable("gui.pysift.soul_power.stress", stress), x, 44, overloaded ? DANGER : TEXT, false);
@@ -109,7 +112,7 @@ public final class SoulPowerClient {
         protected void extractLabels(GuiGraphicsExtractor g, int mouseX, int mouseY) {
             super.extractLabels(g, mouseX, mouseY);
             g.text(font, Component.translatable(menu.speed() > 0 ? "gui.pysift.soul_power.running" : "gui.pysift.soul_power.idle",
-                    menu.speed()), 8, 64, menu.overloaded() ? DANGER : TEXT, false);
+                    Math.min(15, pryuan05.pysift.soulpower.SoulSignal.strength(menu.speed()))), 8, 64, menu.overloaded() ? DANGER : TEXT, false);
         }
     }
 }

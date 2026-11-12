@@ -126,9 +126,9 @@ public class ResonanceCoreBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, ResonanceCoreBlockEntity core) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - core.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 0) {
-            core.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - core.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 0) {
+            core.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         Recipe recipe = core.speed == 0 || now % 5 != 0 && !core.crafting ? null : core.match(level);
         boolean was = core.crafting;
@@ -140,7 +140,7 @@ public class ResonanceCoreBlockEntity extends KineticBlockEntity {
             core.progress = 0;
             return;
         }
-        core.progress += Math.abs(core.speed) / SoulNetwork.SPEED;
+        core.progress += Math.abs(core.speed) / SoulSignal.SPEED;
         if (now % 10 == 0) {
             for (BlockPos p : ring(pos)) {
                 if (level.getBlockEntity(p) instanceof ResonancePedestalBlock.Entity pedestal && !pedestal.item().isEmpty()) {

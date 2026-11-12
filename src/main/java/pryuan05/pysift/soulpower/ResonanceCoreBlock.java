@@ -24,7 +24,12 @@ import net.minecraft.world.phys.BlockHitResult;
  * 共鳴核心：六面都能接傳動，每 1 RPM 吃 4 SP。拿東西右鍵放上觸媒（一個），空手右鍵拿回成品或觸媒。
  * 共鳴的規則見 {@link ResonanceCoreBlockEntity}。
  */
-public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic {
+public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic, SoulConductor {
+    @Override
+    public boolean conducts(BlockState state, Direction side) {
+        return connects(state, side);
+    }
+
 
     public ResonanceCoreBlock(Properties properties) {
         super(properties);
@@ -96,7 +101,7 @@ public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic {
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (level instanceof ServerLevel server && !oldState.is(this)) {
-            SoulNetwork.update(server, pos);
+            SoulSignal.update(server, pos);
         }
     }
 
@@ -104,7 +109,7 @@ public class ResonanceCoreBlock extends BaseEntityBlock implements SoulKinetic {
     protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
         if (!level.getBlockState(pos).is(this)) {
-            SoulNetwork.updateAround(level, pos);
+            SoulSignal.updateAround(level, pos);
         }
     }
 }

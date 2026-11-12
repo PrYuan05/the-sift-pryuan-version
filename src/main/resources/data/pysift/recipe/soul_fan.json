@@ -5,7 +5,7 @@
     "B": "minecraft:iron_bars",
     "I": "pysift:patina_ingot",
     "G": "pysift:siftite_gear",
-    "S": "pysift:soul_shaft"
+    "S": "pysift:soul_conduit"
   },
   "pattern": [
     " B ",

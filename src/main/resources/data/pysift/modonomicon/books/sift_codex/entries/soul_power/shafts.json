@@ -1,4 +1,13 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "registry": "minecraft:item",
+      "values": [
+        "pysift:soul_shaft"
+      ]
+    }
+  ],
   "type": "modonomicon:content",
   "category": "pysift:soul_power",
   "id": "pysift:soul_power/shafts",
@@ -7,9 +16,9 @@
   "icon": {
     "id": "pysift:soul_cogwheel"
   },
-  "x": 2,
-  "y": 0,
-  "sort_number": 200,
+  "x": -2,
+  "y": -2,
+  "sort_number": -202,
   "background": {
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26,

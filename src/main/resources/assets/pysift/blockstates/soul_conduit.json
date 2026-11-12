@@ -1,0 +1,197 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_core"
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_north"
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_south"
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_west"
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_east"
+      }
+    },
+    {
+      "when": {
+        "down": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_down"
+      }
+    },
+    {
+      "when": {
+        "up": "true",
+        "power": "0"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_up"
+      }
+    },
+    {
+      "when": {
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_core"
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_north"
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_south"
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_west"
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_east"
+      }
+    },
+    {
+      "when": {
+        "down": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_down"
+      }
+    },
+    {
+      "when": {
+        "up": "true",
+        "charged": "false",
+        "power": "1|2|3|4|5|6|7|8|9|10|11|12|13|14|15"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_up"
+      }
+    },
+    {
+      "when": {
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_core"
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_north"
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_south"
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_west"
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_east"
+      }
+    },
+    {
+      "when": {
+        "down": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_down"
+      }
+    },
+    {
+      "when": {
+        "up": "true",
+        "charged": "true"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_up"
+      }
+    }
+  ]
+}

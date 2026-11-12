@@ -141,9 +141,13 @@ GOLD, GRAY, PURPLE = "square_gold", "square_gray", "square_purple"
 SPRITES = "modonomicon:modonomicon/themes/default/node/entry_backgrounds/"
 
 
+KINETIC_CONDITION = [{"condition": "fabric:registry_contains", "registry": "minecraft:item", "values": ["pysift:soul_shaft"]}]
+
+
 def entry(cat, eid, icon, en, zh, x, y, pages, parents=(), desc=("", ""), node=None, shape=GOLD, line=True,
-          locked_tip=None):
-    """One node on the map. node = research node id that has to be unlocked (None: always open)."""
+          locked_tip=None, kinetic=False):
+    """One node on the map. node = research node id that has to be unlocked (None: always open).
+    kinetic = part of the mechanical add-on (soulpower/kinetic/KineticAddon): only loaded when its blocks are registered."""
     assert item_exists(icon), icon
     key = f"book.pysift.sift_codex.{cat}.{eid}"
     data = {"type": "modonomicon:content", "category": f"pysift:{cat}", "id": f"pysift:{cat}/{eid}",
@@ -156,6 +160,8 @@ def entry(cat, eid, icon, en, zh, x, y, pages, parents=(), desc=("", ""), node=N
         data["condition"] = {"type": "modonomicon:research_node_unlocked", "node_id": node}
         if locked_tip:
             data["condition"]["tooltip"] = {"translate": tr(key + ".locked", *locked_tip)}
+    if kinetic:
+        data = {"fabric:load_conditions": KINETIC_CONDITION, **data}
     wj(BOOK / f"entries/{cat}/{eid}.json", data)
     for n, page in enumerate(pages):
         page = dict(page)
@@ -164,6 +170,8 @@ def entry(cat, eid, icon, en, zh, x, y, pages, parents=(), desc=("", ""), node=N
             page["title"] = tr(f"{key}.p{n}.title", *page["title"]) if page["title"] else ""
         en_t, zh_t = page.pop("text")
         page["text"] = tr(f"{key}.p{n}.text", en_t, zh_t) if en_t else ""
+        if kinetic:
+            page = {"fabric:load_conditions": KINETIC_CONDITION, **page}
         wj(BOOK / f"entries/{cat}/{eid}/pages/p{n}.json", page)
 
 
@@ -653,106 +661,149 @@ entry(C, "brewing", "pysift:soul_berries", "Brewing", "釀造", 0, 2, [
 category("soul_power", 6, "pysift:siftite_gear", "Soul Power", "靈魂動力", "patina_block/patina_block")
 C = "soul_power"
 entry(C, "engine", "pysift:spirit_engine", "Spirit Engine", "靈液引擎", 0, 0, [
-    text(("Turning souls into motion", "把靈魂變成轉動"),
-         "Soul power is **rotation**, measured in soul pressure (SP). The Spirit Engine burns a bucket of spirit liquid "
-         "(or soul essence, soul sand, soul soil) and turns at **32 RPM**, giving **256 SP**. Its flywheel spins on the "
-         "right-hand side; shafts take the power from any side but the front.",
-         "靈魂動力是**轉動**，用靈壓（SP）計算。靈液引擎燒一桶靈液（或靈魂精華、靈魂沙、靈魂土），以 **32 RPM** 轉動，提供 "
-         "**256 SP**。飛輪在右手邊轉；除了正面，其他面都能接傳動軸。"),
+    text(("Turning souls into song", "把靈魂變成歌聲"),
+         "Everything in the Sift speaks by sound, and sculk listens. A **soul signal** is that song put to work: a redstone "
+         "signal (0-15) that also carries **soul pressure** (SP), enough to run machines.\n\n"
+         "The Spirit Engine burns a bucket of spirit liquid (or soul essence, soul sand, soul soil) and sings at "
+         "**strength 15**, giving **256 SP**. Every side but the front takes a conduit.",
+         "隙浮的一切靠聲音溝通，而幽匿會聽。**靈魂訊號**就是拿來做事的歌聲：一種紅石訊號（0～15），但還帶著**靈壓**（SP），"
+         "足以推動機器。\n\n靈液引擎燒一桶靈液（或靈魂精華、靈魂沙、靈魂土），送出**強度 15** 的訊號，提供 **256 SP**。"
+         "除了正面，其他面都能接導線。"),
+    text(("The master switch", "總開關"),
+         "A **vanilla redstone signal** on the engine switches it off and holds its fuel. The same signal on a machine "
+         "pauses that machine, like a locked hopper.",
+         "引擎貼著**原版紅石訊號**時會關閉，燃料也暫停燃燒。機器貼著原版紅石訊號時會暫停，和漏斗被鎖住一樣。"),
     recipe("crafting", "pysift:siftite_gear", "pysift:spirit_engine")])
-entry(C, "shafts", "pysift:soul_cogwheel", "Shafts and Cogwheels", "傳動軸與齒輪", 2, 0, [
-    text(("Gearing", "變速"),
-         "Shafts carry rotation along their axis. Cogwheels side by side drive each other and **turn the other way**. "
-         "A **large cogwheel** meshes with small ones on its diagonals: the small one turns **twice as fast**.\n\n"
-         "Faster machines work faster but cost more: a machine's load is its impact x RPM.",
-         "傳動軸沿著自己的軸傳遞轉動。並排的齒輪互相帶動，**方向相反**。**大齒輪**和斜角的小齒輪咬合，小齒輪轉**兩倍快**。"
-         "\n\n機器轉越快做得越快，但也越吃力：負載 = 衝擊值 × RPM。"),
-    recipe("crafting", "pysift:soul_shaft", "pysift:large_soul_cogwheel"),
-    text(("Speed conflict", "轉速衝突"),
-         "If two paths ask one block to turn at different speeds (or two engines disagree), the gears jam: the whole "
-         "network stops and smokes until you fix it.",
-         "如果兩條路要求同一個方塊轉不同的速度（或兩台引擎方向相反），齒輪就會卡住：整個網路停下來冒煙，直到你修好為止。")],
-      parents=["engine"])
+entry(C, "conduit", "pysift:soul_conduit", "Soul Conduit", "靈魂導線", 2, 0, [
+    text(("The song in the wire", "線裡的歌聲"),
+         "A soul conduit is a strand of **living red sculk vein**: it carries the song from an engine to wherever you need "
+         "it. With a soul in it, it glows red. It joins on **all six sides**, so it runs up walls, across gaps and straight "
+         "through the air.\n\nThe signal loses one level every **2 blocks** - about 30 blocks from an engine.",
+         "靈魂導線是一段**活的赤紅幽匿脈**，把引擎的歌聲帶到你需要的地方。裡面有靈魂時，它發出紅光。它**六個方向**都能接，"
+         "所以可以貼牆往上、跨過空隙、直接懸在空中。\n\n訊號每 **2 格**少一級，從引擎出發大約能傳 30 格。"),
+    text(("Better redstone", "更好的紅石"),
+         "To redstone parts a conduit is a signal source: dust joins it, lamps light, pistons push, repeaters and "
+         "comparators read it.\n\nIt takes vanilla signals too. Put a lever, repeater, comparator, torch or redstone "
+         "block **against** a conduit and the signal travels the wire - but it has **no soul**: the wire turns the "
+         "**dead blue** of Overworld sculk, and machines stay still. Redstone dust cannot feed a conduit.",
+         "對紅石元件來說，導線就是訊號源：紅石粉會接上來，紅石燈會亮，活塞會推，中繼器和比較器讀得到。\n\n"
+         "它也收原版訊號。把拉桿、中繼器、比較器、紅石火把或紅石塊**貼著**導線，訊號就沿著線傳出去，但那訊號**沒有靈魂**："
+         "導線變成主世界幽匿那種**枯死的藍色**，機器不會動。紅石粉不能把訊號送進導線。"),
+    text(("What the ancients built", "遠古人造的東西"),
+         "Under the great frame in every Ancient City there are rooms of pistons, dust and sensors. The ancients had seen "
+         "the song-lines of the Sift and tried to build their own out of redstone. Their wires worked - and carried "
+         "nothing. *A signal with no soul in it opens no door.*",
+         "每座遠古城市的大門框底下，都有幾間裝滿活塞、紅石粉與感測器的房間。遠古人見過隙浮的歌聲線路，想用紅石照著做一套。"
+         "他們的線路會動，卻什麼也沒帶著。*沒有靈魂的訊號，打不開任何一道門。*"),
+    recipe("crafting", "pysift:soul_conduit")], parents=["engine"])
+entry(C, "sculk", "minecraft:sculk_catalyst", "Sculk on the Line", "線路上的幽匿", 2, -2, [
+    text(("Old kin", "老親戚"),
+         "Vanilla sculk still knows the song.\n\n"
+         "**Sculk Catalyst** against a conduit: when a creature dies nearby, its soul flows into the wire - strength 15 for "
+         "10 seconds, 32 SP. Enough for one fan, no fuel needed.\n\n"
+         "**Sculk Shrieker** against a conduit: it shrieks while the circuit is overloaded. It calls no Warden.\n\n"
+         "**Sculk Sensor**: its output is a plain signal. It travels the wire, but runs no machine.",
+         "原版的幽匿還記得這首歌。\n\n"
+         "**幽匿催化體**貼著導線：附近有生物死亡時，牠的靈魂流進導線，強度 15、持續 10 秒、32 SP。夠帶一台風扇，不用燃料。\n\n"
+         "**幽匿尖嘯體**貼著導線：迴路過載時它會尖叫示警，不會召喚監守者。\n\n"
+         "**幽匿感測器**：它的輸出是沒有靈魂的訊號，會沿著導線傳，但推不動機器。")], parents=["conduit"])
 entry(C, "gauge", "pysift:soul_gauge", "Soul Gauge", "靈壓計", 4, -1, [
     text(("Reading the load", "讀取負載"),
-         "The needle swings from green to red as the load nears the capacity. Right-click it for the exact numbers; "
-         "a comparator reads the load (0-15).\n\nPast 100% the network is **overloaded**: everything stops, and after 5 "
-         "seconds the machines tear the souls out of every creature nearby.",
-         "負載接近容量時，指針從綠區擺到紅區。右鍵看精確的數字；比較器讀得到負載（0～15）。\n\n超過 100% 網路就**過載**："
-         "全部停下來，5 秒後機器會把附近所有生物的靈魂扯出來。"),
-    recipe("crafting", "pysift:soul_gauge")], parents=["shafts"])
+         "Set it into a conduit line. The needle swings from green to red as the load nears the capacity. Right-click it "
+         "for the signal strength and the exact numbers; a comparator reads the load (0-15).\n\n"
+         "A machine's load is its full load x its signal strength / 15. Past 100% the circuit is **overloaded**: the soul "
+         "signal drops to nothing, and after 5 seconds the machines tear the souls out of every creature nearby.",
+         "把它串在導線中間。負載接近容量時，指針從綠區擺到紅區。右鍵看訊號強度與精確的數字；比較器讀得到負載（0～15）。\n\n"
+         "機器的負載 = 滿載值 × 訊號強度 ÷ 15。超過 100% 迴路就**過載**：靈魂訊號歸零，5 秒後機器會把附近所有生物的靈魂扯出來。"),
+    recipe("crafting", "pysift:soul_gauge")], parents=["conduit"])
 entry(C, "grinder", "pysift:soul_grinder", "Soul Grinder", "靈魂研磨機", 4, 1, [
     text(("Grinding", "研磨"),
          "Doubles ores, breaks cobblestone into gravel and sand, bones into bone meal, and sometimes leaves a soul essence. "
-         "64 SP at 32 RPM.",
-         "礦石變兩倍，鵝卵石磨成礫石再磨成沙，骨頭磨成骨粉，偶爾還多出一個靈魂精華。32 RPM 時吃 64 SP。"),
-    recipe("crafting", "pysift:soul_grinder")], parents=["shafts"])
+         "64 SP at full signal; a weaker signal grinds slower and costs less.",
+         "礦石變兩倍，鵝卵石磨成礫石再磨成沙，骨頭磨成骨粉，偶爾還多出一個靈魂精華。訊號強度 15 時吃 64 SP；訊號越弱磨得越慢，也越省。"),
+    recipe("crafting", "pysift:soul_grinder")], parents=["conduit"])
 entry(C, "sifter", "pysift:soul_sifter", "Soul Sifter", "靈魂淨化篩", 6, 1, [
     text(("Sifting the rot back to red", "把腐爛篩回赤紅"),
          "The craft of the ancients. While it turns, the sifter slowly turns **rotten blue sculk within 8 blocks back into "
          "red sculk**. Put sculk on its sieve to sift it red; gravel gives flint, sand gives clay, soul sand gives soul soil. "
-         "96 SP at 32 RPM; drive it from the crank side.",
+         "96 SP at full signal; feed it from the wheel side.",
          "遠古人的工藝。轉動時，淨化篩會慢慢把 **8 格內腐爛的藍色幽匿變回赤紅幽匿**。把幽匿放上篩網就能篩紅；礫石篩出燧石、"
-         "沙篩出黏土、靈魂沙篩出靈魂土。32 RPM 時吃 96 SP，從曲柄那一側接動力。"),
+         "沙篩出黏土、靈魂沙篩出靈魂土。訊號強度 15 時吃 96 SP，從飛輪那一側接導線。"),
     recipe("crafting", "pysift:soul_sifter")], parents=["grinder"])
 entry(C, "waves", "pysift:soul_wave_emitter", "Soul Waves", "靈魂振波", 0, 2, [
     text(("Wireless: through the air", "無線：穿過空氣"),
          "An emitter and a receiver with **the same resonant disc** link within 16 blocks. Wool and carpets block the wave. "
-         "Loses 10%.",
-         "放了**同一張共鳴唱片**的發送器與接收器，16 格內就會連通。羊毛與地毯會擋住振波。損耗 10%。"),
+         "The hop costs **one level** of strength.",
+         "放了**同一張共鳴唱片**的發送器與接收器，16 格內就會連通。羊毛與地毯會擋住振波。每跳一次少 **1 級**強度。"),
     recipe("crafting", "pysift:soul_wave_emitter", "pysift:soul_wave_receiver")], parents=["engine"])
 entry(C, "beams", "pysift:charoite_beam_emitter", "Charoite Beams", "紫龍晶光束", 2, 3, [
     text(("Wireless: a beam of light", "無線：一道光"),
          "The emitter shoots a violet beam up to 32 blocks; **prisms** turn it (right-click to point them, sneak to go back). "
-         "It passes glass and plants and links on the **front** of a receiver. Loses only 5%, but it must be aimed, and it "
+         "It passes glass and plants and links on the **front** of a receiver. It loses **nothing**, but it must be aimed, and it "
          "burns whatever stands in it.",
          "發射器射出最遠 32 格的紫色光束；**稜鏡**會讓它轉向（右鍵換方向、潛行右鍵往回換）。光束能穿過玻璃與花草，"
-         "打中接收器的**正面**就連通。損耗只有 5%，但要瞄準，而且會灼傷站在光束裡的東西。"),
+         "打中接收器的**正面**就連通。強度**不損耗**，但要瞄準，而且會灼傷站在光束裡的東西。"),
     recipe("crafting", "pysift:charoite_beam_emitter", "pysift:charoite_prism")], parents=["waves"])
 entry(C, "veins", "pysift:soul_vein_node", "Soul Veins", "靈脈", 0, 4, [
     text(("Wireless: through the rock", "無線：穿過岩層"),
          "Two vein nodes within 16 blocks link when **every block between them is rock**. A cave cuts the vein. "
-         "Loses 15%. While it runs, the rock along it grows into glowing soul-veined stone.",
-         "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。損耗 15%。運轉時，"
+         "The hop costs **two levels**. While it runs, the rock along it grows into glowing soul-veined stone.",
+         "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。每跳一次少 **2 級**強度。運轉時，"
          "沿路的岩石會長成發光的靈脈石。"),
     recipe("crafting", "pysift:soul_vein_node")], parents=["waves"])
 
 entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
     text(("Piping spirit liquid", "用管子送靈液"),
-         "Point the pump's nozzle at a spirit liquid pool and turn its crank: it drinks the source in front of it and sends "
+         "Point the pump's nozzle at a spirit liquid pool and give it a soul signal: it drinks the source in front of it and sends "
          "the liquid down Spirit Pipes to your engines, which burn it when their fuel slot is empty.\n\n"
          "A pipe left open at one end **leaks**, and the ground below it rots into soul soil.",
-         "把泵的吸口對著靈液池、轉動側面的曲柄：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n"
+         "把泵的吸口對著靈液池、接上靈魂訊號：它會吸走正前方的靈液源頭，沿著靈液管送給引擎；引擎燃料格空著時就燒這些靈液。\n\n"
          "只接一頭、另一頭空著的管子會**漏**，下面的地面會被汙染成靈魂土。"),
     recipe("crafting", "pysift:spirit_pump", "pysift:spirit_pipe")], parents=["engine"])
 
+# -- the mechanical add-on (soulpower/kinetic/KineticAddon): only when Create is installed, or kinetic_addon=on
+entry(C, "shafts", "pysift:soul_cogwheel", "Shafts and Cogwheels", "傳動軸與齒輪", -2, -2, [
+    text(("The mechanical add-on", "機械擴充"),
+         "*These parts exist only alongside the Create mod (or with kinetic_addon=on in config/pysift.properties).*\n\n"
+         "Shafts carry **rotation** along their axis and drive a machine directly, without a conduit. Cogwheels side by "
+         "side drive each other and **turn the other way**. A **large cogwheel** meshes with small ones on its diagonals: "
+         "the small one turns **twice as fast**.",
+         "*這些零件只在裝了 Create 模組時出現（或在 config/pysift.properties 設定 kinetic_addon=on）。*\n\n"
+         "傳動軸沿著自己的軸傳遞**轉動**，不用導線就能直接帶動機器。並排的齒輪互相帶動，**方向相反**。"
+         "**大齒輪**和斜角的小齒輪咬合，小齒輪轉**兩倍快**。"),
+    recipe("crafting", "pysift:soul_shaft", "pysift:large_soul_cogwheel"),
+    text(("Speed conflict", "轉速衝突"),
+         "If two paths ask one block to turn at different speeds (or two engines disagree), the gears jam: the whole "
+         "network stops and smokes until you fix it.",
+         "如果兩條路要求同一個方塊轉不同的速度（或兩台引擎方向相反），齒輪就會卡住：整個網路停下來冒煙，直到你修好為止。")],
+      parents=["engine"], kinetic=True)
 entry(C, "crank", "pysift:soul_hand_crank", "Hand Crank", "手搖曲柄", -2, 0, [
     text(("Muscle power", "人力"),
          "Mount it on a shaft or a machine and hold right-click: 32 RPM and 96 SP, enough for one grinder or one sifter. "
          "Cranking makes you hungry.",
          "裝在傳動軸或機器的一面，按住右鍵：32 RPM、96 SP，夠帶一台研磨機或一台淨化篩。搖久了會餓。"),
-    recipe("crafting", "pysift:soul_hand_crank")], parents=["engine"])
-entry(C, "shift", "pysift:soul_gearshift", "Clutch and Gearshift", "離合器與換向器", 4, -3, [
+    recipe("crafting", "pysift:soul_hand_crank")], parents=["engine"], kinetic=True)
+entry(C, "shift", "pysift:soul_gearshift", "Clutch and Gearshift", "離合器與換向器", -4, 0, [
     text(("Redstone control", "紅石控制"),
          "Both hold two half-shafts. Give them a redstone signal (the lamp lights up): the **clutch** lets go of the half on "
          "the far side (east, south or up); the **gearshift** turns that half the other way.",
          "兩者裡面都是兩段半軸。給它紅石訊號（燈會亮）：**離合器**放開遠端那一段（東、南或上方那一頭）；**換向器**讓那一段反轉。"),
-    recipe("crafting", "pysift:soul_clutch", "pysift:soul_gearshift")], parents=["gauge"])
+    recipe("crafting", "pysift:soul_clutch", "pysift:soul_gearshift")], parents=["shafts"], kinetic=True)
 entry(C, "fan", "pysift:soul_fan", "Soul Fan", "靈魂風扇", 6, -1, [
     text(("Wind and haunting", "風與靈魂薰染"),
-         "Blows creatures and items away up to 8 blocks (turned the other way, it pulls). Put **soul fire** in the stream: "
+         "Blows creatures and items away, up to 8 blocks at full signal (a weaker signal blows less far). Put **soul fire** in the stream: "
          "items resting behind it are haunted - sand into soul sand, dirt into soul soil, torches, lanterns and campfires "
          "into their soul versions.",
-         "把生物和掉落物吹走，最遠 8 格（反轉時是吸過來）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、"
+         "把生物和掉落物吹走，訊號強度 15 時最遠 8 格（訊號越弱吹得越近）。在氣流裡放**靈魂火**：停在火後面的掉落物會被靈魂薰染——沙變靈魂沙、"
          "泥土變靈魂土，火把、燈籠與營火變成靈魂版本。"),
     recipe("crafting", "pysift:soul_fan")], parents=["gauge"])
 
 entry(C, "resonance", "pysift:resonance_core", "Resonance Array", "共鳴靈陣", 8, 0, [
     text(("The ancients' craft", "遠古人的工藝"),
          "Place up to eight Resonance Pedestals around a Resonance Core, 3 blocks away on the sides and diagonals. "
-         "Put a catalyst on the core, ingredients on the pedestals, and turn the core (128 SP at 32 RPM).\n\n"
+         "Put a catalyst on the core, ingredients on the pedestals, and give the core a soul signal (128 SP at full signal).\n\n"
          "A running core also makes grinders and sifters within 8 blocks 50% faster.",
-         "在共鳴核心周圍 3 格處（四邊與四個斜角）擺最多八個共鳴台座。核心放觸媒、台座放材料，讓核心轉起來（32 RPM 時吃 128 SP）。\n\n"
+         "在共鳴核心周圍 3 格處（四邊與四個斜角）擺最多八個共鳴台座。核心放觸媒、台座放材料，給核心靈魂訊號（訊號強度 15 時吃 128 SP）。\n\n"
          "運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。"),
     text(("Resonances", "共鳴配方"),
          "**Amethyst shard** + 4 sculk + 4 soul essence → 2 echo shards.\n"
@@ -767,18 +818,18 @@ entry(C, "resonance", "pysift:resonance_core", "Resonance Array", "共鳴靈陣"
 
 entry(C, "drill", "pysift:soul_drill", "Soul Drill", "靈魂鑽頭", 6, 3, [
     text(("Boring through rock", "鑽穿岩石"),
-         "Drive it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks "
-         "take longer; faster rotation digs faster. Bedrock and the like resist it. Keep clear of the bit.",
-         "從背面接動力：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，轉越快鑽越快；基岩之類的方塊鑽不動。"
+         "Feed it from the back: the bit bores out the block in front and drops what an iron pickaxe would. Harder blocks "
+         "take longer; a stronger signal digs faster. Bedrock and the like resist it. Keep clear of the bit.",
+         "從背面接導線：鑽頭會鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，訊號越強鑽越快；基岩之類的方塊鑽不動。"
          "別站在鑽頭前面。"),
     recipe("crafting", "pysift:soul_drill")], parents=["grinder"])
 
-entry(C, "gearbox", "pysift:soul_gearbox", "Soul Gearbox", "靈魂齒輪箱", 2, -2, [
+entry(C, "gearbox", "pysift:soul_gearbox", "Soul Gearbox", "靈魂齒輪箱", -4, -2, [
     text(("Turning the corner", "轉個彎"),
          "Four bevel gears round its axis: a shaft on any of the four sides drives the other three, so the power can turn "
          "90 degrees. The shaft straight across turns the other way.",
          "軸向四周有四片傘齒輪：任何一面接進來的轉動，都會傳到另外三面，所以動力可以轉 90°。正對面那一根會反著轉。"),
-    recipe("crafting", "pysift:soul_gearbox")], parents=["shafts"])
+    recipe("crafting", "pysift:soul_gearbox")], parents=["shafts"], kinetic=True)
 
 # ================================================================== 6. ancient pages (遠古殘頁)
 category("lore", 5, "pysift:ancient_page_1", "Ancient Pages", "遠古殘頁", "red_sculk/red_sculk")

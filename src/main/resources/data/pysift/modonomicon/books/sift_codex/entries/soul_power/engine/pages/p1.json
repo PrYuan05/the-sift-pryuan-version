@@ -1,11 +1,11 @@
 {
-  "type": "modonomicon:crafting_recipe",
-  "recipe_id_1": "pysift:siftite_gear",
-  "recipe_id_2": "pysift:spirit_engine",
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.soul_power.engine.p1.title",
+  "show_title_separator": true,
   "id": "p1",
   "sort_number": 1,
   "condition": {
     "type": "modonomicon:none"
   },
-  "text": ""
+  "text": "book.pysift.sift_codex.soul_power.engine.p1.text"
 }

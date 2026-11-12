@@ -1,4 +1,6 @@
-package pryuan05.pysift.soulpower;
+package pryuan05.pysift.soulpower.kinetic;
+
+import pryuan05.pysift.soulpower.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -46,9 +48,9 @@ public class SoulHandCrankBlock extends SoulMachineBlock {
             crank.cranking = 10;   // holding right-click repeats every few ticks
             player.causeFoodExhaustion(0.02f);
             if (!was) {
-                SoulNetwork.update(server, pos);
+                SoulSignal.update(server, pos);
             }
-            SoulNetwork.Result n = crank.network();
+            SoulSignal.Result n = crank.network();
             if (n.overloaded()) {   // tell the player why it does not turn
                 player.sendOverlayMessage(net.minecraft.network.chat.Component.translatable("message.pysift.soul_crank.too_heavy",
                         n.stress(), n.capacity()).withStyle(net.minecraft.ChatFormatting.RED));
@@ -78,15 +80,15 @@ public class SoulHandCrankBlock extends SoulMachineBlock {
         static void serverTick(Level level, BlockPos pos, BlockState state, Entity crank) {
             if (crank.cranking > 0) {
                 crank.cranking--;
-                if (crank.cranking == 0 || level.getGameTime() % SoulNetwork.INTERVAL == 0) {
-                    SoulNetwork.update((ServerLevel) level, pos);
+                if (crank.cranking == 0 || level.getGameTime() % SoulSignal.INTERVAL == 0) {
+                    SoulSignal.update((ServerLevel) level, pos);
                 }
             }
         }
 
         @Override
         public float sourceSpeed() {
-            return cranking > 0 ? SoulNetwork.SPEED : 0;
+            return cranking > 0 ? SoulSignal.SPEED : 0;
         }
 
         /** 3 SP per RPM: 96 SP at 32 RPM - one grinder (64) or one sifter (96), not two grinders. */

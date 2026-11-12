@@ -1,4 +1,6 @@
-package pryuan05.pysift.soulpower;
+package pryuan05.pysift.soulpower.kinetic;
+
+import pryuan05.pysift.soulpower.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,17 +45,6 @@ public final class SoulNetwork {
     public static final int OVERLOAD_HAZARD_TICKS = 100;
     public static final int HAZARD_RADIUS = 6;
     private static final int MAX_NODES = 1024;
-
-    /**
-     * 網路的狀態：引擎的轉速（GUI 顯示用，0 = 停）、容量、需求、是否過載或轉速衝突、算的時間。
-     */
-    public record Result(int speed, int capacity, int stress, boolean overloaded, boolean conflict, long time) {
-        public static final Result IDLE = new Result(0, 0, 0, false, false, 0);
-
-        public float load() {
-            return capacity <= 0 ? (stress > 0 ? 2f : 0f) : (float) stress / capacity;
-        }
-    }
 
     private SoulNetwork() {
     }
@@ -192,7 +183,7 @@ public final class SoulNetwork {
         }
         boolean overloaded = capacity > 0 && stress > capacity;
         boolean running = capacity > 0 && !overloaded && !conflict;
-        Result result = new Result(running ? Math.round(Math.abs(base)) : 0, capacity, Math.round(stress), overloaded, conflict, now);
+        SoulSignal.Result result = new SoulSignal.Result(running ? Math.round(Math.abs(base)) : 0, capacity, Math.round(stress), overloaded, conflict, now);
         for (BlockPos pos : members) {
             BlockState state = level.getBlockState(pos);
             if (state.getBlock() instanceof SoulKinetic kinetic) {

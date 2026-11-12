@@ -1,4 +1,6 @@
-package pryuan05.pysift.soulpower;
+package pryuan05.pysift.soulpower.kinetic;
+
+import pryuan05.pysift.soulpower.*;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -59,8 +61,8 @@ public class SoulShiftBlock extends SoulShaftBlock {
         boolean signal = level.hasNeighborSignal(pos);
         if (signal != state.getValue(SHIFTED) && level instanceof ServerLevel server) {
             server.setBlock(pos, state.setValue(SHIFTED, signal), Block.UPDATE_ALL);
-            SoulNetwork.updateAround(server, pos);
-            SoulNetwork.update(server, pos);
+            SoulSignal.updateAround(server, pos);
+            SoulSignal.update(server, pos);
         }
     }
 }

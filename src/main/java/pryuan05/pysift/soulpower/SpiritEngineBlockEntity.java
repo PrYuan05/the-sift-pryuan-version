@@ -20,7 +20,7 @@ import pryuan05.pysift.fluid.ModFluids;
 import pryuan05.pysift.progression.ModProgression;
 
 /**
- * 靈液引擎：一格燃料，燒著的時候以 {@link SoulNetwork#SPEED} RPM 轉動、提供 {@link #CAPACITY_PER_RPM} × RPM 的靈壓，
+ * 靈液引擎：一格燃料，燒著的時候以 強度 15 的靈魂訊號運轉、提供 {@link #CAPACITY_PER_RPM} × RPM 的靈壓，
  * 並定期重算網路。
  */
 public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuProvider, SoulKinetic.Source {
@@ -43,6 +43,8 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
     public static final int LIQUID_CAPACITY = 4000;
     private int burnMax;
     private int overload;
+    /** 貼著原版紅石訊號：引擎關閉（總開關），燃料也暫停燃燒。 */
+    private boolean halted;
     private final ContainerData data = new ContainerData() {
         @Override
         public int get(int i) {
@@ -86,11 +88,12 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpiritEngineBlockEntity engine) {
-        boolean was = engine.isBurning();
-        if (engine.burn > 0) {
+        boolean was = engine.sourceSpeed() != 0;
+        engine.halted = SoulSignal.externalRedstone(level, pos) > 0;
+        if (engine.burn > 0 && !engine.halted) {
             engine.burn--;
         }
-        if (engine.burn == 0) {
+        if (engine.burn == 0 && !engine.halted) {
             ItemStack stack = engine.fuel.getItem(0);
             int time = burnTime(stack);
             if (time <= 0 && engine.liquid >= 1000) {   // piped spirit liquid
@@ -107,10 +110,13 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
             level.playSound(null, pos, pryuan05.pysift.sound.ModSounds.SPIRIT_ENGINE_CHUG, net.minecraft.sounds.SoundSource.BLOCKS,
                     0.55f, 0.9f + level.getRandom().nextFloat() * 0.15f);
         }
-        if (engine.isBurning() != was || (now % SoulNetwork.INTERVAL == 0 && engine.network.time() != now)) {
-            SoulNetwork.update((ServerLevel) level, pos);
+        boolean on = engine.sourceSpeed() != 0;
+        if (on != was) {
+            SoulSignal.update((ServerLevel) level, pos);
+        } else if (now % SoulSignal.INTERVAL == 0 && engine.network.time() != now) {
+            SoulSignal.poll((ServerLevel) level, pos);
         }
-        if (engine.isBurning() != was) {
+        if (on != was) {
             engine.setChanged();
         }
     }
@@ -134,14 +140,14 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
     }
 
     /** 過載持續了多久（不過載就歸零）。 */
-    int countOverload(boolean overloaded, int ticks) {
+    public int countOverload(boolean overloaded, int ticks) {
         overload = overloaded ? overload + ticks : 0;
         return overload;
     }
 
     @Override
     public float sourceSpeed() {
-        return isBurning() ? SoulNetwork.SPEED : 0;
+        return isBurning() && !halted ? SoulSignal.SPEED : 0;
     }
 
     @Override

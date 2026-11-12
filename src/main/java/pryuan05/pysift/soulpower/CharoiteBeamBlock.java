@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * 紫龍晶光束發射器／接收器：背面接傳動。發射器運轉時從正面射出紫龍晶光束（{@link CharoiteBeam}），
- * 打中接收器的正面就無線連通（容量只打 {@link SoulNetwork#BEAM_EFFICIENCY} 折，比振波損耗少，但要瞄準）。
+ * 打中接收器的正面就無線連通（靈魂訊號不損耗，比振波好，但要瞄準）。
  * 光束會灼傷穿過它的生物。
  */
 public class CharoiteBeamBlock extends SoulMachineBlock {

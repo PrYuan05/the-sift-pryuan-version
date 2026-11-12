@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
  * 靈魂動力網路的一個方塊（Create 式的轉動動力）：
  * <ul>
  *   <li>{@link #connects}：哪幾面像傳動軸一樣同軸相接（轉速相同）；</li>
- *   <li>{@link #cog}：齒輪的大小（相鄰齒輪互相帶動、方向相反；大小齒輪斜向咬合時轉速 ×2／÷2，見 {@link SoulNetwork}）；</li>
+ *   <li>{@link #cog}：齒輪的大小（相鄰齒輪互相帶動、方向相反；大小齒輪斜向咬合時轉速 ×2／÷2，見 kinetic.SoulNetwork）；</li>
  *   <li>{@link #impact}：每 1 RPM 吃掉多少靈壓（負載 = impact × |RPM|，轉越快越吃力）；</li>
  *   <li>{@link #axis}：會轉的部件繞哪個軸轉（渲染與齒輪用）。</li>
  * </ul>
@@ -45,19 +45,20 @@ public interface SoulKinetic {
     }
 
     /** 網路算完的結果（只在伺服器端）：speed 是這個方塊自己的轉速（有正負號，正 = 沿軸的正方向看逆時針）。 */
-    default void onNetwork(ServerLevel level, BlockPos pos, BlockState state, SoulNetwork.Result result, float speed) {
+    default void onNetwork(ServerLevel level, BlockPos pos, BlockState state, SoulSignal.Result result, float speed) {
+        if (level.getBlockEntity(pos) instanceof Member member) {
+            member.setNetwork(result, speed);   // 方塊實體決定 POWERED（靈魂迴路也可能讓它運轉）
+            return;
+        }
         boolean powered = speed != 0;
         if (state.hasProperty(POWERED) && state.getValue(POWERED) != powered) {
             level.setBlock(pos, state.setValue(POWERED, powered), 2);
-        }
-        if (level.getBlockEntity(pos) instanceof Member member) {
-            member.setNetwork(result, speed);
         }
     }
 
     /** 有方塊實體的成員：記住網路狀態（GUI、機器運作、用戶端動畫用）。 */
     interface Member {
-        void setNetwork(SoulNetwork.Result result, float speed);
+        void setNetwork(SoulSignal.Result result, float speed);
     }
 
     /** 動力源（引擎）：自己的轉速（0 = 沒在運轉）與每 1 RPM 提供的靈壓。 */

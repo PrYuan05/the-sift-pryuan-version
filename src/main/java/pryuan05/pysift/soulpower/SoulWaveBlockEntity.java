@@ -31,7 +31,23 @@ import java.util.Set;
  * 振波發送器／接收器的資料：頻率唱片，以及每個世界裡所有振波方塊的位置（找連線用，不用掃描整個範圍）。
  * 發送器運轉時，每條連線上都有一顆靈魂波球從發送器飛到接收器（距離越遠飛越久，只是外觀）。
  */
-public class SoulWaveBlockEntity extends KineticBlockEntity {
+public class SoulWaveBlockEntity extends KineticBlockEntity implements SoulConductor.Relay {
+    @Override
+    public boolean sends() {
+        return isEmitter();
+    }
+
+    @Override
+    public boolean receives() {
+        return !isEmitter();
+    }
+
+    /** 每跳一次扣的強度，以半級計（2 = 少 1 級）。 */
+    @Override
+    public int hopCost() {
+        return 2;
+    }
+
     public static final int RANGE = 16;
     private static final Map<ResourceKey<Level>, Set<BlockPos>> WAVES = new HashMap<>();
     private ItemStack disc = ItemStack.EMPTY;
@@ -58,6 +74,7 @@ public class SoulWaveBlockEntity extends KineticBlockEntity {
     }
 
     /** 同頻率、範圍內、視線上沒有隔絕振動方塊的另一種振波方塊（發送器找接收器，接收器找發送器）。 */
+    @Override
     public List<BlockPos> findLinks(ServerLevel level) {
         List<BlockPos> out = new ArrayList<>();
         if (!disc.isEmpty()) {
@@ -91,9 +108,9 @@ public class SoulWaveBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, SoulWaveBlockEntity wave) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - wave.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 5) {
-            wave.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - wave.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 5) {
+            wave.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (!wave.isEmitter() || wave.speed == 0 || now % 2 != 0) {
             return;

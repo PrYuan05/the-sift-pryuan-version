@@ -3,7 +3,7 @@
   "category": "redstone",
   "key": {
     "I": "minecraft:compass",
-    "S": "pysift:soul_shaft",
+    "S": "pysift:soul_conduit",
     "C": "pysift:patina_ingot"
   },
   "pattern": [

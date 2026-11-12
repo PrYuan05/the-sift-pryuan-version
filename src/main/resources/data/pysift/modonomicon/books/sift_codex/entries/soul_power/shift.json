@@ -1,4 +1,13 @@
 {
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "registry": "minecraft:item",
+      "values": [
+        "pysift:soul_shaft"
+      ]
+    }
+  ],
   "type": "modonomicon:content",
   "category": "pysift:soul_power",
   "id": "pysift:soul_power/shift",
@@ -7,9 +16,9 @@
   "icon": {
     "id": "pysift:soul_gearshift"
   },
-  "x": 4,
-  "y": -3,
-  "sort_number": 397,
+  "x": -4,
+  "y": 0,
+  "sort_number": -400,
   "background": {
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26,
@@ -17,7 +26,7 @@
   },
   "parents": [
     {
-      "entry": "pysift:soul_power/gauge",
+      "entry": "pysift:soul_power/shafts",
       "line_enabled": true
     }
   ],

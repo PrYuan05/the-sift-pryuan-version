@@ -48,9 +48,9 @@ public class SpiritPumpBlockEntity extends KineticBlockEntity {
     public static void serverTick(Level level, BlockPos pos, BlockState state, SpiritPumpBlockEntity pump) {
         ServerLevel server = (ServerLevel) level;
         long now = level.getGameTime();
-        if (now - pump.network.time() > SoulNetwork.INTERVAL * 3L && now % SoulNetwork.INTERVAL == 0) {
-            pump.network = SoulNetwork.Result.IDLE;
-            SoulNetwork.update(server, pos);
+        if (now - pump.network.time() > SoulSignal.INTERVAL * 3L && now % SoulSignal.INTERVAL == 0) {
+            pump.network = SoulSignal.Result.IDLE;
+            SoulSignal.poll(server, pos);
         }
         if (pump.leakCooldown > 0) {
             pump.leakCooldown--;
@@ -58,7 +58,7 @@ public class SpiritPumpBlockEntity extends KineticBlockEntity {
         Direction facing = state.getValue(SoulMachineBlock.FACING);
         // 吸：正前方是靈液源頭就抽走一桶
         if (pump.speed != 0 && pump.tank <= CAPACITY - 1000) {
-            pump.work += Math.abs(pump.speed) / SoulNetwork.SPEED;
+            pump.work += Math.abs(pump.speed) / SoulSignal.SPEED;
             if (pump.work >= PUMP_WORK) {
                 pump.work = 0;
                 BlockPos intake = pos.relative(facing);

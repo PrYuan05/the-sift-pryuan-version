@@ -69,7 +69,7 @@ public class SoulWaveBlock extends SoulMachineBlock {
             }
             level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_RESONATE, SoundSource.BLOCKS, 1.0f, RitualDiscs.of(wave.getDisc()).pitch());
             player.sendOverlayMessage(Component.translatable("message.pysift.soul_wave.frequency", Component.translatable(RitualDiscs.songKey(RitualDiscs.of(wave.getDisc())))));
-            SoulNetwork.update(server, pos);
+            SoulSignal.poll(server, pos);
         }
         return InteractionResult.SUCCESS;
     }
@@ -86,7 +86,7 @@ public class SoulWaveBlock extends SoulMachineBlock {
             if (!player.addItem(old)) {
                 net.minecraft.world.Containers.dropItemStack(level, pos.getX() + 0.5, pos.getY() + 1.0, pos.getZ() + 0.5, old);
             }
-            SoulNetwork.update(server, pos);
+            SoulSignal.poll(server, pos);
         }
         return InteractionResult.SUCCESS;
     }
