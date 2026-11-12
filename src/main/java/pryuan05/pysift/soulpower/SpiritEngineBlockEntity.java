@@ -43,6 +43,7 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
     public static final int LIQUID_CAPACITY = 4000;
     private int burnMax;
     private int overload;
+    private int kineticOverload;
     /** 貼著原版紅石訊號：引擎關閉（總開關），燃料也暫停燃燒。 */
     private boolean halted;
     private final ContainerData data = new ContainerData() {
@@ -143,6 +144,12 @@ public class SpiritEngineBlockEntity extends KineticBlockEntity implements MenuP
     public int countOverload(boolean overloaded, int ticks) {
         overload = overloaded ? overload + ticks : 0;
         return overload;
+    }
+
+    /** The same count for the mechanical add-on's network: the two solvers must not reset each other's. */
+    public int countKineticOverload(boolean overloaded, int ticks) {
+        kineticOverload = overloaded ? kineticOverload + ticks : 0;
+        return kineticOverload;
     }
 
     @Override

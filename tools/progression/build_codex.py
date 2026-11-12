@@ -764,11 +764,13 @@ entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
 # -- the mechanical add-on (soulpower/kinetic/KineticAddon): only when Create is installed, or kinetic_addon=on
 entry(C, "shafts", "pysift:soul_cogwheel", "Shafts and Cogwheels", "傳動軸與齒輪", -2, -2, [
     text(("The mechanical add-on", "機械擴充"),
-         "*These parts exist only alongside the Create mod (or with kinetic_addon=on in config/pysift.properties).*\n\n"
+         "*The Sift's own shafts and cogwheels: only with kinetic_addon=on in config/pysift.properties. Soul redstone "
+         "does not need them, and with the Create mod you use Create's.*\n\n"
          "Shafts carry **rotation** along their axis and drive a machine directly, without a conduit. Cogwheels side by "
          "side drive each other and **turn the other way**. A **large cogwheel** meshes with small ones on its diagonals: "
          "the small one turns **twice as fast**.",
-         "*這些零件只在裝了 Create 模組時出現（或在 config/pysift.properties 設定 kinetic_addon=on）。*\n\n"
+         "*隙浮自己的傳動軸與齒輪：只有在 config/pysift.properties 設定 kinetic_addon=on 時才出現。靈魂紅石用不到它們；"
+         "裝了 Create 模組時，用 Create 的就好。*\n\n"
          "傳動軸沿著自己的軸傳遞**轉動**，不用導線就能直接帶動機器。並排的齒輪互相帶動，**方向相反**。"
          "**大齒輪**和斜角的小齒輪咬合，小齒輪轉**兩倍快**。"),
     recipe("crafting", "pysift:soul_shaft", "pysift:large_soul_cogwheel"),
@@ -895,6 +897,19 @@ PAGES = [   # (where, en title, zh title, [(en, zh) pages])
          "Our furred kin keep the door; while we sing they sleep. Wake them with a stranger's noise and they will not.",
          "我們的歌在晶體裡迴響，直到回音長出身體：傀儡就是這樣出生的，所以牠們一直跟著我們。"
          "覆毛的親族守著門口；我們唱歌時牠們就睡著。用陌生的聲響吵醒牠們，牠們就不會再睡了。")]),
+    # tenth page (an extra): why the Ancient City has redstone rooms under its frame - the ancients copied the Sift's
+    # song-lines (soul conduits, soulpower/SoulCircuit) in redstone and got a signal with no soul in it
+    ("ancient_city", "The Wires That Do Not Sing", "不會唱歌的線", [
+        ("The red things carry their song in threads. Where a thread runs, things *move*: stone turns, water climbs, doors "
+         "open. We cut one out and it went grey in our hands.\n\nSo we are making our own. The red dust from the deep mines "
+         "carries a spark from one end of a line to the other.",
+         "那些紅色的東西把歌聲裝在細線裡。線通到哪裡，東西就*動*起來：石頭會轉、水會往上爬、門會打開。我們割下一段，"
+         "它在我們手裡變成了灰色。\n\n所以我們自己做。礦坑深處的紅色粉末，能把火花從線的一頭帶到另一頭。"),
+        ("Our lines work. A piston pushes, a lamp lights. But the door does not hear them. The elders say the spark is only a "
+         "spark: there is **no one in it**.\n\nThe singers' threads are red because something in them is alive. Ours never "
+         "will be. *We will need the song itself.*",
+         "我們的線路會動。活塞會推，燈會亮。可是那道門聽不見。長老說，火花就只是火花，**裡面沒有任何人**。\n\n"
+         "歌者的線是紅色的，因為裡面有活的東西。我們的永遠不會有。*我們需要的是那首歌本身。*")]),
 ]
 PAGE_WHERE = {"ancient_city": ("Found in Ancient City chests", "在遠古城市的箱子裡找到"),
               "sift": ("Found in Sift ruins", "在隙浮遺跡的箱子裡找到"),
@@ -904,9 +919,11 @@ entry(C, "guide", "minecraft:paper", "Ancient Pages", "遠古殘頁", 0, 0, [
     text(("Ancient Pages", "遠古殘頁"),
          "Eight pages survive. The first four were written by the people of the Ancient City; the rest come from The Sift itself.\n\n"
          "Pick a page up and its entry opens here. Use a page in your hand to read it. Find all eight to see the whole story.\n\n"
-         "A ninth page, a Singers' song, is kept in the vault of an Echo Den.",
+         "A ninth page, a Singers' song, is kept in the vault of an Echo Den. A tenth, about the rooms under the great "
+         "frame, turns up in Ancient City chests.",
          "留存下來的殘頁共有八張。前四張是遠古城市的人寫的，其餘的來自隙浮本身。\n\n撿起一張殘頁，這裡對應的條目就會打開；"
-         "手持殘頁右鍵也能直接閱讀。集滿八張，就能看到完整的故事。\n\n第九張是一首歌者的歌，收在回音窟的寶庫裡。")])
+         "手持殘頁右鍵也能直接閱讀。集滿八張，就能看到完整的故事。\n\n第九張是一首歌者的歌，收在回音窟的寶庫裡。"
+         "第十張寫的是大門框底下那幾間房間，偶爾出現在遠古城市的箱子裡。")])
 page_nodes = []
 for i, (where, en, zh, body) in enumerate(PAGES, 1):
     item = f"pysift:ancient_page_{i}"
@@ -915,9 +932,9 @@ for i, (where, en, zh, body) in enumerate(PAGES, 1):
     if i <= 8:   # page 9 (the Echo Den's song) is an extra: not needed for the whole story
         page_nodes.append(node)
     pages = [text((en, zh), *body[0])] + [text(None, *b) for b in body[1:]]
-    entry(C, f"page_{i}", item, f"{['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'][i - 1]}. {en}", f"其{'一二三四五六七八九'[i - 1]}：{zh}",
-          *((2 + (i - 1) % 4 * 2, -1 if i <= 4 else 1) if i <= 8 else (2, 3)), pages,
-          parents=["guide"] if i in (1, 5) else ["page_5"] if i == 9 else [f"page_{i - 1}"],
+    entry(C, f"page_{i}", item, f"{['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][i - 1]}. {en}", f"其{'一二三四五六七八九十'[i - 1]}：{zh}",
+          *((2 + (i - 1) % 4 * 2, -1 if i <= 4 else 1) if i <= 8 else (2, 3) if i == 9 else (8, -3)), pages,
+          parents=["guide"] if i in (1, 5) else ["page_5"] if i == 9 else ["page_4"] if i == 10 else [f"page_{i - 1}"],
           node=node, shape=GRAY if i <= 4 else PURPLE, desc=PAGE_WHERE[where],
           locked_tip=(PAGE_WHERE[where][0], PAGE_WHERE[where][1]))
 entry(C, "sherds", "pysift:octave_pottery_sherd", "Pottery Sherds", "陶器碎片", 0, 2, [
@@ -992,8 +1009,8 @@ art_guard.save(page_img, A / "textures/item/ancient_page.png")
 wj(A / "models/item/ancient_page.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/ancient_page"}})
 for i, (where, en, zh, body) in enumerate(PAGES, 1):
     wj(A / f"items/ancient_page_{i}.json", {"model": {"type": "minecraft:model", "model": "pysift:item/ancient_page"}})
-    tr(f"item.pysift.ancient_page_{i}", f"Ancient Page {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'][i - 1]}",
-       f"遠古殘頁・其{'一二三四五六七八九'[i - 1]}")
+    tr(f"item.pysift.ancient_page_{i}", f"Ancient Page {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][i - 1]}",
+       f"遠古殘頁・其{'一二三四五六七八九十'[i - 1]}")
     tr(f"tooltip.pysift.ancient_page_{i}", en, zh)
     for n, (ben, bzh) in enumerate(body):   # the written-book text the item opens (markdown stripped)
         tr(f"book.pysift.ancient_page_{i}.page{n + 1}", ben.replace("**", "").replace("*", ""), bzh.replace("**", "").replace("*", ""))

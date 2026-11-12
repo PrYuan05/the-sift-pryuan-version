@@ -42,7 +42,7 @@ import java.util.function.Consumer;
  */
 public final class AncientPages {
     /** 每張殘頁的頁數（和 build_codex.py 的 PAGES 一致）。 */
-    private static final int[] PAGE_LENGTHS = {2, 1, 2, 2, 2, 2, 1, 2, 2};
+    private static final int[] PAGE_LENGTHS = {2, 1, 2, 2, 2, 2, 1, 2, 2, 2};
     /** 《遠古編年史》收的章數：其一～其八（其九是回音窟的番外）。 */
     private static final int CHRONICLE_PAGES = 8;
     public static final List<Item> PAGES = new ArrayList<>();
@@ -123,6 +123,7 @@ public final class AncientPages {
             Identifier id = key.identifier();
             if (id.equals(Identifier.withDefaultNamespace("chests/ancient_city"))) {
                 table.withPool(pool(PAGES.subList(0, 4), 4));
+                table.withPool(pool(PAGES.subList(9, 10), 5));  // 其十：不會唱歌的線（遠古城市的紅石室）
                 table.withPool(pool(SHERDS, 8));
             } else if (id.getNamespace().equals("pysift") && id.getPath().startsWith("chests/")) {
                 String chest = id.getPath().substring("chests/".length());

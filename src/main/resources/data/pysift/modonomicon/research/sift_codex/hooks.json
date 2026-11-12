@@ -258,6 +258,14 @@
     }
   },
   {
+    "id": "pysift:sift_codex/page_10_hook",
+    "fact_id": "pysift:sift_codex/page_10",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_10"
+    }
+  },
+  {
     "id": "pysift:sift_codex/sherd_hook",
     "fact_id": "pysift:sift_codex/sherd",
     "trigger_type": "modonomicon:item_acquired",

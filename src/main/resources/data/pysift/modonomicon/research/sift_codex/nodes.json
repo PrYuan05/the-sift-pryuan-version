@@ -303,6 +303,19 @@
     }
   },
   {
+    "id": "pysift:sift_codex/page_10",
+    "required_facts": [
+      "pysift:sift_codex/page_10"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_10",
+      "icon": {
+        "id": "pysift:ancient_page_10"
+      }
+    }
+  },
+  {
     "id": "pysift:sift_codex/sherd",
     "required_facts": [
       "pysift:sift_codex/sherd"

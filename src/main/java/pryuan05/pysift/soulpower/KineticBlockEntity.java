@@ -53,9 +53,12 @@ public class KineticBlockEntity extends BlockEntity implements SoulKinetic.Membe
         apply();
     }
 
-    /** 有機械動力源接著（傳動軸那一邊有容量）就聽轉速網路的，否則聽靈魂迴路的。 */
+    /**
+     * 兩邊都有動力源時（只有機械層啟用才會發生，例如引擎同時接著傳動軸和導線），聽負載比較重的那一邊；
+     * 只有一邊有動力源就聽那一邊。
+     */
     private void apply() {
-        boolean mechanical = kinetic.capacity() > 0;
+        boolean mechanical = kinetic.capacity() > 0 && (circuit.capacity() == 0 || kinetic.stress() >= circuit.stress());
         SoulSignal.Result result = mechanical ? kinetic : circuit;
         float speed = mechanical ? kineticSpeed : circuitSpeed;
         boolean changed = Math.abs(this.speed - speed) > 1e-3f || network.overloaded() != result.overloaded()

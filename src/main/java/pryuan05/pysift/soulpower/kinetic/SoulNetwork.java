@@ -193,7 +193,7 @@ public final class SoulNetwork {
         // 過載：引擎記錄持續多久；太久了，機器就燒掉周圍生物的靈魂。轉速衝突：冒煙
         boolean hazard = false;
         for (SpiritEngineBlockEntity engine : engines) {
-            hazard |= engine.countOverload(overloaded, INTERVAL) >= OVERLOAD_HAZARD_TICKS;
+            hazard |= engine.countKineticOverload(overloaded, INTERVAL) >= OVERLOAD_HAZARD_TICKS;
         }
         if ((overloaded || conflict) && capacity > 0) {
             if (now % 40 == 0 && !members.isEmpty()) {
