@@ -200,6 +200,11 @@ can run machines. The **Spirit Engine** burns spirit liquid and sends out streng
 - **Control.** A vanilla signal on a machine pauses it; on the engine it switches the engine off.
 - **Hidden wiring.** Right-click a conduit with any full block to wrap it in that block (empty hand takes it off).
   Small parts that do not touch the conduit - levers, buttons, torches - are reached by a thin tendril.
+- **A Singer can be the engine.** A Singer within 3 blocks of a conduit sings into it: strength 15, 64 SP, for a
+  two-and-a-half-minute set. A Mourner's backwards song is a signal with no soul.
+- **Parts.** The **Soul Repeater** brings a signal back to 15 and never passes it backwards; the **Soul Filter**
+  lets only soul signals or only plain signals through; the **Soul Note Block** holds the eight notes of the door's
+  song.
 - **Sculk joins in.** A Sculk Catalyst against a conduit feeds it for 10 seconds when a creature dies nearby; a Sculk
   Shrieker against a conduit shrieks when the circuit is overloaded.
 - **Machines:** Soul Grinder, Soul Sifter (sifts the rot out of blue sculk), Soul Drill, Soul Fan, Spirit Pump,
@@ -428,6 +433,9 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 - **控制。** 機器貼著原版訊號會暫停；引擎貼著原版訊號會關閉。
 - **藏線。** 拿任何完整方塊對導線右鍵，導線就包成那個方塊的外觀（空手右鍵拆下來）。拉桿、按鈕、紅石火把這類沒貼著導線的小元件，
   導線會長出細觸鬚去碰。
+- **歌者可以當引擎。** 歌者在導線 3 格內會對著它唱一整套歌（約兩分半鐘）：強度 15、64 SP。哀悼者倒著唱的歌只是沒有靈魂的訊號。
+- **元件。** **靈魂中繼器**把訊號補回 15，而且不會倒著走；**靈魂濾波器**只讓靈魂訊號或只讓原版訊號通過；
+  **靈魂音符盒**裝著開門那首歌的八個音。
 - **幽匿也接得上。** 幽匿催化體貼著導線：附近有生物死亡時，供應 10 秒的靈魂訊號。幽匿尖嘯體貼著導線：迴路過載時尖叫示警。
 - **機器：** 靈魂研磨機、靈魂淨化篩（把藍色幽匿的腐爛篩掉）、靈魂鑽頭、靈魂風扇、靈液泵、共鳴靈陣。**靈壓計**顯示負載；
   過載的迴路會燒掉周圍的靈魂。

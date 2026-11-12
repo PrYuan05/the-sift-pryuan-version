@@ -1,6 +1,6 @@
 """Check soul redstone (soulpower/SoulCircuit) on the running test server (./gradlew.bat runSiftTestServer) over RCON.
 Usage: python -I tools/progression/test_soul_redstone.py <project> [part]
-    part: wire | vanilla | plain | control | overload | gauge | beam | cover | catalyst | sensor | machines | addon | all
+    part: wire | vanilla | plain | control | overload | gauge | beam | cover | repeater | filter | note | singer | catalyst | sensor | machines | addon | all
 
 Run it with the mechanical add-on off (run-server/config/pysift.properties: kinetic_addon=auto or off, no Create):
 the base system must work without any shaft or cogwheel. The add-on's own checks are tools/progression/test_soul_power.py
@@ -248,7 +248,8 @@ def cover():
     settle()
     out = r(f"data get block 200 {Y} 203 Cover")
     expect("the cover is kept in the conduit's data", "polished_deepslate" in out, out[:100])
-    conduit("a covered conduit carries the signal", 200, Y, 203, 14, True)
+    check("a covered conduit carries the signal (power 14)", num(200, Y, 203, "Power"), 14)
+    expect("and gives off no light (look off)", is_block(200, Y, 203, "pysift:soul_conduit[look=off]"))
     conduit("and passes it on", 200, Y, 205, 13, True)
     expect("the lamp next to the covered conduit lights", is_block(201, Y, 203, "minecraft:redstone_lamp[lit=true]"))
     r(f"summon minecraft:armor_stand 200.5 {Y + 3} 203.5")
@@ -257,6 +258,85 @@ def cover():
     m = re.search(r"(-?[0-9.]+)d", out)
     check("a mob stands on the cover (full cube)", float(m.group(1)) if m else None, Y + 1, tol=0.0002)
     r("kill @e[type=minecraft:armor_stand]")
+
+
+def repeater():
+    """A soul repeater brings the signal back to 15, costs 16 SP, and passes nothing backwards."""
+    clear()
+    r(f"fill 200 {Y} 201 200 {Y} 212 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 213 pysift:soul_repeater[facing=south]")
+    r(f"fill 200 {Y} 214 200 {Y} 216 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 200 pysift:spirit_engine[facing=north]{FUEL}")
+    settle()
+    conduit("12 conduits out: strength 9", 200, Y, 212, 9, True)
+    conduit("past the repeater: back to 15", 200, Y, 214, 15, True)
+    expect("the repeater lights up", is_block(200, Y, 213, "pysift:soul_repeater[powered=true]"))
+    check("it costs 16 SP", num(200, Y, 200, "Load"), 16 / 256, tol=0.02)
+    r(f"setblock 200 {Y} 213 pysift:soul_repeater[facing=north]")      # turned round: nothing passes
+    settle()
+    conduit("a repeater turned the other way passes nothing", 200, Y, 214, 0, False)
+    conduit("and the near side is untouched", 200, Y, 212, 9, True)
+
+
+def filter_():
+    """A soul filter passes one kind of signal: soul only, or plain redstone only."""
+    clear()
+    # soul signal against a filter
+    r(f"fill 200 {Y} 201 200 {Y} 202 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 203 pysift:soul_filter[soul=false]")
+    r(f"fill 200 {Y} 204 200 {Y} 205 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 200 pysift:spirit_engine[facing=north]{FUEL}")
+    # plain signal against a filter
+    r(f"setblock 210 {Y - 1} 200 minecraft:stone")
+    r(f"setblock 210 {Y} 200 minecraft:lever[face=floor,powered=false]")
+    r(f"fill 211 {Y} 200 212 {Y} 200 pysift:soul_conduit")
+    r(f"setblock 213 {Y} 200 pysift:soul_filter[soul=true]")
+    r(f"fill 214 {Y} 200 215 {Y} 200 pysift:soul_conduit")
+    r(f"setblock 210 {Y} 200 minecraft:lever[face=floor,powered=true]")
+    settle()
+    conduit("plain-only filter stops the soul signal", 200, Y, 204, 0, False)
+    conduit("soul-only filter stops the plain signal", 214, Y, 200, 0, False)
+    r(f"setblock 200 {Y} 203 pysift:soul_filter[soul=true]")
+    r(f"setblock 213 {Y} 200 pysift:soul_filter[soul=false]")
+    settle()
+    conduit("soul-only filter passes the soul signal", 200, Y, 204, 13, True)
+    conduit("plain-only filter passes the plain signal", 214, Y, 200, 14, False)
+
+
+def note():
+    """A soul note block is triggered like a vanilla one: it is powered while the conduit next to it carries a signal."""
+    clear()
+    r(f"setblock 201 {Y} 202 pysift:soul_note_block[note=3]")
+    r(f"fill 200 {Y} 201 200 {Y} 203 pysift:soul_conduit")
+    settle(0.5)
+    expect("the conduit plugs into the note block", is_block(200, Y, 202, "pysift:soul_conduit[east=plug]"))
+    expect("silent without a signal", is_block(201, Y, 202, "pysift:soul_note_block[powered=false]"))
+    r(f"setblock 200 {Y} 200 pysift:spirit_engine[facing=north]{FUEL}")
+    settle()
+    expect("triggered by the soul signal", is_block(201, Y, 202, "pysift:soul_note_block[note=3,powered=true]"))
+
+
+def singer():
+    """A Singer within 3 blocks of a conduit sings into it: strength 15, 64 SP, enough for one grinder."""
+    clear()
+    r(f"fill 197 {Y - 1} 197 204 {Y - 1} 204 minecraft:stone")
+    r(f"fill 200 {Y} 200 200 {Y} 201 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 202 pysift:soul_grinder[facing=north]")
+    r(f"summon pysift:singer 202.5 {Y} 200.5 {{NoAI:1b,PersistenceRequired:1b}}")
+    sung = False
+    for _ in range(20):
+        time.sleep(0.5)
+        if is_block(200, Y, 200, "pysift:soul_conduit[look=soul]"):
+            sung = True
+            break
+    expect("the conduit next to a Singer carries a soul signal", sung)
+    settle(1)
+    check("the grinder runs on the song (strength 14)", num(200, Y, 202, "Speed"), speed_at(14))
+    check("load 60 / 64", num(200, Y, 202, "Load"), 60 / 64, tol=0.02)
+    r("kill @e[type=pysift:singer]")
+    time.sleep(3)
+    conduit("the Singer gone: the song stops", 200, Y, 200, 0, False)
+    r("kill @e[type=minecraft:item]")
 
 
 def catalyst():
@@ -334,7 +414,7 @@ def addon():
 
 
 parts = {"wire": wire, "vanilla": vanilla, "plain": plain, "control": control, "overload": overload, "gauge": gauge,
-         "beam": beam, "cover": cover, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
+         "beam": beam, "cover": cover, "repeater": repeater, "filter": filter_, "note": note, "singer": singer, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

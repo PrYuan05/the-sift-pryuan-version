@@ -17,6 +17,31 @@ public interface SoulConductor {
         return true;
     }
 
+    /** 訊號可以從這一面進來嗎？（靈魂中繼器只收背面） */
+    default boolean accepts(BlockState state, Direction side) {
+        return conducts(state, side);
+    }
+
+    /** 訊號可以從這一面出去嗎？（靈魂中繼器只從正面送出） */
+    default boolean emits(BlockState state, Direction side) {
+        return conducts(state, side);
+    }
+
+    /** 訊號到這裡補回強度 15 嗎？（靈魂中繼器） */
+    default boolean boosts(BlockState state) {
+        return false;
+    }
+
+    /** 這種訊號過得去嗎？soul = 靈魂訊號，否則是原版紅石訊號。（靈魂濾波器） */
+    default boolean passes(BlockState state, boolean soul) {
+        return true;
+    }
+
+    /** 不是機器的元件在強度 15 時吃的靈壓（SP）。 */
+    default float load(BlockState state) {
+        return 0;
+    }
+
     /**
      * 無線轉送器的方塊實體（紫龍晶光束）：訊號從發送端跳到接收端，每跳一次多扣一些強度。
      * 花費以「半格強度」計：2 = 少 1 級。

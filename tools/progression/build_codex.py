@@ -695,7 +695,52 @@ entry(C, "conduit", "pysift:soul_conduit", "Soul Conduit", "靈魂導線", 2, 0,
          "nothing. *A signal with no soul in it opens no door.*",
          "每座遠古城市的大門框底下，都有幾間裝滿活塞、紅石粉與感測器的房間。遠古人見過隙浮的歌聲線路，想用紅石照著做一套。"
          "他們的線路會動，卻什麼也沒帶著。*沒有靈魂的訊號，打不開任何一道門。*"),
+    text(("Hiding and reaching", "藏線與接線"),
+         "Right-click a conduit with **any full block** to wrap it in that block; an empty hand takes it off. A wrapped "
+         "conduit still carries the signal and gives off no light.\n\n"
+         "Where it meets a vanilla part the conduit grows the right end: a **collar** on lamps, pistons and hoppers, a "
+         "**bend to the floor** for dust, rails and repeaters, and a thin **tendril** out to levers, buttons and torches.",
+         "拿**任何完整方塊**對導線右鍵，導線就包成那個方塊的外觀；空手右鍵拆下來。包起來的導線照樣傳訊號，而且不發光。\n\n"
+         "碰到原版元件時，導線會長出合適的接頭：接紅石燈、活塞、漏斗用**接環**，接紅石粉、鐵軌、中繼器會**彎到地面**，"
+         "接拉桿、按鈕、紅石火把則伸出一條細細的**觸鬚**。"),
     recipe("crafting", "pysift:soul_conduit")], parents=["engine"])
+entry(C, "singer", "minecraft:goat_horn", "A Singer on the Line", "線上的歌者", 0, -2, [
+    text(("The song itself", "歌聲本身"),
+         "A soul signal is a song, so a **Singer** can be the engine. A Singer within 3 blocks of a conduit stops, faces "
+         "it and sings a whole set: the *Song of the Sieve* between three older tunes, about two and a half minutes. "
+         "While it sings, that conduit is a source: **strength 15, 64 SP** - one grinder, no fuel. Then it rests for "
+         "half a minute.\n\nKeep it fed: a Singer in the Overworld starves without spirit liquid or soul crystal near.",
+         "靈魂訊號就是歌聲，所以**歌者**自己就能當引擎。歌者在導線 3 格內會停下來、面向導線，唱完一整套歌：《篩網之歌》"
+         "穿插三首老曲子，大約兩分半鐘。牠唱歌的期間，那段導線就是訊號源：**強度 15、64 SP**，夠帶一台研磨機，不用燃料。"
+         "唱完休息半分鐘。\n\n要照顧好牠：歌者在主世界，附近沒有靈液或靈魂晶塊就會挨餓。"),
+    text(("The Mourner's song", "哀悼者的歌"),
+         "A **Mourner** sings too - backwards. Its song runs down the wire as a signal with **no soul**: the conduit turns "
+         "dead blue, lamps light, machines stay still.",
+         "**哀悼者**也唱歌，只是倒著唱。牠的歌沿著導線傳出去，卻是**沒有靈魂**的訊號：導線變成枯死的藍色，紅石燈會亮，機器不會動。")],
+      parents=["conduit"])
+entry(C, "parts", "pysift:soul_repeater", "Repeater and Filter", "中繼器與濾波器", 4, -3, [
+    text(("Soul Repeater", "靈魂中繼器"),
+         "Set it into a conduit line, pointing the way the signal should go. What comes in at the back leaves the front "
+         "at **strength 15** again. It never passes a signal backwards. Carrying a soul signal costs **16 SP**.",
+         "串在導線中間，朝著訊號要走的方向。從背面進來的訊號，從正面出去時補回**強度 15**，而且不會倒著走。"
+         "傳靈魂訊號時吃 **16 SP**。"),
+    recipe("crafting", "pysift:soul_repeater"),
+    text(("Soul Filter", "靈魂濾波器"),
+         "A conduit carries soul signals and plain redstone signals on the same wire. The filter lets only one kind "
+         "through; right-click to switch. **Red core:** soul signals only. **Blue core:** plain signals only - machines "
+         "past it stay still.",
+         "導線把靈魂訊號和原版紅石訊號放在同一條線上。濾波器只讓其中一種通過，右鍵切換。**紅色核心：**只過靈魂訊號。"
+         "**藍色核心：**只過原版訊號，後面的機器不會動。"),
+    recipe("crafting", "pysift:soul_filter")], parents=["gauge"])
+entry(C, "note", "pysift:soul_note_block", "Soul Note Block", "靈魂音符盒", 6, -3, [
+    text(("The eight notes", "八個音"),
+         "It holds the eight notes of the door's song; right-click to step through them. It sounds once when a signal "
+         "arrives: with a **soul signal** it is a Singer's voice, with a plain redstone signal only a dull knock.\n\n"
+         "Line up eight of them, feed them one after another through repeaters, and you can play **1 3 7 6 5 2 4 8** "
+         "at home.",
+         "它裝著開門那首歌的八個音，右鍵換音。訊號到達的那一刻響一聲：帶著**靈魂訊號**時是歌者的歌聲，只有原版紅石訊號時"
+         "只剩一聲悶響。\n\n排八個，用中繼器一個接一個送訊號，你就能在家裡奏出 **1 3 7 6 5 2 4 8**。"),
+    recipe("crafting", "pysift:soul_note_block")], parents=["parts"])
 entry(C, "sculk", "minecraft:sculk_catalyst", "Sculk on the Line", "線路上的幽匿", 2, -2, [
     text(("Old kin", "老親戚"),
          "Vanilla sculk still knows the song.\n\n"

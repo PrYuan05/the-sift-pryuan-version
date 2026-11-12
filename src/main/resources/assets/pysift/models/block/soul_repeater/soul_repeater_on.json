@@ -1,0 +1,216 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "pysift:block/soul_power/repeater_side_on",
+    "t1": "pysift:block/soul_power/repeater_end",
+    "t2": "pysift:block/soul_power/ring",
+    "t3": "pysift:block/soul_power/casing_top",
+    "particle": "pysift:block/soul_power/ring"
+  },
+  "elements": [
+    {
+      "from": [
+        5,
+        0,
+        5
+      ],
+      "to": [
+        11,
+        16,
+        11
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            5,
+            0,
+            11,
+            16
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            5,
+            0,
+            11,
+            16
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            5,
+            0,
+            11,
+            16
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            5,
+            0,
+            11,
+            16
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            5,
+            5,
+            11,
+            11
+          ],
+          "texture": "#t1"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        1,
+        4
+      ],
+      "to": [
+        12,
+        3,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            13,
+            12,
+            15
+          ],
+          "texture": "#t2"
+        },
+        "south": {
+          "uv": [
+            4,
+            13,
+            12,
+            15
+          ],
+          "texture": "#t2"
+        },
+        "east": {
+          "uv": [
+            4,
+            13,
+            12,
+            15
+          ],
+          "texture": "#t2"
+        },
+        "west": {
+          "uv": [
+            4,
+            13,
+            12,
+            15
+          ],
+          "texture": "#t2"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#t3"
+        },
+        "down": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#t3"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        13,
+        4
+      ],
+      "to": [
+        12,
+        15,
+        12
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ],
+          "texture": "#t2"
+        },
+        "south": {
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ],
+          "texture": "#t2"
+        },
+        "east": {
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ],
+          "texture": "#t2"
+        },
+        "west": {
+          "uv": [
+            4,
+            1,
+            12,
+            3
+          ],
+          "texture": "#t2"
+        },
+        "up": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#t3"
+        },
+        "down": {
+          "uv": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "texture": "#t3"
+        }
+      }
+    }
+  ]
+}

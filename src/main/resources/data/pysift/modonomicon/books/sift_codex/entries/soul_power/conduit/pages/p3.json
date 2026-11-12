@@ -1,10 +1,11 @@
 {
-  "type": "modonomicon:crafting_recipe",
-  "recipe_id_1": "pysift:soul_conduit",
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.soul_power.conduit.p3.title",
+  "show_title_separator": true,
   "id": "p3",
   "sort_number": 3,
   "condition": {
     "type": "modonomicon:none"
   },
-  "text": ""
+  "text": "book.pysift.sift_codex.soul_power.conduit.p3.text"
 }

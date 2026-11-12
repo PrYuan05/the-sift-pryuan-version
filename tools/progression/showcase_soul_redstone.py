@@ -31,9 +31,10 @@ who = who if isinstance(who, str) else " ".join(who)
 name = who.rsplit(":", 1)[-1].strip().split(",")[0].strip()
 print("player:", name)
 X, Y, Z = 300, 140, 300
-r(f"forceload add {X - 10} {Z - 10} {X + 40} {Z + 40}")
-r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y + 8} {Z + 30} minecraft:air")
-r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y - 1} {Z + 30} minecraft:polished_deepslate")
+r(f"forceload add {X - 10} {Z - 10} {X + 40} {Z + 44}")
+r(f"kill @e[type=!minecraft:player,x={X - 6},y={Y - 2},z={Z - 6},dx=42,dy=12,dz=42]")
+r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y + 6} {Z + 36} minecraft:air")
+r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y - 1} {Z + 36} minecraft:polished_deepslate")
 r("time set midnight")                       # the glow shows best in the dark
 r("gamerule advance_time false")
 r("gamerule spawn_monsters false")
@@ -131,6 +132,30 @@ r(f"setblock {X + 12} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
 r(f"fill {X + 12} {Y} {z + 1} {X + 12} {Y} {z + 5} pysift:soul_conduit")
 r(f"setblock {X + 11} {Y} {z + 3} minecraft:sculk_shrieker")
 r(f"fill {X + 13} {Y} {z + 1} {X + 13} {Y} {z + 5} pysift:soul_grinder[facing=north]")      # five grinders: overloaded
+
+# ---- row 6: stage two - a Singer on the line, repeater, filters, the eight note blocks
+z = Z + 28
+r(f"fill {X - 2} {Y} {z - 2} {X + 3} {Y} {z + 2} minecraft:glass")                # a pen for the Singer
+r(f"fill {X - 1} {Y} {z - 1} {X + 2} {Y} {z + 1} minecraft:air")
+r(f"setblock {X - 1} {Y} {z + 1} pysift:soul_crystal_block")                      # keeps it from starving
+r(f"fill {X + 3} {Y} {z} {X + 6} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 7} {Y} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:cobblestone",count:64}}')
+r(f"summon pysift:singer {X + 1} {Y} {z + 0.5} {{PersistenceRequired:1b}}")
+# engine -> 12 conduits -> repeater -> conduits; a soul-only and a plain-only filter on two branches
+r(f"fill {X + 12} {Y} {z} {X + 23} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 24} {Y} {z} pysift:soul_repeater[facing=east]")
+r(f"fill {X + 25} {Y} {z} {X + 28} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 26} {Y} {z - 1} pysift:soul_filter[soul=true]")
+r(f"setblock {X + 26} {Y} {z - 2} pysift:soul_conduit")
+r(f"setblock {X + 28} {Y} {z - 1} pysift:soul_filter[soul=false]")
+r(f"setblock {X + 28} {Y} {z - 2} pysift:soul_conduit")
+r(f"setblock {X + 11} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+# the eight notes along a wire with a lever: flick it to hear the chord, right-click a box to retune it
+z = Z + 32
+r(f"setblock {X + 11} {Y} {z} minecraft:lever[face=floor,powered=false]")
+r(f"fill {X + 12} {Y} {z} {X + 27} {Y} {z} pysift:soul_conduit")
+for i in range(8):
+    r(f"setblock {X + 13 + i * 2} {Y} {z + 1} pysift:soul_note_block[note={i + 1}]")
 
 # camera
 r(f"gamemode creative {name}")

@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.SculkShriekerBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.block.RedstoneWireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import pryuan05.pysift.effect.ModEffects;
 import pryuan05.pysift.sound.ModSounds;
@@ -56,31 +57,58 @@ public final class SoulCircuit {
     public static final int CATALYST_TICKS = 200;
     public static final int CATALYST_CAPACITY = 32;
     private static final int SHRIEK_TICKS = 90;
-    private static final Map<ResourceKey<Level>, Map<Long, Long>> CATALYST = new HashMap<>();
+    /** 歌者對著導線唱歌時提供的容量（SP）：夠帶一台研磨機。 */
+    public static final int SINGER_CAPACITY = 64;
+    /** 餵進導線的臨時來源（催化體、歌者、哀悼者）：位置 → {到期時間, 容量, 1 = 有靈魂}。 */
+    private static final Map<ResourceKey<Level>, Map<Long, long[]>> FED = new HashMap<>();
 
     private SoulCircuit() {
     }
 
     /** 貼著綻放的催化體的導線：從現在起 {@link #CATALYST_TICKS} tick 是靈魂訊號源。 */
     public static void charge(ServerLevel level, BlockPos conduit) {
-        CATALYST.computeIfAbsent(level.dimension(), k -> new HashMap<>()).put(conduit.asLong(), level.getGameTime() + CATALYST_TICKS);
-        invalidate();
+        feed(level, conduit, CATALYST_TICKS, CATALYST_CAPACITY, true);
+    }
+
+    /**
+     * 這段導線接下來 ticks tick 是訊號源：soul = 靈魂訊號（強度 15，容量 capacity SP）；否則是沒有靈魂的訊號（強度 15，
+     * 只驅動原版元件）。導線自己會定期重算，時間到就熄掉。
+     */
+    public static void feed(ServerLevel level, BlockPos conduit, int ticks, int capacity, boolean soul) {
+        Map<Long, long[]> map = FED.computeIfAbsent(level.dimension(), k -> new HashMap<>());
+        long[] old = map.put(conduit.asLong(), new long[]{level.getGameTime() + ticks, capacity, soul ? 1 : 0});
+        if (old == null || old[0] <= level.getGameTime() || old[2] != (soul ? 1 : 0)) {
+            invalidate();
+        }
+        BlockState state = level.getBlockState(conduit);
+        if (state.getBlock() instanceof SoulConduitBlock && !level.getBlockTicks().hasScheduledTick(conduit, state.getBlock())) {
+            level.scheduleTick(conduit, state.getBlock(), 1);
+        }
+    }
+
+    private static long[] fed(ServerLevel level, BlockPos conduit) {
+        Map<Long, long[]> map = FED.get(level.dimension());
+        long[] entry = map == null ? null : map.get(conduit.asLong());
+        if (entry != null && entry[0] <= level.getGameTime()) {
+            map.remove(conduit.asLong());
+            return null;
+        }
+        return entry;
     }
 
     public static boolean charged(ServerLevel level, BlockPos conduit) {
-        Map<Long, Long> map = CATALYST.get(level.dimension());
-        if (map == null) {
-            return false;
+        return fed(level, conduit) != null;
+    }
+
+    /** 最近的一段靈魂導線（水平 radius 格、上下 2 格內）；沒有就回傳 null。 */
+    public static BlockPos conduitNear(ServerLevel level, BlockPos from, int radius) {
+        BlockPos best = null;
+        for (BlockPos p : BlockPos.betweenClosed(from.offset(-radius, -1, -radius), from.offset(radius, 2, radius))) {
+            if (level.getBlockState(p).getBlock() instanceof SoulConduitBlock && (best == null || p.distSqr(from) < best.distSqr(from))) {
+                best = p.immutable();
+            }
         }
-        Long until = map.get(conduit.asLong());
-        if (until == null) {
-            return false;
-        }
-        if (until <= level.getGameTime()) {
-            map.remove(conduit.asLong());
-            return false;
-        }
-        return true;
+        return best;
     }
 
     private record Edge(BlockPos to, int cost) {
@@ -127,7 +155,9 @@ public final class SoulCircuit {
                 BlockPos n = pos.relative(dir);
                 BlockState ns = level.getBlockState(n);
                 if (ns.getBlock() instanceof SoulConductor other && other.conducts(ns, dir.getOpposite())) {
-                    out.add(new Edge(n, 1));
+                    if (conductor.emits(state, dir) && other.accepts(ns, dir.getOpposite())) {
+                        out.add(new Edge(n, 1));
+                    }
                     if (seen.add(n)) {
                         queue.add(n);
                     }
@@ -158,24 +188,39 @@ public final class SoulCircuit {
                 capacity += Math.round(source.capacityPerRpm() * Math.abs(source.sourceSpeed()));
             }
         }
+        Map<BlockPos, Integer> plainCost = new HashMap<>();
+        Set<BlockPos> boosters = new HashSet<>(), noSoul = new HashSet<>(), noPlain = new HashSet<>();
         for (BlockPos pos : members) {
-            if (level.getBlockState(pos).getBlock() instanceof SoulConduitBlock && charged(level, pos)) {
+            BlockState state = level.getBlockState(pos);
+            SoulConductor conductor = (SoulConductor) state.getBlock();
+            if (conductor.boosts(state)) {
+                boosters.add(pos);
+            }
+            if (!conductor.passes(state, true)) {
+                noSoul.add(pos);
+            }
+            if (!conductor.passes(state, false)) {
+                noPlain.add(pos);
+            }
+            long[] fed = state.getBlock() instanceof SoulConduitBlock ? fed(level, pos) : null;
+            if (fed != null && fed[2] == 1) {       // 催化體、歌者
                 soulCost.put(pos, 0);
-                capacity += CATALYST_CAPACITY;
+                capacity += (int) fed[1];
+            } else if (fed != null) {               // 哀悼者：沒有靈魂的歌
+                plainCost.put(pos, 0);
             }
         }
-        spread(soulCost, edges);
+        spread(soulCost, edges, boosters, noSoul);
         // 3. 原版訊號：貼著靈魂導線的原版元件
-        Map<BlockPos, Integer> plainCost = new HashMap<>();
         for (BlockPos pos : members) {
             if (level.getBlockState(pos).getBlock() instanceof SoulConduitBlock) {
                 int ext = vanillaInput(level, pos);
                 if (ext > 0) {
-                    plainCost.put(pos, (SoulSignal.MAX_STRENGTH - ext) * 2);
+                    plainCost.merge(pos, (SoulSignal.MAX_STRENGTH - ext) * 2, Math::min);
                 }
             }
         }
-        spread(plainCost, edges);
+        spread(plainCost, edges, boosters, noPlain);
         // 4. 需求
         Map<BlockPos, Integer> strength = new HashMap<>();
         float stress = 0;
@@ -203,6 +248,11 @@ public final class SoulCircuit {
             }
             if (level.getBlockEntity(pos) instanceof KineticBlockEntity member) {
                 member.setCircuit(result, SoulSignal.speed(soul));
+            } else if (state.getBlock() instanceof SoulPartBlock && state.hasProperty(BlockStateProperties.POWERED)) {
+                boolean lit = soul > 0 || strengthOf(plainCost.getOrDefault(pos, UNREACHED)) > 0;
+                if (state.getValue(BlockStateProperties.POWERED) != lit) {
+                    level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, lit), Block.UPDATE_CLIENTS);
+                }
             }
         }
         // 6. 過載：引擎記錄持續多久；太久了，機器就燒掉周圍生物的靈魂
@@ -249,7 +299,8 @@ public final class SoulCircuit {
     }
 
     /** 多來源的最短花費（花費都是很小的非負整數）。 */
-    private static void spread(Map<BlockPos, Integer> cost, Map<BlockPos, List<Edge>> edges) {
+    private static void spread(Map<BlockPos, Integer> cost, Map<BlockPos, List<Edge>> edges, Set<BlockPos> boosters, Set<BlockPos> blocked) {
+        cost.keySet().removeAll(blocked);
         PriorityQueue<Map.Entry<BlockPos, Integer>> open = new PriorityQueue<>(Map.Entry.comparingByValue());
         for (Map.Entry<BlockPos, Integer> e : cost.entrySet()) {
             open.add(Map.entry(e.getKey(), e.getValue()));
@@ -262,6 +313,12 @@ public final class SoulCircuit {
             }
             for (Edge edge : edges.getOrDefault(cur.getKey(), List.of())) {
                 int c = cur.getValue() + edge.cost();
+                if (blocked.contains(edge.to())) {
+                    continue;                           // 濾波器擋掉這一種訊號
+                }
+                if (c < limit && boosters.contains(edge.to())) {
+                    c = 0;                              // 靈魂中繼器：補回強度 15
+                }
                 if (c < limit && c < cost.getOrDefault(edge.to(), UNREACHED)) {
                     cost.put(edge.to(), c);
                     open.add(Map.entry(edge.to(), c));
@@ -276,7 +333,10 @@ public final class SoulCircuit {
 
     /** 機器在強度 15 時的需求（SP）。 */
     public static float fullLoad(BlockState state) {
-        return state.getBlock() instanceof SoulKinetic kinetic ? kinetic.impact(state) * SoulSignal.SPEED : 0;
+        if (state.getBlock() instanceof SoulKinetic kinetic) {
+            return kinetic.impact(state) * SoulSignal.SPEED;
+        }
+        return state.getBlock() instanceof SoulConductor conductor ? conductor.load(state) : 0;
     }
 
     /**

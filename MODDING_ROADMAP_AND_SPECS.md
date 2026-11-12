@@ -209,6 +209,7 @@ flowchart TD
 | 控制 | 機器貼著原版訊號：暫停、不計負載。引擎貼著原版訊號：關閉、燃料暫停。貼著的靈魂元件不算。 | `SoulSignal.externalRedstone` |
 | 無線 | 只剩紫龍晶光束：不損耗，只從發射器到接收器。靈魂振波（和光束重疊）與靈脈節點（導線本來就能穿過岩層）已於 2026-11-13 移除。 | `SoulConductor.Relay`（`CharoiteBeamBlockEntity`） |
 | 導線外觀 | 每面的接頭 none／wire／plug／low；強度存在方塊實體。伸向拉桿、按鈕等小元件的觸鬚與「包覆」（右鍵完整方塊，存在方塊實體 `Cover`，外框變完整方塊）由用戶端渲染。 | `SoulConduitBlock`、`client/soulpower/ConduitRenderer` |
+| 歌者與元件（第二階段） | 歌者在導線 3 格內對著它唱 `SingerSongs.LINE`（篩網之歌＋三首曲子），期間 `SoulCircuit.feed` 讓那段導線成為來源（15、64 SP），唱完休息 600 tick；哀悼者哭的時候餵沒有靈魂的訊號。靈魂中繼器（`accepts`／`emits`／`boosts`，16 SP）、靈魂濾波器（`passes`）、靈魂音符盒（`RitualDiscs` 的八音）。 | `SingerEntity.tickLineSong`、`SoulRepeaterBlock`、`SoulFilterBlock`、`SoulNoteBlock` |
 | 幽匿接點 | 催化體綻放時，貼著它的導線 10 秒內是來源（強度 15、32 SP）。迴路過載時，貼著導線的尖嘯體尖叫（不召喚監守者）。感測器的輸出是原版訊號。 | `SoulCircuit.charge`／`shriek` |
 | 兩個求解器 | 機械層啟用時，方塊實體同時收到靈魂迴路與轉速網路的結果：只有一邊有動力源就聽那一邊，兩邊都有就聽負載重的那一邊；POWERED 由方塊實體決定。引擎的過載計時兩邊各算各的。 | `KineticBlockEntity.apply` |
 | 測試 | `tools/progression/test_soul_redstone.py`（機械層關閉，60 項）；`test_soul_power.py`（`kinetic_addon=on`）。 | |

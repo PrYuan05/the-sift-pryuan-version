@@ -51,6 +51,21 @@ public final class SingerSongs {
     /** 正著唱的開門旋律 1 3 7 6 5 2 4 8（終章：歌者在遠古城市門框前唱給門聽，Homecoming）。 */
     public static final Song OPENING = degrees("Opening (the right octave)", new int[]{1, 3, 7, 6, 5, 2, 4, 8}, 2);
 
+    /**
+     * 《篩網之歌》：歌者對著靈魂導線唱的工作歌。先唱一遍開門的八音，再用同樣八個音走四段變奏，最後回到八音收尾
+     * （48 個音，每個音 2 格）。歌聲流進導線，就是靈魂訊號。
+     */
+    public static final Song SIEVE = degrees("Song of the Sieve", new int[]{
+            1, 3, 7, 6, 5, 2, 4, 8,
+            8, 6, 5, 3, 5, 6, 8, 8,
+            1, 2, 3, 5, 3, 2, 1, 1,
+            4, 5, 6, 8, 7, 6, 5, 5,
+            8, 7, 6, 5, 4, 3, 2, 1,
+            1, 3, 7, 6, 5, 2, 4, 8}, 2);
+
+    /** 對著導線唱的整套歌：篩網之歌，接著三首哼唱的曲子（合起來大約兩分半鐘）。 */
+    public static final List<Song> LINE = List.of(SIEVE, LULLABY, SIEVE, ODE_TO_JOY, SIEVE, TWINKLE);
+
     /** 等唱片時輪流哼的曲子。 */
     public static final List<Song> WAITING = List.of(LULLABY, ODE_TO_JOY, TWINKLE);
 

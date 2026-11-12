@@ -529,6 +529,9 @@
     {
       "id": "pysift:soul_gearshift",
       "required": false
-    }
+    },
+    "pysift:soul_repeater",
+    "pysift:soul_filter",
+    "pysift:soul_note_block"
   ]
 }

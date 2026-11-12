@@ -41,6 +41,10 @@ public final class SoulPower {
     public static final Block SPIRIT_ENGINE = register("spirit_engine", SpiritEngineBlock::new, 3.5f);
     /** 靈魂導線：靈魂紅石的線（{@link SoulConduitBlock}）。 */
     public static final Block SOUL_CONDUIT = registerConduit("soul_conduit");
+    /** 串在導線上的元件與靈魂音符盒（靈魂紅石第二階段）。 */
+    public static final Block SOUL_REPEATER = register("soul_repeater", SoulRepeaterBlock::new, 2.0f);
+    public static final Block SOUL_FILTER = register("soul_filter", SoulFilterBlock::new, 2.0f);
+    public static final Block SOUL_NOTE_BLOCK = register("soul_note_block", SoulNoteBlock::new, 1.5f);
     // 機械擴充（{@link KineticAddon}）：沒啟用時這七個是 null，完全不註冊
     public static final Block SOUL_SHAFT = kinetic("soul_shaft", SoulShaftBlock::new, 2.0f);
     public static final Block SOUL_COGWHEEL = kinetic("soul_cogwheel", p -> new SoulCogBlock(false, p), 2.0f);

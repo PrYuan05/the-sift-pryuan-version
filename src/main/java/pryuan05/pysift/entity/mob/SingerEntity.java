@@ -378,6 +378,7 @@ public class SingerEntity extends PysiftAnimalEntity {
             tickMourning(server);
             tickHollowing(server);
             tickChoir(server);
+            tickLineSong(server);
         }
         if (this.actionTicks > 0 && !this.level().isClientSide() && --this.actionTicks == 0) {
             // 玩夠了回去繼續等；召喚完傀儡之後，儀式歌者改成等玩家放唱片（await）
@@ -571,6 +572,62 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     public boolean isMourning() {
         return mournTicks > 0;
+    }
+
+    // ---------------------------------------------------------------- singing into a soul conduit (soul redstone)
+    /** 對著導線唱歌：LINE_RANGE 格內有靈魂導線時站定唱完一整套歌（{@link SingerSongs#LINE}），唱完休息 LINE_REST tick。 */
+    private static final int LINE_RANGE = 3, LINE_REST = 600, LINE_GAP = 20;
+    private net.minecraft.core.BlockPos lineConduit;
+    private int lineSong, lineRest;
+
+    public boolean isSingingToConduit() {
+        return lineConduit != null;
+    }
+
+    /**
+     * 歌聲就是靈魂訊號：歌者唱歌的期間，那段導線是訊號源（強度 15、{@link pryuan05.pysift.soulpower.SoulCircuit#SINGER_CAPACITY} SP）。
+     * 儀式歌者、回音窟的合唱團與正在對監守者唱歌的歌者不唱這套歌。
+     */
+    private void tickLineSong(ServerLevel level) {
+        if (isRitual() || mournTicks > 0 || this.entityTags().contains(DEN_CHOIR) || this.entityTags().contains(DEN_LEAD)) {
+            lineConduit = null;
+            return;
+        }
+        if (lineRest > 0) {
+            lineRest--;
+            return;
+        }
+        if (lineConduit == null) {
+            if ((this.tickCount + this.getId()) % 40 != 0) {
+                return;
+            }
+            lineConduit = pryuan05.pysift.soulpower.SoulCircuit.conduitNear(level, this.blockPosition(), LINE_RANGE);
+            if (lineConduit == null) {
+                return;
+            }
+            humTicks = 0;
+            lineSong = 0;
+            this.triggerAnim("skill", "sing");
+        }
+        if (!(level.getBlockState(lineConduit).getBlock() instanceof pryuan05.pysift.soulpower.SoulConduitBlock)
+                || !lineConduit.closerThan(this.blockPosition(), LINE_RANGE + 3)) {
+            lineConduit = null;     // 導線被拆了，或歌者被推開了
+            return;
+        }
+        this.getNavigation().stop();
+        this.getLookControl().setLookAt(lineConduit.getX() + 0.5, lineConduit.getY() + 0.5, lineConduit.getZ() + 0.5, 30.0f, 30.0f);
+        if (this.tickCount % 10 == 0) {
+            pryuan05.pysift.soulpower.SoulCircuit.feed(level, lineConduit, 30, pryuan05.pysift.soulpower.SoulCircuit.SINGER_CAPACITY, true);
+        }
+        if (this.tickCount % 20 == 0) {     // 音符從歌者飄向導線
+            level.sendParticles(ParticleTypes.NOTE, (this.getX() + lineConduit.getX() + 0.5) / 2, this.getY() + this.getBbHeight() * 0.8,
+                    (this.getZ() + lineConduit.getZ() + 0.5) / 2, 1, 0.3, 0.2, 0.3, 1.0);
+        }
+        if (tickSong(level, SingerSongs.LINE.get(lineSong), HUM_STEP, LINE_GAP) && ++lineSong >= SingerSongs.LINE.size()) {
+            lineSong = 0;
+            lineRest = LINE_REST;
+            lineConduit = null;
+        }
     }
 
     /**

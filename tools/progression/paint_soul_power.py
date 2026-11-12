@@ -772,6 +772,133 @@ save("conduit_soul", conduit(301, LIVE_SCULK, True))
 save("conduit_plain", conduit(302, DEAD_SCULK, True))
 save("conduit_off", conduit(303, HUSK, False))
 
+# ---------------------------------------------------------------- soul redstone, stage two: note block, repeater, filter
+# Material brief (minecraft-texture-crafter, step 0)
+#   soul note block
+#     identity    a Singer's instrument: a resonator box of stained soul willow in the machines' patina frame; the comb of
+#                 siftite reeds on its sides is the octave (longest reed = lowest note), the top is a sound hole ringed by
+#                 eight tuning pegs. Deep cool ambient light, shared dark = blue-black (SLATE[0]).
+#     surfaces    willow panel: organic, soft, horizontal grain in 1x3..1x5 clusters; reeds and pegs: siftite, metal, high
+#                 contrast with a bright top pixel; sound hole: 80 % dark, a small soul-light focus.
+#     real world  a music box comb (steel reeds of stepped length), the sound hole and pegs of a lute.
+#     anchor      block/note_block: a dark frame round a warm panel (frame 1 px there, our casing frame 2 px), panel
+#                 detail in a regular rhythm. Only the proportions; palette, reeds and pegs are new.
+#   soul repeater
+#     identity    a check valve on a conduit: a patina sleeve clamped round the vein, two siftite chevrons showing the
+#                 way the song flows. The vein is a dry husk when idle, living red sculk when a signal passes.
+#     surfaces    sleeve: bronze, sheen along the axis; vein: organic, glowing pores (80/20); chevrons: bright metal.
+#     real world  a brass check valve / pipe union with its cast flow arrow.
+#     anchor      block/repeater: reads its direction at a glance. Structure is ours (a sleeve, not a slab).
+#   soul filter
+#     identity    a sight glass on a conduit: a patina cage round a charoite lens; the core behind the lens shows which
+#                 signal it lets through - living red (soul) or dead blue (plain).
+#     surfaces    lens: crystal, high contrast, a facet lit top-left and a reflection bottom-right; cage: bronze.
+#     real world  an inline sight glass / strainer; Siberian charoite.
+#     anchor      block/observer's framed aperture, our own casing frame.
+def note_side():
+    t = casing(310, base=2, glow=0)
+    grain(t, 3, 3, 12, 12, WOOD, 3)
+    for x in range(3, 13):                      # the panel sits in the frame: shadow under the top bar, light on the sill
+        t.set(x, 3, WOOD[1])
+        t.set(x, 12, WOOD[4])
+    for y in range(3, 13):
+        t.set(3, y, WOOD[1])
+    # the comb: a bar across the top, four siftite reeds of stepped length hanging from it (lowest note on the left)
+    t.rect(4, 4, 11, 4, SIFTITE[5])
+    t.rect(4, 5, 11, 5, SIFTITE[2])
+    t.set(11, 4, SIFTITE[3])
+    for x, length in ((4, 6), (6, 5), (8, 3), (10, 2)):
+        for y in range(6, 6 + length):
+            t.set(x, y, SIFTITE[4])             # the reed's lit face
+            t.set(x + 1, y, SIFTITE[1])         # and its shadowed edge
+        t.set(x, 6, SIFTITE[6])
+        t.set(x, 5 + length, SIFTITE[3])
+    return t
+
+
+def note_top():
+    t = casing(311, base=2, glow=0)
+    grain(t, 3, 3, 12, 12, WOOD, 3)
+    for y in range(16):
+        for x in range(16):
+            d = math.hypot(x - 7.5, y - 7.5)
+            if d < 2.9:                         # the sound hole, a soul light deep inside
+                t.set(x, y, SLATE[0] if d > 1.2 else SOUL[2])
+            elif d < 3.9:                       # its rim: lit on the far (bottom right) side, where light falls into it
+                t.set(x, y, WOOD[5] if (x - 7.5) + (y - 7.5) > 1 else WOOD[1])
+    t.set(7, 7, SOUL[4])
+    for k in range(8):                          # eight tuning pegs round the hole: the eight notes
+        a = math.radians(22.5 + 45 * k)
+        x, y = round(7.5 + 5.0 * math.cos(a)), round(7.5 + 5.0 * math.sin(a))
+        t.set(x, y, SIFTITE[5] if x + y < 15 else SIFTITE[3])
+    return t
+
+
+def repeater_side(vein):
+    """Flow runs up the sheet (the model is built along +Y). Columns 4..11 are seen: sleeve, vein, chevrons."""
+    t = Tex(320 + len(vein))
+    grain(t, 0, 0, 15, 15, PATINA, 3, horizontal=False)
+    for y in range(16):
+        t.set(5, y, PATINA[5])                  # sheen along the sleeve's lit edge, shadow on the other
+        t.set(10, y, PATINA[1])
+        for x, c in ((7, vein[min(3, len(vein) - 1)]), (8, vein[1])):
+            t.set(x, y, c)                      # the vein seen through the slot in the sleeve
+    lit = len(vein) > 6
+    for y in (2, 6, 10, 14):                    # pores of the vein (they only glow when it is alive)
+        t.set(7, y, vein[-2] if lit else vein[min(4, len(vein) - 1)])
+    for y0 in (4, 10):                          # two chevrons pointing with the flow
+        for dx, dy in ((0, 0), (1, 1), (2, 2)):
+            t.set(7 - dx - 0, y0 + dy, SIFTITE[5])
+            t.set(8 + dx, y0 + dy, SIFTITE[3])
+            t.set(7 - dx, y0 + dy + 1, SIFTITE[1])
+            t.set(8 + dx, y0 + dy + 1, SIFTITE[1])
+    for y, c in ((0, PATINA[6]), (1, PATINA[2]), (14, PATINA[5]), (15, PATINA[1])):   # the two clamps
+        for x in range(4, 12):
+            t.set(x, y, c)
+    return t
+
+
+def repeater_end():
+    t = Tex(325)
+    grain(t, 0, 0, 15, 15, PATINA, 3)
+    bevel(t, 4, 4, 11, 11, PATINA, 5, 1)
+    for y in range(6, 10):
+        for x in range(6, 10):
+            t.set(x, y, SLATE[1] if x + y > 15 else SLATE[0])
+    t.rect(7, 7, 8, 8, LIVE_SCULK[2])
+    t.set(7, 7, LIVE_SCULK[5])
+    return t
+
+
+def filter_face(core):
+    """Seen from 3..12: a bronze cage (2 px), a charoite lens, and the core behind it (soul red / dead blue)."""
+    t = Tex(330 + len(core) + core[0][0])
+    grain(t, 0, 0, 15, 15, SLATE, 2)
+    for i in (3, 4):
+        bevel(t, i, i, 15 - i, 15 - i, PATINA, 5 if i == 3 else 3, 1 if i == 3 else 2)
+    for y in range(5, 11):
+        for x in range(5, 11):                  # the lens: a facet lit top-left, deep in the middle, a reflection bottom-right
+            d = (x - 5) + (y - 5)
+            t.set(x, y, CHAROITE[5] if d < 2 else CHAROITE[4] if d < 4 else CHAROITE[2] if d < 8 else CHAROITE[3])
+    t.set(5, 5, CHAROITE[6])
+    t.set(10, 10, CHAROITE[4])
+    t.rect(6, 6, 9, 9, core[1])                 # the core that tells the mode: a 4 px bead of sculk behind the lens
+    t.rect(6, 6, 8, 8, core[3])
+    t.rect(7, 7, 8, 8, core[2])
+    t.set(6, 6, core[-2])
+    t.set(7, 6, core[-2])
+    t.set(6, 7, core[4])
+    return t
+
+
+save("note_side", note_side())
+save("note_top", note_top())
+save("repeater_side", repeater_side(HUSK))
+save("repeater_side_on", repeater_side(LIVE_SCULK))
+save("repeater_end", repeater_end())
+save("filter_soul", filter_face(LIVE_SCULK))
+save("filter_plain", filter_face(DEAD_SCULK))
+
 # ------------------------------------------------------------------ write
 OUT.mkdir(parents=True, exist_ok=True)
 for name, im in TEX.items():

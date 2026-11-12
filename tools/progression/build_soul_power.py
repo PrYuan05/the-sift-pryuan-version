@@ -31,6 +31,9 @@ def wj(path, obj):
 BLOCKS = {
     "spirit_engine": ("Spirit Engine", "靈液引擎", False),
     "soul_conduit": ("Soul Conduit", "靈魂導線", False),
+    "soul_repeater": ("Soul Repeater", "靈魂中繼器", False),
+    "soul_filter": ("Soul Filter", "靈魂濾波器", False),
+    "soul_note_block": ("Soul Note Block", "靈魂音符盒", True),
     "soul_shaft": ("Soul Shaft", "靈魂傳動軸", False),
     "soul_cogwheel": ("Soul Cogwheel", "靈魂齒輪", False),
     "large_soul_cogwheel": ("Large Soul Cogwheel", "大靈魂齒輪", False),
@@ -436,8 +439,28 @@ wj(D / "pysift/tags/block/soul_conduit_plugs.json", {"replace": False, "values":
     "minecraft:copper_bulb", "minecraft:exposed_copper_bulb", "minecraft:weathered_copper_bulb", "minecraft:oxidized_copper_bulb",
     "minecraft:waxed_copper_bulb", "minecraft:waxed_exposed_copper_bulb", "minecraft:waxed_weathered_copper_bulb",
     "minecraft:waxed_oxidized_copper_bulb", "#minecraft:doors", "#minecraft:trapdoors", "#minecraft:fence_gates",
-    "minecraft:sculk_catalyst", "minecraft:sculk_shrieker"]})
+    "minecraft:sculk_catalyst", "minecraft:sculk_shrieker", "pysift:soul_note_block"]})
 wj(D / "pysift/tags/block/soul_conduit_low.json", {"replace": False, "values": ["minecraft:redstone_wire"]})
+# soul repeater (built along +Y: the signal leaves through the top, FACING): a sleeve with two clamps
+REPEATER = {on: [Box([5, 0, 5], [11, 16, 11], faces(T("repeater_side_on" if on else "repeater_side"), T("repeater_end"), T("repeater_end"))),
+                 Box([4, 1, 4], [12, 3, 12], faces(PATINA, CASING_TOP, CASING_TOP)),
+                 Box([4, 13, 4], [12, 15, 12], faces(PATINA, CASING_TOP, CASING_TOP))] for on in (False, True)}
+wj(A / "models/block/soul_repeater/soul_repeater.json", model(REPEATER[False], PATINA))
+wj(A / "models/block/soul_repeater/soul_repeater_on.json", model(REPEATER[True], PATINA))
+states("soul_repeater", UPROT, "facing", "pysift:block/soul_repeater/soul_repeater_on")
+# soul filter: a caged lens with a stub to every side (it joins on all six)
+def filter_boxes(tex):
+    return [Box([3, 3, 3], [13, 13, 13], tex)] + [Box(f, t, PATINA) for f, t in (turn(d, ([6, 6, 0], [10, 10, 3])) for d in DIRS)]
+
+
+wj(A / "models/block/soul_filter/soul_filter.json", model(filter_boxes(T("filter_soul")), PATINA))
+wj(A / "models/block/soul_filter/soul_filter_plain.json", model(filter_boxes(T("filter_plain")), PATINA))
+wj(A / "blockstates/soul_filter.json", {"variants": {"soul=true": {"model": "pysift:block/soul_filter/soul_filter"},
+                                                      "soul=false": {"model": "pysift:block/soul_filter/soul_filter_plain"}}})
+# soul note block: a full cube, the comb on the sides, the sound hole on top and bottom
+wj(A / "models/block/soul_note_block/soul_note_block.json",
+   {"parent": "minecraft:block/cube_column", "textures": {"side": T("note_side"), "end": T("note_top")}})
+wj(A / "blockstates/soul_note_block.json", {"variants": {"": {"model": "pysift:block/soul_note_block/soul_note_block"}}})
 states("soul_hand_crank", UPROT, "facing")
 wj(A / "blockstates/resonance_core.json", {"variants": {f"powered={v}": {"model": "pysift:block/resonance_core/resonance_core"}
                                                          for v in ("false", "true")}})
@@ -477,6 +500,8 @@ ITEMS = {
     "soul_gauge": GAUGE + PARTS["needle"],
     "soul_gearbox": GEARBOX + [b.turned_east() for b in PARTS["bevel"] + PARTS["half_shaft"]]
                     + [b.mirrored_x() for b in (b2.turned_east() for b2 in PARTS["bevel"] + PARTS["half_shaft"])],
+    "soul_repeater": REPEATER[True],
+    "soul_filter": filter_boxes(T("filter_soul")),
     "soul_shaft": SHAFT,
     "soul_cogwheel": PARTS["cog"],
     "large_soul_cogwheel": PARTS["large_cog"],
@@ -535,6 +560,10 @@ SHAPED = {
     # soul conduit: redstone carried by a soul (soul essence) in a patina sleeve
     "soul_conduit": ([" R ", "PEP", " R "], {"R": "minecraft:redstone", "P": "pysift:patina_ingot", "E": "pysift:soul_essence"}, 6),
     "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_conduit", "C": "pysift:patina_ingot"}, 1),
+    "soul_repeater": ([" R ", "CGC"], {"R": "minecraft:repeater", "C": "pysift:soul_conduit", "G": "pysift:siftite_gear"}, 1),
+    "soul_filter": ([" A ", "CXC"], {"A": "minecraft:amethyst_shard", "C": "pysift:soul_conduit", "X": "pysift:charoite"}, 1),
+    "soul_note_block": (["WWW", "WNW", "WCW"], {"W": "pysift:soul_willow_planks", "N": "minecraft:note_block",
+                                                "C": "pysift:soul_conduit"}, 1),
     "soul_sifter": (["LCL", "GSG", "LTL"], {"L": "pysift:stripped_soul_willow_log", "C": "minecraft:crafting_table",
                                             "G": "pysift:siftite_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
     "charoite_beam_emitter": (["CCC", "GEG", "PGP"], {"C": "pysift:charoite", "G": "pysift:siftite_gear",
@@ -793,6 +822,9 @@ LANG.update({
     "gui.pysift.soul_power.liquid": ("Piped: %s mB", "管線靈液：%s mB"),
     "message.pysift.soul_gauge.status": ("Signal %s/15 · load %s / %s SP (%s%%)", "訊號 %s/15 · 負載 %s / %s SP（%s%%）"),
     "message.pysift.soul_gauge.overloaded": ("Overloaded! %s / %s SP", "過載！%s / %s SP"),
+    "message.pysift.soul_filter.soul": ("Passes soul signals only", "只讓靈魂訊號通過"),
+    "message.pysift.soul_filter.plain": ("Passes plain redstone signals only", "只讓原版紅石訊號通過"),
+    "message.pysift.soul_note_block.note": ("Note %s of the octave", "八音的第 %s 個音"),
     "message.pysift.soul_crank.too_heavy": ("Too heavy to crank: load %s / %s SP", "負載太大，搖不動：%s / %s SP"),
     "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),
 })

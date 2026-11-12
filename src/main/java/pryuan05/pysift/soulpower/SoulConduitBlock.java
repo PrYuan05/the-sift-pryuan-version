@@ -248,7 +248,12 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
 
     @Override
     protected int getSignal(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
-        return state.getValue(LOOK) == Look.OFF ? 0 : power(level, pos);
+        return power(level, pos);
+    }
+
+    /** 這段導線上有靈魂訊號嗎（包起來的也算）？ */
+    public static boolean soul(BlockGetter level, BlockPos pos) {
+        return level.getBlockEntity(pos) instanceof Entity conduit && conduit.soul;
     }
 
     /** 這段導線對外的紅石強度。 */
@@ -260,10 +265,16 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
     static void apply(ServerLevel level, BlockPos pos, BlockState state, int power, boolean soul) {
         Look look = power <= 0 ? Look.OFF : soul ? Look.SOUL : Look.PLAIN;
         boolean changed = false;
-        if (level.getBlockEntity(pos) instanceof Entity conduit && conduit.power != power) {
-            conduit.power = power;
-            conduit.setChanged();
-            changed = true;
+        if (level.getBlockEntity(pos) instanceof Entity conduit) {
+            if (conduit.cover != null) {
+                look = Look.OFF;        // 包起來的導線不發光
+            }
+            conduit.soul = power > 0 && soul;
+            if (conduit.power != power) {
+                conduit.power = power;
+                conduit.setChanged();
+                changed = true;
+            }
         }
         if (state.getValue(LOOK) != look) {
             level.setBlock(pos, state.setValue(LOOK, look), Block.UPDATE_ALL);
@@ -316,7 +327,7 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
         SoulSignal.poll(level, pos);
         if (SoulCircuit.charged(level, pos)) {
             level.scheduleTick(pos, this, SoulSignal.INTERVAL);     // 催化體的靈魂用完之前定期重算，時間到就熄掉
-        } else if (state.getValue(LOOK) == Look.SOUL && level.getBlockState(pos).is(this)) {
+        } else if ((state.getValue(LOOK) != Look.OFF || power(level, pos) > 0) && level.getBlockState(pos).is(this)) {
             SoulSignal.update(level, pos);
         }
     }
@@ -324,6 +335,8 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
     /** 記對外的紅石強度，以及包覆的方塊（同步給用戶端，渲染器要畫）。不 tick。 */
     public static class Entity extends BlockEntity {
         int power;
+        /** 有靈魂訊號（不存檔，迴路每次重算都會寫）。 */
+        boolean soul;
         BlockState cover;
 
         public BlockState cover() {
@@ -333,8 +346,9 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
         void setCover(BlockState cover) {
             this.cover = cover;
             setChanged();
-            if (level != null && !level.isClientSide()) {
+            if (level instanceof ServerLevel server) {
                 level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+                SoulSignal.update(server, worldPosition);      // 外觀（發不發光）跟著包覆變
             }
         }
 

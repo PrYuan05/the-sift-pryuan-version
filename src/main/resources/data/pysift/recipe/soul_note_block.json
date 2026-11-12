@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "W": "pysift:soul_willow_planks",
+    "N": "minecraft:note_block",
+    "C": "pysift:soul_conduit"
+  },
+  "pattern": [
+    "WWW",
+    "WNW",
+    "WCW"
+  ],
+  "result": {
+    "id": "pysift:soul_note_block"
+  }
+}

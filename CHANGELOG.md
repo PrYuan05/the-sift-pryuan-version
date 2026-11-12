@@ -13,6 +13,12 @@
 - A vanilla redstone signal **pauses a machine** and **switches an engine off**.
 - **Charoite beams** now relay the soul signal, at no cost.
 - **Removed: Soul Vein Node.** A conduit already runs through rock. Soul-veined stone stays as a building block.
+- **A Singer on the line:** a Singer within 3 blocks of a conduit stops and sings a set (the new *Song of the Sieve*
+  between three older tunes, about two and a half minutes); while it sings the conduit is a source of strength 15,
+  64 SP. It rests half a minute between sets. A Mourner's song feeds a signal with no soul.
+- **Soul Repeater** (back to strength 15, one way, 16 SP), **Soul Filter** (soul signals only / plain signals only)
+  and **Soul Note Block** (the eight notes; a Singer's voice on a soul signal, a dull knock on a plain one).
+- A wrapped conduit gives off no light.
 - **Conduit covers:** right-click a conduit with a full block to wrap it in that block; an empty hand takes it off.
 - **Conduit connectors:** a collar where it plugs into a vanilla part, a bend down to floor-level parts (dust,
   rails, repeaters), and a thin tendril to small parts such as levers, buttons and torches.
@@ -382,6 +388,11 @@
 - 原版紅石訊號會**暫停機器**、**關閉引擎**。
 - **紫龍晶光束**改成轉送靈魂訊號，不損耗。
 - **移除：靈脈節點。** 導線本來就能穿過岩層。靈脈石保留成建築方塊。
+- **線上的歌者：** 歌者在導線 3 格內會停下來唱一整套歌（新的《篩網之歌》穿插三首老曲子，約兩分半鐘）；唱歌期間那段導線是
+  強度 15、64 SP 的訊號源。每套歌之間休息半分鐘。哀悼者的歌只會送出沒有靈魂的訊號。
+- **靈魂中繼器**（補回強度 15、單向、16 SP）、**靈魂濾波器**（只過靈魂訊號／只過原版訊號）、**靈魂音符盒**
+  （八個音；靈魂訊號時是歌者的歌聲，原版訊號時只有一聲悶響）。
+- 包起來的導線不發光。
 - **導線包覆：** 拿完整方塊對導線右鍵，導線就包成那個方塊的外觀；空手右鍵拆下來。
 - **導線接頭：** 插在原版元件上的接環、往下彎去接地面元件（紅石粉、鐵軌、中繼器），以及伸向拉桿、按鈕、紅石火把等小元件的細觸鬚。
 - **移除：靈魂振波發送器／接收器。** 它們和紫龍晶光束的功能重疊；現在穿過空氣的無線連結只有紫龍晶光束（用紫龍晶合成、靠稜鏡轉向）。

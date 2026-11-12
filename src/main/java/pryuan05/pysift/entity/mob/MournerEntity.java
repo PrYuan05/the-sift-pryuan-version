@@ -90,6 +90,12 @@ public class MournerEntity extends PysiftAnimalEntity {
 
     private void tickWeep(ServerLevel level) {
         this.getNavigation().stop();
+        if (this.tickCount % 10 == 0) {     // 倒著唱的歌流進導線，只是一個沒有靈魂的訊號（藍色，推不動機器）
+            net.minecraft.core.BlockPos conduit = pryuan05.pysift.soulpower.SoulCircuit.conduitNear(level, this.blockPosition(), 3);
+            if (conduit != null) {
+                pryuan05.pysift.soulpower.SoulCircuit.feed(level, conduit, 30, 0, false);
+            }
+        }
         int t = humTicks++;
         int i = t / WEEP_STEP;
         SingerSongs.Song song = SingerSongs.MOURNING;
