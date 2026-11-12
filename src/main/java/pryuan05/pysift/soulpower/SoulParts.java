@@ -20,7 +20,9 @@ import pryuan05.pysift.PySift;
 public final class SoulParts {
     public enum Part implements StringRepresentable {
         SHAFT, COG, LARGE_COG, FLYWHEEL, PISTON, MILLSTONE, WAVE_RING, WAVE_CORE, DIAL, NEEDLE,
-        SIEVE, LENS, CRANK, HALF_SHAFT, FAN, DRILL, BEVEL;
+        SIEVE, LENS, CRANK, HALF_SHAFT, FAN, DRILL, BEVEL,
+        /** 靈魂導線伸到拉桿、按鈕等小元件的觸鬚（1×1×1，渲染器縮放）：三種外觀。 */
+        TENDRIL_OFF, TENDRIL_PLAIN, TENDRIL_SOUL;
 
         @Override
         public String getSerializedName() {

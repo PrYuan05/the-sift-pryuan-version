@@ -43,6 +43,7 @@ public final class SoulPowerClient {
         animate(SoulPower.SOUL_DRILL_ENTITY);
         animate(SoulPower.RESONANCE_CORE_ENTITY);
         BlockEntityRendererRegistry.register(SoulPower.RESONANCE_PEDESTAL_ENTITY, PedestalRenderer::new);
+        BlockEntityRendererRegistry.register(SoulPower.SOUL_CONDUIT_ENTITY, ConduitRenderer::new);
     }
 
     private static <E extends pryuan05.pysift.soulpower.KineticBlockEntity> void animate(net.minecraft.world.level.block.entity.BlockEntityType<E> type) {

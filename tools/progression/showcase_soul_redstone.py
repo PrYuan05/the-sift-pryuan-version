@@ -68,6 +68,16 @@ r(f"setblock {X + 3} {Y} {z - 1} minecraft:redstone_wire")
 r(f"setblock {X} {Y} {z} minecraft:lever[face=floor,powered=true]")
 r(f"fill {X + 14} {Y} {z} {X + 20} {Y} {z} pysift:soul_conduit")                  # nothing feeds this one
 r(f"setblock {X + 13} {Y} {z} minecraft:lever[face=floor,powered=false]")
+# small parts that do not sit against the conduit: a tendril reaches them (client/soulpower/ConduitRenderer)
+r(f"setblock {X + 15} {Y} {z - 1} minecraft:stone_button[face=floor,facing=north]")
+r(f"setblock {X + 17} {Y} {z - 2} minecraft:polished_deepslate")
+r(f"setblock {X + 17} {Y} {z - 1} minecraft:stone_button[face=wall,facing=south]")      # on the far wall of its cell
+r(f"setblock {X + 19} {Y} {z - 1} minecraft:redstone_torch")
+r(f"setblock {X + 15} {Y} {z + 1} minecraft:polished_deepslate")
+r(f"setblock {X + 16} {Y} {z + 1} minecraft:lever[face=wall,facing=east]")              # on a side wall
+r(f"setblock {X + 18} {Y + 1} {z + 1} minecraft:polished_deepslate")
+r(f"setblock {X + 18} {Y} {z + 1} minecraft:lever[face=ceiling,facing=north]")
+r(f"setblock {X + 20} {Y} {z + 1} minecraft:stone_pressure_plate")
 
 # ---- row 2: machines on soul signal
 z = Z + 8

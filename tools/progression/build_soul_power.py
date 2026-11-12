@@ -249,8 +249,19 @@ PARTS = {
 
 for name, boxes in PARTS.items():
     wj(A / f"models/block/soul_power_parts/{name}.json", model(boxes, next(iter(boxes[0].tex.values()))))
+# tendrils of the soul conduit (client/soulpower/ConduitRenderer): a unit cube the renderer scales into a thin strand that
+# reaches a lever, button or torch in the next block; it shows the vein band of the conduit texture (rows 6..9)
+TENDRILS = {"tendril_off": 0, "tendril_plain": 5, "tendril_soul": 13}
+for name, light in TENDRILS.items():
+    tex = T("conduit_" + name.split("_")[1])
+    el = {"from": [0, 0, 0], "to": [16, 16, 16],
+          "faces": {d: {"texture": "#t", "uv": [0, 6, 16, 10]} for d in ("north", "south", "east", "west", "up", "down")}}
+    if light:
+        el["light_emission"] = light
+    wj(A / f"models/block/soul_power_parts/{name}.json",
+       {"parent": "minecraft:block/block", "textures": {"t": tex, "particle": tex}, "elements": [el]})
 wj(A / "blockstates/soul_power_part.json",
-   {"variants": {f"part={n}": {"model": f"pysift:block/soul_power_parts/{n}"} for n in PARTS}})
+   {"variants": {f"part={n}": {"model": f"pysift:block/soul_power_parts/{n}"} for n in [*PARTS, *TENDRILS]}})
 
 # ------------------------------------------------------------------ static casings (one or two big boxes each)
 ENGINE_FRONT = {False: T("engine_front"), True: T("engine_front_on")}

@@ -50,6 +50,15 @@
     },
     "part=bevel": {
       "model": "pysift:block/soul_power_parts/bevel"
+    },
+    "part=tendril_off": {
+      "model": "pysift:block/soul_power_parts/tendril_off"
+    },
+    "part=tendril_plain": {
+      "model": "pysift:block/soul_power_parts/tendril_plain"
+    },
+    "part=tendril_soul": {
+      "model": "pysift:block/soul_power_parts/tendril_soul"
     }
   }
 }
