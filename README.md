@@ -192,12 +192,14 @@ can run machines. The **Spirit Engine** burns spirit liquid and sends out streng
 | Range | 15 blocks | about 30 (one level every 2 blocks) |
 | Wiring | on top of blocks | **Soul Conduit**: joins on all six sides, runs up walls and through the air |
 | Power | none | machines run on it; a stronger signal works faster |
-| Wireless | none | **charoite beams** through the air, **soul veins** through rock |
+| Wireless | none | **charoite beams** (32 blocks, no loss, turned by prisms) |
 
 - **Both ways with vanilla.** A conduit is a redstone source: dust, lamps, pistons, repeaters and comparators read it.
   A lever, repeater, comparator, torch or redstone block against a conduit sends its signal down the wire - but that
   signal has no soul, so machines do not run on it (the wire turns the dead blue of Overworld sculk).
 - **Control.** A vanilla signal on a machine pauses it; on the engine it switches the engine off.
+- **Hidden wiring.** Right-click a conduit with any full block to wrap it in that block (empty hand takes it off).
+  Small parts that do not touch the conduit - levers, buttons, torches - are reached by a thin tendril.
 - **Sculk joins in.** A Sculk Catalyst against a conduit feeds it for 10 seconds when a creature dies nearby; a Sculk
   Shrieker against a conduit shrieks when the circuit is overloaded.
 - **Machines:** Soul Grinder, Soul Sifter (sifts the rot out of blue sculk), Soul Drill, Soul Fan, Spirit Pump,
@@ -419,11 +421,13 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | 距離 | 15 格 | 約 30 格（每 2 格少一級） |
 | 走線 | 鋪在方塊頂面 | **靈魂導線**：六個方向都能接，可以貼牆往上、懸在空中 |
 | 動力 | 沒有 | 機器靠它運轉，訊號越強做得越快 |
-| 無線 | 沒有 | 穿過空氣的**紫龍晶光束**、穿過岩層的**靈脈** |
+| 無線 | 沒有 | **紫龍晶光束**（32 格、不損耗、靠稜鏡轉向） |
 
 - **和原版雙向相接。** 導線對原版元件就是訊號源：紅石粉、紅石燈、活塞、中繼器、比較器都讀得到。把拉桿、中繼器、比較器、紅石火把或
   紅石塊貼著導線，訊號就沿著線傳出去；但那訊號沒有靈魂，機器不會動（導線變成主世界幽匿那種枯死的藍色）。
 - **控制。** 機器貼著原版訊號會暫停；引擎貼著原版訊號會關閉。
+- **藏線。** 拿任何完整方塊對導線右鍵，導線就包成那個方塊的外觀（空手右鍵拆下來）。拉桿、按鈕、紅石火把這類沒貼著導線的小元件，
+  導線會長出細觸鬚去碰。
 - **幽匿也接得上。** 幽匿催化體貼著導線：附近有生物死亡時，供應 10 秒的靈魂訊號。幽匿尖嘯體貼著導線：迴路過載時尖叫示警。
 - **機器：** 靈魂研磨機、靈魂淨化篩（把藍色幽匿的腐爛篩掉）、靈魂鑽頭、靈魂風扇、靈液泵、共鳴靈陣。**靈壓計**顯示負載；
   過載的迴路會燒掉周圍的靈魂。

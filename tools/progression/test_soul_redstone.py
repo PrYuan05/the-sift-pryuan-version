@@ -1,6 +1,6 @@
 """Check soul redstone (soulpower/SoulCircuit) on the running test server (./gradlew.bat runSiftTestServer) over RCON.
 Usage: python -I tools/progression/test_soul_redstone.py <project> [part]
-    part: wire | vanilla | plain | control | overload | gauge | beam | vein | catalyst | sensor | machines | addon | all
+    part: wire | vanilla | plain | control | overload | gauge | beam | cover | catalyst | sensor | machines | addon | all
 
 Run it with the mechanical add-on off (run-server/config/pysift.properties: kinetic_addon=auto or off, no Create):
 the base system must work without any shaft or cogwheel. The add-on's own checks are tools/progression/test_soul_power.py
@@ -238,19 +238,25 @@ def beam():
     check("glass lets it through", num(207, Y, Z - 6, "Speed"), speed_at(14))
 
 
-def vein():
+def cover():
+    """A conduit wrapped in a full block: it still carries the signal, keeps the block in its data and is a full cube."""
     clear()
-    Z = 225
-    r(f"fill 199 {Y - 2} {Z - 2} 212 {Y + 2} {Z + 2} minecraft:stone")       # solid rock
-    r(f"setblock 199 {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
-    r(f"setblock 200 {Y} {Z} pysift:soul_vein_node")
-    r(f"setblock 210 {Y} {Z} pysift:soul_vein_node")
-    r(f"setblock 211 {Y} {Z} pysift:soul_grinder[facing=north]")
-    settle(3)
-    check("vein hop costs two levels (strength 12)", num(211, Y, Z, "Speed"), speed_at(12))
-    r(f"setblock 205 {Y} {Z} minecraft:air")
-    settle(3)
-    check("a hole in the rock breaks the vein", num(211, Y, Z, "Speed"), 0)
+    r(f"setblock 201 {Y} 203 minecraft:redstone_lamp")
+    r(f"fill 200 {Y} 201 200 {Y} 205 pysift:soul_conduit")
+    r(f"setblock 200 {Y} 200 pysift:spirit_engine[facing=north]{FUEL}")
+    r(f'data merge block 200 {Y} 203 {{Cover:"minecraft:polished_deepslate"}}')
+    settle()
+    out = r(f"data get block 200 {Y} 203 Cover")
+    expect("the cover is kept in the conduit's data", "polished_deepslate" in out, out[:100])
+    conduit("a covered conduit carries the signal", 200, Y, 203, 14, True)
+    conduit("and passes it on", 200, Y, 205, 13, True)
+    expect("the lamp next to the covered conduit lights", is_block(201, Y, 203, "minecraft:redstone_lamp[lit=true]"))
+    r(f"summon minecraft:armor_stand 200.5 {Y + 3} 203.5")
+    time.sleep(2)
+    out = r(f"data get entity @e[type=minecraft:armor_stand,limit=1,sort=nearest,x=200,y={Y},z=203] Pos[1]")
+    m = re.search(r"(-?[0-9.]+)d", out)
+    check("a mob stands on the cover (full cube)", float(m.group(1)) if m else None, Y + 1, tol=0.0002)
+    r("kill @e[type=minecraft:armor_stand]")
 
 
 def catalyst():
@@ -328,7 +334,7 @@ def addon():
 
 
 parts = {"wire": wire, "vanilla": vanilla, "plain": plain, "control": control, "overload": overload, "gauge": gauge,
-         "beam": beam, "vein": vein, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
+         "beam": beam, "cover": cover, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

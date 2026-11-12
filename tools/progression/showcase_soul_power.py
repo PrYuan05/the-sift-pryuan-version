@@ -57,12 +57,6 @@ r(f'setblock {cx} {Y} {cz} pysift:resonance_core{{Item:{{id:"minecraft:amethyst_
 items = ["minecraft:sculk"] * 4 + ["pysift:soul_essence"] * 4
 for (dx, dz), it in zip([(3, 0), (-3, 0), (0, 3), (0, -3), (3, 3), (-3, -3), (3, -3), (-3, 3)], items):
     r(f'setblock {cx + dx} {Y} {cz + dz} pysift:resonance_pedestal{{Item:{{id:"{it}",count:1}}}}')
-# vein node pair through stone, pump from a pool
-r(f"fill {X - 4} {Y} {Z + 14} {X + 6} {Y + 2} {Z + 16} minecraft:stone")
-r(f"setblock {X - 5} {Y + 1} {Z + 15} pysift:spirit_engine[facing=north]{FUEL}")
-r(f"setblock {X - 4} {Y + 1} {Z + 15} pysift:soul_vein_node")
-r(f"setblock {X + 6} {Y + 1} {Z + 15} pysift:soul_vein_node")
-r(f"setblock {X + 7} {Y + 1} {Z + 15} pysift:soul_hand_crank[facing=east]")
 # camera
 r(f"tp {name} {X + 8} {Y + 6} {Z - 7} 25 30")
 r(f"gamemode spectator {name}")

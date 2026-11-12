@@ -41,7 +41,6 @@ BLOCKS = {
     "charoite_beam_emitter": ("Charoite Beam Emitter", "紫龍晶光束發射器", False),
     "charoite_beam_receiver": ("Charoite Beam Receiver", "紫龍晶光束接收器", False),
     "charoite_prism": ("Charoite Prism", "紫龍晶稜鏡", False),
-    "soul_vein_node": ("Soul Vein Node", "靈脈節點", False),
     "spirit_pump": ("Spirit Pump", "靈液泵", False),
     "spirit_pipe": ("Spirit Pipe", "靈液管", False),
     "soul_hand_crank": ("Soul Hand Crank", "靈魂手搖曲柄", False),
@@ -249,13 +248,16 @@ PARTS = {
 
 for name, boxes in PARTS.items():
     wj(A / f"models/block/soul_power_parts/{name}.json", model(boxes, next(iter(boxes[0].tex.values()))))
-# tendrils of the soul conduit (client/soulpower/ConduitRenderer): a unit cube the renderer scales into a thin strand that
-# reaches a lever, button or torch in the next block; it shows the vein band of the conduit texture (rows 6..9)
+# tendrils of the soul conduit (client/soulpower/ConduitRenderer): a 2 px cube; the renderer lines them up, one after
+# the other, into a thin strand that reaches a lever, button or torch in the next block. Each face shows 2 x 2 pixels of
+# the conduit's vein band, so nothing is stretched
 TENDRILS = {"tendril_off": 0, "tendril_plain": 5, "tendril_soul": 13}
 for name, light in TENDRILS.items():
     tex = T("conduit_" + name.split("_")[1])
-    el = {"from": [0, 0, 0], "to": [16, 16, 16],
-          "faces": {d: {"texture": "#t", "uv": [0, 6, 16, 10]} for d in ("north", "south", "east", "west", "up", "down")}}
+    el = {"from": [0, 0, 0], "to": [2, 2, 2],
+          "faces": {d: {"texture": "#t", "uv": uv} for d, uv in (("north", [3, 7, 5, 9]), ("south", [3, 7, 5, 9]),
+                                                                 ("east", [10, 7, 12, 9]), ("west", [10, 7, 12, 9]),
+                                                                 ("up", [3, 6, 5, 8]), ("down", [10, 8, 12, 10]))}}
     if light:
         el["light_emission"] = light
     wj(A / f"models/block/soul_power_parts/{name}.json",
@@ -326,7 +328,7 @@ GAUGE = [Box([1, 1, 1], [15, 15, 15], faces(T("gauge_side"), T("shift_end"), T("
 STATIC = {
     "spirit_engine": engine(False), "spirit_engine_on": engine(True),
     "soul_grinder": GRINDER, "soul_sifter": SIFTER, "charoite_beam_emitter": BEAM_EMITTER,
-    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "soul_vein_node": VEIN_NODE, "spirit_pump": PUMP,
+    "charoite_beam_receiver": BEAM_RECEIVER, "charoite_prism": PRISM, "spirit_pump": PUMP,
     "soul_hand_crank": CRANK_BASE, "soul_fan": FAN, "resonance_core": RES_CORE, "resonance_pedestal": RES_PEDESTAL, "soul_drill": DRILL,
     "soul_clutch": shift_case("clutch", False), "soul_clutch_on": shift_case("clutch", True),
     "soul_gearshift": shift_case("gearshift", False), "soul_gearshift_on": shift_case("gearshift", True),
@@ -363,8 +365,6 @@ states("soul_grinder", {**YROT, "up": {}, "down": {}}, "facing")
 states("soul_sifter", {**YROT, "up": {}, "down": {}}, "facing")
 states("charoite_beam_emitter", UPROT, "facing")
 states("charoite_beam_receiver", UPROT, "facing")
-wj(A / "blockstates/soul_vein_node.json", {"variants": {f"powered={v}": {"model": "pysift:block/soul_vein_node/soul_vein_node"}
-                                                         for v in ("false", "true")}})
 wj(A / "models/block/soul_veined_stone/soul_veined_stone.json", {"parent": "minecraft:block/cube_all", "textures": {"all": T("soul_veined_stone")}})
 wj(A / "blockstates/soul_veined_stone.json", {"variants": {"": {"model": "pysift:block/soul_veined_stone/soul_veined_stone"}}})
 states("spirit_pump", {"north": {}, "east": {"y": 90}, "south": {"y": 180}, "west": {"y": 270}, "up": {"x": 270},
@@ -474,7 +474,6 @@ ITEMS = {
     "soul_clutch": shift_case("clutch", False) + SHAFT,
     "soul_gearshift": shift_case("gearshift", False) + SHAFT,
     "spirit_pipe": PIPE_CORE + [Box(*PIPE_ARM["north"], T("pipe")), Box(*PIPE_ARM["south"], T("pipe"))],
-    "soul_vein_node": VEIN_NODE + PARTS["wave_core"],
     "soul_gauge": GAUGE + PARTS["needle"],
     "soul_gearbox": GEARBOX + [b.turned_east() for b in PARTS["bevel"] + PARTS["half_shaft"]]
                     + [b.mirrored_x() for b in (b2.turned_east() for b2 in PARTS["bevel"] + PARTS["half_shaft"])],
@@ -553,8 +552,6 @@ SHAPED = {
     "soul_hand_crank": (["LLL", "  I"], {"L": "pysift:soul_willow_planks", "I": "pysift:patina_ingot"}, 1),
     "soul_fan": ([" B ", "IGI", " S "], {"B": "minecraft:iron_bars", "I": "pysift:patina_ingot", "G": "pysift:siftite_gear",
                                          "S": "pysift:soul_conduit"}, 1),
-    "soul_vein_node": (["DGD", "GCG", "DGD"], {"D": "minecraft:polished_deepslate", "G": "pysift:siftite_gear",
-                                               "C": "pysift:soul_crystal_block"}, 2),
     "charoite_prism": (["GCG", "CAC", "GCG"], {"G": "minecraft:glass", "C": "pysift:charoite", "A": "minecraft:amethyst_shard"}, 2),
     "soul_grinder": (["PSP", "IGI", "PEP"], {"P": "minecraft:polished_deepslate", "S": "minecraft:stonecutter",
                                              "I": "pysift:siftite_gear", "G": "minecraft:grindstone",
@@ -800,7 +797,7 @@ LANG.update({
     "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),
 })
 # removed 2026-11-13: the soul wave emitter / receiver (merged into the charoite beam, the one wireless link through air)
-REMOVED = ("soul_wave_emitter", "soul_wave_receiver")
+REMOVED = ("soul_wave_emitter", "soul_wave_receiver", "soul_vein_node")   # the vein node too: conduits run through rock
 for name in REMOVED:
     for f in (f"blockstates/{name}.json", f"items/{name}.json", f"models/item/{name}.json", f"models/block/{name}/{name}.json"):
         (A / f).unlink(missing_ok=True)
@@ -817,6 +814,7 @@ for code, i in (("en_us", 0), ("zh_tw", 1)):
     raw = f.read_bytes().decode("utf-8-sig")
     data = json.loads(raw)
     for k in [k for k in data if k.startswith("message.pysift.soul_wave.") or k.startswith("book.pysift.sift_codex.soul_power.waves.")
+              or k.startswith("book.pysift.sift_codex.soul_power.veins.")
               or k in {f"{kind}.pysift.{n}" for kind in ("block", "item") for n in REMOVED}]:
         del data[k]
     for k, v in LANG.items():

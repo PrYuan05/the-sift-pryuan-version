@@ -32,15 +32,15 @@ Each ability is one method of `compat/create/CreateBridge`. `CreateBridge.NONE` 
 | # | Ability | Bridge method | Called from | Create side (to verify) |
 | :-- | :-- | :-- | :-- | :-- |
 | 1 | Spirit engine is a stress source: 64 RPM, 256 SU × strength / 15 | `driveFromEngine` | `SpiritEngineBlockEntity.serverTick` | a `GeneratingKineticBlockEntity` on the engine's flywheel side; `BlockStressValues` capacity |
-| 2 | Wireless rotation: a beam / vein link joins two Create networks | `linkNetworks` | `SoulCircuit.update`, where relay edges are built | `RotationPropagator`, `KineticNetwork` (merge and split) |
+| 2 | Wireless rotation: a charoite beam joins two Create networks | `linkNetworks` | `SoulCircuit.update`, where relay edges are built | `RotationPropagator`, `KineticNetwork` (merge and split) |
 | 3 | Resonance: a running core speeds Create machines within 8 blocks by 50 % | `boostAround` | `ResonanceCoreBlockEntity.serverTick` | per-machine processing speed (`KineticBlockEntity.getSpeed` consumers) |
 | 4 | Conversion: rotation → soul signal, soul signal → rotation | `signalFromRotation`, `driveFromEngine` | a new converter block (not built yet) | `KineticBlockEntity` speed and stress |
 | 5 | Soul overload: an overstressed Create network fed by an engine triggers soul deprivation | `overstressed` | `SoulCircuit.update`, overload branch | `KineticNetwork` stress vs capacity |
 
 Rules that carry over from soul redstone:
 
-- Wireless hop cost stays the same on a soul signal: beam 0, vein 2 levels. For rotation the link is lossless in
-  speed; the cost is paid as stress (beam 5 %, vein 15 % of the transferred stress).
+- A charoite beam costs a soul signal nothing. For rotation the link is lossless in speed; the cost is paid as
+  stress (5 % of the transferred stress).
 - A vanilla redstone signal on the engine switches it off, for Create as well.
 
 ## What is not decided

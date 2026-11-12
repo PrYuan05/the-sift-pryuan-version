@@ -36,7 +36,6 @@ public final class SoulPowerClient {
         animate(SoulPower.SOUL_GRINDER_ENTITY);
         animate(SoulPower.SOUL_SIFTER_ENTITY);
         animate(SoulPower.CHAROITE_BEAM_ENTITY);
-        animate(SoulPower.SOUL_VEIN_NODE_ENTITY);
         animate(SoulPower.SPIRIT_PUMP_ENTITY);
         animate(SoulPower.SOUL_HAND_CRANK_ENTITY);
         animate(SoulPower.SOUL_FAN_ENTITY);

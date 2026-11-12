@@ -52,7 +52,6 @@ public final class SoulPower {
     public static final Block CHAROITE_BEAM_EMITTER = register("charoite_beam_emitter", p -> new CharoiteBeamBlock(true, p), 3.0f);
     public static final Block CHAROITE_BEAM_RECEIVER = register("charoite_beam_receiver", p -> new CharoiteBeamBlock(false, p), 3.0f);
     public static final Block CHAROITE_PRISM = register("charoite_prism", CharoitePrismBlock::new, 1.5f);
-    public static final Block SOUL_VEIN_NODE = register("soul_vein_node", SoulVeinNodeBlock::new, 3.0f);
     public static final Block SPIRIT_PUMP = register("spirit_pump", SpiritPumpBlock::new, 3.0f);
     public static final Block SPIRIT_PIPE = register("spirit_pipe", SpiritPipeBlock::new, 1.5f);
     public static final Block SOUL_HAND_CRANK = kinetic("soul_hand_crank", SoulHandCrankBlock::new, 1.5f);
@@ -62,7 +61,7 @@ public final class SoulPower {
     public static final Block SOUL_DRILL = register("soul_drill", SoulDrillBlock::new, 3.0f);
     public static final Block RESONANCE_CORE = register("resonance_core", ResonanceCoreBlock::new, 3.5f);
     public static final Block RESONANCE_PEDESTAL = register("resonance_pedestal", ResonancePedestalBlock::new, 2.0f);
-    /** 靈脈石：靈脈節點之間的岩石慢慢長成的發光石頭（也算岩石，靈脈照樣穿過）。 */
+    /** 靈脈石：發光的裝飾石頭（原本是靈脈節點之間長出來的；節點已於 2026-11-13 移除）。 */
     public static final Block SOUL_VEINED_STONE = registerStone("soul_veined_stone");
 
     /** 傳動軸與齒輪：只記轉速，讓用戶端畫出轉動。 */
@@ -95,10 +94,6 @@ public final class SoulPower {
     public static final BlockEntityType<CharoiteBeamBlockEntity> CHAROITE_BEAM_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("charoite_beam"),
             FabricBlockEntityTypeBuilder.create(CharoiteBeamBlockEntity::new, CHAROITE_BEAM_EMITTER, CHAROITE_BEAM_RECEIVER).build());
-
-    public static final BlockEntityType<SoulVeinNodeBlockEntity> SOUL_VEIN_NODE_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_vein_node"),
-            FabricBlockEntityTypeBuilder.create(SoulVeinNodeBlockEntity::new, SOUL_VEIN_NODE).build());
 
     public static final BlockEntityType<SpiritPumpBlockEntity> SPIRIT_PUMP_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("spirit_pump"),

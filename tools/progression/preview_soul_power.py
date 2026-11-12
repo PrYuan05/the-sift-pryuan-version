@@ -60,7 +60,7 @@ def model(ref):
 names = ["spirit_engine", "soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "soul_gauge", "soul_grinder",
          "soul_sifter",
          "charoite_beam_emitter", "charoite_beam_receiver", "charoite_prism",
-         "soul_vein_node", "soul_veined_stone", "spirit_pump", "spirit_pipe",
+         "soul_veined_stone", "spirit_pump", "spirit_pipe",
          "soul_hand_crank", "soul_clutch", "soul_gearshift", "soul_fan",
          "resonance_core", "resonance_pedestal", "soul_drill", "soul_gearbox"]
 tiles = []

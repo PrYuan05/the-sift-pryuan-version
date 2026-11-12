@@ -8,7 +8,7 @@ Rows, from the camera (looking south), left to right along +x:
   z+4   lever -> conduits -> lamp (dead blue: a vanilla signal, the grinder on it stays still); beside it an unpowered wire
   z+8   engine -> conduit -> gauge -> grinder, drill, fan through soul fire, sifter on blue sculk
   z+12  redstone block on a grinder (paused) and on an engine (off)
-  z+16  beam over a prism, vein pair through rock - each ending in a grinder
+  z+16  beam over a prism into a grinder; a conduit line wrapped in blocks
   z+22  sculk catalyst -> conduit -> fan (kill the pig: /kill @e[type=pig]); overloaded circuit with a shrieker"""
 import sys
 from pathlib import Path
@@ -111,11 +111,12 @@ r(f"setblock {X + 14} {Y} {z} pysift:charoite_beam_emitter[facing=east]")
 r(f"setblock {X + 20} {Y} {z} pysift:charoite_prism[facing=south]")
 r(f"setblock {X + 20} {Y} {z + 4} pysift:charoite_beam_receiver[facing=north]")
 r(f"setblock {X + 20} {Y} {z + 5} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
-r(f"fill {X + 25} {Y} {z - 1} {X + 33} {Y + 2} {z + 1} minecraft:stone")
-r(f"setblock {X + 24} {Y + 1} {z} pysift:spirit_engine[facing=north]{FUEL}")
-r(f"setblock {X + 25} {Y + 1} {z} pysift:soul_vein_node")
-r(f"setblock {X + 33} {Y + 1} {z} pysift:soul_vein_node")
-r(f"setblock {X + 34} {Y + 1} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
+# a conduit line wrapped in full blocks: engine -> 6 covered conduits -> lamp
+r(f"setblock {X + 32} {Y} {z} minecraft:redstone_lamp")
+r(f"fill {X + 25} {Y} {z} {X + 31} {Y} {z} pysift:soul_conduit")
+for i, cover in enumerate(("polished_deepslate", "stone_bricks", "oak_planks", "glass", "amethyst_block", "copper_block")):
+    r(f'data merge block {X + 26 + i} {Y} {z} {{Cover:"minecraft:{cover}"}}')
+r(f"setblock {X + 24} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
 
 # ---- row 5: sculk
 z = Z + 22

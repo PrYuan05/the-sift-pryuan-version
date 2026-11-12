@@ -39,7 +39,6 @@ import pryuan05.pysift.soulpower.kinetic.SoulHandCrankBlock;
 import pryuan05.pysift.soulpower.SoulFanBlock;
 import pryuan05.pysift.soulpower.SoulDrillBlock;
 import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
-import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
 import pryuan05.pysift.soulpower.ResonanceCoreBlockEntity;
 import pryuan05.pysift.soulpower.ResonancePedestalBlock;
 import pryuan05.pysift.soulpower.SpiritEngineBlock;
@@ -182,9 +181,6 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
                 }
                 s.time = (float) time;
             }
-        } else if (be instanceof SoulVeinNodeBlockEntity) {
-            add(s, Part.WAVE_CORE, spin(Direction.UP, angle).translate(0f, -0.15f, 0f));
-            add(s, Part.WAVE_RING, spin(Direction.UP, -angle * 0.5f).translate(0f, -0.2f, 0f));
         } else if (be instanceof CharoiteBeamBlockEntity beam) {
             Direction facing = state.getValue(SoulMachineBlock.FACING);
             add(s, Part.LENS, spin(facing, angle * sign(facing)));

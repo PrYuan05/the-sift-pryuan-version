@@ -28,13 +28,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 靈魂導線的「觸鬚」：導線的接頭只到自己這一格的邊緣，可是拉桿、按鈕、紅石火把、絆線鉤這類小東西並不貼著那一面
- * （地上的拉桿在格子中間，牆上的按鈕可能在對面那道牆）。這裡替每個插頭或貼地接頭看一下隔壁方塊的外框：
- * 外框沒有碰到接頭的位置，就從接頭長出一條細細的幽匿脈，沿著軸向伸進隔壁那一格，再轉彎碰到那個元件。
- * 隔壁是整塊的方塊（紅石燈、活塞…）或本來就貼著地面接得到的（紅石粉、鐵軌、中繼器）時什麼都不畫。
+ * 靈魂導線的兩樣動態外觀：
+ * <ul>
+ *   <li><b>包覆</b>：導線被一個完整方塊包起來時（{@link SoulConduitBlock.Entity#cover}），畫出那個方塊，導線本身藏在裡面。</li>
+ *   <li><b>觸鬚</b>：導線的接頭只到自己這一格的邊緣，可是拉桿、按鈕、紅石火把這類小東西並不貼著那一面（地上的拉桿在格子中間，
+ *       牆上的按鈕可能在對面那道牆）。替每個插頭或貼地接頭看一下隔壁方塊的外框：外框沒有碰到接頭的位置，就從接頭長出一條細細的
+ *       幽匿脈，沿著軸向伸進隔壁那一格，再轉彎碰到那個元件。觸鬚由 2 px 的小方塊一節一節排成（不拉伸貼圖、彼此不重疊）。</li>
+ * </ul>
  */
 public class ConduitRenderer implements BlockEntityRenderer<SoulConduitBlock.Entity, ConduitRenderer.State> {
     private static final float T = 1f / 16f;           // 觸鬚的半徑：1 px（2 px 粗）
+    private static final float PIECE = 2f / 16f;       // 一節的長度
     private final BlockModelResolver blockModels;
 
     public ConduitRenderer(BlockEntityRendererProvider.Context context) {
@@ -61,11 +65,15 @@ public class ConduitRenderer implements BlockEntityRenderer<SoulConduitBlock.Ent
         if (level == null || !(state.getBlock() instanceof SoulConduitBlock)) {
             return;
         }
-        Part part = switch (state.getValue(SoulConduitBlock.LOOK)) {
+        if (be.cover() != null) {   // a hair larger than the block, so it never fights the conduit's own end faces
+            add(s, be.cover(), new Matrix4f().translate(0.5f, 0.5f, 0.5f).scale(1.002f).translate(-0.5f, -0.5f, -0.5f));
+            return;
+        }
+        BlockState piece = SoulParts.of(switch (state.getValue(SoulConduitBlock.LOOK)) {
             case SOUL -> Part.TENDRIL_SOUL;
             case PLAIN -> Part.TENDRIL_PLAIN;
             case OFF -> Part.TENDRIL_OFF;
-        };
+        });
         BlockPos pos = be.getBlockPos();
         for (Direction dir : Direction.values()) {
             SoulConduitBlock.Side side = state.getValue(SoulConduitBlock.SIDES.get(dir));
@@ -83,45 +91,59 @@ public class ConduitRenderer implements BlockEntityRenderer<SoulConduitBlock.Ent
             }
             AABB b = shape.bounds().move(dir.getStepX(), dir.getStepY(), dir.getStepZ());     // in this block's coordinates
             // where the connector ends: the middle of the shared face (plug) or its bottom edge (low)
-            double[] from = {0.5 + dir.getStepX() * 0.5, side == SoulConduitBlock.Side.LOW ? T : 0.5 + dir.getStepY() * 0.5,
-                    0.5 + dir.getStepZ() * 0.5};
+            float[] from = {0.5f + dir.getStepX() * 0.5f, side == SoulConduitBlock.Side.LOW ? T : 0.5f + dir.getStepY() * 0.5f,
+                    0.5f + dir.getStepZ() * 0.5f};
             double[] lo = {b.minX, b.minY, b.minZ}, hi = {b.maxX, b.maxY, b.maxZ};
-            double[] to = new double[3];
-            double far = 0;
-            for (int i = 0; i < 3; i++) {       // the nearest point of the part, one pixel inside it
+            float[] to = new float[3];
+            float far = 0;
+            for (int i = 0; i < 3; i++) {       // the nearest point of the part, one pixel inside it; snapped to whole pixels
                 double a = Math.min(lo[i] + T, (lo[i] + hi[i]) / 2), z = Math.max(hi[i] - T, (lo[i] + hi[i]) / 2);
-                to[i] = Math.clamp(from[i], a, z);
+                to[i] = Math.round(Math.clamp(from[i], a, z) * 16f) / 16f;
                 far = Math.max(far, Math.abs(to[i] - from[i]));
             }
-            if (far < 1.5 * T) {
+            if (far < 1.5f * T) {
                 continue;                       // the part already sits against the connector
             }
             // along the connector's own axis first, then across (vertical last, so the tendril drops onto floor parts)
             int axis = dir.getAxis().ordinal();
             int[] order = axis == 1 ? new int[]{1, 0, 2} : new int[]{axis, axis == 0 ? 2 : 0, 1};
-            double[] cur = from.clone();
+            float[] cur = from.clone();
+            boolean first = true;
             for (int i : order) {
-                if (Math.abs(to[i] - cur[i]) < 1e-4) {
+                float d = to[i] - cur[i];
+                if (Math.abs(d) < 1e-4f) {
                     continue;
                 }
-                double[] next = cur.clone();
-                next[i] = to[i];
-                segment(s, part, cur, next);
-                cur = next;
+                float sign = Math.signum(d);
+                // a run covers the corner cube at its far end; the next run starts just past the corner it leaves
+                float start = cur[i] + (first ? 0 : sign * T), end = to[i] + sign * T;
+                run(s, piece, cur, i, start, end);
+                cur[i] = to[i];
+                first = false;
             }
         }
     }
 
-    /** 一段軸向的觸鬚：部件是 1×1×1 的方塊，縮放成 2 px 粗、兩端各多出 1 px（轉角才會接起來）。 */
-    private void segment(State s, Part part, double[] a, double[] b) {
-        float x0 = (float) Math.min(a[0], b[0]) - T, y0 = (float) Math.min(a[1], b[1]) - T, z0 = (float) Math.min(a[2], b[2]) - T;
-        float x1 = (float) Math.max(a[0], b[0]) + T, y1 = (float) Math.max(a[1], b[1]) + T, z1 = (float) Math.max(a[2], b[2]) + T;
+    /** 沿著 axis 軸、從 start 到 end 排一列 2 px 的小方塊；最後一節不足 2 px 時只沿軸向縮短。 */
+    private void run(State s, BlockState piece, float[] at, int axis, float start, float end) {
+        float lo = Math.min(start, end), hi = Math.max(start, end);
+        for (float p = lo; p < hi - 1e-4f; p += PIECE) {
+            float len = Math.min(PIECE, hi - p);
+            float[] o = {at[0] - T, at[1] - T, at[2] - T};
+            o[axis] = p;
+            float[] scale = {1f, 1f, 1f};
+            scale[axis] = len / PIECE;
+            add(s, piece, new Matrix4f().translate(o[0], o[1], o[2]).scale(scale[0], scale[1], scale[2]));
+        }
+    }
+
+    private void add(State s, BlockState model, Matrix4f pose) {
         if (s.count == s.parts.size()) {
             s.parts.add(new BlockModelRenderState());
             s.poses.add(new Matrix4f());
         }
-        blockModels.update(s.parts.get(s.count), SoulParts.of(part), BlockDisplayContext.create());
-        s.poses.get(s.count).identity().translate(x0, y0, z0).scale(x1 - x0, y1 - y0, z1 - z0);
+        blockModels.update(s.parts.get(s.count), model, BlockDisplayContext.create());
+        s.poses.get(s.count).set(pose);
         s.count++;
     }
 

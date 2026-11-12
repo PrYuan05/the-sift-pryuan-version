@@ -1,6 +1,18 @@
 package pryuan05.pysift.soulpower;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
@@ -49,6 +61,9 @@ import java.util.Map;
  *       末端多一圈銅綠的接環）；low = 往下彎到地面，接紅石粉、鐵軌、地上的中繼器與比較器（只有水平四面）。</li>
  * </ul>
  * 原版元件（拉桿、中繼器、比較器、紅石火把、紅石塊…）貼著導線就能把訊號送進來；紅石粉不行（見 SoulCircuit）。
+ * <p>
+ * 包覆：拿任何完整方塊對導線右鍵，導線就包成那個方塊的外觀（存在方塊實體 Cover，外框變成完整方塊，
+ * 由 client/soulpower/ConduitRenderer 畫出來）；空手右鍵拆下來。訊號照樣通過。
  */
 public class SoulConduitBlock extends Block implements SoulConductor, AutoConnect.Connecting, EntityBlock {
     public enum Side implements StringRepresentable {
@@ -169,7 +184,60 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        if (level.getBlockEntity(pos) instanceof Entity conduit && conduit.cover != null) {
+            return Shapes.block();
+        }
         return shapes.get(state.setValue(LOOK, Look.OFF));
+    }
+
+    // ---------------------------------------------------------------- 包覆
+    /** 可以拿來包導線的方塊：外框是完整方塊、沒有方塊實體、不是靈魂元件。 */
+    private static BlockState coverOf(ItemStack stack, Level level, BlockPos pos) {
+        if (!(stack.getItem() instanceof BlockItem item)) {
+            return null;
+        }
+        BlockState cover = item.getBlock().defaultBlockState();
+        if (cover.getBlock() instanceof SoulConductor || cover.hasBlockEntity() || !cover.isCollisionShapeFullBlock(level, pos)) {
+            return null;
+        }
+        return cover;
+    }
+
+    @Override
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player,
+                                          InteractionHand hand, BlockHitResult hit) {
+        if (!(level.getBlockEntity(pos) instanceof Entity conduit) || conduit.cover != null) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+        BlockState cover = coverOf(stack, level, pos);
+        if (cover == null) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
+        }
+        if (!level.isClientSide()) {
+            conduit.setCover(cover);
+            level.playSound(null, pos, cover.getSoundType().getPlaceSound(), SoundSource.BLOCKS, 1.0f, 0.9f);
+            if (!player.getAbilities().instabuild) {
+                stack.shrink(1);
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    /** 空手右鍵：把包覆的方塊拆下來。 */
+    @Override
+    protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
+        if (!(level.getBlockEntity(pos) instanceof Entity conduit) || conduit.cover == null) {
+            return InteractionResult.PASS;
+        }
+        if (!level.isClientSide()) {
+            BlockState cover = conduit.cover;
+            conduit.setCover(null);
+            level.playSound(null, pos, cover.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 0.9f);
+            if (!player.getAbilities().instabuild) {
+                Block.popResource(level, pos, new ItemStack(cover.getBlock()));
+            }
+        }
+        return InteractionResult.SUCCESS;
     }
 
     // ---------------------------------------------------------------- 原版紅石：這是一個訊號源
@@ -253,9 +321,41 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
         }
     }
 
-    /** 只記對外的紅石強度（不 tick、不同步給用戶端：外觀由 LOOK 決定）。 */
+    /** 記對外的紅石強度，以及包覆的方塊（同步給用戶端，渲染器要畫）。不 tick。 */
     public static class Entity extends BlockEntity {
         int power;
+        BlockState cover;
+
+        public BlockState cover() {
+            return cover;
+        }
+
+        void setCover(BlockState cover) {
+            this.cover = cover;
+            setChanged();
+            if (level != null && !level.isClientSide()) {
+                level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+            }
+        }
+
+        @Override
+        public void preRemoveSideEffects(BlockPos pos, BlockState state) {
+            if (level != null && cover != null) {
+                Block.popResource(level, pos, new ItemStack(cover.getBlock()));
+                cover = null;
+            }
+            super.preRemoveSideEffects(pos, state);
+        }
+
+        @Override
+        public Packet<ClientGamePacketListener> getUpdatePacket() {
+            return ClientboundBlockEntityDataPacket.create(this);
+        }
+
+        @Override
+        public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+            return saveCustomOnly(registries);
+        }
 
         public Entity(BlockPos pos, BlockState state) {
             super(SoulPower.SOUL_CONDUIT_ENTITY, pos, state);
@@ -265,12 +365,16 @@ public class SoulConduitBlock extends Block implements SoulConductor, AutoConnec
         protected void saveAdditional(ValueOutput output) {
             super.saveAdditional(output);
             output.putInt("Power", power);
+            if (cover != null) {
+                output.store("Cover", BlockState.CODEC, cover);
+            }
         }
 
         @Override
         protected void loadAdditional(ValueInput input) {
             super.loadAdditional(input);
             power = input.getIntOr("Power", 0);
+            cover = input.read("Cover", BlockState.CODEC).orElse(null);
         }
     }
 }

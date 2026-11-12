@@ -11,7 +11,11 @@
   vanilla signal down the wire, which lights lamps but runs no machine. Redstone dust is not an input. The wire is
   red with a soul signal, dead blue with only a vanilla one, grey when off.
 - A vanilla redstone signal **pauses a machine** and **switches an engine off**.
-- **Charoite beams and soul veins** now relay the soul signal: a beam costs nothing, a vein two levels.
+- **Charoite beams** now relay the soul signal, at no cost.
+- **Removed: Soul Vein Node.** A conduit already runs through rock. Soul-veined stone stays as a building block.
+- **Conduit covers:** right-click a conduit with a full block to wrap it in that block; an empty hand takes it off.
+- **Conduit connectors:** a collar where it plugs into a vanilla part, a bend down to floor-level parts (dust,
+  rails, repeaters), and a thin tendril to small parts such as levers, buttons and torches.
 - **Removed: Soul Wave Emitter / Receiver.** They did the same job as the charoite beam; the beam (crafted from
   charoite, turned by prisms) is now the one wireless link through the air. Placed wave blocks disappear.
 - **Sculk Catalyst** against a conduit: a creature dying nearby gives strength 15 for 10 seconds (32 SP).
@@ -376,7 +380,10 @@
   紅石火把或紅石塊貼著它，原版訊號就沿著線傳，能點亮紅石燈，但推不動機器。紅石粉不能當輸入。導線有靈魂訊號時是赤紅色，
   只有原版訊號時是枯死的藍色，沒有訊號時是灰色。
 - 原版紅石訊號會**暫停機器**、**關閉引擎**。
-- **紫龍晶光束、靈脈**改成轉送靈魂訊號：光束不損耗，靈脈少兩級。
+- **紫龍晶光束**改成轉送靈魂訊號，不損耗。
+- **移除：靈脈節點。** 導線本來就能穿過岩層。靈脈石保留成建築方塊。
+- **導線包覆：** 拿完整方塊對導線右鍵，導線就包成那個方塊的外觀；空手右鍵拆下來。
+- **導線接頭：** 插在原版元件上的接環、往下彎去接地面元件（紅石粉、鐵軌、中繼器），以及伸向拉桿、按鈕、紅石火把等小元件的細觸鬚。
 - **移除：靈魂振波發送器／接收器。** 它們和紫龍晶光束的功能重疊；現在穿過空氣的無線連結只有紫龍晶光束（用紫龍晶合成、靠稜鏡轉向）。
   已經放下的振波方塊會消失。
 - **幽匿催化體**貼著導線：附近有生物死亡時，供應 10 秒強度 15 的訊號（32 SP）。**幽匿尖嘯體**貼著導線：迴路過載時尖叫示警，

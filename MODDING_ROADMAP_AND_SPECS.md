@@ -207,7 +207,8 @@ flowchart TD
 | 迴路 | 強度 0～15；引擎旁 15，每 2 格少 1 級（花費以半級計：相鄰 1，強度 = 15 − 花費 ÷ 2）。機器速度 = 32 × 強度 ÷ 15，負載 = impact × 32 × 強度 ÷ 15。容量 = 每台運轉中的引擎 256 SP。過載：靈魂訊號歸零，5 秒後 6 格內靈魂剝奪。 | `soulpower/SoulCircuit`、`SoulSignal`、`SoulConductor` |
 | 靈魂導線 | 六向；`power`（對外的紅石強度）＋ `charged`（有沒有靈魂訊號）。對原版是訊號源；收拉桿、中繼器、比較器、紅石火把、紅石塊的訊號（不收紅石粉、不收隔著方塊的強充能）。原版訊號只驅動原版元件。三種外觀：赤紅／枯藍／灰。徒手可拆。 | `SoulConduitBlock` |
 | 控制 | 機器貼著原版訊號：暫停、不計負載。引擎貼著原版訊號：關閉、燃料暫停。貼著的靈魂元件不算。 | `SoulSignal.externalRedstone` |
-| 無線 | 光束 0、靈脈 2 級；光束只從發射器到接收器，靈脈雙向。靈魂振波已於 2026-11-13 移除（和光束重疊）。 | `SoulConductor.Relay`（兩個無線方塊實體） |
+| 無線 | 只剩紫龍晶光束：不損耗，只從發射器到接收器。靈魂振波（和光束重疊）與靈脈節點（導線本來就能穿過岩層）已於 2026-11-13 移除。 | `SoulConductor.Relay`（`CharoiteBeamBlockEntity`） |
+| 導線外觀 | 每面的接頭 none／wire／plug／low；強度存在方塊實體。伸向拉桿、按鈕等小元件的觸鬚與「包覆」（右鍵完整方塊，存在方塊實體 `Cover`，外框變完整方塊）由用戶端渲染。 | `SoulConduitBlock`、`client/soulpower/ConduitRenderer` |
 | 幽匿接點 | 催化體綻放時，貼著它的導線 10 秒內是來源（強度 15、32 SP）。迴路過載時，貼著導線的尖嘯體尖叫（不召喚監守者）。感測器的輸出是原版訊號。 | `SoulCircuit.charge`／`shriek` |
 | 兩個求解器 | 機械層啟用時，方塊實體同時收到靈魂迴路與轉速網路的結果：只有一邊有動力源就聽那一邊，兩邊都有就聽負載重的那一邊；POWERED 由方塊實體決定。引擎的過載計時兩邊各算各的。 | `KineticBlockEntity.apply` |
 | 測試 | `tools/progression/test_soul_redstone.py`（機械層關閉，60 項）；`test_soul_power.py`（`kinetic_addon=on`）。 | |

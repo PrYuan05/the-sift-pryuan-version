@@ -27,7 +27,7 @@ SKIP = {"soul_power_part",                # never placed: it only holds the movi
         "soul_conduit"}                    # 2048 states: its shapes are built in SoulConduitBlock
 FROM_ITEM = {"soul_shaft", "soul_cogwheel", "large_soul_cogwheel", "spirit_engine", "soul_grinder", "soul_sifter",
              "charoite_beam_emitter", "charoite_beam_receiver", "spirit_pump",
-             "soul_hand_crank", "soul_fan", "soul_drill", "soul_clutch", "soul_gearshift", "soul_vein_node", "soul_gauge"}
+             "soul_hand_crank", "soul_fan", "soul_drill", "soul_clutch", "soul_gearshift", "soul_gauge"}
 
 
 def lj(p):
