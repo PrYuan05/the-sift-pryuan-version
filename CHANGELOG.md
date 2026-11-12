@@ -11,8 +11,9 @@
   vanilla signal down the wire, which lights lamps but runs no machine. Redstone dust is not an input. The wire is
   red with a soul signal, dead blue with only a vanilla one, grey when off.
 - A vanilla redstone signal **pauses a machine** and **switches an engine off**.
-- **Soul waves, charoite beams and soul veins** now relay the soul signal: a beam costs nothing, a wave one level,
-  a vein two.
+- **Charoite beams and soul veins** now relay the soul signal: a beam costs nothing, a vein two levels.
+- **Removed: Soul Wave Emitter / Receiver.** They did the same job as the charoite beam; the beam (crafted from
+  charoite, turned by prisms) is now the one wireless link through the air. Placed wave blocks disappear.
 - **Sculk Catalyst** against a conduit: a creature dying nearby gives strength 15 for 10 seconds (32 SP).
   **Sculk Shrieker** against a conduit: shrieks while the circuit is overloaded; it calls no Warden.
 - The Soul Gauge sits in the conduit line; GUIs and the gauge show the signal as n/15. The gauge and the fan are now
@@ -375,7 +376,9 @@
   紅石火把或紅石塊貼著它，原版訊號就沿著線傳，能點亮紅石燈，但推不動機器。紅石粉不能當輸入。導線有靈魂訊號時是赤紅色，
   只有原版訊號時是枯死的藍色，沒有訊號時是灰色。
 - 原版紅石訊號會**暫停機器**、**關閉引擎**。
-- **靈魂振波、紫龍晶光束、靈脈**改成轉送靈魂訊號：光束不損耗，振波少一級，靈脈少兩級。
+- **紫龍晶光束、靈脈**改成轉送靈魂訊號：光束不損耗，靈脈少兩級。
+- **移除：靈魂振波發送器／接收器。** 它們和紫龍晶光束的功能重疊；現在穿過空氣的無線連結只有紫龍晶光束（用紫龍晶合成、靠稜鏡轉向）。
+  已經放下的振波方塊會消失。
 - **幽匿催化體**貼著導線：附近有生物死亡時，供應 10 秒強度 15 的訊號（32 SP）。**幽匿尖嘯體**貼著導線：迴路過載時尖叫示警，
   不會召喚監守者。
 - 靈壓計串在導線中間；介面與靈壓計以 n/15 顯示訊號。靈壓計與風扇的配方從傳動軸改成導線。

@@ -730,27 +730,21 @@ entry(C, "sifter", "pysift:soul_sifter", "Soul Sifter", "靈魂淨化篩", 6, 1,
          "遠古人的工藝。轉動時，淨化篩會慢慢把 **8 格內腐爛的藍色幽匿變回赤紅幽匿**。把幽匿放上篩網就能篩紅；礫石篩出燧石、"
          "沙篩出黏土、靈魂沙篩出靈魂土。訊號強度 15 時吃 96 SP，從飛輪那一側接導線。"),
     recipe("crafting", "pysift:soul_sifter")], parents=["grinder"])
-entry(C, "waves", "pysift:soul_wave_emitter", "Soul Waves", "靈魂振波", 0, 2, [
+entry(C, "beams", "pysift:charoite_beam_emitter", "Charoite Beams", "紫龍晶光束", 0, 2, [
     text(("Wireless: through the air", "無線：穿過空氣"),
-         "An emitter and a receiver with **the same resonant disc** link within 16 blocks. Wool and carpets block the wave. "
-         "The hop costs **one level** of strength.",
-         "放了**同一張共鳴唱片**的發送器與接收器，16 格內就會連通。羊毛與地毯會擋住振波。每跳一次少 **1 級**強度。"),
-    recipe("crafting", "pysift:soul_wave_emitter", "pysift:soul_wave_receiver")], parents=["engine"])
-entry(C, "beams", "pysift:charoite_beam_emitter", "Charoite Beams", "紫龍晶光束", 2, 3, [
-    text(("Wireless: a beam of light", "無線：一道光"),
          "The emitter shoots a violet beam up to 32 blocks; **prisms** turn it (right-click to point them, sneak to go back). "
          "It passes glass and plants and links on the **front** of a receiver. It loses **nothing**, but it must be aimed, and it "
          "burns whatever stands in it.",
          "發射器射出最遠 32 格的紫色光束；**稜鏡**會讓它轉向（右鍵換方向、潛行右鍵往回換）。光束能穿過玻璃與花草，"
          "打中接收器的**正面**就連通。強度**不損耗**，但要瞄準，而且會灼傷站在光束裡的東西。"),
-    recipe("crafting", "pysift:charoite_beam_emitter", "pysift:charoite_prism")], parents=["waves"])
+    recipe("crafting", "pysift:charoite_beam_emitter", "pysift:charoite_prism")], parents=["engine"])
 entry(C, "veins", "pysift:soul_vein_node", "Soul Veins", "靈脈", 0, 4, [
     text(("Wireless: through the rock", "無線：穿過岩層"),
          "Two vein nodes within 16 blocks link when **every block between them is rock**. A cave cuts the vein. "
          "The hop costs **two levels**. While it runs, the rock along it grows into glowing soul-veined stone.",
          "16 格內的兩個靈脈節點，只要**中間每一格都是岩石**就會連通；中間有洞穴就斷。每跳一次少 **2 級**強度。運轉時，"
          "沿路的岩石會長成發光的靈脈石。"),
-    recipe("crafting", "pysift:soul_vein_node")], parents=["waves"])
+    recipe("crafting", "pysift:soul_vein_node")], parents=["beams"])
 
 entry(C, "pump", "pysift:spirit_pump", "Spirit Pump", "靈液泵", 2, 1, [
     text(("Piping spirit liquid", "用管子送靈液"),

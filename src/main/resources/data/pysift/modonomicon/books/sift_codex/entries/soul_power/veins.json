@@ -17,7 +17,7 @@
   },
   "parents": [
     {
-      "entry": "pysift:soul_power/waves",
+      "entry": "pysift:soul_power/beams",
       "line_enabled": true
     }
   ],

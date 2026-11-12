@@ -42,7 +42,6 @@ import pryuan05.pysift.soulpower.SoulSifterBlockEntity;
 import pryuan05.pysift.soulpower.SoulVeinNodeBlockEntity;
 import pryuan05.pysift.soulpower.ResonanceCoreBlockEntity;
 import pryuan05.pysift.soulpower.ResonancePedestalBlock;
-import pryuan05.pysift.soulpower.SoulWaveBlock;
 import pryuan05.pysift.soulpower.SpiritEngineBlock;
 import pryuan05.pysift.soulpower.SpiritPumpBlock;
 
@@ -157,13 +156,6 @@ public class SoulPowerRenderer implements BlockEntityRenderer<KineticBlockEntity
             add(s, Part.FLYWHEEL, spin(side, angle * sign(side)));
             float bob = (float) Math.sin(Mth.DEG_TO_RAD * angle * sign(side)) * 0.07f;
             add(s, Part.PISTON, yaw(facing).translate(0, bob, 0));
-        } else if (state.getBlock() instanceof SoulWaveBlock wave) {
-            Direction facing = state.getValue(SoulMachineBlock.FACING);
-            float a = angle * sign(facing);
-            add(s, wave.emitter ? Part.EMITTER_DISH : Part.RECEIVER_DISH, spin(facing, a));
-            add(s, Part.WAVE_RING, spin(facing, -a * 0.5f));
-            float pulse = be.speed() == 0 ? 1f : 1f + 0.12f * (float) Math.sin(time * 0.35);
-            add(s, Part.WAVE_CORE, spin(facing, a * 0.25f).translate(0.5f, 0.6f, 0.5f).scale(pulse).translate(-0.5f, -0.6f, -0.5f));
         } else if (state.getBlock() instanceof SpiritPumpBlock) {
             // 側面的曲柄輪轉動（朝上下擺時，曲柄在東側）
             Direction facing = state.getValue(SoulMachineBlock.FACING);

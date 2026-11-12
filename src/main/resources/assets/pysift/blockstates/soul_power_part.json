@@ -50,12 +50,6 @@
     },
     "part=bevel": {
       "model": "pysift:block/soul_power_parts/bevel"
-    },
-    "part=emitter_dish": {
-      "model": "pysift:block/soul_power_parts/emitter_dish"
-    },
-    "part=receiver_dish": {
-      "model": "pysift:block/soul_power_parts/receiver_dish"
     }
   }
 }

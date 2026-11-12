@@ -26,7 +26,7 @@ import java.util.Map;
  *   <li>同軸相接（傳動軸、機器的接口）：×1；</li>
  *   <li>同軸向、同平面上相鄰的兩個小齒輪：×-1（互相帶動，方向相反）；</li>
  *   <li>同軸向、同平面上斜向的大齒輪與小齒輪：大 → 小 ×-2，小 → 大 ×-1/2；</li>
- *   <li>靈魂振波等無線連結：×1（容量打 {@link #WAVE_EFFICIENCY} 折）。</li>
+ *   <li>紫龍晶光束、靈脈等無線連結：×1（容量打折，見 {@link #BEAM_EFFICIENCY}、{@link #VEIN_EFFICIENCY}）。</li>
  * </ul>
  * 同一個方塊從兩條路得到不同的傳動比，或兩台引擎要求的轉速不一樣，就是<b>轉速衝突</b>：整個網路停下來冒煙。
  * 容量 = Σ 引擎的 capacityPerRpm × |RPM|；需求 = Σ 機器的 impact × |RPM|。需求超過容量就<b>過載</b>：全部停轉，
@@ -39,7 +39,6 @@ public final class SoulNetwork {
     public static final int INTERVAL = 10;
     public static final int SPEED = 32;                 // 引擎的轉速（RPM）
     public static final float MAX_SPEED = 256;
-    public static final float WAVE_EFFICIENCY = 0.9f;
     public static final float BEAM_EFFICIENCY = 0.95f;
     public static final float VEIN_EFFICIENCY = 0.85f;
     public static final int OVERLOAD_HAZARD_TICKS = 100;
@@ -59,7 +58,6 @@ public final class SoulNetwork {
         Map<BlockPos, Float> ratio = new HashMap<>();
         ArrayDeque<BlockPos> queue = new ArrayDeque<>();
         List<BlockPos> members = new ArrayList<>();
-        boolean wireless = false;
         boolean beamed = false;
         boolean veined = false;
         boolean conflict = false;
@@ -128,14 +126,6 @@ public final class SoulNetwork {
                     nextRatio.add(r);
                 }
             }
-            // 無線（靈魂振波）
-            if (level.getBlockEntity(pos) instanceof SoulWaveBlockEntity wave) {
-                for (BlockPos link : wave.findLinks(level)) {
-                    wireless = true;
-                    next.add(link);
-                    nextRatio.add(r);
-                }
-            }
             for (int i = 0; i < next.size(); i++) {
                 BlockPos n = next.get(i).immutable();
                 float nr = nextRatio.get(i);
@@ -166,7 +156,7 @@ public final class SoulNetwork {
             }
         }
         // 無線連結的損耗：用到哪幾種就取最差的那一種（靈脈 15%、振波 10%、光束 5%）
-        float efficiency = veined ? VEIN_EFFICIENCY : wireless ? WAVE_EFFICIENCY : beamed ? BEAM_EFFICIENCY : 1f;
+        float efficiency = veined ? VEIN_EFFICIENCY : beamed ? BEAM_EFFICIENCY : 1f;
         capacity = Math.round(capacity * efficiency);
         float stress = 0;
         float fastest = 0;

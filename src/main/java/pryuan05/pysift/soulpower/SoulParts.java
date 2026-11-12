@@ -19,7 +19,7 @@ import pryuan05.pysift.PySift;
  */
 public final class SoulParts {
     public enum Part implements StringRepresentable {
-        SHAFT, COG, LARGE_COG, FLYWHEEL, PISTON, MILLSTONE, EMITTER_DISH, RECEIVER_DISH, WAVE_RING, WAVE_CORE, DIAL, NEEDLE,
+        SHAFT, COG, LARGE_COG, FLYWHEEL, PISTON, MILLSTONE, WAVE_RING, WAVE_CORE, DIAL, NEEDLE,
         SIEVE, LENS, CRANK, HALF_SHAFT, FAN, DRILL, BEVEL;
 
         @Override

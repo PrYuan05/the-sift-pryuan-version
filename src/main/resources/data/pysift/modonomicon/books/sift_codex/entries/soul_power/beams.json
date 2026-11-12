@@ -7,9 +7,9 @@
   "icon": {
     "id": "pysift:charoite_beam_emitter"
   },
-  "x": 2,
-  "y": 3,
-  "sort_number": 203,
+  "x": 0,
+  "y": 2,
+  "sort_number": 2,
   "background": {
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26,
@@ -17,7 +17,7 @@
   },
   "parents": [
     {
-      "entry": "pysift:soul_power/waves",
+      "entry": "pysift:soul_power/engine",
       "line_enabled": true
     }
   ],

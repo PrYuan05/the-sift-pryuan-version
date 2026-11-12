@@ -208,8 +208,6 @@
       "id": "pysift:soul_shaft",
       "required": false
     },
-    "pysift:soul_wave_emitter",
-    "pysift:soul_wave_receiver",
     "pysift:soul_willow_button",
     "pysift:soul_willow_hanging_sign",
     "pysift:soul_willow_pressure_plate",

@@ -1,6 +1,6 @@
 """Check soul redstone (soulpower/SoulCircuit) on the running test server (./gradlew.bat runSiftTestServer) over RCON.
 Usage: python -I tools/progression/test_soul_redstone.py <project> [part]
-    part: wire | vanilla | plain | control | overload | gauge | wave | beam | vein | catalyst | sensor | machines | addon | all
+    part: wire | vanilla | plain | control | overload | gauge | beam | vein | catalyst | sensor | machines | addon | all
 
 Run it with the mechanical add-on off (run-server/config/pysift.properties: kinetic_addon=auto or off, no Create):
 the base system must work without any shaft or cogwheel. The add-on's own checks are tools/progression/test_soul_power.py
@@ -220,20 +220,6 @@ def gauge():
     check("gauge load 55 / 256", num(200, Y, 202, "Load"), 55 / 256, tol=0.02)
 
 
-def wave():
-    clear()
-    disc = '{Disc:{id:"minecraft:music_disc_pigstep",count:1}}'
-    r(f"setblock 200 {Y} 210 pysift:spirit_engine[facing=north]{FUEL}")
-    r(f"setblock 201 {Y} 210 pysift:soul_wave_emitter[facing=east]{disc}")   # its back (west) takes the engine
-    r(f"setblock 210 {Y} 210 pysift:soul_wave_receiver[facing=west]{disc}")
-    r(f"setblock 211 {Y} 210 pysift:soul_grinder[facing=north]")
-    settle(3)
-    check("wave hop costs one level (strength 13)", num(211, Y, 210, "Speed"), speed_at(13))
-    r(f"fill 205 {Y - 1} 209 205 {Y + 1} 211 minecraft:white_wool")
-    settle(3)
-    check("wool cuts the wave", num(211, Y, 210, "Speed"), 0)
-
-
 def beam():
     clear()
     Z = 215
@@ -342,7 +328,7 @@ def addon():
 
 
 parts = {"wire": wire, "vanilla": vanilla, "plain": plain, "control": control, "overload": overload, "gauge": gauge,
-         "wave": wave, "beam": beam, "vein": vein, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
+         "beam": beam, "vein": vein, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

@@ -47,8 +47,6 @@ public final class SoulPower {
     public static final Block LARGE_SOUL_COGWHEEL = kinetic("large_soul_cogwheel", p -> new SoulCogBlock(true, p), 2.0f);
     public static final Block SOUL_GAUGE = register("soul_gauge", SoulGaugeBlock::new, 2.5f);
     public static final Block SOUL_GEARBOX = kinetic("soul_gearbox", SoulGearboxBlock::new, 2.5f);
-    public static final Block SOUL_WAVE_EMITTER = register("soul_wave_emitter", p -> new SoulWaveBlock(true, p), 3.0f);
-    public static final Block SOUL_WAVE_RECEIVER = register("soul_wave_receiver", p -> new SoulWaveBlock(false, p), 3.0f);
     public static final Block SOUL_GRINDER = register("soul_grinder", SoulGrinderBlock::new, 3.5f);
     public static final Block SOUL_SIFTER = register("soul_sifter", SoulSifterBlock::new, 3.0f);
     public static final Block CHAROITE_BEAM_EMITTER = register("charoite_beam_emitter", p -> new CharoiteBeamBlock(true, p), 3.0f);
@@ -86,9 +84,6 @@ public final class SoulPower {
     public static final BlockEntityType<SpiritEngineBlockEntity> SPIRIT_ENGINE_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("spirit_engine"),
             FabricBlockEntityTypeBuilder.create(SpiritEngineBlockEntity::new, SPIRIT_ENGINE).build());
-    public static final BlockEntityType<SoulWaveBlockEntity> SOUL_WAVE_ENTITY = Registry.register(
-            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_wave"),
-            FabricBlockEntityTypeBuilder.create(SoulWaveBlockEntity::new, SOUL_WAVE_EMITTER, SOUL_WAVE_RECEIVER).build());
     public static final BlockEntityType<SoulGrinderBlockEntity> SOUL_GRINDER_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_grinder"),
             FabricBlockEntityTypeBuilder.create(SoulGrinderBlockEntity::new, SOUL_GRINDER).build());

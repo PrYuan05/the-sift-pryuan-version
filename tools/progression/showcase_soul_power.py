@@ -50,11 +50,6 @@ r(f"setblock {X + 13} {Y} {Z + 6} pysift:charoite_prism[facing=south]")
 r(f"setblock {X + 13} {Y} {Z + 11} pysift:charoite_beam_receiver[facing=north]")
 r(f"setblock {X + 13} {Y} {Z + 12} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
 disc = '{Disc:{id:"minecraft:music_disc_pigstep",count:1}}'
-r(f"setblock {X + 17} {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
-r(f"setblock {X + 18} {Y} {Z} pysift:soul_wave_emitter[facing=up]{disc}")
-r(f"setblock {X + 18} {Y - 1} {Z} pysift:soul_shaft[axis=y]")
-r(f"setblock {X + 17} {Y - 1} {Z} minecraft:polished_deepslate")
-r(f"setblock {X + 24} {Y} {Z} pysift:soul_wave_receiver[facing=up]{disc}")
 # resonance array
 cx, cz = X + 20, Z + 12
 r(f"setblock {cx} {Y - 1} {cz} pysift:spirit_engine[facing=north]{FUEL}")

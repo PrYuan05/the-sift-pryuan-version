@@ -8,7 +8,7 @@ Rows, from the camera (looking south), left to right along +x:
   z+4   lever -> conduits -> lamp (dead blue: a vanilla signal, the grinder on it stays still); beside it an unpowered wire
   z+8   engine -> conduit -> gauge -> grinder, drill, fan through soul fire, sifter on blue sculk
   z+12  redstone block on a grinder (paused) and on an engine (off)
-  z+16  wave pair, beam over a prism, vein pair through rock - each ending in a grinder
+  z+16  beam over a prism, vein pair through rock - each ending in a grinder
   z+22  sculk catalyst -> conduit -> fan (kill the pig: /kill @e[type=pig]); overloaded circuit with a shrieker"""
 import sys
 from pathlib import Path
@@ -96,10 +96,6 @@ r(f"setblock {X + 9} {Y} {z} minecraft:redstone_block")                         
 # ---- row 4: wireless
 z = Z + 16
 disc = '{Disc:{id:"minecraft:music_disc_pigstep",count:1}}'
-r(f"setblock {X} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
-r(f"setblock {X + 1} {Y} {z} pysift:soul_wave_emitter[facing=east]{disc}")
-r(f"setblock {X + 8} {Y} {z} pysift:soul_wave_receiver[facing=west]{disc}")
-r(f"setblock {X + 9} {Y} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
 r(f"setblock {X + 13} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
 r(f"setblock {X + 14} {Y} {z} pysift:charoite_beam_emitter[facing=east]")
 r(f"setblock {X + 20} {Y} {z} pysift:charoite_prism[facing=south]")

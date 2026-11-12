@@ -36,8 +36,6 @@ BLOCKS = {
     "large_soul_cogwheel": ("Large Soul Cogwheel", "大靈魂齒輪", False),
     "soul_gauge": ("Soul Gauge", "靈壓計", False),
     "soul_gearbox": ("Soul Gearbox", "靈魂齒輪箱", False),
-    "soul_wave_emitter": ("Soul Wave Emitter", "靈魂振波發送器", False),
-    "soul_wave_receiver": ("Soul Wave Receiver", "靈魂振波接收器", False),
     "soul_grinder": ("Soul Grinder", "靈魂研磨機", True),
     "soul_sifter": ("Soul Sifter", "靈魂淨化篩", False),
     "charoite_beam_emitter": ("Charoite Beam Emitter", "紫龍晶光束發射器", False),
@@ -247,8 +245,6 @@ PARTS = {
     # bevel gear of the gearbox: a small siftite wheel near the +Y face, 8 teeth, turned to each side by the renderer
     "bevel": octagon([3.5, 11, 3.5], [12.5, 13, 12.5], COG_BODY)
              + bars(5.5, 1, 11.25, 12.75, TOOTH, [("x", 0), ("z", 0), ("x", 45), ("z", 45)]),
-    "emitter_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_emitter"), PATINA)),
-    "receiver_dish": octagon([1.5, 8, 1.5], [14.5, 9.5, 14.5], faces(PATINA, T("dish_receiver"), PATINA)),
 }
 
 for name, boxes in PARTS.items():
@@ -323,7 +319,7 @@ STATIC = {
     "soul_hand_crank": CRANK_BASE, "soul_fan": FAN, "resonance_core": RES_CORE, "resonance_pedestal": RES_PEDESTAL, "soul_drill": DRILL,
     "soul_clutch": shift_case("clutch", False), "soul_clutch_on": shift_case("clutch", True),
     "soul_gearshift": shift_case("gearshift", False), "soul_gearshift_on": shift_case("gearshift", True),
-    "soul_wave_emitter": WAVE, "soul_wave_receiver": WAVE, "soul_gauge": GAUGE, "soul_gearbox": GEARBOX,
+    "soul_gauge": GAUGE, "soul_gearbox": GEARBOX,
 }
 for name, boxes in STATIC.items():
     base = name.removesuffix("_on")
@@ -443,8 +439,6 @@ for name in ("soul_clutch", "soul_gearshift"):
         for a, rot in AXIS.items() for pw in ("false", "true") for sh in ("false", "true")}})
 wj(A / "blockstates/charoite_prism.json",
    {"variants": {f"facing={f}": {"model": "pysift:block/charoite_prism/charoite_prism", **rot} for f, rot in UPROT.items()}})
-states("soul_wave_emitter", UPROT, "facing")
-states("soul_wave_receiver", UPROT, "facing")
 states("soul_gauge", AXIS, "axis")
 states("soul_gearbox", AXIS, "axis")
 for name in ("soul_shaft", "soul_cogwheel", "large_soul_cogwheel"):
@@ -470,8 +464,6 @@ ITEMS = {
     "soul_gearshift": shift_case("gearshift", False) + SHAFT,
     "spirit_pipe": PIPE_CORE + [Box(*PIPE_ARM["north"], T("pipe")), Box(*PIPE_ARM["south"], T("pipe"))],
     "soul_vein_node": VEIN_NODE + PARTS["wave_core"],
-    "soul_wave_emitter": WAVE + PARTS["emitter_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
-    "soul_wave_receiver": WAVE + PARTS["receiver_dish"] + PARTS["wave_ring"] + PARTS["wave_core"],
     "soul_gauge": GAUGE + PARTS["needle"],
     "soul_gearbox": GEARBOX + [b.turned_east() for b in PARTS["bevel"] + PARTS["half_shaft"]]
                     + [b.mirrored_x() for b in (b2.turned_east() for b2 in PARTS["bevel"] + PARTS["half_shaft"])],
@@ -533,12 +525,6 @@ SHAPED = {
     # soul conduit: redstone carried by a soul (soul essence) in a patina sleeve
     "soul_conduit": ([" R ", "PEP", " R "], {"R": "minecraft:redstone", "P": "pysift:patina_ingot", "E": "pysift:soul_essence"}, 6),
     "soul_gauge": (["I", "S", "C"], {"I": "minecraft:compass", "S": "pysift:soul_conduit", "C": "pysift:patina_ingot"}, 1),
-    "soul_wave_emitter": (["PAP", "ESE", "PIP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
-                                                  "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                  "I": "pysift:siftite_gear"}, 1),
-    "soul_wave_receiver": (["PIP", "ESE", "PAP"], {"P": "minecraft:polished_deepslate", "A": "minecraft:amethyst_shard",
-                                                   "E": "pysift:soul_essence", "S": "minecraft:sculk_sensor",
-                                                   "I": "pysift:siftite_gear"}, 1),
     "soul_sifter": (["LCL", "GSG", "LTL"], {"L": "pysift:stripped_soul_willow_log", "C": "minecraft:crafting_table",
                                             "G": "pysift:siftite_gear", "S": "pysift:soul_crystal_block", "T": "minecraft:hopper"}, 1),
     "charoite_beam_emitter": (["CCC", "GEG", "PGP"], {"C": "pysift:charoite", "G": "pysift:siftite_gear",
@@ -797,17 +783,31 @@ LANG.update({
     "gui.pysift.soul_power.running": ("Running: signal %s/15", "運轉中：訊號 %s/15"),
     "gui.pysift.soul_power.idle": ("No soul signal", "沒有靈魂訊號"),
     "gui.pysift.soul_power.liquid": ("Piped: %s mB", "管線靈液：%s mB"),
-    "message.pysift.soul_wave.frequency": ("Tuned to %s", "頻率：%s"),
-    "message.pysift.soul_wave.empty": ("Tune it with a resonant music disc", "放入一張共鳴唱片來設定頻率"),
     "message.pysift.soul_gauge.status": ("Signal %s/15 · load %s / %s SP (%s%%)", "訊號 %s/15 · 負載 %s / %s SP（%s%%）"),
     "message.pysift.soul_gauge.overloaded": ("Overloaded! %s / %s SP", "過載！%s / %s SP"),
     "message.pysift.soul_crank.too_heavy": ("Too heavy to crank: load %s / %s SP", "負載太大，搖不動：%s / %s SP"),
     "message.pysift.soul_gauge.conflict": ("Speed conflict: gears are fighting each other", "轉速衝突：齒輪互相卡住了"),
 })
+# removed 2026-11-13: the soul wave emitter / receiver (merged into the charoite beam, the one wireless link through air)
+REMOVED = ("soul_wave_emitter", "soul_wave_receiver")
+for name in REMOVED:
+    for f in (f"blockstates/{name}.json", f"items/{name}.json", f"models/item/{name}.json", f"models/block/{name}/{name}.json"):
+        (A / f).unlink(missing_ok=True)
+    for f in (f"recipe/{name}.json", f"advancement/recipes/redstone/{name}.json", f"loot_table/blocks/{name}.json",
+              f"loot_tables/blocks/{name}.json"):
+        (D / "pysift" / f).unlink(missing_ok=True)
+for part in ("emitter_dish", "receiver_dish"):
+    (A / f"models/block/soul_power_parts/{part}.json").unlink(missing_ok=True)
+for t in ("minecraft/tags/block/mineable/pickaxe.json", "pysift/tags/block/not_in_worldgen.json"):
+    if (D / t).exists():
+        tag(t, [], remove=[f"pysift:{n}" for n in REMOVED])
 for code, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{code}.json"
     raw = f.read_bytes().decode("utf-8-sig")
     data = json.loads(raw)
+    for k in [k for k in data if k.startswith("message.pysift.soul_wave.") or k.startswith("book.pysift.sift_codex.soul_power.waves.")
+              or k in {f"{kind}.pysift.{n}" for kind in ("block", "item") for n in REMOVED}]:
+        del data[k]
     for k, v in LANG.items():
         data[k] = v[i]
     out = json.dumps(data, ensure_ascii=False, indent=2)

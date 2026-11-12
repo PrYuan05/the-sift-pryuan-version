@@ -1,5 +1,5 @@
 """Check the soul power network on the running test server (./gradlew.bat runSiftTestServer) over RCON.
-Usage: python -I tools/progression/test_soul_power.py <project> [part]   part: gears | conflict | overload | wave | all
+Usage: python -I tools/progression/test_soul_power.py <project> [part]   part: gears | conflict | overload | all
 
 Builds machines in the Overworld at x 200.., y 120 (in the air, forceloaded), lets the network settle and reads every
 block entity's synced Speed / Load back. Prints PASS / FAIL per check; exit 1 when something fails."""
@@ -98,21 +98,6 @@ def overload():
     r(f"setblock 208 {Y} 200 minecraft:air")
     settle()
     check("4 grinders run again", num(201, Y, 200, "Speed"), 32)
-
-
-def wave():
-    clear()
-    disc = '{Disc:{id:"minecraft:music_disc_pigstep",count:1}}'
-    r(f"setblock 200 {Y} 210 pysift:spirit_engine[facing=north]{FUEL}")
-    r(f"setblock 201 {Y} 210 pysift:soul_wave_emitter[facing=east]{disc}")   # back (west) takes the engine
-    r(f"setblock 210 {Y} 210 pysift:soul_wave_receiver[facing=west]{disc}")
-    r(f"setblock 211 {Y} 210 pysift:soul_grinder[facing=north]")
-    settle(3)
-    check("receiver turns", abs(num(210, Y, 210, "Speed") or 0), 32)
-    check("grinder behind the receiver", abs(num(211, Y, 210, "Speed") or 0), 32)
-    r(f"fill 205 {Y - 1} 209 205 {Y + 1} 211 minecraft:white_wool")
-    settle(3)
-    check("wool cuts the wave", num(211, Y, 210, "Speed"), 0)
 
 
 def sifter():
@@ -403,7 +388,7 @@ def gearbox():
     check("the opposite shaft turns the other way (east = -west)", east, -(west or 0))
 
 
-parts = {"gearbox": gearbox, "crank": crank, "connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "wave": wave, "sifter": sifter}
+parts = {"gearbox": gearbox, "crank": crank, "connect": connect, "shapes": shapes, "drill": drill, "resonance": resonance, "shift": shift, "fan": fan, "pump": pump, "vein": vein, "beam": beam, "gears": gears, "conflict": conflict, "overload": overload, "sifter": sifter}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

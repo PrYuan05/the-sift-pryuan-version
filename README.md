@@ -192,7 +192,7 @@ can run machines. The **Spirit Engine** burns spirit liquid and sends out streng
 | Range | 15 blocks | about 30 (one level every 2 blocks) |
 | Wiring | on top of blocks | **Soul Conduit**: joins on all six sides, runs up walls and through the air |
 | Power | none | machines run on it; a stronger signal works faster |
-| Wireless | none | **soul waves**, **charoite beams**, **soul veins** |
+| Wireless | none | **charoite beams** through the air, **soul veins** through rock |
 
 - **Both ways with vanilla.** A conduit is a redstone source: dust, lamps, pistons, repeaters and comparators read it.
   A lever, repeater, comparator, torch or redstone block against a conduit sends its signal down the wire - but that
@@ -419,7 +419,7 @@ The Sift（篩靈界）是 Minecraft **26.3** 的 Fabric 模組，新增一整�
 | 距離 | 15 格 | 約 30 格（每 2 格少一級） |
 | 走線 | 鋪在方塊頂面 | **靈魂導線**：六個方向都能接，可以貼牆往上、懸在空中 |
 | 動力 | 沒有 | 機器靠它運轉，訊號越強做得越快 |
-| 無線 | 沒有 | **靈魂振波**、**紫龍晶光束**、**靈脈** |
+| 無線 | 沒有 | 穿過空氣的**紫龍晶光束**、穿過岩層的**靈脈** |
 
 - **和原版雙向相接。** 導線對原版元件就是訊號源：紅石粉、紅石燈、活塞、中繼器、比較器都讀得到。把拉桿、中繼器、比較器、紅石火把或
   紅石塊貼著導線，訊號就沿著線傳出去；但那訊號沒有靈魂，機器不會動（導線變成主世界幽匿那種枯死的藍色）。
