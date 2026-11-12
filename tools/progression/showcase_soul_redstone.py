@@ -3,7 +3,8 @@ of the conduit, the vanilla hook-ups, the machines and the sculk hooks are in fr
 Usage: python -I tools/progression/showcase_soul_redstone.py <project>      (mechanical add-on off)
 
 Rows, from the camera (looking south), left to right along +x:
-  z+0   engine -> 30 conduits: the red soul signal fading out; a lamp every 4 blocks; a riser up and over
+  z+0   engine -> 30 conduits: the red soul signal fading out; a lamp every 4 blocks; a riser up and over;
+        on the north side a hopper, dust, a powered rail, a repeater, a piston, a comparator and a note block
   z+4   lever -> conduits -> lamp (dead blue: a vanilla signal, the grinder on it stays still); beside it an unpowered wire
   z+8   engine -> conduit -> gauge -> grinder, drill, fan through soul fire, sifter on blue sculk
   z+12  redstone block on a grinder (paused) and on an engine (off)
@@ -40,6 +41,17 @@ r("gamerule spawn_monsters false")
 # ---- row 0: range and decay
 for x in range(4, 30, 4):                    # lamps first: a block placed by /setblock does not look at its neighbours
     r(f"setblock {X + x} {Y} {Z + 1} minecraft:redstone_lamp")
+# vanilla parts on the north side: the conduit plugs into full blocks and bends down to floor-level parts
+r(f"setblock {X + 6} {Y} {Z - 1} minecraft:hopper")
+r(f"setblock {X + 8} {Y} {Z - 1} minecraft:redstone_wire")
+r(f"setblock {X + 8} {Y} {Z - 2} minecraft:redstone_wire")
+r(f"setblock {X + 10} {Y} {Z - 1} minecraft:powered_rail[shape=north_south]")
+r(f"setblock {X + 10} {Y} {Z - 2} minecraft:powered_rail[shape=north_south]")
+r(f"setblock {X + 12} {Y} {Z - 1} minecraft:repeater[facing=south]")
+r(f"setblock {X + 12} {Y} {Z - 2} minecraft:redstone_lamp")
+r(f"setblock {X + 14} {Y} {Z - 1} minecraft:sticky_piston[facing=north]")
+r(f"setblock {X + 16} {Y} {Z - 1} minecraft:comparator[facing=south]")
+r(f"setblock {X + 18} {Y} {Z - 1} minecraft:note_block")
 r(f"fill {X + 1} {Y} {Z} {X + 31} {Y} {Z} pysift:soul_conduit")
 r(f"fill {X + 2} {Y + 1} {Z} {X + 2} {Y + 4} {Z} pysift:soul_conduit")          # riser
 r(f"fill {X + 2} {Y + 4} {Z - 1} {X + 2} {Y + 4} {Z - 3} pysift:soul_conduit")  # and across, through the air

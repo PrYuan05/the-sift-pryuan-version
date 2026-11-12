@@ -1,9 +1,5 @@
 {
   "parent": "minecraft:block/block",
-  "textures": {
-    "t": "pysift:block/soul_power/conduit_soul",
-    "particle": "pysift:block/soul_power/conduit_soul"
-  },
   "elements": [
     {
       "from": [
@@ -23,16 +19,16 @@
         "south": {
           "texture": "#t"
         },
-        "east": {
-          "texture": "#t"
-        },
         "west": {
           "texture": "#t"
         },
-        "up": {
+        "east": {
           "texture": "#t"
         },
         "down": {
+          "texture": "#t"
+        },
+        "up": {
           "texture": "#t"
         }
       }
@@ -55,16 +51,16 @@
         "south": {
           "texture": "#t"
         },
-        "east": {
-          "texture": "#t"
-        },
         "west": {
           "texture": "#t"
         },
-        "up": {
+        "east": {
           "texture": "#t"
         },
         "down": {
+          "texture": "#t"
+        },
+        "up": {
           "texture": "#t"
         }
       }
@@ -87,19 +83,88 @@
         "south": {
           "texture": "#t"
         },
-        "east": {
-          "texture": "#t"
-        },
         "west": {
           "texture": "#t"
         },
-        "up": {
+        "east": {
           "texture": "#t"
         },
         "down": {
           "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        0
+      ],
+      "to": [
+        11,
+        11,
+        1.5
+      ],
+      "faces": {
+        "north": {
+          "texture": "#f"
+        },
+        "south": {
+          "texture": "#f"
+        },
+        "west": {
+          "texture": "#f"
+        },
+        "east": {
+          "texture": "#f"
+        },
+        "down": {
+          "texture": "#f"
+        },
+        "up": {
+          "texture": "#f"
+        }
+      }
+    },
+    {
+      "from": [
+        5,
+        5,
+        14.5
+      ],
+      "to": [
+        11,
+        11,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#f"
+        },
+        "south": {
+          "texture": "#f"
+        },
+        "west": {
+          "texture": "#f"
+        },
+        "east": {
+          "texture": "#f"
+        },
+        "down": {
+          "texture": "#f"
+        },
+        "up": {
+          "texture": "#f"
         }
       }
     }
-  ]
+  ],
+  "textures": {
+    "t": "pysift:block/soul_power/conduit_soul",
+    "f": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/conduit_soul"
+  }
 }

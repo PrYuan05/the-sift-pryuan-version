@@ -1,0 +1,74 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "from": [
+        0,
+        6,
+        6
+      ],
+      "to": [
+        6,
+        10,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#t"
+        },
+        "south": {
+          "texture": "#t"
+        },
+        "west": {
+          "texture": "#t"
+        },
+        "east": {
+          "texture": "#t"
+        },
+        "down": {
+          "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        5,
+        5
+      ],
+      "to": [
+        1.5,
+        11,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#f"
+        },
+        "south": {
+          "texture": "#f"
+        },
+        "west": {
+          "texture": "#f"
+        },
+        "east": {
+          "texture": "#f"
+        },
+        "down": {
+          "texture": "#f"
+        },
+        "up": {
+          "texture": "#f"
+        }
+      }
+    }
+  ],
+  "textures": {
+    "t": "pysift:block/soul_power/conduit_off",
+    "f": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/conduit_off"
+  }
+}

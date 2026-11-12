@@ -368,35 +368,69 @@ for d, (f, t) in PIPE_ARM.items():
 wj(A / "blockstates/spirit_pipe.json", {"multipart": [{"apply": {"model": "pysift:block/spirit_pipe/spirit_pipe_core"}}] + [
     {"when": {d: "true"}, "apply": {"model": f"pysift:block/spirit_pipe/spirit_pipe_{d}"}} for d in PIPE_ARM]})
 # soul conduit: a thin six-way wire in three looks. soul = a soul signal runs through it (living red sculk vein, glowing);
-# plain = only a vanilla redstone signal (dead blue sculk, faint); off = no signal (dull grey)
-CONDUIT_ARM = {"north": ([6, 6, 0], [10, 10, 6]), "south": ([6, 6, 10], [10, 10, 16]), "west": ([0, 6, 6], [6, 10, 10]),
-               "east": ([10, 6, 6], [16, 10, 10]), "down": ([6, 0, 6], [10, 6, 10]), "up": ([6, 10, 6], [10, 16, 10])}
+# plain = only a vanilla redstone signal (dead blue sculk, faint); off = no signal (dull grey).
+# Each side has a connector: wire (to another soul part), plug (into a vanilla part: the arm ends in a patina collar on
+# the neighbour's face) or low (horizontal sides only: the arm bends down to a patina foot on the floor, for redstone
+# dust, rails and repeaters / comparators). Boxes are written for north (reaching to -z) and turned to the other sides
+# exactly like SoulConduitBlock.box.
+def turn(d, box):
+    (x1, y1, z1), (x2, y2, z2) = box
+    return {"north": ([x1, y1, z1], [x2, y2, z2]), "south": ([16 - x2, y1, 16 - z2], [16 - x1, y2, 16 - z1]),
+            "west": ([z1, y1, 16 - x2], [z2, y2, 16 - x1]), "east": ([16 - z2, y1, x1], [16 - z1, y2, x2]),
+            "down": ([x1, z1, 16 - y2], [x2, z2, 16 - y1]), "up": ([x1, 16 - z2, y1], [x2, 16 - z1, y2])}[d]
+
+
 CONDUIT_CORE = ([5.5, 5.5, 5.5], [10.5, 10.5, 10.5])
-CONDUIT_LOOKS = {"off": ({"power": "0"}, 0), "plain": ({"charged": "false", "power": "|".join(str(i) for i in range(1, 16))}, 5),
-                 "soul": ({"charged": "true"}, 13)}
+ARM_N = ([6, 6, 0], [10, 10, 6])
+COLLAR_N = ([5, 5, 0], [11, 11, 1.5])
+LOW_N = [([6, 6, 2], [10, 10, 6]), ([6, 1, 0], [10, 10, 2])]
+FOOT_N = ([5, 0, 0], [11, 1, 2])
+CONDUIT_LOOKS = {"off": 0, "plain": 5, "soul": 13}
+DIRS = ("north", "south", "west", "east", "down", "up")
 
 
-def conduit_model(boxes, look, light):
+def conduit_model(wire, look, light, fittings=()):
+    """wire = boxes in the look's sculk texture (they glow); fittings = patina boxes (collar, foot)."""
     els = []
-    for f, t in boxes:
-        el = {"from": f, "to": t, "faces": {d: {"texture": "#t"} for d in ("north", "south", "east", "west", "up", "down")}}
-        if light:
-            el["light_emission"] = light
-        els.append(el)
-    return {"parent": "minecraft:block/block", "textures": {"t": T(f"conduit_{look}"), "particle": T(f"conduit_{look}")},
-            "elements": els}
+    for boxes, tex, lit in ((wire, "#t", light), (fittings, "#f", 0)):
+        for f, t in boxes:
+            el = {"from": f, "to": t, "faces": {d: {"texture": tex} for d in DIRS}}
+            if lit:
+                el["light_emission"] = lit
+            els.append(el)
+    return {"parent": "minecraft:block/block", "elements": els,
+            "textures": {"t": T(f"conduit_{look}"), "f": PATINA, "particle": T(f"conduit_{look}")}}
 
 
 parts = []
-for look, (when, light) in CONDUIT_LOOKS.items():
+for look, light in CONDUIT_LOOKS.items():
+    m = f"pysift:block/soul_conduit/soul_conduit_{look}"
     wj(A / f"models/block/soul_conduit/soul_conduit_{look}_core.json", conduit_model([CONDUIT_CORE], look, light))
-    parts.append({"when": when, "apply": {"model": f"pysift:block/soul_conduit/soul_conduit_{look}_core"}})
-    for d, box in CONDUIT_ARM.items():
-        wj(A / f"models/block/soul_conduit/soul_conduit_{look}_{d}.json", conduit_model([box], look, light))
-        parts.append({"when": {d: "true", **when}, "apply": {"model": f"pysift:block/soul_conduit/soul_conduit_{look}_{d}"}})
+    parts.append({"when": {"look": look}, "apply": {"model": m + "_core"}})
+    for d in DIRS:
+        wj(A / f"models/block/soul_conduit/soul_conduit_{look}_{d}.json", conduit_model([turn(d, ARM_N)], look, light))
+        parts.append({"when": {d: "wire", "look": look}, "apply": {"model": f"{m}_{d}"}})
+        wj(A / f"models/block/soul_conduit/soul_conduit_{look}_{d}_plug.json",
+           conduit_model([turn(d, ARM_N)], look, light, [turn(d, COLLAR_N)]))
+        parts.append({"when": {d: "plug", "look": look}, "apply": {"model": f"{m}_{d}_plug"}})
+        if d not in ("up", "down"):
+            wj(A / f"models/block/soul_conduit/soul_conduit_{look}_{d}_low.json",
+               conduit_model([turn(d, b) for b in LOW_N], look, light, [turn(d, FOOT_N)]))
+            parts.append({"when": {d: "low", "look": look}, "apply": {"model": f"{m}_{d}_low"}})
 wj(A / "blockstates/soul_conduit.json", {"multipart": parts})
 wj(A / "models/block/soul_conduit/soul_conduit.json",
-   conduit_model([CONDUIT_CORE, CONDUIT_ARM["north"], CONDUIT_ARM["south"]], "soul", 0))
+   conduit_model([CONDUIT_CORE, turn("north", ARM_N), turn("south", ARM_N)], "soul", 0,
+                 [turn("north", COLLAR_N), turn("south", COLLAR_N)]))
+# what a conduit plugs into (vanilla parts that take a redstone signal, and the sculk blocks that work with a conduit),
+# and what it bends down to (floor-level parts; repeaters and comparators are handled in code, by their facing)
+wj(D / "pysift/tags/block/soul_conduit_plugs.json", {"replace": False, "values": [
+    "minecraft:redstone_lamp", "minecraft:piston", "minecraft:sticky_piston", "minecraft:hopper", "minecraft:dropper",
+    "minecraft:dispenser", "minecraft:note_block", "minecraft:tnt", "minecraft:crafter", "minecraft:bell",
+    "minecraft:copper_bulb", "minecraft:exposed_copper_bulb", "minecraft:weathered_copper_bulb", "minecraft:oxidized_copper_bulb",
+    "minecraft:waxed_copper_bulb", "minecraft:waxed_exposed_copper_bulb", "minecraft:waxed_weathered_copper_bulb",
+    "minecraft:waxed_oxidized_copper_bulb", "#minecraft:doors", "#minecraft:trapdoors", "#minecraft:fence_gates",
+    "minecraft:sculk_catalyst", "minecraft:sculk_shrieker"]})
+wj(D / "pysift/tags/block/soul_conduit_low.json", {"replace": False, "values": ["minecraft:redstone_wire"]})
 states("soul_hand_crank", UPROT, "facing")
 wj(A / "blockstates/resonance_core.json", {"variants": {f"powered={v}": {"model": "pysift:block/resonance_core/resonance_core"}
                                                          for v in ("false", "true")}})
@@ -477,7 +511,7 @@ def optional_kinetic(path):
         return
     cur = json.loads(f.read_text(encoding="utf-8-sig"))
     ids = {f"pysift:{n}" for n in KINETIC}
-    cur["values"] = [{"id": v, "required": False} if v in ids else v for v in cur["values"]]
+    cur["values"] = [{"id": v, "required": False} if isinstance(v, str) and v in ids else v for v in cur["values"]]
     wj(f, cur)
 
 

@@ -199,10 +199,7 @@ public final class SoulCircuit {
             BlockState state = level.getBlockState(pos);
             if (state.getBlock() instanceof SoulConduitBlock) {
                 int power = Math.max(soul, strengthOf(plainCost.getOrDefault(pos, UNREACHED)));
-                boolean charged = soul > 0;
-                if (state.getValue(SoulConduitBlock.POWER) != power || state.getValue(SoulConduitBlock.CHARGED) != charged) {
-                    level.setBlock(pos, state.setValue(SoulConduitBlock.POWER, power).setValue(SoulConduitBlock.CHARGED, charged), Block.UPDATE_ALL);
-                }
+                SoulConduitBlock.apply(level, pos, state, power, soul > 0);
             }
             if (level.getBlockEntity(pos) instanceof KineticBlockEntity member) {
                 member.setCircuit(result, SoulSignal.speed(soul));
@@ -218,7 +215,7 @@ public final class SoulCircuit {
                 level.playSound(null, members.get(0), ModSounds.SOUL_POWER_OVERLOAD, SoundSource.BLOCKS, 0.8f, 1.0f);
             }
             for (BlockPos pos : members) {
-                if (level.getBlockEntity(pos) == null) {
+                if (level.getBlockState(pos).getBlock() instanceof SoulConduitBlock) {
                     shriek(level, pos);
                     continue;   // 導線不冒火，只有機器會
                 }

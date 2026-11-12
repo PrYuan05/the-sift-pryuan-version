@@ -1,9 +1,5 @@
 {
   "parent": "minecraft:block/block",
-  "textures": {
-    "t": "pysift:block/soul_power/conduit_plain",
-    "particle": "pysift:block/soul_power/conduit_plain"
-  },
   "elements": [
     {
       "from": [
@@ -23,20 +19,25 @@
         "south": {
           "texture": "#t"
         },
-        "east": {
-          "texture": "#t"
-        },
         "west": {
           "texture": "#t"
         },
-        "up": {
+        "east": {
           "texture": "#t"
         },
         "down": {
+          "texture": "#t"
+        },
+        "up": {
           "texture": "#t"
         }
       },
       "light_emission": 5
     }
-  ]
+  ],
+  "textures": {
+    "t": "pysift:block/soul_power/conduit_plain",
+    "f": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/conduit_plain"
+  }
 }

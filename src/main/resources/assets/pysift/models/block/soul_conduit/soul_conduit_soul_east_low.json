@@ -1,0 +1,108 @@
+{
+  "parent": "minecraft:block/block",
+  "elements": [
+    {
+      "from": [
+        10,
+        6,
+        6
+      ],
+      "to": [
+        14,
+        10,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#t"
+        },
+        "south": {
+          "texture": "#t"
+        },
+        "west": {
+          "texture": "#t"
+        },
+        "east": {
+          "texture": "#t"
+        },
+        "down": {
+          "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        }
+      },
+      "light_emission": 13
+    },
+    {
+      "from": [
+        14,
+        1,
+        6
+      ],
+      "to": [
+        16,
+        10,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#t"
+        },
+        "south": {
+          "texture": "#t"
+        },
+        "west": {
+          "texture": "#t"
+        },
+        "east": {
+          "texture": "#t"
+        },
+        "down": {
+          "texture": "#t"
+        },
+        "up": {
+          "texture": "#t"
+        }
+      },
+      "light_emission": 13
+    },
+    {
+      "from": [
+        14,
+        0,
+        5
+      ],
+      "to": [
+        16,
+        1,
+        11
+      ],
+      "faces": {
+        "north": {
+          "texture": "#f"
+        },
+        "south": {
+          "texture": "#f"
+        },
+        "west": {
+          "texture": "#f"
+        },
+        "east": {
+          "texture": "#f"
+        },
+        "down": {
+          "texture": "#f"
+        },
+        "up": {
+          "texture": "#f"
+        }
+      }
+    }
+  ],
+  "textures": {
+    "t": "pysift:block/soul_power/conduit_soul",
+    "f": "pysift:block/soul_power/ring",
+    "particle": "pysift:block/soul_power/conduit_soul"
+  }
+}

@@ -77,6 +77,9 @@ public final class SoulPower {
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_kinetic"),
             FabricBlockEntityTypeBuilder.<KineticBlockEntity>create(KineticBlockEntity::new, SOUL_SHAFT, SOUL_COGWHEEL, LARGE_SOUL_COGWHEEL,
                     SOUL_CLUTCH, SOUL_GEARSHIFT, SOUL_GEARBOX).build());
+    public static final BlockEntityType<SoulConduitBlock.Entity> SOUL_CONDUIT_ENTITY = Registry.register(
+            BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_conduit"),
+            FabricBlockEntityTypeBuilder.create(SoulConduitBlock.Entity::new, SOUL_CONDUIT).build());
     public static final BlockEntityType<SoulGaugeBlock.Entity> SOUL_GAUGE_ENTITY = Registry.register(
             BuiltInRegistries.BLOCK_ENTITY_TYPE, PySift.id("soul_gauge"),
             FabricBlockEntityTypeBuilder.create(SoulGaugeBlock.Entity::new, SOUL_GAUGE).build());
@@ -177,7 +180,11 @@ public final class SoulPower {
         ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, PySift.id(name));
         Block block = Registry.register(BuiltInRegistries.BLOCK, blockKey, new SoulConduitBlock(BlockBehaviour.Properties.of()
                 .mapColor(MapColor.COLOR_RED).strength(0.4f).sound(SoundType.SCULK_VEIN).noOcclusion()
-                .lightLevel(st -> st.getValue(SoulConduitBlock.CHARGED) ? 7 : st.getValue(SoulConduitBlock.POWER) > 0 ? 3 : 0)
+                .lightLevel(st -> switch (st.getValue(SoulConduitBlock.LOOK)) {
+                    case SOUL -> 7;
+                    case PLAIN -> 3;
+                    case OFF -> 0;
+                })
                 .setId(blockKey)));
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, PySift.id(name));
         Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(block, new Item.Properties().useBlockDescriptionPrefix().setId(itemKey)));

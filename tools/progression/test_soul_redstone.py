@@ -54,10 +54,11 @@ def expect(name, ok, detail=""):
 
 def conduit(name, x, y, z, power, charged):
     """The conduit's state: outward redstone power and whether a soul signal runs through it."""
-    ok = is_block(x, y, z, f"pysift:soul_conduit[power={power},charged={'true' if charged else 'false'}]")
+    look = "off" if power == 0 else "soul" if charged else "plain"
+    got = num(x, y, z, "Power")
+    ok = got == power and is_block(x, y, z, f"pysift:soul_conduit[look={look}]")
     if not ok:
-        got = next((p for p in range(16) if is_block(x, y, z, f"pysift:soul_conduit[power={p}]")), None)
-        name += f" (power is {got}, charged {is_block(x, y, z, 'pysift:soul_conduit[charged=true]')})"
+        name += f" (power is {got}, look {next((k for k in ('off', 'plain', 'soul') if is_block(x, y, z, f'pysift:soul_conduit[look={k}]')), None)})"
     expect(f"{name}: power {power}, {'soul' if charged else 'no soul'}", ok)
 
 
@@ -87,8 +88,8 @@ def wire():
         conduit(f"conduit {dist} from the engine", 200, Y, 200 + dist, power, True)
     conduit("conduit 30 from the engine (out of range)", 200, Y, 230, 0, False)
     conduit("vertical run, 2 up (cost 4)", 200, Y + 2, 202, 13, True)
-    expect("conduit arms join their neighbours", is_block(200, Y, 205, "pysift:soul_conduit[north=true,south=true,up=false]"))
-    expect("the T-junction grows an arm up", is_block(200, Y, 202, "pysift:soul_conduit[up=true]"))
+    expect("conduit arms join their neighbours", is_block(200, Y, 205, "pysift:soul_conduit[north=wire,south=wire,up=none]"))
+    expect("the T-junction grows an arm up", is_block(200, Y, 202, "pysift:soul_conduit[up=wire]"))
     r(f"setblock 200 {Y} 203 minecraft:air")                           # cut the wire
     settle()
     conduit("after the cut: the far side goes dark", 200, Y, 204, 0, False)
@@ -111,6 +112,9 @@ def vanilla():
     expect("a lamp next to the conduit lights", is_block(201, Y, 204, "minecraft:redstone_lamp[lit=true]"))
     expect("redstone dust next to it takes the signal (13)", is_block(199, Y, 204, "minecraft:redstone_wire[power=13]"))
     expect("a repeater reads the conduit", is_block(200, Y, 207, "minecraft:repeater[powered=true]"))
+    expect("the conduit plugs into the lamp", is_block(200, Y, 204, "pysift:soul_conduit[east=plug]"))
+    expect("it bends down to the dust", is_block(200, Y, 204, "pysift:soul_conduit[west=low]"))
+    expect("and to the repeater's input", is_block(200, Y, 206, "pysift:soul_conduit[south=low]"))
 
 
 def plain():
