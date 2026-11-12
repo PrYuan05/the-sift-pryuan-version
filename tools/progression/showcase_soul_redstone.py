@@ -1,0 +1,119 @@
+"""Build a running soul redstone showcase next to the first online player on the test server (RCON), so every look
+of the conduit, the vanilla hook-ups, the machines and the sculk hooks are in front of the camera.
+Usage: python -I tools/progression/showcase_soul_redstone.py <project>      (mechanical add-on off)
+
+Rows, from the camera (looking south), left to right along +x:
+  z+0   engine -> 30 conduits: the red soul signal fading out; a lamp every 4 blocks; a riser up and over
+  z+4   lever -> conduits -> lamp (dead blue: a vanilla signal, the grinder on it stays still); beside it an unpowered wire
+  z+8   engine -> conduit -> gauge -> grinder, drill, fan through soul fire, sifter on blue sculk
+  z+12  redstone block on a grinder (paused) and on an engine (off)
+  z+16  wave pair, beam over a prism, vein pair through rock - each ending in a grinder
+  z+22  sculk catalyst -> conduit -> fan (kill the pig: /kill @e[type=pig]); overloaded circuit with a shrieker"""
+import sys
+from pathlib import Path
+
+P = Path(sys.argv[1]).resolve()
+sys.path.insert(0, str(P / "tools/worldgen"))
+import devserver as d  # noqa: E402
+
+OW = "execute in minecraft:overworld run "
+FUEL = '{Fuel:{id:"pysift:spirit_liquid_bucket",count:1}}'
+
+
+def r(cmd):
+    out = d.rcon(OW + cmd)
+    return out if isinstance(out, str) else " | ".join(map(str, out))
+
+
+who = d.rcon("list")
+who = who if isinstance(who, str) else " ".join(who)
+name = who.rsplit(":", 1)[-1].strip().split(",")[0].strip()
+print("player:", name)
+X, Y, Z = 300, 140, 300
+r(f"forceload add {X - 10} {Z - 10} {X + 40} {Z + 40}")
+r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y + 8} {Z + 30} minecraft:air")
+r(f"fill {X - 6} {Y - 1} {Z - 6} {X + 36} {Y - 1} {Z + 30} minecraft:polished_deepslate")
+r("time set midnight")                       # the glow shows best in the dark
+r("gamerule advance_time false")
+r("gamerule spawn_monsters false")
+
+# ---- row 0: range and decay
+for x in range(4, 30, 4):                    # lamps first: a block placed by /setblock does not look at its neighbours
+    r(f"setblock {X + x} {Y} {Z + 1} minecraft:redstone_lamp")
+r(f"fill {X + 1} {Y} {Z} {X + 31} {Y} {Z} pysift:soul_conduit")
+r(f"fill {X + 2} {Y + 1} {Z} {X + 2} {Y + 4} {Z} pysift:soul_conduit")          # riser
+r(f"fill {X + 2} {Y + 4} {Z - 1} {X + 2} {Y + 4} {Z - 3} pysift:soul_conduit")  # and across, through the air
+r(f"setblock {X + 2} {Y + 4} {Z - 4} minecraft:redstone_lamp")
+r(f"setblock {X} {Y} {Z} pysift:spirit_engine[facing=north]{FUEL}")
+
+# ---- row 1: a vanilla signal on the wire (blue), and an unpowered wire (grey)
+z = Z + 4
+r(f"setblock {X} {Y} {z} minecraft:lever[face=floor,powered=false]")
+r(f"fill {X + 1} {Y} {z} {X + 8} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 9} {Y} {z} minecraft:redstone_lamp")
+r(f"setblock {X + 5} {Y} {z + 1} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:cobblestone",count:64}}')
+r(f"setblock {X + 3} {Y} {z - 1} minecraft:redstone_wire")
+r(f"setblock {X} {Y} {z} minecraft:lever[face=floor,powered=true]")
+r(f"fill {X + 14} {Y} {z} {X + 20} {Y} {z} pysift:soul_conduit")                  # nothing feeds this one
+r(f"setblock {X + 13} {Y} {z} minecraft:lever[face=floor,powered=false]")
+
+# ---- row 2: machines on soul signal
+z = Z + 8
+r(f"fill {X - 4} {Y - 1} {z - 1} {X + 22} {Y - 1} {z + 2} minecraft:sculk")
+r(f"setblock {X} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"fill {X + 1} {Y} {z} {X + 14} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 3} {Y} {z} pysift:soul_gauge[axis=x]")
+r(f"setblock {X + 5} {Y} {z + 1} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:cobblestone",count:64}}')
+r(f"setblock {X + 8} {Y} {z + 1} pysift:soul_drill[facing=south]")
+r(f"fill {X + 8} {Y} {z + 2} {X + 8} {Y} {z + 2} minecraft:deepslate")
+r(f"setblock {X + 11} {Y} {z - 1} pysift:soul_fan[facing=north]")
+r(f"setblock {X + 11} {Y - 1} {z - 3} minecraft:soul_soil")
+r(f"setblock {X + 11} {Y} {z - 3} minecraft:soul_fire")
+r(f"setblock {X + 15} {Y} {z} pysift:soul_sifter[facing=north]" + '{Slot0:{id:"minecraft:sculk",count:16}}')
+
+# ---- row 3: redstone control
+z = Z + 12
+r(f"setblock {X} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"fill {X + 1} {Y} {z} {X + 3} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 4} {Y} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:cobblestone",count:64}}')
+r(f"setblock {X + 5} {Y} {z} minecraft:redstone_block")                           # pauses the grinder
+r(f"setblock {X + 10} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"fill {X + 11} {Y} {z} {X + 14} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 9} {Y} {z} minecraft:redstone_block")                           # switches the engine off
+
+# ---- row 4: wireless
+z = Z + 16
+disc = '{Disc:{id:"minecraft:music_disc_pigstep",count:1}}'
+r(f"setblock {X} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"setblock {X + 1} {Y} {z} pysift:soul_wave_emitter[facing=east]{disc}")
+r(f"setblock {X + 8} {Y} {z} pysift:soul_wave_receiver[facing=west]{disc}")
+r(f"setblock {X + 9} {Y} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
+r(f"setblock {X + 13} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"setblock {X + 14} {Y} {z} pysift:charoite_beam_emitter[facing=east]")
+r(f"setblock {X + 20} {Y} {z} pysift:charoite_prism[facing=south]")
+r(f"setblock {X + 20} {Y} {z + 4} pysift:charoite_beam_receiver[facing=north]")
+r(f"setblock {X + 20} {Y} {z + 5} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
+r(f"fill {X + 25} {Y} {z - 1} {X + 33} {Y + 2} {z + 1} minecraft:stone")
+r(f"setblock {X + 24} {Y + 1} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"setblock {X + 25} {Y + 1} {z} pysift:soul_vein_node")
+r(f"setblock {X + 33} {Y + 1} {z} pysift:soul_vein_node")
+r(f"setblock {X + 34} {Y + 1} {z} pysift:soul_grinder[facing=north]" + '{Slot0:{id:"minecraft:gravel",count:64}}')
+
+# ---- row 5: sculk
+z = Z + 22
+r(f"setblock {X} {Y} {z} minecraft:sculk_catalyst")
+r(f"fill {X + 1} {Y} {z} {X + 3} {Y} {z} pysift:soul_conduit")
+r(f"setblock {X + 4} {Y} {z} pysift:soul_fan[facing=east]")
+r(f"fill {X - 2} {Y} {z + 2} {X + 1} {Y} {z + 4} minecraft:glass")
+r(f"fill {X - 1} {Y} {z + 3} {X} {Y} {z + 3} minecraft:air")
+for _ in range(4):
+    r(f"summon minecraft:pig {X - 0.5} {Y} {z + 3.5}")
+r(f"setblock {X + 12} {Y} {z} pysift:spirit_engine[facing=north]{FUEL}")
+r(f"fill {X + 12} {Y} {z + 1} {X + 12} {Y} {z + 5} pysift:soul_conduit")
+r(f"setblock {X + 11} {Y} {z + 3} minecraft:sculk_shrieker")
+r(f"fill {X + 13} {Y} {z + 1} {X + 13} {Y} {z + 5} pysift:soul_grinder[facing=north]")      # five grinders: overloaded
+
+# camera
+r(f"gamemode creative {name}")
+r(f"tp {name} {X + 14} {Y + 9} {Z - 8} 0 35")
+print("built at", X, Y, Z)
