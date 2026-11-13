@@ -825,6 +825,9 @@ RECIPES.update(C.RECIPES)
 import music as MU  # noqa: E402  boss-fight music (tools/audio/music.py)
 MU.B = sys.modules[__name__]
 RECIPES.update(MU.RECIPES)
+import layer_music as LM  # noqa: E402  music of the underground layers (tools/audio/layer_music.py)
+LM.B = sys.modules[__name__]
+RECIPES.update(LM.RECIPES)
 EVENTS.update(MU.EVENTS)
 import machines as MA  # noqa: E402  soul power machines (tools/audio/machines.py)
 MA.B = sys.modules[__name__]

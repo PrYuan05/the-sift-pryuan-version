@@ -24,7 +24,8 @@ MUSIC = {
     "red_zone_caves": ["deeper", "an_ordinary_day", "ebb", "nether/crimson_forest/chrysopoeia"],
     "lullaby_hills": ["echo_in_the_wind", "left_to_bloom", "featherfall", "comforting_memories"],   # gentle: the echo golems' lullaby
     "soul_caldera": ["nether/soulsand_valley/so_below", "deeper", "ancestry", "nether/concrete_halls"],   # dark, volcanic, soulful
-    # underground layers (v2.1.0): the ambience is their own (tools/audio/build_sounds.py); the music is vanilla for now
+    # underground layers (v2.1.0): ambience and music are their own (tools/audio/build_sounds.py, layer_music.py); these vanilla
+    # tracks are only the fallback when sounds/music/<layer>/ is missing
     "withered_hollows": ["ancestry", "an_ordinary_day", "ebb"],                   # sparse, dry, almost nothing
     "resonant_vaults": ["echo_in_the_wind", "featherfall", "comforting_memories"],      # open and clear: the choir's hall
     "spirit_deeps": ["deeper", "nether/soulsand_valley/so_below", "ancestry"],         # deep and slow
@@ -89,9 +90,13 @@ def main():
         del out[k]
     for b in BIOMES:
         tracks = []
-        for t in MUSIC[b]:
-            assert f"minecraft/sounds/music/game/{t}.ogg" in idx, f"no vanilla track {t}"
-            tracks.append({"name": f"minecraft:music/game/{t}", "stream": True})
+        own_music = P / "src/main/resources/assets/pysift/sounds/music" / b   # tools/audio/layer_music.py: the layers' own music
+        if own_music.is_dir() and list(own_music.glob("track*.ogg")):
+            tracks = [{"name": f"pysift:music/{b}/{f.stem}", "stream": True} for f in sorted(own_music.glob("track*.ogg"))]
+        else:
+            for t in MUSIC[b]:
+                assert f"minecraft/sounds/music/game/{t}.ogg" in idx, f"no vanilla track {t}"
+                tracks.append({"name": f"minecraft:music/game/{t}", "stream": True})
         out[f"music.the_sift.{b}"] = {"category": "music", "sounds": tracks}
         own = P / "src/main/resources/assets/pysift/sounds/ambient" / b   # tools/audio/build_sounds.py 合成的環境音優先
         if own.is_dir():
