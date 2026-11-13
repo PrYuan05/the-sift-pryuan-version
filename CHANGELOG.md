@@ -16,6 +16,7 @@ deeper, the more alive; the shallower, the more it rots.
   from the floor, Sentinels, Tuners and Echo Golems with their Singers.
 - **Spirit Deeps** (87+ blocks down, wet regions): glowing magma-vein floors, large red sculk fields, glowshade grass.
 - The Echo Den can now start in any underground layer.
+- The borders between layers undulate (about +-7 blocks) instead of following the ground as flat sheets.
 - The deep ores that used to belong to the surface biomes (soul crystal, patina) still generate underground.
 
 ### New: a way down
@@ -408,6 +409,7 @@ soul machines.
 - **共鳴穹窟**（87 格以下）：拋光石地面、平滑天花板，地面長出 charoite 與靈魂晶體；哨兵、調音者、迴音傀儡與歌者。
 - **靈液深淵**（87 格以下、潮濕區域）：發光的熔脈地面、大片赤紅幽匿、微光草。
 - 回音窟現在可以出現在任何一層地底。
+- 層與層的交界會起伏（約 ±7 格），不再是貼著地表的平面。
 - 原本屬於地表生態域的深層礦物（靈魂晶體、銅綠礦）仍然會在地底生成。
 
 ### 新增：通往地底的路

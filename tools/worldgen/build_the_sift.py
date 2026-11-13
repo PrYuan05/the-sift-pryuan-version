@@ -1387,6 +1387,18 @@ while todo:
         df = bury_caves(df)
     wj(D / "worldgen/density_function/the_sift" / f"{rel.split('/', 1)[1]}.json", df)
 noise = json.loads(retarget(json.dumps(noise)))
+# Underground layer borders (v2.1.0): the climate sampler reads the router's "depth" to pick the layer. Give it its own
+# copy with a 3D noise wobble (+-LAYER_WOBBLE depth = about +-7 blocks) so the borders between the withered hollows,
+# song caves and deep layers undulate instead of following the surface as flat sheets. Terrain, aquifers and caves
+# keep reading the plain pysift:the_sift/depth by name, so nothing but the biome choice moves.
+LAYER_WOBBLE = 0.055
+wj(D / "worldgen/noise/the_sift_layers.json", {"base_amplitude": 1.0, "base_octave": -6, "octave_count": 3,
+                                               "amplitude_modifiers": [1.0, 0.8, 0.4]})
+wj(D / "worldgen/density_function/the_sift/biome_depth.json", {
+    "type": "minecraft:add", "left": "pysift:the_sift/depth",
+    "right": {"type": "minecraft:mul", "left": LAYER_WOBBLE,
+              "right": {"type": "minecraft:noise", "noise": "pysift:the_sift_layers", "xz_scale": 1.0, "y_scale": 1.0}}})
+noise["noise_router"]["depth"] = "pysift:the_sift/biome_depth"
 noise["default_block"] = BASE
 noise["default_fluid"] = state("spirit_liquid")
 noise["material_rule"] = "pysift:the_sift"

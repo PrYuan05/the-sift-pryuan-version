@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:add",
+  "left": "pysift:the_sift/depth",
+  "right": {
+    "type": "minecraft:mul",
+    "left": 0.055,
+    "right": {
+      "type": "minecraft:noise",
+      "noise": "pysift:the_sift_layers",
+      "xz_scale": 1.0,
+      "y_scale": 1.0
+    }
+  }
+}

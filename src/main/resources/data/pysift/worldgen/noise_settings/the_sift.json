@@ -116,7 +116,7 @@
   "noise_router": {
     "chunk_surface_level": "pysift:the_sift/chunk_surface_level",
     "continents": "pysift:the_sift/continents",
-    "depth": "pysift:the_sift/depth",
+    "depth": "pysift:the_sift/biome_depth",
     "erosion": "pysift:the_sift/erosion",
     "final_density": "pysift:the_sift/final_density",
     "ridges": "pysift:the_sift/ridges",
