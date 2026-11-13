@@ -2468,15 +2468,11 @@
     "category": "music",
     "sounds": [
       {
-        "name": "minecraft:music/game/ancestry",
+        "name": "pysift:music/withered_hollows/track1",
         "stream": true
       },
       {
-        "name": "minecraft:music/game/an_ordinary_day",
-        "stream": true
-      },
-      {
-        "name": "minecraft:music/game/ebb",
+        "name": "pysift:music/withered_hollows/track2",
         "stream": true
       }
     ]
@@ -2530,15 +2526,11 @@
     "category": "music",
     "sounds": [
       {
-        "name": "minecraft:music/game/echo_in_the_wind",
+        "name": "pysift:music/resonant_vaults/track1",
         "stream": true
       },
       {
-        "name": "minecraft:music/game/featherfall",
-        "stream": true
-      },
-      {
-        "name": "minecraft:music/game/comforting_memories",
+        "name": "pysift:music/resonant_vaults/track2",
         "stream": true
       }
     ]
@@ -2592,15 +2584,11 @@
     "category": "music",
     "sounds": [
       {
-        "name": "minecraft:music/game/deeper",
+        "name": "pysift:music/spirit_deeps/track1",
         "stream": true
       },
       {
-        "name": "minecraft:music/game/nether/soulsand_valley/so_below",
-        "stream": true
-      },
-      {
-        "name": "minecraft:music/game/ancestry",
+        "name": "pysift:music/spirit_deeps/track2",
         "stream": true
       }
     ]

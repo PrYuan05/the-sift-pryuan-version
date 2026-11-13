@@ -1,6 +1,12 @@
 """Background music for the three underground layers of The Sift (imported by build_sounds.py, which sets B).
 
-Original music, fully synthesised, in the way the Singers' voices were made (see the Singer notes in build_sounds.py:
+Two ways to make a layer's music (the second is the one installed):
+  * sourced (RECIPES): CC0 tracks found on OpenGameArt, kept in sound_sources/music/<layer>/track_* (not in git; the
+    download list is sources.txt beside them, credited in sounds/CREDITS.md). Cut, faded and levelled here, never shipped
+    unmodified. The tracks were picked by analysing what each place should sound like (see each recipe).
+  * synthesised (SYNTH_RECIPES, folder music_synth/, not wired into the game): original pieces made like the Singers' voices
+
+The synthesised pieces are original music, fully synthesised, in the way the Singers' voices were made (see the Singer notes in build_sounds.py:
 a very steady pitch with almost no vibrato, soft attack, several voices at once, a long reverb, and a layer of pipe organ
 that never moves under the "shout" vowels). Nothing is sampled. Each layer is a different place the same choir sings in:
 
@@ -200,8 +206,54 @@ def spirit_deeps_music(rng):
     return {"track1": spirit_deeps_depth(rng)["track1"], "track2": spirit_deeps_current(rng)["track1"]}
 
 
+SYNTH_RECIPES = {
+    "music_withered_hollows_synth": (withered_hollows_music, "music_synth/withered_hollows", 81),
+    "music_resonant_vaults_synth": (resonant_vaults_music, "music_synth/resonant_vaults", 82),
+    "music_spirit_deeps_synth": (spirit_deeps_music, "music_synth/spirit_deeps", 83),
+}
+
+
+# ----------------------------------------------------------------------------------------------- sourced (CC0) tracks
+def load_sources(layer):
+    """sound_sources/music/<layer>/track_* as stereo float arrays at SR, in file-name order."""
+    import soundfile as sf
+    from scipy.signal import resample_poly
+    out = []
+    for f in sorted((B.SOURCES / "music" / layer).glob("track_*")):
+        x, sr = sf.read(str(f), always_2d=True)
+        x = np.repeat(x[:, :1], 2, axis=1) if x.shape[1] == 1 else x[:, :2]
+        if sr != SR:
+            x = np.stack([resample_poly(x[:, c], SR, sr) for c in range(2)], axis=1)
+        out.append(x.astype(np.float64))
+    assert out, f"no tracks in sound_sources/music/{layer}"
+    return out
+
+
+def trim_silence(x, floor_db=-60.0):
+    level = np.abs(x).max(axis=1)
+    loud = np.nonzero(level > 10 ** (floor_db / 20) * level.max())[0]
+    return x[loud[0]: loud[-1] + 1]
+
+
+def sourced(layer, rms_db, fade_in=3.0, fade_out=5.0, max_seconds=150.0):
+    """Cut (trim silence, at most max_seconds), fade, level and limit each downloaded track of a layer."""
+    def make(rng):
+        tracks = {}
+        for i, x in enumerate(load_sources(layer), 1):
+            x = trim_silence(x)[: int(max_seconds * SR)]
+            tracks[f"track{i}"] = finish(x, rms_db, fade_in, fade_out)
+        return tracks
+    return make
+
+
+# Picked by analysing the places (measured, not guessed: centroid = spectral brightness, rms = loudness):
+#  withered hollows (dry, cut off, wind in the cracks and a drip): IgnasD "Loopable Dungeon Ambience" (low wind and drips) and
+#                    Creomoto "Dungeon Ambience" (a steady, quiet, empty bed) - ambience, almost no melody, leave room for the cave sounds
+#  resonant vaults (the choir's hall, crystals): dgrannum22 "Cathedral" (choir and organ, slow) and messersm "Crystal Cave (song18)"
+#                    (stone, bells and arpeggios)
+#  spirit deeps (deep, slow, liquid): "Dark Cavern Ambient" 1 and 2 (very low, rumbling: spectral centroid ~270 Hz)
 RECIPES = {
-    "music_withered_hollows": (withered_hollows_music, "music/withered_hollows", 81),
-    "music_resonant_vaults": (resonant_vaults_music, "music/resonant_vaults", 82),
-    "music_spirit_deeps": (spirit_deeps_music, "music/spirit_deeps", 83),
+    "music_withered_hollows": (sourced("withered_hollows", -26.0), "music/withered_hollows", 81),
+    "music_resonant_vaults": (sourced("resonant_vaults", -21.0), "music/resonant_vaults", 82),
+    "music_spirit_deeps": (sourced("spirit_deeps", -22.0), "music/spirit_deeps", 83),
 }

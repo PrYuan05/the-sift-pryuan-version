@@ -74,3 +74,18 @@ Boss music uses whole tracks from Pixabay Music, levelled, trimmed and faded
 
 The number at the end of each name is the Pixabay sound id
 (`https://pixabay.com/sound-effects/<name>/`; the newer rows give the full page slug).
+
+## Underground layer music
+
+The background music of Withered Hollows, Resonant Vaults and Spirit Deeps uses CC0 tracks from OpenGameArt
+(`https://opengameart.org/content/<slug>`), trimmed, faded and levelled by `tools/audio/layer_music.py`
+(CC0 needs no credit; they are listed anyway). Used in `sounds/music/<layer>/`:
+
+| Layer | Track (page slug) | Submitted by | Licence |
+| :-- | :-- | :-- | :-- |
+| Withered Hollows | `loopable-dungeon-ambience` (Loopable Dungeon Ambience) | IgnasD | CC0 |
+| Withered Hollows | `dungeon-ambience` (Dungeon Ambience) | Creomoto | CC0 |
+| Resonant Vaults | `cathedral-0` (Cathedral) | dgrannum22 | CC0 |
+| Resonant Vaults | `crystal-cave-song18` (Crystal Cave, song18) | messersm | CC0 |
+| Spirit Deeps | `dark-cavern-ambient` (Dark Cavern Ambient 1 and 2) | OpenGameArt upload | CC0 |
+

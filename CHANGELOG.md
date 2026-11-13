@@ -37,7 +37,8 @@ deeper, the more alive; the shallower, the more it rots.
 - Withered Hollows, Resonant Vaults and Spirit Deeps have their own synthesised ambience (they used to share the Red Zone
   Caves'): wind whistling through cracks and a lone dry drip in the shallows; a huge echoing hall with a clear far-off
   choir, ringing crystals and long drips in the vaults; deep liquid flow, gulps, bubbles and a rising soul in the deeps.
-  The music for the three layers is vanilla for now.
+  Their music is made from CC0 tracks (OpenGameArt) picked for each place: dry wind and drips in the shallows, a
+  cathedral choir and crystal bells in the vaults, deep rumbling cavern drones in the deeps.
 
 ### Changed: real cave shapes
 Each layer now takes after a real kind of cave (the caves are the vanilla cave generator with per-layer settings that
@@ -454,7 +455,7 @@ soul machines.
 ### 新增：地底環境音
 - 枯竭窟、共鳴穹窟、靈液深淵各有自己合成的環境音（以前共用紅區洞穴的）：淺層是風從岩縫鑽過的口哨聲與一滴乾脆的水；
   穹窟是極大的回音大廳、清楚的遠處合唱、水晶共鳴與久久不散的滴水；深淵是深處液體的流動、悶響的冒泡與升起的靈魂。
-  三層的背景音樂暫時用原版曲目。
+  三層的背景音樂用 CC0 曲目（OpenGameArt）依各地氣氛挑選：淺層是乾燥的風與滴水，穹窟是教堂合唱與水晶鐘聲，深淵是低沉轟鳴的洞穴底噪。
 
 ### 變更：貼近現實的洞穴形狀
 每一層參考一種真實的洞穴（洞穴仍是原版洞穴生成，只是各層參數不同，層界處會平滑過渡）：
