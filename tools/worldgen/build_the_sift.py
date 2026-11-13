@@ -826,13 +826,9 @@ ORE_FEATURES["resonant_vaults"] = ["pysift:soul_crystal_buried"]
 ORE_FEATURES["spirit_deeps"] = ["pysift:soul_crystal_buried"]
 ORE_FEATURES["withered_hollows"] = ["pysift:patina_ore_caldera"]
 
-SOUND_ALIAS = {"withered_hollows": "red_zone_caves", "resonant_vaults": "red_zone_caves", "spirit_deeps": "red_zone_caves"}
-
-
 def audio(name):
     """背景音樂與環境音：模組自己的音效 ID（ModSounds），實際聲音在 sounds.json（tools/worldgen/build_sift_audio.py）。
-    新的地底生態域暫時沿用 red_zone_caves 的音效（SOUND_ALIAS），之後有自己的音檔再拆開。"""
-    name = SOUND_ALIAS.get(name, name)
+    地底各層的環境音是自己合成的（tools/audio/build_sounds.py）。"""
     return {
         "minecraft:audio/ambient_sounds": {
             "loop": f"pysift:ambient.the_sift.{name}.loop",

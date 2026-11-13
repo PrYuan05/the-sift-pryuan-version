@@ -13,7 +13,7 @@ from pathlib import Path
 P = Path(sys.argv[1]).resolve()
 SOUNDS = P / "src/main/resources/assets/pysift/sounds.json"
 BIOMES = ["willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills",
-          "soul_caldera"]
+          "soul_caldera", "withered_hollows", "resonant_vaults", "spirit_deeps"]
 
 # 背景音樂（原版曲目暫用）：柳絮林地柔和、峽谷乾燥遼闊、深淵幽暗、沙丘溫暖、紅區洞穴低沉
 MUSIC = {
@@ -24,6 +24,10 @@ MUSIC = {
     "red_zone_caves": ["deeper", "an_ordinary_day", "ebb", "nether/crimson_forest/chrysopoeia"],
     "lullaby_hills": ["echo_in_the_wind", "left_to_bloom", "featherfall", "comforting_memories"],   # gentle: the echo golems' lullaby
     "soul_caldera": ["nether/soulsand_valley/so_below", "deeper", "ancestry", "nether/concrete_halls"],   # dark, volcanic, soulful
+    # underground layers (v2.1.0): the ambience is their own (tools/audio/build_sounds.py); the music is vanilla for now
+    "withered_hollows": ["ancestry", "an_ordinary_day", "ebb"],                   # sparse, dry, almost nothing
+    "resonant_vaults": ["echo_in_the_wind", "featherfall", "comforting_memories"],      # open and clear: the choir's hall
+    "spirit_deeps": ["deeper", "nether/soulsand_valley/so_below", "ancestry"],         # deep and slow
 }
 # 環境音：loop（持續的底噪）、mood（偶爾一聲低鳴）、additions（零星的小聲音）。值 = [(原版事件, 音量, 音高)]
 # 遠處的「歌聲」用悅靈的哼唱和紫水晶的叮噹聲代替（The Sift 是歌者的家）

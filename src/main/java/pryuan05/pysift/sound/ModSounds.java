@@ -93,7 +93,7 @@ public class ModSounds {
      * 由生態域 JSON 的 audio attributes 引用；sounds.json 目前指向原版音樂與環境音（tools/worldgen/build_sift_audio.py）。
      */
     public static final List<String> SIFT_BIOMES = List.of("willow_grove", "crimson_strata_canyon", "violet_slate_abyss", "amber_dunes", "red_zone_caves", "lullaby_hills",
-            "soul_caldera");
+            "soul_caldera", "withered_hollows", "resonant_vaults", "spirit_deeps");
 
     static {
         for (String biome : SIFT_BIOMES) {

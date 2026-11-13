@@ -2463,5 +2463,196 @@
         "name": "pysift:block/soul_power/sift2"
       }
     ]
+  },
+  "music.the_sift.withered_hollows": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/ancestry",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/an_ordinary_day",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/ebb",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.withered_hollows.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/withered_hollows/loop",
+        "volume": 0.8,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.withered_hollows.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/withered_hollows/mood1",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/withered_hollows/mood2",
+        "volume": 0.7,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.withered_hollows.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/withered_hollows/additions1",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/withered_hollows/additions2",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/withered_hollows/additions3",
+        "volume": 0.55,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "music.the_sift.resonant_vaults": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/echo_in_the_wind",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/featherfall",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/comforting_memories",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.resonant_vaults.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/resonant_vaults/loop",
+        "volume": 0.8,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.resonant_vaults.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/resonant_vaults/mood1",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/resonant_vaults/mood2",
+        "volume": 0.7,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.resonant_vaults.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/resonant_vaults/additions1",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/resonant_vaults/additions2",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/resonant_vaults/additions3",
+        "volume": 0.55,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "music.the_sift.spirit_deeps": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "minecraft:music/game/deeper",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/nether/soulsand_valley/so_below",
+        "stream": true
+      },
+      {
+        "name": "minecraft:music/game/ancestry",
+        "stream": true
+      }
+    ]
+  },
+  "ambient.the_sift.spirit_deeps.loop": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/spirit_deeps/loop",
+        "volume": 0.8,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.spirit_deeps.mood": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/spirit_deeps/mood1",
+        "volume": 0.7,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/spirit_deeps/mood2",
+        "volume": 0.7,
+        "pitch": 1.0
+      }
+    ]
+  },
+  "ambient.the_sift.spirit_deeps.additions": {
+    "category": "ambient",
+    "sounds": [
+      {
+        "name": "pysift:ambient/spirit_deeps/additions1",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/spirit_deeps/additions2",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/spirit_deeps/additions3",
+        "volume": 0.55,
+        "pitch": 1.0
+      },
+      {
+        "name": "pysift:ambient/spirit_deeps/additions4",
+        "volume": 0.55,
+        "pitch": 1.0
+      }
+    ]
   }
 }

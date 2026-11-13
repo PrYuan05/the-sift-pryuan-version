@@ -33,6 +33,12 @@ deeper, the more alive; the shallower, the more it rots.
 - **Charoite clusters hang from the ceilings** of the Resonant Vaults and Spirit Deeps.
 - **Wall vines** in the Red Zone Caves (orange) and Spirit Deeps (carapace), and green vines down sinkhole walls.
 
+### New: underground ambience
+- Withered Hollows, Resonant Vaults and Spirit Deeps have their own synthesised ambience (they used to share the Red Zone
+  Caves'): wind whistling through cracks and a lone dry drip in the shallows; a huge echoing hall with a clear far-off
+  choir, ringing crystals and long drips in the vaults; deep liquid flow, gulps, bubbles and a rising soul in the deeps.
+  The music for the three layers is vanilla for now.
+
 ### Changed: real cave shapes
 Each layer now takes after a real kind of cave (the caves are the vanilla cave generator with per-layer settings that
 blend across the layer borders):
@@ -50,7 +56,6 @@ blend across the layer borders):
 
 ### Notes
 - No new creatures: the existing ones are redistributed across the layers.
-- The new layers share the Red Zone Caves' music and ambient sounds for now.
 
 ## v2.0.0
 
@@ -446,6 +451,11 @@ soul machines.
 - 共鳴穹窟與靈液深淵的**天花板長出倒掛的 charoite 晶簇**。
 - 紅區洞穴（橘）與靈液深淵（甲殼）有**貼牆藤蔓**，天坑洞壁垂著綠色藤蔓。
 
+### 新增：地底環境音
+- 枯竭窟、共鳴穹窟、靈液深淵各有自己合成的環境音（以前共用紅區洞穴的）：淺層是風從岩縫鑽過的口哨聲與一滴乾脆的水；
+  穹窟是極大的回音大廳、清楚的遠處合唱、水晶共鳴與久久不散的滴水；深淵是深處液體的流動、悶響的冒泡與升起的靈魂。
+  三層的背景音樂暫時用原版曲目。
+
 ### 變更：貼近現實的洞穴形狀
 每一層參考一種真實的洞穴（洞穴仍是原版洞穴生成，只是各層參數不同，層界處會平滑過渡）：
 - **枯竭窟**：像喀斯特節理裂隙（grike）的窄而高的裂縫、細隧道，沒有大洞室。
@@ -461,7 +471,6 @@ soul machines.
 
 ### 備註
 - 沒有新增生物，現有生物依層重新分配。
-- 新的地底層暫時共用紅區洞穴的音樂與環境音。
 
 ## v2.0.0（繁體中文）
 

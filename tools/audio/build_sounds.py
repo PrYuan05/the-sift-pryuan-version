@@ -426,10 +426,76 @@ def soul_caldera(rng):
     return s
 
 
+def whistle(rng, seconds=3.0, freq=(620, 520), gain=0.5):
+    """Wind whistling through a crack: a narrow band of noise gliding in pitch, breathing in and out."""
+    n = int(seconds * S.SR)
+    x = S.noise_band(n, 200, 4000, rng)
+    out = np.zeros(n)
+    for k, f in enumerate(np.linspace(freq[0], freq[1], 3)):   # three slightly different resonances
+        out += S.bandpass(x, f * (1 + 0.03 * k), 28) * (0.6 if k else 1.0)
+    out = S.normalise(out) * S.adsr(n, attack=seconds * 0.35, release=seconds * 0.45, curve=1.6)
+    return S.normalise(S.reverb(out, wet=0.5, size=1.3), -10) * gain / 0.5
+
+
+def trickle(rng, seconds=2.4, lo=1400, hi=4200):
+    """Liquid trickling over stone: band-passed noise fluttering fast, with a few small drops."""
+    n = int(seconds * S.SR)
+    t = np.arange(n) / S.SR
+    flutter = 0.55 + 0.45 * np.sin(2 * np.pi * rng.uniform(7, 11) * t + rng.uniform(0, 6.28)) * np.sin(2 * np.pi * 2.3 * t + 1)
+    x = S.noise_band(n, lo, hi, rng) * flutter * S.adsr(n, attack=0.5, release=0.9)
+    return S.normalise(S.reverb(x, wet=0.35, size=1.0), -12)
+
+
+def withered_hollows(rng):
+    """枯竭窟：和靈液隔絕的淺層。乾燥、空洞：風從岩縫裡鑽過去的口哨聲、偶爾一滴乾脆的水、碎石滾落。幾乎沒有生命的聲音。"""
+    s = {"loop": wind_loop(rng, ((90, 300, 0.05, 1.0), (500, 1400, 0.08, 0.14), (2400, 5200, 0.13, 0.02)), drone=(49.0,), drone_gain=0.03)}
+    s["mood1"] = whistle(rng, 4.5, (610, 480), gain=0.62)
+    s["mood2"] = whistle(rng, 5.5, (380, 430), gain=0.55)
+    s["additions1"] = drips(rng, 1, 1100, 2300, 0.55, 2.0)      # one dry, lonely drip
+    s["additions2"] = pebbles(rng, 5, 1.6)
+    # a far, thin, hollowed-out wail: a Mourner weeping somewhere in the cracks (it sits at the edge of hearing)
+    s["additions3"] = far_choir(rng, [0, 3], seconds=4.0, base=A3 / 2, band=520, bend=(1, -3), vowels=("oh", "oo"))
+    return s
+
+
+def resonant_vaults(rng):
+    """共鳴穹窟：回音的大廳。極大的空間殘響、水晶共鳴的泛音、歌者在遠處合唱、滴水在大廳裡迴盪很久。"""
+    n = int(28 * S.SR)
+    t = np.arange(n) / S.SR
+    hall = S.normalise(S.noise_band(n, 60, 500, rng, "brown")) * (0.55 + 0.45 * np.sin(2 * np.pi * 0.04 * t + 1))
+    drone = sum(g * np.sin(2 * np.pi * f * t + rng.uniform(0, 6.28)) for f, g in
+                ((55.0, 0.10), (82.5, 0.07), (110.2, 0.06), (165.0, 0.035), (220.4, 0.02)))   # a stack of slightly beating harmonics
+    air = S.noise_band(n, 3000, 7000, rng) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.07 * t)) * 0.006   # faint shimmer
+    s = {"loop": S.normalise(S.make_loop(0.5 * hall + drone + air, cross=2.5), -9)}
+    s["mood1"] = far_choir(rng, [0, 4, 7, 11], seconds=7.5, base=A3 / 2, band=900, vowels=("oo", "ah", "oo"))   # the choir, clearer than anywhere else
+    s["mood2"] = far_choir(rng, [-5, 0, 4, 9], seconds=7.5, base=A3 / 2, band=800, bend=(0, 2), vowels=("mm", "oo", "mm"))
+    s["additions1"] = chimes(rng, base=A3 * 2, count=(2, 4), seconds=4.5, bright=1.0)
+    s["additions2"] = drips(rng, 2, 900, 2100, 0.85, 2.6)       # a drip falling a long way, ringing for seconds
+    s["additions3"] = S.normalise(S.reverb(fork(note(A3 * 2, SCALE[rng.integers(0, 7)]), 2.6, rng, beat=2.0), wet=0.7, size=2.2), -9)
+    return s
+
+
+def spirit_deeps(rng):
+    """靈液深淵：靈液湧上來的地方。濕潤、低沉：深處液體流動的悶響與冒泡、緩慢像呼吸的起伏、遠處的靈魂低吟。"""
+    s = {"loop": wind_loop(rng, ((30, 160, 0.04, 1.0), (180, 700, 0.07, 0.45), (900, 2400, 0.19, 0.08)),
+                           drone=(41.2, 55.0, 61.7), drone_gain=0.09, pulse=(0.17, 0.3))}
+    s["mood1"] = far_choir(rng, [0, 3, 7], seconds=7.0, base=A3 / 4, band=420, bend=(0, -2), vowels=("oo", "oh", "mm"))
+    gurgle = np.zeros(int(4.0 * S.SR))
+    for k in range(rng.integers(3, 6)):                          # slow gulps rising out of the deep
+        S.place(gurgle, bubbles(rng, 2, 1.2, 70, 160) * rng.uniform(0.6, 1.0), k * rng.uniform(0.4, 0.9))
+    s["mood2"] = S.normalise(S.reverb(S.lowpass(gurgle, 900), wet=0.5, size=1.8), -8)
+    s["additions1"], s["additions2"] = bubbles(rng, 6, 2.0, 120, 380), trickle(rng)
+    s["additions3"] = drips(rng, 2, 500, 1300, 0.7, 1.8)         # heavier drops falling into the liquid
+    swoosh = S.noise_band(int(1.8 * S.SR), 200, 1800, rng) * S.adsr(int(1.8 * S.SR), 0.7, 1.0)   # a soul rising through the liquid
+    s["additions4"] = S.normalise(S.reverb(glide_shift(swoosh, -7, 5), 0.55, 1.5), -11)
+    return s
+
+
 BIOME_RECIPES = {
     "crimson_strata_canyon": (crimson_strata_canyon, 41), "violet_slate_abyss": (violet_slate_abyss, 42),
     "amber_dunes": (amber_dunes, 43), "red_zone_caves": (red_zone_caves, 44),
     "lullaby_hills": (lullaby_hills, 45), "soul_caldera": (soul_caldera, 46),
+    "withered_hollows": (withered_hollows, 47), "resonant_vaults": (resonant_vaults, 48), "spirit_deeps": (spirit_deeps, 49),
 }
 
 
