@@ -33,6 +33,13 @@ deeper, the more alive; the shallower, the more it rots.
 - **Charoite clusters hang from the ceilings** of the Resonant Vaults and Spirit Deeps.
 - **Wall vines** in the Red Zone Caves (orange) and Spirit Deeps (carapace), and green vines down sinkhole walls.
 
+### New: underground lore
+- The Sift Codex has entries for **Withered Hollows**, **Resonant Vaults** and **Spirit Deeps**, a new entry on the
+  underground as a whole (**The Blood Vessels**: the four layers and the sinkholes), and a rewritten Red Zone Caves entry.
+- Three new **Ancient Pages** (XI-XIII), songs the Singers sing about the underground: *Cracks in the Shallows*,
+  *The Hall That Remembers*, *Where the Liquid Is Born*. They are extras (not part of the Ancient Chronicle): one is
+  guaranteed in every Echo Den vault, and they turn up now and then in Sift ruin chests.
+
 ### New: underground ambience
 - Withered Hollows, Resonant Vaults and Spirit Deeps have their own synthesised ambience (they used to share the Red Zone
   Caves'): wind whistling through cracks and a lone dry drip in the shallows; a huge echoing hall with a clear far-off
@@ -451,6 +458,12 @@ soul machines.
   每一層用自己的地面方塊（板岩、玫瑰石、虛空石、紫地層）。越深越高：淺層 2–5 格，穹窟最高 14 格。
 - 共鳴穹窟與靈液深淵的**天花板長出倒掛的 charoite 晶簇**。
 - 紅區洞穴（橘）與靈液深淵（甲殼）有**貼牆藤蔓**，天坑洞壁垂著綠色藤蔓。
+
+### 新增：地底的故事
+- 《隙浮手記》新增**枯竭窟**、**共鳴穹窟**、**靈液深淵**三個條目、一個講整個地底的新條目（**隙浮的血管**：四層與天坑），
+  並重寫了紅區洞穴的條目。
+- 三張新的**遠古殘頁**（其十一～其十三），是歌者唱的地底之歌：〈淺處的裂縫〉、〈記得聲音的大廳〉、〈靈液出生的地方〉。
+  它們是番外（不算在《遠古編年史》裡）：每個回音窟的寶庫一定有一張，隙浮遺跡的箱子偶爾也有。
 
 ### 新增：地底環境音
 - 枯竭窟、共鳴穹窟、靈液深淵各有自己合成的環境音（以前共用紅區洞穴的）：淺層是風從岩縫鑽過的口哨聲與一滴乾脆的水；

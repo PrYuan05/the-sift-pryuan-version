@@ -316,6 +316,45 @@
     }
   },
   {
+    "id": "pysift:sift_codex/page_11",
+    "required_facts": [
+      "pysift:sift_codex/page_11"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_11",
+      "icon": {
+        "id": "pysift:ancient_page_11"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_12",
+    "required_facts": [
+      "pysift:sift_codex/page_12"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_12",
+      "icon": {
+        "id": "pysift:ancient_page_12"
+      }
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_13",
+    "required_facts": [
+      "pysift:sift_codex/page_13"
+    ],
+    "toast": {
+      "title": "book.pysift.sift_codex.toast.title",
+      "description": "book.pysift.sift_codex.toast.page_13",
+      "icon": {
+        "id": "pysift:ancient_page_13"
+      }
+    }
+  },
+  {
     "id": "pysift:sift_codex/sherd",
     "required_facts": [
       "pysift:sift_codex/sherd"

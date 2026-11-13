@@ -426,12 +426,54 @@ BIOMES = [   # (id, icon, en, zh, text en, text zh)
      "A scorched plateau of ember basalt and ash, with round soul volcanoes whose craters hold flat lakes of spirit liquid. "
      "Patina ore grows in the rift walls.",
      "由餘燼玄武岩與灰燼組成的焦黑高原，上面立著圓形的靈魂火山，火山口裡是平靜的靈液湖。裂縫的岩壁裡長著銅綠礦。"),
-    ("red_zone_caves", "pysift:void_stone", "Red Zone Caves", "紅區洞穴",
-     "Caves of void stone deep below everything else. Stalkers hide in the dark here.",
-     "深埋在一切底下的虛黑岩洞穴。潛伏獵手藏在這裡的黑暗中。"),
+    ("withered_hollows", "pysift:dark_slate", "Withered Hollows", "枯竭窟",
+     "The first caves under the ground, cut off from the spirit liquid: narrow cracks like the joints of a dry limestone, grey "
+     "floors, rotten blue sculk and a few thin columns. Wind whistles through the cracks. Stalkers and Hunters lurk, and "
+     "now and then a Mourner sits weeping.",
+     "地底最淺的洞穴，和靈液隔絕：像乾燥石灰岩節理的窄長裂縫、灰色的地面、腐爛的藍色幽匿和幾根細細的石柱。"
+     "風從裂縫裡鑽過去，吹出口哨聲。潛伏獵手與獵人藏在這裡，偶爾還有一位哀悼者坐著哭。"),
+    ("red_zone_caves", "pysift:crimson_vein_stone", "Red Zone Caves", "紅區洞穴",
+     "The singing caves: fat winding passages like the water-cut tunnels of a great limestone cave, rose-grey floors, red sculk "
+     "and orange vines. Stalkers, Pricklers and Fuseflies lurk; Tuners and Echo Golems wander through.",
+     "歌聲洞穴：像大型石灰岩洞裡被水切出來的粗大蜿蜒坑道，玫瑰灰色的地面、赤紅幽匿與橘色藤蔓。"
+     "潛伏獵手、刺球與引信蠅藏在這裡；調音器與迴音傀儡在其中漫步。"),
+    ("resonant_vaults", "pysift:polished_void_stone", "Resonant Vaults", "共鳴穹窟",
+     "Huge high halls like the great chambers of Carlsbad or Son Doong, full of rock columns, with polished floors and charoite "
+     "growing from the ceiling. This is where the choir sings and the Echo Dens lie. Sentinels and Tuners keep the halls; "
+     "Echo Golems bring their Singers.",
+     "像卡爾斯巴德與韓松洞那種巨大高廳，滿是石柱，地面光滑，天花板上倒長著紫龍晶。合唱團在這裡唱歌，回音窟也在這一層。"
+     "哨兵與調音器守著大廳；迴音傀儡帶著牠們的歌者。"),
+    ("spirit_deeps", "pysift:magma_vein_slate", "Spirit Deeps", "靈液深淵",
+     "Where the spirit liquid wells up: low flat chambers like flooded lake caves, floors of glowing magma veins, fields of red "
+     "sculk and pools of liquid. It is alive, and far too thick for you: **bring protection** or lose your soul.",
+     "靈液湧上來的地方：像灌水湖洞的低矮扁平洞室，地面是發光的熔脈，大片赤紅幽匿與一池池靈液。這裡是活的，"
+     "而且對你來說太濃：**帶好防護**，不然會失去靈魂。"),
 ]
 for i, (bid, icon, en, zh, ten, tzh) in enumerate(BIOMES):
     entry(C, bid, icon, en, zh, i % 4 * 2, 2 + i // 4 * 2, [text((en, zh), ten, tzh)], parents=["spirit_liquid"], line=False)
+# the underground as a whole (v2.1.0): the Sift's blood vessels, in four layers, and the ways down
+entry(C, "underground", "pysift:green_sift_vine", "The Blood Vessels", "隙浮的血管", 2, 6, [
+    text(("Four layers", "四層"),
+         "Under the Sift's ground runs a system of caves, and the Singers call it the **blood vessels**: the spirit liquid wells up "
+         "from the deepest place and life follows it. The deeper you go, the more alive; the higher, the more it rots.\n\n"
+         "**Withered Hollows** (about 26-54 blocks down), **Red Zone Caves** (54-87), then the **Resonant Vaults** and the "
+         "**Spirit Deeps** (87 and below). Each takes after a real kind of cave.",
+         "隙浮的地面底下是一整套洞穴，歌者叫它**血管**：靈液從最深的地方湧上來，生命跟著靈液走。越深越有生氣，越淺越腐爛。\n\n"
+         "**枯竭窟**（地表下約 26–54 格）、**紅區洞穴**（54–87 格），再往下是**共鳴穹窟**與**靈液深淵**（87 格以下）。"
+         "每一層都像一種真實的洞穴。"),
+    text(("Ways down", "通往地底的路"),
+         "The ground opens in places: **sinkholes**, funnels in the earth that narrow into a shaft and end in a small chamber about "
+         "34 blocks down, with green vines on the walls. One in three has a spirit spring in its wall, falling to a small pool "
+         "below. Stay out of the pool.\n\nThe layers have their own sounds and music; listen for the cracks whistling, the hall "
+         "answering, the liquid breathing.",
+         "地面在某些地方裂開：**天坑**是地上的漏斗口，往下收成豎井，通到約 34 格深的小洞室，井壁掛著綠藤。"
+         "三分之一的天坑井壁上有靈液泉眼，一道細水落進下面的小池。別踩進池子裡。\n\n"
+         "每一層都有自己的聲音與音樂：聽聽裂縫的口哨聲、大廳的回音、靈液的呼吸。"),
+    spotlight("pysift:charoite_cluster",
+              "Charoite grows from floors and, in the vaults and the deeps, hangs from the ceiling. Columns of the layer's own "
+              "stone rise and hang between them.",
+              "紫龍晶長在地面上，在穹窟與深淵裡也從天花板垂下來。每一層自己的石材長成石柱，立在地上、掛在頂上。")],
+      parents=["spirit_liquid"], line=False)
 # the Echo Den (§4.7): the Singers' choir hall, where echo golems are born and healthy Wardens keep the door
 entry(C, "echo_den", "pysift:echo_cradle", "The Echo Den", "回音窟", 6, 4, [
     text(("The choir below", "地底的合唱"),
@@ -942,20 +984,50 @@ PAGES = [   # (where, en title, zh title, [(en, zh) pages])
          "will be. *We will need the song itself.*",
          "我們的線路會動。活塞會推，燈會亮。可是那道門聽不見。長老說，火花就只是火花，**裡面沒有任何人**。\n\n"
          "歌者的線是紅色的，因為裡面有活的東西。我們的永遠不會有。*我們需要的是那首歌本身。*")]),
+    # pages 11-13 (extras, v2.1.0): the Singers on the underground layers - the Sift's blood vessels
+    ("under", "Cracks in the Shallows", "淺處的裂縫", [
+        ("*(Sung by a Singer who went up.)*\n\nAbove the singing caves the stone is dry. The liquid does not climb this high, "
+         "and the cracks that run through it are old, narrow and quiet. The red ones that wandered up here turned blue and "
+         "stopped listening.",
+         "*（一位往上走過的歌者唱的。）*\n\n在歌聲洞穴的上面，岩石是乾的。靈液爬不到這麼高，穿過岩石的裂縫又老又窄又安靜。"
+         "走到這裡的紅色生命都變藍了，也不再聆聽。"),
+        ("Sometimes one of ours is here, weeping in a crack. It is not angry. It is only thirsty. **Do not sing to it from far "
+         "away: bring it down to the liquid.**",
+         "有時候我們的家人也在這裡，躲在裂縫裡哭。牠沒有生氣，只是渴。**不要隔得遠遠地對牠唱歌，把牠帶下去，帶到靈液旁邊。**")]),
+    ("under", "The Hall That Remembers", "記得聲音的大廳", [
+        ("*(A choir song, sung in the great hall.)*\n\nSing here and the hall sings back. Every note we ever sang is still "
+         "in the stone, turning slowly, and the stone has grown it into columns. Walk between them softly.",
+         "*（在大廳裡合唱的歌。）*\n\n在這裡唱歌，大廳會唱回來。我們唱過的每一個音都還留在石頭裡慢慢打轉，"
+         "石頭把它們長成了一根根石柱。走在石柱之間要輕一點。"),
+        ("The crystals above are the notes that did not fall. When a golem is born here it is only an echo that learned to "
+         "walk. It will follow whoever sings it home.",
+         "天花板上的晶簇，是沒有掉下來的音。傀儡在這裡出生，只是一個學會了走路的回音。牠會跟著把牠唱回家的人。")]),
+    ("under", "Where the Liquid Is Born", "靈液出生的地方", [
+        ("*(The oldest song the Singers know.)*\n\nDeeper than the hall the stone is warm. The liquid wells up from below in "
+         "slow gulps, and everything it touches is alive, glowing, humming. This is the bottom of the sieve. This is where "
+         "we are made.",
+         "*（歌者最古老的一首歌。）*\n\n比大廳更深的地方，石頭是暖的。靈液從下面一口一口緩緩湧上來，它碰到的一切都是活的、"
+         "發著光、哼著歌。這裡是篩網的底。我們是在這裡被造出來的。"),
+        ("But it is too thick for a body from the other world. It takes the soul out of you as gently as the tide takes sand. "
+         "**Come with your charms on, and leave before the song goes quiet in your chest.**",
+         "可是它對另一個世界來的身體太濃了。它會把你的靈魂取走，輕得像潮水帶走沙子。"
+         "**戴著護符來，在胸口的歌安靜下來以前離開。**")]),
 ]
 PAGE_WHERE = {"ancient_city": ("Found in Ancient City chests", "在遠古城市的箱子裡找到"),
               "sift": ("Found in Sift ruins", "在隙浮遺跡的箱子裡找到"),
               "boss": ("Carried by the Sculk Monstrosity", "幽匿巨怪身上帶著"),
-              "den": ("Found in the Echo Den's vault", "在回音窟的寶庫裡找到")}
+              "den": ("Found in the Echo Den's vault", "在回音窟的寶庫裡找到"),
+              "under": ("Found in Echo Den vaults and Sift ruins", "在回音窟的寶庫與隙浮遺跡裡找到")}
 entry(C, "guide", "minecraft:paper", "Ancient Pages", "遠古殘頁", 0, 0, [
     text(("Ancient Pages", "遠古殘頁"),
          "Eight pages survive. The first four were written by the people of the Ancient City; the rest come from The Sift itself.\n\n"
          "Pick a page up and its entry opens here. Use a page in your hand to read it. Find all eight to see the whole story.\n\n"
          "A ninth page, a Singers' song, is kept in the vault of an Echo Den. A tenth, about the rooms under the great "
-         "frame, turns up in Ancient City chests.",
+         "frame, turns up in Ancient City chests. Three more, in which the Singers describe the layers of the underground, lie in "
+         "Echo Den vaults and Sift ruins.",
          "留存下來的殘頁共有八張。前四張是遠古城市的人寫的，其餘的來自隙浮本身。\n\n撿起一張殘頁，這裡對應的條目就會打開；"
          "手持殘頁右鍵也能直接閱讀。集滿八張，就能看到完整的故事。\n\n第九張是一首歌者的歌，收在回音窟的寶庫裡。"
-         "第十張寫的是大門框底下那幾間房間，偶爾出現在遠古城市的箱子裡。")])
+         "第十張寫的是大門框底下那幾間房間，偶爾出現在遠古城市的箱子裡。另外三張是歌者描述地底各層的歌，收在回音窟的寶庫與隙浮遺跡裡。")])
 page_nodes = []
 for i, (where, en, zh, body) in enumerate(PAGES, 1):
     item = f"pysift:ancient_page_{i}"
@@ -964,9 +1036,11 @@ for i, (where, en, zh, body) in enumerate(PAGES, 1):
     if i <= 8:   # page 9 (the Echo Den's song) is an extra: not needed for the whole story
         page_nodes.append(node)
     pages = [text((en, zh), *body[0])] + [text(None, *b) for b in body[1:]]
-    entry(C, f"page_{i}", item, f"{['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][i - 1]}. {en}", f"其{'一二三四五六七八九十'[i - 1]}：{zh}",
-          *((2 + (i - 1) % 4 * 2, -1 if i <= 4 else 1) if i <= 8 else (2, 3) if i == 9 else (8, -3)), pages,
-          parents=["guide"] if i in (1, 5) else ["page_5"] if i == 9 else ["page_4"] if i == 10 else [f"page_{i - 1}"],
+    entry(C, f"page_{i}", item, f"{['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII'][i - 1]}. {en}", f"其{['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三'][i - 1]}：{zh}",
+          *((2 + (i - 1) % 4 * 2, -1 if i <= 4 else 1) if i <= 8 else (2, 3) if i == 9 else (8, -3) if i == 10
+            else (4, 3) if i == 11 else (6, 3) if i == 12 else (8, 3)), pages,
+          parents=["guide"] if i in (1, 5) else ["page_5"] if i == 9 else ["page_4"] if i == 10
+          else ["page_9"] if i == 11 else [f"page_{i - 1}"],
           node=node, shape=GRAY if i <= 4 else PURPLE, desc=PAGE_WHERE[where],
           locked_tip=(PAGE_WHERE[where][0], PAGE_WHERE[where][1]))
 entry(C, "sherds", "pysift:octave_pottery_sherd", "Pottery Sherds", "陶器碎片", 0, 2, [
@@ -1041,8 +1115,8 @@ art_guard.save(page_img, A / "textures/item/ancient_page.png")
 wj(A / "models/item/ancient_page.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/ancient_page"}})
 for i, (where, en, zh, body) in enumerate(PAGES, 1):
     wj(A / f"items/ancient_page_{i}.json", {"model": {"type": "minecraft:model", "model": "pysift:item/ancient_page"}})
-    tr(f"item.pysift.ancient_page_{i}", f"Ancient Page {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][i - 1]}",
-       f"遠古殘頁・其{'一二三四五六七八九十'[i - 1]}")
+    tr(f"item.pysift.ancient_page_{i}", f"Ancient Page {['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII'][i - 1]}",
+       f"遠古殘頁・其{['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二', '十三'][i - 1]}")
     tr(f"tooltip.pysift.ancient_page_{i}", en, zh)
     for n, (ben, bzh) in enumerate(body):   # the written-book text the item opens (markdown stripped)
         tr(f"book.pysift.ancient_page_{i}.page{n + 1}", ben.replace("**", "").replace("*", ""), bzh.replace("**", "").replace("*", ""))

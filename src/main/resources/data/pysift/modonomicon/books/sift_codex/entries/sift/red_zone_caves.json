@@ -5,11 +5,11 @@
   "name": "book.pysift.sift_codex.sift.red_zone_caves.name",
   "description": "",
   "icon": {
-    "id": "pysift:void_stone"
+    "id": "pysift:crimson_vein_stone"
   },
-  "x": 4,
+  "x": 6,
   "y": 4,
-  "sort_number": 404,
+  "sort_number": 604,
   "background": {
     "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
     "width": 26,

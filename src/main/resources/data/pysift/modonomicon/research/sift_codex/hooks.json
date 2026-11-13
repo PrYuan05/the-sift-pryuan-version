@@ -266,6 +266,30 @@
     }
   },
   {
+    "id": "pysift:sift_codex/page_11_hook",
+    "fact_id": "pysift:sift_codex/page_11",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_11"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_12_hook",
+    "fact_id": "pysift:sift_codex/page_12",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_12"
+    }
+  },
+  {
+    "id": "pysift:sift_codex/page_13_hook",
+    "fact_id": "pysift:sift_codex/page_13",
+    "trigger_type": "modonomicon:item_acquired",
+    "trigger_target": {
+      "id": "pysift:ancient_page_13"
+    }
+  },
+  {
     "id": "pysift:sift_codex/sherd_hook",
     "fact_id": "pysift:sift_codex/sherd",
     "trigger_type": "modonomicon:item_acquired",
