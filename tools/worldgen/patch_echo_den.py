@@ -79,9 +79,17 @@ def entity(x, y, z, eid, yaw, tags):
     return {"pos": (9, (6, [x + 0.5, float(y), z + 0.5])), "blockPos": (9, (3, [x, y, z])), "nbt": (10, nbt)}
 
 
-for name in sorted(set(ADD) | set(MOVE) | set(REMOVE)):
+# a mob saved in game carries PersistenceRequired 0: generated in a den it despawns like a wild one before the player gets
+# there (the Singers of the re-saved rooms were gone, the ones added here stayed). Every mob in a den template is kept.
+# Dropped items saved by accident are taken out.
+KEEP = sorted("echo_den/" + f.stem for f in (S / "echo_den").glob("*.nbt"))
+
+for name in sorted(set(ADD) | set(MOVE) | set(REMOVE) | set(KEEP)):
     wanted = ADD.get(name, [])
     f = S / f"{name}.nbt"
+    if not f.exists():
+        print(f"{name}: no such template, skipped")
+        continue
     tag_name, root = NBT.read_nbt(gzip.decompress(f.read_bytes()))
     size = [v for v in root["size"][1][1]]
     if name in EXPECTED_SIZE and size != EXPECTED_SIZE[name]:
@@ -111,8 +119,18 @@ for name in sorted(set(ADD) | set(MOVE) | set(REMOVE)):
             continue
         ents.append(entity(x, y, z, eid, yaw, tags))
         added += 1
-    print(f"{name}: +{added} entities ({len(ents)} total), {moved} moved, {removed} removed, {fixed} doorway jigsaws turned into exits")
-    if (added or moved or removed or fixed) and not DRY:
+    kept = dropped = 0
+    if name in KEEP:
+        n = len(ents)
+        ents[:] = [e for e in ents if e["nbt"][1]["id"][1] != "minecraft:item"]
+        dropped = n - len(ents)
+        for e in ents:
+            if e["nbt"][1].get("PersistenceRequired", (1, 0))[1] != 1:
+                e["nbt"][1]["PersistenceRequired"] = (1, 1)
+                kept += 1
+    print(f"{name}: +{added} entities ({len(ents)} total), {moved} moved, {removed} removed, {fixed} doorway jigsaws turned into exits, "
+          f"{kept} mobs made persistent, {dropped} dropped items taken out")
+    if (added or moved or removed or fixed or kept or dropped) and not DRY:
         BK.mkdir(parents=True, exist_ok=True)
         (BK / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(f, BK / f"{name}.nbt")

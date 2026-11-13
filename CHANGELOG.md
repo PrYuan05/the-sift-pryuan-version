@@ -1,111 +1,103 @@
 # Changelog
 
-## Unreleased
+## v2.0.0
 
-### Changed: soul power is now soul redstone
-- Soul power no longer runs on shafts and cogwheels. A **soul signal** is a redstone signal (0-15) that carries soul
-  pressure: 15 at a running Spirit Engine, one level less every 2 blocks (about 30 blocks). Machines run at
-  strength / 15 and load the circuit by the same share. Capacity (256 SP per engine) and overload are unchanged.
-- New block: the **Soul Conduit** (redstone, soul essence and 2 patina ingots make 6). It joins on all six sides. To
-  vanilla parts it is a signal source; a lever, repeater, comparator, torch or redstone block against it sends a
-  vanilla signal down the wire, which lights lamps but runs no machine. Redstone dust is not an input. The wire is
-  red with a soul signal, dead blue with only a vanilla one, grey when off.
-- A vanilla redstone signal **pauses a machine** and **switches an engine off**.
-- **Charoite beams** now relay the soul signal, at no cost.
-- **Removed: Soul Vein Node.** A conduit already runs through rock. Soul-veined stone stays as a building block.
-- **A Singer on the line:** a Singer within 3 blocks of a conduit stops and sings a set (the new *Song of the Sieve*
-  between three older tunes, about two and a half minutes); while it sings the conduit is a source of strength 15,
-  64 SP. It rests half a minute between sets. A Mourner's song feeds a signal with no soul.
-- **Soul Repeater** (back to strength 15, one way, 16 SP), **Soul Filter** (soul signals only / plain signals only)
-  and **Soul Note Block** (the eight notes; a Singer's voice on a soul signal, a dull knock on a plain one).
-- A wrapped conduit gives off no light.
-- **Conduit covers:** right-click a conduit with a full block to wrap it in that block; an empty hand takes it off.
-- **Conduit connectors:** a collar where it plugs into a vanilla part, a bend down to floor-level parts (dust,
-  rails, repeaters), and a thin tendril to small parts such as levers, buttons and torches.
-- **Removed: Soul Wave Emitter / Receiver.** They did the same job as the charoite beam; the beam (crafted from
-  charoite, turned by prisms) is now the one wireless link through the air. Placed wave blocks disappear.
-- **Sculk Catalyst** against a conduit: a creature dying nearby gives strength 15 for 10 seconds (32 SP).
-  **Sculk Shrieker** against a conduit: shrieks while the circuit is overloaded; it calls no Warden.
-- The Soul Gauge sits in the conduit line; GUIs and the gauge show the signal as n/15. The gauge and the fan are now
-  crafted with a conduit instead of a shaft.
-- **Soul Shafts, Cogwheels, Gearbox, Clutch, Gearshift and Hand Crank** are no longer registered by default. They are
-  kept as a stand-alone mechanical layer behind `kinetic_addon=on` in `config/pysift.properties`. Worlds that already
-  have these blocks placed lose them unless that option is set.
-- Create: `docs/CREATE_ADDON.md` describes what The Sift will add on top of Create (engine as a stress source,
+The soul redstone update. The Sift now gives you a reason to come back with something: a better redstone. A **soul
+signal** runs on vanilla redstone rules, joins vanilla circuits both ways, and is the only thing that runs the new
+soul machines.
+
+### New: soul redstone
+- **Soul signal**: a redstone signal (0-15) that carries soul pressure (SP). It is 15 beside its source and drops one
+  level every 2 blocks, so it reaches about 30 blocks. A machine runs at strength / 15 and loads the circuit by the
+  same share.
+- **Soul Conduit** (redstone, soul essence and 2 patina ingots make 6): the wire. It joins on all six sides and runs
+  through rock.
+  - To vanilla parts it is a signal source: it lights lamps and feeds dust, repeaters and comparators.
+  - A lever, repeater, comparator, torch or redstone block against it sends a vanilla signal down the wire. That
+    signal lights lamps but runs no machine. Redstone dust is not an input.
+  - It is red with a soul signal, dead blue with only a vanilla one, grey when off.
+  - **Connectors**: a collar where it plugs into a vanilla part, a bend down to floor-level parts (dust, rails,
+    repeaters), and a thin tendril to small parts such as levers, buttons and torches.
+  - **Covers**: right-click it with a full block to wrap it in that block; an empty hand takes the cover off. A
+    wrapped conduit gives off no light.
+- **Sources**
+  - **Spirit Engine**: strength 15, 256 SP. Burns a spirit liquid bucket (160 s), soul essence (40 s) or soul sand /
+    soul soil (10 s), or spirit liquid piped in by a pump.
+  - **A Singer on the line**: a Singer within 3 blocks of a conduit stops and sings a set (the new *Song of the
+    Sieve* between three older tunes, about two and a half minutes). While it sings the conduit is a source of
+    strength 15, 64 SP. It rests half a minute between sets. A Mourner's song feeds a signal with no soul.
+  - **Sculk Catalyst** against a conduit: a creature dying nearby gives strength 15 for 10 seconds (32 SP).
+- **Circuit parts**
+  - **Soul Repeater**: brings the signal back to 15, one way, costs 16 SP.
+  - **Soul Filter**: lets through soul signals only, or plain signals only. Right-click to switch.
+  - **Soul Note Block**: the eight notes of the Eight-Song Ritual. A Singer's voice on a soul signal, a dull knock
+    on a plain one. Right-click to change the note.
+  - **Soul Gauge**: sits in the conduit line and shows the signal as n/15 and the load; comparators read the load.
+  - **Charoite Beam Emitter, Prism and Receiver**: the wireless link. A violet beam carries the signal up to 32
+    blocks at no cost, prisms turn it, glass and plants let it through, and it burns creatures that stand in it.
+- **Control and overload**
+  - A vanilla redstone signal **pauses a machine** and **switches an engine off**.
+  - When the machines ask for more than the sources give, the circuit is **overloaded**: the signal drops to zero
+    and the machines shake. After 5 seconds, creatures within 6 blocks of its machines lose their souls.
+  - A **Sculk Shrieker** against a conduit shrieks while the circuit is overloaded. It calls no Warden.
+
+### New: soul machines
+- **Soul Grinder**: ores ×2, cobblestone → gravel → sand, bones → bone meal, sometimes soul essence.
+- **Soul Sifter** (the story's "sift the rot back to red"): while it runs it slowly turns rotten blue sculk within 8
+  blocks back into red sculk (advancement **Sifted Back to Red**). It also sifts what lies on the sieve: sculk → red
+  sculk, sculk vein → red sculk vein, gravel → flint, sand → clay, soul sand → soul soil.
+- **Soul Drill**: bores out the block in front of it and drops what an iron pickaxe would. Harder blocks take longer;
+  bedrock and obsidian-like blocks resist it. It hurts whatever stands in front of it.
+- **Soul Fan**: blows creatures and items up to 8 blocks. A stream that passes through **soul fire** haunts the items
+  behind it: sand → soul sand, dirt → soul soil, torches, lanterns and campfires turn into their soul versions, sculk
+  veins turn red.
+- **Resonance array**: a running **Resonance Core** with up to eight **Resonance Pedestals** 3 blocks away. A catalyst
+  on the core and ingredients on the pedestals become, for example, 2 echo shards, 4 charoite or reinforced
+  deepslate. A running core also makes grinders and sifters within 8 blocks work 50% faster.
+- **Spirit Pump** and **Spirit Pipes**: the pump drinks the spirit liquid source in front of its intake (a bucket
+  every 2 s at full strength) and pipes it to Spirit Engines, so one pool keeps a power plant running.
+  - Placed by hand, the intake turns to face the spirit liquid next to it.
+  - Every face but the intake takes a conduit and a pipe.
+  - A pipe left open at one end **leaks**: spirit liquid spills out and the dirt or sand below turns into soul soil.
+- **Siftite Gear** (4 siftite ingots + soul essence → 2) is the moving part of every machine. Patina is used for
+  casings, conduits, pipes and pumps. Every recipe unlocks in the recipe book once you carry one of its ingredients.
+- **Everything moves and sounds**: flywheels spin, pistons pump, the millstone turns with the item lying on it, the
+  sieve shakes. The engine chugs, the grinder grates, the sieve rattles, and an overload groans.
+- **Look**: chunky casings in the sculk family's shapes (claw corners, ribs, glowing pores) with hand-painted
+  verdigris bronze, deepslate plates and solid siftite gears. Every texture has LabPBR normal and specular maps for
+  Iris shader packs. The Spirit Engine and Soul Grinder screens have their own painted backgrounds.
+
+### New: the Echo Den powerhouse
+- A new room in the Echo Den, as rare as the vault: a soul redstone circuit that is still running. An engine fed by
+  its own pump, a charoite beam across the room, a sifter, a grinder, a repeater, a filter and two soul note blocks,
+  with a Singer standing by the wire.
+
+### New: story
+- Sift Codex: the Soul Power chapter is rewritten around the soul signal. The signal is song; living red sculk
+  carries it. Vanilla redstone is a signal with no soul.
+- A tenth Ancient Page, *The Wires That Do Not Sing*, can be found in Ancient City chests. It explains the redstone
+  rooms under the Ancient Cities.
+
+### Optional: the mechanical layer
+- **Soul Shafts, Cogwheels, Large Cogwheels, Gearbox, Clutch, Gearshift and Hand Crank** are not part of the base
+  mod. Set `kinetic_addon=on` in `config/pysift.properties` to register them as a stand-alone rotation layer; machines
+  then take either a soul signal or a shaft.
+- Create: `docs/CREATE_ADDON.md` describes what The Sift will add on top of Create (the engine as a stress source,
   wireless rotation, resonance speed-up). Not implemented: Create has no release for this Minecraft version.
-- Sift Codex: the Soul Power chapter is rewritten; a tenth Ancient Page, *The Wires That Do Not Sing*, can be found
-  in Ancient City chests.
 
-### New: soul power (Create-style machines)
-- **Soul power** turns machines with rotation, measured in soul pressure (SP). The **Spirit Engine** burns spirit
-  liquid (or soul essence, soul sand / soil) and turns at 32 RPM with 256 SP; **Soul Shafts** carry it, the **Soul Wave
-  Emitter / Receiver** send it wirelessly to a receiver tuned to the same resonant disc (wool blocks the wave), and the
-  **Soul Grinder** uses it (ores ×2, cobblestone → gravel → sand, bones → bone meal, sometimes soul essence).
-- **Soul Cogwheels** and **Large Soul Cogwheels**: neighbouring cogs drive each other and turn the other way; a large
-  cog meshes with small cogs on its diagonals, which turn twice as fast. Gearing up makes machines work faster but
-  they load the network more (load = impact × RPM). Two paths that want different speeds are a **speed conflict**: the
-  network stops and smokes.
-- **Soul Gauge**: dials on four sides with a needle that swings to the load; right-click for RPM and load, comparators
-  read the load (0-15).
-- **Everything moves**: shafts and cogs turn (teeth sit in each other's gaps), the engine's flywheel spins and its
-  piston pumps, the millstone turns with the item being ground lying on it and throws its crumbs, the wave dishes and
-  rings spin and the soul crystal pulses. Overloaded machines shake; after 5 seconds of overload, creatures nearby lose
-  their souls (soul deprivation).
-- **Soul Sifter** (the story's "sift the rot back to red"): its crank wheel turns and shakes a sieve. While it runs it
-  slowly turns rotten blue sculk within 8 blocks back into red sculk (advancement **Sifted Back to Red**), and it
-  sifts what you put on the sieve: sculk → red sculk, sculk vein → red sculk vein, gravel → flint, sand → clay,
-  soul sand → soul soil.
-- **Charoite beams** (the second wireless link): a **Charoite Beam Emitter** shoots a violet beam up to 32 blocks from
-  its front; **Charoite Prisms** turn it (right-click to point the prism another way, sneak to go back), it passes
-  through glass and plants but stops at solid blocks, and it links when it hits the front of a **Charoite Beam
-  Receiver**. It loses only 5% (waves lose 10%) but has to be aimed, and it burns creatures that stand in it. The beam
-  is drawn as a flowing violet ray and the lens turns.
-- **Soul veins** (the third wireless link, for buried machines): two **Soul Vein Nodes** within 16 blocks link when
-  every block between them is rock (stone, deepslate, netherrack...); air or a cave cuts them. They lose 15%. While
-  they run, the rock along the link slowly grows into glowing **Soul-Veined Stone**, and soul wisps drift through it.
-- **Spirit Pump** and **Spirit Pipes**: the pump drinks the spirit liquid source in front of it (a bucket every 2 s at
-  32 RPM) and sends it down the pipes to Spirit Engines, which burn it when their fuel slot is empty, so a pool can keep
-  a whole power plant running. A pipe left open at one end **leaks**: spirit liquid spills out and the dirt or sand
-  below turns into soul soil.
-- **Soul Gearbox**: four bevel gears in an open bronze frame; a shaft on any side drives the other three, so power can
-  turn 90 degrees (the shaft straight across turns the other way).
-- **Soul Hand Crank**: hold right-click to turn it at 32 RPM (96 SP) - enough for one grinder or one sifter before you have
-  spirit liquid. Cranking makes you hungry.
-- **Soul Clutch** and **Soul Gearshift**: two half-shafts in a casing with a lamp. With a redstone signal the clutch lets
-  go of its far half; the gearshift turns its far half the other way.
-- **Soul Fan**: blows (or, turned the other way, pulls) creatures and items up to 8 blocks. A stream that passes through
-  **soul fire** haunts the items behind it: sand → soul sand, dirt → soul soil, torches, lanterns and campfires turn into
-  their soul versions, sculk veins turn red.
-- **Resonance array**: a powered **Resonance Core** with up to eight **Resonance Pedestals** around it (3 blocks away,
-  on the four sides and the four diagonals). Put a catalyst on the core and ingredients on the pedestals; while the
-  core turns, violet beams run from the pedestals to it and the catalyst becomes the result: amethyst shard + 4 sculk
-  + 4 soul essence → 2 echo shards; amethyst cluster + 4 soul essence → 4 charoite; deepslate + 4 bone blocks + 4 soul
-  crystal blocks → reinforced deepslate; a resonant music disc + 4 amethyst shards + 2 soul essence + 2 note blocks →
-  2 copies of the disc (for more wave frequencies). A running core also makes grinders and sifters within 8 blocks work
-  50% faster.
-- **Soul Drill**: its bit spins and bores out the block in front of it, dropping what an iron pickaxe would. Harder
-  blocks take longer, faster rotation digs faster, bedrock and obsidian-like blocks resist it, and it hurts whatever
-  stands in front of it.
-- **Siftite Gear** (4 siftite ingots + soul essence → 2), the moving part of every machine; a cogwheel is a shaft with a
-  siftite gear, a large cogwheel adds two more gears. Patina finally has a use too: frames, shafts, pipes and pumps.
-  Every soul power recipe unlocks in the recipe book once you carry one of its ingredients.
-- Machine sounds: the engine chugs with every piston stroke, the grinder grates, the sieve rattles, waves ping, and
-  overloads and speed conflicts groan and screech.
-- **Look**: Create-style chunky models (a casing and one or two big moving parts per machine) with their own hand-painted
-  textures: verdigris-crusted bronze frames, deepslate plates set into the casings, stained soul-willow cogwheels with
-  bronze teeth, soul-crystal light (the engine's flames and the crystal cores use the vanilla soul particle sprites).
-  Every texture also has LabPBR normal and specular maps for Iris shader packs (bronze shines as copper, souls glow).
-  The casings take the vanilla sculk family's shapes in our colours: claw corners like the shrieker's, ribs like the
-  catalyst's, glowing pores over the plates. Gears, flywheels and crank wheels are solid siftite (pink gold). The gauge has a small dark dial with a coloured scale, and the
-  Spirit Engine and Soul Grinder screens have their own painted backgrounds.
-- **Shapes follow the models**: every block with a model of its own (all soul power blocks, the Blockbench plants)
-  now has an outline, collision and occlusion that match what is drawn, generated from the models
-  (`tools/models/build_block_shapes.py` -> `assets/pysift/block_shapes.json`, applied by `ModelShapeMixin`).
-- **Automatic connections**: spirit pipes and every Sift wall, fence, glass pane and stair now detect their neighbours
-  however they are placed - /setblock, /fill, structures, WorldEdit or Axiom - not only when a player places them
-  by hand (`block/AutoConnect`, `AutoConnectMixin`).
-- Resources: `tools/progression/build_soul_power.py`; previews without the game: `tools/progression/preview_soul_power.py`;
-  network checks on the test server: `tools/progression/test_soul_power.py`.
+### Technical
+- **Shapes follow the models**: every block with a model of its own has an outline, collision and occlusion that
+  match what is drawn (`tools/models/build_block_shapes.py` → `assets/pysift/block_shapes.json`, `ModelShapeMixin`).
+- **Automatic connections**: spirit pipes and every Sift wall, fence, glass pane and stair detect their neighbours
+  however they are placed - /setblock, /fill, structures, WorldEdit or Axiom (`block/AutoConnect`).
+- Resources: `tools/progression/build_soul_power.py`. Checks on the test server:
+  `tools/progression/test_soul_redstone.py` (base mod) and `test_soul_power.py` (mechanical layer).
+
+### Worlds from development builds after v1.0.4
+- Soul Wave Emitters / Receivers and Soul Vein Nodes no longer exist; placed ones disappear. Soul-veined stone stays
+  as a building block.
+- Shafts, cogwheels and the other mechanical blocks disappear unless `kinetic_addon=on` is set.
+- Spirit Pumps placed before this version keep their old facing; break and place them again.
 
 ## v1.0.4
 
@@ -377,77 +369,88 @@
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
 
-## 尚未發布（繁體中文）
+## v2.0.0（繁體中文）
 
-### 變更：靈魂動力改成靈魂紅石
-- 靈魂動力不再靠傳動軸與齒輪。**靈魂訊號**是帶著靈壓的紅石訊號（0～15）：運轉中的靈液引擎旁是 15，每 2 格少一級（約 30 格）。
-  機器的速度是強度 ÷ 15，吃的負載也是同樣的比例。容量（每台引擎 256 SP）與過載規則不變。
-- 新方塊：**靈魂導線**（紅石、靈魂精華加 2 個銅綠錠，做 6 個）。六個方向都能接。對原版元件它是訊號源；拉桿、中繼器、比較器、
-  紅石火把或紅石塊貼著它，原版訊號就沿著線傳，能點亮紅石燈，但推不動機器。紅石粉不能當輸入。導線有靈魂訊號時是赤紅色，
-  只有原版訊號時是枯死的藍色，沒有訊號時是灰色。
-- 原版紅石訊號會**暫停機器**、**關閉引擎**。
-- **紫龍晶光束**改成轉送靈魂訊號，不損耗。
-- **移除：靈脈節點。** 導線本來就能穿過岩層。靈脈石保留成建築方塊。
-- **線上的歌者：** 歌者在導線 3 格內會停下來唱一整套歌（新的《篩網之歌》穿插三首老曲子，約兩分半鐘）；唱歌期間那段導線是
-  強度 15、64 SP 的訊號源。每套歌之間休息半分鐘。哀悼者的歌只會送出沒有靈魂的訊號。
-- **靈魂中繼器**（補回強度 15、單向、16 SP）、**靈魂濾波器**（只過靈魂訊號／只過原版訊號）、**靈魂音符盒**
-  （八個音；靈魂訊號時是歌者的歌聲，原版訊號時只有一聲悶響）。
-- 包起來的導線不發光。
-- **導線包覆：** 拿完整方塊對導線右鍵，導線就包成那個方塊的外觀；空手右鍵拆下來。
-- **導線接頭：** 插在原版元件上的接環、往下彎去接地面元件（紅石粉、鐵軌、中繼器），以及伸向拉桿、按鈕、紅石火把等小元件的細觸鬚。
-- **移除：靈魂振波發送器／接收器。** 它們和紫龍晶光束的功能重疊；現在穿過空氣的無線連結只有紫龍晶光束（用紫龍晶合成、靠稜鏡轉向）。
-  已經放下的振波方塊會消失。
-- **幽匿催化體**貼著導線：附近有生物死亡時，供應 10 秒強度 15 的訊號（32 SP）。**幽匿尖嘯體**貼著導線：迴路過載時尖叫示警，
-  不會召喚監守者。
-- 靈壓計串在導線中間；介面與靈壓計以 n/15 顯示訊號。靈壓計與風扇的配方從傳動軸改成導線。
-- **靈魂傳動軸、齒輪、齒輪箱、離合器、換向器、手搖曲柄**預設不再註冊，保留成獨立的機械層，在 `config/pysift.properties`
-  設定 `kinetic_addon=on` 才會出現。已經放了這些方塊的世界，沒有開這個設定就會失去它們。
-- Create：`docs/CREATE_ADDON.md` 寫了隙浮要在 Create 上疊加的能力（引擎當應力來源、無線傳動、共鳴加速）。尚未實作，
-  因為 Create 還沒有這個 Minecraft 版本。
-- 隙浮手記：「靈魂動力」章改寫；新增第十張遠古殘頁〈不會唱歌的線〉，在遠古城市的箱子裡找得到。
+靈魂紅石更新。現在去隙浮有了帶東西回來的理由：更好的紅石。**靈魂訊號**照原版紅石的規則運作，和原版線路雙向相接，
+也是唯一能讓新的靈魂機器運轉的東西。
 
-### 新增：靈魂動力（Create 式的機械）
-- **靈魂動力**以轉動帶動機器，單位是靈壓（SP）。**靈液引擎**燒靈液（或靈魂精華、靈魂沙／靈魂土），以 32 RPM 轉動、
-  提供 256 SP；**靈魂傳動軸**傳遞；**靈魂振波發送器／接收器**把動力無線送給放了同一張共鳴唱片的接收器（羊毛會擋住）；
-  **靈魂研磨機**使用動力（礦石變兩倍、鵝卵石 → 礫石 → 沙、骨頭 → 骨粉，偶爾多出靈魂精華）。
-- **靈魂齒輪**與**大靈魂齒輪**：相鄰的齒輪互相帶動、方向相反；大齒輪和斜角的小齒輪咬合，小齒輪轉兩倍快。加速會讓機器做得更快，
-  但也更吃靈壓（負載 = 衝擊值 × RPM）。兩條路要求不同的轉速就是**轉速衝突**：整個網路停下來冒煙。
-- **靈壓計**：四面錶盤，指針擺到目前的負載；右鍵顯示轉速與負載，比較器讀得到負載（0～15）。
-- **全部會動**：傳動軸與齒輪會轉（齒卡在齒縫裡），引擎的飛輪轉、活塞上下，石磨轉動、正在磨的東西躺在上面一起轉並噴出碎屑，
-  振波的天線碟與外環旋轉、靈魂晶核脈動。過載的機器會抖動；過載 5 秒後，附近的生物會被奪走靈魂（靈魂剝奪）。
-- **靈魂淨化篩**（故事裡的「把腐爛篩回赤紅」）：曲柄輪轉動、帶著篩網搖晃。運轉時會慢慢把 8 格內腐爛的藍色幽匿變回赤紅幽匿
-  （成就「篩回赤紅」），篩網上的東西也會被篩：幽匿 → 赤紅幽匿、幽匿脈 → 赤紅幽匿脈、礫石 → 燧石、沙 → 黏土球、靈魂沙 → 靈魂土。
-- **紫龍晶光束**（第二種無線傳動）：**紫龍晶光束發射器**從正面射出紫色光束，最遠 32 格；**紫龍晶稜鏡**會讓光束轉向
-  （右鍵換方向、潛行右鍵往回換），光束能穿過玻璃與花草，碰到實心方塊就停下，打中**紫龍晶光束接收器**的正面就連通。
-  損耗只有 5%（振波是 10%），但要瞄準，而且會灼傷站在光束裡的生物。光束畫成流動的紫色光線，透鏡會轉。
-- **靈脈**（第三種無線傳動，給埋在地底的機器）：16 格內的兩個**靈脈節點**，只要中間每一格都是岩石（石頭、深板岩、地獄岩…）
-  就連通，中間有空氣或洞穴就斷。損耗 15%。運轉時，連線上的岩石會慢慢長成發光的**靈脈石**，靈魂在裡面飄動。
-- **靈液泵**與**靈液管**：靈液泵吸走正前方的靈液源頭（32 RPM 時每 2 秒一桶），沿著靈液管送給靈液引擎；引擎的燃料格空著時就燒管子送來的靈液，
-  一池靈液就能讓整座發電站一直運轉。只接一頭、另一頭空著的管子會**漏**：靈液漏出來，下面的泥土或沙子變成靈魂土。
-- **靈魂齒輪箱**：開放的青銅框架裡有四片傘齒輪；任何一面接進來的動力都會傳到另外三面，所以動力可以轉 90°（正對面那一根會反著轉）。
-- **靈魂手搖曲柄**：按住右鍵就以 32 RPM 轉動（96 SP），在還沒有靈液時也能帶動一台研磨機或一台淨化篩；負載太大時動作列會顯示原因。搖久了會餓。
-- **靈魂離合器**與**靈魂換向器**：外殼裡兩段半軸，頂上有指示燈。收到紅石訊號時，離合器放開另一頭，換向器讓另一頭反轉。
-- **靈魂風扇**：把生物和掉落物吹走（反轉時是吸過來），最遠 8 格。氣流穿過**靈魂火**時，後面的掉落物會被靈魂薰染：沙 → 靈魂沙、
-  泥土 → 靈魂土，火把、燈籠、營火變成靈魂版本，幽匿脈變紅。
-- **共鳴靈陣**：通了動力的**共鳴核心**，周圍最多八個**共鳴台座**（距離 3 格，東南西北與四個斜角）。核心放觸媒、台座放材料；
-  核心轉動時，台座射出紫色光束連到核心，觸媒變成成品：紫水晶碎片＋4 幽匿＋4 靈魂精華 → 2 迴音碎片；紫水晶簇＋4 靈魂精華 → 4 紫龍晶；
-  深板岩＋4 骨塊＋4 靈魂晶塊 → 強化深板岩；共鳴唱片＋4 紫水晶碎片＋2 靈魂精華＋2 音符盒 → 2 張同樣的唱片（振波頻率不夠用時）。
-  運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。
-- **靈魂鑽頭**：鑽頭旋轉著鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久、轉越快鑽越快，基岩與黑曜石這類方塊鑽不動；
+### 新增：靈魂紅石
+- **靈魂訊號**：帶著靈壓（SP）的紅石訊號（0～15）。訊號源旁邊是 15，每 2 格少一級，大約能傳 30 格。
+  機器的速度是強度 ÷ 15，吃的負載也是同樣的比例。
+- **靈魂導線**（紅石、靈魂精華加 2 個銅綠錠，做 6 個）：就是線。六個方向都能接，也能穿過岩層。
+  - 對原版元件它是訊號源：能點亮紅石燈，也能餵給紅石粉、中繼器、比較器。
+  - 拉桿、中繼器、比較器、紅石火把或紅石塊貼著它，原版訊號就沿著線傳。這種訊號能點亮紅石燈，但推不動機器。
+    紅石粉不能當輸入。
+  - 有靈魂訊號時是赤紅色，只有原版訊號時是枯死的藍色，沒有訊號時是灰色。
+  - **接頭**：插在原版元件上的接環、往下彎去接地面元件（紅石粉、鐵軌、中繼器），以及伸向拉桿、按鈕、
+    紅石火把等小元件的細觸鬚。
+  - **包覆**：拿完整方塊對導線右鍵，導線就包成那個方塊的外觀；空手右鍵拆下來。包起來的導線不發光。
+- **訊號源**
+  - **靈液引擎**：強度 15、256 SP。燒靈液桶（160 秒）、靈魂精華（40 秒）或靈魂沙／靈魂土（10 秒），
+    也能燒靈液泵用管子送來的靈液。
+  - **線上的歌者**：歌者在導線 3 格內會停下來唱一整套歌（新的《篩網之歌》穿插三首老曲子，約兩分半鐘）。
+    唱歌期間那段導線是強度 15、64 SP 的訊號源。每套歌之間休息半分鐘。哀悼者的歌只會送出沒有靈魂的訊號。
+  - **幽匿催化體**貼著導線：附近有生物死亡時，供應 10 秒強度 15 的訊號（32 SP）。
+- **線路元件**
+  - **靈魂中繼器**：把訊號補回 15，單向，吃 16 SP。
+  - **靈魂濾波器**：只讓靈魂訊號通過，或只讓原版訊號通過。右鍵切換。
+  - **靈魂音符盒**：八音儀式的八個音。靈魂訊號時是歌者的歌聲，原版訊號時只有一聲悶響。右鍵換音。
+  - **靈壓計**：串在導線中間，以 n/15 顯示訊號並顯示負載；比較器讀得到負載。
+  - **紫龍晶光束發射器、稜鏡、接收器**：無線連結。紫色光束把訊號送到最遠 32 格外，不損耗；稜鏡讓它轉向，
+    玻璃與花草擋不住它，站在光束裡的生物會被灼傷。
+- **控制與過載**
+  - 原版紅石訊號會**暫停機器**、**關閉引擎**。
+  - 機器要的靈壓超過訊號源給得出的量，就是**過載**：訊號歸零，機器抖動。過載 5 秒後，機器 6 格內的生物會被奪走靈魂。
+  - **幽匿尖嘯體**貼著導線時，迴路過載就尖叫示警，不會召喚監守者。
+
+### 新增：靈魂機器
+- **靈魂研磨機**：礦石變兩倍、鵝卵石 → 礫石 → 沙、骨頭 → 骨粉，偶爾多出靈魂精華。
+- **靈魂淨化篩**（故事裡的「把腐爛篩回赤紅」）：運轉時會慢慢把 8 格內腐爛的藍色幽匿變回赤紅幽匿（成就「篩回赤紅」）。
+  篩網上的東西也會被篩：幽匿 → 赤紅幽匿、幽匿脈 → 赤紅幽匿脈、礫石 → 燧石、沙 → 黏土球、靈魂沙 → 靈魂土。
+- **靈魂鑽頭**：鑽掉正前方的方塊，掉落物和用鐵鎬挖的一樣。越硬的方塊鑽越久，基岩與黑曜石這類方塊鑽不動。
   站在鑽頭前的東西會被鑽傷。
-- **隙浮金齒輪**（4 隙浮金錠＋靈魂精華 → 2 個）：所有機器會動的零件；靈魂齒輪＝傳動軸＋隙浮金齒輪，大齒輪再多加兩個齒輪。
-  銅綠也終於有用途：機殼、傳動軸、管線與泵。拿到任何一種材料，靈魂動力的配方就會出現在配方書裡。
-- 機器的聲音：引擎每次活塞行程噗一聲、研磨機磨石頭、篩網沙沙響、振波叮一聲，過載與轉速衝突時會呻吟、尖叫。
-- **外觀**：Create 式的大塊模型（每台機器一個機殼加一兩個會動的大部件），貼圖全部自己畫：帶鏽斑的銅綠青銅框、嵌進機殼的深板岩面板、
-  染色靈柳木齒輪配青銅齒、靈魂晶的光（引擎的火焰和晶核用原版的靈魂粒子圖案）。每張貼圖也附有 LabPBR 法線與高光貼圖，
-  用 Iris 光影時青銅會反光、靈魂會發光。
-  機殼借用原版幽匿家族的造型、配色維持原樣：尖嘯體般的爪形轉角、催化體般的骨肋、面板上發光的孔。齒輪、飛輪與曲柄輪整個改用隙浮金（粉色金礦）；靈壓計是一個小小的深色錶盤配彩色刻度；靈液引擎與研磨機的介面也改成自己畫的底圖。
-- **方塊外框跟著模型**：所有有自己模型的方塊（全部靈魂動力方塊、Blockbench 做的植物）的外框、碰撞與遮光都和看到的模型一致，
-  由模型自動產生（`tools/models/build_block_shapes.py` → `assets/pysift/block_shapes.json`，由 `ModelShapeMixin` 套用）。
+- **靈魂風扇**：把生物和掉落物吹走，最遠 8 格。氣流穿過**靈魂火**時，後面的掉落物會被靈魂薰染：沙 → 靈魂沙、
+  泥土 → 靈魂土，火把、燈籠、營火變成靈魂版本，幽匿脈變紅。
+- **共鳴靈陣**：運轉中的**共鳴核心**，周圍 3 格外最多八個**共鳴台座**。核心放觸媒、台座放材料，就能做出
+  2 個迴音碎片、4 個紫龍晶或強化深板岩等成品。運轉中的核心也讓 8 格內的研磨機與淨化篩快 50%。
+- **靈液泵**與**靈液管**：泵吸走吸口正前方的靈液源頭（滿強度時每 2 秒一桶），用管子送給靈液引擎，
+  一池靈液就能讓整座發電站一直運轉。
+  - 手動放下時，吸口會自動對著旁邊的靈液。
+  - 除了吸口以外的每一面，都能接導線和靈液管。
+  - 只接一頭、另一頭空著的管子會**漏**：靈液漏出來，下面的泥土或沙子變成靈魂土。
+- **隙浮金齒輪**（4 隙浮金錠＋靈魂精華 → 2 個）是所有機器會動的零件。銅綠用在機殼、導線、管線與泵。
+  拿到任何一種材料，配方就會出現在配方書裡。
+- **全部會動、會響**：飛輪轉、活塞上下，石磨帶著正在磨的東西一起轉，篩網搖晃。引擎噗噗響、研磨機磨石頭、
+  篩網沙沙響，過載時會呻吟。
+- **外觀**：大塊的機殼借用幽匿家族的造型（爪形轉角、骨肋、發光的孔），配上手繪的銅綠青銅、深板岩面板與隙浮金齒輪。
+  每張貼圖都附 LabPBR 法線與高光貼圖，可搭配 Iris 光影。靈液引擎與研磨機的介面有自己畫的底圖。
+
+### 新增：回音窟的動力室
+- 回音窟的新房間，和寶庫一樣稀有：一組還在運轉的靈魂紅石線路。引擎靠自己的泵供應靈液，紫龍晶光束橫過房間，
+  還有淨化篩、研磨機、中繼器、濾波器和兩個靈魂音符盒，線旁邊站著一隻歌者。
+
+### 新增：故事
+- 隙浮手記：「靈魂動力」章依靈魂訊號改寫。訊號就是歌聲，由活的赤紅幽匿傳遞；原版紅石是沒有靈魂的訊號。
+- 第十張遠古殘頁〈不會唱歌的線〉，在遠古城市的箱子裡找得到。它解釋了遠古城市地下的紅石室。
+
+### 選用：機械層
+- **靈魂傳動軸、齒輪、大齒輪、齒輪箱、離合器、換向器、手搖曲柄**不屬於基本內容。在 `config/pysift.properties`
+  設定 `kinetic_addon=on`，它們才會註冊成獨立的轉動層；這時機器吃靈魂訊號或傳動軸都可以。
+- Create：`docs/CREATE_ADDON.md` 寫了隙浮要在 Create 上疊加的能力（引擎當應力來源、無線傳動、共鳴加速）。
+  尚未實作，因為 Create 還沒有這個 Minecraft 版本。
+
+### 技術
+- **方塊外框跟著模型**：所有有自己模型的方塊，外框、碰撞與遮光都和看到的模型一致
+  （`tools/models/build_block_shapes.py` → `assets/pysift/block_shapes.json`、`ModelShapeMixin`）。
 - **自動偵測連接**：靈液管與所有隙浮的牆、柵欄、玻璃片、階梯，不管是怎麼放的（/setblock、/fill、結構、WorldEdit、Axiom）
-  都會自己偵測鄰居接起來，不再只有玩家親手放才會接（`block/AutoConnect`、`AutoConnectMixin`）。
-- 資源：`tools/progression/build_soul_power.py`；不開遊戲的預覽：`tools/progression/preview_soul_power.py`；
-  測試伺服器上的網路檢查：`tools/progression/test_soul_power.py`。
+  都會自己接起來（`block/AutoConnect`）。
+- 資源：`tools/progression/build_soul_power.py`。測試伺服器上的檢查：`tools/progression/test_soul_redstone.py`（基本內容）
+  與 `test_soul_power.py`（機械層）。
+
+### 從 v1.0.4 之後的開發版升級的世界
+- 靈魂振波發送器／接收器與靈脈節點已經不存在，放下的會消失。靈脈石保留成建築方塊。
+- 傳動軸、齒輪等機械方塊，沒有設定 `kinetic_addon=on` 就會消失。
+- 這一版之前放下的靈液泵維持原本的方向，請拆掉重放。
 
 ## v1.0.4（繁體中文）
 
