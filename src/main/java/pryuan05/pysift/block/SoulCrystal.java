@@ -68,11 +68,11 @@ public final class SoulCrystal {
             double x = pos.getX() + 0.5 + (dir.getStepX() == 0 ? (random.nextDouble() - 0.5) * 0.85 : dir.getStepX() * 0.56);
             double y = pos.getY() + 0.5 + (dir.getStepY() == 0 ? (random.nextDouble() - 0.5) * 0.85 : dir.getStepY() * 0.56);
             double z = pos.getZ() + 0.5 + (dir.getStepZ() == 0 ? (random.nextDouble() - 0.5) * 0.85 : dir.getStepZ() * 0.56);
-            if (random.nextInt(3) == 0) {
+            if (random.nextInt(12) == 0) {   // 使用者（v2.1.0）：靈魂粒子太多，原本 1/3
                 level.addParticle(ModParticles.SOUL_WISP, x, y, z,
                         dir.getStepX() * 0.01, 0.02 + random.nextDouble() * 0.025, dir.getStepZ() * 0.01);
             }
-            if (random.nextInt(5) == 0) {
+            if (random.nextInt(10) == 0) {
                 level.addParticle(ParticleTypes.GLOW, x, y, z, 0.0, 0.01, 0.0);
             }
         }

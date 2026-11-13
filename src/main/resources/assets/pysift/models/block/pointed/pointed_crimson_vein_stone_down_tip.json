@@ -1,0 +1,6 @@
+{
+  "parent": "pysift:block/pointed/pointed_cross_vflip",
+  "textures": {
+    "cross": "pysift:block/pointed/pointed_crimson_vein_stone_tip"
+  }
+}

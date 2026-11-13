@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:pointed_void_stone"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "pysift:blocks/pointed_void_stone"
+}

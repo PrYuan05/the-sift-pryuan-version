@@ -532,6 +532,10 @@
     },
     "pysift:soul_repeater",
     "pysift:soul_filter",
-    "pysift:soul_note_block"
+    "pysift:soul_note_block",
+    "pysift:pointed_dark_slate",
+    "pysift:pointed_crimson_vein_stone",
+    "pysift:pointed_void_stone",
+    "pysift:pointed_violet_strata"
   ]
 }

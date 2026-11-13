@@ -49,8 +49,11 @@ public final class ModEffects {
         @Override
         public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
             double w = entity.getBbWidth() * 0.6, h = entity.getBbHeight();
-            level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY() + h * 0.5, entity.getZ(), 3, w, h * 0.35, w, 0.01);
-            if (entity.getRandom().nextInt(3) == 0) {
+            // 使用者（v2.1.0）：靈魂粒子太多 — 一半的時候才冒火焰、每次少一點；靈魂原本 1/3
+            if (entity.getRandom().nextBoolean()) {
+                level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, entity.getX(), entity.getY() + h * 0.5, entity.getZ(), 2, w, h * 0.35, w, 0.01);
+            }
+            if (entity.getRandom().nextInt(6) == 0) {
                 level.sendParticles(ParticleTypes.SCULK_SOUL, entity.getX(), entity.getY() + h * 0.7, entity.getZ(), 1, w, h * 0.2, w, 0.02);
             }
             // 怪物版（Boss 武器造成）：每 4 tick 流失 0.25 點生命，約每秒 1.25 點；不觸發無敵時間，所以不會擋掉武器的傷害。

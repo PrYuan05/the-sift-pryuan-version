@@ -27,9 +27,12 @@ deeper, the more alive; the shallower, the more it rots.
   stream falls to a little basin in the chamber floor, and the chamber stays dry. They never form on steep ground, near water or in the volcano.
 
 ### New: cave decoration
-- **Stalagmites and stalactites** in the Sift's own stone (not vanilla's brown dripstone): tapered columns with a thick
-  root and a thin wall-block tip, each layer in its own floor blocks (slate, rose stone, void stone, violet strata).
-  They get taller with depth: 2-5 blocks in the shallows, up to 14 in the vaults.
+- **Pointed stones**: every cave type has its own dripstone-like block, made of its own stone - **Pointed Dark Slate**
+  (Withered Hollows), **Pointed Crimson Vein Stone** (Red Zone Caves), **Pointed Void Stone** (Resonant Vaults) and
+  **Pointed Violet Strata** (Spirit Deeps). They behave like pointed dripstone (tip, frustum, middle, base; hanging ones
+  fall, standing ones hurt to land on) and grow in clusters and loose groups like a dripstone cave.
+- **Stalagmites and stalactites**: tapered columns of the layer's stone that end in its pointed stone. They get taller with
+  depth: 2-5 blocks in the shallows, up to 14 in the vaults.
 - **Charoite clusters hang from the ceilings** of the Resonant Vaults and Spirit Deeps.
 - **Wall vines** in the Red Zone Caves (orange) and Spirit Deeps (carapace), and green vines down sinkhole walls.
 
@@ -56,6 +59,11 @@ blend across the layer borders):
 - **Spirit Deeps**: flat, low, bedded chambers like flooded lake caves (cenotes), more of them under spirit liquid.
 - Vaults and Deeps are now one smooth field instead of a humidity line, and the floor blocks blend across it.
 - No more lava underground: the vanilla lava pools and the lava below y = -54 are spirit liquid or air here.
+- **Bigger caves**: the Red Zone Caves and especially the Resonant Vaults and Spirit Deeps now open into much larger,
+  taller halls (about twice the open space of before in the test world).
+- **Fewer soul particles**: spirit liquid releases souls about four times less often (and three times less again under
+  ground), soul crystals and Spirit Engines far less, the soul-deprivation effect half as much, and the biomes' floating
+  soul wisps are thinned out.
 
 ### Changed: colours
 - The cave floors use a low-contrast ladder of blocks (cool grey, rose grey, violet grey, violet) and every layer already
@@ -454,8 +462,10 @@ soul machines.
   細細一道落進洞室地面的小水池，洞室本身保持乾燥。不會出現在陡坡、水邊與火山。
 
 ### 新增：洞穴裝飾
-- **鐘乳石與石筍**用隙浮自己的石材（不是原版棕色滴水石）：粗根加細尖（牆方塊）的錐形岩柱，
-  每一層用自己的地面方塊（板岩、玫瑰石、虛空石、紫地層）。越深越高：淺層 2–5 格，穹窟最高 14 格。
+- **尖石**：每一種洞穴都有自己的滴水石，用自己那層的石材長成：**尖暗板岩**（枯竭窟）、**尖赤紅脈石**（紅區洞穴）、
+  **尖虛空石**（共鳴穹窟）、**尖紫地層**（靈液深淵）。行為和鋒利滴水石一樣（尖端、錐台、中段、底座；懸空的會掉下來，
+  摔在石筍上會加傷害），像滴水石洞一樣成叢或零星地長。
+- **鐘乳石與石筍**：該層石材的錐形岩柱，尾端接上該層的尖石。越深越高：淺層 2–5 格，穹窟最高 14 格。
 - 共鳴穹窟與靈液深淵的**天花板長出倒掛的 charoite 晶簇**。
 - 紅區洞穴（橘）與靈液深淵（甲殼）有**貼牆藤蔓**，天坑洞壁垂著綠色藤蔓。
 
@@ -478,6 +488,9 @@ soul machines.
 - **靈液深淵**：像灌水的天坑湖洞（cenote），低而扁平、沿層面延伸的洞室，更常被靈液淹沒。
 - 穹窟與深淵改用同一個平滑的場來分區（不再是濕度線），地面方塊也在交界處混色過渡。
 - 地底不再有岩漿：原版的岩漿池與 y = -54 以下的岩漿，在這裡改成靈液或空氣。
+- **更大的洞穴**：紅區洞穴，尤其是共鳴穹窟與靈液深淵，現在會打開成更大、更高的大廳（測試世界裡的開闊空間約是原本的兩倍）。
+- **靈魂粒子變少**：靈液冒出靈魂的機率約降為四分之一（地底再少三倍），靈魂晶塊與靈魂引擎少很多，靈魂剝奪效果減半，
+  各生態域飄浮的靈魂光點也變稀疏。
 
 ### 變更：顏色
 - 洞穴地面改用低對比的方塊階梯（冷灰、玫瑰灰、紫灰、紫），每一層的地面都混入相鄰層的方塊，

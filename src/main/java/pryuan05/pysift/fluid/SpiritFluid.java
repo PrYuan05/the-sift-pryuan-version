@@ -90,9 +90,13 @@ public abstract class SpiritFluid extends FlowingFluid {
         }
     }
 
-    /** 平均每次 animateTick 冒出靈魂的機率是 1 / WISP_CHANCE；其中 1 / BURST_CHANCE 會一次冒出一小群。 */
-    private static final int WISP_CHANCE = 70;
-    private static final int BURST_CHANCE = 6;
+    /**
+     * 平均每次 animateTick 冒出靈魂的機率是 1 / WISP_CHANCE；其中 1 / BURST_CHANCE 會一次冒出一小群。
+     * 使用者（v2.1.0）：靈魂粒子太多。原本 1/70、1/6；地底的靈液湖（看不到天空）再少三倍，洞穴裡大片靈液不會冒成一片。
+     */
+    private static final int WISP_CHANCE = 300;
+    private static final int BURST_CHANCE = 12;
+    private static final int UNDERGROUND_EXTRA = 3;
 
     /** 客戶端：靈魂出竅，從水面上方是空氣的靈液源頭冒出 soul_wisp（外觀與光尾見 client/particle/SoulWispParticle）。 */
     @Override
@@ -100,7 +104,10 @@ public abstract class SpiritFluid extends FlowingFluid {
         if (!state.isSource() || random.nextInt(WISP_CHANCE) != 0 || !level.getBlockState(pos.above()).isAir()) {
             return;
         }
-        int count = random.nextInt(BURST_CHANCE) == 0 ? 3 + random.nextInt(3) : 1;
+        if (!level.canSeeSky(pos.above()) && random.nextInt(UNDERGROUND_EXTRA) != 0) {
+            return;
+        }
+        int count = random.nextInt(BURST_CHANCE) == 0 ? 2 + random.nextInt(2) : 1;
         for (int i = 0; i < count; i++) {
             level.addParticle(ModParticles.SOUL_WISP, pos.getX() + random.nextDouble(), pos.getY() + 0.9,
                     pos.getZ() + random.nextDouble(), 0, 0.02 + random.nextDouble() * 0.03, 0);

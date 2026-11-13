@@ -95,7 +95,7 @@
           "particle": {
             "type": "pysift:soul_wisp"
           },
-          "probability": 0.012
+          "probability": 0.003
         }
       ]
     }
@@ -125,6 +125,8 @@
       "pysift:deeps_stalactite",
       "pysift:deeps_ceiling_charoite",
       "pysift:deeps_wall_vine",
+      "pysift:spirit_deeps_speleothem_cluster",
+      "pysift:spirit_deeps_pointed_stone",
       "pysift:deeps_red_sculk",
       "pysift:deeps_charoite",
       "pysift:deeps_glow_grass",

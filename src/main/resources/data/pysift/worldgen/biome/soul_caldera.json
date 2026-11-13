@@ -86,7 +86,7 @@
           "particle": {
             "type": "pysift:soul_wisp"
           },
-          "probability": 0.004
+          "probability": 0.0015
         }
       ]
     }

@@ -2,7 +2,7 @@
   "type": "pysift:speleothem",
   "block": "pysift:void_stone",
   "alt_block": "pysift:smooth_void_stone",
-  "tip_block": "pysift:void_stone_wall",
+  "tip_block": "pysift:pointed_void_stone",
   "min_height": 5,
   "max_height": 14,
   "hanging": true

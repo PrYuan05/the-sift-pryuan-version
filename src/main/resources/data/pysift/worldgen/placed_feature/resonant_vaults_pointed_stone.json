@@ -1,0 +1,59 @@
+{
+  "feature": "pysift:resonant_vaults_pointed_stone",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 40
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": -62
+        },
+        "max_inclusive": {
+          "absolute": 10
+        }
+      }
+    },
+    {
+      "type": "minecraft:count",
+      "count": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 1,
+        "max_inclusive": 5
+      }
+    },
+    {
+      "type": "minecraft:offset",
+      "x": {
+        "type": "minecraft:clamped_normal",
+        "mean": 0.0,
+        "deviation": 3.0,
+        "min_inclusive": -10,
+        "max_inclusive": 10
+      },
+      "y": {
+        "type": "minecraft:clamped_normal",
+        "mean": 0.0,
+        "deviation": 0.6,
+        "min_inclusive": -2,
+        "max_inclusive": 2
+      },
+      "z": {
+        "type": "minecraft:clamped_normal",
+        "mean": 0.0,
+        "deviation": 3.0,
+        "min_inclusive": -10,
+        "max_inclusive": 10
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

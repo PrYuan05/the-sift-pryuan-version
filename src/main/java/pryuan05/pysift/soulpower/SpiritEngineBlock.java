@@ -43,7 +43,7 @@ public class SpiritEngineBlock extends SoulMachineBlock {
         double side = (random.nextDouble() - 0.5) * 0.4;
         x += f.getStepZ() * side;
         z += f.getStepX() * side;
-        if (random.nextInt(3) == 0) {
+        if (random.nextInt(6) == 0) {   // 使用者（v2.1.0）：靈魂粒子太多，原本 1/3
             level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, x, pos.getY() + 0.35, z, 0, 0.01, 0);
         }
         // 煙囪在正面看過去的左後方（模型 tools/progression/build_soul_power.py 的 chimney）

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/pointed_dripstone",
+  "textures": {
+    "cross": "pysift:block/pointed/pointed_violet_strata_tip"
+  }
+}

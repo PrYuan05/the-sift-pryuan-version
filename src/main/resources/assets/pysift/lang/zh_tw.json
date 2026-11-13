@@ -2507,5 +2507,13 @@
   "item.pysift.ancient_page_13": "遠古殘頁・其十三",
   "tooltip.pysift.ancient_page_13": "靈液出生的地方",
   "book.pysift.ancient_page_13.page1": "（歌者最古老的一首歌。）\n\n比大廳更深的地方，石頭是暖的。靈液從下面一口一口緩緩湧上來，它碰到的一切都是活的、發著光、哼著歌。這裡是篩網的底。我們是在這裡被造出來的。",
-  "book.pysift.ancient_page_13.page2": "可是它對另一個世界來的身體太濃了。它會把你的靈魂取走，輕得像潮水帶走沙子。戴著護符來，在胸口的歌安靜下來以前離開。"
+  "book.pysift.ancient_page_13.page2": "可是它對另一個世界來的身體太濃了。它會把你的靈魂取走，輕得像潮水帶走沙子。戴著護符來，在胸口的歌安靜下來以前離開。",
+  "block.pysift.pointed_dark_slate": "尖暗板岩",
+  "block.pysift.pointed_crimson_vein_stone": "尖赤紅脈石",
+  "block.pysift.pointed_void_stone": "尖虛空石",
+  "block.pysift.pointed_violet_strata": "尖紫地層",
+  "item.pysift.pointed_dark_slate": "尖暗板岩",
+  "item.pysift.pointed_crimson_vein_stone": "尖赤紅脈石",
+  "item.pysift.pointed_void_stone": "尖虛空石",
+  "item.pysift.pointed_violet_strata": "尖紫地層"
 }

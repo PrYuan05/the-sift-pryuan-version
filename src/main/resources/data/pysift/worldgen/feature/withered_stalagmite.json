@@ -2,7 +2,7 @@
   "type": "pysift:speleothem",
   "block": "pysift:dark_slate",
   "alt_block": "pysift:varied_dark_slate",
-  "tip_block": "pysift:dark_slate_wall",
+  "tip_block": "pysift:pointed_dark_slate",
   "min_height": 2,
   "max_height": 5,
   "hanging": false

@@ -55,6 +55,7 @@ public class PySift implements ModInitializer {
         SoulshaleFamily.register();          // 魂頁岩：深板岩家族的形式，雕紋魂頁岩的配色
         StoneFamilies.register();            // 升級石材的額外建材形式（平滑灰大理石…）
         SoulCrystal.register();
+        pryuan05.pysift.block.PointedStones.register();   // 尖石：每種洞穴自己的滴水石（v2.1.0）
         ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具
         ModParticles.register();
         SoulWillowTrunkPlacer.register();

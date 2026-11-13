@@ -2507,5 +2507,13 @@
   "item.pysift.ancient_page_13": "Ancient Page XIII",
   "tooltip.pysift.ancient_page_13": "Where the Liquid Is Born",
   "book.pysift.ancient_page_13.page1": "(The oldest song the Singers know.)\n\nDeeper than the hall the stone is warm. The liquid wells up from below in slow gulps, and everything it touches is alive, glowing, humming. This is the bottom of the sieve. This is where we are made.",
-  "book.pysift.ancient_page_13.page2": "But it is too thick for a body from the other world. It takes the soul out of you as gently as the tide takes sand. Come with your charms on, and leave before the song goes quiet in your chest."
+  "book.pysift.ancient_page_13.page2": "But it is too thick for a body from the other world. It takes the soul out of you as gently as the tide takes sand. Come with your charms on, and leave before the song goes quiet in your chest.",
+  "block.pysift.pointed_dark_slate": "Pointed Dark Slate",
+  "block.pysift.pointed_crimson_vein_stone": "Pointed Crimson Vein Stone",
+  "block.pysift.pointed_void_stone": "Pointed Void Stone",
+  "block.pysift.pointed_violet_strata": "Pointed Violet Strata",
+  "item.pysift.pointed_dark_slate": "Pointed Dark Slate",
+  "item.pysift.pointed_crimson_vein_stone": "Pointed Crimson Vein Stone",
+  "item.pysift.pointed_void_stone": "Pointed Void Stone",
+  "item.pysift.pointed_violet_strata": "Pointed Violet Strata"
 }

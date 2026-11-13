@@ -584,13 +584,13 @@ SINKHOLE = "pysift:sinkhole"
 AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
            "red_zone_caves": ("minecraft:crimson_spore", 0.03),
            "withered_hollows": ("minecraft:ash", 0.02),
-           "resonant_vaults": ("pysift:soul_wisp", 0.006),
-           "spirit_deeps": ("pysift:soul_wisp", 0.012),
-           "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
+           "resonant_vaults": ("pysift:soul_wisp", 0.0015),     # v2.1.0 user: fewer soul particles everywhere
+           "spirit_deeps": ("pysift:soul_wisp", 0.003),
+           "violet_slate_abyss": ("pysift:soul_wisp", 0.0008),    # user: fewer soul wisps (0.002 before v2.1.0)
            "willow_grove": ("minecraft:spore_blossom_air", 0.012),
            "amber_dunes": ("minecraft:white_ash", 0.015),
            "lullaby_hills": ("minecraft:crimson_spore", 0.008),
-           "soul_caldera": ("pysift:soul_wisp", 0.004)}
+           "soul_caldera": ("pysift:soul_wisp", 0.0015)}
 
 CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
                                                              "min_inclusive": {"absolute": -40}, "max_inclusive": {"absolute": 55}}},
@@ -760,21 +760,69 @@ def ceiling_crystals(name, layer, count):
     return f"pysift:{name}"
 
 
+def speleothem_cluster(name, layer, base, pointed, count, radius=(2, 7), height=(2, 6)):
+    """Vanilla's dripstone-cave cluster (minecraft:speleothem_cluster) in the layer's own stone: a patch of floor and ceiling turned
+    into the base stone, with the layer's pointed stone (block/PointedStones) hanging and standing in it. Never wet."""
+    wj(D / f"worldgen/feature/{name}.json", {
+        "type": "minecraft:speleothem_cluster", "base_block": f"pysift:{base}", "pointed_block": f"pysift:{pointed}",
+        "replaceable_blocks": "#pysift:speleothem_replaceable", "floor_to_ceiling_search_range": 12,
+        "height": uniform(*height), "height_deviation": 3, "radius": uniform(*radius),
+        "max_stalagmite_stalactite_height_diff": 1, "speleothem_block_layer_thickness": uniform(2, 3),
+        "density": {"type": "minecraft:uniform", "min_inclusive": 0.3, "max_exclusive": 0.7},
+        "wetness": {"type": "minecraft:clamped_normal", "mean": 0.0, "deviation": 0.0, "min": 0.0, "max": 0.0},
+        "chance_of_speleothem_at_max_distance_from_center": 0.1, "max_distance_from_edge_affecting_chance_of_speleothem": 3,
+        "max_distance_from_center_affecting_height_bias": 8})
+    lo, hi = LAYER_Y[layer]
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": lo},
+                                                      "max_inclusive": {"absolute": hi}}}, {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+def speleothem_scatter(name, layer, base, pointed, count):
+    """Vanilla's loose pointed dripstone (minecraft:speleothem): little groups of 1-5 spikes on floors and ceilings."""
+    spike = {"type": "minecraft:speleothem", "base_block": f"pysift:{base}", "pointed_block": f"pysift:{pointed}",
+             "replaceable_blocks": "#pysift:speleothem_replaceable"}
+    scan = lambda d: [{"type": "minecraft:environment_scan", "direction_of_search": d, "max_steps": 12,
+                       "target_condition": {"type": "minecraft:solid"},
+                       "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+                      {"type": "minecraft:offset", "x": 0, "y": 1 if d == "down" else -1, "z": 0}]
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:simple_random_selector", "features": [
+        {"feature": spike, "placement": scan("down")}, {"feature": spike, "placement": scan("up")}]})
+    lo, hi = LAYER_Y[layer]
+    gauss = lambda dev, m: {"type": "minecraft:clamped_normal", "mean": 0.0, "deviation": dev, "min_inclusive": -m, "max_inclusive": m}
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        {"type": "minecraft:height_range", "height": {"type": "minecraft:uniform", "min_inclusive": {"absolute": lo},
+                                                      "max_inclusive": {"absolute": hi}}},
+        {"type": "minecraft:count", "count": uniform(1, 5)},
+        {"type": "minecraft:offset", "x": gauss(3.0, 10), "y": gauss(0.6, 2), "z": gauss(3.0, 10)},
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
 # Each layer's columns use that layer's own floor blocks (see CAVE_RULES), so the colours follow the ladder.
 SPELEOTHEMS = {
-    "withered_hollows": [speleothem("withered_stalagmite", "withered_hollows", "dark_slate", "varied_dark_slate", "dark_slate_wall", 2, 5, False, 45),
-                         speleothem("withered_stalactite", "withered_hollows", "dark_slate", "varied_dark_slate", "dark_slate_wall", 2, 6, True, 55)],
-    "red_zone_caves": [speleothem("song_stalagmite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "crimson_vein_stone_wall", 3, 7, False, 50),
-                       speleothem("song_stalactite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "crimson_vein_stone_wall", 3, 9, True, 60),
+    "withered_hollows": [speleothem("withered_stalagmite", "withered_hollows", "dark_slate", "varied_dark_slate", "pointed_dark_slate", 2, 5, False, 45),
+                         speleothem("withered_stalactite", "withered_hollows", "dark_slate", "varied_dark_slate", "pointed_dark_slate", 2, 6, True, 55)],
+    "red_zone_caves": [speleothem("song_stalagmite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "pointed_crimson_vein_stone", 3, 7, False, 50),
+                       speleothem("song_stalactite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "pointed_crimson_vein_stone", 3, 9, True, 60),
                        wall_plant("song_wall_vine", "orange_sift_vine", 3, tries=24, min_len=1, max_len=4, min_y=-20, max_y=40)],
-    "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "polished_void_stone", "void_stone_wall", 5, 12, False, 110),
-                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "smooth_void_stone", "void_stone_wall", 5, 14, True, 130),
+    "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "polished_void_stone", "pointed_void_stone", 5, 12, False, 110),
+                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "smooth_void_stone", "pointed_void_stone", 5, 14, True, 130),
                         ceiling_crystals("vault_ceiling_charoite", "resonant_vaults", 40)],
-    "spirit_deeps": [speleothem("deeps_stalagmite", "spirit_deeps", "violet_strata", "magma_vein_slate", "violet_strata_wall", 3, 9, False, 50),
-                     speleothem("deeps_stalactite", "spirit_deeps", "violet_strata", "magma_vein_slate", "violet_strata_wall", 3, 10, True, 60),
+    "spirit_deeps": [speleothem("deeps_stalagmite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 9, False, 50),
+                     speleothem("deeps_stalactite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 10, True, 60),
                      ceiling_crystals("deeps_ceiling_charoite", "spirit_deeps", 30),
                      wall_plant("deeps_wall_vine", "carapace_vine", 3, tries=24, min_len=1, max_len=5, min_y=-62, max_y=10)],
 }
+# each layer's own pointed stone, like vanilla's dripstone caves: clusters and loose spikes (user: every cave type its own spike)
+POINTED = {"withered_hollows": ("dark_slate", "pointed_dark_slate", 5, 30), "red_zone_caves": ("crimson_vein_stone", "pointed_crimson_vein_stone", 9, 50),
+           "resonant_vaults": ("void_stone", "pointed_void_stone", 7, 40), "spirit_deeps": ("violet_strata", "pointed_violet_strata", 7, 40)}
+for _b, (_base, _pointed, _clusters, _loose) in POINTED.items():
+    SPELEOTHEMS[_b] += [speleothem_cluster(f"{_b}_speleothem_cluster", _b, _base, _pointed, _clusters),
+                        speleothem_scatter(f"{_b}_pointed_stone", _b, _base, _pointed, _loose)]
 for _b, _f in SPELEOTHEMS.items():
     CAVE_FEATURES[_b] = CAVE_FEATURES.get(_b, []) + _f
 
@@ -1508,8 +1556,8 @@ def shape_caves(final_density):
     assert all(v == 1 for v in found.values()), f"final_density layout changed: {found}"
     # the layer functions themselves (written beside the copied vanilla cave functions)
     CAVES = D / "worldgen/density_function/the_sift/caves"
-    wj(CAVES / "cheese_offset.json", layer_spline(1.4, 0.38, 0.02))     # vanilla 0.27: none in the shallows, halls in the deep
-    wj(CAVES / "layer_strength.json", layer_spline(4.0, 4.0, 2.2))      # vanilla 4.0
+    wj(CAVES / "cheese_offset.json", layer_spline(1.0, 0.16, -0.16))    # vanilla 0.27: few in the shallows, big halls below (v2.1.0 user: more large caves)
+    wj(CAVES / "layer_strength.json", layer_spline(4.0, 2.8, 1.5))      # vanilla 4.0; lower = taller rooms
     wj(CAVES / "tunnel_offset.json", layer_spline(0.04, -0.10, -0.03))  # + thinner tunnels, - fatter ones
     wj(CAVES / "pillars_layered.json", {"type": "minecraft:add", "left": "pysift:the_sift/caves/pillars",
                                         "right": layer_spline(-5.0, -0.05, 0.14)})   # columns: none, few, many

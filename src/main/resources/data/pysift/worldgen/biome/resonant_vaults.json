@@ -95,7 +95,7 @@
           "particle": {
             "type": "pysift:soul_wisp"
           },
-          "probability": 0.006
+          "probability": 0.0015
         }
       ]
     }
@@ -124,6 +124,8 @@
       "pysift:vault_stalagmite",
       "pysift:vault_stalactite",
       "pysift:vault_ceiling_charoite",
+      "pysift:resonant_vaults_speleothem_cluster",
+      "pysift:resonant_vaults_pointed_stone",
       "pysift:vault_charoite",
       "pysift:vault_soul_crystal",
       "pysift:vault_red_sculk",

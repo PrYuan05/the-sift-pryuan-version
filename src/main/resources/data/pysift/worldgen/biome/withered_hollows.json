@@ -116,6 +116,8 @@
       "pysift:withered_gloomcap",
       "pysift:withered_stalagmite",
       "pysift:withered_stalactite",
+      "pysift:withered_hollows_speleothem_cluster",
+      "pysift:withered_hollows_pointed_stone",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave"
     ],
