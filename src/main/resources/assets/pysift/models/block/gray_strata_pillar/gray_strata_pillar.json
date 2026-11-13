@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "pysift:block/gray_strata/gray_strata_pillar_top",
-    "side": "pysift:block/gray_strata_pillar_side"
+    "side": "pysift:block/gray_strata/gray_strata_pillar_side"
   }
 }

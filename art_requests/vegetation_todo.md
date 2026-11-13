@@ -59,7 +59,7 @@
 | 42 | `glowshade_short_grass` | 夜光短草 | `block/vegetation/glowshade_short_grass/glowshade_short_grass` | 十字＋發光層 | `block/vegetation/glowshade_short_grass/sculk_grass` 16x16<br>`block/vegetation/glowshade_short_grass/glowshade_short_grass_glow` 16x16 | `block/vegetation/glowshade_short_grass/sculk_grass` 16x16 | 待確認 | 合併後換新材質（待確認） | 原 glowshade_grass，草葉改用 sculk_grass（幽匿草）貼圖，發光層重新對齊 |
 | 43 | `glowshade_tuft` | 夜光草叢 | `block/vegetation/glowshade_tuft/glowshade_tuft` | 十字＋發光層 | `block/vegetation/glowshade_tuft/glowshade_tuft` 16x16<br>`block/vegetation/glowshade_tuft/glowshade_tuft_glow` 16x16 | `block/vegetation/glowshade_tuft/glowshade_tuft` 16x16 | 待確認 | 已完成（來源待確認） |  |
 
-## B. AI 產生與待確認的貼圖（154 張，全專案）
+## B. AI 產生與待確認的貼圖（167 張，全專案）
 
 總覽圖：`art_requests/ai_textures_overview.png`。類別：**AI** = 腳本從零畫的；**轉出** = 由你的圖或原版貼圖重新上色／裁切，可以沿用也可以重畫；**待確認** = 腳本畫過但可能已換成你的圖，或是匯入素材、來源不明的圖：是你畫的就保留，不是就重畫。
 
@@ -146,76 +146,89 @@
 | 79 | `entity/hunter.png` | Hunter（可能已換成使用者的合併貼圖） | 64x64 | `tools/entity/build_sift_creatures.py` | 待確認 |
 | 80 | `entity/trapper.png` | Trapper（可能已換成使用者的合併貼圖） | 64x64 | `tools/entity/build_sift_creatures.py` | 待確認 |
 | 81 | `entity/sculk_cube.png` | 幽匿方塊 | 64x64 | `tools/entity/build_sift_creatures.py` | 待確認 |
-| 82 | `block/gray_strata/gray_strata_b.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 83 | `block/gray_strata/gray_strata_c.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 84 | `block/gray_strata/gray_strata_d.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 85 | `block/gray_strata/gray_strata_e.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 86 | `block/gray_strata/gray_strata_f.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 87 | `block/gray_strata/gray_strata_g.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 88 | `block/gray_strata/gray_strata_j.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 89 | `block/gray_strata/gray_strata_k.png` | 灰地層 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 90 | `block/varied_dark_slate/dark_slate_d.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 91 | `block/varied_dark_slate/dark_slate_g.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 92 | `block/varied_dark_slate/dark_slate_h.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 93 | `block/varied_dark_slate/dark_slate_j.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 94 | `block/violet_strata/violet_strata_h.png` | 紫地層變體（依 violet_strata_e 統一；e 是共用的未改） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 95 | `block/violet_strata/violet_strata_i.png` | 紫地層變體（依 violet_strata_e 統一；e 是共用的未改） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 96 | `block/void_stone/polished_void_stone.png` | 磨製虛黑岩（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
-| 97 | `block/vegetation/hanging_vines/hanging_carapace_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 98 | `block/vegetation/hanging_vines/hanging_carapace_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 99 | `block/vegetation/hanging_vines/hanging_green_sift_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 100 | `block/vegetation/hanging_vines/hanging_green_sift_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 101 | `block/vegetation/hanging_vines/hanging_orange_sift_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 102 | `block/vegetation/hanging_vines/hanging_orange_sift_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
-| 103 | `block/vegetation/soul_willow_sapling/soul_willow_sapling.png` | 靈魂柳樹苗 貼圖 | 16x16 | 待確認 | 待確認 |
-| 104 | `block/vegetation/bone_spire/bone_spire.png` | 骨刺 貼圖 | 16x16 | 待確認 | 待確認 |
-| 105 | `block/vegetation/puff_grass/puff_grass_bottom.png` | 蓬鬆草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 106 | `block/vegetation/puff_grass/puff_grass_top.png` | 蓬鬆草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 107 | `block/vegetation/dusk_bloom/dusk_bloom.png` | 暮綻花 貼圖 | 32x32 | 使用者的 Blockbench 模型 | 待確認 |
-| 108 | `item/dusk_bloom.png` | 暮綻花 物品圖示 | 16x16 | 使用者的 Blockbench 模型 | 待確認 |
-| 109 | `block/vegetation/rift_orange_short_grass/sift_orange_short_grass.png` | 裂隙橙短草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 110 | `block/vegetation/rift_orange_tall_grass/sift_orange_tall_grass_down.png` | 裂隙橙高草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 111 | `block/vegetation/rift_orange_tall_grass/sift_orange_tall_grass_top.png` | 裂隙橙高草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 112 | `block/vegetation/rift_mint_short_grass/sift_short_grass.png` | 裂隙薄荷短草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 113 | `block/vegetation/rift_mint_tall_grass/rift_mint_tall_grass_down.png` | 裂隙薄荷高草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 114 | `block/vegetation/rift_mint_tall_grass/rift_mint_tall_grass_top.png` | 裂隙薄荷高草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 115 | `block/vegetation/olive_forked_stalk/olive_forked_stalk.png` | 橄欖叉莖 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 116 | `block/vegetation/blue_curled_fern/blue_curled_fern.png` | 藍捲蕨 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 117 | `block/vegetation/pink_curled_fern/pink_curled_fern.png` | 粉捲蕨 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 118 | `block/vegetation/yellow_agave/yellow_agave_leaf.png` | 黃龍舌蘭 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 119 | `block/vegetation/blue_giant_canopy/canopy_leaf_blue.png` | 藍巨傘草 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 120 | `block/vegetation/blue_giant_canopy/canopy_stem_blue.png` | 藍巨傘草 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 121 | `block/vegetation/clustered_yellow_flowers/yellow_flower_head.png` | 簇生黃花 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 122 | `block/vegetation/clustered_yellow_flowers/yellow_flower_stem.png` | 簇生黃花 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
-| 123 | `block/vegetation/carapace_flower/carapace_flower.png` | 甲殼花 貼圖 | 16x16 | 待確認 | 待確認 |
-| 124 | `block/vegetation/carapace_short_grass/carapace_shortgrass.png` | 甲殼短草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 125 | `block/vegetation/carapace_vine/carapace_vine.png` | 甲殼藤 貼圖 | 16x16 | 待確認 | 待確認 |
-| 126 | `item/carapace_vine.png` | 甲殼藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 127 | `block/vegetation/yellow_flower_patch/yellow_flower_patch.png` | 黃色小花叢 貼圖 | 16x16 | 待確認 | 待確認 |
-| 128 | `block/vegetation/green_sift_vine/green_sift_vine.png` | 綠隙浮藤 貼圖 | 16x16 | 待確認 | 待確認 |
-| 129 | `item/green_sift_vine.png` | 綠隙浮藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 130 | `block/vegetation/orange_sift_vine/orange_sift_vine.png` | 橙隙浮藤 貼圖 | 16x16 | 待確認 | 待確認 |
-| 131 | `item/orange_sift_vine.png` | 橙隙浮藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 132 | `block/red_sculk/red_sculk.png` | 赤紅幽匿 貼圖 | 16x64 | 待確認 | 待確認 |
-| 133 | `block/red_sculk_vein/red_sculk_vein.png` | 赤紅幽匿脈絡 貼圖 | 16x64 | 待確認 | 待確認 |
-| 134 | `block/corrupted_vine/corrupted_vine_corruption0_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 135 | `block/corrupted_vine/corrupted_vine_corruption0_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 136 | `block/corrupted_vine/corrupted_vine_corruption1.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 137 | `block/corrupted_vine/corrupted_vine_corruption2_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 138 | `block/corrupted_vine/corrupted_vine_corruption2_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 139 | `block/corrupted_vine/corrupted_vine_corruption2_c.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 140 | `block/corrupted_vine/corrupted_vine_corruption2_d.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 141 | `block/corrupted_vine/corrupted_vine_corruption2_e.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 142 | `block/corrupted_vine/corrupted_vine_corruption3_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 143 | `block/corrupted_vine/corrupted_vine_corruption3_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 144 | `block/corrupted_vine/corrupted_vine_corruption3_c.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
-| 145 | `block/vegetation/cleaver_plant/cleaver_plant.png` | 劈裂草 貼圖 | 32x32 | 待確認 | 待確認 |
-| 146 | `item/cleaver_plant.png` | 劈裂草 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 147 | `block/vegetation/soul_cleaver_plant/soul_cleaver_plant.png` | 靈魂劈裂草 貼圖 | 32x32 | 待確認 | 待確認 |
-| 148 | `item/soul_cleaver_plant.png` | 靈魂劈裂草 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 149 | `block/vegetation/yellow_leaf_litter/yellow_leaf_litter.png` | 黃色落葉 貼圖 | 32x32 | 待確認 | 待確認 |
-| 150 | `item/yellow_leaf_litter.png` | 黃色落葉 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
-| 151 | `block/vegetation/glowshade_short_grass/sculk_grass.png` | 夜光短草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 152 | `block/vegetation/glowshade_short_grass/glowshade_short_grass_glow.png` | 夜光短草 貼圖 | 16x16 | 待確認 | 待確認 |
-| 153 | `block/vegetation/glowshade_tuft/glowshade_tuft.png` | 夜光草叢 貼圖 | 16x16 | 待確認 | 待確認 |
-| 154 | `block/vegetation/glowshade_tuft/glowshade_tuft_glow.png` | 夜光草叢 貼圖 | 16x16 | 待確認 | 待確認 |
+| 82 | `block/gray_strata/gray_strata_b.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 83 | `block/gray_strata/gray_strata_c.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 84 | `block/gray_strata/gray_strata_d.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 85 | `block/gray_strata/gray_strata_e.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 86 | `block/gray_strata/gray_strata_f.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 87 | `block/gray_strata/gray_strata_g.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 88 | `block/gray_strata/gray_strata_j.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 89 | `block/gray_strata/gray_strata_k.png` | 灰石 4 色調（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 90 | `block/gray_strata/smooth_gray_strata.png` | 平滑灰石（灰石家族，v2.1.0） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 91 | `block/gray_strata/gray_strata_pillar_side.png` | 灰石柱 側面／頂面（灰石家族，v2.1.0） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 92 | `block/gray_strata/gray_strata_pillar_top.png` | 灰石柱 側面／頂面（灰石家族，v2.1.0） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 93 | `block/gray_strata_bricks/chiseled_gray_strata_bricks.png` | 灰石磚、雕紋灰石磚（Hunter 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 94 | `block/gray_strata_bricks/chiseled_gray_strata_bricks_top.png` | 灰石磚、雕紋灰石磚（Hunter 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 95 | `block/gray_strata_bricks/gray_strata_bricks.png` | 灰石磚、雕紋灰石磚（Hunter 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 96 | `block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks.png` | 鏽黑石磚、雕紋鏽黑石磚（Echo Golem 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 97 | `block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks_top.png` | 鏽黑石磚、雕紋鏽黑石磚（Echo Golem 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 98 | `block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks.png` | 鏽黑石磚、雕紋鏽黑石磚（Echo Golem 頭像）與頂面（v2.1.0 重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 99 | `block/rusted_dark_cobble/rusted_dark_cobble_rust0.png` | 鏽黑石 rust 0~3（v2.1.0 重畫成黑石＋鏽斑；paint_soul_caldera.py 的舊圖已被取代） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 待確認 |
+| 100 | `block/rusted_dark_cobble/rusted_dark_cobble_rust1.png` | 鏽黑石 rust 0~3（v2.1.0 重畫成黑石＋鏽斑；paint_soul_caldera.py 的舊圖已被取代） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 待確認 |
+| 101 | `block/rusted_dark_cobble/rusted_dark_cobble_rust2.png` | 鏽黑石 rust 0~3（v2.1.0 重畫成黑石＋鏽斑；paint_soul_caldera.py 的舊圖已被取代） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 待確認 |
+| 102 | `block/rusted_dark_cobble/rusted_dark_cobble_rust3.png` | 鏽黑石 rust 0~3（v2.1.0 重畫成黑石＋鏽斑；paint_soul_caldera.py 的舊圖已被取代） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 待確認 |
+| 103 | `block/varied_dark_slate/dark_slate_d.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 104 | `block/varied_dark_slate/dark_slate_g.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 105 | `block/varied_dark_slate/dark_slate_h.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 106 | `block/varied_dark_slate/dark_slate_j.png` | 雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 107 | `block/violet_strata/violet_strata_h.png` | 紫地層變體（依 violet_strata_e 統一；e 是共用的未改） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 108 | `block/violet_strata/violet_strata_i.png` | 紫地層變體（依 violet_strata_e 統一；e 是共用的未改） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 109 | `block/void_stone/polished_void_stone.png` | 磨製虛黑岩（洞穴層重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | AI |
+| 110 | `block/vegetation/hanging_vines/hanging_carapace_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 111 | `block/vegetation/hanging_vines/hanging_carapace_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 112 | `block/vegetation/hanging_vines/hanging_green_sift_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 113 | `block/vegetation/hanging_vines/hanging_green_sift_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 114 | `block/vegetation/hanging_vines/hanging_orange_sift_vine.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 115 | `block/vegetation/hanging_vines/hanging_orange_sift_vine_tip.png` | 垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫） | 16x16 | Claude Code 一次性腳本（未放進 repo） | 轉出 |
+| 116 | `block/vegetation/soul_willow_sapling/soul_willow_sapling.png` | 靈魂柳樹苗 貼圖 | 16x16 | 待確認 | 待確認 |
+| 117 | `block/vegetation/bone_spire/bone_spire.png` | 骨刺 貼圖 | 16x16 | 待確認 | 待確認 |
+| 118 | `block/vegetation/puff_grass/puff_grass_bottom.png` | 蓬鬆草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 119 | `block/vegetation/puff_grass/puff_grass_top.png` | 蓬鬆草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 120 | `block/vegetation/dusk_bloom/dusk_bloom.png` | 暮綻花 貼圖 | 32x32 | 使用者的 Blockbench 模型 | 待確認 |
+| 121 | `item/dusk_bloom.png` | 暮綻花 物品圖示 | 16x16 | 使用者的 Blockbench 模型 | 待確認 |
+| 122 | `block/vegetation/rift_orange_short_grass/sift_orange_short_grass.png` | 裂隙橙短草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 123 | `block/vegetation/rift_orange_tall_grass/sift_orange_tall_grass_down.png` | 裂隙橙高草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 124 | `block/vegetation/rift_orange_tall_grass/sift_orange_tall_grass_top.png` | 裂隙橙高草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 125 | `block/vegetation/rift_mint_short_grass/sift_short_grass.png` | 裂隙薄荷短草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 126 | `block/vegetation/rift_mint_tall_grass/rift_mint_tall_grass_down.png` | 裂隙薄荷高草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 127 | `block/vegetation/rift_mint_tall_grass/rift_mint_tall_grass_top.png` | 裂隙薄荷高草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 128 | `block/vegetation/olive_forked_stalk/olive_forked_stalk.png` | 橄欖叉莖 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 129 | `block/vegetation/blue_curled_fern/blue_curled_fern.png` | 藍捲蕨 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 130 | `block/vegetation/pink_curled_fern/pink_curled_fern.png` | 粉捲蕨 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 131 | `block/vegetation/yellow_agave/yellow_agave_leaf.png` | 黃龍舌蘭 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 132 | `block/vegetation/blue_giant_canopy/canopy_leaf_blue.png` | 藍巨傘草 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 133 | `block/vegetation/blue_giant_canopy/canopy_stem_blue.png` | 藍巨傘草 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 134 | `block/vegetation/clustered_yellow_flowers/yellow_flower_head.png` | 簇生黃花 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 135 | `block/vegetation/clustered_yellow_flowers/yellow_flower_stem.png` | 簇生黃花 貼圖 | 16x16 | 匯入素材 rift_dimension_flora | 待確認 |
+| 136 | `block/vegetation/carapace_flower/carapace_flower.png` | 甲殼花 貼圖 | 16x16 | 待確認 | 待確認 |
+| 137 | `block/vegetation/carapace_short_grass/carapace_shortgrass.png` | 甲殼短草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 138 | `block/vegetation/carapace_vine/carapace_vine.png` | 甲殼藤 貼圖 | 16x16 | 待確認 | 待確認 |
+| 139 | `item/carapace_vine.png` | 甲殼藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 140 | `block/vegetation/yellow_flower_patch/yellow_flower_patch.png` | 黃色小花叢 貼圖 | 16x16 | 待確認 | 待確認 |
+| 141 | `block/vegetation/green_sift_vine/green_sift_vine.png` | 綠隙浮藤 貼圖 | 16x16 | 待確認 | 待確認 |
+| 142 | `item/green_sift_vine.png` | 綠隙浮藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 143 | `block/vegetation/orange_sift_vine/orange_sift_vine.png` | 橙隙浮藤 貼圖 | 16x16 | 待確認 | 待確認 |
+| 144 | `item/orange_sift_vine.png` | 橙隙浮藤 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 145 | `block/red_sculk/red_sculk.png` | 赤紅幽匿 貼圖 | 16x64 | 待確認 | 待確認 |
+| 146 | `block/red_sculk_vein/red_sculk_vein.png` | 赤紅幽匿脈絡 貼圖 | 16x64 | 待確認 | 待確認 |
+| 147 | `block/corrupted_vine/corrupted_vine_corruption0_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 148 | `block/corrupted_vine/corrupted_vine_corruption0_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 149 | `block/corrupted_vine/corrupted_vine_corruption1.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 150 | `block/corrupted_vine/corrupted_vine_corruption2_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 151 | `block/corrupted_vine/corrupted_vine_corruption2_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 152 | `block/corrupted_vine/corrupted_vine_corruption2_c.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 153 | `block/corrupted_vine/corrupted_vine_corruption2_d.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 154 | `block/corrupted_vine/corrupted_vine_corruption2_e.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 155 | `block/corrupted_vine/corrupted_vine_corruption3_a.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 156 | `block/corrupted_vine/corrupted_vine_corruption3_b.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 157 | `block/corrupted_vine/corrupted_vine_corruption3_c.png` | 腐化藤蔓 貼圖 | 16x16 | 待確認 | 待確認 |
+| 158 | `block/vegetation/cleaver_plant/cleaver_plant.png` | 劈裂草 貼圖 | 32x32 | 待確認 | 待確認 |
+| 159 | `item/cleaver_plant.png` | 劈裂草 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 160 | `block/vegetation/soul_cleaver_plant/soul_cleaver_plant.png` | 靈魂劈裂草 貼圖 | 32x32 | 待確認 | 待確認 |
+| 161 | `item/soul_cleaver_plant.png` | 靈魂劈裂草 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 162 | `block/vegetation/yellow_leaf_litter/yellow_leaf_litter.png` | 黃色落葉 貼圖 | 32x32 | 待確認 | 待確認 |
+| 163 | `item/yellow_leaf_litter.png` | 黃色落葉 物品圖示 | 16x16 | 匯入素材 sift_vegetation_assets | 待確認 |
+| 164 | `block/vegetation/glowshade_short_grass/sculk_grass.png` | 夜光短草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 165 | `block/vegetation/glowshade_short_grass/glowshade_short_grass_glow.png` | 夜光短草 貼圖 | 16x16 | 待確認 | 待確認 |
+| 166 | `block/vegetation/glowshade_tuft/glowshade_tuft.png` | 夜光草叢 貼圖 | 16x16 | 待確認 | 待確認 |
+| 167 | `block/vegetation/glowshade_tuft/glowshade_tuft_glow.png` | 夜光草叢 貼圖 | 16x16 | 待確認 | 待確認 |

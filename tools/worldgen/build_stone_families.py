@@ -112,6 +112,8 @@ def main():
             if isinstance(obj, str):
                 if obj == f"minecraft:block/{PILLAR_TEMPLATE}_top":
                     return top
+                if obj == f"minecraft:block/{PILLAR_TEMPLATE}_side":
+                    return side
                 if obj == f"minecraft:block/{PILLAR_TEMPLATE}":
                     return side if key not in ("model", "parent") else f"pysift:block/{ours}"
                 if obj.startswith(f"minecraft:block/{PILLAR_TEMPLATE}_"):

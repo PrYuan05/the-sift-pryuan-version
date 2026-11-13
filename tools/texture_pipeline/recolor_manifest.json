@@ -478,11 +478,11 @@
       "reference": "pysift:block/gray_strata/gray_strata_d",
       "source": "pysift:block/gray_strata/gray_strata_d",
       "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "373ddfee61b4c5cff1e4c639cc3c56c557593020",
-      "backup": null,
-      "date": "20261013-085205"
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "373ddfee61b4c5cff1e4c639cc3c56c557593020",
+      "sha1_after": "33bdceb63a591a594d0679b3d5eb036f0d1cf950",
+      "backup": ".texture_backups/20261113-181159_graystone_rustblack/src/main/resources/assets/pysift/textures/block/gray_strata_bricks/chiseled_gray_strata_bricks.png",
+      "date": "20261113-181212"
     },
     {
       "file": "textures/block/gray_strata_bricks/gray_strata_bricks.png",
@@ -490,11 +490,11 @@
       "reference": "pysift:block/gray_strata/gray_strata_d",
       "source": "pysift:block/gray_strata/gray_strata_d",
       "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "febaef26b67d60725a05733a61971c4164a9dd1e",
-      "backup": null,
-      "date": "20261013-085205"
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "febaef26b67d60725a05733a61971c4164a9dd1e",
+      "sha1_after": "ca9b9cbc6ed5300af78b05b34021c17c7d7e4170",
+      "backup": ".texture_backups/20261113-181159_graystone_rustblack/src/main/resources/assets/pysift/textures/block/gray_strata_bricks/gray_strata_bricks.png",
+      "date": "20261113-181212"
     },
     {
       "file": "textures/block/lichen_stone_bricks/chiseled_lichen_stone_bricks.png",
@@ -816,11 +816,11 @@
       "reference": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0",
       "source": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0",
       "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "74a165b795b5bfd6e99750a43a0da6600a9c0f49",
-      "backup": null,
-      "date": "20261013-085205"
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "74a165b795b5bfd6e99750a43a0da6600a9c0f49",
+      "sha1_after": "5477c06341c56df5baa5f0bc8ee49868f3815457",
+      "backup": ".texture_backups/20261113-181159_graystone_rustblack/src/main/resources/assets/pysift/textures/block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks.png",
+      "date": "20261113-181212"
     },
     {
       "file": "textures/block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks.png",
@@ -828,11 +828,11 @@
       "reference": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0",
       "source": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0",
       "mode": "generated",
-      "method": "building_set",
-      "sha1_before": null,
-      "sha1_after": "5b322061fe7c1fc051289941048aa3c064461a8b",
-      "backup": null,
-      "date": "20261013-085205"
+      "method": "minecraft_texture_crafter",
+      "sha1_before": "5b322061fe7c1fc051289941048aa3c064461a8b",
+      "sha1_after": "54704a2748dee04e2f7e0619f597e4784776f9af",
+      "backup": ".texture_backups/20261113-181159_graystone_rustblack/src/main/resources/assets/pysift/textures/block/rusted_dark_cobble_bricks/rusted_dark_cobble_bricks.png",
+      "date": "20261113-181212"
     },
     {
       "file": "textures/block/smooth_stone/smooth_stone_d.png",
