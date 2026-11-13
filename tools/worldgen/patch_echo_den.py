@@ -40,8 +40,14 @@ ADD = {
         # one den guard (a healthy warden, §4.7) inside the north doorway, facing out
         (12, 2, 4, "pysift:sift_warden", 180.0, ["pysift_den_guard"]),
     ],
+    # the user's 10 x 8 x 10 powerhouse (saved in game 2026-11-13): a Singer on the floor south of the bare conduit
+    # between the two soul note blocks (4, 1, 4), facing them - close enough to sing into the wire
+    "echo_den/powerhouse": [
+        (4, 1, 5, "pysift:singer", 180.0, []),
+    ],
 }
-EXPECTED_SIZE = {"echo_den/hub": [25, 22, 25], "lullaby_shrine": [15, 9, 15]}   # the coordinates only fit these layouts
+EXPECTED_SIZE = {"echo_den/hub": [25, 22, 25], "lullaby_shrine": [15, 9, 15],
+                 "echo_den/powerhouse": [10, 8, 10]}   # the coordinates only fit these layouts
 
 # entities to take out of a template: (block pos, id)  -- the user wants one guard per room, not two
 REMOVE = {
