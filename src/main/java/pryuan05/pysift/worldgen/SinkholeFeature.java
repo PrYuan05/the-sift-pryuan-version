@@ -18,7 +18,7 @@ import pryuan05.pysift.PySift;
  * 天坑（v2.1.0 地底分層）：連接表層與地底的洞口。隙浮的「血管」在這裡裂到地表：
  * 漏斗形的洞口往下收成豎井，最底下接一個鐘形的小洞室，剛好落在乾涸淺層（地表下 26 格以上）的深度，
  * 所以不論下面有沒有天然洞穴，天坑本身都有底；碰到天然洞穴就自然接通。
- * 約三分之一的天坑在洞緣有一個靈液泉眼，靈液沿著井壁流成瀑布，洞底積成小池，洞室裡長赤紅幽匿與 charoite。
+ * 約三分之一的天坑在井壁上有一個靈液泉眼，靈液沿豎井流成一道細瀑布，落進洞底嵌在地面的小水池（池邊有地層石圍住，不會漫開，洞室保持乾燥）。洞室裡長赤紅幽匿與 charoite。
  * 只動以區塊中心為圓心、半徑 {@link #MAX_RADIUS} 的範圍（不跨出本區塊，避免被鄰近區塊截斷）。
  * 由 tools/worldgen/build_the_sift.py 在各地表生態域的 local_modifications 階段放置。
  */
@@ -62,7 +62,6 @@ public record SinkholeFeature() implements Feature {
         double phase1 = random.nextDouble() * Math.PI * 2, phase2 = random.nextDouble() * Math.PI * 2;
         boolean spirit = random.nextInt(3) == 0;
         BlockState air = Blocks.AIR.defaultBlockState();
-        BlockState liquid = block("spirit_liquid");
         BlockState redSculk = block("red_sculk");
         BlockState floorStone = block("silted_strata");
 
@@ -109,15 +108,62 @@ public record SinkholeFeature() implements Feature {
             }
         }
         if (spirit) {
-            // a spring on the rim: the spirit liquid falls down the shaft and pools on the chamber floor
-            pos.set(cx + 2, top + 1, cz);
-            level.setBlock(pos, liquid, Block.UPDATE_CLIENTS);
-            level.scheduleTick(pos, liquid.getFluidState().getType(), 0);
-            pos.set(cx, bottom, cz);
-            level.setBlock(pos, liquid, Block.UPDATE_CLIENTS);
-            level.scheduleTick(pos, liquid.getFluidState().getType(), 0);
+            spiritFall(level, cx, cz, top, bottom, random);
         }
         return true;
+    }
+
+
+    /**
+     * A small spirit spring instead of a flood: a single source is set into the shaft wall a little below the funnel, so it
+     * runs out into the shaft and falls straight down; the stream lands on a small basin of sources sunk into the chamber
+     * floor (a source level with the floor, boxed in by floor stone), where it merges instead of spreading, so the chamber
+     * stays dry apart from the basin. Nothing is placed if no wall is found.
+     */
+    private static void spiritFall(WorldGenLevel level, int cx, int cz, int top, int bottom, RandomSource random) {
+        BlockState liquid = block("spirit_liquid");
+        BlockState floorStone = block("silted_strata");
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        int y = top - FUNNEL_DEPTH - 3;                          // in the straight part of the shaft
+        int wallX = Integer.MIN_VALUE;
+        for (int x = cx + 1; x <= cx + 6; x++) {                // walk out from the shaft axis to the first wall
+            pos.set(x, y, cz);
+            if (!level.getBlockState(pos).isAir()) {
+                wallX = x;
+                break;
+            }
+        }
+        if (wallX == Integer.MIN_VALUE) {
+            return;
+        }
+        int streamX = wallX - 1;                                // the shaft cell the spring runs into
+        // the stream must fall all the way to the chamber floor: the column has to be open
+        for (int yy = y; yy > bottom; yy--) {
+            pos.set(streamX, yy, cz);
+            if (!level.getBlockState(pos).isAir()) {
+                return;
+            }
+        }
+        pos.set(wallX, y, cz);
+        level.setBlock(pos, liquid, Block.UPDATE_CLIENTS);
+        level.scheduleTick(pos, liquid.getFluidState().getType(), 0);
+        // the basin: sources level with the floor around the landing point, floor stone all around it
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                pos.set(streamX + dx, bottom, cz + dz);
+                if (level.getBlockState(pos).isAir()) {
+                    continue;
+                }
+                boolean inside = dx * dx + dz * dz <= 2;
+                level.setBlock(pos, inside ? liquid : floorStone, Block.UPDATE_CLIENTS);
+                if (!inside) {
+                    pos.set(streamX + dx, bottom + 1, cz + dz);
+                    if (level.getBlockState(pos).is(block("charoite_cluster").getBlock())) {
+                        level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS);
+                    }
+                }
+            }
+        }
     }
 
     /** Radius of the hole at the given depth below the centre surface: funnel, shaft, then the bell-shaped chamber. */

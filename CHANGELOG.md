@@ -16,13 +16,15 @@ deeper, the more alive; the shallower, the more it rots.
   from the floor, Sentinels, Tuners and Echo Golems with their Singers.
 - **Spirit Deeps** (87+ blocks down, wet regions): glowing magma-vein floors, large red sculk fields, glowshade grass.
 - The Echo Den can now start in any underground layer.
+- Biome borders no longer flicker: columns that sat exactly on a shared climate boundary used to alternate between two
+  surface biomes with height.
 - The borders between layers undulate (about +-7 blocks) instead of following the ground as flat sheets.
 - The deep ores that used to belong to the surface biomes (soul crystal, patina) still generate underground.
 
 ### New: a way down
 - **Sinkholes**: a funnel in the ground narrows into a shaft and opens into a small bell-shaped chamber about 34 blocks
-  down, floored with red sculk and charoite. One in three has a spirit liquid spring on its rim that falls down the
-  shaft. They never form on steep ground, near water or in the volcano.
+  down, floored with red sculk and charoite. One in three has a small spirit liquid spring in the shaft wall: a thin
+  stream falls to a little basin in the chamber floor, and the chamber stays dry. They never form on steep ground, near water or in the volcano.
 
 ### Notes
 - No new creatures: the existing ones are redistributed across the layers.
@@ -409,12 +411,13 @@ soul machines.
 - **共鳴穹窟**（87 格以下）：拋光石地面、平滑天花板，地面長出 charoite 與靈魂晶體；哨兵、調音者、迴音傀儡與歌者。
 - **靈液深淵**（87 格以下、潮濕區域）：發光的熔脈地面、大片赤紅幽匿、微光草。
 - 回音窟現在可以出現在任何一層地底。
+- 生態系邊界不再閃爍：剛好落在共用氣候邊界上的柱子，以前會隨高度在兩個地表生態系之間來回切換。
 - 層與層的交界會起伏（約 ±7 格），不再是貼著地表的平面。
 - 原本屬於地表生態域的深層礦物（靈魂晶體、銅綠礦）仍然會在地底生成。
 
 ### 新增：通往地底的路
-- **天坑**：地面的漏斗口往下收成豎井，通到約 34 格深的鐘形洞室，地面鋪赤紅幽匿與 charoite。三分之一的天坑洞緣有靈液泉眼，
-  靈液沿豎井流下。不會出現在陡坡、水邊與火山。
+- **天坑**：地面的漏斗口往下收成豎井，通到約 34 格深的鐘形洞室，地面鋪赤紅幽匿與 charoite。三分之一的天坑井壁上有一個小靈液泉眼，
+  細細一道落進洞室地面的小水池，洞室本身保持乾燥。不會出現在陡坡、水邊與火山。
 
 ### 備註
 - 沒有新增生物，現有生物依層重新分配。

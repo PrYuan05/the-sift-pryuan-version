@@ -1436,5 +1436,18 @@ wj(D / "dimension/the_sift.json", {
         "settings": "pysift:the_sift",
     },
 })
+# Ties flicker (v2.1.0): two climate boxes that share a boundary value (one ends at 0.4, the next starts at 0.4) tie for
+# every column whose quantized value (x10000) equals it; the sampler then keeps whichever biome it found last, so such
+# columns alternate between the two biomes with height (seen as 17 alternations in one column). Parameters are fixed-point
+# integers, so moving the upper box's start up by one step (0.0001) leaves no integer on both sides: no tie is possible.
+_dim = json.loads((D / "dimension/the_sift.json").read_text(encoding="utf-8"))
+_boxes = _dim["generator"]["biome_source"]["biomes"]
+for _dim_name in ("temperature", "humidity", "weirdness", "depth"):
+    _ends = {b["parameters"][_dim_name][1] for b in _boxes if isinstance(b["parameters"][_dim_name], list)}
+    for b in _boxes:
+        _r = b["parameters"][_dim_name]
+        if isinstance(_r, list) and _r[0] in _ends and _r[0] != -1.0:
+            _r[0] = round(_r[0] + 0.0001, 4)
+wj(D / "dimension/the_sift.json", _dim)
 print("written:", *sorted(str(p.relative_to(P)) for p in D.rglob("*.json") if any(
     s in p.as_posix() for s in ("dimension", "worldgen"))), sep="\n  ")

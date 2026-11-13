@@ -36,7 +36,7 @@
           "biome": "pysift:willow_grove",
           "parameters": {
             "temperature": [
-              -0.3,
+              -0.2999,
               0.25
             ],
             "humidity": [
@@ -63,7 +63,7 @@
           "biome": "pysift:willow_grove",
           "parameters": {
             "temperature": [
-              0.25,
+              0.2501,
               0.4
             ],
             "humidity": [
@@ -79,7 +79,7 @@
               1.0
             ],
             "weirdness": [
-              -0.22,
+              -0.2199,
               0.42
             ],
             "depth": 0.0,
@@ -90,11 +90,11 @@
           "biome": "pysift:crimson_strata_canyon",
           "parameters": {
             "temperature": [
-              0.4,
+              0.4001,
               1.0
             ],
             "humidity": [
-              -0.3,
+              -0.2999,
               1.0
             ],
             "continentalness": [
@@ -106,7 +106,7 @@
               1.0
             ],
             "weirdness": [
-              -0.22,
+              -0.2199,
               0.42
             ],
             "depth": 0.0,
@@ -133,7 +133,7 @@
               1.0
             ],
             "weirdness": [
-              -0.22,
+              -0.2199,
               0.42
             ],
             "depth": 0.0,
@@ -144,7 +144,7 @@
           "biome": "pysift:soul_caldera",
           "parameters": {
             "temperature": [
-              0.25,
+              0.2501,
               1.0
             ],
             "humidity": [
@@ -187,7 +187,7 @@
               1.0
             ],
             "weirdness": [
-              0.42,
+              0.4201,
               1.0
             ],
             "depth": 0.0,
@@ -248,7 +248,7 @@
               1.0
             ],
             "depth": [
-              0.42,
+              0.4201,
               0.68
             ],
             "offset": 0.0
@@ -278,7 +278,7 @@
               1.0
             ],
             "depth": [
-              0.68,
+              0.6801,
               2.0
             ],
             "offset": 0.0
@@ -292,7 +292,7 @@
               1.0
             ],
             "humidity": [
-              0.25,
+              0.2501,
               1.0
             ],
             "continentalness": [
@@ -308,7 +308,7 @@
               1.0
             ],
             "depth": [
-              0.68,
+              0.6801,
               2.0
             ],
             "offset": 0.0
