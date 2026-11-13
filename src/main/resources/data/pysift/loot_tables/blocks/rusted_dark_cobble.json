@@ -14,7 +14,8 @@
               "type": "minecraft:copy_state",
               "block": "pysift:rusted_dark_cobble",
               "properties": [
-                "rust"
+                "rust",
+                "sealed"
               ]
             }
           ]

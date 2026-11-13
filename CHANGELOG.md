@@ -76,6 +76,11 @@ blend across the layer borders):
 - **Graystone** (was Gray Strata) and **Rust Blackstone** (was Rusted Dark Cobble) are renamed, with redrawn textures for
   their whole families. Graystone also gets **Smooth Graystone** (with slab, stairs and wall, smelted from Graystone) and a
   **Graystone Pillar**. Block ids are unchanged, so existing worlds keep them.
+- **Rust Blackstone rusts like copper weathers.** The Soul Caldera's crater lake breathes out a damp, soul-laden steam
+  that rusts the iron-rich scoria of the cone, which is why it gets rustier towards the top. Placed within 3 blocks of
+  spirit liquid it keeps rusting, one stage at a time (up to stage 3). Right-click with an axe to scrape a stage off,
+  with honeycomb to seal it (sealed blocks stop rusting; an axe takes the seal off first). Mined blocks keep their rust
+  and seal. The rustiest unsealed blocks grind into 4 iron nuggets in a Soul Grinder. The Sift Codex explains it.
 - **Teal Strata** and its building set (bricks, chiseled bricks, slabs, stairs, walls) are removed: nothing in the world
   used them. The teal-capped blocks that share its look stay.
 - The creative tabs show one Pointed Stone and one Hanging Vine of each kind instead of every shape, and Violet Strata and
@@ -512,6 +517,9 @@ soul machines.
 ### 變更：方塊
 - **灰石**（原灰色地層岩）與**鏽黑石**（原鏽蝕深色圓石）改名，整組方塊重新繪製材質。灰石另外新增**平滑灰石**
   （附半磚、階梯、牆，由灰石燒製）與**灰石柱**。方塊 id 沒變，舊世界裡的方塊會保留。
+- **鏽黑石會像銅一樣變化。** 靈魂火山口的靈液湖冒出帶著靈魂的濕氣，讓火山錐上富含鐵的火山渣生鏽，所以越往山上越鏽。
+  放在靈液 3 格內會一階一階繼續鏽（最多到第 3 階）。斧頭右鍵刮掉一階鏽，蜂巢右鍵封住（封住的不再生鏽；斧頭會先刮掉封蠟）。
+  挖下來會保留鏽蝕程度與封蠟。最鏽、沒封住的鏽黑石放進靈魂研磨機會磨出 4 顆鐵粒。《隙浮手記》有說明。
 - 移除**青碧地層岩**與它的建材組（磚、浮雕磚、半磚、階梯、牆）：世界生成沒有用到。外觀相近的青碧覆蓋方塊保留。
 - 創造模式分頁裡，尖石與垂吊藤每種只放一個（不再列出每種形狀）；紫晶地層岩與赤紅地層岩移到主要方塊分頁。
 

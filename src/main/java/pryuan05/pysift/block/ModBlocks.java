@@ -370,7 +370,8 @@ public class ModBlocks {
             }
         }
         boolean plainCube = def.shape() == SiftStateBlock.Shape.CUBE && def.properties().isEmpty();
-        Block block = def.fallingDust() != null && plainCube ? new ColoredFallingBlock(new ColorRGBA(0xFF000000 | def.fallingDust()), properties)
+        Block block = def.name().equals("rusted_dark_cobble") ? new RustBlackstone(properties)   // 鏽黑石：會生鏽、可刮可封（v2.1.0）
+                : def.fallingDust() != null && plainCube ? new ColoredFallingBlock(new ColorRGBA(0xFF000000 | def.fallingDust()), properties)
                 : SurfaceDecay.isSurfaceName(def.name()) && plainCube ? new SiftStateBlock.SurfaceCube(properties)   // 會退化的地表立方體
                 : SiftStateBlock.create(properties, def.shape(), def.properties());
         Registry.register(BuiltInRegistries.BLOCK, blockKey, block);
@@ -395,6 +396,9 @@ public class ModBlocks {
         for (BlockState state : block.getStateDefinition().getPossibleStates()) {
             if (state == defaultState) {
                 continue;
+            }
+            if (state.hasProperty(RustBlackstone.SEALED) && state.getValue(RustBlackstone.SEALED)) {
+                continue;   // 封蠟版不另列（蜂巢右鍵就有）
             }
             if (state.hasProperty(RotatedPillarBlock.AXIS) && state.getValue(RotatedPillarBlock.AXIS) != Direction.Axis.Y) {
                 continue;

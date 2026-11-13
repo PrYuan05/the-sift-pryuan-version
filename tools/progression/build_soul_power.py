@@ -601,6 +601,9 @@ GRINDING = {
     "gravel": ("minecraft:gravel", "minecraft:sand", 1),
     "bone": ("minecraft:bone", "minecraft:bone_meal", 6),
     "soul_soil": ("minecraft:soul_soil", "minecraft:soul_sand", 1),
+    # v2.1.0: only the rustiest Rust Blackstone (rust 3, not sealed) grinds into iron nuggets (Fabric's components ingredient)
+    "rust_blackstone": ({"fabric:type": "fabric:components", "base": "pysift:rusted_dark_cobble",
+                         "components": {"minecraft:block_state": {"rust": "3", "sealed": "false"}}}, "minecraft:iron_nugget", 4),
 }
 # siftite cogwheels: the gear goes on a shaft; a large one is a cogwheel with two more gears; the gearbox is a cogwheel
 # encased in deepslate and patina (Create's way)

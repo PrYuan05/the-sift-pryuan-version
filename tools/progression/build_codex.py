@@ -424,8 +424,14 @@ BIOMES = [   # (id, icon, en, zh, text en, text zh)
      "赤紅脈石組成的起伏山丘，迴音傀儡在這裡漫步，歌者在夜裡唱歌。"),
     ("soul_caldera", "pysift:ember_basalt", "Soul Caldera", "靈魂火山高原",
      "A scorched plateau of ember basalt and ash, with round soul volcanoes whose craters hold flat lakes of spirit liquid. "
-     "Patina ore grows in the rift walls.",
-     "由餘燼玄武岩與灰燼組成的焦黑高原，上面立著圓形的靈魂火山，火山口裡是平靜的靈液湖。裂縫的岩壁裡長著銅綠礦。"),
+     "Patina ore grows in the rift walls.\n\nThe cone slopes are **Rust Blackstone**, iron-rich scoria. The crater lake breathes "
+     "out a damp, soul-laden steam, and the moisture rusts the iron in the stone: the higher up the cone, the rustier. Rust "
+     "Blackstone near spirit liquid keeps rusting, one stage at a time. Scrape a stage off with an axe, or seal it with "
+     "honeycomb to keep it as it is. The rustiest blocks grind into iron nuggets in a Soul Grinder.",
+     "由餘燼玄武岩與灰燼組成的焦黑高原，上面立著圓形的靈魂火山，火山口裡是平靜的靈液湖。裂縫的岩壁裡長著銅綠礦。\n\n"
+     "火山錐的山坡是**鏽黑石**，富含鐵的火山渣。火山口的靈液湖冒出帶著靈魂的濕氣，濕氣讓石頭裡的鐵生鏽：越往山上越鏽。"
+     "放在靈液附近的鏽黑石會一階一階繼續鏽下去；用斧頭可以刮掉一階鏽，用蜂巢封住就會保持原樣。最鏽的鏽黑石放進靈魂研磨機，"
+     "能磨出鐵粒。"),
     ("withered_hollows", "pysift:dark_slate", "Withered Hollows", "枯竭窟",
      "The first caves under the ground, cut off from the spirit liquid: narrow cracks like the joints of a dry limestone, grey "
      "floors, rotten blue sculk and a few thin columns. Wind whistles through the cracks. Stalkers and Hunters lurk, and "
