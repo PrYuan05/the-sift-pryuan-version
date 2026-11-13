@@ -714,12 +714,77 @@ CAVE_FEATURES["withered_hollows"] = [
     cave_patch("withered_sculk", {"id": "minecraft:sculk"}, {"id": "minecraft:sculk_vein", "properties": {"down": "true"}}, 6, (2, 5)),
     farm_plant("withered_gloomcap", provider("gloomcap"), 4, UNDER_FLOOR, []),
 ]
-CAVE_FEATURES["resonant_vaults"] = [
+# ---- cave decoration (v2.1.0): speleothems in the Sift's own stone, ceiling crystals, wall vines ----
+def under_ceiling(lo=-62, hi=80):
+    return [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                          "min_inclusive": {"absolute": lo}, "max_inclusive": {"absolute": hi}}},
+            {"type": "minecraft:environment_scan", "direction_of_search": "up", "max_steps": 24,
+             "target_condition": {"type": "minecraft:solid"},
+             "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+            {"type": "minecraft:offset", "x": 0, "y": -1, "z": 0}]      # from the solid ceiling to the air below it
+
+
+def under_floor(lo=-62, hi=80):
+    return [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                          "min_inclusive": {"absolute": lo}, "max_inclusive": {"absolute": hi}}},
+            {"type": "minecraft:environment_scan", "direction_of_search": "down", "max_steps": 24,
+             "target_condition": {"type": "minecraft:solid"},
+             "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+            {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]
+
+
+# Rough absolute heights of each layer (the ground is mostly y 60-110): most random starting points fall in solid rock and
+# are dropped by the scan, so the counts are high (vanilla lush caves use 125) and the height ranges narrow
+LAYER_Y = {"withered_hollows": (10, 60), "red_zone_caves": (-20, 40), "resonant_vaults": (-62, 10), "spirit_deeps": (-62, 10)}
+
+
+def speleothem(name, layer, body, alt, tip, lo, hi, hanging, count):
+    """Stalagmites (hanging False) or stalactites (True): pysift:speleothem, a tapered column of `body` (some `alt`) with a wall `tip`."""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "pysift:speleothem", "block": f"pysift:{body}", "alt_block": f"pysift:{alt}",
+                                             "tip_block": f"pysift:{tip}", "min_height": lo, "max_height": hi, "hanging": hanging})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"},
+        *(under_ceiling(*LAYER_Y[layer]) if hanging else under_floor(*LAYER_Y[layer])), {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+def ceiling_crystals(name, layer, count):
+    """Charoite clusters growing down from the ceiling."""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:simple_block",
+                                             "to_place": provider("charoite_cluster", facing="down", waterlogged="false")})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"}, *under_ceiling(*LAYER_Y[layer]),
+        {"type": "minecraft:block_predicate_filter", "predicate": {"type": "minecraft:all_of", "predicates": [
+            {"type": "minecraft:matching_blocks", "blocks": ["minecraft:air", "minecraft:cave_air"]},
+            {"type": "minecraft:solid", "offset": [0, 1, 0]}]}}, {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+# Each layer's columns use that layer's own floor blocks (see CAVE_RULES), so the colours follow the ladder.
+SPELEOTHEMS = {
+    "withered_hollows": [speleothem("withered_stalagmite", "withered_hollows", "dark_slate", "varied_dark_slate", "dark_slate_wall", 2, 5, False, 45),
+                         speleothem("withered_stalactite", "withered_hollows", "dark_slate", "varied_dark_slate", "dark_slate_wall", 2, 6, True, 55)],
+    "red_zone_caves": [speleothem("song_stalagmite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "crimson_vein_stone_wall", 3, 7, False, 50),
+                       speleothem("song_stalactite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "crimson_vein_stone_wall", 3, 9, True, 60),
+                       wall_plant("song_wall_vine", "orange_sift_vine", 3, tries=24, min_len=1, max_len=4, min_y=-20, max_y=40)],
+    "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "polished_void_stone", "void_stone_wall", 5, 12, False, 110),
+                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "smooth_void_stone", "void_stone_wall", 5, 14, True, 130),
+                        ceiling_crystals("vault_ceiling_charoite", "resonant_vaults", 40)],
+    "spirit_deeps": [speleothem("deeps_stalagmite", "spirit_deeps", "violet_strata", "magma_vein_slate", "violet_strata_wall", 3, 9, False, 50),
+                     speleothem("deeps_stalactite", "spirit_deeps", "violet_strata", "magma_vein_slate", "violet_strata_wall", 3, 10, True, 60),
+                     ceiling_crystals("deeps_ceiling_charoite", "spirit_deeps", 30),
+                     wall_plant("deeps_wall_vine", "carapace_vine", 3, tries=24, min_len=1, max_len=5, min_y=-62, max_y=10)],
+}
+for _b, _f in SPELEOTHEMS.items():
+    CAVE_FEATURES[_b] = CAVE_FEATURES.get(_b, []) + _f
+
+
+CAVE_FEATURES["resonant_vaults"] = CAVE_FEATURES["resonant_vaults"] + [
     farm_plant("vault_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 10, UNDER_FLOOR, []),
     farm_plant("vault_soul_crystal", provider("soul_crystal_block"), 3, UNDER_FLOOR, []),
     cave_patch("vault_red_sculk", provider("red_sculk"), provider("red_sculk_vein", down="true"), 3, (1, 3)),
 ]
-CAVE_FEATURES["spirit_deeps"] = [
+CAVE_FEATURES["spirit_deeps"] = CAVE_FEATURES["spirit_deeps"] + [
     cave_patch("deeps_red_sculk", provider("red_sculk"), provider("red_sculk_vein", down="true"), 8, (3, 6), 0.45),
     farm_plant("deeps_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, UNDER_FLOOR, []),
     farm_plant("deeps_glow_grass", provider("glowshade_short_grass"), 40, UNDER_FLOOR, []),

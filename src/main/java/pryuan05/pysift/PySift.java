@@ -68,6 +68,7 @@ public class PySift implements ModInitializer {
         pryuan05.pysift.worldgen.LullabyShrineFeature.register();     // 搖籃曲山丘神殿
         pryuan05.pysift.worldgen.SoulCraterFeature.register();        // 靈魂火山高原的火山口湖
         pryuan05.pysift.worldgen.SinkholeFeature.register();          // 天坑：連接表層與地底（v2.1.0）
+        pryuan05.pysift.worldgen.SpeleothemFeature.register();        // 鐘乳石與石筍（v2.1.0）
         ModEntities.registerModEntities();
         ModItems.registerModItems();
         pryuan05.pysift.block.SiftColors.register();   // 9 種新顏色：染料與彩色方塊

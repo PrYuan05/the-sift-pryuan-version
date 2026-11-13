@@ -1,0 +1,9 @@
+{
+  "type": "pysift:speleothem",
+  "block": "pysift:crimson_vein_stone",
+  "alt_block": "pysift:varied_dark_slate",
+  "tip_block": "pysift:crimson_vein_stone_wall",
+  "min_height": 3,
+  "max_height": 7,
+  "hanging": false
+}

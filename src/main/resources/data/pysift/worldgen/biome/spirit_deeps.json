@@ -121,6 +121,10 @@
     [],
     [],
     [
+      "pysift:deeps_stalagmite",
+      "pysift:deeps_stalactite",
+      "pysift:deeps_ceiling_charoite",
+      "pysift:deeps_wall_vine",
       "pysift:deeps_red_sculk",
       "pysift:deeps_charoite",
       "pysift:deeps_glow_grass",

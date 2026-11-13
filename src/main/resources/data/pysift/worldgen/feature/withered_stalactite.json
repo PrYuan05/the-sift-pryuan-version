@@ -1,0 +1,9 @@
+{
+  "type": "pysift:speleothem",
+  "block": "pysift:dark_slate",
+  "alt_block": "pysift:varied_dark_slate",
+  "tip_block": "pysift:dark_slate_wall",
+  "min_height": 2,
+  "max_height": 6,
+  "hanging": true
+}

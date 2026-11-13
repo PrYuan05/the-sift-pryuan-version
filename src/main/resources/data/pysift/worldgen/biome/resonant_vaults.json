@@ -121,6 +121,9 @@
     [],
     [],
     [
+      "pysift:vault_stalagmite",
+      "pysift:vault_stalactite",
+      "pysift:vault_ceiling_charoite",
       "pysift:vault_charoite",
       "pysift:vault_soul_crystal",
       "pysift:vault_red_sculk",

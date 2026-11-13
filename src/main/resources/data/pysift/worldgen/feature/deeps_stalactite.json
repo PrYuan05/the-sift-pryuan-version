@@ -1,0 +1,9 @@
+{
+  "type": "pysift:speleothem",
+  "block": "pysift:violet_strata",
+  "alt_block": "pysift:magma_vein_slate",
+  "tip_block": "pysift:violet_strata_wall",
+  "min_height": 3,
+  "max_height": 10,
+  "hanging": true
+}

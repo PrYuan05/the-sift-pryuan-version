@@ -110,6 +110,9 @@ public record SinkholeFeature() implements Feature {
         if (spirit) {
             spiritFall(level, cx, cz, top, bottom, random);
         }
+        // vines hanging down the funnel and shaft walls (the same wall-plant placement the cliffs use)
+        net.minecraft.world.level.block.Block vine = BuiltInRegistries.BLOCK.getValue(PySift.id("green_sift_vine"));
+        new WallPlantFeature(vine, 36, 2, 6, 6, 9).place(level, generator, random, new BlockPos(cx, top - 8, cz));
         return true;
     }
 

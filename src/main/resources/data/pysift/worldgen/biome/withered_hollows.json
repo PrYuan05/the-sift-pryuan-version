@@ -114,6 +114,8 @@
     [
       "pysift:withered_sculk",
       "pysift:withered_gloomcap",
+      "pysift:withered_stalagmite",
+      "pysift:withered_stalactite",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave"
     ],

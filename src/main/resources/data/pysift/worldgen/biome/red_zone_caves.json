@@ -124,6 +124,9 @@
       "pysift:red_cave_sprouts",
       "pysift:red_cave_charoite",
       "pysift:song_cave_red_sculk",
+      "pysift:song_stalagmite",
+      "pysift:song_stalactite",
+      "pysift:song_wall_vine",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave"
     ],

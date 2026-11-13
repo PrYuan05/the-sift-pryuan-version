@@ -26,6 +26,13 @@ deeper, the more alive; the shallower, the more it rots.
   down, floored with red sculk and charoite. One in three has a small spirit liquid spring in the shaft wall: a thin
   stream falls to a little basin in the chamber floor, and the chamber stays dry. They never form on steep ground, near water or in the volcano.
 
+### New: cave decoration
+- **Stalagmites and stalactites** in the Sift's own stone (not vanilla's brown dripstone): tapered columns with a thick
+  root and a thin wall-block tip, each layer in its own floor blocks (slate, rose stone, void stone, violet strata).
+  They get taller with depth: 2-5 blocks in the shallows, up to 14 in the vaults.
+- **Charoite clusters hang from the ceilings** of the Resonant Vaults and Spirit Deeps.
+- **Wall vines** in the Red Zone Caves (orange) and Spirit Deeps (carapace), and green vines down sinkhole walls.
+
 ### Changed: real cave shapes
 Each layer now takes after a real kind of cave (the caves are the vanilla cave generator with per-layer settings that
 blend across the layer borders):
@@ -432,6 +439,12 @@ soul machines.
 ### 新增：通往地底的路
 - **天坑**：地面的漏斗口往下收成豎井，通到約 34 格深的鐘形洞室，地面鋪赤紅幽匿與 charoite。三分之一的天坑井壁上有一個小靈液泉眼，
   細細一道落進洞室地面的小水池，洞室本身保持乾燥。不會出現在陡坡、水邊與火山。
+
+### 新增：洞穴裝飾
+- **鐘乳石與石筍**用隙浮自己的石材（不是原版棕色滴水石）：粗根加細尖（牆方塊）的錐形岩柱，
+  每一層用自己的地面方塊（板岩、玫瑰石、虛空石、紫地層）。越深越高：淺層 2–5 格，穹窟最高 14 格。
+- 共鳴穹窟與靈液深淵的**天花板長出倒掛的 charoite 晶簇**。
+- 紅區洞穴（橘）與靈液深淵（甲殼）有**貼牆藤蔓**，天坑洞壁垂著綠色藤蔓。
 
 ### 變更：貼近現實的洞穴形狀
 每一層參考一種真實的洞穴（洞穴仍是原版洞穴生成，只是各層參數不同，層界處會平滑過渡）：
