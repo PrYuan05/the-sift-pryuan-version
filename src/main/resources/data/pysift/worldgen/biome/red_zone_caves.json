@@ -31,6 +31,15 @@
                 "min_inclusive": 1
               },
               "weight": 15
+            },
+            {
+              "type": "pysift:tuner",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
             }
           ],
           "creature": [
@@ -42,6 +51,15 @@
                 "min_inclusive": 1
               },
               "weight": 10
+            },
+            {
+              "type": "pysift:echo_golem",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 6
             }
           ]
         }
@@ -105,6 +123,7 @@
       "pysift:red_cave_grass",
       "pysift:red_cave_sprouts",
       "pysift:red_cave_charoite",
+      "pysift:song_cave_red_sculk",
       "pysift:soul_berry_bush_pond",
       "pysift:gloomcap_cave"
     ],

@@ -16,6 +16,11 @@
     "pysift:gray_capped_void_stone",
     "pysift:rusted_dark_cobble",
     "pysift:amber_sand",
-    "pysift:pale_sand"
+    "pysift:pale_sand",
+    "pysift:void_stone",
+    "pysift:gray_strata",
+    "pysift:polished_void_stone",
+    "pysift:smooth_void_stone",
+    "pysift:magma_vein_slate"
   ]
 }

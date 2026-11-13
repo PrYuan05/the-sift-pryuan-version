@@ -1,0 +1,134 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "monster": [
+            {
+              "type": "pysift:sentinel",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:tuner",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:hunter",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 12
+            },
+            {
+              "type": "pysift:stalker",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
+            }
+          ],
+          "creature": [
+            {
+              "type": "pysift:echo_golem",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 5
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.red_zone_caves.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.red_zone_caves.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.red_zone_caves.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.red_zone_caves",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "pysift:soul_wisp"
+          },
+          "probability": 0.006
+        }
+      ]
+    }
+  },
+  "carvers": [],
+  "downfall": 0.3,
+  "effects": {
+    "water_color": "#6a4a9a"
+  },
+  "features": [
+    [],
+    [],
+    [
+      "pysift:soul_geode"
+    ],
+    [],
+    [],
+    [],
+    [
+      "pysift:soul_crystal_buried",
+      "pysift:siftite_ore"
+    ],
+    [],
+    [],
+    [
+      "pysift:vault_charoite",
+      "pysift:vault_soul_crystal",
+      "pysift:vault_red_sculk",
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 1.0
+}

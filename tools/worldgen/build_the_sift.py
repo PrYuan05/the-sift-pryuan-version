@@ -569,9 +569,23 @@ def soul_geode(name):
 
 SOUL_GEODE = soul_geode("soul_geode")
 
+# sinkholes (v2.1.0, SinkholeFeature): holes in the surface that open on the underground layers; the surface is no longer
+# sealed off from the caves (bury_caves keeps natural cave mouths away from the ground, these are the planned entrances)
+SINKHOLE_RARITY = 14      # about one chunk in 14 tries (the feature itself refuses water, steep ground and bad spots)
+SINKHOLE_BIOMES = {"willow_grove", "violet_slate_abyss", "crimson_strata_canyon", "amber_dunes", "lullaby_hills"}   # not the volcano
+wj(D / "worldgen/feature/sinkhole.json", {"type": "pysift:sinkhole"})
+wj(D / "worldgen/placed_feature/sinkhole.json", {"feature": "pysift:sinkhole", "placement": [
+    {"type": "minecraft:rarity_filter", "chance": SINKHOLE_RARITY}, {"type": "minecraft:in_square"},
+    {"type": "minecraft:heightmap", "heightmap": "WORLD_SURFACE_WG"},
+    {"type": "minecraft:biome"}]})
+SINKHOLE = "pysift:sinkhole"
+
 # ambient particles per biome (phase 2), as vanilla nether biomes do it
 AMBIENT = {"crimson_strata_canyon": ("minecraft:crimson_spore", 0.012),
            "red_zone_caves": ("minecraft:crimson_spore", 0.03),
+           "withered_hollows": ("minecraft:ash", 0.02),
+           "resonant_vaults": ("pysift:soul_wisp", 0.006),
+           "spirit_deeps": ("pysift:soul_wisp", 0.012),
            "violet_slate_abyss": ("pysift:soul_wisp", 0.002),     # user: fewer soul wisps
            "willow_grove": ("minecraft:spore_blossom_air", 0.012),
            "amber_dunes": ("minecraft:white_ash", 0.015),
@@ -658,11 +672,58 @@ RED_CAVE_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecra
                    "target_condition": {"type": "minecraft:solid"},
                    "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
                   {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]
+# ---- underground layers (v2.1.0): the Sift's blood vessels. Spirit liquid wells up from the deep; life follows it. ----
+# The layer is picked by the multi-noise "depth" parameter (= blocks below the surface / 128), see the dimension below.
+#   withered_hollows   26-54 blocks down   the cut-off shallows: no spirit liquid reaches here, red sculk rots blue
+#   red_zone_caves     54-87 blocks down   the singing caves (the original underground biome), alive and red
+#   resonant_vaults    87+ blocks down     crystal vaults where voices echo (Echo Den, soul geodes, charoite)
+#   spirit_deeps       87+ blocks, wet     where spirit liquid wells up: glowing veins, red sculk, singers' pools
+UNDER_FLOOR = [{"type": "minecraft:height_range", "height": {"type": "minecraft:uniform",
+                                                              "min_inclusive": {"absolute": -62}, "max_inclusive": {"absolute": 80}}},
+               {"type": "minecraft:environment_scan", "direction_of_search": "down", "max_steps": 12,
+                "target_condition": {"type": "minecraft:solid"},
+                "allowed_search_condition": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"}},
+               {"type": "minecraft:offset", "x": 0, "y": 1, "z": 0}]
+
+
+def cave_patch(name, ground, vegetation, count, radius=(2, 4), chance=0.3):
+    """A vegetation patch on cave floors: `ground` replaces the stone floor, `vegetation` (block provider, optional) grows on it."""
+    cfg = {"type": "minecraft:vegetation_patch", "surface": "floor", "depth": 1, "vertical_range": 3,
+           "extra_bottom_block_chance": 0.0, "extra_edge_column_chance": 0.4, "vegetation_chance": chance,
+           "xz_radius": uniform(*radius), "replaceable": "#pysift:red_sculk_replaceable", "ground_state": ground}
+    if vegetation:
+        wj(D / f"worldgen/feature/{name}_cover.json", {"type": "minecraft:simple_block", "to_place": vegetation})
+        cfg["vegetation_feature"] = {"feature": f"pysift:{name}_cover", "placement": []}
+    else:
+        cfg["vegetation_chance"] = 0.0
+        cfg["vegetation_feature"] = {"feature": {"type": "minecraft:no_op", "config": {}}, "placement": []}
+    wj(D / f"worldgen/feature/{name}.json", cfg)
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"}, *UNDER_FLOOR, {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
 CAVE_FEATURES = {"red_zone_caves": [
     farm_plant("red_cave_grass", provider("soft_crimson_short_grass"), 90, RED_CAVE_FLOOR, []),
     farm_plant("red_cave_sprouts", provider("rift_orange_short_grass"), 50, RED_CAVE_FLOOR, []),
     farm_plant("red_cave_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, RED_CAVE_FLOOR, []),
+    cave_patch("song_cave_red_sculk", provider("red_sculk"), provider("red_sculk_vein", down="true"), 5),   # alive: the song caves
 ]}
+CAVE_FEATURES["withered_hollows"] = [
+    # the shallows are cut off from the spirit liquid: plain (rotten) blue sculk, the same dead sculk of the Overworld's deep dark
+    cave_patch("withered_sculk", {"id": "minecraft:sculk"}, {"id": "minecraft:sculk_vein", "properties": {"down": "true"}}, 6, (2, 5)),
+    farm_plant("withered_gloomcap", provider("gloomcap"), 4, UNDER_FLOOR, []),
+]
+CAVE_FEATURES["resonant_vaults"] = [
+    farm_plant("vault_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 10, UNDER_FLOOR, []),
+    farm_plant("vault_soul_crystal", provider("soul_crystal_block"), 3, UNDER_FLOOR, []),
+    cave_patch("vault_red_sculk", provider("red_sculk"), provider("red_sculk_vein", down="true"), 3, (1, 3)),
+]
+CAVE_FEATURES["spirit_deeps"] = [
+    cave_patch("deeps_red_sculk", provider("red_sculk"), provider("red_sculk_vein", down="true"), 8, (3, 6), 0.45),
+    farm_plant("deeps_charoite", provider("charoite_cluster", facing="up", waterlogged="false"), 6, UNDER_FLOOR, []),
+    farm_plant("deeps_glow_grass", provider("glowshade_short_grass"), 40, UNDER_FLOOR, []),
+]
 
 def caldera_ore(name, ore, size, count, lo, hi):
     """Ores in the Soul Caldera's rift walls (magma vein slate) and plateau stone."""
@@ -695,8 +756,18 @@ ORE_FEATURES = {"violet_slate_abyss": [
         {"type": "minecraft:offset", "x": 0, "y": -1, "z": 0}]),
 ]}
 
+# the deep layers keep the surface biomes' underground ores (their depth bands now replace the surface biome underground)
+ORE_FEATURES["resonant_vaults"] = ["pysift:soul_crystal_buried"]
+ORE_FEATURES["spirit_deeps"] = ["pysift:soul_crystal_buried"]
+ORE_FEATURES["withered_hollows"] = ["pysift:patina_ore_caldera"]
+
+SOUND_ALIAS = {"withered_hollows": "red_zone_caves", "resonant_vaults": "red_zone_caves", "spirit_deeps": "red_zone_caves"}
+
+
 def audio(name):
-    """背景音樂與環境音：模組自己的音效 ID（ModSounds），實際聲音在 sounds.json（tools/worldgen/build_sift_audio.py）。"""
+    """背景音樂與環境音：模組自己的音效 ID（ModSounds），實際聲音在 sounds.json（tools/worldgen/build_sift_audio.py）。
+    新的地底生態域暫時沿用 red_zone_caves 的音效（SOUND_ALIAS），之後有自己的音檔再拆開。"""
+    name = SOUND_ALIAS.get(name, name)
     return {
         "minecraft:audio/ambient_sounds": {
             "loop": f"pysift:ambient.the_sift.{name}.loop",
@@ -717,7 +788,7 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
         # step 1 = lakes (spirit ponds), step 2 = local_modifications (spires, like vanilla boulders),
         # step 9 = vegetal_decoration
         # step 6 = underground_ores
-        "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE]] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
+        "features": [[], POND_FEATURES.get(name, []), SPIRE_FEATURES.get(name, []) + [SOUL_GEODE] + ([SINKHOLE] if name in SINKHOLE_BIOMES else [])] + [[], [], [], ORE_FEATURES.get(name, []) + [SIFTITE_ORE]
                     + (CHAROITE if name == "violet_slate_abyss" else []), [], []]
                     + [VEGETATION.get(name, []) + GLOW_FEATURES.get(name, []) + CAVE_FEATURES.get(name, []) + FARM_FEATURES
                        + (["pysift:red_sculk_patch"] if name in RED_SCULK_BIOMES else [])
@@ -738,8 +809,17 @@ biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
       spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3)],
              monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2)]))
 biome("red_zone_caves", 1.2, 0.4, False, "#4a1622", "#3a1018", "#7a3b55",
-      spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1)],
-             creature=[("blub", 10, 1, 2)]))
+      spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1), ("tuner", 10, 1, 1)],
+             creature=[("blub", 10, 1, 2), ("echo_golem", 6, 1, 1)]))
+biome("withered_hollows", 0.6, 0.0, False, "#26263a", "#1c1c2c", "#34405e",
+      spawns(monster=[("stalker", 25, 1, 2), ("hunter", 15, 1, 1), ("prickle", 15, 1, 2)],
+             creature=[("mourner", 5, 1, 1), ("blub", 5, 1, 2)]))      # the shallows rot: a Mourner now and then
+biome("resonant_vaults", 1.0, 0.3, False, "#2a2244", "#1a1430", "#6a4a9a",
+      spawns(monster=[("sentinel", 20, 1, 1), ("tuner", 20, 1, 1), ("hunter", 12, 1, 1), ("stalker", 12, 1, 2)],
+             creature=[("echo_golem", 20, 1, 2), ("blub", 5, 1, 2)]))   # each Echo Golem brings 1-2 Singers
+biome("spirit_deeps", 1.6, 0.8, False, "#3a1630", "#2a0e22", "#8a3a8a",
+      spawns(monster=[("fusefly", 25, 1, 2), ("wobble", 20, 1, 2), ("trapper", 10, 1, 1), ("sentinel", 10, 1, 1)],
+             creature=[("blub", 25, 2, 3), ("lootkin", 4, 1, 1)]))
 biome("lullaby_hills", 1.4, 0.3, False, "#6a2a48", "#4a1c34", "#d06a8c",
       spawns(monster=[("dartback", 30, 1, 2), ("prickle", 25, 1, 2), ("seedling", 15, 2, 3), ("sprout", 15, 2, 3),
                       ("fusefly", 20, 1, 2)],
@@ -995,6 +1075,12 @@ wj(D / "worldgen/material_rule/the_sift.json", seq(
     # red zone caves: crimson-capped floors over silted strata, silted strata on the ceilings
     in_biome("red_zone_caves", seq(cond(ON_FLOOR, block(CRIMSON_TOP)), cond(WITHIN(2), block(CRIMSON_UNDER)),
                                    cond(CEILING, block(CRIMSON_UNDER)))),
+    # withered hollows: ash-grey strata, dry and dead
+    in_biome("withered_hollows", seq(cond(ON_FLOOR, block(state("gray_strata", tone="teal"))), cond(WITHIN(2), block(state("gray_strata", tone="teal"))))),
+    # resonant vaults: polished stone floors, smooth stone ceilings (a built, echoing hall)
+    in_biome("resonant_vaults", seq(cond(ON_FLOOR, block(state("polished_void_stone"))), cond(CEILING, block(state("smooth_void_stone"))))),
+    # spirit deeps: glowing magma veins in the floor, the liquid's own colour
+    in_biome("spirit_deeps", seq(cond(ON_FLOOR, block(state("magma_vein_slate", vein=0))), cond(WITHIN(2), block(CRIMSON_UNDER)))),
     cond({"type": "minecraft:above_preliminary_surface"}, seq(
         # crimson: buttes and hoodoos with banded caps, patchy floor, ember stone walls (CANYON_RULE)
         in_biome("crimson_strata_canyon", seq(SOUL_EDGE, CANYON_RULE)),
@@ -1314,6 +1400,9 @@ NOT_EXTREME = [-SOUL_WEIRDNESS, LULLABY_WEIRDNESS]
 point = lambda b, t, h, w=FULL: {"biome": f"pysift:{b}", "parameters": {
     "temperature": t, "humidity": h, "continentalness": FULL, "erosion": FULL, "weirdness": w,
     "depth": 0.0, "offset": 0.0}}
+under = lambda b, d, humidity=FULL: {"biome": f"pysift:{b}", "parameters": {
+    "temperature": FULL, "humidity": humidity, "continentalness": FULL, "erosion": FULL, "weirdness": FULL,
+    "depth": d, "offset": 0.0}}
 wj(D / "dimension/the_sift.json", {
     "type": "pysift:the_sift",
     "generator": {
@@ -1326,9 +1415,11 @@ wj(D / "dimension/the_sift.json", {
             point("amber_dunes", [0.2, 1.0], [-1.0, -0.3], NOT_EXTREME),             # hot and dry
             point("soul_caldera", [SOUL_HEAT, 1.0], FULL, [-1.0, -SOUL_WEIRDNESS]),       # hot + low weirdness: soul volcano plateau
             point("lullaby_hills", [0.0, 1.0], FULL, [LULLABY_WEIRDNESS, 1.0]),      # warm + high weirdness: grand canyons
-            {"biome": "pysift:red_zone_caves", "parameters": {           # underground, like vanilla lush caves
-                "temperature": [-0.2, 1.0], "humidity": [0.1, 1.0], "continentalness": FULL, "erosion": FULL,
-                "weirdness": FULL, "depth": [0.2, 0.9], "offset": 0.0}},
+            # underground layers by depth (blocks below the surface / 128), every climate: see "underground layers" above
+            under("withered_hollows", [0.2, 0.42]),
+            under("red_zone_caves", [0.42, 0.68]),
+            under("resonant_vaults", [0.68, 2.0], humidity=[-1.0, 0.25]),
+            under("spirit_deeps", [0.68, 2.0], humidity=[0.25, 1.0]),
         ]},
         "settings": "pysift:the_sift",
     },

@@ -1,5 +1,33 @@
 # Changelog
 
+## v2.1.0
+
+The underground update. The Sift's underground is no longer one thin cave biome sealed off from the surface: it is the
+Sift's **blood vessels**, in four layers, and there are now ways down.
+
+### New: underground layers
+Chosen by depth below the surface, in every climate. Spirit liquid wells up from the deep and life follows it: the
+deeper, the more alive; the shallower, the more it rots.
+- **Withered Hollows** (about 26-54 blocks down): cut off from the spirit liquid. Ash-grey strata floors, patches of
+  rotten blue sculk, gloomcaps. A Mourner is seen now and then.
+- **Red Zone Caves** (54-87 blocks down): the singing caves, now with red sculk patches. Tuners and Echo Golems
+  wander here.
+- **Resonant Vaults** (87+ blocks down): polished stone floors, smooth ceilings, charoite and soul crystal growing
+  from the floor, Sentinels, Tuners and Echo Golems with their Singers.
+- **Spirit Deeps** (87+ blocks down, wet regions): glowing magma-vein floors, large red sculk fields, glowshade grass.
+- The Echo Den can now start in any underground layer.
+- The deep ores that used to belong to the surface biomes (soul crystal, patina) still generate underground.
+
+### New: a way down
+- **Sinkholes**: a funnel in the ground narrows into a shaft and opens into a small bell-shaped chamber about 34 blocks
+  down, floored with red sculk and charoite. One in three has a spirit liquid spring on its rim that falls down the
+  shaft. They never form on steep ground, near water or in the volcano.
+
+### Notes
+- No new creatures: the existing ones are redistributed across the layers.
+- The new layers share the Red Zone Caves' music and ambient sounds for now.
+- Below y = -54 vanilla aquifers still fill the deepest caves with lava.
+
 ## v2.0.0
 
 The soul redstone update. The Sift now gives you a reason to come back with something: a better redstone. A **soul
@@ -368,6 +396,28 @@ soul machines.
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## v2.1.0（繁體中文）
+
+地底更新。隙浮的地底不再是一層和地表隔開的薄薄洞穴，而是隙浮的**血管**，分成四層，並且有了通往地底的路。
+
+### 新增：地底分層
+依離地表的深度決定，所有氣候都一樣。靈液從深處湧上來，生命跟著靈液走：越深越有生氣，越淺越腐爛。
+- **枯竭窟**（地表下約 26-54 格）：和靈液隔絕。灰色地層地面、腐爛的藍幽匿、幽暗菇，偶爾遇見哀悼者。
+- **紅區洞穴**（54-87 格）：歌聲洞穴，新增赤紅幽匿；調音者與迴音傀儡在這裡遊蕩。
+- **共鳴穹窟**（87 格以下）：拋光石地面、平滑天花板，地面長出 charoite 與靈魂晶體；哨兵、調音者、迴音傀儡與歌者。
+- **靈液深淵**（87 格以下、潮濕區域）：發光的熔脈地面、大片赤紅幽匿、微光草。
+- 回音窟現在可以出現在任何一層地底。
+- 原本屬於地表生態域的深層礦物（靈魂晶體、銅綠礦）仍然會在地底生成。
+
+### 新增：通往地底的路
+- **天坑**：地面的漏斗口往下收成豎井，通到約 34 格深的鐘形洞室，地面鋪赤紅幽匿與 charoite。三分之一的天坑洞緣有靈液泉眼，
+  靈液沿豎井流下。不會出現在陡坡、水邊與火山。
+
+### 備註
+- 沒有新增生物，現有生物依層重新分配。
+- 新的地底層暫時共用紅區洞穴的音樂與環境音。
+- y = -54 以下，原版含水層仍會把最深的洞穴灌成岩漿。
 
 ## v2.0.0（繁體中文）
 

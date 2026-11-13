@@ -710,7 +710,9 @@ pool("echo_den/caps", [("echo_den/cap", 1)])
 pool("humbler_husk", [("humbler_husk", 1)])
 
 SIFT_BIOMES = ["pysift:crimson_strata_canyon", "pysift:violet_slate_abyss", "pysift:willow_grove", "pysift:amber_dunes",
-               "pysift:red_zone_caves", "pysift:lullaby_hills", "pysift:soul_caldera"]
+               "pysift:red_zone_caves", "pysift:lullaby_hills", "pysift:soul_caldera",
+               # underground layers (v2.1.0): the den is placed 44-56 blocks under the surface, so the start can land in any of them
+               "pysift:withered_hollows", "pysift:resonant_vaults", "pysift:spirit_deeps"]
 STRUCTURES = {
     # name: (structure json, biomes, spacing, separation, salt)
     "echo_den": ({"type": "minecraft:jigsaw", "start_pool": "pysift:echo_den/hub", "size": 7, "max_distance_from_center": 96,

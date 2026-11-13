@@ -121,7 +121,10 @@ add_tag("pysift/tags/block/red_sculk_replaceable.json", [
     "#minecraft:sculk_replaceable", "pysift:violet_capped_dark_slate", "pysift:dark_slate", "pysift:capped_crimson_vein_stone",
     "pysift:crimson_vein_stone", "pysift:grove_capped_crimson_strata", "pysift:abyssal_strata", "pysift:canyon_capped_crimson_strata",
     "pysift:silted_strata", "pysift:capped_crimson_strata", "pysift:ember_basalt", "pysift:crimson_capped_void_stone",
-    "pysift:gray_capped_void_stone", "pysift:rusted_dark_cobble", "pysift:amber_sand", "pysift:pale_sand"])
+    "pysift:gray_capped_void_stone", "pysift:rusted_dark_cobble", "pysift:amber_sand", "pysift:pale_sand",
+    # underground layers (v2.1.0): the cave floors of the withered hollows, resonant vaults and spirit deeps
+    "pysift:void_stone", "pysift:gray_strata", "pysift:polished_void_stone", "pysift:smooth_void_stone",
+    "pysift:magma_vein_slate"])
 
 NAMES = {"block.pysift.red_sculk": ("Red Sculk", "赤紅幽匿"), "block.pysift.red_sculk_vein": ("Red Sculk Vein", "赤紅幽匿脈絡")}
 for lang, i in (("en_us", 0), ("zh_tw", 1)):

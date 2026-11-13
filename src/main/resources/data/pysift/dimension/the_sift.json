@@ -195,14 +195,14 @@
           }
         },
         {
-          "biome": "pysift:red_zone_caves",
+          "biome": "pysift:withered_hollows",
           "parameters": {
             "temperature": [
-              -0.2,
+              -1.0,
               1.0
             ],
             "humidity": [
-              0.1,
+              -1.0,
               1.0
             ],
             "continentalness": [
@@ -219,7 +219,97 @@
             ],
             "depth": [
               0.2,
-              0.9
+              0.42
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "pysift:red_zone_caves",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              1.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0.42,
+              0.68
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "pysift:resonant_vaults",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              -1.0,
+              0.25
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0.68,
+              2.0
+            ],
+            "offset": 0.0
+          }
+        },
+        {
+          "biome": "pysift:spirit_deeps",
+          "parameters": {
+            "temperature": [
+              -1.0,
+              1.0
+            ],
+            "humidity": [
+              0.25,
+              1.0
+            ],
+            "continentalness": [
+              -1.0,
+              1.0
+            ],
+            "erosion": [
+              -1.0,
+              1.0
+            ],
+            "weirdness": [
+              -1.0,
+              1.0
+            ],
+            "depth": [
+              0.68,
+              2.0
             ],
             "offset": 0.0
           }
