@@ -2,7 +2,9 @@ package pryuan05.pysift.soulpower;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import pryuan05.pysift.fluid.ModFluids;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -15,6 +17,20 @@ import net.minecraft.world.level.block.state.BlockState;
 public class SpiritPumpBlock extends SoulMachineBlock {
     public SpiritPumpBlock(Properties properties) {
         super(true, properties);
+    }
+
+    /**
+     * 吸口（FACING）對著靈液：旁邊有靈液源頭就對著它（先看玩家面對的方向），沒有的話對著玩家看的方向。
+     * 其他機器是正面朝玩家；泵照那樣放的話吸口會背對靈液池，轉了也抽不到。
+     */
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        for (Direction d : context.getNearestLookingDirections()) {
+            if (context.getLevel().getFluidState(context.getClickedPos().relative(d)).isSourceOfType(ModFluids.SPIRIT_LIQUID)) {
+                return defaultBlockState().setValue(FACING, d);
+            }
+        }
+        return defaultBlockState().setValue(FACING, context.getNearestLookingDirection());
     }
 
     @Override
