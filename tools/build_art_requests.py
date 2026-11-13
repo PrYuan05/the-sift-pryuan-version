@@ -37,6 +37,7 @@ IMPORTED_NEW = {"carapace_flower", "carapace_short_grass", "carapace_vine", "whi
 # 全專案 AI／腳本產生的貼圖：(textures/ 底下的 glob, 用途, 產生腳本, 類別)
 # 類別：AI = 腳本從零畫的；轉出 = 由使用者的圖或原版貼圖重新上色／裁切；待確認 = 腳本畫過，但可能已被換成使用者的圖
 AI_CATALOG = [
+    ("block/pointed/pointed_*.png", "尖石（四種洞穴的滴水石，v2.1.0）", "subagent（minecraft-texture-crafter）", "AI"),
     ("block/vegetation/humus_fern.png", "腐殖蕨 葉片", "tools/models/gen_blade_models.py", "AI"),
     ("block/vegetation/humus_bush.png", "腐殖灌木 葉片", "tools/models/gen_blade_models.py", "AI"),
     ("block/vegetation/bone_spire.png", "骨刺", "tools/worldgen/make_decor_textures.py", "AI"),
@@ -63,6 +64,11 @@ AI_CATALOG = [
     ("entity/hunter.png", "Hunter（可能已換成使用者的合併貼圖）", "tools/entity/build_sift_creatures.py", "待確認"),
     ("entity/trapper.png", "Trapper（可能已換成使用者的合併貼圖）", "tools/entity/build_sift_creatures.py", "待確認"),
     ("entity/sculk_cube.png", "幽匿方塊", "tools/entity/build_sift_creatures.py", "待確認"),
+    ("block/gray_strata/gray_strata_*.png", "灰地層 4 色調（洞穴層重畫）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
+    ("block/varied_dark_slate/dark_slate_[dghj].png", "雜色暗板岩（洞穴層重畫；dark_slate_i 是使用者的）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
+    ("block/violet_strata/violet_strata_[hi].png", "紫地層變體（依 violet_strata_e 統一；e 是共用的未改）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
+    ("block/void_stone/polished_void_stone.png", "磨製虛黑岩（洞穴層重畫）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
+    ("block/vegetation/hanging_vines/*.png", "垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫）", "Claude Code 一次性腳本（未放進 repo）", "轉出"),
 ]
 RIFT_FLORA_TEX = {"blue_curled_fern", "pink_curled_fern", "white_curled_fern", "olive_forked_stalk", "rift_yellow_short_grass",
                   "canopy_leaf_blue", "canopy_leaf_green", "canopy_leaf_white", "canopy_stem_blue", "canopy_stem_green",
