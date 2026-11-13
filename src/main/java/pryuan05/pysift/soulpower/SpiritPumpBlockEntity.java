@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 靈液泵：轉動時吸走正前方的靈液源頭（存進 {@link #CAPACITY} mB 的槽），每 {@link #PUSH_INTERVAL} tick 沿著背面的靈液管
+ * 靈液泵：轉動時吸走正前方的靈液源頭（存進 {@link #CAPACITY} mB 的槽），每 {@link #PUSH_INTERVAL} tick 沿著接在其他面的靈液管
  * 送 {@link #PUSH} mB 給管網上還裝得下的靈液引擎。送不出去、管網又有漏口（只接一頭、另一頭空著的管子）時，
  * 靈液從漏口漏出來：漏口前留下一灘靈液，正下方的泥土與草地被汙染成靈魂土。
  */
@@ -72,7 +72,7 @@ public class SpiritPumpBlockEntity extends KineticBlockEntity {
         }
         // 送：每隔一段時間沿著管子送給引擎；送不出去就從漏口漏
         if (pump.tank >= PUSH && (now + pos.hashCode()) % PUSH_INTERVAL == 0) {
-            Net net = network(level, pos.relative(facing.getOpposite()), facing.getOpposite());
+            Net net = network(level, pos, facing);
             for (SpiritEngineBlockEntity engine : net.engines) {
                 if (engine.acceptLiquid(PUSH)) {
                     pump.tank -= PUSH;
@@ -111,24 +111,26 @@ public class SpiritPumpBlockEntity extends KineticBlockEntity {
         level.playSound(null, pipe, SoundEvents.BUCKET_EMPTY, SoundSource.BLOCKS, 0.4f, 1.3f);
     }
 
-    /** 管網：接在 start 的管子（以及它們連到的引擎），還有漏口（管子、往外的那一格）。 */
+    /** 管網：接在泵上（吸口以外的面）的管子（以及它們連到的引擎），還有漏口（管子、往外的那一格）。 */
     private record Net(List<SpiritEngineBlockEntity> engines, List<BlockPos[]> leaks) {
     }
 
-    static Net network(Level level, BlockPos start, Direction from) {
+    static Net network(Level level, BlockPos pump, Direction intake) {
         List<SpiritEngineBlockEntity> engines = new ArrayList<>();
         List<BlockPos[]> leaks = new ArrayList<>();
-        if (level.getBlockEntity(start) instanceof SpiritEngineBlockEntity direct) {
-            engines.add(direct);
-            return new Net(engines, leaks);
-        }
-        if (!(level.getBlockState(start).getBlock() instanceof SpiritPipeBlock)) {
-            return new Net(engines, leaks);
-        }
         Set<BlockPos> seen = new HashSet<>();
         ArrayDeque<BlockPos> queue = new ArrayDeque<>();
-        seen.add(start);
-        queue.add(start);
+        for (Direction d : Direction.values()) {    // every face but the intake: an engine right against it, or a pipe
+            BlockPos start = pump.relative(d);
+            if (d == intake) {
+                continue;
+            }
+            if (level.getBlockEntity(start) instanceof SpiritEngineBlockEntity direct) {
+                engines.add(direct);
+            } else if (level.getBlockState(start).getBlock() instanceof SpiritPipeBlock && seen.add(start)) {
+                queue.add(start);
+            }
+        }
         while (!queue.isEmpty() && seen.size() < MAX_PIPES) {
             BlockPos pos = queue.poll();
             BlockState state = level.getBlockState(pos);

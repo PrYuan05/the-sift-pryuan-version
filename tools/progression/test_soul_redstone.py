@@ -1,6 +1,6 @@
 """Check soul redstone (soulpower/SoulCircuit) on the running test server (./gradlew.bat runSiftTestServer) over RCON.
 Usage: python -I tools/progression/test_soul_redstone.py <project> [part]
-    part: wire | vanilla | plain | control | overload | gauge | beam | cover | repeater | filter | note | singer | catalyst | sensor | machines | addon | all
+    part: wire | vanilla | plain | control | overload | gauge | beam | cover | repeater | filter | note | singer | catalyst | sensor | pump | machines | addon | all
 
 Run it with the mechanical add-on off (run-server/config/pysift.properties: kinetic_addon=auto or off, no Create):
 the base system must work without any shaft or cogwheel. The add-on's own checks are tools/progression/test_soul_power.py
@@ -384,6 +384,37 @@ def sensor():
     r("kill @e[type=minecraft:item]")
 
 
+def pump():
+    """The self-feeding loop: one engine drives the pump over a conduit, the pump pipes spirit liquid back to it.
+    The conduit comes in at the pump's back and the pipe leaves from its side: every face but the intake takes both."""
+    clear()
+    Z = 235
+    r(f"fill 194 {Y - 1} {Z - 3} 204 {Y - 1} {Z + 3} minecraft:smooth_stone")
+    r(f"fill 194 {Y} {Z - 3} 199 {Y} {Z + 3} minecraft:smooth_stone")
+    r(f"fill 195 {Y} {Z - 2} 199 {Y} {Z + 2} pysift:spirit_liquid")              # the pool
+    r(f"setblock 200 {Y} {Z} pysift:spirit_pump[facing=west]")                    # intake in the pool
+    r(f"setblock 201 {Y} {Z} pysift:soul_conduit")                                # signal into the pump's back
+    r(f"fill 200 {Y} {Z - 1} 202 {Y} {Z - 1} pysift:spirit_pipe")                 # pipe from the pump's side to the engine
+    r(f'setblock 202 {Y} {Z} pysift:spirit_engine[facing=east]{{Fuel:{{id:"minecraft:soul_sand",count:1}}}}')   # 10 s of fuel
+    settle(2)
+    check("pump turns on the conduit at its back (strength 14)", num(200, Y, Z, "Speed"), speed_at(14))
+    expect("the pipe joins the pump's side and the engine",
+           is_block(200, Y, Z - 1, "pysift:spirit_pipe[south=true,east=true]") and is_block(202, Y, Z - 1, "pysift:spirit_pipe[south=true,west=true]"))
+    expect("no pipe arm on the intake side", not is_block(199, Y, Z, "pysift:spirit_pipe"))
+    time.sleep(7)
+    liquid = num(202, Y, Z, "Liquid") or 0
+    expect("the engine takes in piped spirit liquid", liquid > 0, f"{liquid:.0f} mB")
+    time.sleep(6)                                                                 # the soul sand is gone by now
+    check("the engine now burns the piped liquid", num(202, Y, Z, "BurnMax"), 3200)
+    check("and the pump keeps turning", num(200, Y, Z, "Speed"), speed_at(14))
+    # the intake takes neither signal nor pipe
+    r(f"setblock 201 {Y} {Z} minecraft:air")
+    settle()
+    check("without the conduit the pump stops", num(200, Y, Z, "Speed"), 0)
+    r(f"setblock 201 {Y} {Z} pysift:soul_conduit")
+    settle()
+
+
 def machines():
     """Grinding and drilling on soul signal alone."""
     clear()
@@ -414,7 +445,7 @@ def addon():
 
 
 parts = {"wire": wire, "vanilla": vanilla, "plain": plain, "control": control, "overload": overload, "gauge": gauge,
-         "beam": beam, "cover": cover, "repeater": repeater, "filter": filter_, "note": note, "singer": singer, "catalyst": catalyst, "sensor": sensor, "machines": machines, "addon": addon}
+         "beam": beam, "cover": cover, "repeater": repeater, "filter": filter_, "note": note, "singer": singer, "catalyst": catalyst, "sensor": sensor, "pump": pump, "machines": machines, "addon": addon}
 which = sys.argv[2] if len(sys.argv) > 2 else "all"
 for name, f in parts.items():
     if which in ("all", name):

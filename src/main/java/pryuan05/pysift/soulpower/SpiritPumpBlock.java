@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * 靈液泵：正面伸進靈液池（吸走正前方的靈液源頭），背面把靈液送進靈液管；側面的曲柄輪接動力，每 1 RPM 吃 2 SP。
+ * 靈液泵：正面（吸口）伸進靈液池，吸走正前方的靈液源頭；其他五個面都能接靈液管（或直接貼引擎）送出靈液，也都能收靈魂訊號。
  * 轉越快抽越快（32 RPM 時每 2 秒一桶）。
  */
 public class SpiritPumpBlock extends SoulMachineBlock {
@@ -31,6 +31,12 @@ public class SpiritPumpBlock extends SoulMachineBlock {
             }
         }
         return defaultBlockState().setValue(FACING, context.getNearestLookingDirection());
+    }
+
+    /** 靈魂訊號：除了吸口以外的五個面都收（傳動軸仍然只接曲柄輪那兩面，見 {@link #connects}）。 */
+    @Override
+    public boolean conducts(BlockState state, Direction side) {
+        return side != state.getValue(FACING);
     }
 
     @Override

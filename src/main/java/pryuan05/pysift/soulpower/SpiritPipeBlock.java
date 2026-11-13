@@ -15,7 +15,7 @@ import net.minecraft.util.RandomSource;
 import pryuan05.pysift.block.AutoConnect;
 
 /**
- * 靈液管：自動接上相鄰的靈液管、靈液泵（背面）與靈液引擎。靈液泵把靈液沿著管子送到引擎；
+ * 靈液管：自動接上相鄰的靈液管、靈液泵（吸口以外的面）與靈液引擎。靈液泵把靈液沿著管子送到引擎；
  * 只接了一頭、另一頭空著的管子是<b>漏口</b>：送不出去的靈液會從那裡漏出來，弄髒地面（{@link SpiritPumpBlockEntity}）。
  */
 public class SpiritPipeBlock extends Block implements AutoConnect.Connecting {
@@ -34,13 +34,13 @@ public class SpiritPipeBlock extends Block implements AutoConnect.Connecting {
         builder.add(PipeBlock.NORTH, PipeBlock.EAST, PipeBlock.SOUTH, PipeBlock.WEST, PipeBlock.UP, PipeBlock.DOWN);
     }
 
-    /** 這一面接得上什麼：管子、泵的背面、引擎（任何一面）。 */
+    /** 這一面接得上什麼：管子、泵（吸口以外的面）、引擎（任何一面）。 */
     public static boolean accepts(BlockGetter level, BlockPos pos, Direction from) {
         BlockState state = level.getBlockState(pos);
         if (state.getBlock() instanceof SpiritPipeBlock || state.getBlock() instanceof SpiritEngineBlock) {
             return true;
         }
-        return state.getBlock() instanceof SpiritPumpBlock && state.getValue(SoulMachineBlock.FACING).getOpposite() == from.getOpposite();
+        return state.getBlock() instanceof SpiritPumpBlock && state.getValue(SoulMachineBlock.FACING) != from.getOpposite();
     }
 
     private BlockState connect(BlockGetter level, BlockPos pos, BlockState state) {
