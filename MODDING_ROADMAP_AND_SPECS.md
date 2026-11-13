@@ -273,6 +273,10 @@ flowchart TD
 
 ## 五、待辦與後續驗收任務 (Pending Tasks)
 
+0. **使用者交代、額度恢復後補做（2026-11-13）**：
+   - **熔脈板岩（`magma_vein_slate`）衍生物材質**：本體已重畫，衍生物還是舊圖：`textures/block/magma_vein_slate_bricks/` 的石磚、浮雕石磚與頂面（半磚、階梯、牆沿用本體與石磚）。照 `minecraft-texture-crafter` 交給 subagent 重畫（設定卡、原版錨點、備份、檢核、AI 登記、對照圖給使用者看）；並依 skill B-7 檢查是否該補磨製／平滑等形式。
+   - **沒加入世界生成的方塊不要放進原版創造分頁**：`item/SiftCreativeTabs.java` 目前把 `#pysift:not_in_worldgen` 的方塊依類別放進原版的建築／自然分頁（第 35、112 行附近），改成這些方塊只留在我們自己的「未生成方塊」分頁。
+
 1. **遊戲內實機驗證 (In-Game Verification)**：
    - 進入測試世界檢查：`pysift:the_sift` 維度平緩地形與桌山密度、巨型靈柳樹葉不腐爛與外圍垂藤密度、傳送門開門儀式與 2 秒過場動畫、靈液與靈魂剝奪視覺效果。
    - 測試 24 款生物與 3 隻 Boss 在競技場中的戰鬥數值、碰撞箱與動畫流暢度。
