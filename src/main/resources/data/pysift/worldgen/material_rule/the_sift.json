@@ -919,7 +919,7 @@
                                         "if_true": {
                                           "type": "minecraft:noise_threshold",
                                           "noise": "pysift:the_sift_dither",
-                                          "min_threshold": 0.0767195220739034,
+                                          "min_threshold": 0.028602547597935363,
                                           "max_threshold": 1000000000.0
                                         },
                                         "then_run": {
@@ -934,7 +934,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:polished_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -947,7 +952,7 @@
                                       "if_true": {
                                         "type": "minecraft:noise_threshold",
                                         "noise": "pysift:the_sift_dither",
-                                        "min_threshold": 0.34783873338026944,
+                                        "min_threshold": 0.2807618026903812,
                                         "max_threshold": 1000000000.0
                                       },
                                       "then_run": {
@@ -962,7 +967,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:polished_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -1006,7 +1016,7 @@
                                       "if_true": {
                                         "type": "minecraft:noise_threshold",
                                         "noise": "pysift:the_sift_dither",
-                                        "min_threshold": 0.0767195220739034,
+                                        "min_threshold": 0.028602547597935363,
                                         "max_threshold": 1000000000.0
                                       },
                                       "then_run": {
@@ -1021,7 +1031,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:polished_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -1034,7 +1049,7 @@
                                     "if_true": {
                                       "type": "minecraft:noise_threshold",
                                       "noise": "pysift:the_sift_dither",
-                                      "min_threshold": 0.34783873338026944,
+                                      "min_threshold": 0.2807618026903812,
                                       "max_threshold": 1000000000.0
                                     },
                                     "then_run": {
@@ -1049,7 +1064,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:polished_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -1333,7 +1353,7 @@
                                                   "if_true": {
                                                     "type": "minecraft:noise_threshold",
                                                     "noise": "pysift:the_sift_dither",
-                                                    "min_threshold": 0.0767195220739034,
+                                                    "min_threshold": 0.028602547597935363,
                                                     "max_threshold": 1000000000.0
                                                   },
                                                   "then_run": {
@@ -1348,7 +1368,12 @@
                                                 },
                                                 {
                                                   "type": "minecraft:block",
-                                                  "result_state": "pysift:polished_void_stone"
+                                                  "result_state": {
+                                                    "id": "pysift:void_stone",
+                                                    "properties": {
+                                                      "tone": "dark"
+                                                    }
+                                                  }
                                                 }
                                               ]
                                             }
@@ -1361,7 +1386,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.34783873338026944,
+                                                  "min_threshold": 0.2807618026903812,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -1376,7 +1401,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -1420,7 +1450,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -1435,7 +1465,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -1448,7 +1483,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -1463,7 +1498,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -1730,7 +1770,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -1745,7 +1785,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -1758,7 +1803,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -1773,7 +1818,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -1817,7 +1867,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.0767195220739034,
+                                                "min_threshold": 0.028602547597935363,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -1832,7 +1882,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -1845,7 +1900,7 @@
                                             "if_true": {
                                               "type": "minecraft:noise_threshold",
                                               "noise": "pysift:the_sift_dither",
-                                              "min_threshold": 0.34783873338026944,
+                                              "min_threshold": 0.2807618026903812,
                                               "max_threshold": 1000000000.0
                                             },
                                             "then_run": {
@@ -1860,7 +1915,12 @@
                                           },
                                           {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:polished_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         ]
                                       }
@@ -2148,7 +2208,7 @@
                                                   "if_true": {
                                                     "type": "minecraft:noise_threshold",
                                                     "noise": "pysift:the_sift_dither",
-                                                    "min_threshold": 0.0767195220739034,
+                                                    "min_threshold": 0.028602547597935363,
                                                     "max_threshold": 1000000000.0
                                                   },
                                                   "then_run": {
@@ -2163,7 +2223,12 @@
                                                 },
                                                 {
                                                   "type": "minecraft:block",
-                                                  "result_state": "pysift:polished_void_stone"
+                                                  "result_state": {
+                                                    "id": "pysift:void_stone",
+                                                    "properties": {
+                                                      "tone": "dark"
+                                                    }
+                                                  }
                                                 }
                                               ]
                                             }
@@ -2176,7 +2241,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.34783873338026944,
+                                                  "min_threshold": 0.2807618026903812,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -2191,7 +2256,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -2235,7 +2305,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -2250,7 +2320,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -2263,7 +2338,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -2278,7 +2353,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -2545,7 +2625,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -2560,7 +2640,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -2573,7 +2658,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -2588,7 +2673,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -2632,7 +2722,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.0767195220739034,
+                                                "min_threshold": 0.028602547597935363,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -2647,7 +2737,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -2660,7 +2755,7 @@
                                             "if_true": {
                                               "type": "minecraft:noise_threshold",
                                               "noise": "pysift:the_sift_dither",
-                                              "min_threshold": 0.34783873338026944,
+                                              "min_threshold": 0.2807618026903812,
                                               "max_threshold": 1000000000.0
                                             },
                                             "then_run": {
@@ -2675,7 +2770,12 @@
                                           },
                                           {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:polished_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         ]
                                       }
@@ -3913,7 +4013,7 @@
                                         "if_true": {
                                           "type": "minecraft:noise_threshold",
                                           "noise": "pysift:the_sift_dither",
-                                          "min_threshold": 0.0767195220739034,
+                                          "min_threshold": 0.028602547597935363,
                                           "max_threshold": 1000000000.0
                                         },
                                         "then_run": {
@@ -3928,7 +4028,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:polished_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -3941,7 +4046,7 @@
                                       "if_true": {
                                         "type": "minecraft:noise_threshold",
                                         "noise": "pysift:the_sift_dither",
-                                        "min_threshold": 0.34783873338026944,
+                                        "min_threshold": 0.2807618026903812,
                                         "max_threshold": 1000000000.0
                                       },
                                       "then_run": {
@@ -3956,7 +4061,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:polished_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -4000,7 +4110,7 @@
                                       "if_true": {
                                         "type": "minecraft:noise_threshold",
                                         "noise": "pysift:the_sift_dither",
-                                        "min_threshold": 0.0767195220739034,
+                                        "min_threshold": 0.028602547597935363,
                                         "max_threshold": 1000000000.0
                                       },
                                       "then_run": {
@@ -4015,7 +4125,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:polished_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -4028,7 +4143,7 @@
                                     "if_true": {
                                       "type": "minecraft:noise_threshold",
                                       "noise": "pysift:the_sift_dither",
-                                      "min_threshold": 0.34783873338026944,
+                                      "min_threshold": 0.2807618026903812,
                                       "max_threshold": 1000000000.0
                                     },
                                     "then_run": {
@@ -4043,7 +4158,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:polished_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -4327,7 +4447,7 @@
                                                   "if_true": {
                                                     "type": "minecraft:noise_threshold",
                                                     "noise": "pysift:the_sift_dither",
-                                                    "min_threshold": 0.0767195220739034,
+                                                    "min_threshold": 0.028602547597935363,
                                                     "max_threshold": 1000000000.0
                                                   },
                                                   "then_run": {
@@ -4342,7 +4462,12 @@
                                                 },
                                                 {
                                                   "type": "minecraft:block",
-                                                  "result_state": "pysift:polished_void_stone"
+                                                  "result_state": {
+                                                    "id": "pysift:void_stone",
+                                                    "properties": {
+                                                      "tone": "dark"
+                                                    }
+                                                  }
                                                 }
                                               ]
                                             }
@@ -4355,7 +4480,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.34783873338026944,
+                                                  "min_threshold": 0.2807618026903812,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -4370,7 +4495,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -4414,7 +4544,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -4429,7 +4559,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -4442,7 +4577,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -4457,7 +4592,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -4724,7 +4864,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -4739,7 +4879,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -4752,7 +4897,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -4767,7 +4912,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -4811,7 +4961,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.0767195220739034,
+                                                "min_threshold": 0.028602547597935363,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -4826,7 +4976,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -4839,7 +4994,7 @@
                                             "if_true": {
                                               "type": "minecraft:noise_threshold",
                                               "noise": "pysift:the_sift_dither",
-                                              "min_threshold": 0.34783873338026944,
+                                              "min_threshold": 0.2807618026903812,
                                               "max_threshold": 1000000000.0
                                             },
                                             "then_run": {
@@ -4854,7 +5009,12 @@
                                           },
                                           {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:polished_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         ]
                                       }
@@ -5142,7 +5302,7 @@
                                                   "if_true": {
                                                     "type": "minecraft:noise_threshold",
                                                     "noise": "pysift:the_sift_dither",
-                                                    "min_threshold": 0.0767195220739034,
+                                                    "min_threshold": 0.028602547597935363,
                                                     "max_threshold": 1000000000.0
                                                   },
                                                   "then_run": {
@@ -5157,7 +5317,12 @@
                                                 },
                                                 {
                                                   "type": "minecraft:block",
-                                                  "result_state": "pysift:polished_void_stone"
+                                                  "result_state": {
+                                                    "id": "pysift:void_stone",
+                                                    "properties": {
+                                                      "tone": "dark"
+                                                    }
+                                                  }
                                                 }
                                               ]
                                             }
@@ -5170,7 +5335,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.34783873338026944,
+                                                  "min_threshold": 0.2807618026903812,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -5185,7 +5350,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -5229,7 +5399,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -5244,7 +5414,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -5257,7 +5432,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -5272,7 +5447,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -5539,7 +5719,7 @@
                                                 "if_true": {
                                                   "type": "minecraft:noise_threshold",
                                                   "noise": "pysift:the_sift_dither",
-                                                  "min_threshold": 0.0767195220739034,
+                                                  "min_threshold": 0.028602547597935363,
                                                   "max_threshold": 1000000000.0
                                                 },
                                                 "then_run": {
@@ -5554,7 +5734,12 @@
                                               },
                                               {
                                                 "type": "minecraft:block",
-                                                "result_state": "pysift:polished_void_stone"
+                                                "result_state": {
+                                                  "id": "pysift:void_stone",
+                                                  "properties": {
+                                                    "tone": "dark"
+                                                  }
+                                                }
                                               }
                                             ]
                                           }
@@ -5567,7 +5752,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.34783873338026944,
+                                                "min_threshold": 0.2807618026903812,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -5582,7 +5767,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -5626,7 +5816,7 @@
                                               "if_true": {
                                                 "type": "minecraft:noise_threshold",
                                                 "noise": "pysift:the_sift_dither",
-                                                "min_threshold": 0.0767195220739034,
+                                                "min_threshold": 0.028602547597935363,
                                                 "max_threshold": 1000000000.0
                                               },
                                               "then_run": {
@@ -5641,7 +5831,12 @@
                                             },
                                             {
                                               "type": "minecraft:block",
-                                              "result_state": "pysift:polished_void_stone"
+                                              "result_state": {
+                                                "id": "pysift:void_stone",
+                                                "properties": {
+                                                  "tone": "dark"
+                                                }
+                                              }
                                             }
                                           ]
                                         }
@@ -5654,7 +5849,7 @@
                                             "if_true": {
                                               "type": "minecraft:noise_threshold",
                                               "noise": "pysift:the_sift_dither",
-                                              "min_threshold": 0.34783873338026944,
+                                              "min_threshold": 0.2807618026903812,
                                               "max_threshold": 1000000000.0
                                             },
                                             "then_run": {
@@ -5669,7 +5864,12 @@
                                           },
                                           {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:polished_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         ]
                                       }

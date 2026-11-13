@@ -12,7 +12,7 @@ deeper, the more alive; the shallower, the more it rots.
   rotten blue sculk, gloomcaps. A Mourner is seen now and then.
 - **Red Zone Caves** (54-87 blocks down): the singing caves, now with red sculk patches. Tuners and Echo Golems
   wander here.
-- **Resonant Vaults** (87+ blocks down): polished stone floors, smooth ceilings, charoite and soul crystal growing
+- **Resonant Vaults** (87+ blocks down): void stone floors and ceilings, charoite and soul crystal growing
   from the floor, Sentinels, Tuners and Echo Golems with their Singers.
 - **Spirit Deeps** (87+ blocks down, wet regions): glowing magma-vein floors, large red sculk fields, glowshade grass.
 - The Echo Den can now start in any underground layer.
@@ -466,7 +466,7 @@ soul machines.
 依離地表的深度決定，所有氣候都一樣。靈液從深處湧上來，生命跟著靈液走：越深越有生氣，越淺越腐爛。
 - **枯竭窟**（地表下約 26-54 格）：和靈液隔絕。灰色地層地面、腐爛的藍幽匿、幽暗菇，偶爾遇見哀悼者。
 - **紅區洞穴**（54-87 格）：歌聲洞穴，新增赤紅幽匿；調音者與迴音傀儡在這裡遊蕩。
-- **共鳴穹窟**（87 格以下）：拋光石地面、平滑天花板，地面長出 charoite 與靈魂晶體；哨兵、調音者、迴音傀儡與歌者。
+- **共鳴穹窟**（87 格以下）：虛黑岩地面與天花板，地面長出 charoite 與靈魂晶體；哨兵、調音者、迴音傀儡與歌者。
 - **靈液深淵**（87 格以下、潮濕區域）：發光的熔脈地面、大片赤紅幽匿、微光草。
 - 回音窟現在可以出現在任何一層地底。
 - 生態系邊界不再閃爍：剛好落在共用氣候邊界上的柱子，以前會隨高度在兩個地表生態系之間來回切換。

@@ -809,8 +809,8 @@ SPELEOTHEMS = {
     "red_zone_caves": [speleothem("song_stalagmite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "pointed_crimson_vein_stone", 3, 7, False, 50),
                        speleothem("song_stalactite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "pointed_crimson_vein_stone", 3, 9, True, 60),
                        wall_plant("song_wall_vine", "orange_sift_vine", 3, tries=24, min_len=1, max_len=4, min_y=-20, max_y=40)],
-    "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "polished_void_stone", "pointed_void_stone", 5, 12, False, 110),
-                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "polished_void_stone", "pointed_void_stone", 5, 14, True, 130),
+    "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "dark_slate", "pointed_void_stone", 5, 12, False, 110),
+                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "dark_slate", "pointed_void_stone", 5, 14, True, 130),
                         ceiling_crystals("vault_ceiling_charoite", "resonant_vaults", 40)],
     "spirit_deeps": [speleothem("deeps_stalagmite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 9, False, 50),
                      speleothem("deeps_stalactite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 10, True, 60),
@@ -1204,10 +1204,10 @@ CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset"
 B = lambda name, **props: block(state(name, **props))
 GREY, SLATE, VARIED = B("gray_strata", tone="teal"), B("dark_slate", fade=0), B("varied_dark_slate")
 ROSE, CAP, VIOLET = B("crimson_vein_stone", crimson_spread=4), block(CRIMSON_TOP), B("violet_strata")
-POLISHED, VOID = B("polished_void_stone"), B("void_stone", tone="dark")   # user: no smooth void stone in the caves
+VOID = B("void_stone", tone="dark")   # user: no smooth or polished void stone in the caves
 VEIN0, VEIN1 = B("magma_vein_slate", vein=0), B("magma_vein_slate", vein=1)
 ABYSS = noise_band("pysift:the_sift_abyss")           # the same noise that picks vaults vs deeps (biome border at 0)
-VAULT_FLOOR = mix(0.35, mix(0.3, POLISHED, SLATE), VIOLET)
+VAULT_FLOOR = mix(0.35, mix(0.35, VOID, SLATE), VIOLET)
 DEEP_FLOOR = mix(0.4, mix(0.25, VEIN0, VIOLET), VEIN1)
 # vaults -> deeps: bands of the abyss noise with the usual 25 / 75 % blend at the border (width 0.06 ~ 6 blocks each side)
 DEEP_FLOORS = blended_bands([VAULT_FLOOR, DEEP_FLOOR], [0.0], 0.06, band=ABYSS, start=-1.0e9)
