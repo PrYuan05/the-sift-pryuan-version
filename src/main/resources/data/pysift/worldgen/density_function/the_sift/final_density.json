@@ -59,7 +59,7 @@
                                 "y_scale": 8.0
                               }
                             },
-                            "right": 4.0
+                            "right": "pysift:the_sift/caves/layer_strength"
                           },
                           "right": {
                             "type": "minecraft:add",
@@ -73,7 +73,7 @@
                                   "xz_scale": 1.0,
                                   "y_scale": 0.6666666666666666
                                 },
-                                "right": 0.27
+                                "right": "pysift:the_sift/caves/cheese_offset"
                               },
                               "max": 1.0,
                               "min": -1.0
@@ -97,18 +97,26 @@
                         "right": "pysift:the_sift/caves/entrances"
                       },
                       "right": {
-                        "type": "minecraft:add",
-                        "left": "pysift:the_sift/caves/spaghetti_2d",
-                        "right": "pysift:the_sift/caves/spaghetti_roughness_function"
+                        "type": "minecraft:min",
+                        "left": {
+                          "type": "minecraft:add",
+                          "left": {
+                            "type": "minecraft:add",
+                            "left": "pysift:the_sift/caves/spaghetti_2d",
+                            "right": "pysift:the_sift/caves/spaghetti_roughness_function"
+                          },
+                          "right": "pysift:the_sift/caves/tunnel_offset"
+                        },
+                        "right": "pysift:the_sift/caves/fissures"
                       }
                     },
                     "right": {
                       "type": "minecraft:range_choice",
-                      "input": "pysift:the_sift/caves/pillars",
+                      "input": "pysift:the_sift/caves/pillars_layered",
                       "max_exclusive": 0.03,
                       "min_inclusive": -1000000.0,
                       "when_in_range": -1000000.0,
-                      "when_out_of_range": "pysift:the_sift/caves/pillars"
+                      "when_out_of_range": "pysift:the_sift/caves/pillars_layered"
                     }
                   }
                 }

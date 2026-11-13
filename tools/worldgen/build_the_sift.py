@@ -1070,17 +1070,39 @@ SOUL_RULE = seq(cond(RIFT_STREAM, rift_band(0.0, 0.006, seq(cond(ON_FLOOR, block
 
 CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset": 0, "secondary_depth_range": 0,
            "surface_type": "ceiling"}
+
+# Cave materials (v2.1.0, user: colours must not jump). Average colours (RGB): void stone 60 62 70, dark slate 91 93 94,
+# varied dark slate 106 120 120, gray strata 120 137 141 | crimson vein stone 129 88 102, canyon-capped crimson 173 156 161 |
+# violet strata 87 75 88, magma vein slate 120 90 130. So the ladder runs cool grey -> rose grey -> violet grey -> violet,
+# every step moves one property at a time, and each layer's floor already holds ~15-25 % of its neighbours' blocks, so a
+# layer border is a gradient of shares, not a line. The old teal silted strata (78 197 189) is gone from the caves.
+B = lambda name, **props: block(state(name, **props))
+GREY, SLATE, VARIED = B("gray_strata", tone="teal"), B("dark_slate", fade=0), B("varied_dark_slate")
+ROSE, CAP, VIOLET = B("crimson_vein_stone", crimson_spread=4), block(CRIMSON_TOP), B("violet_strata")
+POLISHED, SMOOTH = B("polished_void_stone"), B("smooth_void_stone")
+VEIN0, VEIN1 = B("magma_vein_slate", vein=0), B("magma_vein_slate", vein=1)
+ABYSS = noise_band("pysift:the_sift_abyss")           # the same noise that picks vaults vs deeps (biome border at 0)
+VAULT_FLOOR = mix(0.35, mix(0.3, POLISHED, SLATE), VIOLET)
+DEEP_FLOOR = mix(0.4, mix(0.25, VEIN0, VIOLET), VEIN1)
+# vaults -> deeps: bands of the abyss noise with the usual 25 / 75 % blend at the border (width 0.06 ~ 6 blocks each side)
+DEEP_FLOORS = blended_bands([VAULT_FLOOR, DEEP_FLOOR], [0.0], 0.06, band=ABYSS, start=-1.0e9)
+DEEP_CEILING = blended_bands([mix(0.3, SMOOTH, SLATE), mix(0.3, VIOLET, SMOOTH)], [0.0], 0.06, band=ABYSS, start=-1.0e9)
+CAVE_RULES = {
+    # shallows: cool greys, a little rose from the layer below
+    "withered_hollows": seq(cond(ON_FLOOR, mix(0.12, mix(0.35, VARIED, SLATE), mix(0.3, GREY, ROSE))),
+                            cond(WITHIN(2), mix(0.3, SLATE, VARIED)), cond(CEILING, mix(0.25, SLATE, VARIED))),
+    # song caves: the user's crimson cap (its light rose-grey top) over rose stone, with grey above and violet below
+    "red_zone_caves": seq(cond(ON_FLOOR, mix(0.12, mix(0.4, CAP, ROSE), mix(0.4, VARIED, VIOLET))),
+                          cond(WITHIN(2), mix(0.3, ROSE, SLATE)), cond(CEILING, mix(0.3, ROSE, SLATE))),
+    "deep": seq(cond(ON_FLOOR, DEEP_FLOORS), cond(WITHIN(2), mix(0.3, SLATE, VIOLET)), cond(CEILING, DEEP_CEILING)),
+}
 wj(D / "worldgen/material_rule/the_sift.json", seq(
     "minecraft:bedrock_floor",
-    # red zone caves: crimson-capped floors over silted strata, silted strata on the ceilings
-    in_biome("red_zone_caves", seq(cond(ON_FLOOR, block(CRIMSON_TOP)), cond(WITHIN(2), block(CRIMSON_UNDER)),
-                                   cond(CEILING, block(CRIMSON_UNDER)))),
-    # withered hollows: ash-grey strata, dry and dead
-    in_biome("withered_hollows", seq(cond(ON_FLOOR, block(state("gray_strata", tone="teal"))), cond(WITHIN(2), block(state("gray_strata", tone="teal"))))),
-    # resonant vaults: polished stone floors, smooth stone ceilings (a built, echoing hall)
-    in_biome("resonant_vaults", seq(cond(ON_FLOOR, block(state("polished_void_stone"))), cond(CEILING, block(state("smooth_void_stone"))))),
-    # spirit deeps: glowing magma veins in the floor, the liquid's own colour
-    in_biome("spirit_deeps", seq(cond(ON_FLOOR, block(state("magma_vein_slate", vein=0))), cond(WITHIN(2), block(CRIMSON_UNDER)))),
+    # underground layers: CAVE_RULES (below). Floors and ceilings only; walls stay void stone.
+    in_biome("withered_hollows", CAVE_RULES["withered_hollows"]),
+    in_biome("red_zone_caves", CAVE_RULES["red_zone_caves"]),
+    in_biome("resonant_vaults", CAVE_RULES["deep"]),
+    in_biome("spirit_deeps", CAVE_RULES["deep"]),
     cond({"type": "minecraft:above_preliminary_surface"}, seq(
         # crimson: buttes and hoodoos with banded caps, patchy floor, ember stone walls (CANYON_RULE)
         in_biome("crimson_strata_canyon", seq(SOUL_EDGE, CANYON_RULE)),
@@ -1145,6 +1167,8 @@ wj(D / "worldgen/noise/the_sift_dunes.json", {"base_amplitude": 1.0, "base_octav
                                               "amplitude_modifiers": [1.0, 0.35]})
 for old in (D / "worldgen/density_function/the_sift").rglob("*.json"):
     old.unlink()
+wj(D / "worldgen/noise/the_sift_fissure.json", {"base_amplitude": 1.0, "base_octave": -5, "octave_count": 3,
+                                               "amplitude_modifiers": [1.0, 0.6, 0.3]})
 wj(D / "worldgen/noise/the_sift_landform.json", {"base_amplitude": 1.0, "base_octave": -8, "octave_count": 2,
                                                  "amplitude_modifiers": [1.0, 0.3]})
 wj(D / "worldgen/density_function/the_sift/terrain/landform.json",
@@ -1357,6 +1381,86 @@ def bury_caves(final_density):
     return final_density
 
 
+# ---- cave shapes per layer (v2.1.0): each layer takes after a real kind of cave ----
+# The vanilla cave terms (cheese chambers cut into bedding-plane slabs by cave_layer, 2D spaghetti tunnels, pillars) keep
+# their structure; their constants become splines over the same wobbling depth the biomes use (biome_depth), so the cave
+# shape changes exactly where the layer does and blends smoothly across the border:
+#   withered hollows  joint-controlled FISSURES (karst grikes / slot caves): tall narrow cracks, thin tunnels, no chambers
+#   red zone caves    PHREATIC TUBES (Mammoth Cave): fat winding horizontal passages, a few small rooms
+#   resonant vaults   CATHEDRAL HALLS (Carlsbad, Son Doong): huge high chambers with rubble floors and many columns
+#   spirit deeps      FLOODED LAKE CAVES (cenotes, Postojna): flat low chambers cut by bedding planes, partly under spirit liquid
+# layer plateaus in biome_depth: each layer keeps its own cave recipe across most of its band; the recipes blend over the
+# ~0.1 (13 block) gaps at the borders
+LAYER_PLATEAUS = ((0.22, 0.38), (0.46, 0.64), (0.74, 1.4))     # withered, song caves, deep (vaults and deeps)
+BIOME_DEPTH = "pysift:the_sift/biome_depth"
+
+
+def layer_spline(w, r, deep):
+    """DF: one value per layer, flat across the layer and smooth (zero slope) across the borders, over biome_depth."""
+    points = []
+    for (lo, hi), v in zip(LAYER_PLATEAUS, (w, r, deep)):
+        points += [{"location": lo, "value": v, "derivative": 0.0}, {"location": hi, "value": v, "derivative": 0.0}]
+    return {"type": "minecraft:spline", "spline": {"coordinate": BIOME_DEPTH, "points": points}}
+
+
+def shape_caves(final_density):
+    """Replace the vanilla cave constants by layer splines (see above)."""
+    found = {"cheese": 0, "layer": 0, "spaghetti": 0, "pillars": 0}
+    sp_extra = {"type": "minecraft:min",
+                "left": {"type": "minecraft:add", "left": "pysift:the_sift/caves/spaghetti_2d",
+                         "right": "pysift:the_sift/caves/spaghetti_roughness_function"},
+                "right": "pysift:the_sift/caves/fissures"}
+
+    def walk(n):
+        if isinstance(n, dict):
+            # cave_cheese + 0.27: chamber size (higher = fewer / smaller chambers)
+            if n.get("type") == "minecraft:add" and n.get("right") == 0.27 and isinstance(n.get("left"), dict) \
+                    and n["left"].get("noise") == "minecraft:cave_cheese":
+                n["right"] = "pysift:the_sift/caves/cheese_offset"
+                found["cheese"] += 1
+            # 4 * square(cave_layer): bedding-plane slabs (higher = thinner slabs = flatter, lower rooms)
+            if n.get("type") == "minecraft:mul" and n.get("right") == 4.0 and isinstance(n.get("left"), dict) \
+                    and n["left"].get("type") == "minecraft:square":
+                n["right"] = "pysift:the_sift/caves/layer_strength"
+                found["layer"] += 1
+            # tunnels: spaghetti_2d + roughness, now with a per-layer thickness offset and the fissures
+            if n.get("type") == "minecraft:add" and n.get("left") == "pysift:the_sift/caves/spaghetti_2d" \
+                    and n.get("right") == "pysift:the_sift/caves/spaghetti_roughness_function":
+                n.clear()
+                n.update({"type": "minecraft:min", "left": {"type": "minecraft:add", "left": {
+                    "type": "minecraft:add", "left": "pysift:the_sift/caves/spaghetti_2d",
+                    "right": "pysift:the_sift/caves/spaghetti_roughness_function"}, "right": "pysift:the_sift/caves/tunnel_offset"},
+                    "right": "pysift:the_sift/caves/fissures"})
+                found["spaghetti"] += 1
+                return
+            for v in n.values():
+                walk(v)
+            if n.get("type") == "minecraft:range_choice" and n.get("input") == "pysift:the_sift/caves/pillars":
+                n["input"] = "pysift:the_sift/caves/pillars_layered"
+                n["when_out_of_range"] = "pysift:the_sift/caves/pillars_layered"
+                found["pillars"] += 1
+        elif isinstance(n, list):
+            for v in n:
+                walk(v)
+
+    walk(final_density)
+    assert all(v == 1 for v in found.values()), f"final_density layout changed: {found}"
+    # the layer functions themselves (written beside the copied vanilla cave functions)
+    CAVES = D / "worldgen/density_function/the_sift/caves"
+    wj(CAVES / "cheese_offset.json", layer_spline(1.4, 0.38, 0.02))     # vanilla 0.27: none in the shallows, halls in the deep
+    wj(CAVES / "layer_strength.json", layer_spline(4.0, 4.0, 2.2))      # vanilla 4.0
+    wj(CAVES / "tunnel_offset.json", layer_spline(0.04, -0.10, -0.03))  # + thinner tunnels, - fatter ones
+    wj(CAVES / "pillars_layered.json", {"type": "minecraft:add", "left": "pysift:the_sift/caves/pillars",
+                                        "right": layer_spline(-5.0, -0.05, 0.14)})   # columns: none, few, many
+    # fissures: near-vertical sheets where |noise| is small (y_scale 0.12 stretches the noise upwards), only in the withered layer
+    wj(CAVES / "fissures.json", {"type": "minecraft:add",
+        "left": {"type": "minecraft:add", "left": {"type": "minecraft:mul", "left": 11.0, "right": {
+            "type": "minecraft:abs", "input": {"type": "minecraft:noise", "noise": "pysift:the_sift_fissure",
+                                               "xz_scale": 1.0, "y_scale": 0.08}}}, "right": -0.7},
+        "right": layer_spline(0.0, 6.0, 6.0)})   # only the withered layer is cracked
+    return final_density
+
+
 noise = json.loads(VANILLA_NOISE.read_text(encoding="utf-8"))
 retarget = lambda text: re.sub(r'"minecraft:overworld/', '"pysift:the_sift/', text)
 todo = re.findall(r'"(minecraft:overworld/[a-z0-9_/]+)"', json.dumps(noise))
@@ -1384,7 +1488,7 @@ while todo:
     elif rel == "overworld/factor":
         df = FACTOR
     elif rel == "overworld/final_density":
-        df = bury_caves(df)
+        df = shape_caves(bury_caves(df))
     wj(D / "worldgen/density_function/the_sift" / f"{rel.split('/', 1)[1]}.json", df)
 noise = json.loads(retarget(json.dumps(noise)))
 # Underground layer borders (v2.1.0): the climate sampler reads the router's "depth" to pick the layer. Give it its own
@@ -1399,6 +1503,21 @@ wj(D / "worldgen/density_function/the_sift/biome_depth.json", {
     "right": {"type": "minecraft:mul", "left": LAYER_WOBBLE,
               "right": {"type": "minecraft:noise", "noise": "pysift:the_sift_layers", "xz_scale": 1.0, "y_scale": 1.0}}})
 noise["noise_router"]["depth"] = "pysift:the_sift/biome_depth"
+# Vaults vs deeps: the router's "continents" feeds only the biome sampler here (the terrain has its own shape), so it
+# becomes an unshifted 2D noise at scale 1. Surface rules can read the very same noise at the same coordinates
+# (noise_threshold), so the floor materials blend across the biome border instead of changing at a line.
+wj(D / "worldgen/noise/the_sift_abyss.json", {"base_amplitude": 1.0, "base_octave": -7, "octave_count": 3,
+                                             "amplitude_modifiers": [1.0, 0.7, 0.3]})
+wj(D / "worldgen/density_function/the_sift/abyss_field.json",
+   {"type": "minecraft:noise", "noise": "pysift:the_sift_abyss", "xz_scale": 1.0, "y_scale": 0.0})
+noise["noise_router"]["continents"] = "pysift:the_sift/abyss_field"
+# flooded lake caves: the deeper, abyss-side aquifers fill with spirit liquid more often (default fluid below sea level)
+wj(D / "worldgen/density_function/the_sift/floodedness.json", {
+    "type": "minecraft:add", "left": noise["aquifers"]["fluid_level_floodedness"],
+    "right": {"type": "minecraft:mul", "left": 0.35, "right": {"type": "minecraft:clamp", "min": 0.0, "max": 1.0, "input": {
+        "type": "minecraft:mul", "left": 4.0, "right": "pysift:the_sift/abyss_field"}}}})
+noise["aquifers"]["fluid_level_floodedness"] = "pysift:the_sift/floodedness"
+noise["aquifers"]["lava"] = 0.0     # no aquifer lava cells (they need lava noise above 0.3); the global lava below y -54 stays
 noise["default_block"] = BASE
 noise["default_fluid"] = state("spirit_liquid")
 noise["material_rule"] = "pysift:the_sift"
@@ -1412,8 +1531,8 @@ NOT_EXTREME = [-SOUL_WEIRDNESS, LULLABY_WEIRDNESS]
 point = lambda b, t, h, w=FULL: {"biome": f"pysift:{b}", "parameters": {
     "temperature": t, "humidity": h, "continentalness": FULL, "erosion": FULL, "weirdness": w,
     "depth": 0.0, "offset": 0.0}}
-under = lambda b, d, humidity=FULL: {"biome": f"pysift:{b}", "parameters": {
-    "temperature": FULL, "humidity": humidity, "continentalness": FULL, "erosion": FULL, "weirdness": FULL,
+under = lambda b, d, continentalness=FULL: {"biome": f"pysift:{b}", "parameters": {
+    "temperature": FULL, "humidity": FULL, "continentalness": continentalness, "erosion": FULL, "weirdness": FULL,
     "depth": d, "offset": 0.0}}
 wj(D / "dimension/the_sift.json", {
     "type": "pysift:the_sift",
@@ -1430,8 +1549,8 @@ wj(D / "dimension/the_sift.json", {
             # underground layers by depth (blocks below the surface / 128), every climate: see "underground layers" above
             under("withered_hollows", [0.2, 0.42]),
             under("red_zone_caves", [0.42, 0.68]),
-            under("resonant_vaults", [0.68, 2.0], humidity=[-1.0, 0.25]),
-            under("spirit_deeps", [0.68, 2.0], humidity=[0.25, 1.0]),
+            under("resonant_vaults", [0.68, 2.0], continentalness=[-1.0, 0.0]),
+            under("spirit_deeps", [0.68, 2.0], continentalness=[0.0, 1.0]),
         ]},
         "settings": "pysift:the_sift",
     },
@@ -1442,7 +1561,7 @@ wj(D / "dimension/the_sift.json", {
 # integers, so moving the upper box's start up by one step (0.0001) leaves no integer on both sides: no tie is possible.
 _dim = json.loads((D / "dimension/the_sift.json").read_text(encoding="utf-8"))
 _boxes = _dim["generator"]["biome_source"]["biomes"]
-for _dim_name in ("temperature", "humidity", "weirdness", "depth"):
+for _dim_name in ("temperature", "humidity", "weirdness", "depth", "continentalness"):
     _ends = {b["parameters"][_dim_name][1] for b in _boxes if isinstance(b["parameters"][_dim_name], list)}
     for b in _boxes:
         _r = b["parameters"][_dim_name]

@@ -63,7 +63,7 @@ public record SinkholeFeature() implements Feature {
         boolean spirit = random.nextInt(3) == 0;
         BlockState air = Blocks.AIR.defaultBlockState();
         BlockState redSculk = block("red_sculk");
-        BlockState floorStone = block("silted_strata");
+        BlockState floorStone = block("varied_dark_slate");
 
         // carve: column by column, from the highest surface in the footprint down to the chamber floor
         for (int x = cx - MAX_RADIUS - 1; x <= cx + MAX_RADIUS + 1; x++) {
@@ -122,7 +122,7 @@ public record SinkholeFeature() implements Feature {
      */
     private static void spiritFall(WorldGenLevel level, int cx, int cz, int top, int bottom, RandomSource random) {
         BlockState liquid = block("spirit_liquid");
-        BlockState floorStone = block("silted_strata");
+        BlockState floorStone = block("varied_dark_slate");
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
         int y = top - FUNNEL_DEPTH - 3;                          // in the straight part of the shaft
         int wallX = Integer.MIN_VALUE;

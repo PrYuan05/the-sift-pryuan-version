@@ -21,7 +21,8 @@
 		"ShieldDecorationRecipeMixin",
 		"MapItemSavedDataAccessor",
 		"SiftMapBannerMixin",
-		"WardenMixin"
+		"WardenMixin",
+		"NoiseChunkGeneratorMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

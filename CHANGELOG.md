@@ -26,10 +26,24 @@ deeper, the more alive; the shallower, the more it rots.
   down, floored with red sculk and charoite. One in three has a small spirit liquid spring in the shaft wall: a thin
   stream falls to a little basin in the chamber floor, and the chamber stays dry. They never form on steep ground, near water or in the volcano.
 
+### Changed: real cave shapes
+Each layer now takes after a real kind of cave (the caves are the vanilla cave generator with per-layer settings that
+blend across the layer borders):
+- **Withered Hollows**: narrow, tall cracks like karst joint fissures (grikes), thin tunnels, no big chambers.
+- **Red Zone Caves**: fat winding horizontal passages like the phreatic tubes of Mammoth Cave, with a few small rooms.
+- **Resonant Vaults**: huge high halls with many rock columns, like the great chambers of Carlsbad and Son Doong.
+- **Spirit Deeps**: flat, low, bedded chambers like flooded lake caves (cenotes), more of them under spirit liquid.
+- Vaults and Deeps are now one smooth field instead of a humidity line, and the floor blocks blend across it.
+- No more lava underground: the vanilla lava pools and the lava below y = -54 are spirit liquid or air here.
+
+### Changed: colours
+- The cave floors use a low-contrast ladder of blocks (cool grey, rose grey, violet grey, violet) and every layer already
+  holds some of its neighbours' blocks, so layer borders are gradients instead of lines. The bright teal strata that
+  showed on cave floors and sinkhole chambers is gone.
+
 ### Notes
 - No new creatures: the existing ones are redistributed across the layers.
 - The new layers share the Red Zone Caves' music and ambient sounds for now.
-- Below y = -54 vanilla aquifers still fill the deepest caves with lava.
 
 ## v2.0.0
 
@@ -419,10 +433,22 @@ soul machines.
 - **天坑**：地面的漏斗口往下收成豎井，通到約 34 格深的鐘形洞室，地面鋪赤紅幽匿與 charoite。三分之一的天坑井壁上有一個小靈液泉眼，
   細細一道落進洞室地面的小水池，洞室本身保持乾燥。不會出現在陡坡、水邊與火山。
 
+### 變更：貼近現實的洞穴形狀
+每一層參考一種真實的洞穴（洞穴仍是原版洞穴生成，只是各層參數不同，層界處會平滑過渡）：
+- **枯竭窟**：像喀斯特節理裂隙（grike）的窄而高的裂縫、細隧道，沒有大洞室。
+- **紅區洞穴**：像猛獁洞的潛水層管狀坑道，粗而蜿蜒的水平通道，偶爾有小廳。
+- **共鳴穹窟**：像卡爾斯巴德與韓松洞的巨大高廳，有很多岩柱。
+- **靈液深淵**：像灌水的天坑湖洞（cenote），低而扁平、沿層面延伸的洞室，更常被靈液淹沒。
+- 穹窟與深淵改用同一個平滑的場來分區（不再是濕度線），地面方塊也在交界處混色過渡。
+- 地底不再有岩漿：原版的岩漿池與 y = -54 以下的岩漿，在這裡改成靈液或空氣。
+
+### 變更：顏色
+- 洞穴地面改用低對比的方塊階梯（冷灰、玫瑰灰、紫灰、紫），每一層的地面都混入相鄰層的方塊，
+  層界是漸層而不是一條線。洞穴地面與天坑洞室原本鮮豔的青綠地層已移除。
+
 ### 備註
 - 沒有新增生物，現有生物依層重新分配。
 - 新的地底層暫時共用紅區洞穴的音樂與環境音。
-- y = -54 以下，原版含水層仍會把最深的洞穴灌成岩漿。
 
 ## v2.0.0（繁體中文）
 

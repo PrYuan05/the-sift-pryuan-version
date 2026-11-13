@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:add",
+  "left": "pysift:the_sift/caves/pillars",
+  "right": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "pysift:the_sift/biome_depth",
+      "points": [
+        {
+          "location": 0.22,
+          "value": -5.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.38,
+          "value": -5.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.46,
+          "value": -0.05,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.64,
+          "value": -0.05,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.74,
+          "value": 0.14,
+          "derivative": 0.0
+        },
+        {
+          "location": 1.4,
+          "value": 0.14,
+          "derivative": 0.0
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "pysift:the_sift/biome_depth",
+    "points": [
+      {
+        "location": 0.22,
+        "value": 0.04,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.38,
+        "value": 0.04,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.46,
+        "value": -0.1,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.64,
+        "value": -0.1,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.74,
+        "value": -0.03,
+        "derivative": 0.0
+      },
+      {
+        "location": 1.4,
+        "value": -0.03,
+        "derivative": 0.0
+      }
+    ]
+  }
+}
