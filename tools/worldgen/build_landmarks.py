@@ -702,7 +702,10 @@ pool("echo_den/corridors", [("echo_den/corridor", 3), ("echo_den/stairs", 1)], f
 # tunnels branch out several times before ending in rooms (rooms are dead ends, so they stay rarer than corridors)
 pool("echo_den/branches", [("echo_den/corridor", 8), ("echo_den/stairs", 2), ("echo_den/crossing", 4),
                            ("echo_den/crystal_grotto", 2), ("echo_den/resonance_room", 2), ("echo_den/collapsed_room", 2),
-                           ("echo_den/vault", 1)], fallback="pysift:echo_den/caps")
+                           ("echo_den/vault", 1),
+                           # the user's powerhouse (built and saved in game, no generator here): a running soul redstone
+                           # circuit - engine, pump, charoite beam, sifter, grinder, note blocks
+                           ("echo_den/powerhouse", 1)], fallback="pysift:echo_den/caps")
 pool("echo_den/caps", [("echo_den/cap", 1)])
 pool("humbler_husk", [("humbler_husk", 1)])
 
