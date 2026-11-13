@@ -7,7 +7,8 @@ Each weapon is built upright from boxes (1 model unit = 1 icon pixel, lengths ma
 -45 degrees about z, so it lies on the icon's diagonal and the vanilla handheld display transforms hold it exactly like
 the 2D icon. Textures: textures/item/<name>_model.png, 32 x 32, one 8 x 16 px strip per material (1 px per model unit),
 painted from the 2D icon's own colours; glowing parts set light_emission.
-Hand-painted replacements of the _model textures are kept (tools/art_guard.py)."""
+Hand-painted replacements of the _model textures are kept (tools/art_guard.py). In-hand models re-made in Blockbench
+(their JSON has "credit") are kept too; their use stages come from HAND_STAGES."""
 import json, random, sys
 from pathlib import Path
 
@@ -174,20 +175,121 @@ def ref(model):
     return {"type": "minecraft:model", "model": f"pysift:item/{model}"}
 
 
+# ---- hand-made in-hand models (Blockbench, "credit" set): kept as they are. Their use stages are the hand-made model
+# plus the boxes below, in the same frame as the hand-made boxes (upright, turned -45 degrees about z around 8, 8, 8).
+# Texturing matches the hand-made model: 1 texel per model unit (a face w x h units takes w/2 x h/2 UV units) out of a
+# region of the hand-painted _model texture, or the exact faces of one of its elements ("copy").
+HAMMER_UV = {                          # region in UV units (0..16): u0, v0, u1, v1
+    "glow": [12, 0, 16, 3.5],          # brightest cyan of the core
+    "core": [12, 3.5, 16, 8],          # cyan core with teal flecks
+}
+FACE_DIMS = {"north": (0, 1), "south": (0, 1), "east": (2, 1), "west": (2, 1), "up": (0, 2), "down": (0, 2)}
+
+
+def hand_box(frm, to, src, light, shift=0.0):
+    e = {"from": frm, "to": to, "rotation": {"angle": -45, "axis": "z", "origin": [8, 8, 8]}, "light_emission": light}
+    if isinstance(src, int):           # copy the faces of hand-made element `src` (resolved in stage_model)
+        e["copy"] = src
+        return e
+    u0, v0, u1, v1 = HAMMER_UV[src]
+    size = [t - f for f, t in zip(frm, to)]
+    faces = {}
+    for k, (face, (a, b)) in enumerate(FACE_DIMS.items()):
+        w, h = min(size[a] / 2, u1 - u0), min(size[b] / 2, v1 - v0)
+        su = u0 + ((shift + k * 0.5) % max(0.001, u1 - u0 - w))      # different texels on each face and box
+        faces[face] = {"uv": [round(su, 3), v0, round(su + w, 3), v0 + h], "texture": "#model"}
+    e["faces"] = faces
+    return e
+
+
+# crystals: the echo cradle's fully grown sprite (the crystal cluster that grows echo golems) on two crossed planes
+def crystal(cx, cz, y0, size, light):
+    """Two crossed planes (one along x, one along z) carrying the crystal sprite; the sprite's bottom sits at y0."""
+    def plane(frm, to, faces):
+        return {"from": frm, "to": to, "rotation": {"angle": -45, "axis": "z", "origin": [8, 8, 8]}, "shade": False,
+                "light_emission": light, "faces": {f: {"uv": [0, 0, 16, 16], "texture": "#crystal"} for f in faces}}
+    h = size / 2
+    return [plane([cx - h, y0, cz], [cx + h, y0 + size, cz], ("north", "south")),
+            plane([cx, y0, cz - h], [cx, y0 + size, cz + h], ("east", "west"))]
+
+
+def halo(cx, cz, half, y, thick, light, shift=0.0):
+    """A floating square ring of sculk energy around the handle."""
+    x0, x1, z0, z1 = cx - half, cx + half, cz - half, cz + half
+    return [hand_box([x0, y, z0], [x1, y + thick, z0 + thick], "glow", light, shift),
+            hand_box([x0, y, z1 - thick], [x1, y + thick, z1], "glow", light, shift + 1),
+            hand_box([x0, y, z0 + thick], [x0 + thick, y + thick, z1 - thick], "glow", light, shift + 2),
+            hand_box([x1 - thick, y, z0 + thick], [x1, y + thick, z1 - thick], "glow", light, shift + 3)]
+
+
+# head x 5..11, y 10.5..15.5, z 5.5..10.5; core = element 4 (x 6.5..9.5, y 11.5..14.5, z 5.3..10.7);
+# top cube = element 5 (about x 6.6..8.6, y 15.7..17.2 in this frame); handle x 7.75..9.25, z 7.25..8.75
+HAND_STAGES = {
+    "sculk_hammer": ("charging", [
+        (0.0, [hand_box([6.2, 11.2, 5.0], [9.8, 14.8, 11.0], 4, 10),                             # the core wakes up
+               *crystal(7.6, 8, 16.9, 3.0, 10)]),                                                 # a crystal sprouts
+        (0.75, [hand_box([5.9, 10.9, 4.8], [10.1, 15.1, 11.2], 4, 13),                            # ready: core swells,
+                *crystal(7.6, 8, 16.7, 5.0, 12),                                                  # a crown of crystals,
+                *crystal(5.6, 8, 15.2, 3.5, 11), *crystal(9.8, 8, 15.2, 3.5, 11),
+                *halo(8.5, 8, 2.0, 7.5, 0.5, 12)]),                                               # an energy ring
+        (2.0, [hand_box([5.6, 10.6, 4.5], [10.4, 15.4, 11.5], 4, 15),                             # full: blazing core,
+               *crystal(7.6, 8, 16.5, 7.0, 15),                                                   # a tall crown
+               *crystal(5.4, 8, 15.2, 5.0, 14), *crystal(10.0, 8, 15.2, 5.0, 14),
+               *crystal(7.6, 6.0, 15.2, 3.5, 13), *crystal(7.6, 10.0, 15.2, 3.5, 13),
+               *halo(8.5, 8, 2.2, 8.0, 0.5, 15), *halo(8.5, 8, 2.8, 5.0, 0.5, 14, 1),             # two rings
+               hand_box([8.25, 0.0, 7.1], [8.75, 9.0, 7.25], "core", 12),                         # veins down the handle
+               hand_box([8.25, 0.0, 8.75], [8.75, 9.0, 8.9], "core", 12, 1)]),
+    ]),
+}
+# extra texture slots. Item models only see the item atlas (textures/item/), so a block texture is mirrored there:
+# slot -> (item texture written here, block texture it copies)
+HAND_TEXTURES = {"sculk_hammer": {"crystal": ("echo_cradle_crystal", "block/echo_cradle/echo_cradle_3")}}
+
+
+def stage_model(hand, name, extra):
+    elements = list(hand["elements"])
+    for e in extra:
+        if "copy" in e:
+            e = {k: v for k, v in e.items() if k != "copy"} | {"faces": hand["elements"][e["copy"]]["faces"]}
+        elements.append(e)
+    return {"display": hand.get("display", HANDHELD),
+            "textures": {**hand["textures"], **{k: f"pysift:item/{f}" for k, (f, _) in HAND_TEXTURES.get(name, {}).items()}, "particle": f"pysift:item/{name}"}, "elements": elements}
+
+
+def hand_made(name):
+    path = A / f"models/item/{name}_in_hand.json"
+    if not path.exists():
+        return None
+    model = json.loads(path.read_text(encoding="utf-8"))
+    return model if "credit" in model else None
+
+
 for name, parts in WEAPONS.items():
     mats = list(dict.fromkeys(m for m, _, _ in parts))
-    tex = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
-    for i, m in enumerate(mats):
-        ramp, glow = MATERIALS[m]
-        tex.paste(paint_strip(ramp, f"{name}/{m}", glow), ((i % 4) * 8, (i // 4) * 16))
-    art_guard.save(tex, A / f"textures/item/{name}_model.png")
-    wj(A / f"models/item/{name}_in_hand.json", model_json(name, parts, mats))
+    hand = hand_made(name)
+    if hand is None:
+        tex = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
+        for i, m in enumerate(mats):
+            ramp, glow = MATERIALS[m]
+            tex.paste(paint_strip(ramp, f"{name}/{m}", glow), ((i % 4) * 8, (i // 4) * 16))
+        art_guard.save(tex, A / f"textures/item/{name}_model.png")
+        wj(A / f"models/item/{name}_in_hand.json", model_json(name, parts, mats))
+    elif name in STAGES and name not in HAND_STAGES:
+        sys.exit(f"{name}_in_hand.json is hand-made: add its use stages to HAND_STAGES")
+    for file, source in HAND_TEXTURES.get(name, {}).values():
+        src, dst = A / f"textures/{source}.png", A / f"textures/item/{file}.png"
+        if not dst.exists() or dst.read_bytes() != src.read_bytes():
+            dst.write_bytes(src.read_bytes())
     in_hand = ref(f"{name}_in_hand")
     if name in STAGES:
-        verb, stages = STAGES[name]
+        verb, stages = HAND_STAGES[name] if hand else STAGES[name]
         entries = []
         for i, (threshold, extra) in enumerate(stages):
-            wj(A / f"models/item/{name}_{verb}_{i}.json", model_json(name, parts + extra, mats))
+            if hand:
+                model = stage_model(hand, name, extra)
+            else:
+                model = model_json(name, parts + extra, mats)
+            wj(A / f"models/item/{name}_{verb}_{i}.json", model)
             entries.append({"threshold": threshold, "model": ref(f"{name}_{verb}_{i}")})
         in_hand = {"type": "minecraft:condition", "property": "minecraft:using_item", "on_false": in_hand,
                    "on_true": {"type": "minecraft:range_dispatch", "property": "minecraft:use_duration", "scale": 0.05,

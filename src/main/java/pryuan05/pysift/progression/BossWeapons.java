@@ -120,9 +120,14 @@ public final class BossWeapons {
     }
 
     // ------------------------------------------------------------ timed things (decoys, tendrils)
-    private interface Timed {
+    interface Timed {
         /** @return true when finished */
         boolean tick(long now);
+    }
+
+    /** 每個伺服器 tick 呼叫一次，直到回傳 true（重錘的震波等需要跨好幾 tick 的效果）。 */
+    static void schedule(Timed t) {
+        TIMED.add(t);
     }
 
     /** 衝刺護符的分身 → 召喚它的玩家。分身不會受傷（{@link #load} 的 ALLOW_DAMAGE），但仍是有效的攻擊目標。 */

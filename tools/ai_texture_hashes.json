@@ -585,6 +585,7 @@
  "src/main/resources/assets/pysift/textures/item/roamroot_spawn_egg.png": "4fa05ae01e1855ca11011b86f86b1f46ee222e37",
  "src/main/resources/assets/pysift/textures/item/rose_dye.png": "bf3590f9f16b50458bfdce80041f6b0da8293fd1",
  "src/main/resources/assets/pysift/textures/item/scavenger_spawn_egg.png": "3f6d9822e6761a48418b3f87bee457ff7ecda9a8",
+ "src/main/resources/assets/pysift/textures/item/sculk_hammer_crystal.png": "ecb7ae0ed99e28d9977dfa9f1b94bc6e5860d46e",
  "src/main/resources/assets/pysift/textures/item/sculk_hammer_model.png": "574cbde29d8ff7fe19fe83bda474fb91ccab145f",
  "src/main/resources/assets/pysift/textures/item/sculk_monstrosity_spawn_egg.png": "c9f8c7bb96766cbaaa8e4c7f1eb09d8ad290685b",
  "src/main/resources/assets/pysift/textures/item/seedling_spawn_egg.png": "f8dd606767457b4f3c5b8f47e4ee2e6c5750d084",
@@ -613,5 +614,6 @@
  "src/main/resources/assets/pysift/textures/item/wobble_spawn_egg.png": "8fae7e8b260b5c6ed6476c46ec91071a5b9daac2",
  "src/main/resources/assets/pysift/textures/mob_effect/ensnared.png": "eaa8cefab8ffd463d2324c6b450c4c1d07981120",
  "src/main/resources/assets/pysift/textures/particle/soul_trail.png": "bd764b38c4495bd1e03599a028a3bacf40e3d3bd",
- "src/main/resources/assets/pysift/textures/particle/soul_wisp.png": "5c1ed7e6b097ee2b53ad02abec1f16c3619194c9"
+ "src/main/resources/assets/pysift/textures/particle/soul_trail_band.png": "2a66edfd9ec5ca8d14eed6338bf8037b2243e929",
+ "src/main/resources/assets/pysift/textures/particle/soul_wisp.png": "4ebbb82c24d4626de9185ff0f0f88d401f2e6b7d"
 }

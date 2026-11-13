@@ -502,8 +502,8 @@ WEAPON_LANG = {
     "tooltip.pysift.dash_charm.use": ("Right-click: dash, up to 2 times in a row", "右鍵：衝刺，最多連續 2 次"),
     "tooltip.pysift.dash_charm.use_awakened": ("Right-click: dash up to 3 times, cutting through foes", "右鍵：衝刺最多 3 次，穿過的敵人受到傷害"),
     "tooltip.pysift.dash_charm.decoy": ("Leaves a decoy of you for 10 seconds", "原地留下你的分身 10 秒，吸引怪物"),
-    "tooltip.pysift.sculk_hammer.use": ("Hold right-click, release to slam the ground (4 blocks)", "按住右鍵蓄力，放開砸地（半徑 4 格）"),
-    "tooltip.pysift.sculk_hammer.use_awakened": ("Hold right-click, release to slam the ground (6 blocks)", "按住右鍵蓄力，放開砸地（半徑 6 格）"),
+    "tooltip.pysift.sculk_hammer.use": ("Hold right-click, release to slam: a 3-4.5 block shockwave, 6 blocks when fully charged (2 s)", "按住右鍵蓄力，放開砸地：震波半徑 3–4.5 格，蓄滿 2 秒為 6 格"),
+    "tooltip.pysift.sculk_hammer.use_awakened": ("Hold right-click, release to slam: a 4-6 block shockwave, 8 blocks when fully charged (2 s)", "按住右鍵蓄力，放開砸地：震波半徑 4–6 格，蓄滿 2 秒為 8 格"),
     "tooltip.pysift.sculk_hammer.tendrils": ("Leaves sculk tendrils that explode with Soul Deprivation", "留下幽匿藤蔓，2 秒後爆炸並造成靈魂剝奪"),
 }
 for lang, i in (("en_us", 0), ("zh_tw", 1)):
