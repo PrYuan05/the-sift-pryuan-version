@@ -246,10 +246,10 @@ if mcmeta and not (A / "textures/block/lullaby_censer.png.mcmeta").exists():
 for item in ("mourning_horn", "rift_seal", "sift_heart", "ancient_chronicle"):
     wj(A / f"items/{item}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{item}"}})
     wj(A / f"models/item/{item}.json", {"parent": "minecraft:item/generated", "textures": {"layer0": f"pysift:item/{item}"}})
-wj(A / "blockstates/lullaby_censer.json", {"variants": {"hanging=false": {"model": "pysift:block/lullaby_censer"},
-                                                         "hanging=true": {"model": "pysift:block/lullaby_censer_hanging"}}})
-wj(A / "models/block/lullaby_censer.json", {"parent": "minecraft:block/template_lantern", "textures": {"lantern": "pysift:block/lullaby_censer"}})
-wj(A / "models/block/lullaby_censer_hanging.json", {"parent": "minecraft:block/template_hanging_lantern",
+wj(A / "blockstates/lullaby_censer.json", {"variants": {"hanging=false": {"model": "pysift:block/lullaby_censer/lullaby_censer"},
+                                                         "hanging=true": {"model": "pysift:block/lullaby_censer/lullaby_censer_hanging"}}})
+wj(A / "models/block/lullaby_censer/lullaby_censer.json", {"parent": "minecraft:block/template_lantern", "textures": {"lantern": "pysift:block/lullaby_censer"}})
+wj(A / "models/block/lullaby_censer/lullaby_censer_hanging.json", {"parent": "minecraft:block/template_hanging_lantern",
                                                     "textures": {"lantern": "pysift:block/lullaby_censer"}})
 wj(A / "items/lullaby_censer.json", {"model": {"type": "minecraft:model", "model": "pysift:item/lullaby_censer"}})
 wj(A / "models/item/lullaby_censer.json", {"parent": "minecraft:item/generated", "textures": {"layer0": "pysift:item/lullaby_censer"}})

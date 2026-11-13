@@ -49,8 +49,6 @@
     "pysift:gray_strata_brick_slab",
     "pysift:void_stone_slab",
     "pysift:void_stone_brick_slab",
-    "pysift:teal_strata_slab",
-    "pysift:teal_strata_brick_slab",
     "pysift:violet_strata_slab",
     "pysift:violet_strata_brick_slab",
     "pysift:smooth_stone_slab",
@@ -88,6 +86,7 @@
     "pysift:soulshale_brick_slab",
     "pysift:soulshale_tile_slab",
     "pysift:cracked_soulshale_brick_slab",
-    "pysift:cracked_soulshale_tile_slab"
+    "pysift:cracked_soulshale_tile_slab",
+    "pysift:smooth_gray_strata_slab"
   ]
 }

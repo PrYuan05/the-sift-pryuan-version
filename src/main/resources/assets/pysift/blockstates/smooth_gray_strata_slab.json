@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/smooth_gray_strata_slab/smooth_gray_strata_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/smooth_gray_strata/smooth_gray_strata"
+    },
+    "type=top": {
+      "model": "pysift:block/smooth_gray_strata_slab/smooth_gray_strata_slab_top"
+    }
+  }
+}

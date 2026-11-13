@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/smooth_gray_strata/smooth_gray_strata"
+    }
+  }
+}

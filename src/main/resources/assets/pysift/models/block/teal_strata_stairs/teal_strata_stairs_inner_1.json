@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "pysift:block/teal_strata/teal_strata_e",
-    "top": "pysift:block/teal_strata/teal_strata_e",
-    "side": "pysift:block/teal_strata/teal_strata_e"
-  }
-}

@@ -85,7 +85,6 @@
     "pysift:edged_stone",
     "pysift:gray_strata",
     "pysift:smooth_stone",
-    "pysift:teal_strata",
     "pysift:violet_strata",
     "pysift:void_stone",
     "pysift:veined_teal_stone",
@@ -290,14 +289,6 @@
     "pysift:void_stone_brick_slab",
     "pysift:void_stone_brick_stairs",
     "pysift:void_stone_brick_wall",
-    "pysift:teal_strata_bricks",
-    "pysift:chiseled_teal_strata_bricks",
-    "pysift:teal_strata_slab",
-    "pysift:teal_strata_stairs",
-    "pysift:teal_strata_wall",
-    "pysift:teal_strata_brick_slab",
-    "pysift:teal_strata_brick_stairs",
-    "pysift:teal_strata_brick_wall",
     "pysift:violet_strata_bricks",
     "pysift:chiseled_violet_strata_bricks",
     "pysift:violet_strata_slab",
@@ -536,6 +527,10 @@
     "pysift:pointed_dark_slate",
     "pysift:pointed_crimson_vein_stone",
     "pysift:pointed_void_stone",
-    "pysift:pointed_violet_strata"
+    "pysift:pointed_violet_strata",
+    "pysift:smooth_gray_strata",
+    "pysift:smooth_gray_strata_slab",
+    "pysift:smooth_gray_strata_stairs",
+    "pysift:gray_strata_pillar"
   ]
 }

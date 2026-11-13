@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_side_tall",
-  "textures": {
-    "wall": "pysift:block/teal_strata/teal_strata_e"
-  }
-}

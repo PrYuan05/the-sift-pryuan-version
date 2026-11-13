@@ -72,6 +72,15 @@ blend across the layer borders):
   holds some of its neighbours' blocks, so layer borders are gradients instead of lines. The bright teal strata that
   showed on cave floors and sinkhole chambers is gone.
 
+### Changed: blocks
+- **Graystone** (was Gray Strata) and **Rust Blackstone** (was Rusted Dark Cobble) are renamed, with redrawn textures for
+  their whole families. Graystone also gets **Smooth Graystone** (with slab, stairs and wall, smelted from Graystone) and a
+  **Graystone Pillar**. Block ids are unchanged, so existing worlds keep them.
+- **Teal Strata** and its building set (bricks, chiseled bricks, slabs, stairs, walls) are removed: nothing in the world
+  used them. The teal-capped blocks that share its look stay.
+- The creative tabs show one Pointed Stone and one Hanging Vine of each kind instead of every shape, and Violet Strata and
+  Crimson Strata moved to the main block tab.
+
 ### Notes
 - No new creatures: the existing ones are redistributed across the layers.
 
@@ -499,6 +508,12 @@ soul machines.
 ### 變更：顏色
 - 洞穴地面改用低對比的方塊階梯（冷灰、玫瑰灰、紫灰、紫），每一層的地面都混入相鄰層的方塊，
   層界是漸層而不是一條線。洞穴地面與天坑洞室原本鮮豔的青綠地層已移除。
+
+### 變更：方塊
+- **灰石**（原灰色地層岩）與**鏽黑石**（原鏽蝕深色圓石）改名，整組方塊重新繪製材質。灰石另外新增**平滑灰石**
+  （附半磚、階梯、牆，由灰石燒製）與**灰石柱**。方塊 id 沒變，舊世界裡的方塊會保留。
+- 移除**青碧地層岩**與它的建材組（磚、浮雕磚、半磚、階梯、牆）：世界生成沒有用到。外觀相近的青碧覆蓋方塊保留。
+- 創造模式分頁裡，尖石與垂吊藤每種只放一個（不再列出每種形狀）；紫晶地層岩與赤紅地層岩移到主要方塊分頁。
 
 ### 備註
 - 沒有新增生物，現有生物依層重新分配。

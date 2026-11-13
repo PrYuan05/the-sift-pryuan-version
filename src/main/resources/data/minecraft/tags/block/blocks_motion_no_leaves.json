@@ -52,7 +52,6 @@
     "pysift:chiseled_stone_frame",
     "pysift:chiseled_stone_variant_bricks",
     "pysift:chiseled_teal_deep_block_bricks",
-    "pysift:chiseled_teal_strata_bricks",
     "pysift:chiseled_ember_basalt_bricks",
     "pysift:chiseled_varied_dark_slate_bricks",
     "pysift:chiseled_veined_crimson_stone_bricks",
@@ -156,8 +155,6 @@
     "pysift:teal_deep_block",
     "pysift:teal_deep_block_bricks",
     "pysift:teal_framed_panel",
-    "pysift:teal_strata",
-    "pysift:teal_strata_bricks",
     "pysift:teal_water_block",
     "pysift:umber_log",
     "pysift:ember_basalt",
@@ -316,6 +313,8 @@
     "pysift:cracked_soulshale_tiles",
     "pysift:chiseled_soulshale",
     "pysift:soul_veined_stone",
-    "pysift:soul_note_block"
+    "pysift:soul_note_block",
+    "pysift:smooth_gray_strata",
+    "pysift:gray_strata_pillar"
   ]
 }

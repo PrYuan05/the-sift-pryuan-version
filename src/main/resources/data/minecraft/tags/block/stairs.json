@@ -49,8 +49,6 @@
     "pysift:gray_strata_brick_stairs",
     "pysift:void_stone_stairs",
     "pysift:void_stone_brick_stairs",
-    "pysift:teal_strata_stairs",
-    "pysift:teal_strata_brick_stairs",
     "pysift:violet_strata_stairs",
     "pysift:violet_strata_brick_stairs",
     "pysift:smooth_stone_stairs",
@@ -86,6 +84,7 @@
     "pysift:soulshale_brick_stairs",
     "pysift:soulshale_tile_stairs",
     "pysift:cracked_soulshale_brick_stairs",
-    "pysift:cracked_soulshale_tile_stairs"
+    "pysift:cracked_soulshale_tile_stairs",
+    "pysift:smooth_gray_strata_stairs"
   ]
 }

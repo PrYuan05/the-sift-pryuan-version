@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "pysift:block/teal_strata/teal_strata_f"
-  }
-}

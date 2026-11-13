@@ -224,7 +224,6 @@ public class ModBlocks {
             block("crimson_strata", Mat.STONE).tones("rose", "mottled", "crimson", "plum"),
             block("gray_strata", Mat.STONE).tones("teal", "lavender", "violet", "warm"),
             block("void_stone", Mat.STONE).tones("dark", "rusty", "olive"),
-            block("teal_strata", Mat.STONE).tones("pale", "cyan"),
             block("violet_strata", Mat.STONE), // 只留 slate 色調；rose_strata 併入為隨機變體 h、i
             facing("edged_stone", Mat.STONE).tones("olive", "warm").intProp("edge", 0, 3), // TODO: warm 的 edge=1~3 尚無專屬貼圖，暫用 e
             block("smooth_stone", Mat.STONE).tones("light", "warm", "blue"),
@@ -288,7 +287,6 @@ public class ModBlocks {
             "crimson_strata",
             "gray_strata",
             "void_stone",
-            "teal_strata",
             "violet_strata",
             "smooth_stone",
             "ridge_stone",
@@ -389,6 +387,10 @@ public class ModBlocks {
      */
     public static List<ItemStack> stateVariantStacks(Block block) {
         List<ItemStack> stacks = new ArrayList<>();
+        // 尖石與垂吊藤的狀態（粗細、方向、尖端）是放下去之後自己算的：分頁裡只放一個（使用者 v2.1.0）
+        if (block instanceof net.minecraft.world.level.block.SpeleothemBlock || block instanceof HangingVines.HangingVineBlock) {
+            return stacks;
+        }
         BlockState defaultState = block.defaultBlockState();
         for (BlockState state : block.getStateDefinition().getPossibleStates()) {
             if (state == defaultState) {

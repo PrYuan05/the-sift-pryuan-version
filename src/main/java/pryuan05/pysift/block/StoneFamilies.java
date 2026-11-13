@@ -8,6 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
@@ -23,6 +24,7 @@ import java.util.function.Function;
  * 升級後石材的額外建材形式（依現實參照挑選的 polished／smooth／tiles），每個方塊都附半磚／階梯／牆。
  * <ul>
  *   <li>平滑灰大理石：無外框的鋸切大理石面（smooth_basalt 式），灰大理石燒製而成。</li>
+ *   <li>平滑灰石與灰石柱（v2.1.0）：灰石的鋸切平面（無外框）與石英柱式的石柱，灰石燒製／切石而成。</li>
  *   <li>資源由 tools/worldgen/build_stone_families.py 從原版磨製深板岩的形式改寫，貼圖由 paint_marble_mudstone.py 手繪。</li>
  * </ul>
  */
@@ -34,6 +36,14 @@ public final class StoneFamilies {
     public static final Block SMOOTH_ASH_MARBLE_STAIRS = block("smooth_ash_marble_stairs",
             p -> new StairBlock(SMOOTH_ASH_MARBLE.defaultBlockState(), p), Blocks.STONE_STAIRS);
     public static final Block SMOOTH_ASH_MARBLE_WALL = block("smooth_ash_marble_wall", WallBlock::new, Blocks.STONE_BRICK_WALL);
+
+    // 灰石（gray_strata，v2.1.0 使用者：原「灰色地層岩」改名）的平滑版與石柱
+    public static final Block SMOOTH_GRAY_STRATA = block("smooth_gray_strata", Block::new, Blocks.SMOOTH_STONE);
+    public static final Block SMOOTH_GRAY_STRATA_SLAB = block("smooth_gray_strata_slab", SlabBlock::new, Blocks.SMOOTH_STONE_SLAB);
+    public static final Block SMOOTH_GRAY_STRATA_STAIRS = block("smooth_gray_strata_stairs",
+            p -> new StairBlock(SMOOTH_GRAY_STRATA.defaultBlockState(), p), Blocks.STONE_STAIRS);
+    public static final Block SMOOTH_GRAY_STRATA_WALL = block("smooth_gray_strata_wall", WallBlock::new, Blocks.STONE_BRICK_WALL);
+    public static final Block GRAY_STRATA_PILLAR = block("gray_strata_pillar", RotatedPillarBlock::new, Blocks.STONE);
 
     private StoneFamilies() {
     }

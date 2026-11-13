@@ -1,10 +1,10 @@
 {
   "variants": {
     "hanging=false": {
-      "model": "pysift:block/lullaby_censer"
+      "model": "pysift:block/lullaby_censer/lullaby_censer"
     },
     "hanging=true": {
-      "model": "pysift:block/lullaby_censer_hanging"
+      "model": "pysift:block/lullaby_censer/lullaby_censer_hanging"
     }
   }
 }

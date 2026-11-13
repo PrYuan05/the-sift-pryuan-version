@@ -42,6 +42,10 @@ while todo:
             used.add(name)
             todo.append(name)
 
+# the user's picks: shown with the generated blocks in the main tab even where world generation does not place them
+FRONT = {"crimson_strata", "violet_strata"}
+used |= FRONT & blocks
+
 # item tag pysift:in_worldgen (creative tab ordering, CreativeLayout): the used blocks, plus the spawn eggs of the mobs
 # that spawn naturally in a The Sift biome
 spawned = set()

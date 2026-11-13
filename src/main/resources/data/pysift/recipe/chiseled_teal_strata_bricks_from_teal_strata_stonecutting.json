@@ -1,7 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "pysift:teal_strata",
-  "result": {
-    "id": "pysift:chiseled_teal_strata_bricks"
-  }
-}

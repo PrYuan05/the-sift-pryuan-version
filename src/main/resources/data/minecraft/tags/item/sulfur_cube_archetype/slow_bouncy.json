@@ -14,6 +14,7 @@
     "pysift:void_stone_tiles",
     "pysift:polished_void_stone",
     "pysift:smooth_void_stone",
-    "pysift:smooth_ash_marble"
+    "pysift:smooth_ash_marble",
+    "pysift:smooth_gray_strata"
   ]
 }
