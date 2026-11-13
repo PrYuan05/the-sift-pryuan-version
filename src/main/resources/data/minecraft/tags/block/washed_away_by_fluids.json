@@ -36,6 +36,9 @@
     "pysift:orange_sift_vine",
     "pysift:cleaver_plant",
     "pysift:soul_cleaver_plant",
-    "pysift:yellow_leaf_litter"
+    "pysift:yellow_leaf_litter",
+    "pysift:hanging_green_sift_vine",
+    "pysift:hanging_orange_sift_vine",
+    "pysift:hanging_carapace_vine"
   ]
 }

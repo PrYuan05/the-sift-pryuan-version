@@ -2515,5 +2515,11 @@
   "item.pysift.pointed_dark_slate": "尖暗板岩",
   "item.pysift.pointed_crimson_vein_stone": "尖赤紅脈石",
   "item.pysift.pointed_void_stone": "尖虛空石",
-  "item.pysift.pointed_violet_strata": "尖紫地層"
+  "item.pysift.pointed_violet_strata": "尖紫地層",
+  "block.pysift.hanging_green_sift_vine": "垂吊綠隙浮藤",
+  "item.pysift.hanging_green_sift_vine": "垂吊綠隙浮藤",
+  "block.pysift.hanging_orange_sift_vine": "垂吊橙隙浮藤",
+  "item.pysift.hanging_orange_sift_vine": "垂吊橙隙浮藤",
+  "block.pysift.hanging_carapace_vine": "垂吊甲殼藤",
+  "item.pysift.hanging_carapace_vine": "垂吊甲殼藤"
 }

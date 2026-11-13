@@ -52,6 +52,9 @@ for _extra in ("block/SoulCrystal.java", "block/ModBlocks.java", "block/RitualBl
 # pointed stones (block/PointedStones.java, tools/worldgen/build_pointed_stones.py): ids in its STONES map
 if (_blk / "block/PointedStones.java").exists():
     veg_ids += re.findall(r'STONES\.put\("([a-z0-9_]+)"', (_blk / "block/PointedStones.java").read_text(encoding="utf-8"))
+# hanging vines (block/HangingVines.java, tools/worldgen/build_hanging_vines.py): ids in its VINES map
+if (_blk / "block/HangingVines.java").exists():
+    veg_ids += re.findall(r'VINES\.put\("([a-z0-9_]+)"', (_blk / "block/HangingVines.java").read_text(encoding="utf-8"))
 # phase 1 progression blocks (progression/ModProgression.java, resources from tools/progression/build_progression.py)
 for _prog in sorted((_blk / "progression").glob("*.java")):
     veg_ids += re.findall(r'register(?:Block|Plant)\("([a-z0-9_]+)"', _prog.read_text(encoding="utf-8"))

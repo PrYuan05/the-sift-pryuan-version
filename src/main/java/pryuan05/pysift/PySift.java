@@ -56,6 +56,7 @@ public class PySift implements ModInitializer {
         StoneFamilies.register();            // 升級石材的額外建材形式（平滑灰大理石…）
         SoulCrystal.register();
         pryuan05.pysift.block.PointedStones.register();   // 尖石：每種洞穴自己的滴水石（v2.1.0）
+        pryuan05.pysift.block.HangingVines.register();    // 垂吊藤：從洞穴天花板垂下來（v2.1.0）
         ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具
         ModParticles.register();
         SoulWillowTrunkPlacer.register();

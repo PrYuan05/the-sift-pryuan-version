@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:block_column",
+  "direction": "down",
+  "prioritize_tip": true,
+  "allowed_placement": {
+    "type": "minecraft:matching_block_tag",
+    "tag": "minecraft:air"
+  },
+  "layers": [
+    {
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": 0,
+        "max_inclusive": 6
+      },
+      "provider": {
+        "id": "pysift:hanging_carapace_vine",
+        "properties": {
+          "bottom": "false"
+        }
+      }
+    },
+    {
+      "height": 1,
+      "provider": {
+        "id": "pysift:hanging_carapace_vine",
+        "properties": {
+          "bottom": "true"
+        }
+      }
+    }
+  ]
+}

@@ -33,6 +33,8 @@ deeper, the more alive; the shallower, the more it rots.
   fall, standing ones hurt to land on) and grow in clusters and loose groups like a dripstone cave.
 - **Stalagmites and stalactites**: tapered columns of the layer's stone that end in its pointed stone. They get taller with
   depth: 2-5 blocks in the shallows, up to 14 in the vaults.
+- **Hanging vines**: three vines that hang down from cave ceilings, after the green, orange and carapace wall vines -
+  orange in the Red Zone Caves, green in the Resonant Vaults, carapace in the Spirit Deeps. They can be climbed.
 - **Charoite clusters hang from the ceilings** of the Resonant Vaults and Spirit Deeps.
 - **Wall vines** in the Red Zone Caves (orange) and Spirit Deeps (carapace), and green vines down sinkhole walls.
 
@@ -466,6 +468,8 @@ soul machines.
   **尖虛空石**（共鳴穹窟）、**尖紫地層**（靈液深淵）。行為和鋒利滴水石一樣（尖端、錐台、中段、底座；懸空的會掉下來，
   摔在石筍上會加傷害），像滴水石洞一樣成叢或零星地長。
 - **鐘乳石與石筍**：該層石材的錐形岩柱，尾端接上該層的尖石。越深越高：淺層 2–5 格，穹窟最高 14 格。
+- **垂吊藤**：從洞穴天花板垂下來的三種藤蔓，照綠、橙隙浮藤與甲殼藤的樣子：紅區洞穴是橙色、共鳴穹窟是綠色、
+  靈液深淵是甲殼藤。可以攀爬。
 - 共鳴穹窟與靈液深淵的**天花板長出倒掛的 charoite 晶簇**。
 - 紅區洞穴（橘）與靈液深淵（甲殼）有**貼牆藤蔓**，天坑洞壁垂著綠色藤蔓。
 

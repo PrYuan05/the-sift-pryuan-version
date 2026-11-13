@@ -3030,7 +3030,12 @@
                             },
                             {
                               "type": "minecraft:block",
-                              "result_state": "pysift:smooth_void_stone"
+                              "result_state": {
+                                "id": "pysift:void_stone",
+                                "properties": {
+                                  "tone": "dark"
+                                }
+                              }
                             }
                           ]
                         }
@@ -3058,7 +3063,12 @@
                           },
                           {
                             "type": "minecraft:block",
-                            "result_state": "pysift:smooth_void_stone"
+                            "result_state": {
+                              "id": "pysift:void_stone",
+                              "properties": {
+                                "tone": "dark"
+                              }
+                            }
                           }
                         ]
                       }
@@ -3119,7 +3129,12 @@
                                           },
                                           "then_run": {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:smooth_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         },
                                         {
@@ -3142,7 +3157,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -3188,7 +3208,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -3216,7 +3241,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -3260,7 +3290,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -3283,7 +3318,12 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     },
                                     {
@@ -3329,7 +3369,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -3357,7 +3402,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:smooth_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -3422,7 +3472,12 @@
                                           },
                                           "then_run": {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:smooth_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         },
                                         {
@@ -3445,7 +3500,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -3491,7 +3551,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -3519,7 +3584,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -3563,7 +3633,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -3586,7 +3661,12 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     },
                                     {
@@ -3632,7 +3712,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -3660,7 +3745,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:smooth_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -3703,7 +3793,12 @@
                               },
                               "then_run": {
                                 "type": "minecraft:block",
-                                "result_state": "pysift:smooth_void_stone"
+                                "result_state": {
+                                  "id": "pysift:void_stone",
+                                  "properties": {
+                                    "tone": "dark"
+                                  }
+                                }
                               }
                             },
                             {
@@ -3726,7 +3821,12 @@
                             },
                             "then_run": {
                               "type": "minecraft:block",
-                              "result_state": "pysift:smooth_void_stone"
+                              "result_state": {
+                                "id": "pysift:void_stone",
+                                "properties": {
+                                  "tone": "dark"
+                                }
+                              }
                             }
                           },
                           {
@@ -5924,7 +6024,12 @@
                             },
                             {
                               "type": "minecraft:block",
-                              "result_state": "pysift:smooth_void_stone"
+                              "result_state": {
+                                "id": "pysift:void_stone",
+                                "properties": {
+                                  "tone": "dark"
+                                }
+                              }
                             }
                           ]
                         }
@@ -5952,7 +6057,12 @@
                           },
                           {
                             "type": "minecraft:block",
-                            "result_state": "pysift:smooth_void_stone"
+                            "result_state": {
+                              "id": "pysift:void_stone",
+                              "properties": {
+                                "tone": "dark"
+                              }
+                            }
                           }
                         ]
                       }
@@ -6013,7 +6123,12 @@
                                           },
                                           "then_run": {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:smooth_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         },
                                         {
@@ -6036,7 +6151,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -6082,7 +6202,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -6110,7 +6235,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -6154,7 +6284,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -6177,7 +6312,12 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     },
                                     {
@@ -6223,7 +6363,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -6251,7 +6396,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:smooth_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -6316,7 +6466,12 @@
                                           },
                                           "then_run": {
                                             "type": "minecraft:block",
-                                            "result_state": "pysift:smooth_void_stone"
+                                            "result_state": {
+                                              "id": "pysift:void_stone",
+                                              "properties": {
+                                                "tone": "dark"
+                                              }
+                                            }
                                           }
                                         },
                                         {
@@ -6339,7 +6494,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -6385,7 +6545,12 @@
                                       },
                                       {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     ]
                                   }
@@ -6413,7 +6578,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -6457,7 +6627,12 @@
                                         },
                                         "then_run": {
                                           "type": "minecraft:block",
-                                          "result_state": "pysift:smooth_void_stone"
+                                          "result_state": {
+                                            "id": "pysift:void_stone",
+                                            "properties": {
+                                              "tone": "dark"
+                                            }
+                                          }
                                         }
                                       },
                                       {
@@ -6480,7 +6655,12 @@
                                       },
                                       "then_run": {
                                         "type": "minecraft:block",
-                                        "result_state": "pysift:smooth_void_stone"
+                                        "result_state": {
+                                          "id": "pysift:void_stone",
+                                          "properties": {
+                                            "tone": "dark"
+                                          }
+                                        }
                                       }
                                     },
                                     {
@@ -6526,7 +6706,12 @@
                                     },
                                     {
                                       "type": "minecraft:block",
-                                      "result_state": "pysift:smooth_void_stone"
+                                      "result_state": {
+                                        "id": "pysift:void_stone",
+                                        "properties": {
+                                          "tone": "dark"
+                                        }
+                                      }
                                     }
                                   ]
                                 }
@@ -6554,7 +6739,12 @@
                                   },
                                   {
                                     "type": "minecraft:block",
-                                    "result_state": "pysift:smooth_void_stone"
+                                    "result_state": {
+                                      "id": "pysift:void_stone",
+                                      "properties": {
+                                        "tone": "dark"
+                                      }
+                                    }
                                   }
                                 ]
                               }
@@ -6597,7 +6787,12 @@
                               },
                               "then_run": {
                                 "type": "minecraft:block",
-                                "result_state": "pysift:smooth_void_stone"
+                                "result_state": {
+                                  "id": "pysift:void_stone",
+                                  "properties": {
+                                    "tone": "dark"
+                                  }
+                                }
                               }
                             },
                             {
@@ -6620,7 +6815,12 @@
                             },
                             "then_run": {
                               "type": "minecraft:block",
-                              "result_state": "pysift:smooth_void_stone"
+                              "result_state": {
+                                "id": "pysift:void_stone",
+                                "properties": {
+                                  "tone": "dark"
+                                }
+                              }
                             }
                           },
                           {

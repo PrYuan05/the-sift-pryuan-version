@@ -810,13 +810,29 @@ SPELEOTHEMS = {
                        speleothem("song_stalactite", "red_zone_caves", "crimson_vein_stone", "varied_dark_slate", "pointed_crimson_vein_stone", 3, 9, True, 60),
                        wall_plant("song_wall_vine", "orange_sift_vine", 3, tries=24, min_len=1, max_len=4, min_y=-20, max_y=40)],
     "resonant_vaults": [speleothem("vault_stalagmite", "resonant_vaults", "void_stone", "polished_void_stone", "pointed_void_stone", 5, 12, False, 110),
-                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "smooth_void_stone", "pointed_void_stone", 5, 14, True, 130),
+                        speleothem("vault_stalactite", "resonant_vaults", "void_stone", "polished_void_stone", "pointed_void_stone", 5, 14, True, 130),
                         ceiling_crystals("vault_ceiling_charoite", "resonant_vaults", 40)],
     "spirit_deeps": [speleothem("deeps_stalagmite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 9, False, 50),
                      speleothem("deeps_stalactite", "spirit_deeps", "violet_strata", "magma_vein_slate", "pointed_violet_strata", 3, 10, True, 60),
                      ceiling_crystals("deeps_ceiling_charoite", "spirit_deeps", 30),
                      wall_plant("deeps_wall_vine", "carapace_vine", 3, tries=24, min_len=1, max_len=5, min_y=-62, max_y=10)],
 }
+def hanging_vine(name, layer, vine, count, longest):
+    """Vines hanging from the ceiling (block/HangingVines): vanilla's block_column (like cave vines), strand then tip."""
+    wj(D / f"worldgen/feature/{name}.json", {"type": "minecraft:block_column", "direction": "down", "prioritize_tip": True,
+        "allowed_placement": {"type": "minecraft:matching_block_tag", "tag": "minecraft:air"},
+        "layers": [{"height": uniform(0, longest), "provider": provider(vine, bottom="false")},
+                   {"height": 1, "provider": provider(vine, bottom="true")}]})
+    wj(D / f"worldgen/placed_feature/{name}.json", {"feature": f"pysift:{name}", "placement": [
+        {"type": "minecraft:count", "count": count}, {"type": "minecraft:in_square"}, *under_ceiling(*LAYER_Y[layer]),
+        {"type": "minecraft:biome"}]})
+    return f"pysift:{name}"
+
+
+# hanging vines after the user's three wall vines (v2.1.0): orange in the singing caves, green in the vaults, carapace in the deeps
+SPELEOTHEMS["red_zone_caves"].append(hanging_vine("song_hanging_vine", "red_zone_caves", "hanging_orange_sift_vine", 30, 7))
+SPELEOTHEMS["resonant_vaults"].append(hanging_vine("vault_hanging_vine", "resonant_vaults", "hanging_green_sift_vine", 25, 9))
+SPELEOTHEMS["spirit_deeps"].append(hanging_vine("deeps_hanging_vine", "spirit_deeps", "hanging_carapace_vine", 30, 6))
 # each layer's own pointed stone, like vanilla's dripstone caves: clusters and loose spikes (user: every cave type its own spike)
 POINTED = {"withered_hollows": ("dark_slate", "pointed_dark_slate", 5, 30), "red_zone_caves": ("crimson_vein_stone", "pointed_crimson_vein_stone", 9, 50),
            "resonant_vaults": ("void_stone", "pointed_void_stone", 7, 40), "spirit_deeps": ("violet_strata", "pointed_violet_strata", 7, 40)}
@@ -1188,14 +1204,14 @@ CEILING = {"type": "minecraft:stone_depth", "add_surface_depth": False, "offset"
 B = lambda name, **props: block(state(name, **props))
 GREY, SLATE, VARIED = B("gray_strata", tone="teal"), B("dark_slate", fade=0), B("varied_dark_slate")
 ROSE, CAP, VIOLET = B("crimson_vein_stone", crimson_spread=4), block(CRIMSON_TOP), B("violet_strata")
-POLISHED, SMOOTH = B("polished_void_stone"), B("smooth_void_stone")
+POLISHED, VOID = B("polished_void_stone"), B("void_stone", tone="dark")   # user: no smooth void stone in the caves
 VEIN0, VEIN1 = B("magma_vein_slate", vein=0), B("magma_vein_slate", vein=1)
 ABYSS = noise_band("pysift:the_sift_abyss")           # the same noise that picks vaults vs deeps (biome border at 0)
 VAULT_FLOOR = mix(0.35, mix(0.3, POLISHED, SLATE), VIOLET)
 DEEP_FLOOR = mix(0.4, mix(0.25, VEIN0, VIOLET), VEIN1)
 # vaults -> deeps: bands of the abyss noise with the usual 25 / 75 % blend at the border (width 0.06 ~ 6 blocks each side)
 DEEP_FLOORS = blended_bands([VAULT_FLOOR, DEEP_FLOOR], [0.0], 0.06, band=ABYSS, start=-1.0e9)
-DEEP_CEILING = blended_bands([mix(0.3, SMOOTH, SLATE), mix(0.3, VIOLET, SMOOTH)], [0.0], 0.06, band=ABYSS, start=-1.0e9)
+DEEP_CEILING = blended_bands([mix(0.3, VOID, SLATE), mix(0.3, VIOLET, VOID)], [0.0], 0.06, band=ABYSS, start=-1.0e9)
 CAVE_RULES = {
     # shallows: cool greys, a little rose from the layer below
     "withered_hollows": seq(cond(ON_FLOOR, mix(0.12, mix(0.35, VARIED, SLATE), mix(0.3, GREY, ROSE))),

@@ -2515,5 +2515,11 @@
   "item.pysift.pointed_dark_slate": "Pointed Dark Slate",
   "item.pysift.pointed_crimson_vein_stone": "Pointed Crimson Vein Stone",
   "item.pysift.pointed_void_stone": "Pointed Void Stone",
-  "item.pysift.pointed_violet_strata": "Pointed Violet Strata"
+  "item.pysift.pointed_violet_strata": "Pointed Violet Strata",
+  "block.pysift.hanging_green_sift_vine": "Hanging Green Sift Vine",
+  "item.pysift.hanging_green_sift_vine": "Hanging Green Sift Vine",
+  "block.pysift.hanging_orange_sift_vine": "Hanging Orange Sift Vine",
+  "item.pysift.hanging_orange_sift_vine": "Hanging Orange Sift Vine",
+  "block.pysift.hanging_carapace_vine": "Hanging Carapace Vine",
+  "item.pysift.hanging_carapace_vine": "Hanging Carapace Vine"
 }
