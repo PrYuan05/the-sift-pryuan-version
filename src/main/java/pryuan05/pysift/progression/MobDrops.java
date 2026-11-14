@@ -269,6 +269,26 @@ public final class MobDrops {
             return InteractionResult.SUCCESS;
         }
 
+        /**
+         * 音符盒照自己的樂器響一聲（不管上方有沒有被擋住，原版 blockEvent 被擋住時不會響），
+         * 疊一聲調音叉的紫水晶嗡鳴，上方冒出對應顏色的音符。
+         */
+        private static void ring(Level level, BlockPos pos, BlockState state, int note) {
+            var instrument = state.hasProperty(BlockStateProperties.NOTEBLOCK_INSTRUMENT)
+                    ? state.getValue(BlockStateProperties.NOTEBLOCK_INSTRUMENT)
+                    : net.minecraft.world.level.block.state.properties.NoteBlockInstrument.HARP;
+            if (!instrument.isTunable() || instrument.hasCustomSound()) {
+                instrument = net.minecraft.world.level.block.state.properties.NoteBlockInstrument.HARP;   // 生物頭顱：用豎琴
+            }
+            float pitch = net.minecraft.world.level.block.NoteBlock.getPitchFromNote(note);
+            level.playSound(null, pos, instrument.getSoundEvent().value(), SoundSource.RECORDS, 3.0f, pitch);
+            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.6f, pitch);
+            if (level instanceof ServerLevel server) {
+                server.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
+                        0, note / 24.0, 0, 0, 1.0);
+            }
+        }
+
         @Override
         public InteractionResult useOn(UseOnContext context) {
             Level level = context.getLevel();
@@ -288,7 +308,7 @@ public final class MobDrops {
                 stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
                 player.sendOverlayMessage(Component.translatable("message.pysift.tuning_fork.stored",
                         state.getValue(BlockStateProperties.NOTE)).withStyle(ChatFormatting.AQUA));
-                level.blockEvent(pos, state.getBlock(), 0, 0);
+                ring(level, pos, state, state.getValue(BlockStateProperties.NOTE));
                 return InteractionResult.SUCCESS;
             }
             int note = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr(NOTE, -1);
@@ -296,11 +316,12 @@ public final class MobDrops {
                 if (player != null) {
                     player.sendOverlayMessage(Component.translatable("message.pysift.tuning_fork.empty").withStyle(ChatFormatting.GRAY));
                 }
+                level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.8f, 0.5f);   // 低沉的一聲：還沒記音
                 return InteractionResult.SUCCESS;
             }
             BlockState tuned = state.setValue(BlockStateProperties.NOTE, note);
             level.setBlock(pos, tuned, 3);
-            level.blockEvent(pos, tuned.getBlock(), 0, 0);
+            ring(level, pos, tuned, note);
             if (player != null) {
                 player.sendOverlayMessage(Component.translatable("message.pysift.tuning_fork.tuned", note).withStyle(ChatFormatting.AQUA));
             }
