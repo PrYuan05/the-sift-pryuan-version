@@ -8,8 +8,8 @@ Each weapon is built upright from boxes (1 model unit = 1 icon pixel, lengths ma
 the 2D icon. Textures: textures/item/<name>_model.png, 32 x 32, one 8 x 16 px strip per material (1 px per model unit),
 painted from the 2D icon's own colours; glowing parts set light_emission.
 Hand-painted replacements of the _model textures are kept (tools/art_guard.py). In-hand models re-made by hand
-(Blockbench, or the pixel-by-pixel sonic staff; their JSON has "credit") are kept too; their use stages come from
-HAND_STAGES."""
+(Blockbench, or the pixel-by-pixel sonic staff, soul javelin and tuning fork; their JSON has "credit") are kept too;
+their use stages come from HAND_STAGES."""
 import json, random, sys
 from pathlib import Path
 
@@ -348,6 +348,52 @@ HAND_STAGES["sonic_staff"] = ("casting", [
            *staff_ring(3.5, 9.5, "ring_3", 15), *staff_ring(3.6, 17.4, "ring_3", 15, 1.2),  # core, tight rings, the halo
            staff_box([7.5, 19, 7.5], [8.5, 20, 8.5], {f: staff_uv("core3", 1, 1) for f in    # lit up, a spark on top
                      ("north", "east", "south", "west", "up", "down")}, 15, "spark")]),
+])
+
+# ---- soul javelin: soul_javelin_in_hand.json and soul_javelin_model.png are hand-made pixel by pixel ("credit" set;
+# art_guard keeps the texture). Upright, 9 elements, 1 texel per model unit: copper butt cap y -4.5..-2.5 (x, z 7..9),
+# navy shaft 1 x 1 (7.5..8.5) y -2.5..12.5, soul-cyan cloth wrap 2 x 2 y 0.5..5.5, copper binding y 8.5..9.5, copper
+# socket y 11.5..13.5, then the flat spearhead (z 7.5..8.5): base x 6.5..9.5 y 13.5..14.5, blade x 5.5..10.5
+# y 14.5..17.5, x 6.5..9.5 y 17.5..19.5, point x 7.5..8.5 y 19.5..20.5. The throwing stage 1 puts glow shells
+# (0.2 units out) over the wrap and the four spearhead boxes, cut from the bright-cyan copies of their regions
+# painted 16 texels below them (texels: x, y, w, h).
+JAVELIN_UV = {
+    "wrap": (8, 16, 8, 5), "wrap_end": (8, 21, 2, 2),
+    "b0_face": (22, 16, 3, 1), "b0_edge": (25, 16, 1, 1), "b0_end": (22, 17, 3, 1),
+    "b1_face": (16, 16, 5, 3), "b1_edge": (21, 16, 1, 3), "b1_up": (16, 19, 5, 1), "b1_down": (16, 20, 5, 1),
+    "b2_face": (22, 18, 3, 2), "b2_edge": (25, 18, 1, 2), "b2_end": (22, 20, 3, 1),
+    "tip": (26, 16, 1, 1),
+}
+
+
+def javelin_uv(name, col=0, w=None):
+    x, y, rw, rh = JAVELIN_UV[name]
+    x, w = x + col, rw if w is None else w
+    return {"uv": [x / 2, y / 2, (x + w) / 2, (y + rh) / 2], "texture": "#model"}
+
+
+def javelin_glow(frm, to, faces, g=0.2, light=15):
+    """A glowing shell g units outside the box frm..to; faces: face -> (region, column, width)."""
+    return staff_box([round(c - g, 3) for c in frm], [round(c + g, 3) for c in to],
+                     {f: javelin_uv(*src) for f, src in faces.items()}, light, "glow shell")
+
+
+def javelin_blade_glow(frm, to, part, up, down):
+    face, edge = (f"{part}_face",), (f"{part}_edge",)
+    return javelin_glow(frm, to, {"north": face, "south": face, "east": edge, "west": edge, "up": (up,), "down": (down,)})
+
+
+# SoulJavelinItem.MIN_CHARGE = 10 ticks (0.5 s): raised at once, then the wrap and the spearhead light up when it can
+# be thrown
+HAND_STAGES["soul_javelin"] = ("throwing", [
+    (0.0, []),
+    (0.5, [javelin_glow([7, 0.5, 7], [9, 5.5, 9], {f: ("wrap", 2 * k, 2) for k, f in            # round the grip, the
+                        enumerate(("north", "west", "south", "east"))} | {"up": ("wrap_end",), "down": ("wrap_end",)}),
+           javelin_blade_glow([6.5, 13.5, 7.5], [9.5, 14.5, 8.5], "b0", "b0_end", "b0_end"),     # turns run on round
+           javelin_blade_glow([5.5, 14.5, 7.5], [10.5, 17.5, 8.5], "b1", "b1_up", "b1_down"),    # the corners
+           javelin_blade_glow([6.5, 17.5, 7.5], [9.5, 19.5, 8.5], "b2", "b2_end", "b2_end"),
+           javelin_glow([7.5, 19.5, 7.5], [8.5, 20.5, 8.5], {f: ("tip",) for f in
+                        ("north", "east", "south", "west", "up", "down")})]),
 ])
 # extra texture slots. Item models only see the item atlas (textures/item/), so a block texture is mirrored there:
 # slot -> (item texture written here, block texture it copies)

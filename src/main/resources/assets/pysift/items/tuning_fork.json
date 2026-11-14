@@ -1,6 +1,24 @@
 {
   "model": {
-    "type": "minecraft:model",
-    "model": "pysift:item/tuning_fork"
+    "type": "minecraft:select",
+    "property": "minecraft:display_context",
+    "cases": [
+      {
+        "when": [
+          "gui",
+          "ground",
+          "fixed",
+          "on_shelf"
+        ],
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:item/tuning_fork"
+        }
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "pysift:item/tuning_fork_in_hand"
+    }
   }
 }

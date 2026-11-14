@@ -56,9 +56,12 @@ ITEMS = {
     "soul_javelin": ("Soul Javelin", "靈魂標槍", "handheld"),
     "tuning_fork": ("Tuning Fork", "調音叉", "handheld"),
 }
+# their items/*.json (2D icon in the inventory, 3D model in hand) come from build_weapon_models.py
+IN_HAND_3D = {"soul_javelin", "tuning_fork"}
 for name, (_, _, parent) in ITEMS.items():
     wj(A / f"models/item/{name}.json", {"parent": f"minecraft:item/{parent}", "textures": {"layer0": f"pysift:item/{name}"}})
-    wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
+    if name not in IN_HAND_3D:
+        wj(A / f"items/{name}.json", {"model": {"type": "minecraft:model", "model": f"pysift:item/{name}"}})
 
 LANG = {f"item.pysift.{k}": (en, zh) for k, (en, zh, _) in ITEMS.items()}
 LANG.update({
