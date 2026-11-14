@@ -35,6 +35,8 @@ ITEMS = {
     "cooked_slabber_steak": ("Cooked Slabber Steak", "熟泥板獸排", "generated"),
     "raw_dartback_meat": ("Raw Dartback Meat", "生飛鏢背殼肉", "generated"),
     "cooked_dartback_meat": ("Cooked Dartback Meat", "熟飛鏢背殼肉", "generated"),
+    "raw_nuzzle_meat": ("Raw Nuzzle Meat", "生蹭蹭肉", "generated"),
+    "cooked_nuzzle_meat": ("Cooked Nuzzle Meat", "熟蹭蹭肉", "generated"),
     "nester_egg": ("Nester Egg", "築巢者蛋", "generated"),
     "fried_nester_egg": ("Fried Nester Egg", "煎築巢者蛋", "generated"),
     "roamroot_tuber": ("Roamroot Tuber", "漫遊根塊莖", "generated"),
@@ -90,6 +92,7 @@ def cook(raw, cooked, xp=0.35):
 
 cook("raw_slabber_steak", "cooked_slabber_steak")
 cook("raw_dartback_meat", "cooked_dartback_meat")
+cook("raw_nuzzle_meat", "cooked_nuzzle_meat")
 cook("nester_egg", "fried_nester_egg")
 cook("roamroot_tuber", "baked_roamroot_tuber")
 
@@ -147,7 +150,8 @@ add_tag("pysift/tags/item/arrow_spines.json", ["pysift:dartback_spine", "pysift:
 add_tag("minecraft/tags/item/arrows.json", ["pysift:spine_arrow", "pysift:bleeding_arrow"])   # bows and crossbows accept them
 add_tag("minecraft/tags/item/eggs.json", ["pysift:nester_egg"])                              # cake
 add_tag("minecraft/tags/item/meat.json", ["pysift:raw_slabber_steak", "pysift:cooked_slabber_steak",
-                                          "pysift:raw_dartback_meat", "pysift:cooked_dartback_meat"])   # wolves eat it
+                                          "pysift:raw_dartback_meat", "pysift:cooked_dartback_meat",
+                                          "pysift:raw_nuzzle_meat", "pysift:cooked_nuzzle_meat"])   # wolves eat it
 
 # ------------------------------------------------------------------ lang
 for lang, i in (("en_us", 0), ("zh_tw", 1)):

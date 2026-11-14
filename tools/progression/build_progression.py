@@ -211,7 +211,7 @@ MOB_DROPS = {   # entity: pools (bosses get their loot in a later step; lootkin 
     "singer": [drop("minecraft:echo_shard", 0, 1, 0.1)],
     "echo_golem": [drop("pysift:charoite", 0, 2)],
     "blub": [drop("pysift:blub_gel", 1, 2)],
-    "nuzzle": [drop("pysift:nuzzle_fluff", 1, 2)],
+    "nuzzle": [meat("pysift:raw_nuzzle_meat", 1, 2), drop("pysift:nuzzle_fluff", 1, 2)],
     "pollinator": [drop("minecraft:honeycomb", 0, 1), drop("pysift:soul_nectar", 1, 1, 0.3)],
     "slabber": [meat("pysift:raw_slabber_steak", 1, 3), drop("minecraft:leather", 0, 2)],
 }

@@ -2547,7 +2547,7 @@
   "book.pysift.sift_codex.bestiary.blub.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.blub.p2.text": "**布魯布凝膠**：可以吃、可以換成黏液球，3 個加糖做成**布魯布果凍**（吃了緩降）。",
   "book.pysift.sift_codex.bestiary.nuzzle.p2.title": "掉落物",
-  "book.pysift.sift_codex.bestiary.nuzzle.p2.text": "**蹭蹭軟毛**：4 個做成白色羊毛。粗製藥水加軟毛釀成**再生藥水**。",
+  "book.pysift.sift_codex.bestiary.nuzzle.p2.text": "**生蹭蹭肉**：像羊肉一樣煮熟來吃。**蹭蹭軟毛**：4 個做成白色羊毛；粗製藥水加軟毛釀成**再生藥水**。",
   "book.pysift.sift_codex.bestiary.slabber.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.slabber.p2.text": "**生泥板獸排**：用熔爐、煙燻爐或營火煮熟，跟牛排一樣飽。也會掉皮革。",
   "book.pysift.sift_codex.bestiary.pollinator.p2.title": "掉落物",
@@ -2577,5 +2577,7 @@
   "book.pysift.sift_codex.bestiary.wobble.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.wobble.p2.text": "**搖晃凍**：能吃，但可能會頭暈；也能換成黏液球。",
   "book.pysift.sift_codex.bestiary.trapper.p2.title": "掉落物",
-  "book.pysift.sift_codex.bestiary.trapper.p2.text": "**陷阱師的網**：丟出去能網住目標，也能拆成線。"
+  "book.pysift.sift_codex.bestiary.trapper.p2.text": "**陷阱師的網**：丟出去能網住目標，也能拆成線。",
+  "item.pysift.raw_nuzzle_meat": "生蹭蹭肉",
+  "item.pysift.cooked_nuzzle_meat": "熟蹭蹭肉"
 }

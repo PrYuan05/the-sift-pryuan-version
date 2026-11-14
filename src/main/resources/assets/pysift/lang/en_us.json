@@ -2547,7 +2547,7 @@
   "book.pysift.sift_codex.bestiary.blub.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.blub.p2.text": "**Blub Gel**: eat it, turn it into a slime ball, or mix 3 with sugar into **Blub Jelly** (slow falling).",
   "book.pysift.sift_codex.bestiary.nuzzle.p2.title": "Drops",
-  "book.pysift.sift_codex.bestiary.nuzzle.p2.text": "**Nuzzle Fluff**: 4 make white wool. An Awkward Potion with fluff brews **Regeneration**.",
+  "book.pysift.sift_codex.bestiary.nuzzle.p2.text": "**Raw Nuzzle Meat**: cook it like mutton. **Nuzzle Fluff**: 4 make white wool; an Awkward Potion with fluff brews **Regeneration**.",
   "book.pysift.sift_codex.bestiary.slabber.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.slabber.p2.text": "**Raw Slabber Steak**: cook it (furnace, smoker or campfire) into a steak as filling as beef. Also leather.",
   "book.pysift.sift_codex.bestiary.pollinator.p2.title": "Drops",
@@ -2577,5 +2577,7 @@
   "book.pysift.sift_codex.bestiary.wobble.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.wobble.p2.text": "**Wobble Jelly**: edible, but it may make you dizzy. Or turn it into a slime ball.",
   "book.pysift.sift_codex.bestiary.trapper.p2.title": "Drops",
-  "book.pysift.sift_codex.bestiary.trapper.p2.text": "**Trapper Nets**: throw them to root a target in place, or pull one apart for string."
+  "book.pysift.sift_codex.bestiary.trapper.p2.text": "**Trapper Nets**: throw them to root a target in place, or pull one apart for string.",
+  "item.pysift.raw_nuzzle_meat": "Raw Nuzzle Meat",
+  "item.pysift.cooked_nuzzle_meat": "Cooked Nuzzle Meat"
 }

@@ -52,6 +52,9 @@ public final class MobDrops {
     public static final Item RAW_DARTBACK_MEAT = food("raw_dartback_meat", 2, 0.3f);
     /** 熟殼肉：殼下的肉很結實，吃了抗性 I 5 秒。 */
     public static final Item COOKED_DARTBACK_MEAT = food("cooked_dartback_meat", 6, 0.6f, new MobEffectInstance(MobEffects.RESISTANCE, 100));
+    /** 蹭蹭怪的肉（同羊肉）。 */
+    public static final Item RAW_NUZZLE_MEAT = food("raw_nuzzle_meat", 2, 0.3f);
+    public static final Item COOKED_NUZZLE_MEAT = food("cooked_nuzzle_meat", 6, 0.8f);
     /** 築巢者蛋：不能生吃，可以煎，也算原版的蛋（#minecraft:eggs，做蛋糕）。 */
     public static final Item NESTER_EGG = ModProgression.registerItem("nester_egg", Item::new, new Item.Properties().stacksTo(16));
     public static final Item FRIED_NESTER_EGG = food("fried_nester_egg", 5, 0.6f);

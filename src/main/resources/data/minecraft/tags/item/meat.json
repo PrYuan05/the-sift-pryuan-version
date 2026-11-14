@@ -4,6 +4,8 @@
     "pysift:raw_slabber_steak",
     "pysift:cooked_slabber_steak",
     "pysift:raw_dartback_meat",
-    "pysift:cooked_dartback_meat"
+    "pysift:cooked_dartback_meat",
+    "pysift:raw_nuzzle_meat",
+    "pysift:cooked_nuzzle_meat"
   ]
 }
