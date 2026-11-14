@@ -1687,7 +1687,7 @@
   "book.pysift.sift_codex.bestiary.singer.locked": "遇到這種生物，就會補上這一頁",
   "book.pysift.sift_codex.bestiary.singer.p0.text": "搖籃曲山丘與深板岩區",
   "book.pysift.sift_codex.bestiary.singer.p1.title": "歌者",
-  "book.pysift.sift_codex.bestiary.singer.p1.text": "隙浮的原住民：沒有眼睛、全身覆毛、總是在唱歌。在附近吹山羊角，牠會唱歌回應，給你抗性提升。歌者用歌聲維持著隙浮。",
+  "book.pysift.sift_codex.bestiary.singer.p1.text": "隙浮的原住民：沒有眼睛、全身覆毛、總是在唱歌。在附近吹山羊角，牠會唱歌回應，給你抗性提升；敲響調音叉，附近的歌者會一起唱完一首歌。歌者用歌聲維持著隙浮。",
   "book.pysift.sift_codex.bestiary.echo_golem.name": "迴音傀儡",
   "book.pysift.sift_codex.bestiary.echo_golem.locked": "遇到這種生物，就會補上這一頁",
   "book.pysift.sift_codex.bestiary.echo_golem.p0.text": "搖籃曲山丘與深板岩區",
@@ -2559,7 +2559,7 @@
   "book.pysift.sift_codex.bestiary.stalker.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.stalker.p2.text": "**暗影皮**：粗製藥水加暗影皮釀成**隱形藥水**；4 張拼成皮革。",
   "book.pysift.sift_codex.bestiary.tuner.p2.title": "掉落物",
-  "book.pysift.sift_codex.bestiary.tuner.p2.text": "紫水晶碎片，偶爾還有**調音叉**：把一個音符盒的音高抄到另一個。",
+  "book.pysift.sift_codex.bestiary.tuner.p2.text": "紫水晶碎片，偶爾還有**調音叉**：把一個音符盒的音高抄到另一個；在歌者附近敲響，牠們會跟著唱（低音搖籃曲、中音小星星、高音快樂頌），給你再生，也替附近的靈魂導線充能。",
   "book.pysift.sift_codex.bestiary.hunter.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.hunter.p2.text": "**標槍頭**：接上兩根木棍就是可以擲出、撿回的**靈魂標槍**。",
   "book.pysift.sift_codex.bestiary.dartback.p2.title": "掉落物",
@@ -2579,5 +2579,8 @@
   "book.pysift.sift_codex.bestiary.trapper.p2.title": "掉落物",
   "book.pysift.sift_codex.bestiary.trapper.p2.text": "**陷阱師的網**：丟出去能網住目標，也能拆成線。",
   "item.pysift.raw_nuzzle_meat": "生蹭蹭肉",
-  "item.pysift.cooked_nuzzle_meat": "熟蹭蹭肉"
+  "item.pysift.cooked_nuzzle_meat": "熟蹭蹭肉",
+  "tooltip.pysift.tuning_fork.strike": "對空氣右鍵敲響：附近的歌者會跟著唱，音高決定曲子",
+  "message.pysift.tuning_fork.resonate": "%s 隻歌者開始共鳴",
+  "message.pysift.tuning_fork.no_singer": "附近沒有歌者聽得到"
 }

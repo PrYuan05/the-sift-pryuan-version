@@ -518,6 +518,84 @@ public class SingerEntity extends PysiftAnimalEntity {
         }, null);
     }
 
+    // ---------------------------------------------------------------- tuning fork resonance (v2.2, MobDrops.TuningForkItem)
+    /** 調音叉敲響後，RESONANCE_RANGE 格內的歌者一起唱；唱完冷卻 RESONANCE_COOLDOWN tick。 */
+    public static final double RESONANCE_RANGE = 16.0;
+    private static final int RESONANCE_STEP = 3, RESONANCE_COOLDOWN = 600, RESONANCE_CONDUIT = 6;
+    private boolean resonating;
+    private int resonanceCooldown;
+
+    /** 可以回應調音叉：不是儀式歌者、合唱團，沒有在出土、離開、哀悼，也不在冷卻中。 */
+    public boolean canResonate() {
+        return isAlive() && !isRitual() && !isEmerging() && !isLeaving() && mournTicks <= 0 && !resonating
+                && resonanceCooldown <= 0 && !this.entityTags().contains(DEN_CHOIR) && !this.entityTags().contains(DEN_LEAD);
+    }
+
+    public boolean isResonating() {
+        return resonating;
+    }
+
+    /**
+     * 調音叉敲出 note（音符盒 0~24）：附近的歌者轉向玩家一起唱。曲子由音區決定、移調到以 note 為主音
+     * （{@link SingerSongs#forPitch}、{@link SingerSongs#transpose}）；最近的歌者唱主旋律，其他唱三度／五度和聲。
+     * 聽到的玩家獲得再生 I（10 秒，每多一隻歌者 +5 秒，最多 30 秒）；歌者身邊 6 格內有靈魂導線時，唱歌期間替導線充能。
+     * 回傳參加的歌者數。
+     */
+    public static int resonate(ServerLevel level, Player player, int note) {
+        List<SingerEntity> singers = new java.util.ArrayList<>(level.getEntitiesOfClass(SingerEntity.class,
+                player.getBoundingBox().inflate(RESONANCE_RANGE), SingerEntity::canResonate));
+        if (singers.isEmpty()) {
+            return 0;
+        }
+        singers.sort(java.util.Comparator.comparingDouble(s -> s.distanceToSqr(player)));
+        SingerSongs.Song song = SingerSongs.transpose(SingerSongs.forPitch(note), note - SingerSongs.TONIC);
+        SingerEntity lead = singers.get(0);
+        java.util.Map<SingerEntity, net.minecraft.core.BlockPos> conduits = new java.util.HashMap<>();
+        for (SingerEntity s : singers) {
+            s.resonating = true;
+            s.resonanceCooldown = song.length() * RESONANCE_STEP + RESONANCE_COOLDOWN;
+            s.lineConduit = null;
+            s.getNavigation().stop();
+            s.getLookControl().setLookAt(player, 60.0f, 60.0f);
+            s.triggerAnim("skill", "sing");
+            net.minecraft.core.BlockPos conduit = pryuan05.pysift.soulpower.SoulCircuit.conduitNear(level, s.blockPosition(), RESONANCE_CONDUIT);
+            if (conduit != null) {
+                conduits.put(s, conduit);
+            }
+        }
+        lead.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, (float) Math.pow(2.0, (note - 12) / 12.0));
+        int seconds = Math.min(30, 10 + 5 * (singers.size() - 1));
+        for (Player p : level.getEntitiesOfClass(Player.class, lead.getBoundingBox().inflate(RESONANCE_RANGE))) {
+            p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, seconds * 20, 0), lead);
+        }
+        // 主旋律由 StoryItems.play 以領唱的人聲發出；其他歌者在每個音唱和聲
+        pryuan05.pysift.progression.StoryItems.play(level, lead, song, RESONANCE_STEP, i -> {
+            int n = song.notes()[i];
+            int k = 0;
+            for (SingerEntity s : singers) {
+                if (!s.isAlive()) {
+                    continue;
+                }
+                s.getNavigation().stop();
+                s.getLookControl().setLookAt(player, 30.0f, 30.0f);
+                if (s != lead) {
+                    float pitch = (float) Math.pow(2.0, (n + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
+                    pitch = Math.max(0.5f, Math.min(2.0f, pitch));
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.7f, pitch);
+                    level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, n / 24.0, 0, 0, 1.0);
+                }
+                s.triggerAnim("face", "face_note");
+                net.minecraft.core.BlockPos c = conduits.get(s);
+                if (c != null && level.getBlockState(c).getBlock() instanceof pryuan05.pysift.soulpower.SoulConduitBlock) {
+                    pryuan05.pysift.soulpower.SoulCircuit.feed(level, c, 30, pryuan05.pysift.soulpower.SoulCircuit.SINGER_CAPACITY, true);
+                    level.sendParticles(ParticleTypes.NOTE, (s.getX() + c.getX() + 0.5) / 2, s.getY() + s.getBbHeight() * 0.8,
+                            (s.getZ() + c.getZ() + 0.5) / 2, 0, n / 24.0, 0, 0, 1.0);
+                }
+            }
+        }, () -> singers.forEach(s -> s.resonating = false));
+        return singers.size();
+    }
+
     // ---------------------------------------------------------------- hollowing: starving in the soulless Overworld
     private void tickHollowing(ServerLevel level) {
         if (isRitual() || isRemoved()) {
@@ -589,6 +667,16 @@ public class SingerEntity extends PysiftAnimalEntity {
      * 儀式歌者、回音窟的合唱團與正在對監守者唱歌的歌者不唱這套歌。
      */
     private void tickLineSong(ServerLevel level) {
+        if (resonanceCooldown > 0) {
+            resonanceCooldown--;
+        }
+        if (resonating && resonanceCooldown < RESONANCE_COOLDOWN - 20) {
+            resonating = false;   // 領唱半途不見了（曲子沒唱完就被移除）：不要一直站著
+        }
+        if (resonating) {   // 正在跟著調音叉唱：不同時唱導線的歌
+            this.getNavigation().stop();
+            return;
+        }
         if (isRitual() || mournTicks > 0 || this.entityTags().contains(DEN_CHOIR) || this.entityTags().contains(DEN_LEAD)) {
             lineConduit = null;
             return;

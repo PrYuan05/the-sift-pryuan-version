@@ -72,6 +72,38 @@ public final class SingerSongs {
     private SingerSongs() {
     }
 
+    /** 調音叉讓歌者共鳴時唱哪首（音符盒的音 0~24）：低音區搖籃曲、中音區小星星、高音區快樂頌。 */
+    public static Song forPitch(int note) {
+        return note <= 7 ? LULLABY : note <= 15 ? TWINKLE : ODE_TO_JOY;
+    }
+
+    /** 這首曲子的主音：曲子都寫在 F 大調（parse 的 key 11）。 */
+    public static final int TONIC = 11;
+
+    /** 整首移調 semitones 個半音，再整首移八度，盡量落在音符盒音域 0~24 裡（音太廣放不下時，超出的音收進邊界）。 */
+    public static Song transpose(Song song, int semitones) {
+        int lo = Integer.MAX_VALUE, hi = Integer.MIN_VALUE;
+        for (int n : song.notes()) {
+            if (n >= 0) {
+                lo = Math.min(lo, n + semitones);
+                hi = Math.max(hi, n + semitones);
+            }
+        }
+        int shift = semitones;
+        while (hi > 24 && lo - 12 >= 0) {
+            shift -= 12; lo -= 12; hi -= 12;
+        }
+        while (lo < 0 && hi + 12 <= 24) {
+            shift += 12; lo += 12; hi += 12;
+        }
+        int[] notes = new int[song.length()];
+        for (int i = 0; i < notes.length; i++) {
+            int n = song.notes()[i];
+            notes[i] = n < 0 ? n : Math.max(0, Math.min(24, n + shift));
+        }
+        return new Song(song.name(), notes, song.onset());
+    }
+
     /** 用八音儀式的音級（1~8，對應 RitualDiscs.DISCS）組成曲子，每個音 len 格。 */
     static Song degrees(String name, int[] degrees, int len) {
         int[] notes = new int[degrees.length * len];

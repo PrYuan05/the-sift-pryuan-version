@@ -1687,7 +1687,7 @@
   "book.pysift.sift_codex.bestiary.singer.locked": "Meet this creature to fill in its page",
   "book.pysift.sift_codex.bestiary.singer.p0.text": "Lullaby Hills and the Abyss",
   "book.pysift.sift_codex.bestiary.singer.p1.title": "Singer",
-  "book.pysift.sift_codex.bestiary.singer.p1.text": "The people of The Sift: eyeless, furred, and always singing. Blow a goat horn near one and it answers with a song that grants Resistance. Singers keep The Sift together with their voices.",
+  "book.pysift.sift_codex.bestiary.singer.p1.text": "The people of The Sift: eyeless, furred, and always singing. Blow a goat horn near one and it answers with a song that grants Resistance; strike a Tuning Fork and the Singers around sing a whole song together. Singers keep The Sift together with their voices.",
   "book.pysift.sift_codex.bestiary.echo_golem.name": "Echo Golem",
   "book.pysift.sift_codex.bestiary.echo_golem.locked": "Meet this creature to fill in its page",
   "book.pysift.sift_codex.bestiary.echo_golem.p0.text": "Lullaby Hills and the Abyss",
@@ -2559,7 +2559,7 @@
   "book.pysift.sift_codex.bestiary.stalker.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.stalker.p2.text": "**Shadow Hide**: an Awkward Potion with it brews **Invisibility**; 4 make leather.",
   "book.pysift.sift_codex.bestiary.tuner.p2.title": "Drops",
-  "book.pysift.sift_codex.bestiary.tuner.p2.text": "Amethyst shards, and rarely a **Tuning Fork**: copy a note block's pitch to another.",
+  "book.pysift.sift_codex.bestiary.tuner.p2.text": "Amethyst shards, and rarely a **Tuning Fork**: copy a note block's pitch to another, or strike it near Singers - they sing along (low: lullaby, middle: twinkle, high: Ode to Joy), giving Regeneration and charging nearby soul conduits.",
   "book.pysift.sift_codex.bestiary.hunter.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.hunter.p2.text": "**Hunter Spearhead**: on two sticks it becomes a **Soul Javelin** you can throw and pick back up.",
   "book.pysift.sift_codex.bestiary.dartback.p2.title": "Drops",
@@ -2579,5 +2579,8 @@
   "book.pysift.sift_codex.bestiary.trapper.p2.title": "Drops",
   "book.pysift.sift_codex.bestiary.trapper.p2.text": "**Trapper Nets**: throw them to root a target in place, or pull one apart for string.",
   "item.pysift.raw_nuzzle_meat": "Raw Nuzzle Meat",
-  "item.pysift.cooked_nuzzle_meat": "Cooked Nuzzle Meat"
+  "item.pysift.cooked_nuzzle_meat": "Cooked Nuzzle Meat",
+  "tooltip.pysift.tuning_fork.strike": "Use in the air: strike it, and nearby Singers sing along (the pitch picks the song)",
+  "message.pysift.tuning_fork.resonate": "%s Singers resonate",
+  "message.pysift.tuning_fork.no_singer": "No Singer is close enough to hear it"
 }

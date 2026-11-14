@@ -536,8 +536,10 @@ MOBS = [   # rows by home; (id, en, zh, text en, text zh)
       "看起來是一朵閉合的花苞，完全不動。走進兩格內，它會猛然咬合，把你定在原地。")],
     [("singer", "Singer", "歌者",
       "The people of The Sift: eyeless, furred, and always singing. Blow a goat horn near one and it answers with a song that "
-      "grants Resistance. Singers keep The Sift together with their voices.",
-      "隙浮的原住民：沒有眼睛、全身覆毛、總是在唱歌。在附近吹山羊角，牠會唱歌回應，給你抗性提升。歌者用歌聲維持著隙浮。"),
+      "grants Resistance; strike a Tuning Fork and the Singers around sing a whole song together. Singers keep The Sift together "
+      "with their voices.",
+      "隙浮的原住民：沒有眼睛、全身覆毛、總是在唱歌。在附近吹山羊角，牠會唱歌回應，給你抗性提升；敲響調音叉，附近的歌者會一起唱完一首歌。"
+      "歌者用歌聲維持著隙浮。"),
      ("echo_golem", "Echo Golem", "迴音傀儡",
       "A neutral worker that gathers souls from soul sand and absorbs Soul Crystal Blocks, carrying one on its head for the Singers. "
       "Sign a pact with an echo shard and it brings you soul soil, soul sand and sometimes echo shards.",
@@ -627,8 +629,10 @@ DROP_NOTES = {
                 "**暗影皮**：粗製藥水加暗影皮釀成**隱形藥水**；4 張拼成皮革。"),
     "hunter": ("**Hunter Spearhead**: on two sticks it becomes a **Soul Javelin** you can throw and pick back up.",
                "**標槍頭**：接上兩根木棍就是可以擲出、撿回的**靈魂標槍**。"),
-    "tuner": ("Amethyst shards, and rarely a **Tuning Fork**: copy a note block's pitch to another.",
-              "紫水晶碎片，偶爾還有**調音叉**：把一個音符盒的音高抄到另一個。"),
+    "tuner": ("Amethyst shards, and rarely a **Tuning Fork**: copy a note block's pitch to another, or strike it near Singers - they "
+              "sing along (low: lullaby, middle: twinkle, high: Ode to Joy), giving Regeneration and charging nearby soul conduits.",
+              "紫水晶碎片，偶爾還有**調音叉**：把一個音符盒的音高抄到另一個；在歌者附近敲響，牠們會跟著唱（低音搖籃曲、中音小星星、"
+              "高音快樂頌），給你再生，也替附近的靈魂導線充能。"),
     "fusefly": ("**Fuse Powder** works like gunpowder: TNT, fireworks and splash potions.",
                 "**引信粉**可以代替火藥：做 TNT、煙火、飛濺型藥水。"),
 }

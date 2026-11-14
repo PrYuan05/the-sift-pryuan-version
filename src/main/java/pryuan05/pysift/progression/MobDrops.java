@@ -238,12 +238,35 @@ public final class MobDrops {
         }
     }
 
-    /** 調音叉：潛行右鍵音符盒記住它的音高，右鍵別的音符盒直接調成同一個音。 */
+    /**
+     * 調音叉：潛行右鍵音符盒記住它的音高，右鍵別的音符盒直接調成同一個音。
+     * 對空氣右鍵敲響：附近的歌者跟著共鳴唱歌（{@link pryuan05.pysift.entity.mob.SingerEntity#resonate}），音高決定曲子與調性。
+     */
     public static class TuningForkItem extends HintItem {
         private static final String NOTE = "note";
+        /** 還沒記過音時敲出的音：第 11 格（F），歌者曲子原本的調。 */
+        private static final int DEFAULT_NOTE = 11;
 
         public TuningForkItem(Item.Properties properties) {
-            super(properties, "tooltip.pysift.tuning_fork");
+            super(properties, "tooltip.pysift.tuning_fork", "tooltip.pysift.tuning_fork.strike");
+        }
+
+        @Override
+        public InteractionResult use(Level level, Player player, InteractionHand hand) {
+            ItemStack stack = player.getItemInHand(hand);
+            int note = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr(NOTE, DEFAULT_NOTE);
+            float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
+            level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.5f, pitch);
+            player.getCooldowns().addCooldown(stack, 60);
+            if (level instanceof ServerLevel server) {
+                server.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, player.getX(), player.getEyeY() + 0.5, player.getZ(),
+                        0, note / 24.0, 0, 0, 1.0);
+                int singers = pryuan05.pysift.entity.mob.SingerEntity.resonate(server, player, note);
+                player.sendOverlayMessage(singers > 0
+                        ? Component.translatable("message.pysift.tuning_fork.resonate", singers).withStyle(ChatFormatting.AQUA)
+                        : Component.translatable("message.pysift.tuning_fork.no_singer").withStyle(ChatFormatting.GRAY));
+            }
+            return InteractionResult.SUCCESS;
         }
 
         @Override

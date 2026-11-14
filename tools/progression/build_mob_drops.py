@@ -72,6 +72,10 @@ LANG.update({
                                    "潛行＋右鍵音符盒：記住音高；右鍵別的音符盒：調成同一個音"),
     "message.pysift.tuning_fork.stored": ("Pitch remembered: %s", "記住音高：%s"),
     "message.pysift.tuning_fork.tuned": ("Tuned to pitch %s", "已調成音高 %s"),
+    "tooltip.pysift.tuning_fork.strike": ("Use in the air: strike it, and nearby Singers sing along (the pitch picks the song)",
+                                          "對空氣右鍵敲響：附近的歌者會跟著唱，音高決定曲子"),
+    "message.pysift.tuning_fork.resonate": ("%s Singers resonate", "%s 隻歌者開始共鳴"),
+    "message.pysift.tuning_fork.no_singer": ("No Singer is close enough to hear it", "附近沒有歌者聽得到"),
     "message.pysift.tuning_fork.empty": ("Sneak + use on a note block first to remember a pitch", "先潛行＋右鍵一個音符盒，記住要調的音"),
 })
 
