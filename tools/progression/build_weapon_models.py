@@ -270,18 +270,17 @@ def staff_box(frm, to, faces, light, name):
 
 
 def staff_ring(r, y0, strip, light, w=1.0):
-    """A square sound ring of four w x w bars round the staff axis, outer half-width r."""
+    """A square sound ring round the staff axis, outer half-width r: four flat w-wide strips with no thickness
+    (user: 1 x 1 x 0 planes, not cubes), lying level at the middle of y0..y0+w and seen from above and below."""
     long_, short = int(2 * r), int(2 * r - 2 * w)
     a, b = 8 - r, 8 + r
-    lb = {f: staff_uv(strip, long_, 1, center=True) for f in ("north", "south", "up", "down")} | \
-         {f: staff_uv(strip, 1, 1) for f in ("east", "west")}
-    sb = {f: staff_uv(strip, short, 1, center=True) for f in ("east", "west")} | \
-         {f: staff_uv(strip, short, 1, rot=90, center=True) for f in ("up", "down")} | \
-         {f: staff_uv(strip, 1, 1) for f in ("north", "south")}
-    return [staff_box([a, y0, a], [b, y0 + w, a + w], lb, light, "sound ring"),
-            staff_box([a, y0, b - w], [b, y0 + w, b], lb, light, "sound ring"),
-            staff_box([a, y0, a + w], [a + w, y0 + w, b - w], sb, light, "sound ring"),
-            staff_box([b - w, y0, a + w], [b, y0 + w, b - w], sb, light, "sound ring")]
+    y = y0 + w / 2
+    lb = {f: staff_uv(strip, long_, 1, center=True) for f in ("up", "down")}
+    sb = {f: staff_uv(strip, short, 1, rot=90, center=True) for f in ("up", "down")}
+    return [staff_box([a, y, a], [b, y, a + w], lb, light, "sound ring"),
+            staff_box([a, y, b - w], [b, y, b], lb, light, "sound ring"),
+            staff_box([a, y, a + w], [a + w, y, b - w], sb, light, "sound ring"),
+            staff_box([b - w, y, a + w], [b, y, b - w], sb, light, "sound ring")]
 
 
 def staff_glow(level, light, g):
