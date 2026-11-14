@@ -75,6 +75,9 @@ AI_CATALOG = [
     ("block/violet_strata/violet_strata_[hi].png", "紫地層變體（依 violet_strata_e 統一；e 是共用的未改）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
     ("block/void_stone/polished_void_stone.png", "磨製虛黑岩（洞穴層重畫）", "Claude Code 一次性腳本（未放進 repo）", "AI"),
     ("block/vegetation/hanging_vines/*.png", "垂掛藤蔓 3 種（本體＋尖端，依使用者的牆藤重畫）", "Claude Code 一次性腳本（未放進 repo）", "轉出"),
+    # 不要 --seed 登記：tools/worldgen/paint_caldera_earth.py 的 brick_family("magma_vein_slate") 也寫這三張（經 art_guard，
+    # --unfreeze 時），登記後重跑會蓋回舊的葡萄紫磚；未登記＝art_guard 視為使用者的圖而保留
+    ("block/magma_vein_slate_bricks/*.png", "熔脈板岩磚、雕紋熔脈板岩磚（Singer 頭像）與頂面、兩張 _glow 發光層（依使用者重畫的熔脈板岩重畫；發光層模型尚未接上）", "Claude Code 一次性腳本（未放進 repo）", "待確認"),
 ]
 RIFT_FLORA_TEX = {"blue_curled_fern", "pink_curled_fern", "white_curled_fern", "olive_forked_stalk", "rift_yellow_short_grass",
                   "canopy_leaf_blue", "canopy_leaf_green", "canopy_leaf_white", "canopy_stem_blue", "canopy_stem_green",
