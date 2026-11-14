@@ -7,8 +7,9 @@ Each weapon is built upright from boxes (1 model unit = 1 icon pixel, lengths ma
 -45 degrees about z, so it lies on the icon's diagonal and the vanilla handheld display transforms hold it exactly like
 the 2D icon. Textures: textures/item/<name>_model.png, 32 x 32, one 8 x 16 px strip per material (1 px per model unit),
 painted from the 2D icon's own colours; glowing parts set light_emission.
-Hand-painted replacements of the _model textures are kept (tools/art_guard.py). In-hand models re-made in Blockbench
-(their JSON has "credit") are kept too; their use stages come from HAND_STAGES."""
+Hand-painted replacements of the _model textures are kept (tools/art_guard.py). In-hand models re-made by hand
+(Blockbench, or the pixel-by-pixel sonic staff; their JSON has "credit") are kept too; their use stages come from
+HAND_STAGES."""
 import json, random, sys
 from pathlib import Path
 
@@ -241,6 +242,74 @@ HAND_STAGES = {
                hand_box([8.25, 0.0, 8.75], [8.75, 9.0, 8.9], "core", 12, 1)]),
     ]),
 }
+
+# ---- sonic staff: sonic_staff_in_hand.json and sonic_staff_model.png are hand-made pixel by pixel ("credit" set; the
+# texture differs from the hash in tools/ai_texture_hashes.json, so art_guard keeps it). The casting stages add glow
+# shells round the core and sound rings that close in on it, cut from these regions of the 32 x 32 texture
+# (texels: x, y, w, h; 1 texel per model unit, 2 texels per UV unit).
+STAFF_UV = {
+    "core1": (24, 0, 4, 4), "padend1": (28, 0, 2, 2), "captop1": (30, 0, 2, 2), "capside1": (30, 2, 2, 1), "padlong1": (22, 4, 6, 2),
+    "core2": (16, 6, 4, 4), "padend2": (20, 6, 2, 2), "captop2": (22, 6, 2, 2), "capside2": (22, 8, 2, 1), "padlong2": (16, 10, 6, 2),
+    "core3": (24, 6, 4, 4), "padend3": (28, 6, 2, 2), "captop3": (30, 6, 2, 2), "capside3": (30, 8, 2, 1), "padlong3": (22, 10, 6, 2),
+    "ring_1": (0, 29, 12, 1), "ring_2": (0, 30, 12, 1), "ring_3": (0, 31, 12, 1),   # dim / mid / bright cyan strips
+}
+STAFF_ROT = {"angle": -45, "axis": "z", "origin": [8, 8, 8]}
+
+
+def staff_uv(name, w=None, h=None, rot=0, center=False):
+    x, y, rw, rh = STAFF_UV[name]
+    w, h = rw if w is None else w, rh if h is None else h
+    if center:
+        x += (rw - w) // 2
+    face = {"uv": [x / 2, y / 2, (x + w) / 2, (y + h) / 2], "texture": "#model"}
+    return face | ({"rotation": rot} if rot else {})
+
+
+def staff_box(frm, to, faces, light, name):
+    return {"from": frm, "to": to, "rotation": STAFF_ROT, "faces": faces, "light_emission": light, "name": name}
+
+
+def staff_ring(r, y0, strip, light, w=1.0):
+    """A square sound ring of four w x w bars round the staff axis, outer half-width r."""
+    long_, short = int(2 * r), int(2 * r - 2 * w)
+    a, b = 8 - r, 8 + r
+    lb = {f: staff_uv(strip, long_, 1, center=True) for f in ("north", "south", "up", "down")} | \
+         {f: staff_uv(strip, 1, 1) for f in ("east", "west")}
+    sb = {f: staff_uv(strip, short, 1, center=True) for f in ("east", "west")} | \
+         {f: staff_uv(strip, short, 1, rot=90, center=True) for f in ("up", "down")} | \
+         {f: staff_uv(strip, 1, 1) for f in ("north", "south")}
+    return [staff_box([a, y0, a], [b, y0 + w, a + w], lb, light, "sound ring"),
+            staff_box([a, y0, b - w], [b, y0 + w, b], lb, light, "sound ring"),
+            staff_box([a, y0, a + w], [a + w, y0 + w, b - w], sb, light, "sound ring"),
+            staff_box([b - w, y0, a + w], [b, y0 + w, b - w], sb, light, "sound ring")]
+
+
+def staff_glow(level, light, g):
+    """A glow shell g units outside the core (4-cube + side pads + cap of the hand-made model)."""
+    c, pe, pl, ct, cs = (f"{k}{level}" for k in ("core", "padend", "padlong", "captop", "capside"))
+    every = ("north", "east", "south", "west", "up", "down")
+    pad_x = {f: staff_uv(pe) for f in ("east", "west")} | {f: staff_uv(pl) for f in ("north", "south", "up", "down")}
+    pad_z = {f: staff_uv(pe) for f in ("north", "south")} | {f: staff_uv(pl) for f in ("east", "west")} | \
+            {f: staff_uv(pl, rot=90) for f in ("up", "down")}
+    cap = {f: staff_uv(cs) for f in ("north", "east", "south", "west")} | {f: staff_uv(ct) for f in ("up", "down")}
+    name = f"glow shell {level}"
+    return [staff_box([6 - g, 12 - g, 6 - g], [10 + g, 16 + g, 10 + g], {f: staff_uv(c) for f in every}, light, name),
+            staff_box([5 - g, 13 - g, 7 - g], [11 + g, 15 + g, 9 + g], pad_x, light, name),
+            staff_box([7 - g, 13 - g, 5 - g], [9 + g, 15 + g, 11 + g], pad_z, light, name),
+            staff_box([7 - g, 16, 7 - g], [9 + g, 17 + g, 9 + g], cap, light, name)]
+
+
+# hand-made model: core x 6..10, y 12..17 (pads out to 5..11 at y 13..15), cradle plate y 11..12, collar y 10..11,
+# idle lavender halo r 3.5 at y 17.5..18.5. Thresholds match SonicStaffItem.CAST_TICKS = 12 (0.6 s).
+HAND_STAGES["sonic_staff"] = ("casting", [
+    (0.0, [*staff_glow(1, 14, 0.2), *staff_ring(6, 13.5, "ring_1", 10)]),                 # a wide wave arrives
+    (0.2, [*staff_glow(2, 15, 0.25),                                                      # two waves close in
+           *staff_ring(5.5, 10.5, "ring_2", 12), *staff_ring(5.5, 15.5, "ring_2", 12)]),
+    (0.4, [*staff_glow(3, 15, 0.3), *staff_ring(4.5, 13.5, "ring_3", 15),                 # they hit the core: white-hot
+           *staff_ring(3.5, 9.5, "ring_3", 15), *staff_ring(3.6, 17.4, "ring_3", 15, 1.2),  # core, tight rings, the halo
+           staff_box([7.5, 19, 7.5], [8.5, 20, 8.5], {f: staff_uv("core3", 1, 1) for f in    # lit up, a spark on top
+                     ("north", "east", "south", "west", "up", "down")}, 15, "spark")]),
+])
 # extra texture slots. Item models only see the item atlas (textures/item/), so a block texture is mirrored there:
 # slot -> (item texture written here, block texture it copies)
 HAND_TEXTURES = {"sculk_hammer": {"crystal": ("echo_cradle_crystal", "block/echo_cradle/echo_cradle_3")}}
