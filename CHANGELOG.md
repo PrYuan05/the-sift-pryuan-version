@@ -84,7 +84,8 @@ blend across the layer borders):
 - **Teal Strata** and its building set (bricks, chiseled bricks, slabs, stairs, walls) are removed: nothing in the world
   used them. The teal-capped blocks that share its look stay.
 - The creative tabs show one Pointed Stone and one Hanging Vine of each kind instead of every shape, and Violet Strata and
-  Crimson Strata moved to the main block tab.
+  Crimson Strata moved to the main block tab. Building and natural blocks that the world never generates stay in our
+  own tabs and are no longer added to vanilla's tabs.
 
 ### Notes
 - No new creatures: the existing ones are redistributed across the layers.
@@ -521,7 +522,7 @@ soul machines.
   放在靈液 3 格內會一階一階繼續鏽（最多到第 3 階）。斧頭右鍵刮掉一階鏽，蜂巢右鍵封住（封住的不再生鏽；斧頭會先刮掉封蠟）。
   挖下來會保留鏽蝕程度與封蠟。最鏽、沒封住的鏽黑石放進靈魂研磨機會磨出 4 顆鐵粒。《隙浮手記》有說明。
 - 移除**青碧地層岩**與它的建材組（磚、浮雕磚、半磚、階梯、牆）：世界生成沒有用到。外觀相近的青碧覆蓋方塊保留。
-- 創造模式分頁裡，尖石與垂吊藤每種只放一個（不再列出每種形狀）；紫晶地層岩與赤紅地層岩移到主要方塊分頁。
+- 創造模式分頁裡，尖石與垂吊藤每種只放一個（不再列出每種形狀）；紫晶地層岩與赤紅地層岩移到主要方塊分頁。世界生成沒用到的建築與自然方塊只留在我們自己的分頁，不再放進原版分頁。
 
 ### 備註
 - 沒有新增生物，現有生物依層重新分配。

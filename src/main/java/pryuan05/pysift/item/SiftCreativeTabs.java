@@ -32,7 +32,8 @@ import java.util.function.Supplier;
 
 /**
  * 隙浮的創造模式分頁，照原版的分法拆開：方塊（建築／自然／彩色／功能／未用於世界生成）與物品（工具／戰鬥／食物／材料／生怪蛋）
- * 分在不同分頁，物品不會混進方塊分頁。每樣東西同時加進對應的原版分頁（未用於世界生成的方塊依類別放進原版的建築或自然分頁）。
+ * 分在不同分頁，物品不會混進方塊分頁。每樣東西同時加進對應的原版分頁；沒用於世界生成的建築／自然方塊（#pysift:not_in_worldgen）
+ * 只留在我們的分頁，不放進原版分頁（使用者 v2.1.0）。
  * <p>
  * 各類別不直接寫分頁，而是用 {@link #source} 登記「來源」（方塊／未用方塊／物品，沿用 ModItems 的三個 key）；
  * 這裡把所有來源收集起來，再依 {@link CreativeLayout#section} 分到各分頁。分頁內的排序與排版仍由用戶端的
@@ -143,6 +144,11 @@ public final class SiftCreativeTabs {
                 Map<Item, Tab> ours = new LinkedHashMap<>();
                 Map<Item, ItemStack> stackOf = new LinkedHashMap<>();
                 collect().forEach((t, stacks) -> stacks.forEach(stack -> {
+                    // 使用者（v2.1.0）：沒加入世界生成的建築／自然方塊不放進原版分頁，只留在我們的分頁
+                    if (t == Tab.UNUSED || (t == Tab.BUILDING || t == Tab.NATURAL) && stack.getItem() instanceof net.minecraft.world.item.BlockItem bi
+                            && bi.getBlock().defaultBlockState().is(ModItems.NOT_IN_WORLDGEN)) {
+                        return;
+                    }
                     if (!stack.has(DataComponents.BLOCK_STATE) && !ours.containsKey(stack.getItem())) {
                         ours.put(stack.getItem(), t);
                         stackOf.put(stack.getItem(), stack);
