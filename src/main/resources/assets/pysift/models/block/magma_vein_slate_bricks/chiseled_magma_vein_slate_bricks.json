@@ -1,7 +1,8 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "pysift:block/templates/cube_column_glow",
   "textures": {
+    "side": "pysift:block/magma_vein_slate_bricks/chiseled_magma_vein_slate_bricks",
     "end": "pysift:block/magma_vein_slate_bricks/chiseled_magma_vein_slate_bricks_top",
-    "side": "pysift:block/magma_vein_slate_bricks/chiseled_magma_vein_slate_bricks"
+    "glow": "pysift:block/magma_vein_slate_bricks/chiseled_magma_vein_slate_bricks_glow"
   }
 }

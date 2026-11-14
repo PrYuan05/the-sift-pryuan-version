@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "pysift:block/templates/cube_all_glow",
   "textures": {
-    "all": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks"
+    "all": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks",
+    "glow": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks_glow"
   }
 }
