@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:blub_gel",
+    "pysift:blub_gel",
+    "pysift:blub_gel",
+    "minecraft:sugar"
+  ],
+  "result": {
+    "id": "pysift:blub_jelly"
+  }
+}

@@ -30,9 +30,11 @@ public class ModItems {
     public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
 
     // 投擲物的外觀物品（使用者繪製的圖示；只有君王羽刃放在物品分頁）
-    public static final Item HURLER_ROCK = registerItem("hurler_rock", Item::new);
+    public static final Item HURLER_ROCK = registerItem("hurler_rock", p -> new pryuan05.pysift.progression.MobDrops.ThrowableDropItem(p,
+            (level, player) -> new pryuan05.pysift.entity.projectile.ThrownRockEntity(level, player, 4.0f)));   // 玩家也能丟（v2.2）
     public static final Item MONARCH_FEATHER = registerItem("monarch_feather", Item::new);
-    public static final Item TRAPPER_NET = registerItem("trapper_net", Item::new);
+    public static final Item TRAPPER_NET = registerItem("trapper_net", p -> new pryuan05.pysift.progression.MobDrops.ThrowableDropItem(p,
+            pryuan05.pysift.entity.projectile.TrapperNetEntity::new));   // 玩家也能丟（v2.2）
 
     // 24 Spawn Eggs
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);

@@ -6,6 +6,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.ModEntities;
 
@@ -24,6 +26,17 @@ public class HunterJavelinEntity extends Arrow {
         javelin.setOwner(thrower);
         javelin.setPos(thrower.getX(), thrower.getEyeY() - 0.2, thrower.getZ());
         javelin.setBaseDamage(3.5);
+        return javelin;
+    }
+
+    /** 玩家擲出的靈魂標槍（v2.2，物品 soul_javelin）：可以撿回來，創造模式不會掉。 */
+    public static HunterJavelinEntity thrown(Level level, Player thrower, ItemStack stack) {
+        HunterJavelinEntity javelin = new HunterJavelinEntity(ModEntities.HUNTER_JAVELIN, level);
+        javelin.setOwner(thrower);
+        javelin.setPos(thrower.getX(), thrower.getEyeY() - 0.1, thrower.getZ());
+        javelin.setBaseDamage(3.5);
+        javelin.setPickupItemStack(stack.copyWithCount(1));
+        javelin.pickup = thrower.hasInfiniteMaterials() ? AbstractArrow.Pickup.CREATIVE_ONLY : AbstractArrow.Pickup.ALLOWED;
         return javelin;
     }
 

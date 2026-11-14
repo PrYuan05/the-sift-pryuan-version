@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:wobble_jelly"
+  ],
+  "result": {
+    "id": "minecraft:slime_ball"
+  }
+}

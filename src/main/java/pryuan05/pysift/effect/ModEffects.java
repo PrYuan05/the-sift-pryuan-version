@@ -32,7 +32,35 @@ public final class ModEffects {
                     .addAttributeModifier(Attributes.JUMP_STRENGTH, PySift.id("ensnared_jump"), -1.0,
                             AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
+    /**
+     * 流血（v2.2 清道夫獠牙做的放血箭）：每秒流失 1 點生命（等級越高越快），和清道夫自己咬人造成的流血一樣。
+     * 跟中毒不同，流血可以把目標流到死。
+     */
+    public static final Holder<MobEffect> BLEEDING = Registry.registerForHolder(
+            BuiltInRegistries.MOB_EFFECT, PySift.id("bleeding"), new BleedingEffect());
+
     private ModEffects() {
+    }
+
+    private static final class BleedingEffect extends MobEffect {
+        private BleedingEffect() {
+            super(MobEffectCategory.HARMFUL, 0x9E1B22);
+        }
+
+        @Override
+        public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
+            int interval = Math.max(5, 20 >> amplifier);
+            return duration % interval == 0;
+        }
+
+        @Override
+        public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+            entity.hurtServer(level, level.damageSources().generic(), 1.0f);
+            level.sendParticles(new net.minecraft.core.particles.BlockParticleOption(ParticleTypes.BLOCK,
+                            net.minecraft.world.level.block.Blocks.REDSTONE_BLOCK.defaultBlockState()),
+                    entity.getX(), entity.getY(0.5), entity.getZ(), 6, 0.2, 0.3, 0.2, 0.05);
+            return true;
+        }
     }
 
     /** 身體周圍持續冒出靈魂火焰與伏聆靈魂（伺服器端送出，所有人都看得到）。 */

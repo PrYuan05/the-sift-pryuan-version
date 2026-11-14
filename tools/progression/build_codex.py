@@ -598,13 +598,48 @@ MOBS.append([
      "回到家的監守者。給牠一個迴音碎片牠就是你的了：會緊跟著你，離太遠會直接出現在你身邊。右鍵牠會坐下等待，再右鍵叫牠跟上；餵幽匿方塊會回血。"
      "牠**聽得見**牆後的怪物並讓牠們發光，但不會自己去找牠們；只有怪物打到你、或你打了怪物時才會**出手**。"
      "牠讓野生監守者保持**平靜**，走過的藍幽匿也會變回**紅色**。")])
+# v2.2 mob drops (progression/MobDrops.java): what each creature leaves and what it is for, a page of its own
+DROP_NOTES = {
+    "blub": ("**Blub Gel**: eat it, turn it into a slime ball, or mix 3 with sugar into **Blub Jelly** (slow falling).",
+             "**布魯布凝膠**：可以吃、可以換成黏液球，3 個加糖做成**布魯布果凍**（吃了緩降）。"),
+    "slabber": ("**Raw Slabber Steak**: cook it (furnace, smoker or campfire) into a steak as filling as beef. Also leather.",
+                "**生泥板獸排**：用熔爐、煙燻爐或營火煮熟，跟牛排一樣飽。也會掉皮革。"),
+    "nuzzle": ("**Nuzzle Fluff**: 4 make white wool. An Awkward Potion with fluff brews **Regeneration**.",
+               "**蹭蹭軟毛**：4 個做成白色羊毛。粗製藥水加軟毛釀成**再生藥水**。"),
+    "pollinator": ("Honeycomb, and sometimes **Soul Nectar**: drink it for Soul Ward.",
+                   "蜜脾，有時還有**靈魂花蜜**：喝了獲得靈魂守護。"),
+    "nester": ("**Nester Egg**: fry it, or use it as an egg in cake. Also feathers.",
+               "**築巢者蛋**：可以煎來吃，也能當蛋做蛋糕。也會掉羽毛。"),
+    "roamroot": ("**Roamroot Tuber**: bake it like a potato. Also Soul Willow saplings.",
+                 "**漫遊根塊莖**：像馬鈴薯一樣烤來吃。也會掉靈柳樹苗。"),
+    "bloombud": ("Soul berries and **Bloombud Petals** (yellow dye).", "靈莓與**花苞花瓣**（做黃色染料）。"),
+    "wobble": ("**Wobble Jelly**: edible, but it may make you dizzy. Or turn it into a slime ball.",
+               "**搖晃凍**：能吃，但可能會頭暈；也能換成黏液球。"),
+    "dartback": ("**Raw Dartback Meat** (cooked: a short burst of Resistance) and **Dartback Spines** for **Spine Arrows** (+1 damage).",
+                 "**生飛鏢背殼肉**（煮熟吃了短暫抗性）與**飛鏢背棘刺**：做成**棘刺箭**（多 1 點傷害）。"),
+    "prickle": ("**Prickle Quills**: arrowheads for **Spine Arrows**.", "**刺球棘**：當箭頭做**棘刺箭**。"),
+    "scavenger": ("**Scavenger Fang**: one fang and 4 arrows make 4 **Bleeding Arrows**.",
+                  "**清道夫獠牙**：1 顆獠牙加 4 支箭做成 4 支**放血箭**（命中流血）。"),
+    "trapper": ("**Trapper Nets**: throw them to root a target in place, or pull one apart for string.",
+                "**陷阱師的網**：丟出去能網住目標，也能拆成線。"),
+    "hurler": ("**Hurler Rocks**: throw them yourself.", "**投石**：你也能拿來丟。"),
+    "stalker": ("**Shadow Hide**: an Awkward Potion with it brews **Invisibility**; 4 make leather.",
+                "**暗影皮**：粗製藥水加暗影皮釀成**隱形藥水**；4 張拼成皮革。"),
+    "hunter": ("**Hunter Spearhead**: on two sticks it becomes a **Soul Javelin** you can throw and pick back up.",
+               "**標槍頭**：接上兩根木棍就是可以擲出、撿回的**靈魂標槍**。"),
+    "tuner": ("Amethyst shards, and rarely a **Tuning Fork**: copy a note block's pitch to another.",
+              "紫水晶碎片，偶爾還有**調音叉**：把一個音符盒的音高抄到另一個。"),
+    "fusefly": ("**Fuse Powder** works like gunpowder: TNT, fireworks and splash potions.",
+                "**引信粉**可以代替火藥：做 TNT、煙火、飛濺型藥水。"),
+}
 ROW_NAMES = [("Willow Grove", "柳絮林地"), ("Lullaby Hills and the Abyss", "搖籃曲山丘與深板岩區"),
              ("Crimson Strata Canyon", "赤紅沉積峽谷"), ("Amber Dunes", "琥珀沙丘"), ("The Deep Dark", "深暗之域")]
 for row, mobs in enumerate(MOBS):
     for col, (mob, en, zh, ten, tzh) in enumerate(mobs):
         node = met(mob)
         entry(C, mob, f"pysift:{mob}_spawn_egg", en, zh, 2 + col * 2, row * 2 - 3,
-              [entity(f"pysift:{mob}", *ROW_NAMES[row]), text((en, zh), ten, tzh)],
+              [entity(f"pysift:{mob}", *ROW_NAMES[row]), text((en, zh), ten, tzh)]
+              + ([text(("Drops", "掉落物"), *DROP_NOTES[mob])] if mob in DROP_NOTES else []),
               parents=["guide"], line=False, node=node, shape=PURPLE,
               locked_tip=("Meet this creature to fill in its page", "遇到這種生物，就會補上這一頁"))
 

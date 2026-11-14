@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.bestiary.wobble.p2.title",
+  "show_title_separator": true,
+  "id": "p2",
+  "sort_number": 2,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bestiary.wobble.p2.text"
+}

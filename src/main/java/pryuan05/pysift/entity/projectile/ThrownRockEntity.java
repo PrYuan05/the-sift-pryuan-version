@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,7 +21,7 @@ import pryuan05.pysift.entity.ModEntities;
 import pryuan05.pysift.item.ModItems;
 
 /**
- * Hurler 投出的碎石。落地或命中時在半徑 {@link #RADIUS} 內造成鈍擊傷害並往外擊退（不傷害敵對生物）。外觀為使用者畫的碎岩（物品 hurler_rock）。
+ * Hurler 投出的碎石（v2.2 起玩家也能丟，玩家丟的會打怪物）。落地或命中時在半徑 {@link #RADIUS} 內造成鈍擊傷害並往外擊退（不傷害敵對生物）。外觀為使用者畫的碎岩（物品 hurler_rock）。
  */
 public class ThrownRockEntity extends ThrowableItemProjectile {
     private static final double RADIUS = 2.0;
@@ -49,7 +50,7 @@ public class ThrownRockEntity extends ThrowableItemProjectile {
         Vec3 c = this.position();
         Entity owner = this.getOwner();
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(RADIUS),
-                e -> e != owner && e.isAlive() && !(e instanceof Enemy) && e.distanceToSqr(c) <= RADIUS * RADIUS * 1.5)) {
+                e -> e != owner && e.isAlive() && (owner instanceof Player || !(e instanceof Enemy)) && e.distanceToSqr(c) <= RADIUS * RADIUS * 1.5)) {
             if (e.hurtServer(level, this.damageSources().thrown(this, owner), damage)) {
                 Vec3 away = e.position().subtract(c).multiply(1, 0, 1);
                 Vec3 dir = away.lengthSqr() < 1.0E-4 ? Vec3.ZERO : away.normalize();

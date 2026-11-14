@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +24,7 @@ import pryuan05.pysift.entity.ModEntities;
 import pryuan05.pysift.item.ModItems;
 
 /**
- * Trapper 丟出的網（外觀是使用者畫的粉紫靈魂網，物品 trapper_net）：命中非敵對生物時 2 點傷害、緩速 III 4 秒、定身 1 秒；撞到方塊就散開。
+ * Trapper 丟出的網（v2.2 起玩家也能丟，玩家丟的會網住怪物）（外觀是使用者畫的粉紫靈魂網，物品 trapper_net）：命中非敵對生物時 2 點傷害、緩速 III 4 秒、定身 1 秒；撞到方塊就散開。
  */
 public class TrapperNetEntity extends ThrowableItemProjectile {
     private static final float DAMAGE = 2.0f;
@@ -44,7 +45,7 @@ public class TrapperNetEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult hit) {
         Entity e = hit.getEntity();
-        if (!(this.level() instanceof ServerLevel level) || e instanceof Enemy || e == this.getOwner()) {
+        if (!(this.level() instanceof ServerLevel level) || (e instanceof Enemy && !(this.getOwner() instanceof Player)) || e == this.getOwner()) {
             return;
         }
         if (e instanceof LivingEntity living) {

@@ -88,6 +88,7 @@ public final class ModProgression {
         Homecoming.load();
         SiftFarming.load();
         SiftFlora.load();
+        MobDrops.load();
         // 進度相關的物品排在「物品」分頁；方塊（礦石、祭壇、作物、草叢）由 ModItems 放進方塊分頁
         pryuan05.pysift.item.SiftCreativeTabs.source(ModItems.ITEMS_TAB_KEY, output ->
                 CREATIVE_ORDER.stream().filter(item -> !(item instanceof BlockItem)).forEach(output::accept));

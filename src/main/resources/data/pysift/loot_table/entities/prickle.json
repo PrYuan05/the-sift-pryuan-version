@@ -6,14 +6,14 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:stick",
+          "name": "pysift:prickle_quill",
           "modifier": [
             {
               "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
-                "max": 2
+                "min": 1,
+                "max": 3
               }
             },
             {

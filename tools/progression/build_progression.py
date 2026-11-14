@@ -175,30 +175,45 @@ def drop(item, lo, hi, chance=None, looting=1.0):
     return pool
 
 
+ON_FIRE = {"type": "minecraft:furnace_smelt", "condition": {"type": "minecraft:any_of", "terms": [   # like vanilla cows
+    {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:flags": {"is_on_fire": True}}},
+    {"type": "minecraft:entity_properties", "entity": "direct_attacker", "predicate": {"minecraft:equipment": {"mainhand": {
+        "predicates": {"minecraft:enchantments": [{"enchantments": "#minecraft:smelts_loot"}]}}}}}]}}
+
+
+def meat(item, lo, hi):
+    """A raw food drop that comes out cooked when the mob burns (or dies to a fire-aspect weapon)."""
+    pool = drop(item, lo, hi)
+    pool["entries"][0]["modifier"].insert(1, ON_FIRE)
+    return pool
+
+
 ESSENCE = lambda chance: drop("pysift:soul_essence", 1, 1, chance)   # hostile Sift mobs: material for the summoning sigil
+# v2.2: every mob drop has a use (progression/MobDrops.java, recipes in build_mob_drops.py). Singer, Echo Golem, Mourner
+# and Sift Warden are the Sift's people and family: they drop no food.
 MOB_DROPS = {   # entity: pools (bosses get their loot in a later step; lootkin keeps its hand-made table)
-    "fusefly": [drop("pysift:fuse_powder", 1, 2), ESSENCE(0.25)],
-    "dartback": [drop("minecraft:arrow", 0, 3), ESSENCE(0.3)],
-    "hurler": [drop("minecraft:cobblestone", 1, 3), ESSENCE(0.3)],
-    "hunter": [drop("minecraft:bone", 0, 2), ESSENCE(0.4)],
-    "trapper": [drop("minecraft:string", 1, 3), ESSENCE(0.4)],
-    "stalker": [drop("minecraft:bone", 0, 2), ESSENCE(0.35)],
+    "fusefly": [drop("pysift:fuse_powder", 1, 2), ESSENCE(0.25)],                    # gunpowder substitute
+    "dartback": [meat("pysift:raw_dartback_meat", 1, 2), drop("pysift:dartback_spine", 0, 2), ESSENCE(0.3)],
+    "hurler": [drop("pysift:hurler_rock", 1, 3), ESSENCE(0.3)],                      # throwable
+    "hunter": [drop("pysift:hunter_spearhead", 0, 1), drop("minecraft:bone", 0, 2), ESSENCE(0.4)],
+    "trapper": [drop("pysift:trapper_net", 0, 2), ESSENCE(0.4)],                     # throwable, or 3 string
+    "stalker": [drop("pysift:shadow_hide", 0, 1), drop("minecraft:bone", 0, 2), ESSENCE(0.35)],
     "sentinel": [drop("pysift:raw_siftite", 0, 1), ESSENCE(0.5)],
-    "scavenger": [drop("minecraft:bone", 0, 1), drop("minecraft:gold_nugget", 0, 3), ESSENCE(0.3)],
-    "prickle": [drop("minecraft:stick", 0, 2), ESSENCE(0.25)],
-    "roamroot": [drop("minecraft:stick", 1, 3), drop("pysift:soul_willow_sapling", 0, 1), ESSENCE(0.35)],
-    "bloombud": [drop("pysift:soul_berries", 0, 2), ESSENCE(0.25)],
-    "tuner": [drop("minecraft:amethyst_shard", 0, 2), ESSENCE(0.4)],
-    "wobble": [drop("minecraft:slime_ball", 0, 2), ESSENCE(0.25)],
-    "nester": [drop("minecraft:feather", 1, 3), ESSENCE(0.35)],
+    "scavenger": [drop("pysift:scavenger_fang", 0, 1), drop("minecraft:bone", 0, 1), drop("minecraft:gold_nugget", 0, 3), ESSENCE(0.3)],
+    "prickle": [drop("pysift:prickle_quill", 1, 3), ESSENCE(0.25)],
+    "roamroot": [meat("pysift:roamroot_tuber", 1, 3), drop("pysift:soul_willow_sapling", 0, 1), ESSENCE(0.35)],
+    "bloombud": [drop("pysift:soul_berries", 0, 2), drop("pysift:bloombud_petal", 1, 2), ESSENCE(0.25)],
+    "tuner": [drop("minecraft:amethyst_shard", 0, 2), drop("pysift:tuning_fork", 1, 1, 0.08, looting=0.0), ESSENCE(0.4)],
+    "wobble": [drop("pysift:wobble_jelly", 1, 2), ESSENCE(0.25)],
+    "nester": [meat("pysift:nester_egg", 0, 1), drop("minecraft:feather", 1, 3), ESSENCE(0.35)],
     "seedling": [drop("minecraft:wheat_seeds", 0, 2)],
     "sprout": [drop("minecraft:wheat_seeds", 0, 2)],
     "singer": [drop("minecraft:echo_shard", 0, 1, 0.1)],
     "echo_golem": [drop("pysift:charoite", 0, 2)],
-    "blub": [drop("minecraft:slime_ball", 0, 1)],
-    "nuzzle": [drop("minecraft:leather", 0, 2)],
-    "pollinator": [drop("minecraft:honeycomb", 0, 1)],
-    "slabber": [drop("minecraft:leather", 0, 2)],
+    "blub": [drop("pysift:blub_gel", 1, 2)],
+    "nuzzle": [drop("pysift:nuzzle_fluff", 1, 2)],
+    "pollinator": [drop("minecraft:honeycomb", 0, 1), drop("pysift:soul_nectar", 1, 1, 0.3)],
+    "slabber": [meat("pysift:raw_slabber_steak", 1, 3), drop("minecraft:leather", 0, 2)],
 }
 for mob, pools in MOB_DROPS.items():
     loot(f"entities/{mob}", pools)
@@ -588,7 +603,7 @@ BEACON_LANG = {
     "item.pysift.sift_beacon_gem": ("Sift Beacon Gem", "隙浮信標寶石"),
     "tooltip.pysift.sift_beacon.inlaid": ("✦ Sift Beacon inlaid", "✦ 已鑲嵌隙浮信標"),
     "tag.item.pysift.siftite_tool_materials": ("Siftite Tool Materials", "隙浮金工具材料"),
-    "tag.item.pysift.repairs_siftite_armor": ("Repairs Siftite Armor", "可修理隙浮金盔甲"),
+    "tag.item.pysift.repairs_siftite_armor": ("Repairs Siftite Armor", "可修復隙浮金盔甲"),
     "tooltip.pysift.sift_beacon.aura": ("Players within 8 blocks are immune to Soul Deprivation",
                                         "半徑 8 格內的玩家免疫靈魂剝奪，靈液不再傷人"),
     **ADV_LANG,
@@ -718,7 +733,7 @@ SOULITE_LANG.update({
     "item.pysift.soulite_ingot": ("Soulite Ingot", "靈髓錠"),
     "item.pysift.soulite_upgrade_smithing_template": ("Soulite Upgrade", "靈髓升級模板"),
     "tag.item.pysift.soulite_tool_materials": ("Soulite Tool Materials", "靈髓工具材料"),
-    "tag.item.pysift.repairs_soulite_armor": ("Repairs Soulite Armor", "可修理靈髓盔甲"),
+    "tag.item.pysift.repairs_soulite_armor": ("Repairs Soulite Armor", "可修復靈髓盔甲"),
     "tooltip.pysift.soulite_upgrade.0": ("Smithing Table: this + Netherite gear + Soulite Ingot", "鍛造台：模板欄放此模板、裝備欄放獄髓裝備、材料欄放靈髓錠"),
     "tooltip.pysift.soulite_upgrade.1": ("Upgrades it to Soulite, keeping enchantments", "升級成靈髓裝備，附魔保留"),
     "tooltip.pysift.soulite_sword": ("Every 3rd hit: sonic chain to 2 foes + Soul Deprivation", "每第 3 下命中：音波連鎖 2 個敵人並附加靈魂剝奪"),

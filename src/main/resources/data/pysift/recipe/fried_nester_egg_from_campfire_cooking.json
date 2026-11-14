@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:campfire_cooking",
+  "category": "food",
+  "cookingtime": 600,
+  "experience": 0.35,
+  "ingredient": "pysift:nester_egg",
+  "result": {
+    "id": "pysift:fried_nester_egg"
+  }
+}

@@ -6,13 +6,13 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:leather",
+          "name": "pysift:nuzzle_fluff",
           "modifier": [
             {
               "type": "minecraft:set_count",
               "count": {
                 "type": "minecraft:uniform",
-                "min": 0,
+                "min": 1,
                 "max": 2
               }
             },

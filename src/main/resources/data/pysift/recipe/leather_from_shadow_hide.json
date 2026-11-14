@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": "pysift:shadow_hide"
+  },
+  "pattern": [
+    "HH",
+    "HH"
+  ],
+  "result": {
+    "id": "minecraft:leather"
+  }
+}
