@@ -2539,7 +2539,7 @@
   "item.pysift.soul_javelin": "靈魂標槍",
   "item.pysift.tuning_fork": "調音叉",
   "effect.pysift.bleeding": "流血",
-  "tooltip.pysift.soul_javelin": "右鍵擲出，插在哪裡就去撿回來",
+  "tooltip.pysift.soul_javelin": "按住右鍵舉槍蓄力，放開擲出；插在哪裡就去撿回來",
   "tooltip.pysift.tuning_fork": "潛行＋右鍵音符盒：記住音高；右鍵別的音符盒：調成同一個音",
   "message.pysift.tuning_fork.stored": "記住音高：%s",
   "message.pysift.tuning_fork.tuned": "已調成音高 %s",

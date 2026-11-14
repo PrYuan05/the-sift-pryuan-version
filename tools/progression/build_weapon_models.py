@@ -44,6 +44,14 @@ MATERIALS = {
     "hammer_head": (hexes("#0d1217", "#111b21", "#052a32", "#034150"), 0),
     "hammer_core": (hexes("#0a5060", "#009295", "#29dfeb", "#b8fbff"), 11),
     "hammer_bone": (hexes("#6b7a5e", "#819988", "#a2af86", "#d1d6b6"), 0),
+    # v2.2 mob-drop tools (progression/MobDrops.java), colours from their 2D icons
+    "javelin_shaft": (hexes("#0a152e", "#17304c", "#2e4f66", "#3a6380"), 0),
+    "javelin_copper": (hexes("#8a2c19", "#b24f2b", "#db7542", "#f7b36f"), 0),
+    "javelin_wrap": (hexes("#17304c", "#229ba8", "#4ecccc", "#8ee8e0"), 0),
+    "javelin_blade": (hexes("#144b66", "#256e85", "#4ca2a8", "#a4ebe8"), 0),
+    "javelin_glow": (hexes("#229ba8", "#4ecccc", "#a4ebe8", "#e0fffb"), 15),
+    "fork_grip": (hexes("#3f7a33", "#83ad53", "#b9d676", "#d7eba0"), 0),
+    "fork_metal": (hexes("#37206b", "#3939bd", "#6576e6", "#bbcffc"), 0),
 }
 
 
@@ -128,6 +136,23 @@ WEAPONS = {
         ("hammer_bone", *box(14, 8, 1, 2, 12, 14)),
         ("hammer_bone", *box(8, 8, 1, 1, 15.5, 17)),
     ],
+    "soul_javelin": [                                              # a little longer than its icon, like the trident
+        ("javelin_copper", *box(8, 8, 1.5, 1.5, -5, -3.5)),        # butt cap
+        ("javelin_shaft", *box(8, 8, 1, 1, -3.5, 13)),             # shaft
+        ("javelin_wrap", *box(8, 8, 1.4, 1.4, 1, 4)),              # soul-cyan grip wrap
+        ("javelin_copper", *box(8, 8, 1.4, 1.4, 8, 9.5)),          # copper binding
+        ("javelin_copper", *box(8, 8, 2, 1.4, 12, 13)),            # collar under the head
+        ("javelin_blade", *box(8, 8, 3, 0.5, 13, 17)),             # flat spearhead
+        ("javelin_blade", *box(8, 8, 2, 0.5, 17, 19)),
+        ("javelin_blade", *box(8, 8, 1, 0.5, 19, 20.5)),           # point
+    ],
+    "tuning_fork": [
+        ("fork_grip", *box(8, 8, 1.5, 1.5, -3, 4)),                # green grip
+        ("fork_metal", *box(8, 8, 1, 1, 4, 6.5)),                  # stem
+        ("fork_metal", *box(8, 8, 4, 1, 6.5, 7.5)),                # yoke
+        ("fork_metal", *box(6.5, 8, 1, 1, 7.5, 17)),               # two prongs, one unit apart
+        ("fork_metal", *box(9.5, 8, 1, 1, 7.5, 17)),
+    ],
 }
 
 # the vanilla minecraft:item/handheld display transforms (26.3), so the 3D model is held exactly like the 2D icon
@@ -138,6 +163,16 @@ HANDHELD = {
     "firstperson_lefthand": {"rotation": [0, 90, -25], "translation": [1.13, 3.2, 1.13], "scale": [0.68, 0.68, 0.68]},
     "head": {"rotation": [0, 180, 0], "translation": [0, 13, 7], "scale": [1, 1, 1]},
 }
+
+# while the soul javelin is held back to throw (ItemUseAnimation.TRIDENT raises the arm over the head, about 180 degrees
+# about the arm's x axis), the third-person transforms are turned 180 degrees about x as well, so the point still faces
+# forward and up, like vanilla trident_throwing does for the trident. First person keeps the handheld transforms: the
+# game draws its own pull-back there.
+THROWING = HANDHELD | {
+    "thirdperson_righthand": {"rotation": [180, -90, 55], "translation": [0, -4.0, -0.5], "scale": [0.85, 0.85, 0.85]},
+    "thirdperson_lefthand": {"rotation": [180, 90, -55], "translation": [0, -4.0, -0.5], "scale": [0.85, 0.85, 0.85]},
+}
+STAGE_DISPLAY = {"soul_javelin": THROWING}
 
 # ---- use animations: while the item is being used, the in-hand model steps through stages (like the vanilla bow).
 # Each stage adds boxes to the base model. Thresholds are seconds of use (minecraft:use_duration x 0.05) and match the
@@ -153,6 +188,11 @@ STAGES = {
                ("staff_crystal", *box(8, 3.5, 1, 1, 17, 18)), ("staff_crystal", *box(8, 12.5, 1, 1, 17, 18)),
                ("staff_crystal", *box(8, 8, 1.4, 1.4, 18.1, 20.5))]),
     ]),
+    # SoulJavelinItem.MIN_CHARGE = 10 ticks (0.5 s): raised, then the wrap lights up when it can be thrown
+    "soul_javelin": ("throwing", [
+        (0.0, []),
+        (0.5, [("javelin_glow", *box(8, 8, 1.6, 1.6, 0.9, 4.1)), ("javelin_glow", *box(8, 8, 2.2, 0.7, 12.9, 15))]),
+    ]),
     "sculk_hammer": ("charging", [
         (0.0, [("hammer_core", *box(8, 8, 3.6, 5.8, 11.2, 14.8))]),                   # the core wakes up
         (0.75, [("hammer_core", *box(8, 8, 4.2, 6.0, 11, 15)),                         # ready: sculk spines rise from the head
@@ -166,8 +206,8 @@ STAGES = {
 }
 
 
-def model_json(name, parts, mats):
-    return {"display": HANDHELD,   # no parent: item/generated would build a flat sprite instead of these boxes
+def model_json(name, parts, mats, display=HANDHELD):
+    return {"display": display,   # no parent: item/generated would build a flat sprite instead of these boxes
             "textures": {"model": f"pysift:item/{name}_model", "particle": f"pysift:item/{name}"},
             "elements": [element(frm, to, m, mats.index(m)) for m, frm, to in parts]}
 
@@ -314,13 +354,13 @@ HAND_STAGES["sonic_staff"] = ("casting", [
 HAND_TEXTURES = {"sculk_hammer": {"crystal": ("echo_cradle_crystal", "block/echo_cradle/echo_cradle_3")}}
 
 
-def stage_model(hand, name, extra):
+def stage_model(hand, name, extra, display=None):
     elements = list(hand["elements"])
     for e in extra:
         if "copy" in e:
             e = {k: v for k, v in e.items() if k != "copy"} | {"faces": hand["elements"][e["copy"]]["faces"]}
         elements.append(e)
-    return {"display": hand.get("display", HANDHELD),
+    return {"display": display or hand.get("display", HANDHELD),
             "textures": {**hand["textures"], **{k: f"pysift:item/{f}" for k, (f, _) in HAND_TEXTURES.get(name, {}).items()}, "particle": f"pysift:item/{name}"}, "elements": elements}
 
 
@@ -333,7 +373,8 @@ def hand_made(name):
 
 
 for name, parts in WEAPONS.items():
-    mats = list(dict.fromkeys(m for m, _, _ in parts))
+    mats = list(dict.fromkeys([m for m, _, _ in parts] +                      # stage boxes need their strips too
+                              [m for _, extra in STAGES.get(name, (None, []))[1] for m, _, _ in extra]))
     hand = hand_made(name)
     if hand is None:
         tex = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
@@ -354,9 +395,9 @@ for name, parts in WEAPONS.items():
         entries = []
         for i, (threshold, extra) in enumerate(stages):
             if hand:
-                model = stage_model(hand, name, extra)
+                model = stage_model(hand, name, extra, STAGE_DISPLAY.get(name))
             else:
-                model = model_json(name, parts + extra, mats)
+                model = model_json(name, parts + extra, mats, STAGE_DISPLAY.get(name, HANDHELD))
             wj(A / f"models/item/{name}_{verb}_{i}.json", model)
             entries.append({"threshold": threshold, "model": ref(f"{name}_{verb}_{i}")})
         in_hand = {"type": "minecraft:condition", "property": "minecraft:using_item", "on_false": in_hand,

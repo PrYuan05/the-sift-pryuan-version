@@ -63,7 +63,8 @@ for name, (_, _, parent) in ITEMS.items():
 LANG = {f"item.pysift.{k}": (en, zh) for k, (en, zh, _) in ITEMS.items()}
 LANG.update({
     "effect.pysift.bleeding": ("Bleeding", "流血"),
-    "tooltip.pysift.soul_javelin": ("Use to throw; pick it back up where it lands", "右鍵擲出，插在哪裡就去撿回來"),
+    "tooltip.pysift.soul_javelin": ("Hold use to raise it, release to throw; pick it back up where it lands",
+                                    "按住右鍵舉槍蓄力，放開擲出；插在哪裡就去撿回來"),
     "tooltip.pysift.tuning_fork": ("Sneak + use on a note block: remember its pitch. Use on another: tune it to that pitch",
                                    "潛行＋右鍵音符盒：記住音高；右鍵別的音符盒：調成同一個音"),
     "message.pysift.tuning_fork.stored": ("Pitch remembered: %s", "記住音高：%s"),

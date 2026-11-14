@@ -2539,7 +2539,7 @@
   "item.pysift.soul_javelin": "Soul Javelin",
   "item.pysift.tuning_fork": "Tuning Fork",
   "effect.pysift.bleeding": "Bleeding",
-  "tooltip.pysift.soul_javelin": "Use to throw; pick it back up where it lands",
+  "tooltip.pysift.soul_javelin": "Hold use to raise it, release to throw; pick it back up where it lands",
   "tooltip.pysift.tuning_fork": "Sneak + use on a note block: remember its pitch. Use on another: tune it to that pitch",
   "message.pysift.tuning_fork.stored": "Pitch remembered: %s",
   "message.pysift.tuning_fork.tuned": "Tuned to pitch %s",

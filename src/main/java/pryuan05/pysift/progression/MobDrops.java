@@ -23,6 +23,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.Consumables;
 import net.minecraft.world.item.component.CustomData;
@@ -187,24 +188,53 @@ public final class MobDrops {
         }
     }
 
-    /** 靈魂標槍：右鍵擲出（約 7 點傷害，拖著靈魂火），插在地上可以撿回來。 */
+    /**
+     * 靈魂標槍：像三叉戟一樣按住右鍵舉槍蓄力，放開擲出（蓄力至少 {@link #MIN_CHARGE} tick，{@link #FULL_CHARGE} tick 時飛最遠），
+     * 約 5～9 點傷害、拖著靈魂火，插在地上可以撿回來。蓄力夠了手上的槍頭會亮（items/soul_javelin.json 的 throwing 狀態）。
+     */
     public static class SoulJavelinItem extends HintItem {
+        public static final int MIN_CHARGE = 10;
+        public static final int FULL_CHARGE = 20;
+
         public SoulJavelinItem(Item.Properties properties) {
             super(properties, "tooltip.pysift.soul_javelin");
         }
 
         @Override
+        public ItemUseAnimation getUseAnimation(ItemStack stack) {
+            return ItemUseAnimation.TRIDENT;
+        }
+
+        @Override
+        public int getUseDuration(ItemStack stack, LivingEntity entity) {
+            return 72000;
+        }
+
+        @Override
         public InteractionResult use(Level level, Player player, InteractionHand hand) {
-            ItemStack stack = player.getItemInHand(hand);
+            player.startUsingItem(hand);
+            return InteractionResult.CONSUME;
+        }
+
+        @Override
+        public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int remaining) {
+            if (!(entity instanceof Player player)) {
+                return false;
+            }
+            int charged = getUseDuration(stack, entity) - remaining;
+            if (charged < MIN_CHARGE) {
+                return false;
+            }
+            float power = 1.4f + 1.1f * Math.min(1.0f, (charged - MIN_CHARGE) / (float) (FULL_CHARGE - MIN_CHARGE));
             level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TRIDENT_THROW.value(), SoundSource.PLAYERS, 1.0f, 1.2f);
             if (level instanceof ServerLevel) {
                 HunterJavelinEntity javelin = HunterJavelinEntity.thrown(level, player, stack);
-                javelin.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, 2.0f, 1.0f);
+                javelin.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0f, power, 1.0f);
                 level.addFreshEntity(javelin);
             }
             player.getCooldowns().addCooldown(stack, 15);
             stack.consume(1, player);
-            return InteractionResult.SUCCESS;
+            return true;
         }
     }
 
