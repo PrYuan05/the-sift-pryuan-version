@@ -36,6 +36,7 @@
 		"java": ">=25",
 		"fabric-api": "*",
 		"geckolib": ">=5.5.7",
-		"modonomicon": ">=2.20.0"
+		"modonomicon": ">=2.20.0",
+		"player_animation_library": ">=1.2.9"
 	}
 }

@@ -60,6 +60,7 @@ public final class WeaponPoses {
 
     public static void onSwing(int entityId) {
         SWINGS.merge(entityId, 1, Integer::sum);
+        PlayerAnims.onSwing(entityId);   // 第三人稱的全身動畫
     }
 
     /** 這一次揮擊從哪一邊開始：1 = 右上往左下，-1 = 左上往右下。 */
@@ -108,6 +109,9 @@ public final class WeaponPoses {
 
     // ------------------------------------------------------------------ third person
     public static void thirdPerson(HumanoidModel<?> model, HumanoidRenderState state, int entityId) {
+        if (PlayerAnims.isActive(entityId)) {
+            return;   // Player Animation Library 正在播全身動畫：不再疊上這裡的手臂姿勢
+        }
         if (state.isUsingItem && state.useItemHand != null && using(model, state)) {
             return;
         }
