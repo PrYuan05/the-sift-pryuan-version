@@ -28,6 +28,8 @@ import java.util.Map;
  *   <li>重錘：按住右鍵 → hammer_charge（先下沉再舉過頭，停在最後一格）→ 蓄滿 hammer_charged（發抖，循環）→
  *       放開 hammer_slam（整個人砸下去、彈一下、慢慢站起來）；左鍵 hammer_swing_right / _left 輪流。</li>
  *   <li>音波法杖：按住右鍵 staff_cast → 詠唱完成 staff_blast（後座力）；左鍵 staff_thrust。</li>
+ *   <li>調音叉：敲響 fork_strike（往掌心一敲、舉著聽它嗡鳴）。靈魂標槍：javelin_charge → javelin_throw。
+ *       衝刺護符：charm_dash（整個人平著往前刺）。</li>
  * </ul>
  * 第一人稱仍用 {@link WeaponPoses}（手上的物品姿勢是手調的）。這一層在播時，{@link WeaponPoses#thirdPerson} 不再疊上舊姿勢。
  */
@@ -92,7 +94,7 @@ public final class PlayerAnims {
                 continue;
             }
             switch (now) {
-                case "hammer_charge", "hammer_charged", "staff_cast" -> play(player, now);
+                case "hammer_charge", "hammer_charged", "staff_cast", "javelin_charge" -> play(player, now);
                 default -> {
                     // 放開：從蓄力接到出手的那一段；其他情況讓正在播的一次性動畫自己播完
                     if ("hammer_charge".equals(before) && usedLongEnough(player)) {
@@ -101,6 +103,12 @@ public final class PlayerAnims {
                         play(player, "hammer_slam");
                     } else if ("staff_cast".equals(before)) {
                         play(player, "staff_blast");
+                    } else if ("javelin_charge".equals(before)) {
+                        if (LAST_CHARGE.getOrDefault(player.getId(), 0) >= pryuan05.pysift.progression.MobDrops.SoulJavelinItem.MIN_CHARGE) {
+                            play(player, "javelin_throw");
+                        } else {
+                            stop(player);   // 蓄力不夠沒有丟出去：收手
+                        }
                     }
                 }
             }
@@ -129,6 +137,10 @@ public final class PlayerAnims {
         if (stack.getItem() instanceof SonicStaffItem) {
             return "staff_cast";
         }
+        if (stack.getItem() instanceof pryuan05.pysift.progression.MobDrops.SoulJavelinItem) {
+            LAST_CHARGE.put(player.getId(), ticks);
+            return "javelin_charge";
+        }
         return "idle";
     }
 
@@ -144,6 +156,23 @@ public final class PlayerAnims {
             play(player, n % 2 == 1 ? "hammer_swing_right" : "hammer_swing_left");
         } else if (stack.getItem() instanceof SonicStaffItem) {
             play(player, "staff_thrust");
+        } else if (stack.getItem() instanceof pryuan05.pysift.progression.MobDrops.TuningForkItem) {
+            play(player, "fork_strike");
+        }
+    }
+
+    /** 衝刺護符衝出去的那一下（伺服器的 DashPosePayload → WeaponPoses.markDash）。 */
+    public static void onDash(int entityId) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.level != null && mc.level.getEntity(entityId) instanceof Player player) {
+            play(player, "charm_dash");
+        }
+    }
+
+    private static void stop(Player player) {
+        PlayerAnimationController c = controller(player);
+        if (c != null && c.isActive()) {
+            c.stop();
         }
     }
 }

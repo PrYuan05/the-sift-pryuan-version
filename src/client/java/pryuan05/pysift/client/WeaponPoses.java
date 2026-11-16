@@ -55,6 +55,7 @@ public final class WeaponPoses {
         var level = Minecraft.getInstance().level;
         if (level != null) {
             DASH.put(entityId, level.getGameTime());
+            PlayerAnims.onDash(entityId);   // 第三人稱的全身動畫
         }
     }
 
