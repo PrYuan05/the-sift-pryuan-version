@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "cushion",
+  "key": {
+    "#": "pysift:rose_wool_slab"
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "id": "pysift:rose_cushion"
+  }
+}

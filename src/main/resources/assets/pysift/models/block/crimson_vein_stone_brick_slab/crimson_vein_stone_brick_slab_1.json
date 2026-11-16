@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks",
+    "top": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks",
+    "side": "pysift:block/crimson_vein_stone_bricks/crimson_vein_stone_bricks"
+  }
+}

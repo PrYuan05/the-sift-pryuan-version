@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_concrete",
+    "pysift:mint_concrete",
+    "pysift:coral_concrete",
+    "pysift:amber_concrete",
+    "pysift:lavender_concrete",
+    "pysift:rose_concrete",
+    "pysift:soul_blue_concrete",
+    "pysift:void_concrete",
+    "pysift:dusk_gold_concrete"
+  ]
+}

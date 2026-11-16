@@ -21,7 +21,7 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "pysift:block/ember_stone/ember_stone_heat2_a"
+          "model": "pysift:block/ember_stone/ember_stone_heat2_b"
         },
         "when": "2"
       },

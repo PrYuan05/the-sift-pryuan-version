@@ -1,0 +1,39 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "registry": "minecraft:item",
+      "values": [
+        "pysift:soul_shaft"
+      ]
+    }
+  ],
+  "type": "modonomicon:content",
+  "category": "pysift:soul_power",
+  "id": "pysift:soul_power/shafts",
+  "name": "book.pysift.sift_codex.soul_power.shafts.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:soul_cogwheel"
+  },
+  "x": -2,
+  "y": -2,
+  "sort_number": -202,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:soul_power/engine",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

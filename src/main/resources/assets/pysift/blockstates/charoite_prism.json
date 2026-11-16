@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=up": {
+      "model": "pysift:block/charoite_prism/charoite_prism"
+    },
+    "facing=down": {
+      "model": "pysift:block/charoite_prism/charoite_prism",
+      "x": 180
+    },
+    "facing=north": {
+      "model": "pysift:block/charoite_prism/charoite_prism",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "pysift:block/charoite_prism/charoite_prism",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east": {
+      "model": "pysift:block/charoite_prism/charoite_prism",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west": {
+      "model": "pysift:block/charoite_prism/charoite_prism",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

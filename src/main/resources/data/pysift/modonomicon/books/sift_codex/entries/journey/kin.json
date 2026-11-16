@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/kin",
+  "name": "book.pysift.sift_codex.journey.kin.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:sculk_shrieker"
+  },
+  "x": 10,
+  "y": -1,
+  "sort_number": 999,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/way_home",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/warden_soothed",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.journey.kin.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

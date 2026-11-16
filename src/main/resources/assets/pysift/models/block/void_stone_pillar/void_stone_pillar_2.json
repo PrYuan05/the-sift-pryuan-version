@@ -1,7 +1,0 @@
-{
-  "parent": "pysift:block/templates/cube_column_vflip",
-  "textures": {
-    "end": "pysift:block/rune_slate/rune_slate_charge0_a",
-    "side": "pysift:block/void_stone/void_stone_h"
-  }
-}

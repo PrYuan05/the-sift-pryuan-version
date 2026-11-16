@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/spirit_deeps",
+  "name": "book.pysift.sift_codex.sift.spirit_deeps.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:magma_vein_slate"
+  },
+  "x": 2,
+  "y": 6,
+  "sort_number": 206,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/spirit_liquid",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

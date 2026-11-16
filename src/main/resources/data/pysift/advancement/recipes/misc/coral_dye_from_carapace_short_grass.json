@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carapace_short_grass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:carapace_short_grass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:coral_dye_from_carapace_short_grass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_carapace_short_grass"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:coral_dye_from_carapace_short_grass"
+    ]
+  }
+}

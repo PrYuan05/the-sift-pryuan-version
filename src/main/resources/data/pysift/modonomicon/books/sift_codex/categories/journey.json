@@ -1,0 +1,30 @@
+{
+  "name": "book.pysift.sift_codex.journey.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:echo_shard"
+  },
+  "sort_number": 0,
+  "display_mode": "node",
+  "show_category_button": true,
+  "background": "pysift:textures/gui/codex/journey.png",
+  "background_width": 512,
+  "background_height": 512,
+  "background_texture_zoom_multiplier": 1.0,
+  "background_parallax_layers": [
+    {
+      "background": "pysift:textures/gui/codex/motes_1.png",
+      "speed": 0.8
+    },
+    {
+      "background": "pysift:textures/gui/codex/motes_2.png",
+      "speed": 1.1
+    },
+    {
+      "background": "pysift:textures/gui/codex/motes_3.png",
+      "speed": 1.4
+    }
+  ],
+  "max_scroll_x": 512,
+  "max_scroll_y": 512
+}

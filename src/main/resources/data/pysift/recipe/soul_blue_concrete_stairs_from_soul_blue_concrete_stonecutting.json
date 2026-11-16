@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:soul_blue_concrete",
+  "result": {
+    "id": "pysift:soul_blue_concrete_stairs"
+  }
+}

@@ -1,0 +1,9 @@
+{
+	"parent": "pysift:block/vegetation/yellow_leaf_litter/custom_yellow_leaf_litter",
+	"textures": {
+		"all": "pysift:block/vegetation/yellow_leaf_litter/yellow_leaf_litter",
+		"particle": "pysift:block/vegetation/yellow_leaf_litter/yellow_leaf_litter",
+		"0": "pysift:block/vegetation/yellow_leaf_litter/yellow_leaf_litter"
+	},
+	"render_type": "cutout"
+}

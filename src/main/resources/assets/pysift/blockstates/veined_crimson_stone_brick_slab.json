@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/veined_crimson_stone_brick_slab/veined_crimson_stone_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/veined_crimson_stone_bricks/veined_crimson_stone_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/veined_crimson_stone_brick_slab/veined_crimson_stone_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

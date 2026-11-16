@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss1",
-    "bottom": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss3",
-    "side": "pysift:block/mossy_olive_earth/mossy_olive_earth_moss2"
-  }
-}

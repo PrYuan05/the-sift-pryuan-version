@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=up,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank"
+    },
+    "facing=up,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank"
+    },
+    "facing=down,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 180
+    },
+    "facing=down,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 180
+    },
+    "facing=north,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90
+    },
+    "facing=north,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90
+    },
+    "facing=south,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west,powered=false": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "pysift:block/soul_hand_crank/soul_hand_crank",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:ore",
+  "discard_chance_on_air_exposure": 0.0,
+  "size": 8,
+  "targets": [
+    {
+      "state": "pysift:siftite_ore",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:void_stone"
+      }
+    },
+    {
+      "state": "pysift:siftite_ore",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:dark_slate"
+      }
+    },
+    {
+      "state": "pysift:siftite_ore",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:abyssal_strata"
+      }
+    },
+    {
+      "state": "pysift:siftite_ore",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:silted_strata"
+      }
+    },
+    {
+      "state": "pysift:siftite_ore",
+      "target": {
+        "predicate_type": "minecraft:block_match",
+        "block": "pysift:bleached_sandstone"
+      }
+    }
+  ]
+}

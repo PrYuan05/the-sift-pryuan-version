@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/silted_strata/silted_strata_silt0_a",
-    "bottom": "pysift:block/teal_strata/teal_strata_b",
-    "side": "pysift:block/gray_strata/gray_strata_i"
-  }
-}

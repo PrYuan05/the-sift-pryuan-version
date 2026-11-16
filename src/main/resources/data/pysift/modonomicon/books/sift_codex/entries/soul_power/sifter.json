@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:soul_power",
+  "id": "pysift:soul_power/sifter",
+  "name": "book.pysift.sift_codex.soul_power.sifter.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:soul_sifter"
+  },
+  "x": 6,
+  "y": 1,
+  "sort_number": 601,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:soul_power/grinder",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/veined_teal_stone_slab/veined_teal_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/veined_teal_stone/veined_teal_stone_a",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/veined_teal_stone_slab/veined_teal_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

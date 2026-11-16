@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_stained_glass",
+    "pysift:mint_stained_glass",
+    "pysift:coral_stained_glass",
+    "pysift:amber_stained_glass",
+    "pysift:lavender_stained_glass",
+    "pysift:rose_stained_glass",
+    "pysift:soul_blue_stained_glass",
+    "pysift:void_stained_glass",
+    "pysift:dusk_gold_stained_glass"
+  ]
+}

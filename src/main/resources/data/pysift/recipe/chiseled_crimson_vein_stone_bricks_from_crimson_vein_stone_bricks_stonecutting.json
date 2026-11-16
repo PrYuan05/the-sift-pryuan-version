@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:crimson_vein_stone_bricks",
+  "result": {
+    "id": "pysift:chiseled_crimson_vein_stone_bricks"
+  }
+}

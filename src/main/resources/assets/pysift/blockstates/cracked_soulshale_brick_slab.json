@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/cracked_soulshale_brick_slab/cracked_soulshale_brick_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/cracked_soulshale_bricks/cracked_soulshale_bricks"
+    },
+    "type=top": {
+      "model": "pysift:block/cracked_soulshale_brick_slab/cracked_soulshale_brick_slab_top"
+    }
+  }
+}

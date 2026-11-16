@@ -1,0 +1,10 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:soul_conduit",
+  "id": "p4",
+  "sort_number": 4,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks_top",
+    "side": "pysift:block/rusted_dark_cobble_bricks/chiseled_rusted_dark_cobble_bricks"
+  }
+}

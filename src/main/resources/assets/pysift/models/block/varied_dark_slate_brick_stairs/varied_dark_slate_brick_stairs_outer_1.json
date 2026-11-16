@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/varied_dark_slate_bricks/varied_dark_slate_bricks",
+    "top": "pysift:block/varied_dark_slate_bricks/varied_dark_slate_bricks",
+    "side": "pysift:block/varied_dark_slate_bricks/varied_dark_slate_bricks"
+  }
+}

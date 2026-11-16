@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": "pysift:siftite_ingot",
+    "E": "pysift:soul_essence"
+  },
+  "pattern": [
+    " I ",
+    "IEI",
+    " I "
+  ],
+  "result": {
+    "id": "pysift:siftite_gear",
+    "count": 2
+  }
+}

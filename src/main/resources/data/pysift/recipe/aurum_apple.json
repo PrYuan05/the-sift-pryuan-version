@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "pysift:aurum_ingot",
+    "A": "minecraft:apple"
+  },
+  "pattern": [
+    "III",
+    "IAI",
+    "III"
+  ],
+  "result": {
+    "id": "pysift:aurum_apple"
+  }
+}

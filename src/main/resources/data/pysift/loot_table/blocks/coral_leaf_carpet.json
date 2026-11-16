@@ -1,0 +1,64 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:coral_leaf_carpet",
+          "modifier": [
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:coral_leaf_carpet",
+                "state": {
+                  "flower_amount": "1"
+                }
+              },
+              "count": 1
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:coral_leaf_carpet",
+                "state": {
+                  "flower_amount": "2"
+                }
+              },
+              "count": 2
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:coral_leaf_carpet",
+                "state": {
+                  "flower_amount": "3"
+                }
+              },
+              "count": 3
+            },
+            {
+              "type": "minecraft:set_count",
+              "condition": {
+                "type": "minecraft:match_block",
+                "blocks": "pysift:coral_leaf_carpet",
+                "state": {
+                  "flower_amount": "4"
+                }
+              },
+              "count": 4
+            },
+            {
+              "type": "minecraft:explosion_decay"
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/coral_leaf_carpet"
+}

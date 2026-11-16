@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/lichen_stone_bricks/lichen_stone_bricks"
+  }
+}

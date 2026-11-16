@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/stone_variant_bricks/stone_variant_bricks"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_candle",
+    "pysift:mint_candle",
+    "pysift:coral_candle",
+    "pysift:amber_candle",
+    "pysift:lavender_candle",
+    "pysift:rose_candle",
+    "pysift:soul_blue_candle",
+    "pysift:void_candle",
+    "pysift:dusk_gold_candle"
+  ]
+}

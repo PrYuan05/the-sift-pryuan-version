@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:abyssal_strata",
+  "result": {
+    "id": "pysift:abyssal_strata_brick_wall"
+  }
+}

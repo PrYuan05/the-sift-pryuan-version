@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "pysift:scavenger_fang",
+    "minecraft:arrow",
+    "minecraft:arrow",
+    "minecraft:arrow",
+    "minecraft:arrow"
+  ],
+  "result": {
+    "count": 4,
+    "id": "pysift:bleeding_arrow"
+  }
+}

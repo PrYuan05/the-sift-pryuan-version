@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "axis=y,powered=false": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox"
+    },
+    "axis=y,powered=true": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox"
+    },
+    "axis=x,powered=false": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,powered=true": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox",
+      "x": 90,
+      "y": 90
+    },
+    "axis=z,powered=false": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox",
+      "x": 90
+    },
+    "axis=z,powered=true": {
+      "model": "pysift:block/soul_gearbox/soul_gearbox",
+      "x": 90
+    }
+  }
+}

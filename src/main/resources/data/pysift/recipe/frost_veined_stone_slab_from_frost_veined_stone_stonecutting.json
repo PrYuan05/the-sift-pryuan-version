@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:frost_veined_stone",
+  "result": {
+    "count": 2,
+    "id": "pysift:frost_veined_stone_slab"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/smooth_stone_bricks/smooth_stone_bricks",
+    "top": "pysift:block/smooth_stone_bricks/smooth_stone_bricks",
+    "side": "pysift:block/smooth_stone_bricks/smooth_stone_bricks"
+  }
+}

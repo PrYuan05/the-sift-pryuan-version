@@ -8,6 +8,9 @@
 | `recolor.py scan [--threshold N]` | 找出色系不一致（調色盤距離 > N，預設 9）的隨機池或階段，選出參考貼圖，產生改色預覽 | 只寫 `build/texture_pipeline/out/` |
 | `recolor.py apply [block[:state] ...]` | 依 `recolor_plan.json` 改色，先備份再記錄到 manifest | 改 PNG |
 | `recolor.py revert <block[:state]\|all>` | 從備份還原，並移除 manifest 記錄 | 改 PNG |
+| `recolor.py plan <label> <參考> <目標...>` | 手動指定參考與目標（不在同一池的貼圖，例如複合方塊的側面要配合來源方塊） | 只寫預覽，之後用 `apply` 套用 |
+| `refit_faces.py [--dry-run]` | 重新挑選複合方塊（草方塊型、柱狀）的頂面、底面、端面；規則在 `face_rules.json` | 改模型與 blockstate，不改 PNG |
+| `consistency_report.py` | 逐面、逐階段的色差報告與對照圖 | 只寫 `build/texture_pipeline/out/` |
 | `tone_groups.py`、`directional_scan.py` | 色調分群、帶狀貼圖偵測（產生對照圖與提案） | 只寫 `<out_dir>` |
 
 ## 統一色調流程
@@ -30,3 +33,9 @@ python -I tools/texture_pipeline/verify.py .
 - `palette_lib.py`：共用函式（CIELAB、調色盤距離、Tex）。
 - `history/`：一次性的整合腳本（295→93、帶狀方塊、第二輪回饋），留作紀錄，不要再執行。
 - 備份放在專案根目錄的 `.texture_backups/`（已加入 .gitignore）。**不要放在 `build/`，`gradlew clean` 會刪掉。**
+
+## 複合方塊的頂底面（refit_faces.py）
+
+- 候選只來自 `cube_all` 的一般貼圖，不包含花紋、木板、礦石、磚、框紋，也不包含其他方塊的側面貼圖（排除清單在 `face_rules.json` 的 `exclude_sources`）。
+- 評分取「平均色差」與「調色盤組成距離」中較差的一個，必須 ≤ `max_band_delta`；同一面的變體彼此之間 ≤ `max_pool_spread`。沒有候選合格時只用最接近的一張，`verify.py` 會列在 `warn_face_far_from_side_band`。
+- 側面朝向維持原樣；要改朝向寫在 `face_rules.json` 的 `orientation`。`allow_sources` 可以讓特定方塊借用被排除的來源（例如天空方塊借用 sky_block）。

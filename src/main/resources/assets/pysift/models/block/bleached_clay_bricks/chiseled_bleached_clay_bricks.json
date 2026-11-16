@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/bleached_clay_bricks/chiseled_bleached_clay_bricks_top",
+    "side": "pysift:block/bleached_clay_bricks/chiseled_bleached_clay_bricks"
+  }
+}

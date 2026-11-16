@@ -1,0 +1,264 @@
+{
+	"format_version": "26.3",
+	"ambientocclusion": false,
+	"textures": {
+		"cross": "pysift:block/vegetation/bone_spire/bone_spire",
+		"particle": "pysift:block/vegetation/bone_spire/bone_spire"
+	},
+	"elements": [
+		{
+			"from": [
+				2.24,
+				0.0,
+				8.0
+			],
+			"to": [
+				13.76,
+				12.8,
+				8.0
+			],
+			"rotation": {
+				"origin": [
+					8.0,
+					6.4,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				8.0,
+				0.0,
+				2.24
+			],
+			"to": [
+				8.0,
+				12.8,
+				13.76
+			],
+			"rotation": {
+				"origin": [
+					8.0,
+					6.4,
+					8.0
+				],
+				"axis": "y",
+				"angle": 45,
+				"rescale": true
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				2.4,
+				0.0,
+				11.36
+			],
+			"to": [
+				13.6,
+				12.0,
+				11.36
+			],
+			"rotation": {
+				"origin": [
+					8.0,
+					0.0,
+					11.36
+				],
+				"axis": "x",
+				"angle": -12.5
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				2.4,
+				0.0,
+				4.64
+			],
+			"to": [
+				13.6,
+				12.0,
+				4.64
+			],
+			"rotation": {
+				"origin": [
+					8.0,
+					0.0,
+					4.64
+				],
+				"axis": "x",
+				"angle": 12.5
+			},
+			"faces": {
+				"north": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"south": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				11.36,
+				0.0,
+				2.4
+			],
+			"to": [
+				11.36,
+				12.0,
+				13.6
+			],
+			"rotation": {
+				"origin": [
+					11.36,
+					0.0,
+					8.0
+				],
+				"axis": "z",
+				"angle": 12.5
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		},
+		{
+			"from": [
+				4.64,
+				0.0,
+				2.4
+			],
+			"to": [
+				4.64,
+				12.0,
+				13.6
+			],
+			"rotation": {
+				"origin": [
+					4.64,
+					0.0,
+					8.0
+				],
+				"axis": "z",
+				"angle": -12.5
+			},
+			"faces": {
+				"east": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				},
+				"west": {
+					"uv": [
+						0,
+						0,
+						16,
+						16
+					],
+					"texture": "#cross"
+				}
+			},
+			"shade_direction_override": "up"
+		}
+	]
+}

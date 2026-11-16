@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:violet_marble",
+  "result": {
+    "id": "pysift:violet_marble_wall"
+  }
+}

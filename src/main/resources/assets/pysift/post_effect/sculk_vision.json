@@ -1,0 +1,112 @@
+{
+  "targets": {
+    "swap": {}
+  },
+  "passes": [
+    {
+      "vertex_shader": "minecraft:core/screenquad",
+      "fragment_shader": "pysift:post/sculk_vision",
+      "inputs": [
+        {
+          "sampler_name": "In",
+          "target": "minecraft:main"
+        },
+        {
+          "sampler_name": "Depth",
+          "target": "minecraft:main",
+          "use_depth_buffer": true
+        }
+      ],
+      "output": "swap",
+      "uniforms": {
+        "SculkCamera": [
+          {
+            "name": "InvViewProj0",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "InvViewProj1",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "InvViewProj2",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "InvViewProj3",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "CameraStrength",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          {
+            "name": "Params",
+            "type": "vec4",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "vertex_shader": "minecraft:core/screenquad",
+      "fragment_shader": "minecraft:post/blit",
+      "inputs": [
+        {
+          "sampler_name": "In",
+          "target": "swap"
+        }
+      ],
+      "output": "minecraft:main",
+      "uniforms": {
+        "BlitConfig": [
+          {
+            "name": "ColorModulate",
+            "type": "vec4",
+            "value": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

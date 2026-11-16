@@ -1,0 +1,69 @@
+{
+  "criteria": {
+    "sonic_staff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:sonic_staff",
+            "components": {
+              "pysift:awakened": true
+            }
+          }
+        ]
+      }
+    },
+    "dash_charm": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:dash_charm",
+            "components": {
+              "pysift:awakened": true
+            }
+          }
+        ]
+      }
+    },
+    "sculk_hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:sculk_hammer",
+            "components": {
+              "pysift:awakened": true
+            }
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:sonic_staff"
+    },
+    "title": {
+      "translate": "advancements.pysift.awakened.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.awakened.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "sonic_staff",
+      "dash_charm",
+      "sculk_hammer"
+    ]
+  ],
+  "parent": "pysift:progression/kill_harmonizer",
+  "rewards": {
+    "experience": 200
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/banded_mudstone_bricks/banded_mudstone_bricks",
+    "top": "pysift:block/banded_mudstone_bricks/banded_mudstone_bricks",
+    "side": "pysift:block/banded_mudstone_bricks/banded_mudstone_bricks"
+  }
+}

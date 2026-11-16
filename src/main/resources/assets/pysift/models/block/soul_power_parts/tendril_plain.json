@@ -1,0 +1,78 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t": "pysift:block/soul_power/conduit_plain",
+    "particle": "pysift:block/soul_power/conduit_plain"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        2,
+        2,
+        2
+      ],
+      "faces": {
+        "north": {
+          "texture": "#t",
+          "uv": [
+            3,
+            7,
+            5,
+            9
+          ]
+        },
+        "south": {
+          "texture": "#t",
+          "uv": [
+            3,
+            7,
+            5,
+            9
+          ]
+        },
+        "east": {
+          "texture": "#t",
+          "uv": [
+            10,
+            7,
+            12,
+            9
+          ]
+        },
+        "west": {
+          "texture": "#t",
+          "uv": [
+            10,
+            7,
+            12,
+            9
+          ]
+        },
+        "up": {
+          "texture": "#t",
+          "uv": [
+            3,
+            6,
+            5,
+            8
+          ]
+        },
+        "down": {
+          "texture": "#t",
+          "uv": [
+            10,
+            8,
+            12,
+            10
+          ]
+        }
+      },
+      "light_emission": 5
+    }
+  ]
+}

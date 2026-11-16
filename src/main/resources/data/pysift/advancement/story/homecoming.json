@@ -1,0 +1,26 @@
+{
+  "parent": "pysift:story/warden_cured",
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:sift_heart"
+    },
+    "title": {
+      "translate": "advancements.pysift.story.homecoming.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.story.homecoming.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 1000
+  }
+}

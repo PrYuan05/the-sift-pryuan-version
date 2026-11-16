@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/circle_slate/circle_slate",
-    "bottom": "pysift:block/rune_slate/rune_slate_charge0_a",
-    "side": "pysift:block/void_stone/void_stone_i"
-  }
-}

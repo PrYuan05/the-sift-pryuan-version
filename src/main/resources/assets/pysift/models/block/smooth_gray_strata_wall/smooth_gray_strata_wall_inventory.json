@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/gray_strata/smooth_gray_strata"
+  }
+}

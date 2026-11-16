@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0",
+    "top": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0",
+    "side": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0"
+  }
+}

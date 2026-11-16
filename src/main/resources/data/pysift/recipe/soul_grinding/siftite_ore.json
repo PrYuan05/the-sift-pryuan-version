@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_grinding",
+  "ingredient": "pysift:siftite_ore",
+  "result": {
+    "id": "pysift:raw_siftite",
+    "count": 2
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/violet_solid_block_bricks/violet_solid_block_bricks"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_bed",
+    "pysift:mint_bed",
+    "pysift:coral_bed",
+    "pysift:amber_bed",
+    "pysift:lavender_bed",
+    "pysift:rose_bed",
+    "pysift:soul_blue_bed",
+    "pysift:void_bed",
+    "pysift:dusk_gold_bed"
+  ]
+}

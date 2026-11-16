@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:dark_stone",
+  "result": {
+    "id": "pysift:chiseled_dark_stone_bricks"
+  }
+}

@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/bleached_sandstone/bleached_sandstone_bleach4",
-    "bottom": "pysift:block/sky_block/sky_block_cloud0",
-    "side": "pysift:block/sky_block/sky_block_cloud2"
-  }
-}

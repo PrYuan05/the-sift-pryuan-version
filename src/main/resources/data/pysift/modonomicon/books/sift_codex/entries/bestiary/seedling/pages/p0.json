@@ -1,0 +1,15 @@
+{
+  "type": "modonomicon:entity",
+  "entity_id": "pysift:seedling",
+  "entity_name": "",
+  "scale": 1.0,
+  "offset": -0.5,
+  "rotate": true,
+  "default_rotation": -45.0,
+  "id": "p0",
+  "sort_number": 0,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bestiary.seedling.p0.text"
+}

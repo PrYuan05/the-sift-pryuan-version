@@ -1,0 +1,38 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/finale",
+  "name": "book.pysift.sift_codex.journey.finale.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:sift_heart"
+  },
+  "x": 14,
+  "y": 0,
+  "sort_number": 1400,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/homecoming",
+      "line_enabled": true
+    },
+    {
+      "entry": "pysift:journey/mourning_horn",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/homecoming",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.journey.finale.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "pysift:cooked_slabber_steak",
+    "pysift:baked_roamroot_tuber",
+    "pysift:gloomcap"
+  ],
+  "result": {
+    "id": "pysift:sift_stew"
+  }
+}

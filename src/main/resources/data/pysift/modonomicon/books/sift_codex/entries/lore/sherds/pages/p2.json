@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:singer_pottery_sherd"
+  },
+  "title": "",
+  "id": "p2",
+  "sort_number": 2,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.sherds.p2.text"
+}

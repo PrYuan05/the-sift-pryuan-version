@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.lore.sherds.p5.title",
+  "show_title_separator": true,
+  "id": "p5",
+  "sort_number": 5,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.sherds.p5.text"
+}

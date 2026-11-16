@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "amber_dye",
+  "ingredients": [
+    "pysift:rift_orange_tall_grass"
+  ],
+  "result": {
+    "id": "pysift:amber_dye",
+    "count": 2
+  }
+}

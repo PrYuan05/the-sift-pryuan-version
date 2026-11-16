@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "S": "pysift:sculk_scale",
+    "H": "pysift:sculk_monstrosity_heart",
+    "I": "pysift:siftite_ingot"
+  },
+  "pattern": [
+    "SHS",
+    "SIS",
+    " I "
+  ],
+  "result": {
+    "id": "pysift:sculk_hammer"
+  }
+}

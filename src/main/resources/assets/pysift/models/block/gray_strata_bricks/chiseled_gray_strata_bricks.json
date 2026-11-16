@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/gray_strata_bricks/chiseled_gray_strata_bricks_top",
+    "side": "pysift:block/gray_strata_bricks/chiseled_gray_strata_bricks"
+  }
+}

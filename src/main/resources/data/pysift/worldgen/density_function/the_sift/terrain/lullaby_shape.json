@@ -1,0 +1,97 @@
+{
+  "type": "minecraft:spline",
+  "spline": {
+    "coordinate": "pysift:the_sift/terrain/lullaby_canyon",
+    "points": [
+      {
+        "location": 0.0,
+        "value": -0.5625,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.025,
+        "value": -0.546875,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.034,
+        "value": -0.5,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.048,
+        "value": -0.5,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.054,
+        "value": -0.4765625,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.066,
+        "value": -0.4765625,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.072,
+        "value": -0.453125,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.13,
+        "value": -0.453125,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.136,
+        "value": -0.359375,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.2,
+        "value": -0.359375,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.206,
+        "value": -0.25,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.27,
+        "value": -0.25,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.276,
+        "value": -0.140625,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.34,
+        "value": -0.140625,
+        "derivative": 0.0
+      },
+      {
+        "location": 0.348,
+        "value": {
+          "coordinate": "pysift:the_sift/terrain/hills",
+          "points": [
+            {
+              "location": -1.0,
+              "value": -0.03125,
+              "derivative": 0.0
+            },
+            {
+              "location": 1.0,
+              "value": 0.03125,
+              "derivative": 0.046875
+            }
+          ]
+        },
+        "derivative": 0.0
+      }
+    ]
+  }
+}

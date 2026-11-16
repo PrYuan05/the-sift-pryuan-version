@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:veined_crimson_stone",
+  "result": {
+    "id": "pysift:veined_crimson_stone_brick_wall"
+  }
+}

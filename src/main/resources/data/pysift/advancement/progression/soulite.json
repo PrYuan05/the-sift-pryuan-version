@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "ingot": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:soulite_ingot"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:soulite_ingot"
+    },
+    "title": {
+      "translate": "advancements.pysift.soulite.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.soulite.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "ingot"
+    ]
+  ],
+  "parent": "pysift:progression/awakened",
+  "rewards": {
+    "experience": 200
+  }
+}

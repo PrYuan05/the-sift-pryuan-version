@@ -1,0 +1,17 @@
+{
+  "type": "pysift:soul_grinding",
+  "ingredient": {
+    "fabric:type": "fabric:components",
+    "base": "pysift:rusted_dark_cobble",
+    "components": {
+      "minecraft:block_state": {
+        "rust": "3",
+        "sealed": "false"
+      }
+    }
+  },
+  "result": {
+    "id": "minecraft:iron_nugget",
+    "count": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pysift:block/void_obsidian/void_obsidian",
+    "top": "pysift:block/void_obsidian/void_obsidian",
+    "side": "pysift:block/void_obsidian/void_obsidian"
+  }
+}

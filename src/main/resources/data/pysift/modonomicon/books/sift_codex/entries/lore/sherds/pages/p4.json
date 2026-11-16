@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:octave_pottery_sherd"
+  },
+  "title": "",
+  "id": "p4",
+  "sort_number": 4,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.sherds.p4.text"
+}

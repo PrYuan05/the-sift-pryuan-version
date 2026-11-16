@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:rusted_dark_cobble_bricks",
+  "result": {
+    "count": 2,
+    "id": "pysift:rusted_dark_cobble_brick_slab"
+  }
+}

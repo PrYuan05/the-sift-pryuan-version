@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": "pysift:aurum_nugget",
+    "B": "minecraft:sweet_berries"
+  },
+  "pattern": [
+    " N ",
+    "NBN",
+    " N "
+  ],
+  "result": {
+    "id": "pysift:aurum_berries"
+  }
+}

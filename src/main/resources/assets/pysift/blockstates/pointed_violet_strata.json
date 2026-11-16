@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "thickness=tip_merge,vertical_direction=up": {
+      "model": "pysift:block/pointed/pointed_violet_strata_up_tip_merge"
+    },
+    "thickness=tip_merge,vertical_direction=down": {
+      "model": "pysift:block/pointed/pointed_violet_strata_down_tip_merge"
+    },
+    "thickness=tip,vertical_direction=up": {
+      "model": "pysift:block/pointed/pointed_violet_strata_up_tip"
+    },
+    "thickness=tip,vertical_direction=down": {
+      "model": "pysift:block/pointed/pointed_violet_strata_down_tip"
+    },
+    "thickness=frustum,vertical_direction=up": {
+      "model": "pysift:block/pointed/pointed_violet_strata_up_frustum"
+    },
+    "thickness=frustum,vertical_direction=down": {
+      "model": "pysift:block/pointed/pointed_violet_strata_down_frustum"
+    },
+    "thickness=middle,vertical_direction=up": {
+      "model": "pysift:block/pointed/pointed_violet_strata_up_middle"
+    },
+    "thickness=middle,vertical_direction=down": {
+      "model": "pysift:block/pointed/pointed_violet_strata_down_middle"
+    },
+    "thickness=base,vertical_direction=up": {
+      "model": "pysift:block/pointed/pointed_violet_strata_up_base"
+    },
+    "thickness=base,vertical_direction=down": {
+      "model": "pysift:block/pointed/pointed_violet_strata_down_base"
+    }
+  }
+}

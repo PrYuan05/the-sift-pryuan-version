@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:journey",
+  "id": "pysift:journey/mourning_horn",
+  "name": "book.pysift.sift_codex.journey.mourning_horn.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:mourning_horn"
+  },
+  "x": 12,
+  "y": -2,
+  "sort_number": 1198,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:journey/kin",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

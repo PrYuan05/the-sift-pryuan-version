@@ -1,0 +1,79 @@
+{
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "pysift:the_sift/ridges",
+      "points": [
+        {
+          "location": -1.0,
+          "value": {
+            "coordinate": "pysift:the_sift/temperature",
+            "points": [
+              {
+                "location": -1.0,
+                "value": 0.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 0.21,
+                "value": 0.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 0.29,
+                "value": 1.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 1.0,
+                "value": 1.0,
+                "derivative": 0.0
+              }
+            ]
+          },
+          "derivative": 0.0
+        },
+        {
+          "location": -0.26,
+          "value": {
+            "coordinate": "pysift:the_sift/temperature",
+            "points": [
+              {
+                "location": -1.0,
+                "value": 0.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 0.21,
+                "value": 0.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 0.29,
+                "value": 1.0,
+                "derivative": 0.0
+              },
+              {
+                "location": 1.0,
+                "value": 1.0,
+                "derivative": 0.0
+              }
+            ]
+          },
+          "derivative": 0.0
+        },
+        {
+          "location": -0.18,
+          "value": 0.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 1.0,
+          "value": 0.0,
+          "derivative": 0.0
+        }
+      ]
+    }
+  }
+}

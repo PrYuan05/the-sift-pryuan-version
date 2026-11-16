@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ridge_stone_bricks",
+  "result": {
+    "count": 2,
+    "id": "pysift:ridge_stone_brick_slab"
+  }
+}

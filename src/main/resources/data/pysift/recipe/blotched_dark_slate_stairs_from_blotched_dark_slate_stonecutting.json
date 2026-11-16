@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:blotched_dark_slate",
+  "result": {
+    "id": "pysift:blotched_dark_slate_stairs"
+  }
+}

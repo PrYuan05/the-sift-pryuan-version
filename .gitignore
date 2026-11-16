@@ -44,3 +44,17 @@ replay_*.log
 
 # texture pipeline backups (see tools/texture_pipeline)
 .texture_backups/
+
+# headless worldgen test server (tools/worldgen/devserver.py)
+run-server/
+
+# python
+__pycache__/
+*.pyc
+
+# art editing workspace (copies, rebuilt by tools/art_workspace/workspace.py)
+art_workspace/
+
+# downloaded raw sound sources (only the README is tracked)
+sound_sources/*
+!sound_sources/README.md

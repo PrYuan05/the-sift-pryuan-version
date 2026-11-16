@@ -1,0 +1,38 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:lore",
+  "id": "pysift:lore/whole_story",
+  "name": "book.pysift.sift_codex.lore.whole_story.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:echo_shard"
+  },
+  "x": 10,
+  "y": 0,
+  "sort_number": 1000,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/star_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:lore/page_4",
+      "line_enabled": true
+    },
+    {
+      "entry": "pysift:lore/page_8",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/all_pages",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.lore.whole_story.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

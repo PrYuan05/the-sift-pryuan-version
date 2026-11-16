@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/rusted_dark_cobble_slab/rusted_dark_cobble_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/rusted_dark_cobble_slab/rusted_dark_cobble_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

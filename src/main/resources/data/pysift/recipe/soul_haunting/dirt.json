@@ -1,0 +1,7 @@
+{
+  "type": "pysift:soul_haunting",
+  "ingredient": "minecraft:dirt",
+  "result": {
+    "id": "minecraft:soul_soil"
+  }
+}

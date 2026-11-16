@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:veined_crimson_stone",
+  "result": {
+    "count": 2,
+    "id": "pysift:veined_crimson_stone_slab"
+  }
+}

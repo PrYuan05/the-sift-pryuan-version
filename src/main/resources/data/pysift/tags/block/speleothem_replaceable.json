@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#pysift:red_sculk_replaceable",
+    "pysift:varied_dark_slate",
+    "pysift:crimson_vein_stone",
+    "pysift:violet_strata",
+    "pysift:dark_slate"
+  ]
+}

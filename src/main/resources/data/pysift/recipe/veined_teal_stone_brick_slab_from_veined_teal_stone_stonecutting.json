@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:veined_teal_stone",
+  "result": {
+    "count": 2,
+    "id": "pysift:veined_teal_stone_brick_slab"
+  }
+}

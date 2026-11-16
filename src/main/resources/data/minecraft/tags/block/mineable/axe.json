@@ -7,6 +7,8 @@
     "pysift:peeling_log",
     "pysift:rosewood_planks",
     "pysift:umber_log",
-    "pysift:walnut_planks"
+    "pysift:walnut_planks",
+    "pysift:soul_willow_log",
+    "pysift:resonant_jukebox"
   ]
 }

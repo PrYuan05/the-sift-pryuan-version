@@ -3,6 +3,18 @@
     "": [
       {
         "model": "pysift:block/pale_sand/pale_sand"
+      },
+      {
+        "model": "pysift:block/pale_sand/pale_sand",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/pale_sand/pale_sand",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/pale_sand/pale_sand",
+        "y": 270
       }
     ]
   }

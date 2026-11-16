@@ -1,0 +1,152 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "monster": [
+            {
+              "type": "pysift:sentinel",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:stalker",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 30
+            },
+            {
+              "type": "pysift:tuner",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 15
+            },
+            {
+              "type": "pysift:hunter",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            }
+          ],
+          "creature": [
+            {
+              "type": "pysift:echo_golem",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            },
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 15
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.violet_slate_abyss.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.violet_slate_abyss.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.violet_slate_abyss.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.violet_slate_abyss",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "pysift:soul_wisp"
+          },
+          "probability": 0.0008
+        }
+      ]
+    }
+  },
+  "carvers": [],
+  "downfall": 0.2,
+  "effects": {
+    "water_color": "#4a3d6b"
+  },
+  "features": [
+    [],
+    [
+      "pysift:spirit_pond_violet_slate_abyss"
+    ],
+    [
+      "pysift:spire_violet_slate_abyss",
+      "pysift:boss_arena_violet_slate_abyss",
+      "pysift:soul_geode",
+      "pysift:sinkhole"
+    ],
+    [],
+    [],
+    [],
+    [
+      "pysift:soul_crystal_surface",
+      "pysift:soul_crystal_buried",
+      "pysift:siftite_ore",
+      "pysift:charoite_cluster_surface",
+      "pysift:charoite_cluster_cave"
+    ],
+    [],
+    [],
+    [
+      "pysift:patch_abyss_grass",
+      "pysift:patch_violet_ember_grass",
+      "pysift:patch_violet_pink_curled_fern",
+      "pysift:patch_violet_puff_grass",
+      "pysift:patch_dusk_bloom",
+      "pysift:patch_violet_clustered_yellow_flowers",
+      "pysift:patch_violet_yellow_leaf_litter",
+      "pysift:patch_violet_yellow_agave",
+      "pysift:patch_bone_spire",
+      "pysift:patch_glowcap",
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:red_sculk_patch",
+      "pysift:wild_rift",
+      "pysift:lullaby_shrine"
+    ],
+    []
+  ],
+  "has_precipitation": false,
+  "temperature": 0.3
+}

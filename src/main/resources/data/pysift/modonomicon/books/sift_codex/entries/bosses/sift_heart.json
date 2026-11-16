@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bosses",
+  "id": "pysift:bosses/sift_heart",
+  "name": "book.pysift.sift_codex.bosses.sift_heart.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:sift_heart"
+  },
+  "x": 4,
+  "y": 2,
+  "sort_number": 402,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bosses/sculk_monstrosity",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

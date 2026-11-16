@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_glazed_terracotta",
+    "pysift:mint_glazed_terracotta",
+    "pysift:coral_glazed_terracotta",
+    "pysift:amber_glazed_terracotta",
+    "pysift:lavender_glazed_terracotta",
+    "pysift:rose_glazed_terracotta",
+    "pysift:soul_blue_glazed_terracotta",
+    "pysift:void_glazed_terracotta",
+    "pysift:dusk_gold_glazed_terracotta"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/dark_stone/dark_stone",
+    "top": "pysift:block/dark_stone/dark_stone",
+    "side": "pysift:block/dark_stone/dark_stone"
+  }
+}

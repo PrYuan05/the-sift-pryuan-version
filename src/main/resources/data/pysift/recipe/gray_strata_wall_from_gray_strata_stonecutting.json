@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:gray_strata",
+  "result": {
+    "id": "pysift:gray_strata_wall"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "green_dye",
+  "ingredients": [
+    "pysift:blue_giant_canopy"
+  ],
+  "result": {
+    "id": "minecraft:green_dye",
+    "count": 2
+  }
+}

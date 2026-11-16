@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "pysift:block/gray_strata/gray_strata_d",
+    "top": "pysift:block/gray_strata/gray_strata_d",
+    "side": "pysift:block/gray_strata/gray_strata_d"
+  }
+}

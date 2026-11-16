@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/stone_variant_bricks/stone_variant_bricks"
+  }
+}

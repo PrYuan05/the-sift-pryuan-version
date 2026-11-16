@@ -3,7 +3,26 @@
 	"package": "pryuan05.pysift.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"ExampleMixin"
+		"ExampleMixin",
+		"FoodDataMixin",
+		"LiquidBlockMixin",
+		"LavaFluidMixin",
+		"SoulDeprivationDamageMixin",
+		"SouliteFluidWalkMixin",
+		"RitualQuietShriekerMixin",
+		"StateDefinitionBuilderMixin",
+		"BlockMixin",
+		"BlockStateBaseMixin",
+		"ModelShapeMixin",
+		"AutoConnectMixin",
+		"BucketItemMixin",
+		"BlockItemMixin",
+		"CushionMixin",
+		"ShieldDecorationRecipeMixin",
+		"MapItemSavedDataAccessor",
+		"SiftMapBannerMixin",
+		"WardenMixin",
+		"NoiseChunkGeneratorMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

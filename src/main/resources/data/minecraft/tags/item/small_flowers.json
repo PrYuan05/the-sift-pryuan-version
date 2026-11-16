@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:dusk_bloom",
+    "pysift:clustered_yellow_flowers",
+    "pysift:carapace_flower",
+    "pysift:yellow_flower_patch"
+  ]
+}

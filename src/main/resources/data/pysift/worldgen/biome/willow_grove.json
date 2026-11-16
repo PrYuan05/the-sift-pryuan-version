@@ -1,0 +1,158 @@
+{
+  "attributes": {
+    "minecraft:gameplay/natural_mob_spawns": {
+      "argument": {
+        "spawn_costs": {},
+        "spawns_by_category": {
+          "creature": [
+            {
+              "type": "pysift:blub",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 4,
+                "min_inclusive": 2
+              },
+              "weight": 40
+            },
+            {
+              "type": "pysift:nuzzle",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:pollinator",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            },
+            {
+              "type": "pysift:slabber",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 25
+            }
+          ],
+          "monster": [
+            {
+              "type": "pysift:roamroot",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 8
+            },
+            {
+              "type": "pysift:bloombud",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 20
+            }
+          ]
+        }
+      },
+      "modifier": "overlay"
+    },
+    "minecraft:audio/ambient_sounds": {
+      "loop": "pysift:ambient.the_sift.willow_grove.loop",
+      "mood": {
+        "sound": "pysift:ambient.the_sift.willow_grove.mood",
+        "tick_delay": 6000,
+        "block_search_extent": 8,
+        "offset": 2.0
+      },
+      "additions": {
+        "sound": "pysift:ambient.the_sift.willow_grove.additions",
+        "tick_chance": 0.0111
+      }
+    },
+    "minecraft:audio/background_music": {
+      "default": {
+        "sound": "pysift:music.the_sift.willow_grove",
+        "min_delay": 12000,
+        "max_delay": 24000
+      }
+    },
+    "minecraft:visual/sky_color": "#5cd6c6",
+    "minecraft:visual/fog_color": "#8fe2cc",
+    "minecraft:visual/ambient_particles": {
+      "modifier": "append",
+      "argument": [
+        {
+          "particle": {
+            "type": "minecraft:spore_blossom_air"
+          },
+          "probability": 0.012
+        }
+      ]
+    }
+  },
+  "carvers": [],
+  "downfall": 0.8,
+  "effects": {
+    "water_color": "#7fd0d6"
+  },
+  "features": [
+    [],
+    [
+      "pysift:spirit_pond_willow_grove"
+    ],
+    [
+      "pysift:spire_willow_grove",
+      "pysift:boss_arena_willow_grove",
+      "pysift:soul_geode",
+      "pysift:sinkhole"
+    ],
+    [],
+    [],
+    [],
+    [
+      "pysift:siftite_ore"
+    ],
+    [],
+    [],
+    [
+      "pysift:soul_willows_giant",
+      "pysift:soul_willows",
+      "pysift:patch_rift_mint_short_grass",
+      "pysift:patch_rift_mint_tall_grass",
+      "pysift:patch_grove_teal_grass",
+      "pysift:patch_grove_tall_teal_grass",
+      "pysift:patch_blue_curled_fern",
+      "pysift:patch_olive_forked_stalk",
+      "pysift:patch_cleaver_plant",
+      "pysift:patch_soul_cleaver_plant",
+      "pysift:patch_blue_giant_canopy",
+      "pysift:patch_grove_puff_grass",
+      "pysift:patch_grove_glowcap",
+      "pysift:patch_grove_ember_grass",
+      "pysift:patch_coral_leaf_carpet",
+      "pysift:patch_grove_yellow_flower_patch",
+      "pysift:wall_green_sift_vine",
+      "pysift:cliff_vines_willow_grove",
+      "pysift:glowshade_short_grass_grove",
+      "pysift:glowshade_tuft_grove",
+      "pysift:soul_berry_bush_pond",
+      "pysift:gloomcap_cave",
+      "pysift:red_sculk_patch",
+      "pysift:wild_rift",
+      "pysift:lullaby_shrine"
+    ],
+    []
+  ],
+  "has_precipitation": true,
+  "temperature": 0.7
+}

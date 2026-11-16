@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/mossy_cobblestone/mossy_cobblestone_moss0"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pysift:block/progression/sift_altar"
+    }
+  }
+}

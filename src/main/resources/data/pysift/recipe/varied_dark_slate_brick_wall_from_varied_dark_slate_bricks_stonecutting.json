@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:varied_dark_slate_bricks",
+  "result": {
+    "id": "pysift:varied_dark_slate_brick_wall"
+  }
+}

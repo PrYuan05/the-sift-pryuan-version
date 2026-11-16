@@ -1,0 +1,62 @@
+{
+  "variants": {
+    "axis=x": [
+      {
+        "model": "pysift:block/soulshale/soulshale",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "pysift:block/soulshale/soulshale"
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored"
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored",
+        "y": 180
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "pysift:block/soulshale/soulshale",
+        "x": 90
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored",
+        "x": 90
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale",
+        "x": 90,
+        "y": 180
+      },
+      {
+        "model": "pysift:block/soulshale/soulshale_mirrored",
+        "x": 90,
+        "y": 180
+      }
+    ]
+  }
+}

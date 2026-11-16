@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "pysift:soulite"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "pysift:soulite"
+      }
+    ]
+  }
+}

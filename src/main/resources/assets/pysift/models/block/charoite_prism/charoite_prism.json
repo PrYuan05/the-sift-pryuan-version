@@ -1,0 +1,155 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "pysift:block/soul_power/prism",
+    "t1": "pysift:block/soul_power/lens",
+    "particle": "pysift:block/soul_power/casing"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        13,
+        13,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t1"
+        }
+      }
+    },
+    {
+      "from": [
+        3,
+        3.05,
+        3
+      ],
+      "to": [
+        13,
+        12.95,
+        13
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            3,
+            3.05,
+            13,
+            12.95
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            3,
+            3.05,
+            13,
+            12.95
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            3,
+            3.05,
+            13,
+            12.95
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            3,
+            3.05,
+            13,
+            12.95
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            3,
+            3,
+            13,
+            13
+          ],
+          "texture": "#t1"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    }
+  ]
+}

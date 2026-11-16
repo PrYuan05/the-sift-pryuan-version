@@ -1,0 +1,19 @@
+package pryuan05.pysift.client.render;
+
+import net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState;
+
+/** SiftPortalBlockEntityRenderer 的渲染狀態：完整方塊六面鄰格判斷、世界座標、時間與種子。 */
+public class SiftPortalRenderState extends BlockEntityRenderState {
+    public int worldX;
+    public int worldY;
+    public int worldZ;
+    public float time;
+    public boolean faceUp, faceDown, faceNorth, faceSouth, faceWest, faceEast;
+    public long seed;
+    /** 0 = 白天，1 = 深夜（SiftDayPhase）。 */
+    public float night;
+    /** 哪幾面被不透光的方塊貼住（1 << Direction.ordinal()）。 */
+    public int covered;
+    /** 方塊的 axis = X：門面沿 X 軸（南北兩面是門面）。 */
+    public boolean axisX;
+}

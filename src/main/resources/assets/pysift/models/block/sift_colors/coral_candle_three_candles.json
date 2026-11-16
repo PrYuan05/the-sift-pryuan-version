@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_three_candles",
+  "textures": {
+    "all": "pysift:block/sift_colors/coral_candle",
+    "particle": "pysift:block/sift_colors/coral_candle"
+  }
+}

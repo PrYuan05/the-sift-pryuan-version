@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "soul=true": {
+      "model": "pysift:block/soul_filter/soul_filter"
+    },
+    "soul=false": {
+      "model": "pysift:block/soul_filter/soul_filter_plain"
+    }
+  }
+}

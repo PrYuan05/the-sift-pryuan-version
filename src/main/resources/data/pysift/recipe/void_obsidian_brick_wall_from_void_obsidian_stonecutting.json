@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:void_obsidian",
+  "result": {
+    "id": "pysift:void_obsidian_brick_wall"
+  }
+}

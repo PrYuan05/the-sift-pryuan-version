@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:silted_strata",
+  "result": {
+    "id": "pysift:silted_strata_brick_stairs"
+  }
+}

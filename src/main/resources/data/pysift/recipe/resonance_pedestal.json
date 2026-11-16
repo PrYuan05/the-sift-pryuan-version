@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "P": "pysift:patina_ingot",
+    "D": "minecraft:polished_deepslate"
+  },
+  "pattern": [
+    " A ",
+    "PPP",
+    "DDD"
+  ],
+  "result": {
+    "id": "pysift:resonance_pedestal",
+    "count": 2
+  }
+}

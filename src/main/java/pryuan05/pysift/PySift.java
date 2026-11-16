@@ -5,8 +5,31 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pryuan05.pysift.block.ModBlocks;
+import pryuan05.pysift.block.SiftPortalRitual;
+import pryuan05.pysift.effect.SoulBurn;
+import pryuan05.pysift.block.entity.ModBlockEntities;
+import pryuan05.pysift.block.ModVegetation;
+import pryuan05.pysift.block.SoulCrystal;
+import pryuan05.pysift.block.SandstoneFamily;
+import pryuan05.pysift.block.SoulshaleFamily;
+import pryuan05.pysift.block.VoidStoneFamily;
+import pryuan05.pysift.block.StoneFamilies;
+import pryuan05.pysift.block.SoulWillowWood;
+import pryuan05.pysift.progression.ModProgression;
+import pryuan05.pysift.particle.ModParticles;
+import pryuan05.pysift.effect.ModEffects;
 import pryuan05.pysift.entity.ModEntities;
+import pryuan05.pysift.fluid.ModFluids;
 import pryuan05.pysift.item.ModItems;
+import pryuan05.pysift.sound.ModSounds;
+import pryuan05.pysift.worldgen.SoulWillowFoliagePlacer;
+import pryuan05.pysift.worldgen.SoulWillowTrunkPlacer;
+import pryuan05.pysift.worldgen.SoulWillowVineDecorator;
+import pryuan05.pysift.command.BossLocateCommand;
+import pryuan05.pysift.worldgen.BossArenaFeature;
+import pryuan05.pysift.worldgen.CliffVinesFeature;
+import pryuan05.pysift.worldgen.WallPlantFeature;
+import pryuan05.pysift.worldgen.StrataSpireFeature;
 
 public class PySift implements ModInitializer {
     public static final String MOD_ID = "pysift";
@@ -19,9 +42,44 @@ public class PySift implements ModInitializer {
     @Override
     public void onInitialize() {
         LOGGER.info("Initializing The Sift (pysift)...");
+        ModEffects.registerModEffects();
+        ModSounds.register();
+        SoulBurn.register();                 // 靈魂火灼燒：靈液懲罰、靈魂碎裂、解藥
         ModBlocks.registerModBlocks();
+        ModBlockEntities.registerModBlockEntities();
+        ModFluids.registerModFluids();
+        ModVegetation.registerModVegetation();
+        SoulWillowWood.register();
+        SandstoneFamily.register();          // 每種沙的砂岩建材組
+        VoidStoneFamily.register();          // 虛黑岩的磨製、磚瓦、裂紋、平滑建材
+        SoulshaleFamily.register();          // 魂頁岩：深板岩家族的形式，雕紋魂頁岩的配色
+        StoneFamilies.register();            // 升級石材的額外建材形式（平滑灰大理石…）
+        SoulCrystal.register();
+        pryuan05.pysift.block.PointedStones.register();   // 尖石：每種洞穴自己的滴水石（v2.1.0）
+        pryuan05.pysift.block.HangingVines.register();    // 垂吊藤：從洞穴天花板垂下來（v2.1.0）
+        ModProgression.register();           // 第 1 階段：礦石、材料、裝備、Boss 道具
+        ModParticles.register();
+        SoulWillowTrunkPlacer.register();
+        SoulWillowFoliagePlacer.register();
+        SoulWillowVineDecorator.register();
+        StrataSpireFeature.register();
+        CliffVinesFeature.register();
+        WallPlantFeature.register();
+        BossArenaFeature.register();
+        pryuan05.pysift.worldgen.SurfaceFossilFeature.register();     // 迅從者荒原的小化石
+        pryuan05.pysift.worldgen.LullabyShrineFeature.register();     // 搖籃曲山丘神殿
+        pryuan05.pysift.worldgen.SoulCraterFeature.register();        // 靈魂火山高原的火山口湖
+        pryuan05.pysift.worldgen.SinkholeFeature.register();          // 天坑：連接表層與地底（v2.1.0）
+        pryuan05.pysift.worldgen.SpeleothemFeature.register();        // 鐘乳石與石筍（v2.1.0）
         ModEntities.registerModEntities();
         ModItems.registerModItems();
+        pryuan05.pysift.block.SiftColors.register();   // 9 種新顏色：染料與彩色方塊
+        pryuan05.pysift.soulpower.SoulPower.register();  // 靈魂動力：引擎、傳動軸、靈魂振波、研磨機
+        SiftPortalRitual.register();
+        BossLocateCommand.register();
+        pryuan05.pysift.block.RotSpread.registerCommand();
+        pryuan05.pysift.block.RotSpread.registerHealing();
+        pryuan05.pysift.worldgen.StructureShowcase.register();        // /pysift_showcase：在遊戲裡修改結構草稿
         LOGGER.info("The Sift initialized successfully!");
     }
 }

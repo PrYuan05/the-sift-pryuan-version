@@ -2,7 +2,7 @@
   "variants": {
     "": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_a",
+        "model": "pysift:block/framed_dark_slate/dark_slate_a",
         "weight": 1
       }
     ]

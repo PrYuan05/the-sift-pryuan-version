@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:add",
+    "left": {
+      "type": "minecraft:add",
+      "left": {
+        "type": "minecraft:add",
+        "left": "pysift:the_sift/terrain/climate_shape",
+        "right": {
+          "type": "minecraft:mul",
+          "left": "pysift:the_sift/terrain/lullaby_weight",
+          "right": {
+            "type": "minecraft:add",
+            "left": "pysift:the_sift/terrain/lullaby_shape",
+            "right": {
+              "type": "minecraft:mul",
+              "left": -1.0,
+              "right": "pysift:the_sift/terrain/climate_shape"
+            }
+          }
+        }
+      },
+      "right": {
+        "type": "minecraft:mul",
+        "left": "pysift:the_sift/terrain/soul_weight",
+        "right": {
+          "type": "minecraft:add",
+          "left": "pysift:the_sift/terrain/soul_shape",
+          "right": {
+            "type": "minecraft:mul",
+            "left": -1.0,
+            "right": "pysift:the_sift/terrain/climate_shape"
+          }
+        }
+      }
+    },
+    "right": {
+      "type": "minecraft:mul",
+      "right": -0.1171875,
+      "left": {
+        "type": "minecraft:clamp",
+        "min": 0.0,
+        "max": 0.8,
+        "input": {
+          "type": "minecraft:add",
+          "left": {
+            "type": "minecraft:noise",
+            "noise": "pysift:the_sift_ponds",
+            "shift_x": "minecraft:shift_x",
+            "shift_z": "minecraft:shift_z",
+            "xz_scale": 1.0,
+            "y_scale": 0.0
+          },
+          "right": -0.2
+        }
+      }
+    }
+  }
+}

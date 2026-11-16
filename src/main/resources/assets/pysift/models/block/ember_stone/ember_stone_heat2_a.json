@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "pysift:block/ember_stone/ember_stone_heat2_a"
-  }
-}

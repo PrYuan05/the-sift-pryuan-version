@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/banded_mudstone_slab/banded_mudstone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/banded_mudstone/banded_mudstone_banding0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/banded_mudstone_slab/banded_mudstone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/rusted_dark_cobble/rusted_dark_cobble_rust0"
+  }
+}

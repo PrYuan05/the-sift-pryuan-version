@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "coral_dye",
+  "ingredients": [
+    "pysift:carapace_short_grass"
+  ],
+  "result": {
+    "id": "pysift:coral_dye"
+  }
+}

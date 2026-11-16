@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:gate_pottery_sherd"
+  },
+  "title": "",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.sherds.p1.text"
+}

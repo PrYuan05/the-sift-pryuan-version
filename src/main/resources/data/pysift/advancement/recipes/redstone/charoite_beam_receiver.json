@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_charoite": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:charoite"
+          }
+        ]
+      }
+    },
+    "has_siftite_gear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:siftite_gear"
+          }
+        ]
+      }
+    },
+    "has_soul_essence": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:soul_essence"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipes": "pysift:charoite_beam_receiver"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_charoite",
+      "has_siftite_gear",
+      "has_soul_essence",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:charoite_beam_receiver"
+    ]
+  }
+}

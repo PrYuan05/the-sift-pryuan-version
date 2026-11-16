@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bestiary",
+  "id": "pysift:bestiary/hurler",
+  "name": "book.pysift.sift_codex.bestiary.hurler.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:hurler_spawn_egg"
+  },
+  "x": 4,
+  "y": 3,
+  "sort_number": 403,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bestiary/guide",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_hurler",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bestiary.hurler.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/dark_slate_bricks/chiseled_dark_slate_bricks_top",
+    "side": "pysift:block/dark_slate_bricks/chiseled_dark_slate_bricks"
+  }
+}

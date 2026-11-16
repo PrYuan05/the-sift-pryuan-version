@@ -3,6 +3,18 @@
     "": [
       {
         "model": "pysift:block/amber_sand/amber_sand"
+      },
+      {
+        "model": "pysift:block/amber_sand/amber_sand",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/amber_sand/amber_sand",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/amber_sand/amber_sand",
+        "y": 270
       }
     ]
   }

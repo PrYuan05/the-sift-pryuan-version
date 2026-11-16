@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "R": "minecraft:repeater",
+    "C": "pysift:soul_conduit",
+    "G": "pysift:siftite_gear"
+  },
+  "pattern": [
+    " R ",
+    "CGC"
+  ],
+  "result": {
+    "id": "pysift:soul_repeater"
+  }
+}

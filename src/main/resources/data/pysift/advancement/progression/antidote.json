@@ -1,0 +1,33 @@
+{
+  "criteria": {
+    "drank": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": "pysift:soul_antidote"
+        }
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:soul_antidote"
+    },
+    "title": {
+      "translate": "advancements.pysift.antidote.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.antidote.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "drank"
+    ]
+  ],
+  "parent": "pysift:progression/spirit_touch"
+}

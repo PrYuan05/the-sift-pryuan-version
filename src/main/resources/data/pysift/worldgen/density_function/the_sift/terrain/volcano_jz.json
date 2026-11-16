@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:cache",
+  "input": {
+    "type": "minecraft:mul",
+    "left": 80,
+    "right": {
+      "type": "minecraft:noise",
+      "noise": "pysift:the_sift_volcano_jz",
+      "xz_scale": 1.0,
+      "y_scale": 0.0,
+      "shift_x": {
+        "type": "minecraft:add",
+        "left": {
+          "type": "minecraft:mul",
+          "left": -1.0,
+          "right": "pysift:the_sift/terrain/volcano_dx"
+        },
+        "right": 0
+      },
+      "shift_z": {
+        "type": "minecraft:add",
+        "left": {
+          "type": "minecraft:mul",
+          "left": -1.0,
+          "right": "pysift:the_sift/terrain/volcano_dz"
+        },
+        "right": 0
+      }
+    }
+  }
+}

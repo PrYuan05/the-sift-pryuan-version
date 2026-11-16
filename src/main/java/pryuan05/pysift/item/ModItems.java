@@ -8,11 +8,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import pryuan05.pysift.PySift;
+import pryuan05.pysift.progression.ModProgression;
 import pryuan05.pysift.block.ModBlocks;
 import pryuan05.pysift.entity.ModEntities;
 
@@ -22,11 +26,22 @@ public class ModItems {
     // Core Materials
     public static final Item CHAROITE = registerItem("charoite", Item::new);
     public static final Item SIFTITE_INGOT = registerItem("siftite_ingot", Item::new);
+    /** 靈魂解藥：解除靈魂剝奪、歸還被抽走的血量（SoulAntidoteItem）。 */
+    public static final Item SOUL_ANTIDOTE = registerItem("soul_antidote", SoulAntidoteItem::new);
+
+    // 投擲物的外觀物品（使用者繪製的圖示；只有君王羽刃放在物品分頁）
+    public static final Item HURLER_ROCK = registerItem("hurler_rock", p -> new pryuan05.pysift.progression.MobDrops.ThrowableDropItem(p,
+            (level, player) -> new pryuan05.pysift.entity.projectile.ThrownRockEntity(level, player, 4.0f)));   // 玩家也能丟（v2.2）
+    public static final Item MONARCH_FEATHER = registerItem("monarch_feather", Item::new);
+    public static final Item TRAPPER_NET = registerItem("trapper_net", p -> new pryuan05.pysift.progression.MobDrops.ThrowableDropItem(p,
+            pryuan05.pysift.entity.projectile.TrapperNetEntity::new));   // 玩家也能丟（v2.2）
 
     // 24 Spawn Eggs
     public static final Item BLUB_SPAWN_EGG = registerSpawnEgg("blub_spawn_egg", ModEntities.BLUB);
     public static final Item ECHO_GOLEM_SPAWN_EGG = registerSpawnEgg("echo_golem_spawn_egg", ModEntities.ECHO_GOLEM);
     public static final Item SINGER_SPAWN_EGG = registerSpawnEgg("singer_spawn_egg", ModEntities.SINGER);
+    public static final Item MOURNER_SPAWN_EGG = registerSpawnEgg("mourner_spawn_egg", ModEntities.MOURNER);
+    public static final Item SIFT_WARDEN_SPAWN_EGG = registerSpawnEgg("sift_warden_spawn_egg", ModEntities.SIFT_WARDEN);
     public static final Item NUZZLE_SPAWN_EGG = registerSpawnEgg("nuzzle_spawn_egg", ModEntities.NUZZLE);
     public static final Item LOOTKIN_SPAWN_EGG = registerSpawnEgg("lootkin_spawn_egg", ModEntities.LOOTKIN);
     public static final Item FUSEFLY_SPAWN_EGG = registerSpawnEgg("fusefly_spawn_egg", ModEntities.FUSEFLY);
@@ -38,6 +53,8 @@ public class ModItems {
     public static final Item SPROUT_SPAWN_EGG = registerSpawnEgg("sprout_spawn_egg", ModEntities.SPROUT);
     public static final Item STALKER_SPAWN_EGG = registerSpawnEgg("stalker_spawn_egg", ModEntities.STALKER);
     public static final Item SCAVENGER_SPAWN_EGG = registerSpawnEgg("scavenger_spawn_egg", ModEntities.SCAVENGER);
+    public static final Item HUNTER_SPAWN_EGG = registerSpawnEgg("hunter_spawn_egg", ModEntities.HUNTER);
+    public static final Item TRAPPER_SPAWN_EGG = registerSpawnEgg("trapper_spawn_egg", ModEntities.TRAPPER);
     public static final Item SLABBER_SPAWN_EGG = registerSpawnEgg("slabber_spawn_egg", ModEntities.SLABBER);
     public static final Item PRICKLE_SPAWN_EGG = registerSpawnEgg("prickle_spawn_egg", ModEntities.PRICKLE);
     public static final Item SENTINEL_SPAWN_EGG = registerSpawnEgg("sentinel_spawn_egg", ModEntities.SENTINEL);
@@ -50,48 +67,71 @@ public class ModItems {
     public static final Item SCULK_MONSTROSITY_SPAWN_EGG = registerSpawnEgg("sculk_monstrosity_spawn_egg", ModEntities.SCULK_MONSTROSITY);
 
     public static final Item[] SPAWN_EGGS = new Item[] {
-            BLUB_SPAWN_EGG, ECHO_GOLEM_SPAWN_EGG, SINGER_SPAWN_EGG, NUZZLE_SPAWN_EGG, LOOTKIN_SPAWN_EGG,
+            BLUB_SPAWN_EGG, ECHO_GOLEM_SPAWN_EGG, SINGER_SPAWN_EGG, MOURNER_SPAWN_EGG, SIFT_WARDEN_SPAWN_EGG, NUZZLE_SPAWN_EGG, LOOTKIN_SPAWN_EGG,
             FUSEFLY_SPAWN_EGG, DARTBACK_SPAWN_EGG, HURLER_SPAWN_EGG, POLLINATOR_SPAWN_EGG, NESTER_SPAWN_EGG,
-            SEEDLING_SPAWN_EGG, SPROUT_SPAWN_EGG, STALKER_SPAWN_EGG, SCAVENGER_SPAWN_EGG, SLABBER_SPAWN_EGG,
+            SEEDLING_SPAWN_EGG, SPROUT_SPAWN_EGG, STALKER_SPAWN_EGG, SCAVENGER_SPAWN_EGG, HUNTER_SPAWN_EGG, TRAPPER_SPAWN_EGG, SLABBER_SPAWN_EGG,
             PRICKLE_SPAWN_EGG, SENTINEL_SPAWN_EGG, TUNER_SPAWN_EGG, BLOOMBUD_SPAWN_EGG, ROAMROOT_SPAWN_EGG,
             WOBBLE_SPAWN_EGG, HARMONIZER_SPAWN_EGG, MONARCH_SPAWN_EGG, SCULK_MONSTROSITY_SPAWN_EGG
     };
 
-    // Creative Tabs
+    // Creative tab sources (the visible tabs are SiftCreativeTabs; these keys only name where items come from)
     public static final ResourceKey<CreativeModeTab> BLOCKS_TAB_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
             PySift.id("pysift_blocks")
     );
 
-    public static final CreativeModeTab BLOCKS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(ModBlocks.ALL_BLOCKS.isEmpty() ? net.minecraft.world.item.Items.STONE : ModBlocks.ALL_BLOCKS.get(0)))
-            .title(Component.translatable("itemGroup.pysift.pysift_blocks"))
-            .displayItems((params, output) -> {
-                for (net.minecraft.world.level.block.Block block : ModBlocks.ALL_BLOCKS) {
-                    output.accept(block);
-                    output.acceptAll(ModBlocks.stateVariantStacks(block));
-                }
-            })
-            .build();
+    /**
+     * 世界生成沒有用到的方塊（由 tools/worldgen/unused_blocks.py 產生，改了 build_the_sift.py 後重跑）。
+     * 這些方塊（與它們的建材組）不放在主方塊分頁，改放在 UNUSED_BLOCKS_TAB。
+     */
+    public static final TagKey<Block> NOT_IN_WORLDGEN = TagKey.create(Registries.BLOCK, PySift.id("not_in_worldgen"));
+
+    public static final ResourceKey<CreativeModeTab> UNUSED_BLOCKS_TAB_KEY = ResourceKey.create(
+            BuiltInRegistries.CREATIVE_MODE_TAB.key(),
+            PySift.id("pysift_unused_blocks")
+    );
+
+    /**
+     * 依 ModBlocks 的順序列出方塊（各狀態、建材組緊跟在石頭後面），再加上進度系統的方塊（礦石、祭壇、作物）；
+     * unused 決定列出生成用到的還是沒用到的。植被、靈柳木、砂岩、靈魂晶塊由各自的類別加進來；
+     * 最後的分類排序在用戶端（CreativeLayout）。
+     */
+    static void acceptBlocks(CreativeModeTab.Output output, boolean unused) {
+        for (Block block : ModBlocks.ALL_BLOCKS) {
+            if (ModBlocks.SET_BASE.containsKey(block)) {
+                continue;   // building-set members are listed right after their stone
+            }
+            if (block.defaultBlockState().is(NOT_IN_WORLDGEN) != unused) {
+                continue;
+            }
+            output.accept(block);
+            output.acceptAll(ModBlocks.stateVariantStacks(block));
+            for (Block member : ModBlocks.SET_OF.getOrDefault(block, java.util.List.of())) {
+                output.accept(member);
+            }
+        }
+        for (Item item : ModProgression.CREATIVE_ORDER) {
+            if (item instanceof BlockItem blockItem && blockItem.getBlock().defaultBlockState().is(NOT_IN_WORLDGEN) == unused) {
+                output.accept(item);
+            }
+        }
+    }
 
     public static final ResourceKey<CreativeModeTab> ITEMS_TAB_KEY = ResourceKey.create(
             BuiltInRegistries.CREATIVE_MODE_TAB.key(),
             PySift.id("pysift_items")
     );
 
-    public static final CreativeModeTab ITEMS_TAB = FabricCreativeModeTab.builder()
-            .icon(() -> new ItemStack(SIFTITE_INGOT))
-            .title(Component.translatable("itemGroup.pysift.pysift_items"))
-            .displayItems((params, output) -> {
-                // Materials
-                output.accept(CHAROITE);
-                output.accept(SIFTITE_INGOT);
-                // Spawn Eggs
-                for (Item egg : SPAWN_EGGS) {
-                    output.accept(egg);
-                }
-            })
-            .build();
+    /** 核心材料、君王羽刃（投石、陷阱師的網只當投擲物外觀，不放進分頁）與生怪蛋。 */
+    static void acceptItems(CreativeModeTab.Output output) {
+        output.accept(CHAROITE);
+        output.accept(SIFTITE_INGOT);
+        output.accept(SOUL_ANTIDOTE);
+        output.accept(MONARCH_FEATHER);
+        for (Item egg : SPAWN_EGGS) {
+            output.accept(egg);
+        }
+    }
 
     public static Item registerItem(String name, Function<Item.Properties, Item> itemFactory) {
         ResourceKey<Item> key = ResourceKey.create(Registries.ITEM, PySift.id(name));
@@ -107,7 +147,6 @@ public class ModItems {
 
     public static void registerModItems() {
         PySift.LOGGER.info("Registering Items and Creative Tabs for {}", PySift.MOD_ID);
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, BLOCKS_TAB_KEY, BLOCKS_TAB);
-        Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, ITEMS_TAB_KEY, ITEMS_TAB);
+        SiftCreativeTabs.register();
     }
 }

@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "pysift:block/sift_colors/mint_concrete_powder"
+      },
+      {
+        "model": "pysift:block/sift_colors/mint_concrete_powder",
+        "y": 90
+      },
+      {
+        "model": "pysift:block/sift_colors/mint_concrete_powder",
+        "y": 180
+      },
+      {
+        "model": "pysift:block/sift_colors/mint_concrete_powder",
+        "y": 270
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/frost_veined_stone_bricks/frost_veined_stone_bricks",
+    "top": "pysift:block/frost_veined_stone_bricks/frost_veined_stone_bricks",
+    "side": "pysift:block/frost_veined_stone_bricks/frost_veined_stone_bricks"
+  }
+}

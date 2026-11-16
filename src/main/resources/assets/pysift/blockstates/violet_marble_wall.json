@@ -1,0 +1,167 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_post_1",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_post_2",
+          "weight": 1
+        }
+      ],
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_1",
+          "weight": 1,
+          "uvlock": true
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_2",
+          "weight": 1,
+          "uvlock": true
+        }
+      ],
+      "when": {
+        "north": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        }
+      ],
+      "when": {
+        "east": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        }
+      ],
+      "when": {
+        "south": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        }
+      ],
+      "when": {
+        "west": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_2",
+          "weight": 1,
+          "uvlock": true
+        }
+      ],
+      "when": {
+        "north": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        }
+      ],
+      "when": {
+        "east": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        }
+      ],
+      "when": {
+        "south": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/violet_marble_wall/violet_marble_wall_side_tall_2",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        }
+      ],
+      "when": {
+        "west": "tall"
+      }
+    }
+  ]
+}

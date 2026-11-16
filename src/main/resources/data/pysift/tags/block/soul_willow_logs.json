@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:soul_willow_log",
+    "pysift:soul_willow_wood",
+    "pysift:stripped_soul_willow_log",
+    "pysift:stripped_soul_willow_wood"
+  ]
+}

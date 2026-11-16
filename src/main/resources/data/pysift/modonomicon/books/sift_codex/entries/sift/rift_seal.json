@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:sift",
+  "id": "pysift:sift/rift_seal",
+  "name": "book.pysift.sift_codex.sift.rift_seal.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:rift_seal"
+  },
+  "x": 8,
+  "y": -1,
+  "sort_number": 799,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:sift/rot",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

@@ -2,27 +2,27 @@
   "variants": {
     "tone=gray": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_g",
+        "model": "pysift:block/varied_dark_slate/dark_slate_g",
         "weight": 1
       },
       {
-        "model": "pysift:block/dark_slate/dark_slate_h",
+        "model": "pysift:block/varied_dark_slate/dark_slate_h",
         "weight": 1
       },
       {
-        "model": "pysift:block/dark_slate/dark_slate_i",
+        "model": "pysift:block/varied_dark_slate/dark_slate_i",
         "weight": 1
       }
     ],
     "tone=mottled": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_d",
+        "model": "pysift:block/varied_dark_slate/dark_slate_d",
         "weight": 1
       }
     ],
     "tone=violet": [
       {
-        "model": "pysift:block/dark_slate/dark_slate_j",
+        "model": "pysift:block/varied_dark_slate/dark_slate_j",
         "weight": 1
       }
     ]

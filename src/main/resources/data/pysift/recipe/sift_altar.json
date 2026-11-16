@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "C": "pysift:charoite",
+    "E": "pysift:soul_essence",
+    "I": "pysift:siftite_ingot",
+    "B": "pysift:dark_slate_bricks"
+  },
+  "pattern": [
+    "CEC",
+    "EIE",
+    "BBB"
+  ],
+  "result": {
+    "id": "pysift:sift_altar"
+  }
+}

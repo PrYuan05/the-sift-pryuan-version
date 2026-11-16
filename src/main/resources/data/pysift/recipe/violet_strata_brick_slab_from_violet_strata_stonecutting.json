@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:violet_strata",
+  "result": {
+    "count": 2,
+    "id": "pysift:violet_strata_brick_slab"
+  }
+}

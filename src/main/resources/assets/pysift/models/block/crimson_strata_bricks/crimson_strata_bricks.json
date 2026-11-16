@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/crimson_strata_bricks/crimson_strata_bricks"
+  }
+}

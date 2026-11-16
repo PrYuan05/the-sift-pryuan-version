@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss0",
+    "top": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss0",
+    "side": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss0"
+  }
+}

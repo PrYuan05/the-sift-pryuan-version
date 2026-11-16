@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pysift:block/soulshale/cracked_soulshale_bricks",
+    "side": "pysift:block/soulshale/cracked_soulshale_bricks",
+    "top": "pysift:block/soulshale/cracked_soulshale_bricks"
+  }
+}

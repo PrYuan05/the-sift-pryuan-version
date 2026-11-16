@@ -6,26 +6,12 @@
         "weight": 1
       }
     ],
-    "heat=1": [
-      {
-        "model": "pysift:block/ember_stone/ember_stone_heat1_a",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/ember_stone/ember_stone_heat1_b",
-        "weight": 1
-      }
-    ],
-    "heat=2": [
-      {
-        "model": "pysift:block/ember_stone/ember_stone_heat2_a",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/ember_stone/ember_stone_heat2_b",
-        "weight": 1
-      }
-    ],
+    "heat=1": {
+      "model": "pysift:block/ember_stone/ember_stone_heat1_a"
+    },
+    "heat=2": {
+      "model": "pysift:block/ember_stone/ember_stone_heat2_b"
+    },
     "heat=3": {
       "model": "pysift:block/ember_stone/ember_stone_heat3_a",
       "weight": 1

@@ -1,0 +1,58 @@
+{
+  "type": "minecraft:add",
+  "left": {
+    "type": "minecraft:add",
+    "left": {
+      "type": "minecraft:mul",
+      "left": 11.0,
+      "right": {
+        "type": "minecraft:abs",
+        "input": {
+          "type": "minecraft:noise",
+          "noise": "pysift:the_sift_fissure",
+          "xz_scale": 1.0,
+          "y_scale": 0.08
+        }
+      }
+    },
+    "right": -0.7
+  },
+  "right": {
+    "type": "minecraft:spline",
+    "spline": {
+      "coordinate": "pysift:the_sift/biome_depth",
+      "points": [
+        {
+          "location": 0.22,
+          "value": 0.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.38,
+          "value": 0.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.46,
+          "value": 6.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.64,
+          "value": 6.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 0.74,
+          "value": 6.0,
+          "derivative": 0.0
+        },
+        {
+          "location": 1.4,
+          "value": 6.0,
+          "derivative": 0.0
+        }
+      ]
+    }
+  }
+}

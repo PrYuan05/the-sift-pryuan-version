@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:book",
+    "minecraft:echo_shard"
+  ],
+  "result": {
+    "id": "modonomicon:modonomicon",
+    "components": {
+      "modonomicon:book_id": "pysift:sift_codex"
+    }
+  }
+}

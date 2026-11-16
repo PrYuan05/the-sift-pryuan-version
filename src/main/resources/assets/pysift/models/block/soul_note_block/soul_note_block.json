@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "pysift:block/soul_power/note_side",
+    "end": "pysift:block/soul_power/note_top"
+  }
+}

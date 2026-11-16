@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a"
+  }
+}

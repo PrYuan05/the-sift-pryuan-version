@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=up,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster"
+    },
+    "facing=up,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster"
+    },
+    "facing=down,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 180
+    },
+    "facing=down,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 180
+    },
+    "facing=north,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90
+    },
+    "facing=north,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90
+    },
+    "facing=south,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 180
+    },
+    "facing=east,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 90
+    },
+    "facing=west,waterlogged=false": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,waterlogged=true": {
+      "model": "pysift:block/progression/charoite_cluster",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

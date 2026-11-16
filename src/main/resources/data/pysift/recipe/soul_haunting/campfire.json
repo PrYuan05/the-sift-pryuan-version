@@ -1,0 +1,7 @@
+{
+  "type": "pysift:soul_haunting",
+  "ingredient": "minecraft:campfire",
+  "result": {
+    "id": "minecraft:soul_campfire"
+  }
+}

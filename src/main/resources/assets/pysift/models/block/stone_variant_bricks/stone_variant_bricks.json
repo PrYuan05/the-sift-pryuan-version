@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/stone_variant_bricks/stone_variant_bricks"
+  }
+}

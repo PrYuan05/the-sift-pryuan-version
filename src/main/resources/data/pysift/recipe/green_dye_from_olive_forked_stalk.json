@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "green_dye",
+  "ingredients": [
+    "pysift:olive_forked_stalk"
+  ],
+  "result": {
+    "id": "minecraft:green_dye"
+  }
+}

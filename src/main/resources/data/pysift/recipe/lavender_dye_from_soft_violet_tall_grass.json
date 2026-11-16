@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "lavender_dye",
+  "ingredients": [
+    "pysift:soft_violet_tall_grass"
+  ],
+  "result": {
+    "id": "pysift:lavender_dye",
+    "count": 2
+  }
+}

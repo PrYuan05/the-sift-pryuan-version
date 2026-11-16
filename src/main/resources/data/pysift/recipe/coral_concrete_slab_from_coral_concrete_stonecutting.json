@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:coral_concrete",
+  "result": {
+    "count": 2,
+    "id": "pysift:coral_concrete_slab"
+  }
+}

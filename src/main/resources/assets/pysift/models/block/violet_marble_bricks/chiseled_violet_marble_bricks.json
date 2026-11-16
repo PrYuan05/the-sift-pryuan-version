@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/violet_marble_bricks/chiseled_violet_marble_bricks_top",
+    "side": "pysift:block/violet_marble_bricks/chiseled_violet_marble_bricks"
+  }
+}

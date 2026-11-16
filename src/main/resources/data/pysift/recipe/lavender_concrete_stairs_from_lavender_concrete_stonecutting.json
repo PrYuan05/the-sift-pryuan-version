@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:lavender_concrete",
+  "result": {
+    "id": "pysift:lavender_concrete_stairs"
+  }
+}

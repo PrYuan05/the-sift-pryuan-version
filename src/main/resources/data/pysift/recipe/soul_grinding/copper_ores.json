@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_grinding",
+  "ingredient": "#minecraft:copper_ores",
+  "result": {
+    "id": "minecraft:raw_copper",
+    "count": 6
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_cushion",
+    "pysift:mint_cushion",
+    "pysift:coral_cushion",
+    "pysift:amber_cushion",
+    "pysift:lavender_cushion",
+    "pysift:rose_cushion",
+    "pysift:soul_blue_cushion",
+    "pysift:void_cushion",
+    "pysift:dusk_gold_cushion"
+  ]
+}

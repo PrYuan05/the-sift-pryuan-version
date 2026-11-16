@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/amber_vein_stone_slab/amber_vein_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/amber_vein_stone/amber_vein_stone_amber_spread0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/amber_vein_stone_slab/amber_vein_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

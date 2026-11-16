@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "condition": {
+        "type": "minecraft:survives_explosion"
+      },
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pysift:capped_crimson_strata",
+          "modifier": [
+            {
+              "type": "minecraft:copy_state",
+              "block": "pysift:capped_crimson_strata",
+              "properties": [
+                "tone"
+              ]
+            }
+          ]
+        }
+      ],
+      "rolls": 1
+    }
+  ],
+  "random_sequence": "pysift:blocks/capped_crimson_strata"
+}

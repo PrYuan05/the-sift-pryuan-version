@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:resonance_core",
+  "recipe_id_2": "pysift:resonance_pedestal",
+  "id": "p2",
+  "sort_number": 2,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": ""
+}

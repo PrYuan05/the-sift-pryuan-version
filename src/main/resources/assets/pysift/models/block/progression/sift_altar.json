@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/progression/sift_altar_top",
+    "side": "pysift:block/progression/sift_altar_side",
+    "bottom": "pysift:block/dark_slate_bricks/dark_slate_bricks"
+  }
+}

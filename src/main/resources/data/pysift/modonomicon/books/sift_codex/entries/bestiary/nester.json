@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:bestiary",
+  "id": "pysift:bestiary/nester",
+  "name": "book.pysift.sift_codex.bestiary.nester.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:nester_spawn_egg"
+  },
+  "x": 8,
+  "y": 1,
+  "sort_number": 801,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:bestiary/guide",
+      "line_enabled": false
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/met_nester",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.bestiary.nester.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

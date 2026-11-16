@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:soul_willow_leaves",
+    "pysift:soul_willow_leaves_pale",
+    "pysift:glowing_soul_willow_leaves",
+    "#minecraft:leaves",
+    "#minecraft:supports_vegetation"
+  ]
+}

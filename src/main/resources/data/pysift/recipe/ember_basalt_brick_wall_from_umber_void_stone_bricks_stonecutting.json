@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:ember_basalt_bricks",
+  "result": {
+    "id": "pysift:ember_basalt_brick_wall"
+  }
+}

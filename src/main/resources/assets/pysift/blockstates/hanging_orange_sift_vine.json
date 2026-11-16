@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "bottom=false": {
+      "model": "pysift:block/vegetation/hanging_vines/hanging_orange_sift_vine"
+    },
+    "bottom=true": {
+      "model": "pysift:block/vegetation/hanging_vines/hanging_orange_sift_vine_tip"
+    }
+  }
+}

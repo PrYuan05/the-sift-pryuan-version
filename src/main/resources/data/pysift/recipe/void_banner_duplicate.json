@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_special_bannerduplicate",
+  "banner": "pysift:void_banner",
+  "result": {
+    "id": "pysift:void_banner"
+  }
+}

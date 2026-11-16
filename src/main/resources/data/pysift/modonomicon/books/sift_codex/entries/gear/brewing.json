@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:gear",
+  "id": "pysift:gear/brewing",
+  "name": "book.pysift.sift_codex.gear.brewing.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:soul_berries"
+  },
+  "x": 0,
+  "y": 2,
+  "sort_number": 2,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:gear/siftite",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

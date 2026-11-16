@@ -1,0 +1,31 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:lore",
+  "id": "pysift:lore/chronicle",
+  "name": "book.pysift.sift_codex.lore.chronicle.name",
+  "description": "",
+  "icon": {
+    "id": "pysift:ancient_chronicle"
+  },
+  "x": 12,
+  "y": 0,
+  "sort_number": 1200,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:lore/whole_story",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/all_pages"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

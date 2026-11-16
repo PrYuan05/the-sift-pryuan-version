@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:gate_pottery_sherd",
+    "pysift:singer_pottery_sherd",
+    "pysift:kin_pottery_sherd",
+    "pysift:octave_pottery_sherd"
+  ]
+}

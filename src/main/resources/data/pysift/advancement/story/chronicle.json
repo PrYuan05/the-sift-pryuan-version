@@ -1,0 +1,26 @@
+{
+  "parent": "pysift:progression/eight_songs",
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:ancient_chronicle"
+    },
+    "title": {
+      "translate": "advancements.pysift.story.chronicle.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.story.chronicle.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

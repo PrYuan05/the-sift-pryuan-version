@@ -1,0 +1,8 @@
+{
+  "type": "pysift:soul_sifting",
+  "ingredient": "minecraft:sculk",
+  "result": {
+    "id": "pysift:red_sculk",
+    "count": 1
+  }
+}

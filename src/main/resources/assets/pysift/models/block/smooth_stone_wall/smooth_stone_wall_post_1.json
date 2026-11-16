@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "pysift:block/smooth_stone/smooth_stone_a"
+  }
+}

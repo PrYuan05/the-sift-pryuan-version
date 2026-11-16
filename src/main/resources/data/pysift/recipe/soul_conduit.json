@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "R": "minecraft:redstone",
+    "P": "pysift:patina_ingot",
+    "E": "pysift:soul_essence"
+  },
+  "pattern": [
+    " R ",
+    "PEP",
+    " R "
+  ],
+  "result": {
+    "id": "pysift:soul_conduit",
+    "count": 6
+  }
+}

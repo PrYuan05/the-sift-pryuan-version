@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "compass": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:soul_compass"
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "icon": {
+      "id": "pysift:soul_compass"
+    },
+    "title": {
+      "translate": "advancements.pysift.soul_compass.title"
+    },
+    "description": {
+      "translate": "advancements.pysift.soul_compass.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "requirements": [
+    [
+      "compass"
+    ]
+  ],
+  "parent": "pysift:progression/root"
+}

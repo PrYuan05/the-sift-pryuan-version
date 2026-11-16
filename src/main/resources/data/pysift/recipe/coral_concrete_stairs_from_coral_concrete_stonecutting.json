@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:coral_concrete",
+  "result": {
+    "id": "pysift:coral_concrete_stairs"
+  }
+}

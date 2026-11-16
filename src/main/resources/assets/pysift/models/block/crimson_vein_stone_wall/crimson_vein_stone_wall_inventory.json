@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/crimson_vein_stone/crimson_vein_stone_crimson_spread0"
+  }
+}

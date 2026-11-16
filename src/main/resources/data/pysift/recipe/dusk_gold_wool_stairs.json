@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "woolen_stairs",
+  "key": {
+    "#": "pysift:dusk_gold_wool"
+  },
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "result": {
+    "count": 4,
+    "id": "pysift:dusk_gold_wool_stairs"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/sift_colors/coral_wool_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/sift_colors/coral_wool"
+    },
+    "type=top": {
+      "model": "pysift:block/sift_colors/coral_wool_slab_top"
+    }
+  }
+}

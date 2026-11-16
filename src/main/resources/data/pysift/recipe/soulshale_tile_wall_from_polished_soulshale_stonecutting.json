@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:polished_soulshale",
+  "result": {
+    "id": "pysift:soulshale_tile_wall"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
+    "top": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0",
+    "side": "pysift:block/bleached_sandstone/bleached_sandstone_bleach0"
+  }
+}

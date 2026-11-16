@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pysift:block/violet_solid_block_bricks/violet_solid_block_bricks",
+    "top": "pysift:block/violet_solid_block_bricks/violet_solid_block_bricks",
+    "side": "pysift:block/violet_solid_block_bricks/violet_solid_block_bricks"
+  }
+}

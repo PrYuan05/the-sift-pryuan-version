@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/ember_stone_bricks/ember_stone_bricks"
+  }
+}

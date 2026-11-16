@@ -1,0 +1,7 @@
+{
+  "type": "pysift:soul_haunting",
+  "ingredient": "minecraft:sculk_vein",
+  "result": {
+    "id": "pysift:red_sculk_vein"
+  }
+}

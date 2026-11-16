@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:crafting_recipe",
+  "recipe_id_1": "pysift:summoning_sigil",
+  "recipe_id_2": "pysift:sift_altar",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bosses.guide.p1.text"
+}

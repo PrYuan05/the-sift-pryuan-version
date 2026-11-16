@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "resonance=0": {
+      "model": "pysift:block/echo_cradle/echo_cradle_0"
+    },
+    "resonance=1": {
+      "model": "pysift:block/echo_cradle/echo_cradle_1"
+    },
+    "resonance=2": {
+      "model": "pysift:block/echo_cradle/echo_cradle_2"
+    },
+    "resonance=3": {
+      "model": "pysift:block/echo_cradle/echo_cradle_3"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_shulker_box",
+  "textures": {
+    "particle": "pysift:block/sift_colors/rose_shulker_box"
+  }
+}

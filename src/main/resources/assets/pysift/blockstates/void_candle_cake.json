@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "pysift:block/sift_colors/void_candle_cake"
+    },
+    "lit=true": {
+      "model": "pysift:block/sift_colors/void_candle_cake_lit"
+    }
+  }
+}

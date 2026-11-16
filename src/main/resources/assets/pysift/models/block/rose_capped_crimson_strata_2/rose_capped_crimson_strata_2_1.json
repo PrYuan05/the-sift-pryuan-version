@@ -1,8 +1,0 @@
-{
-  "parent": "pysift:block/templates/cube_bottom_top_vflip",
-  "textures": {
-    "top": "pysift:block/crimson_strata/crimson_strata_g",
-    "bottom": "pysift:block/red_sculk_vein_bottom/red_sculk_vein_bottom",
-    "side": "pysift:block/crimson_strata/crimson_strata_f"
-  }
-}

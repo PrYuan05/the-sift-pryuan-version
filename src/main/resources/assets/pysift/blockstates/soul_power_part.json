@@ -1,0 +1,64 @@
+{
+  "variants": {
+    "part=shaft": {
+      "model": "pysift:block/soul_power_parts/shaft"
+    },
+    "part=cog": {
+      "model": "pysift:block/soul_power_parts/cog"
+    },
+    "part=large_cog": {
+      "model": "pysift:block/soul_power_parts/large_cog"
+    },
+    "part=flywheel": {
+      "model": "pysift:block/soul_power_parts/flywheel"
+    },
+    "part=piston": {
+      "model": "pysift:block/soul_power_parts/piston"
+    },
+    "part=millstone": {
+      "model": "pysift:block/soul_power_parts/millstone"
+    },
+    "part=wave_ring": {
+      "model": "pysift:block/soul_power_parts/wave_ring"
+    },
+    "part=wave_core": {
+      "model": "pysift:block/soul_power_parts/wave_core"
+    },
+    "part=dial": {
+      "model": "pysift:block/soul_power_parts/dial"
+    },
+    "part=needle": {
+      "model": "pysift:block/soul_power_parts/needle"
+    },
+    "part=sieve": {
+      "model": "pysift:block/soul_power_parts/sieve"
+    },
+    "part=crank": {
+      "model": "pysift:block/soul_power_parts/crank"
+    },
+    "part=half_shaft": {
+      "model": "pysift:block/soul_power_parts/half_shaft"
+    },
+    "part=fan": {
+      "model": "pysift:block/soul_power_parts/fan"
+    },
+    "part=drill": {
+      "model": "pysift:block/soul_power_parts/drill"
+    },
+    "part=lens": {
+      "model": "pysift:block/soul_power_parts/lens"
+    },
+    "part=bevel": {
+      "model": "pysift:block/soul_power_parts/bevel"
+    },
+    "part=tendril_off": {
+      "model": "pysift:block/soul_power_parts/tendril_off"
+    },
+    "part=tendril_plain": {
+      "model": "pysift:block/soul_power_parts/tendril_plain"
+    },
+    "part=tendril_soul": {
+      "model": "pysift:block/soul_power_parts/tendril_soul"
+    }
+  }
+}

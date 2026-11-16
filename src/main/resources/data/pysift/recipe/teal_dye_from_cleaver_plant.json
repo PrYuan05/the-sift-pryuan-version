@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "teal_dye",
+  "ingredients": [
+    "pysift:cleaver_plant"
+  ],
+  "result": {
+    "id": "pysift:teal_dye"
+  }
+}

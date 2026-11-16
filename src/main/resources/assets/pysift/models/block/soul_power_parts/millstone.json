@@ -1,0 +1,155 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "t0": "pysift:block/soul_power/millstone_side",
+    "t1": "pysift:block/soul_power/millstone_top",
+    "particle": "pysift:block/soul_power/millstone_side"
+  },
+  "elements": [
+    {
+      "from": [
+        2,
+        10,
+        2
+      ],
+      "to": [
+        14,
+        14,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            2,
+            14,
+            6
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            2,
+            2,
+            14,
+            6
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            2,
+            2,
+            14,
+            6
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            2,
+            2,
+            14,
+            6
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t1"
+        }
+      }
+    },
+    {
+      "from": [
+        2,
+        10.05,
+        2
+      ],
+      "to": [
+        14,
+        13.95,
+        14
+      ],
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            2.05,
+            14,
+            5.95
+          ],
+          "texture": "#t0"
+        },
+        "south": {
+          "uv": [
+            2,
+            2.05,
+            14,
+            5.95
+          ],
+          "texture": "#t0"
+        },
+        "east": {
+          "uv": [
+            2,
+            2.05,
+            14,
+            5.95
+          ],
+          "texture": "#t0"
+        },
+        "west": {
+          "uv": [
+            2,
+            2.05,
+            14,
+            5.95
+          ],
+          "texture": "#t0"
+        },
+        "up": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t1"
+        },
+        "down": {
+          "uv": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "texture": "#t1"
+        }
+      },
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "axis": "y",
+        "angle": 45
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_core"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_north"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_south"
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_west"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_east"
+      }
+    },
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_down"
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "pysift:block/spirit_pipe/spirit_pipe_up"
+      }
+    }
+  ]
+}

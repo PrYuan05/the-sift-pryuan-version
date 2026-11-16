@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:void_stone",
+  "result": {
+    "id": "pysift:smooth_void_stone"
+  }
+}

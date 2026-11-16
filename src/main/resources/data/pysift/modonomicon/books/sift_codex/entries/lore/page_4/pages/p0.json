@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.lore.page_4.p0.title",
+  "show_title_separator": true,
+  "id": "p0",
+  "sort_number": 0,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.lore.page_4.p0.text"
+}

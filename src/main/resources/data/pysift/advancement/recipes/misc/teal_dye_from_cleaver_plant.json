@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cleaver_plant": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:cleaver_plant"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:teal_dye_from_cleaver_plant"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cleaver_plant"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:teal_dye_from_cleaver_plant"
+    ]
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/soulshale/soulshale_top",
+    "side": "pysift:block/soulshale/soulshale"
+  }
+}

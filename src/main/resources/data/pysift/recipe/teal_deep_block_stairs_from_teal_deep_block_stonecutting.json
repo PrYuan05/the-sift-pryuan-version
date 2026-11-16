@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:teal_deep_block",
+  "result": {
+    "id": "pysift:teal_deep_block_stairs"
+  }
+}

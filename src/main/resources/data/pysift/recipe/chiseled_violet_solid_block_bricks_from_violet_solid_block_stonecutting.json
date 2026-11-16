@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:violet_solid_block",
+  "result": {
+    "id": "pysift:chiseled_violet_solid_block_bricks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/sift_colors/amber_concrete_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/sift_colors/amber_concrete"
+    },
+    "type=top": {
+      "model": "pysift:block/sift_colors/amber_concrete_slab_top"
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_post",
+  "textures": {
+    "wall": "pysift:block/varied_dark_slate_bricks/varied_dark_slate_bricks"
+  }
+}

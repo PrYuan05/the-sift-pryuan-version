@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/silted_strata/silted_strata_silt0_b",
+    "top": "pysift:block/silted_strata/silted_strata_silt0_b",
+    "side": "pysift:block/silted_strata/silted_strata_silt0_b"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/mossy_cobblestone_bricks/chiseled_mossy_cobblestone_bricks_top",
+    "side": "pysift:block/mossy_cobblestone_bricks/chiseled_mossy_cobblestone_bricks"
+  }
+}

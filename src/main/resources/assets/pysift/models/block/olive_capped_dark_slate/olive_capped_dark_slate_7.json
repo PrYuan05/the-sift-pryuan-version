@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "pysift:block/lichen_stone/lichen_stone_lichen2_c",
-    "bottom": "pysift:block/dark_slate/dark_slate_g",
-    "side": "pysift:block/dark_slate/dark_slate_f"
-  }
-}

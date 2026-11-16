@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:frost_veined_stone",
+  "result": {
+    "id": "pysift:frost_veined_stone_brick_stairs"
+  }
+}

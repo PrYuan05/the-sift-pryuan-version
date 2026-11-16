@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "pysift:block/bleached_clay_bricks/bleached_clay_bricks"
+  }
+}

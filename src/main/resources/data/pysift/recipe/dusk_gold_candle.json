@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "dyed_candle",
+  "ingredients": [
+    "minecraft:candle",
+    "pysift:dusk_gold_dye"
+  ],
+  "result": {
+    "id": "pysift:dusk_gold_candle"
+  }
+}

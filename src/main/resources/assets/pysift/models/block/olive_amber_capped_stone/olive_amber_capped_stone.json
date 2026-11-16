@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "pysift:block/olive_amber_capped_stone/olive_amber_capped_stone_top",
+    "side": "pysift:block/olive_amber_capped_stone/olive_amber_capped_stone_side",
+    "bottom": "pysift:block/olive_amber_capped_stone/olive_amber_capped_stone_bottom"
+  }
+}

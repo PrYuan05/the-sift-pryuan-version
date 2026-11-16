@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "C": "pysift:soul_conduit",
+    "X": "pysift:charoite"
+  },
+  "pattern": [
+    " A ",
+    "CXC"
+  ],
+  "result": {
+    "id": "pysift:soul_filter"
+  }
+}

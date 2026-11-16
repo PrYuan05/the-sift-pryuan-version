@@ -1,0 +1,13 @@
+{
+  "type": "modonomicon:spotlight",
+  "item": {
+    "id": "pysift:red_sculk"
+  },
+  "title": "",
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.sift.red_sculk.p1.text"
+}

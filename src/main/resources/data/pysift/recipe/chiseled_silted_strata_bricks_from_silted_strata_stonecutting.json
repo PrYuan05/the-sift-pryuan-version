@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:silted_strata",
+  "result": {
+    "id": "pysift:chiseled_silted_strata_bricks"
+  }
+}

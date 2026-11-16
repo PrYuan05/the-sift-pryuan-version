@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_carpet",
+    "pysift:mint_carpet",
+    "pysift:coral_carpet",
+    "pysift:amber_carpet",
+    "pysift:lavender_carpet",
+    "pysift:rose_carpet",
+    "pysift:soul_blue_carpet",
+    "pysift:void_carpet",
+    "pysift:dusk_gold_carpet"
+  ]
+}

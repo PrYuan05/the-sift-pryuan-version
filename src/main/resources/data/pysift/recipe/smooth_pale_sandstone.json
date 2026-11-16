@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "blocks",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": "pysift:pale_sandstone",
+  "result": {
+    "id": "pysift:smooth_pale_sandstone"
+  }
+}

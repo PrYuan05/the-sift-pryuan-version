@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "render_type": "cutout",
+  "textures": {
+    "cross": "pysift:block/echo_cradle/echo_cradle_0"
+  }
+}

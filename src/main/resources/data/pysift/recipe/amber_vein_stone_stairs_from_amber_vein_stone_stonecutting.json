@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:amber_vein_stone",
+  "result": {
+    "id": "pysift:amber_vein_stone_stairs"
+  }
+}

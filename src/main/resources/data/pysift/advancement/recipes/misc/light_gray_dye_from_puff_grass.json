@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_puff_grass": {
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:puff_grass"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipes": "pysift:light_gray_dye_from_puff_grass"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_puff_grass"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:light_gray_dye_from_puff_grass"
+    ]
+  }
+}

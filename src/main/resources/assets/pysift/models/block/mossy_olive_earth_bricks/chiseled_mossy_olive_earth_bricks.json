@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/mossy_olive_earth_bricks/chiseled_mossy_olive_earth_bricks_top",
+    "side": "pysift:block/mossy_olive_earth_bricks/chiseled_mossy_olive_earth_bricks"
+  }
+}

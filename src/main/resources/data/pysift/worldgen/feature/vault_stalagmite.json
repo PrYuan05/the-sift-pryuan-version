@@ -1,0 +1,9 @@
+{
+  "type": "pysift:speleothem",
+  "block": "pysift:void_stone",
+  "alt_block": "pysift:dark_slate",
+  "tip_block": "pysift:pointed_void_stone",
+  "min_height": 5,
+  "max_height": 12,
+  "hanging": false
+}

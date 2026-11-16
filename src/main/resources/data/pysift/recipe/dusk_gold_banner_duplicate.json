@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:crafting_special_bannerduplicate",
+  "banner": "pysift:dusk_gold_banner",
+  "result": {
+    "id": "pysift:dusk_gold_banner"
+  }
+}

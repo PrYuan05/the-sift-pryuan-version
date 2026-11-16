@@ -1,0 +1,30 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:soul_power",
+  "id": "pysift:soul_power/sculk",
+  "name": "book.pysift.sift_codex.soul_power.sculk.name",
+  "description": "",
+  "icon": {
+    "id": "minecraft:sculk_catalyst"
+  },
+  "x": 2,
+  "y": -2,
+  "sort_number": 198,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_gold",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:soul_power/conduit",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

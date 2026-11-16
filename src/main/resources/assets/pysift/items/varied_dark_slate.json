@@ -7,21 +7,21 @@
       {
         "model": {
           "type": "minecraft:model",
-          "model": "pysift:block/dark_slate/dark_slate_g"
+          "model": "pysift:block/varied_dark_slate/dark_slate_g"
         },
         "when": "gray"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "pysift:block/dark_slate/dark_slate_d"
+          "model": "pysift:block/varied_dark_slate/dark_slate_d"
         },
         "when": "mottled"
       },
       {
         "model": {
           "type": "minecraft:model",
-          "model": "pysift:block/dark_slate/dark_slate_j"
+          "model": "pysift:block/varied_dark_slate/dark_slate_j"
         },
         "when": "violet"
       }

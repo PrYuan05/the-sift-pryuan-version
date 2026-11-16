@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_glazed_terracotta",
+  "textures": {
+    "pattern": "pysift:block/sift_colors/coral_glazed_terracotta"
+  }
+}

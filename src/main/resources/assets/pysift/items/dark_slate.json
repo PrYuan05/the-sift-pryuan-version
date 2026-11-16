@@ -31,6 +31,13 @@
           "model": "pysift:block/dark_slate/dark_slate_t"
         },
         "when": "3"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "pysift:block/dark_slate/dark_slate_v"
+        },
+        "when": "4"
       }
     ],
     "fallback": {

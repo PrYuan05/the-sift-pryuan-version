@@ -1,11 +1,6 @@
 {
   "replace": false,
   "values": [
-    "pysift:charoite_ore",
-    "pysift:charoite_block",
-    "pysift:raw_charoite_block",
-    "pysift:ancient_plating",
-    "pysift:relic_core_block",
-    "pysift:runic_siftslate"
+    "pysift:siftite_ore"
   ]
 }

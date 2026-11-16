@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/blotched_dark_slate_bricks/blotched_dark_slate_bricks"
+  }
+}

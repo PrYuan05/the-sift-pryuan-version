@@ -1,0 +1,34 @@
+{
+  "type": "modonomicon:content",
+  "category": "pysift:lore",
+  "id": "pysift:lore/page_11",
+  "name": "book.pysift.sift_codex.lore.page_11.name",
+  "description": "book.pysift.sift_codex.lore.page_11.description",
+  "icon": {
+    "id": "pysift:ancient_page_11"
+  },
+  "x": 4,
+  "y": 3,
+  "sort_number": 403,
+  "background": {
+    "sprite": "modonomicon:modonomicon/themes/default/node/entry_backgrounds/square_purple",
+    "width": 26,
+    "height": 26
+  },
+  "parents": [
+    {
+      "entry": "pysift:lore/page_9",
+      "line_enabled": true
+    }
+  ],
+  "condition": {
+    "type": "modonomicon:research_node_unlocked",
+    "node_id": "pysift:sift_codex/page_11",
+    "tooltip": {
+      "translate": "book.pysift.sift_codex.lore.page_11.locked"
+    }
+  },
+  "marker_condition": {
+    "type": "modonomicon:none"
+  }
+}

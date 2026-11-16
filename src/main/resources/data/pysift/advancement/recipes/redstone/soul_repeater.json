@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_siftite_gear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:siftite_gear"
+          }
+        ]
+      }
+    },
+    "has_soul_conduit": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "pysift:soul_conduit"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipes": "pysift:soul_repeater"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_siftite_gear",
+      "has_soul_conduit",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "pysift:soul_repeater"
+    ]
+  }
+}

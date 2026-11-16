@@ -24,18 +24,6 @@
       {
         "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_6",
         "weight": 1
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
-        "weight": 1
       }
     ],
     "facing=down": [
@@ -68,21 +56,6 @@
         "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_6",
         "weight": 1,
         "x": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1,
-        "x": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
-        "weight": 1,
-        "x": 180
       }
     ],
     "facing=north": [
@@ -113,21 +86,6 @@
       },
       {
         "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_6",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1,
-        "x": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
         "weight": 1,
         "x": 90
       }
@@ -165,24 +123,6 @@
       },
       {
         "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_6",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1,
-        "x": 90,
-        "y": 180
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
         "weight": 1,
         "x": 90,
         "y": 180
@@ -224,24 +164,6 @@
         "weight": 1,
         "x": 90,
         "y": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1,
-        "x": 90,
-        "y": 90
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
-        "weight": 1,
-        "x": 90,
-        "y": 90
       }
     ],
     "facing=west": [
@@ -277,24 +199,6 @@
       },
       {
         "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_6",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_7",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_8",
-        "weight": 1,
-        "x": 90,
-        "y": 270
-      },
-      {
-        "model": "pysift:block/olive_capped_dark_slate/olive_capped_dark_slate_9",
         "weight": 1,
         "x": 90,
         "y": 270

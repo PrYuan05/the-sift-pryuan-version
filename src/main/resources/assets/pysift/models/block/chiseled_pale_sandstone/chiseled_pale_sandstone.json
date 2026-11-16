@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/pale_sandstone/pale_sandstone_top",
+    "side": "pysift:block/pale_sandstone/chiseled_pale_sandstone"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pysift:block/soulshale_slab/soulshale_slab"
+    },
+    "type=double": {
+      "model": "pysift:block/soulshale/soulshale"
+    },
+    "type=top": {
+      "model": "pysift:block/soulshale_slab/soulshale_slab_top"
+    }
+  }
+}

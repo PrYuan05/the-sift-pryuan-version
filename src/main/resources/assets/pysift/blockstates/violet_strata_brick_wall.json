@@ -1,0 +1,117 @@
+{
+  "multipart": [
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_post_1",
+          "weight": 1
+        }
+      ],
+      "when": {
+        "up": "true"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_1",
+          "weight": 1,
+          "uvlock": true
+        }
+      ],
+      "when": {
+        "north": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        }
+      ],
+      "when": {
+        "east": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        }
+      ],
+      "when": {
+        "south": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        }
+      ],
+      "when": {
+        "west": "low"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true
+        }
+      ],
+      "when": {
+        "north": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 90
+        }
+      ],
+      "when": {
+        "east": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 180
+        }
+      ],
+      "when": {
+        "south": "tall"
+      }
+    },
+    {
+      "apply": [
+        {
+          "model": "pysift:block/violet_strata_brick_wall/violet_strata_brick_wall_side_tall_1",
+          "weight": 1,
+          "uvlock": true,
+          "y": 270
+        }
+      ],
+      "when": {
+        "west": "tall"
+      }
+    }
+  ]
+}

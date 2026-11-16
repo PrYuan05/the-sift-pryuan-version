@@ -1,0 +1,58 @@
+{
+  "criteria": {
+    "killed": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "pysift:blub"
+          }
+        }
+      }
+    },
+    "hurt": {
+      "trigger": "minecraft:player_hurt_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "pysift:blub"
+          }
+        }
+      }
+    },
+    "hurt_by": {
+      "trigger": "minecraft:entity_hurt_player",
+      "conditions": {
+        "damage": {
+          "source_entity": {
+            "minecraft:entity_type": "pysift:blub"
+          }
+        }
+      }
+    },
+    "touched": {
+      "trigger": "minecraft:player_interacted_with_entity",
+      "conditions": {
+        "entity": {
+          "type": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "minecraft:entity_type": "pysift:blub"
+          }
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed",
+      "hurt",
+      "hurt_by",
+      "touched"
+    ]
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "title": "book.pysift.sift_codex.bestiary.lootkin.p1.title",
+  "show_title_separator": true,
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.bestiary.lootkin.p1.text"
+}

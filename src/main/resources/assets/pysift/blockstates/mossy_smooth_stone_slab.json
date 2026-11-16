@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/mossy_smooth_stone_slab/mossy_smooth_stone_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/mossy_smooth_stone/mossy_smooth_stone_moss0",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/mossy_smooth_stone_slab/mossy_smooth_stone_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

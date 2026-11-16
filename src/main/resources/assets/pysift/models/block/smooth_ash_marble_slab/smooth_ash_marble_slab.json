@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/ash_marble/smooth_ash_marble",
+    "side": "pysift:block/ash_marble/smooth_ash_marble",
+    "top": "pysift:block/ash_marble/smooth_ash_marble"
+  }
+}

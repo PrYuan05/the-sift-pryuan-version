@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:blotched_dark_slate",
+  "result": {
+    "count": 2,
+    "id": "pysift:blotched_dark_slate_brick_slab"
+  }
+}

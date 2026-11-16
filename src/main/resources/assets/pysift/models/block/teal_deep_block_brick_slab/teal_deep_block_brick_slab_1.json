@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/teal_deep_block_bricks/teal_deep_block_bricks",
+    "top": "pysift:block/teal_deep_block_bricks/teal_deep_block_bricks",
+    "side": "pysift:block/teal_deep_block_bricks/teal_deep_block_bricks"
+  }
+}

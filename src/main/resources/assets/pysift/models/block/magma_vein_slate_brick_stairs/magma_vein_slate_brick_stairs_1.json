@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks",
+    "top": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks",
+    "side": "pysift:block/magma_vein_slate_bricks/magma_vein_slate_bricks"
+  }
+}

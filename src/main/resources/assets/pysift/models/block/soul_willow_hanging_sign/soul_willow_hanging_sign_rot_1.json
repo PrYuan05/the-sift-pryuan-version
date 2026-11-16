@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_hanging_sign_rot_1",
+  "textures": {
+    "all": "pysift:block/soul_willow/soul_willow_hanging_sign",
+    "particle": "pysift:block/soul_willow/stripped_soul_willow_log"
+  }
+}

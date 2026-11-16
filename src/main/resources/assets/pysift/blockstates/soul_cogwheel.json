@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "axis=y,powered=false": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    },
+    "axis=y,powered=true": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    },
+    "axis=x,powered=false": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    },
+    "axis=x,powered=true": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    },
+    "axis=z,powered=false": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    },
+    "axis=z,powered=true": {
+      "model": "pysift:block/soul_cogwheel/soul_cogwheel"
+    }
+  }
+}

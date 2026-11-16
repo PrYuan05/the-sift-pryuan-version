@@ -1,0 +1,11 @@
+{
+  "type": "modonomicon:text",
+  "title": "",
+  "show_title_separator": false,
+  "id": "p1",
+  "sort_number": 1,
+  "condition": {
+    "type": "modonomicon:none"
+  },
+  "text": "book.pysift.sift_codex.journey.intro.p1.text"
+}

@@ -1,0 +1,497 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "north": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1,
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1,
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1,
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "up": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1,
+          "x": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "down": "true",
+        "corruption": "0"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_a",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption0_b",
+          "weight": 1,
+          "x": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "north": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1"
+      }
+    },
+    {
+      "when": {
+        "east": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "south": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "west": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "up": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "down": "true",
+        "corruption": "1"
+      },
+      "apply": {
+        "model": "pysift:block/corrupted_vine/corrupted_vine_corruption1",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "north": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1,
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1,
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1,
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "up": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1,
+          "x": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "down": "true",
+        "corruption": "2"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_a",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_b",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_c",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_d",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption2_e",
+          "weight": 1,
+          "x": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "north": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "when": {
+        "east": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1,
+          "y": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1,
+          "y": 90
+        }
+      ]
+    },
+    {
+      "when": {
+        "south": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1,
+          "y": 180
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1,
+          "y": 180
+        }
+      ]
+    },
+    {
+      "when": {
+        "west": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1,
+          "y": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1,
+          "y": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "up": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1,
+          "x": 270
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1,
+          "x": 270
+        }
+      ]
+    },
+    {
+      "when": {
+        "down": "true",
+        "corruption": "3"
+      },
+      "apply": [
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_a",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_b",
+          "weight": 1,
+          "x": 90
+        },
+        {
+          "model": "pysift:block/corrupted_vine/corrupted_vine_corruption3_c",
+          "weight": 1,
+          "x": 90
+        }
+      ]
+    }
+  ]
+}

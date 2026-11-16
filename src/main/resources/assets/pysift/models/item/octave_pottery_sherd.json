@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pysift:item/octave_pottery_sherd"
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_core"
+      }
+    },
+    {
+      "when": {
+        "north": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_north"
+      }
+    },
+    {
+      "when": {
+        "north": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_north_plug"
+      }
+    },
+    {
+      "when": {
+        "north": "low",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_north_low"
+      }
+    },
+    {
+      "when": {
+        "south": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_south"
+      }
+    },
+    {
+      "when": {
+        "south": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_south_plug"
+      }
+    },
+    {
+      "when": {
+        "south": "low",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_south_low"
+      }
+    },
+    {
+      "when": {
+        "west": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_west"
+      }
+    },
+    {
+      "when": {
+        "west": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_west_plug"
+      }
+    },
+    {
+      "when": {
+        "west": "low",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_west_low"
+      }
+    },
+    {
+      "when": {
+        "east": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_east"
+      }
+    },
+    {
+      "when": {
+        "east": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_east_plug"
+      }
+    },
+    {
+      "when": {
+        "east": "low",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_east_low"
+      }
+    },
+    {
+      "when": {
+        "down": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_down"
+      }
+    },
+    {
+      "when": {
+        "down": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_down_plug"
+      }
+    },
+    {
+      "when": {
+        "up": "wire",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_up"
+      }
+    },
+    {
+      "when": {
+        "up": "plug",
+        "look": "off"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_off_up_plug"
+      }
+    },
+    {
+      "when": {
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_core"
+      }
+    },
+    {
+      "when": {
+        "north": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_north"
+      }
+    },
+    {
+      "when": {
+        "north": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_north_plug"
+      }
+    },
+    {
+      "when": {
+        "north": "low",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_north_low"
+      }
+    },
+    {
+      "when": {
+        "south": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_south"
+      }
+    },
+    {
+      "when": {
+        "south": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_south_plug"
+      }
+    },
+    {
+      "when": {
+        "south": "low",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_south_low"
+      }
+    },
+    {
+      "when": {
+        "west": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_west"
+      }
+    },
+    {
+      "when": {
+        "west": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_west_plug"
+      }
+    },
+    {
+      "when": {
+        "west": "low",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_west_low"
+      }
+    },
+    {
+      "when": {
+        "east": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_east"
+      }
+    },
+    {
+      "when": {
+        "east": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_east_plug"
+      }
+    },
+    {
+      "when": {
+        "east": "low",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_east_low"
+      }
+    },
+    {
+      "when": {
+        "down": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_down"
+      }
+    },
+    {
+      "when": {
+        "down": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_down_plug"
+      }
+    },
+    {
+      "when": {
+        "up": "wire",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_up"
+      }
+    },
+    {
+      "when": {
+        "up": "plug",
+        "look": "plain"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_plain_up_plug"
+      }
+    },
+    {
+      "when": {
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_core"
+      }
+    },
+    {
+      "when": {
+        "north": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_north"
+      }
+    },
+    {
+      "when": {
+        "north": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_north_plug"
+      }
+    },
+    {
+      "when": {
+        "north": "low",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_north_low"
+      }
+    },
+    {
+      "when": {
+        "south": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_south"
+      }
+    },
+    {
+      "when": {
+        "south": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_south_plug"
+      }
+    },
+    {
+      "when": {
+        "south": "low",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_south_low"
+      }
+    },
+    {
+      "when": {
+        "west": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_west"
+      }
+    },
+    {
+      "when": {
+        "west": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_west_plug"
+      }
+    },
+    {
+      "when": {
+        "west": "low",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_west_low"
+      }
+    },
+    {
+      "when": {
+        "east": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_east"
+      }
+    },
+    {
+      "when": {
+        "east": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_east_plug"
+      }
+    },
+    {
+      "when": {
+        "east": "low",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_east_low"
+      }
+    },
+    {
+      "when": {
+        "down": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_down"
+      }
+    },
+    {
+      "when": {
+        "down": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_down_plug"
+      }
+    },
+    {
+      "when": {
+        "up": "wire",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_up"
+      }
+    },
+    {
+      "when": {
+        "up": "plug",
+        "look": "soul"
+      },
+      "apply": {
+        "model": "pysift:block/soul_conduit/soul_conduit_soul_up_plug"
+      }
+    }
+  ]
+}

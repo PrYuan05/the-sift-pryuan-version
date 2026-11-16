@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": "pysift:resonant_crystal",
+  "base": "pysift:sculk_hammer",
+  "addition": "pysift:monarch_feather",
+  "result": {
+    "id": "pysift:sculk_hammer",
+    "components": {
+      "pysift:awakened": true
+    }
+  }
+}

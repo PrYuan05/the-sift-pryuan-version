@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "F": "pysift:monarch_feather",
+    "C": "pysift:monarch_crown",
+    "I": "pysift:siftite_ingot"
+  },
+  "pattern": [
+    "F F",
+    " C ",
+    "FIF"
+  ],
+  "result": {
+    "id": "pysift:dash_charm"
+  }
+}

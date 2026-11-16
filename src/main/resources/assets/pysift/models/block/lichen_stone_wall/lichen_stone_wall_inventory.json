@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "pysift:block/lichen_stone/lichen_stone_lichen0"
+  }
+}

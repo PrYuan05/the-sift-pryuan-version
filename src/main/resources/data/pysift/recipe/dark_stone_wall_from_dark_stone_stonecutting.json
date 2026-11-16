@@ -1,0 +1,7 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:dark_stone",
+  "result": {
+    "id": "pysift:dark_stone_wall"
+  }
+}

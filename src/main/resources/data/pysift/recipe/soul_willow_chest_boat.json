@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "chest_boat",
+  "ingredients": [
+    "minecraft:chest",
+    "pysift:soul_willow_boat"
+  ],
+  "result": {
+    "id": "pysift:soul_willow_chest_boat"
+  }
+}

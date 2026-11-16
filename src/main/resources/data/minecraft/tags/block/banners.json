@@ -1,0 +1,23 @@
+{
+  "replace": false,
+  "values": [
+    "pysift:teal_banner",
+    "pysift:mint_banner",
+    "pysift:coral_banner",
+    "pysift:amber_banner",
+    "pysift:lavender_banner",
+    "pysift:rose_banner",
+    "pysift:soul_blue_banner",
+    "pysift:void_banner",
+    "pysift:dusk_gold_banner",
+    "pysift:teal_wall_banner",
+    "pysift:mint_wall_banner",
+    "pysift:coral_wall_banner",
+    "pysift:amber_wall_banner",
+    "pysift:lavender_wall_banner",
+    "pysift:rose_wall_banner",
+    "pysift:soul_blue_wall_banner",
+    "pysift:void_wall_banner",
+    "pysift:dusk_gold_wall_banner"
+  ]
+}

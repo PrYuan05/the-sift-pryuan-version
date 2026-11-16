@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/mossy_olive_earth_brick_slab/mossy_olive_earth_brick_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/mossy_olive_earth_bricks/mossy_olive_earth_bricks",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/mossy_olive_earth_brick_slab/mossy_olive_earth_brick_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}

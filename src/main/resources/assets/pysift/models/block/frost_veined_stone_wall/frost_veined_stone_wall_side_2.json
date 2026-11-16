@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "pysift:block/frost_veined_stone/frost_veined_stone_tintnone_veins0_b"
+  }
+}

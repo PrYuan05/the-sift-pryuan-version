@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "minecraft:bowl",
+    "pysift:gloomcap",
+    "pysift:gloomcap",
+    "pysift:soul_berries"
+  ],
+  "result": {
+    "id": "pysift:gloomcap_stew"
+  }
+}

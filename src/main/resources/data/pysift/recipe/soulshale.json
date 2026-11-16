@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "pattern": [
+    "SSS",
+    "SXS",
+    "SSS"
+  ],
+  "key": {
+    "S": "pysift:abyssal_strata",
+    "X": [
+      "minecraft:soul_sand",
+      "minecraft:soul_soil"
+    ]
+  },
+  "result": {
+    "id": "pysift:soulshale",
+    "count": 8
+  }
+}

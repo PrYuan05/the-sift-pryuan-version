@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "pysift:rose_concrete",
+  "result": {
+    "count": 2,
+    "id": "pysift:rose_concrete_slab"
+  }
+}

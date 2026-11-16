@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "pysift:aurum_ingot"
+  ],
+  "result": {
+    "id": "pysift:aurum_nugget",
+    "count": 9
+  }
+}

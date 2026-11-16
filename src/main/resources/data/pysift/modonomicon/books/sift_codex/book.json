@@ -1,0 +1,14 @@
+{
+  "name": "book.pysift.sift_codex.name",
+  "tooltip": "book.pysift.sift_codex.tooltip",
+  "description": "",
+  "model": "pysift:sift_codex",
+  "generate_book_item": true,
+  "creative_tab": "pysift:pysift_items",
+  "display_mode": "node",
+  "page_display_mode": "double_page",
+  "font": "minecraft:default",
+  "default_auto_scale": true,
+  "default_allow_page_split": false,
+  "allow_open_book_with_invalid_links": true
+}

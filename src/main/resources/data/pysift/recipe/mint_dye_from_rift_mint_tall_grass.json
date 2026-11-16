@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mint_dye",
+  "ingredients": [
+    "pysift:rift_mint_tall_grass"
+  ],
+  "result": {
+    "id": "pysift:mint_dye",
+    "count": 2
+  }
+}

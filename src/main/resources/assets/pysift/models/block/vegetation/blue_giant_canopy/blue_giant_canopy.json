@@ -1,0 +1,7 @@
+{
+	"parent": "pysift:block/vegetation/blue_giant_canopy/green_giant_canopy",
+	"textures": {
+		"stem": "pysift:block/vegetation/blue_giant_canopy/canopy_stem_blue",
+		"cap": "pysift:block/vegetation/blue_giant_canopy/canopy_leaf_blue"
+	}
+}

@@ -3,7 +3,26 @@
 	"package": "pryuan05.pysift.client.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"ExampleClientMixin"
+		"ExampleClientMixin",
+		"CreativeModeInventoryScreenMixin",
+		"FluidRendererMixin",
+		"PostPassMixin",
+		"EntityRenderStateMixin",
+		"EntityRendererMixin",
+		"FlameFeatureRendererMixin",
+		"ScreenEffectRendererMixin",
+		"HudMixin",
+		"SodiumFluidRendererMixin",
+		"SpecialModelRenderersAccessor",
+		"BannerRenderStateMixin",
+		"BannerRendererMixin",
+		"ShieldSpecialRendererMixin",
+		"ShulkerBoxRenderStateMixin",
+		"ShulkerBoxRendererMixin",
+		"HumanoidModelMixin",
+		"FirstPersonHandsMixin",
+		"LivingEntitySwingMixin",
+		"MinecraftMusicMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

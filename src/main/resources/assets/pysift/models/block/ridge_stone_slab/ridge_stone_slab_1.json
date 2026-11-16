@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pysift:block/ridge_stone/ridge_stone_a",
+    "top": "pysift:block/ridge_stone/ridge_stone_a",
+    "side": "pysift:block/ridge_stone/ridge_stone_a"
+  }
+}

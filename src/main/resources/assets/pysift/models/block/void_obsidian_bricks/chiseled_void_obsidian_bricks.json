@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pysift:block/void_obsidian_bricks/chiseled_void_obsidian_bricks_top",
+    "side": "pysift:block/void_obsidian_bricks/chiseled_void_obsidian_bricks"
+  }
+}

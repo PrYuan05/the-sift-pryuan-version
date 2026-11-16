@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:registry_contains",
+      "registry": "minecraft:item",
+      "values": [
+        "pysift:soul_shaft"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    "pysift:soul_cogwheel",
+    "minecraft:polished_deepslate",
+    "pysift:patina_ingot"
+  ],
+  "result": {
+    "id": "pysift:soul_gearbox"
+  }
+}

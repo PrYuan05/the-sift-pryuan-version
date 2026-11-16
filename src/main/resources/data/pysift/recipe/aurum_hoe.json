@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "#pysift:aurum_tool_materials",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "II",
+    " S",
+    " S"
+  ],
+  "result": {
+    "id": "pysift:aurum_hoe"
+  }
+}

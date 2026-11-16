@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "type=bottom": [
+      {
+        "model": "pysift:block/void_obsidian_slab/void_obsidian_slab_1",
+        "weight": 1
+      }
+    ],
+    "type=double": [
+      {
+        "model": "pysift:block/void_obsidian/void_obsidian",
+        "weight": 1
+      }
+    ],
+    "type=top": [
+      {
+        "model": "pysift:block/void_obsidian_slab/void_obsidian_slab_top_1",
+        "weight": 1
+      }
+    ]
+  }
+}
