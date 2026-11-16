@@ -77,6 +77,11 @@ public final class SingerSongs {
         return note <= 7 ? LULLABY : note <= 15 ? TWINKLE : ODE_TO_JOY;
     }
 
+    /** 一格（八分音符）幾 tick：搖籃曲約每分鐘 100 拍，小星星 120，快樂頌 150。 */
+    public static int tempo(Song song) {
+        return song == LULLABY ? 6 : song == TWINKLE ? 5 : 4;
+    }
+
     /** 這首曲子的主音：曲子都寫在 F 大調（parse 的 key 11）。 */
     public static final int TONIC = 11;
 

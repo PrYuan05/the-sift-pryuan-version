@@ -2582,5 +2582,10 @@
   "item.pysift.cooked_nuzzle_meat": "Cooked Nuzzle Meat",
   "tooltip.pysift.tuning_fork.strike": "Use in the air: strike it, and nearby Singers sing along (the pitch picks the song)",
   "message.pysift.tuning_fork.resonate": "%s Singers resonate",
-  "message.pysift.tuning_fork.no_singer": "No Singer is close enough to hear it"
+  "message.pysift.tuning_fork.no_singer": "No Singer is close enough to hear it",
+  "enchantment.pysift.aftershock": "Aftershock",
+  "enchantment.pysift.aftershock.desc": "Sculk Hammer: a wider shockwave and one more tendril per level",
+  "enchantment.pysift.resonance": "Resonance",
+  "enchantment.pysift.resonance.desc": "Sonic Staff: +3 blocks of range and +1 damage per level",
+  "tooltip.pysift.sculk_hammer.smash": "Falling attack: a smash like the mace's, stronger the further you fall"
 }

@@ -91,7 +91,8 @@ public class SonicStaffItem extends Item {
             boolean awakened = BossWeapons.isAwakened(stack);
             Vec3 tip = staffTip(player);
             server.sendParticles(net.minecraft.core.particles.ColorParticleOption.create(ParticleTypes.FLASH, 0xFF9FF4FF), tip.x, tip.y, tip.z, 1, 0, 0, 0, 0);
-            beam(server, player, awakened ? 1.6 : 0.9, awakened ? 12.0f : 8.0f);
+            int resonance = SiftEnchantments.level(server, stack, SiftEnchantments.RESONANCE);   // 共振：每級射程 +3 格、傷害 +1
+            beam(server, player, awakened ? 1.6 : 0.9, (awakened ? 12.0f : 8.0f) + resonance, RANGE + 3.0 * resonance);
             player.getCooldowns().addCooldown(stack, awakened ? 40 : COOLDOWN);
             stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
         }
@@ -116,11 +117,11 @@ public class SonicStaffItem extends Item {
         return user.getEyePosition().add(look.scale(0.9)).add(side).add(0, -0.25, 0);
     }
 
-    private static void beam(ServerLevel level, Player player, double width, float damage) {
+    private static void beam(ServerLevel level, Player player, double width, float damage, double range) {
         Vec3 start = player.getEyePosition();
         Vec3 dir = player.getLookAngle();
         Set<LivingEntity> hit = new HashSet<>();
-        for (double d = 1.0; d <= RANGE; d += 0.5) {
+        for (double d = 1.0; d <= range; d += 0.5) {
             Vec3 p = start.add(dir.scale(d));
             BlockPos bp = BlockPos.containing(p);
             if (!level.getBlockState(bp).getCollisionShape(level, bp).isEmpty()) {

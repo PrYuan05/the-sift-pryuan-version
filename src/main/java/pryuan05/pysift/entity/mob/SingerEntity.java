@@ -506,7 +506,7 @@ public class SingerEntity extends PysiftAnimalEntity {
                     float pitch = (float) Math.pow(2.0, (note + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
                     pitch = Math.max(0.5f, Math.min(2.0f, pitch));
                     level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.7f, pitch);
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.NEUTRAL, 0.5f, pitch);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.3f, pitch);
                 }
                 level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, (i * 3) / 24.0, 0, 0, 1.0);
             }
@@ -521,7 +521,33 @@ public class SingerEntity extends PysiftAnimalEntity {
     // ---------------------------------------------------------------- tuning fork resonance (v2.2, MobDrops.TuningForkItem)
     /** 調音叉敲響後，RESONANCE_RANGE 格內的歌者一起唱；唱完冷卻 RESONANCE_COOLDOWN tick。 */
     public static final double RESONANCE_RANGE = 16.0;
-    private static final int RESONANCE_STEP = 3, RESONANCE_COOLDOWN = 600, RESONANCE_CONDUIT = 6;
+    private static final int RESONANCE_COOLDOWN = 600, RESONANCE_CONDUIT = 6;
+    private static final int[] MAJOR = {0, 2, 4, 5, 7, 9, 11};
+
+    /**
+     * 大調裡的和聲音（都留在調內，不會唱出調外的音）：voice 0 唱上方三度、1 唱下方三度、2 唱下方六度；
+     * 超出音符盒音域就移八度。旋律音不在這個調裡時唱同度。
+     */
+    static int harmony(int note, int tonic, int voice) {
+        int rel = Math.floorMod(note - tonic, 12);
+        int degree = java.util.Arrays.binarySearch(MAJOR, rel);
+        if (degree < 0) {
+            return note;
+        }
+        int d = degree + switch (voice % 3) {
+            case 0 -> 2;
+            case 1 -> -2;
+            default -> -5;
+        };
+        int out = note - rel + Math.floorDiv(d, 7) * 12 + MAJOR[Math.floorMod(d, 7)];
+        while (out > 24) {
+            out -= 12;
+        }
+        while (out < 0) {
+            out += 12;
+        }
+        return out;
+    }
     private boolean resonating;
     private int resonanceCooldown;
 
@@ -548,12 +574,14 @@ public class SingerEntity extends PysiftAnimalEntity {
             return 0;
         }
         singers.sort(java.util.Comparator.comparingDouble(s -> s.distanceToSqr(player)));
-        SingerSongs.Song song = SingerSongs.transpose(SingerSongs.forPitch(note), note - SingerSongs.TONIC);
+        SingerSongs.Song base = SingerSongs.forPitch(note);
+        SingerSongs.Song song = SingerSongs.transpose(base, note - SingerSongs.TONIC);
+        int step = SingerSongs.tempo(base);   // 每首曲子自己的速度：搖籃曲慢、快樂頌快
         SingerEntity lead = singers.get(0);
         java.util.Map<SingerEntity, net.minecraft.core.BlockPos> conduits = new java.util.HashMap<>();
         for (SingerEntity s : singers) {
             s.resonating = true;
-            s.resonanceCooldown = song.length() * RESONANCE_STEP + RESONANCE_COOLDOWN;
+            s.resonanceCooldown = song.length() * step + RESONANCE_COOLDOWN;
             s.lineConduit = null;
             s.getNavigation().stop();
             s.getLookControl().setLookAt(player, 60.0f, 60.0f);
@@ -563,13 +591,14 @@ public class SingerEntity extends PysiftAnimalEntity {
                 conduits.put(s, conduit);
             }
         }
-        lead.playSound(SoundEvents.AMETHYST_BLOCK_RESONATE, 2.0f, (float) Math.pow(2.0, (note - 12) / 12.0));
+        // 起音：主音的一聲鐘琴（紫水晶的聲音有十二種不同音高的取樣，不能拿來定音）
+        lead.playSound(SoundEvents.NOTE_BLOCK_CHIME.value(), 1.2f, (float) Math.pow(2.0, (note - 12) / 12.0));
         int seconds = Math.min(30, 10 + 5 * (singers.size() - 1));
         for (Player p : level.getEntitiesOfClass(Player.class, lead.getBoundingBox().inflate(RESONANCE_RANGE))) {
             p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, seconds * 20, 0), lead);
         }
         // 主旋律由 StoryItems.play 以領唱的人聲發出；其他歌者在每個音唱和聲
-        pryuan05.pysift.progression.StoryItems.play(level, lead, song, RESONANCE_STEP, i -> {
+        pryuan05.pysift.progression.StoryItems.play(level, lead, song, step, i -> {
             int n = song.notes()[i];
             int k = 0;
             for (SingerEntity s : singers) {
@@ -579,9 +608,8 @@ public class SingerEntity extends PysiftAnimalEntity {
                 s.getNavigation().stop();
                 s.getLookControl().setLookAt(player, 30.0f, 30.0f);
                 if (s != lead) {
-                    float pitch = (float) Math.pow(2.0, (n + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
-                    pitch = Math.max(0.5f, Math.min(2.0f, pitch));
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.7f, pitch);
+                    float pitch = (float) Math.pow(2.0, (harmony(n, note, k++) - 12) / 12.0);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.55f, pitch);
                     level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, n / 24.0, 0, 0, 1.0);
                 }
                 s.triggerAnim("face", "face_note");

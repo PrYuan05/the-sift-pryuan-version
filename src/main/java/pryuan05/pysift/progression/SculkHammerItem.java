@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.MaceItem;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
@@ -38,9 +39,13 @@ import java.util.function.Consumer;
  *       中心多一聲音爆，冷卻 3 秒。</li>
  * </ul>
  * 覺醒後半徑 ×4/3、多 3 條藤蔓。蓄力時地上會畫出目前的震波範圍（蓄力：靈魂粒子圈；蓄滿：藍色靈魂火圈），
- * 放開後震波由內往外擴散，波前掃到敵人時才結算傷害。藤蔓 2 秒後各自爆炸並造成靈魂剝奪（{@link BossWeapons#plantTendril}）。
+ * 放開後震波由內往外擴散，波前掃到敵人時才結算傷害。
+ * <p>
+ * 它也是一把原版重錘（{@link MaceItem}）：從 1.5 格以上落下時左鍵命中是<b>落下重擊</b>，傷害隨落下高度增加、
+ * 免除這次摔落傷害、把周圍的生物震開，並吃密度、破甲、風爆附魔。重擊命中時多一圈幽匿震波，落下 5 格以上（或已覺醒）
+ * 在目標腳下種一條幽匿藤蔓。{@link SiftEnchantments#AFTERSHOCK 餘震}附魔讓蓄力砸地的震波更大、藤蔓更多。藤蔓 2 秒後各自爆炸並造成靈魂剝奪（{@link BossWeapons#plantTendril}）。
  */
-public class SculkHammerItem extends Item {
+public class SculkHammerItem extends MaceItem {
     /** 物品模型 sculk_hammer_charging_* 依同樣的時間換階段（build_weapon_models.py）。 */
     public static final int MIN_CHARGE = 15;
     public static final int FULL_CHARGE = 40;
@@ -51,6 +56,12 @@ public class SculkHammerItem extends Item {
 
     /** 某段蓄力的砸地效果。 */
     private record Slam(boolean full, double radius, float damage, int tendrils, double push, double lift, int cooldown) {
+        static Slam of(int charge, boolean awakened, int aftershock) {
+            Slam base = of(charge, awakened);
+            return aftershock <= 0 ? base : new Slam(base.full(), base.radius() + 0.75 * aftershock, base.damage(),
+                    base.tendrils() + aftershock, base.push(), base.lift(), base.cooldown());
+        }
+
         static Slam of(int charge, boolean awakened) {
             double scale = awakened ? 4.0 / 3.0 : 1.0;
             int bonus = awakened ? 3 : 0;
@@ -107,7 +118,7 @@ public class SculkHammerItem extends Item {
             server.sendParticles(ParticleTypes.SCULK_SOUL, from.x, from.y, from.z, 0, v.x, v.y, v.z, 1.0);
         }
         if (charge >= MIN_CHARGE && charge % 4 == 0) {           // 地上畫出放開時的震波範圍
-            Slam slam = Slam.of(charge, BossWeapons.isAwakened(stack));
+            Slam slam = Slam.of(charge, BossWeapons.isAwakened(stack), SiftEnchantments.level(server, stack, SiftEnchantments.AFTERSHOCK));
             ring(server, user.position(), slam.radius(), slam.full() ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.SOUL, 0.0, charge * 0.07);
         }
         if (charge % Math.max(4, 10 - (int) (power * 6)) == 0) {
@@ -129,7 +140,7 @@ public class SculkHammerItem extends Item {
         if (charge < MIN_CHARGE || !(level instanceof ServerLevel server)) {
             return false;
         }
-        Slam slam = Slam.of(charge, BossWeapons.isAwakened(stack));
+        Slam slam = Slam.of(charge, BossWeapons.isAwakened(stack), SiftEnchantments.level(server, stack, SiftEnchantments.AFTERSHOCK));
         Vec3 c = user.position();
         wave(server, user, c, slam);
         for (int i = 0; i < slam.tendrils(); i++) {
@@ -151,6 +162,28 @@ public class SculkHammerItem extends Item {
             stack.hurtAndBreak(1, player, player.getUsedItemHand() == InteractionHand.OFF_HAND ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND);
         }
         return true;
+    }
+
+    /**
+     * 落下重擊（原版重錘的規則）：super 處理彈起、免除摔落傷害、震開周圍與音效；這裡加上幽匿的震波與藤蔓。
+     * 傷害加成在 {@link MaceItem#getAttackDamageBonus}：前 3 格每格 +4、接著 5 格每格 +2、之後每格 +1，再加密度附魔。
+     */
+    @Override
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        boolean smash = canSmashAttack(attacker);
+        double fall = attacker.fallDistance;
+        super.hurtEnemy(stack, target, attacker);
+        if (smash && attacker.level() instanceof ServerLevel server) {
+            Vec3 c = target.position();
+            double radius = Math.min(6.0, 2.0 + fall * 0.3);
+            ring(server, c, radius, ParticleTypes.SCULK_SOUL, 0.08, 0.0);
+            ring(server, c, radius * 0.5, ParticleTypes.SOUL_FIRE_FLAME, 0.03, 0.4);
+            dust(server, c, radius * 0.6);
+            server.playSound(null, target.blockPosition(), SoundEvents.WARDEN_ATTACK_IMPACT, SoundSource.PLAYERS, 1.0f, 0.7f);
+            if (fall >= 5.0 || BossWeapons.isAwakened(stack)) {
+                BossWeapons.plantTendril(server, target.blockPosition(), attacker, 40);
+            }
+        }
     }
 
     /**
@@ -226,6 +259,7 @@ public class SculkHammerItem extends Item {
         boolean awakened = BossWeapons.isAwakened(stack);
         out.accept(Component.translatable(awakened ? "tooltip.pysift.sculk_hammer.use_awakened" : "tooltip.pysift.sculk_hammer.use"));
         out.accept(Component.translatable("tooltip.pysift.sculk_hammer.tendrils"));
+        out.accept(Component.translatable("tooltip.pysift.sculk_hammer.smash"));
         if (awakened) {
             out.accept(Component.translatable("tooltip.pysift.awakened"));
         } else {

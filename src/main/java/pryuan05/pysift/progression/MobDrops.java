@@ -256,7 +256,9 @@ public final class MobDrops {
             ItemStack stack = player.getItemInHand(hand);
             int note = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getIntOr(NOTE, DEFAULT_NOTE);
             float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
-            level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 1.5f, pitch);
+            // 音叉是純音：用鐘琴加一點鐘聲。紫水晶的敲擊聲有十二種不同音高的取樣，每次敲出來的音都不一樣，不能用來定音
+            level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.PLAYERS, 1.5f, pitch);
+            level.playSound(null, player.getX(), player.getEyeY(), player.getZ(), SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.PLAYERS, 0.35f, pitch);
             player.getCooldowns().addCooldown(stack, 60);
             if (level instanceof ServerLevel server) {
                 server.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, player.getX(), player.getEyeY() + 0.5, player.getZ(),
@@ -282,7 +284,7 @@ public final class MobDrops {
             }
             float pitch = net.minecraft.world.level.block.NoteBlock.getPitchFromNote(note);
             level.playSound(null, pos, instrument.getSoundEvent().value(), SoundSource.RECORDS, 3.0f, pitch);
-            level.playSound(null, pos, SoundEvents.AMETHYST_BLOCK_CHIME, SoundSource.PLAYERS, 0.6f, pitch);
+            level.playSound(null, pos, SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.PLAYERS, 0.5f, pitch);
             if (level instanceof ServerLevel server) {
                 server.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
                         0, note / 24.0, 0, 0, 1.0);

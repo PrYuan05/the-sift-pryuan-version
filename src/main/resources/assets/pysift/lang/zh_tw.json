@@ -2582,5 +2582,10 @@
   "item.pysift.cooked_nuzzle_meat": "熟蹭蹭肉",
   "tooltip.pysift.tuning_fork.strike": "對空氣右鍵敲響：附近的歌者會跟著唱，音高決定曲子",
   "message.pysift.tuning_fork.resonate": "%s 隻歌者開始共鳴",
-  "message.pysift.tuning_fork.no_singer": "附近沒有歌者聽得到"
+  "message.pysift.tuning_fork.no_singer": "附近沒有歌者聽得到",
+  "enchantment.pysift.aftershock": "餘震",
+  "enchantment.pysift.aftershock.desc": "幽匿重錘：每級讓蓄力震波大 0.75 格、多 1 條幽匿藤蔓",
+  "enchantment.pysift.resonance": "共振",
+  "enchantment.pysift.resonance.desc": "音波法杖：每級射程 +3 格、傷害 +1",
+  "tooltip.pysift.sculk_hammer.smash": "落下攻擊：和重錘一樣的落下重擊，落得越高越痛"
 }

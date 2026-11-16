@@ -386,6 +386,13 @@ shaped("siftite_boots", ["I I", "I I"], I_)
 
 add_tag("pysift/tags/item/siftite_tool_materials.json", ["pysift:siftite_ingot"])
 add_tag("pysift/tags/item/repairs_siftite_armor.json", ["pysift:siftite_ingot"])
+# weapon enchantments: the hammer is a MaceItem and takes the mace's enchantments (density, breach, wind burst)
+add_tag("pysift/tags/item/enchantable/sculk_hammer.json", ["pysift:sculk_hammer"])
+add_tag("pysift/tags/item/enchantable/sonic_staff.json", ["pysift:sonic_staff"])
+add_tag("minecraft/tags/item/enchantable/mace.json", ["pysift:sculk_hammer"])
+add_tag("minecraft/tags/item/enchantable/durability.json", ["pysift:sculk_hammer", "pysift:sonic_staff"])
+for _tag in ("in_enchanting_table", "non_treasure", "tradeable", "on_random_loot"):
+    add_tag(f"minecraft/tags/enchantment/{_tag}.json", ["pysift:aftershock", "pysift:resonance"])
 for tag, item in (("swords", "sword"), ("pickaxes", "pickaxe"), ("axes", "axe"), ("shovels", "shovel"), ("hoes", "hoe"),
                   ("head_armor", "helmet"), ("chest_armor", "chestplate"), ("leg_armor", "leggings"), ("foot_armor", "boots")):
     add_tag(f"minecraft/tags/item/{tag}.json", [f"pysift:siftite_{item}"])
@@ -520,6 +527,12 @@ WEAPON_LANG = {
     "tooltip.pysift.sculk_hammer.use": ("Hold right-click, release to slam: a 3-4.5 block shockwave, 6 blocks when fully charged (2 s)", "按住右鍵蓄力，放開砸地：震波半徑 3–4.5 格，蓄滿 2 秒為 6 格"),
     "tooltip.pysift.sculk_hammer.use_awakened": ("Hold right-click, release to slam: a 4-6 block shockwave, 8 blocks when fully charged (2 s)", "按住右鍵蓄力，放開砸地：震波半徑 4–6 格，蓄滿 2 秒為 8 格"),
     "tooltip.pysift.sculk_hammer.tendrils": ("Leaves sculk tendrils that explode with Soul Deprivation", "留下幽匿藤蔓，2 秒後爆炸並造成靈魂剝奪"),
+    "tooltip.pysift.sculk_hammer.smash": ("Falling attack: a smash like the mace's, stronger the further you fall", "落下攻擊：和重錘一樣的落下重擊，落得越高越痛"),
+    # weapon enchantments (data/pysift/enchantment/*.json, read by progression/SiftEnchantments)
+    "enchantment.pysift.aftershock": ("Aftershock", "餘震"),
+    "enchantment.pysift.aftershock.desc": ("Sculk Hammer: a wider shockwave and one more tendril per level", "幽匿重錘：每級讓蓄力震波大 0.75 格、多 1 條幽匿藤蔓"),
+    "enchantment.pysift.resonance": ("Resonance", "共振"),
+    "enchantment.pysift.resonance.desc": ("Sonic Staff: +3 blocks of range and +1 damage per level", "音波法杖：每級射程 +3 格、傷害 +1"),
 }
 for lang, i in (("en_us", 0), ("zh_tw", 1)):
     f = A / f"lang/{lang}.json"
