@@ -639,7 +639,7 @@ public class SingerEntity extends PysiftAnimalEntity {
             overworldTicks = Math.max(0, overworldTicks - 4);
             return;
         }
-        if (this.tickCount % 40 == 0) {
+        if ((this.tickCount + this.getId()) % 40 == 0) {   // spread over the 40 ticks, so many Singers don't all scan on one tick
             sheltered = nearSoul(level);
         }
         if (sheltered || level.getGameTime() < shelteredUntil) {
@@ -668,14 +668,10 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     /** SHELTER 格內有靈魂晶塊或靈液。 */
     private boolean nearSoul(ServerLevel level) {
-        for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(
-                this.blockPosition().offset(-SHELTER, -SHELTER, -SHELTER), this.blockPosition().offset(SHELTER, SHELTER, SHELTER))) {
-            BlockState st = level.getBlockState(p);
-            if (st.is(SoulCrystal.SOUL_CRYSTAL_BLOCK) || pryuan05.pysift.fluid.SpiritInteractions.isSpirit(st.getFluidState())) {
-                return true;
-            }
-        }
-        return false;
+        // palette-first scan: chunk sections with no soul crystal and no spirit liquid are skipped whole
+        return pryuan05.pysift.block.BlockScan.any(level, this.blockPosition().offset(-SHELTER, -SHELTER, -SHELTER),
+                this.blockPosition().offset(SHELTER, SHELTER, SHELTER),
+                st -> st.is(SoulCrystal.SOUL_CRYSTAL_BLOCK) || pryuan05.pysift.fluid.SpiritInteractions.isSpirit(st.getFluidState()));
     }
 
     public int getOverworldTicks() {
