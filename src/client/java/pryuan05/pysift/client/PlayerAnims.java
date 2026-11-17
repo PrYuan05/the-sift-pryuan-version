@@ -45,7 +45,7 @@ public final class PlayerAnims {
     }
 
     public static void init() {
-        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(LAYER, 1000,
+        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(LAYER, pryuan05.pysift.client.compat.AnimCompat.layerPriority(),
                 avatar -> new PlayerAnimationController(avatar, (controller, data, setter) -> PlayState.STOP));
         ClientTickEvents.END_CLIENT_TICK.register(PlayerAnims::tick);
     }

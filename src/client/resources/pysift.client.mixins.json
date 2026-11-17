@@ -19,6 +19,7 @@
 		"ShulkerBoxRenderStateMixin",
 		"ShulkerBoxRendererMixin",
 		"HumanoidModelMixin",
+		"PlayerModelLatePoseMixin",
 		"FirstPersonHandsMixin",
 		"LivingEntitySwingMixin",
 		"MinecraftMusicMixin"

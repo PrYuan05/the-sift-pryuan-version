@@ -33,7 +33,8 @@ public class PySiftClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         SiftClientVisuals.register();
-        pryuan05.pysift.client.PlayerAnims.init();   // 玩家使用武器的全身動畫（Player Animation Library）
+        pryuan05.pysift.client.PlayerAnims.init();
+        pryuan05.pysift.client.compat.AnimCompat.init();   // 與 Punchy! 等動畫模組共存（docs/COMPAT.md）   // 玩家使用武器的全身動畫（Player Animation Library）
         pryuan05.pysift.client.SiftColorsClient.register();   // 9 種新顏色的方塊著色
         PysiftTooltips.register();   // 物品說明按住 Shift 才展開
         SoulDeprivationVision.register();   // 靈魂剝奪：伏聆色調的視野後製

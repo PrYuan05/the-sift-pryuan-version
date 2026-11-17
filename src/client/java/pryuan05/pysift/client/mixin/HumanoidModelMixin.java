@@ -13,6 +13,9 @@ import pryuan05.pysift.client.WeaponPoses;
 public class HumanoidModelMixin {
     @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;)V", at = @At("TAIL"))
     private void pysift$weaponPose(HumanoidRenderState state, CallbackInfo ci) {
+        if ((Object) this instanceof net.minecraft.client.model.player.PlayerModel && pryuan05.pysift.client.compat.AnimCompat.latePose()) {
+            return;   // 玩家模型改由 PlayerModelLatePoseMixin 在其他動畫模組之後再套
+        }
         WeaponPoses.thirdPerson((HumanoidModel<?>) (Object) this, state, ((pryuan05.pysift.client.EntityIdRenderState) state).pysift$entityId());
     }
 }
