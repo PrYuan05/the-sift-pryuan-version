@@ -68,7 +68,26 @@ public final class PlayerAnims {
         return c != null && c.isActive();
     }
 
+    /** 出手的反作用，給第一人稱的手持物理（{@link HandMotion}）一下：前搖蓄的勢在這裡放出來。 */
+    private static void recoil(String name) {
+        switch (name) {
+            case "hammer_slam" -> HandMotion.kick(0.0f, -1.6f, 0.0f);          // the head drops with the slam
+            case "hammer_swing_right" -> HandMotion.kick(-0.9f, -0.5f, -40.0f);
+            case "hammer_swing_left" -> HandMotion.kick(0.9f, -0.5f, 40.0f);
+            case "staff_blast" -> HandMotion.kick(0.0f, 1.1f, 0.0f);           // kicks back up from the recoil
+            case "staff_thrust" -> HandMotion.kick(0.0f, 0.4f, 0.0f);
+            case "javelin_throw" -> HandMotion.kick(-0.6f, -0.9f, -30.0f);     // the arm follows through down and across
+            case "charm_dash" -> HandMotion.kick(0.0f, -0.7f, 0.0f);
+            case "fork_strike" -> HandMotion.kick(0.0f, 0.3f, 25.0f);           // a flick, then it rings in the hand
+            default -> {
+            }
+        }
+    }
+
     private static void play(Player player, String name) {
+        if (player == Minecraft.getInstance().player) {
+            recoil(name);
+        }
         PlayerAnimationController c = controller(player);
         Identifier id = PySift.id(name);
         if (c == null || !PlayerAnimResources.hasAnimation(id)) {
@@ -85,6 +104,7 @@ public final class PlayerAnims {
         if (mc.level == null) {
             if (!STATE.isEmpty() || !SWINGS.isEmpty() || !LAST_CHARGE.isEmpty()) {
                 STATE.clear();
+                HandMotion.reset();
                 SWINGS.clear();
                 LAST_CHARGE.clear();
                 WeaponPoses.clear();

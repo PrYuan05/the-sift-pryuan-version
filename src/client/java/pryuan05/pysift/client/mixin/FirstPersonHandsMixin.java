@@ -49,5 +49,11 @@ public class FirstPersonHandsMixin {
     @Inject(method = "applyItemArmTransform", at = @At("TAIL"))
     private void pysift$weaponPose(PoseStack pose, HumanoidArm arm, float equip, CallbackInfo ci) {
         WeaponPoses.firstPerson(pose, arm, pysift$current);
+        var player = net.minecraft.client.Minecraft.getInstance().player;
+        if (player != null && pryuan05.pysift.client.HandMotion.applies(pysift$current)) {   // in-hand physics (Punchy-like weight)
+            pryuan05.pysift.client.HandMotion.apply(pose, player,
+                    net.minecraft.client.Minecraft.getInstance().getDeltaTracker().getGameTimeDeltaPartialTick(false),
+                    arm == HumanoidArm.RIGHT ? 1.0f : -1.0f);
+        }
     }
 }

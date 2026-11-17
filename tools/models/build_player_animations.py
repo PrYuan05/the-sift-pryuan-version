@@ -30,8 +30,20 @@ def pose(**bones):
     return out
 
 
+def settle(frames, overshoot=0.18, extra=0.22):
+    """Follow-through for a one-shot action (後搖): instead of stopping dead at the rest pose, the body swings a little
+    past it the other way and eases back. The last frame must be the rest pose; the pose before it sets the direction."""
+    *body, (t_end, last, _) = frames
+    before = body[-1][1]
+    past = {k: [-v * overshoot for v in before[k]] for k in REST}
+    return body + [(t_end, past, "easeOutQuad"), (t_end + extra, REST, "easeInOutSine")]
+
+
 def clip(name, frames, loop=None, length=None):
-    """frames: [(time, pose, easing)] -> one animation; channels that never leave the rest pose are left out."""
+    """frames: [(time, pose, easing)] -> one animation; channels that never leave the rest pose are left out.
+    One-shot clips (no loop) that end at rest get a follow-through (settle)."""
+    if loop is None and frames[-1][1] == REST and len(frames) >= 3:
+        frames = settle(frames)
     bones = {}
     for key in REST:
         values = [(t, p[key], e) for t, p, e in frames]
