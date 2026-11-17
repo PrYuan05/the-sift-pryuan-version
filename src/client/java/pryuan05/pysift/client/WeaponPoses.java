@@ -41,6 +41,12 @@ public final class WeaponPoses {
     private WeaponPoses() {
     }
 
+    /** 離開世界時清掉（實體 id 換世界就沒意義，不清會一直累積）。 */
+    public static void clear() {
+        DASH.clear();
+        SWINGS.clear();
+    }
+
     public static Kind kind(ItemStack stack) {
         if (stack.is(BossWeapons.SONIC_STAFF)) {
             return Kind.STAFF;

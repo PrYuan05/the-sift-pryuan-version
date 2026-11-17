@@ -83,8 +83,12 @@ public final class PlayerAnims {
 
     private static void tick(Minecraft mc) {
         if (mc.level == null) {
-            STATE.clear();
-            SWINGS.clear();
+            if (!STATE.isEmpty() || !SWINGS.isEmpty() || !LAST_CHARGE.isEmpty()) {
+                STATE.clear();
+                SWINGS.clear();
+                LAST_CHARGE.clear();
+                WeaponPoses.clear();
+            }
             return;
         }
         for (Player player : mc.level.players()) {

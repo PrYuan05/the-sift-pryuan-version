@@ -75,6 +75,9 @@ public class DashCharmItem extends Item {
         boolean awakened = BossWeapons.isAwakened(stack);
         int max = awakened ? 3 : 2;
         long now = server.getGameTime();
+        if (CHAINS.size() > 32) {   // 過期的連段（下線或沒用完）順手清掉，避免一直累積
+            CHAINS.values().removeIf(c -> now - c.lastDash() > CHAIN_WINDOW);
+        }
         Chain chain = CHAINS.get(player.getUUID());
         if (chain == null || now - chain.lastDash() > CHAIN_WINDOW) {
             chain = new Chain(0, now);
