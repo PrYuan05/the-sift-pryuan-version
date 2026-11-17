@@ -142,8 +142,15 @@ def rift():
         now = re.search(r"is (-?[0-9.]+)", r("attribute @e[tag=walker,limit=1] minecraft:movement_speed get", where))
         base = re.search(r"is (-?[0-9.]+)", r("attribute @e[tag=walker,limit=1] minecraft:movement_speed base get", where))
         found[label] = (float(now.group(1)) - float(base.group(1))) if now and base else None
+        step = re.search(r"is (-?[0-9.]+)", r("attribute @e[tag=walker,limit=1] minecraft:step_height get", where))
+        step_base = re.search(r"is (-?[0-9.]+)", r("attribute @e[tag=walker,limit=1] minecraft:step_height base get", where))
+        found[label + " step"] = (float(step.group(1)) - float(step_base.group(1))) if step and step_base else None
         r("kill @e[tag=walker]", where)
     expect("Rift Step III adds 0.03 speed in the Sift", found["Sift"] is not None and abs(found["Sift"] - 0.03) < 0.002, f"+{found['Sift']}")
+    expect("Rift Step III steps 0.75 block higher in the Sift", found["Sift step"] is not None and abs(found["Sift step"] - 0.75) < 0.002,
+           f"+{found['Sift step']}")
+    expect("Rift Step does not change the step height in the Overworld", found["Overworld step"] is not None
+           and abs(found["Overworld step"]) < 1e-6, f"+{found['Overworld step']}")
     expect("Rift Step does nothing in the Overworld", found["Overworld"] is not None and abs(found["Overworld"]) < 1e-6, f"+{found['Overworld']}")
 
 

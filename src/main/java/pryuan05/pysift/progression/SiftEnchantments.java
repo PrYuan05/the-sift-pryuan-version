@@ -35,6 +35,15 @@ public final class SiftEnchantments {
     private SiftEnchantments() {
     }
 
+    /** 創造模式分頁：每個隙浮附魔一本最高等級的附魔書，依名稱排序（資料包新增的 pysift 附魔也會出現）。 */
+    public static void acceptBooks(net.minecraft.core.HolderLookup.Provider holders, net.minecraft.world.item.CreativeModeTab.Output output) {
+        holders.lookup(Registries.ENCHANTMENT).ifPresent(registry -> registry.listElements()
+                .filter(holder -> holder.key().identifier().getNamespace().equals(PySift.MOD_ID))
+                .sorted(java.util.Comparator.comparing(holder -> holder.key().identifier().getPath()))
+                .forEach(holder -> output.accept(net.minecraft.world.item.enchantment.EnchantmentHelper.createBook(
+                        new net.minecraft.world.item.enchantment.EnchantmentInstance(holder, holder.value().getMaxLevel())))));
+    }
+
     /** stack 上這個附魔的等級；沒有（或註冊表裡找不到）是 0。 */
     public static int level(Level level, ItemStack stack, ResourceKey<Enchantment> key) {
         return level.registryAccess().lookup(Registries.ENCHANTMENT)

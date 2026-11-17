@@ -2593,7 +2593,7 @@
   "enchantment.pysift.ensnare": "纏縛",
   "enchantment.pysift.ensnare.desc": "投射物命中時有機率把目標纏住（每級 25%）",
   "enchantment.pysift.rift_step": "隙步",
-  "enchantment.pysift.rift_step.desc": "在隙浮的地面上移動更快",
+  "enchantment.pysift.rift_step.desc": "在隙浮裡：地面上移動更快；II 級起可以直接跨上一整格高的方塊",
   "enchantment.pysift.soul_harvest": "靈魂收割",
   "enchantment.pysift.soul_harvest.desc": "挖礦石等會掉經驗的方塊時，多給經驗",
   "enchantment.pysift.soul_rend": "靈魂撕裂",
@@ -2610,7 +2610,7 @@
   "enchantment.pysift.homecoming.desc": "靈魂標槍：命中後飛回你手上",
   "book.pysift.sift_codex.gear.enchantments.name": "隙浮附魔",
   "book.pysift.sift_codex.gear.enchantments.p0.title": "一般附魔",
-  "book.pysift.sift_codex.gear.enchantments.p0.text": "附魔台、村民和戰利品裡都拿得到，原版裝備和隙浮的裝備都能用：\n\n**放血**（武器、弓、弩、靈魂標槍）：命中時有機率讓目標流血。\n**纏縛**（弓、弩、三叉戟、靈魂標槍）：投射物命中時有機率把目標纏住。\n**隙步**（靴子）：在隙浮的地面上移動更快。\n**靈魂收割**（挖掘工具）：挖礦石多給經驗。\n**餘震**（幽匿重錘）與**共振**（音波法杖）。",
+  "book.pysift.sift_codex.gear.enchantments.p0.text": "附魔台、村民和戰利品裡都拿得到，原版裝備和隙浮的裝備都能用：\n\n**放血**（武器、弓、弩、靈魂標槍）：命中時有機率讓目標流血。\n**纏縛**（弓、弩、三叉戟、靈魂標槍）：投射物命中時有機率把目標纏住。\n**隙步**（靴子）：在隙浮裡移動更快，II 級起可以直接跨上一整格。\n**靈魂收割**（挖掘工具）：挖礦石多給經驗。\n**餘震**（幽匿重錘）與**共振**（音波法杖）。",
   "book.pysift.sift_codex.gear.enchantments.p1.title": "隙浮的寶藏",
   "book.pysift.sift_codex.gear.enchantments.p1.text": "附魔台不會出現：只能在隙浮結構的寶箱裡找到附魔書，回音窟的寶庫一定有一本。\n\n**靈魂撕裂**（武器）：命中時有機率撕裂生物的靈魂。\n**靈魂護佑**（頭盔或胸甲）：免疫靈魂剝奪。\n**殘影**（衝刺護符）、**和聲**（調音叉）、**哀歌**（哀悼號角）。\n**歸魂**（靈魂標槍）：丟出去會飛回來。"
 }

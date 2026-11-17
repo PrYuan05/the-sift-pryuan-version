@@ -127,7 +127,12 @@ public final class SiftCreativeTabs {
             t.tab = FabricCreativeModeTab.builder()
                     .icon(() -> new ItemStack(t.icon.get()))
                     .title(Component.translatable("itemGroup.pysift." + t.key.identifier().getPath()))
-                    .displayItems((params, output) -> output.acceptAll(collect().get(t)))
+                    .displayItems((params, output) -> {
+                        output.acceptAll(collect().get(t));
+                        if (t == Tab.INGREDIENTS) {   // the Sift's enchantments as max-level books, like vanilla's Ingredients tab
+                            pryuan05.pysift.progression.SiftEnchantments.acceptBooks(params.holders(), output);
+                        }
+                    })
                     .build();
             Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, t.key, t.tab);
             BY_TAB.put(t.tab, t);

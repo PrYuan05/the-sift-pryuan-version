@@ -22,15 +22,31 @@
     "minecraft:location_changed": [
       {
         "effect": {
-          "type": "minecraft:attribute",
-          "attribute": "minecraft:movement_speed",
-          "id": "pysift:enchantment.rift_step",
-          "operation": "add_value",
-          "amount": {
-            "type": "minecraft:linear",
-            "base": 0.01,
-            "per_level_above_first": 0.01
-          }
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:attribute",
+              "attribute": "minecraft:movement_speed",
+              "id": "pysift:enchantment.rift_step",
+              "operation": "add_value",
+              "amount": {
+                "type": "minecraft:linear",
+                "base": 0.01,
+                "per_level_above_first": 0.01
+              }
+            },
+            {
+              "type": "minecraft:attribute",
+              "attribute": "minecraft:step_height",
+              "id": "pysift:enchantment.rift_step",
+              "operation": "add_value",
+              "amount": {
+                "type": "minecraft:linear",
+                "base": 0.25,
+                "per_level_above_first": 0.25
+              }
+            }
+          ]
         },
         "requirements": {
           "type": "minecraft:all_of",

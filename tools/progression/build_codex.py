@@ -749,13 +749,13 @@ entry(C, "enchantments", "minecraft:enchanted_book", "Sift Enchantments", "隙�
          "Found at the enchanting table, from villagers and in loot, on vanilla gear as well as the Sift's:\n\n"
          "**Hemorrhage** (weapons, bows, crossbows, the soul javelin): hits may make the target bleed.\n"
          "**Ensnare** (bows, crossbows, tridents, the soul javelin): projectile hits may snare the target in place.\n"
-         "**Rift Step** (boots): faster on the ground in the Sift.\n"
+         "**Rift Step** (boots): faster in the Sift, and from II you step up a full block.\n"
          "**Soul Harvest** (mining tools): more experience from ores.\n"
          "**Aftershock** (sculk hammer) and **Resonance** (sonic staff).",
          "附魔台、村民和戰利品裡都拿得到，原版裝備和隙浮的裝備都能用：\n\n"
          "**放血**（武器、弓、弩、靈魂標槍）：命中時有機率讓目標流血。\n"
          "**纏縛**（弓、弩、三叉戟、靈魂標槍）：投射物命中時有機率把目標纏住。\n"
-         "**隙步**（靴子）：在隙浮的地面上移動更快。\n"
+         "**隙步**（靴子）：在隙浮裡移動更快，II 級起可以直接跨上一整格。\n"
          "**靈魂收割**（挖掘工具）：挖礦石多給經驗。\n"
          "**餘震**（幽匿重錘）與**共振**（音波法杖）。"),
     text(("Sift treasures", "隙浮的寶藏"),

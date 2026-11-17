@@ -58,8 +58,12 @@ NOT_PLAYER = {"type": "minecraft:inverted", "term": {"type": "minecraft:entity_p
 
 # soul_speed.json's location_changed, with the block test swapped for "on the ground in the Sift"
 RIFT_STEP = {"minecraft:location_changed": [{
-    "effect": {"type": "minecraft:attribute", "attribute": "minecraft:movement_speed", "id": "pysift:enchantment.rift_step",
-               "operation": "add_value", "amount": linear(0.01, 0.01)},
+    # faster, and from level II it steps straight up a full block (step_height 0.6 -> 1.1), like a horse
+    "effect": {"type": "minecraft:all_of", "effects": [
+        {"type": "minecraft:attribute", "attribute": "minecraft:movement_speed", "id": "pysift:enchantment.rift_step",
+         "operation": "add_value", "amount": linear(0.01, 0.01)},
+        {"type": "minecraft:attribute", "attribute": "minecraft:step_height", "id": "pysift:enchantment.rift_step",
+         "operation": "add_value", "amount": linear(0.25, 0.25)}]},
     "requirements": {"type": "minecraft:all_of", "terms": [
         {"type": "minecraft:inverted", "term": {"type": "minecraft:entity_properties", "entity": "this", "predicate": {"minecraft:vehicle": {}}}},
         {"type": "minecraft:entity_properties", "entity": "this", "predicate": {
@@ -102,7 +106,8 @@ DESC = {
     "resonance": ("Sonic Staff: +3 blocks of range and +1 damage per level", "音波法杖：每級射程 +3 格、傷害 +1"),
     "hemorrhage": ("Hits may make the target bleed (15% per level)", "命中時有機率讓目標流血（每級 15%）"),
     "ensnare": ("Projectile hits may snare the target in place (25% per level)", "投射物命中時有機率把目標纏住（每級 25%）"),
-    "rift_step": ("Faster on the ground in the Sift", "在隙浮的地面上移動更快"),
+    "rift_step": ("In the Sift: faster on the ground, and from level II you step straight up a full block",
+                  "在隙浮裡：地面上移動更快；II 級起可以直接跨上一整格高的方塊"),
     "soul_harvest": ("More experience from ores and other blocks that drop it", "挖礦石等會掉經驗的方塊時，多給經驗"),
     "soul_rend": ("Hits may tear the soul out of a creature: it takes 30% more damage (10% per level; not players)", "命中時有機率撕裂生物的靈魂，讓牠多受 30% 傷害（每級 10%；對玩家無效）"),
     "soul_ward": ("Immune to Soul Deprivation", "免疫靈魂剝奪"),
