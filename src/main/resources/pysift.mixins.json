@@ -8,6 +8,7 @@
 		"LiquidBlockMixin",
 		"LavaFluidMixin",
 		"SoulDeprivationDamageMixin",
+		"SoulWardEffectMixin",
 		"SouliteFluidWalkMixin",
 		"RitualQuietShriekerMixin",
 		"StateDefinitionBuilderMixin",

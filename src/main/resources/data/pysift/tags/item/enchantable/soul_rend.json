@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/weapon",
+    "pysift:sculk_hammer",
+    "pysift:sonic_staff"
+  ]
+}

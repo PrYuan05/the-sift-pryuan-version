@@ -9,11 +9,16 @@ import net.minecraft.world.level.Level;
 import pryuan05.pysift.PySift;
 
 /**
- * 隙浮武器自己的附魔（資料在 data/pysift/enchantment/，由 tools/progression/build_progression.py 維護標籤與語系）。
- * 附魔本身沒有資料驅動的效果，由各武器的程式讀等級：
+ * 隙浮的附魔（資料在 data/pysift/enchantment/，連同標籤與語系由 tools/progression/build_enchantments.py 產生）。
+ * 放血、纏縛、隙步、靈魂收割、靈魂撕裂完全由資料驅動；下面這些沒有資料效果，由各物品的程式讀等級：
  * <ul>
  *   <li>{@link #AFTERSHOCK} 餘震（重錘，I–III）：蓄力砸地的震波半徑每級 +0.75 格、多 1 條幽匿藤蔓。</li>
  *   <li>{@link #RESONANCE} 共振（音波法杖，I–III）：音爆射程每級 +3 格、傷害每級 +1。</li>
+ *   <li>{@link #SOUL_WARD} 靈魂護佑（胸甲、頭盔）：免疫靈魂剝奪（{@link SoulWard#isWarded}）。</li>
+ *   <li>{@link #AFTERIMAGE} 殘影（衝刺護符，I–III）：衝更遠、分身更久、冷卻更短。</li>
+ *   <li>{@link #HARMONY} 和聲（調音叉，I–III）：共鳴範圍與再生時間。</li>
+ *   <li>{@link #LAMENT} 哀歌（哀悼號角，I–III）：安撫範圍。</li>
+ *   <li>{@link #HOMECOMING} 歸魂（靈魂標槍，I–III）：像三叉戟的忠誠一樣飛回來（回程速度在附魔資料裡）。</li>
  * </ul>
  * 重錘另外吃原版重錘的附魔（密度、破甲、風爆），因為它就是一把 {@link net.minecraft.world.item.MaceItem}
  * 並列在 #minecraft:enchantable/mace 裡。
@@ -21,6 +26,11 @@ import pryuan05.pysift.PySift;
 public final class SiftEnchantments {
     public static final ResourceKey<Enchantment> AFTERSHOCK = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("aftershock"));
     public static final ResourceKey<Enchantment> RESONANCE = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("resonance"));
+    public static final ResourceKey<Enchantment> SOUL_WARD = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("soul_ward"));
+    public static final ResourceKey<Enchantment> AFTERIMAGE = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("afterimage"));
+    public static final ResourceKey<Enchantment> HARMONY = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("harmony"));
+    public static final ResourceKey<Enchantment> LAMENT = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("lament"));
+    public static final ResourceKey<Enchantment> HOMECOMING = ResourceKey.create(Registries.ENCHANTMENT, PySift.id("homecoming"));
 
     private SiftEnchantments() {
     }

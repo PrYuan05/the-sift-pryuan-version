@@ -1,0 +1,67 @@
+{
+  "description": {
+    "translate": "enchantment.pysift.soul_rend"
+  },
+  "supported_items": "#pysift:enchantable/soul_rend",
+  "weight": 1,
+  "max_level": 2,
+  "min_cost": {
+    "base": 20,
+    "per_level_above_first": 20
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 20
+  },
+  "anvil_cost": 8,
+  "slots": [
+    "mainhand"
+  ],
+  "exclusive_set": "#pysift:exclusive_set/soul_rend",
+  "effects": {
+    "minecraft:post_attack": [
+      {
+        "enchanted": "attacker",
+        "affected": "victim",
+        "effect": {
+          "type": "minecraft:apply_mob_effect",
+          "to_apply": "pysift:soul_deprivation",
+          "min_duration": 4.0,
+          "max_duration": {
+            "type": "minecraft:linear",
+            "base": 4.0,
+            "per_level_above_first": 2.0
+          },
+          "min_amplifier": 0.0,
+          "max_amplifier": 0.0
+        },
+        "requirements": {
+          "type": "minecraft:all_of",
+          "terms": [
+            {
+              "type": "minecraft:random_chance",
+              "chance": {
+                "type": "minecraft:enchantment_level",
+                "amount": {
+                  "type": "minecraft:linear",
+                  "base": 0.1,
+                  "per_level_above_first": 0.1
+                }
+              }
+            },
+            {
+              "type": "minecraft:inverted",
+              "term": {
+                "type": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "minecraft:entity_type": "minecraft:player"
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

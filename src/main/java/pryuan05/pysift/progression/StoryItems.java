@@ -157,7 +157,8 @@ public final class StoryItems {
                         ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
                 server.playSound(null, player.blockPosition(), SoundEvents.WARDEN_LISTENING_ANGRY, SoundSource.PLAYERS, 0.8f, 1.6f);
                 if (!Homecoming.tryBegin(server, sp)) {   // 終章的條件不齊：一般的安撫
-                    play(server, player, SingerSongs.MOURNING, 5, null, () -> soothe(server, player));
+                    int lament = SiftEnchantments.level(server, stack, SiftEnchantments.LAMENT);
+                    play(server, player, SingerSongs.MOURNING, 5, null, () -> soothe(server, player, lament));
                 }
             }
             return InteractionResult.SUCCESS;
@@ -166,17 +167,23 @@ public final class StoryItems {
 
     /** 號角唱完：24 格內的野生監守者平靜、哀悼者停止哭泣。 */
     static void soothe(ServerLevel level, Player player) {
+        soothe(level, player, 0);
+    }
+
+    /** lament：號角上的哀歌附魔等級，每級安撫範圍 +4 格。 */
+    static void soothe(ServerLevel level, Player player, int lament) {
+        double range = HORN_RANGE + 4.0 * lament;
         int calmed = 0;
-        for (Warden w : level.getEntitiesOfClass(Warden.class, player.getBoundingBox().inflate(HORN_RANGE),
+        for (Warden w : level.getEntitiesOfClass(Warden.class, player.getBoundingBox().inflate(range),
                 w -> !(w instanceof SiftWardenEntity))) {
             WardenSoothing.soothe(level, w, SOOTHE_TICKS);
             level.sendParticles(ParticleTypes.SCULK_SOUL, w.getX(), w.getY() + 1.5, w.getZ(), 20, 0.6, 0.8, 0.6, 0.02);
             calmed++;
         }
-        for (MournerEntity m : level.getEntitiesOfClass(MournerEntity.class, player.getBoundingBox().inflate(HORN_RANGE))) {
+        for (MournerEntity m : level.getEntitiesOfClass(MournerEntity.class, player.getBoundingBox().inflate(range))) {
             m.hush(SOOTHE_TICKS);
         }
-        for (SiftWardenEntity g : level.getEntitiesOfClass(SiftWardenEntity.class, player.getBoundingBox().inflate(HORN_RANGE),
+        for (SiftWardenEntity g : level.getEntitiesOfClass(SiftWardenEntity.class, player.getBoundingBox().inflate(range),
                 pryuan05.pysift.entity.DenGuard::isRoused)) {   // 回音窟被驚醒的守衛：聽到歌聲就安靜
             pryuan05.pysift.entity.DenGuard.calm(g);
             calmed++;

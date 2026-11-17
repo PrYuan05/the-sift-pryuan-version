@@ -744,6 +744,34 @@ entry(C, "brewing", "pysift:soul_berries", "Brewing", "釀造", 0, 2, [
          "靈莓長在靈液旁，幽光菇長在洞穴裡。把它們加進粗製藥水，可以釀出**靈魂守護**與**回音視界**。")],
       parents=["siftite"])
 
+entry(C, "enchantments", "minecraft:enchanted_book", "Sift Enchantments", "隙浮附魔", 2, 2, [
+    text(("Everyday enchantments", "一般附魔"),
+         "Found at the enchanting table, from villagers and in loot, on vanilla gear as well as the Sift's:\n\n"
+         "**Hemorrhage** (weapons, bows, crossbows, the soul javelin): hits may make the target bleed.\n"
+         "**Ensnare** (bows, crossbows, tridents, the soul javelin): projectile hits may snare the target in place.\n"
+         "**Rift Step** (boots): faster on the ground in the Sift.\n"
+         "**Soul Harvest** (mining tools): more experience from ores.\n"
+         "**Aftershock** (sculk hammer) and **Resonance** (sonic staff).",
+         "附魔台、村民和戰利品裡都拿得到，原版裝備和隙浮的裝備都能用：\n\n"
+         "**放血**（武器、弓、弩、靈魂標槍）：命中時有機率讓目標流血。\n"
+         "**纏縛**（弓、弩、三叉戟、靈魂標槍）：投射物命中時有機率把目標纏住。\n"
+         "**隙步**（靴子）：在隙浮的地面上移動更快。\n"
+         "**靈魂收割**（挖掘工具）：挖礦石多給經驗。\n"
+         "**餘震**（幽匿重錘）與**共振**（音波法杖）。"),
+    text(("Sift treasures", "隙浮的寶藏"),
+         "These are never offered at the table: they are found only as books in the chests of the Sift's structures, and "
+         "the Echo Den's vault always holds one.\n\n"
+         "**Soul Rend** (weapons): hits may tear the soul out of a creature.\n"
+         "**Soul Ward** (helmet or chestplate): immune to Soul Deprivation.\n"
+         "**Afterimage** (dash charm), **Harmony** (tuning fork), **Lament** (mourning horn).\n"
+         "**Homecoming** (soul javelin): it flies back to you.",
+         "附魔台不會出現：只能在隙浮結構的寶箱裡找到附魔書，回音窟的寶庫一定有一本。\n\n"
+         "**靈魂撕裂**（武器）：命中時有機率撕裂生物的靈魂。\n"
+         "**靈魂護佑**（頭盔或胸甲）：免疫靈魂剝奪。\n"
+         "**殘影**（衝刺護符）、**和聲**（調音叉）、**哀歌**（哀悼號角）。\n"
+         "**歸魂**（靈魂標槍）：丟出去會飛回來。"),
+], parents=["essence"])
+
 # ================================================================== 7. soul power (靈魂動力)
 category("soul_power", 6, "pysift:siftite_gear", "Soul Power", "靈魂動力", "patina_block/patina_block")
 C = "soul_power"
