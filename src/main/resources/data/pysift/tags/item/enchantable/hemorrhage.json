@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:enchantable/weapon",
+    "#minecraft:enchantable/bow",
+    "#minecraft:enchantable/crossbow",
+    "pysift:soul_javelin",
+    "pysift:sculk_hammer",
+    "pysift:sonic_staff"
+  ]
+}

@@ -568,8 +568,14 @@ public class SingerEntity extends PysiftAnimalEntity {
      * 回傳參加的歌者數。
      */
     public static int resonate(ServerLevel level, Player player, int note) {
+        return resonate(level, player, note, 0);
+    }
+
+    /** harmony：調音叉上的和聲附魔等級，每級範圍 +4 格、再生 +4 秒，III 級再生升為 II。 */
+    public static int resonate(ServerLevel level, Player player, int note, int harmony) {
+        double range = RESONANCE_RANGE + 4.0 * harmony;
         List<SingerEntity> singers = new java.util.ArrayList<>(level.getEntitiesOfClass(SingerEntity.class,
-                player.getBoundingBox().inflate(RESONANCE_RANGE), SingerEntity::canResonate));
+                player.getBoundingBox().inflate(range), SingerEntity::canResonate));
         if (singers.isEmpty()) {
             return 0;
         }
@@ -593,9 +599,9 @@ public class SingerEntity extends PysiftAnimalEntity {
         }
         // 起音：主音的一聲鐘琴（紫水晶的聲音有十二種不同音高的取樣，不能拿來定音）
         lead.playSound(SoundEvents.NOTE_BLOCK_CHIME.value(), 1.2f, (float) Math.pow(2.0, (note - 12) / 12.0));
-        int seconds = Math.min(30, 10 + 5 * (singers.size() - 1));
-        for (Player p : level.getEntitiesOfClass(Player.class, lead.getBoundingBox().inflate(RESONANCE_RANGE))) {
-            p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, seconds * 20, 0), lead);
+        int seconds = Math.min(30, 10 + 5 * (singers.size() - 1)) + 4 * harmony;
+        for (Player p : level.getEntitiesOfClass(Player.class, lead.getBoundingBox().inflate(range))) {
+            p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, seconds * 20, harmony >= 3 ? 1 : 0), lead);
         }
         // 主旋律由 StoryItems.play 以領唱的人聲發出；其他歌者在每個音唱和聲
         pryuan05.pysift.progression.StoryItems.play(level, lead, song, step, i -> {
@@ -633,7 +639,7 @@ public class SingerEntity extends PysiftAnimalEntity {
             overworldTicks = Math.max(0, overworldTicks - 4);
             return;
         }
-        if (this.tickCount % 40 == 0) {
+        if ((this.tickCount + this.getId()) % 40 == 0) {   // spread over the 40 ticks, so many Singers don't all scan on one tick
             sheltered = nearSoul(level);
         }
         if (sheltered || level.getGameTime() < shelteredUntil) {
@@ -662,14 +668,10 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     /** SHELTER 格內有靈魂晶塊或靈液。 */
     private boolean nearSoul(ServerLevel level) {
-        for (net.minecraft.core.BlockPos p : net.minecraft.core.BlockPos.betweenClosed(
-                this.blockPosition().offset(-SHELTER, -SHELTER, -SHELTER), this.blockPosition().offset(SHELTER, SHELTER, SHELTER))) {
-            BlockState st = level.getBlockState(p);
-            if (st.is(SoulCrystal.SOUL_CRYSTAL_BLOCK) || pryuan05.pysift.fluid.SpiritInteractions.isSpirit(st.getFluidState())) {
-                return true;
-            }
-        }
-        return false;
+        // palette-first scan: chunk sections with no soul crystal and no spirit liquid are skipped whole
+        return pryuan05.pysift.block.BlockScan.any(level, this.blockPosition().offset(-SHELTER, -SHELTER, -SHELTER),
+                this.blockPosition().offset(SHELTER, SHELTER, SHELTER),
+                st -> st.is(SoulCrystal.SOUL_CRYSTAL_BLOCK) || pryuan05.pysift.fluid.SpiritInteractions.isSpirit(st.getFluidState()));
     }
 
     public int getOverworldTicks() {

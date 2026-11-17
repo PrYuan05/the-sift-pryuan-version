@@ -2,6 +2,9 @@
   "replace": false,
   "values": [
     "pysift:sculk_hammer",
-    "pysift:sonic_staff"
+    "pysift:sonic_staff",
+    "pysift:dash_charm",
+    "pysift:mourning_horn",
+    "pysift:tuning_fork"
   ]
 }

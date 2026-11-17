@@ -1,5 +1,56 @@
 # Changelog
 
+## v2.2.0
+
+### New: Sift enchantments
+Ten new enchantments, on vanilla gear by kind (swords, spears, axes and the mace take the melee ones; pickaxes,
+shovels, axes and hoes the mining one; bows, crossbows and tridents the ranged ones; armor the armor ones) and on the
+Sift's own items.
+- **Everyday** (enchanting table, villager trades, random loot):
+  - **Hemorrhage** (weapons, bows, crossbows, Soul Javelin, I-III): hits may make the target bleed (15% per level).
+  - **Ensnare** (bows, crossbows, tridents, Soul Javelin, I-II): projectile hits may snare the target in place.
+  - **Rift Step** (boots, I-III): in the Sift you move faster on the ground, and from level II you step straight up a
+    full block, like a horse.
+  - **Soul Harvest** (mining tools, I-III): more experience from ores and other blocks that drop it.
+  - Aftershock (Sculk Hammer) and Resonance (Sonic Staff) are unchanged.
+- **Sift treasures**, never at the table: found only as books in the chests of the Sift's structures (one chest in
+  four; the Echo Den vault always holds one):
+  - **Soul Rend** (weapons, I-II): hits may tear the soul out of a creature, which then takes 30% more damage. Not on
+    players.
+  - **Soul Ward** (helmet or chestplate): immune to Soul Deprivation, from every source.
+  - **Afterimage** (Dash Charm, I-III): dash further, a longer-lived decoy, a shorter cooldown.
+  - **Harmony** (Tuning Fork, I-III): Singers answer from further away and their Regeneration lasts longer.
+  - **Lament** (Mourning Horn, I-III): calms creatures from further away.
+  - **Homecoming** (Soul Javelin, I-III): the javelin flies back to you, like Loyalty.
+- Soul Rend does not go with Fire Aspect or Hemorrhage; Rift Step not with Soul Speed, Depth Strider or Frost
+  Walker; Soul Harvest not with Silk Touch.
+- The Soul Javelin no longer stacks, so it can be enchanted. The Tuning Fork now wears out (64 strikes), so it, the
+  Dash Charm and the Mourning Horn take Unbreaking and Mending.
+- The Sift's Ingredients tab holds a max-level book of every Sift enchantment. Sift Codex: a *Sift Enchantments*
+  entry in Craft.
+
+### Changed: weapon animations
+- **In-hand physics**: Sift items in first person have weight. Turning drags the item behind and it catches up with
+  a small bounce, strafing leans it, and every release jolts it (slams, swings, blasts, throws, dashes, fork strikes).
+- First-person hammer chops and staff pokes come in three beats: a wind-up, the strike, then a follow-through past
+  the target and a slow recovery. Every third-person one-shot action carries a little past the rest pose before it
+  settles.
+- **Animation mods**: with Punchy! the Sift's weapons keep their own first-person poses, and Punchy! Moves steps
+  aside while you hold or use one. `animation_priority=override|yield` in `config/pysift.properties` (default
+  `override`) chooses who wins. See `docs/COMPAT.md`. Not yet tested with Better Combat, Emotecraft or Not Enough
+  Animations.
+
+### Changed
+- The Dark Slate Pillar uses the Dark Slate Bricks' colours.
+
+### Technical
+- Faster block searches for the rift rot check and the Singers' shelter check: chunk sections that cannot hold the
+  block are skipped whole, and unloaded chunks are no longer loaded just to look. Singers spread the check over time.
+- Per-entity client tables (weapon poses, player animations) and the Dash Charm's combo table no longer grow forever.
+- Removed two empty template mixins.
+- New tools: `tools/progression/build_enchantments.py`, `tools/worldgen/loot_books.py`,
+  `tools/progression/test_enchantments.py` (38 checks on the test server).
+
 ## v2.1.1
 
 Creature drops, two new tools, and the weapons get real animations. Includes everything added after the v2.1.0
@@ -509,6 +560,41 @@ soul machines.
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## v2.2.0（繁體中文）
+
+### 新增：隙浮附魔
+十個新附魔。原版裝備照種類適用（劍、矛、斧、重錘拿近戰附魔；鎬、鏟、斧、鋤拿挖掘附魔；弓、弩、三叉戟拿遠程附魔；盔甲拿防具附魔），隙浮自己的物品也能用。
+- **一般附魔**（附魔台、村民交易、隨機戰利品）：
+  - **放血**（武器、弓、弩、靈魂標槍，I–III）：命中時有機率讓目標流血（每級 15%）。
+  - **纏縛**（弓、弩、三叉戟、靈魂標槍，I–II）：投射物命中時有機率把目標纏住。
+  - **隙步**（靴子，I–III）：在隙浮的地面上移動更快，II 級起可以像馬一樣直接跨上一整格高的方塊。
+  - **靈魂收割**（挖掘工具，I–III）：挖礦石等會掉經驗的方塊時多給經驗。
+  - 餘震（幽匿重錘）與共振（音波法杖）不變。
+- **隙浮的寶藏**，附魔台不會出現：只能在隙浮結構的寶箱裡找到附魔書（四個寶箱有一個會有；回音窟的寶庫一定有一本）：
+  - **靈魂撕裂**（武器，I–II）：命中時有機率撕裂生物的靈魂，讓牠多受 30% 傷害。對玩家無效。
+  - **靈魂護佑**（頭盔或胸甲）：免疫所有來源的靈魂剝奪。
+  - **殘影**（衝刺護符，I–III）：衝得更遠、分身留得更久、冷卻更短。
+  - **和聲**（調音叉，I–III）：更遠的歌者也會回應，再生持續更久。
+  - **哀歌**（哀悼號角，I–III）：安撫範圍更大。
+  - **歸魂**（靈魂標槍，I–III）：標槍會像忠誠一樣飛回你手上。
+- 靈魂撕裂不能和火焰附加、放血同時存在；隙步不能和靈魂疾走、深海漫遊、冰霜行者同時存在；靈魂收割不能和絲綢之觸同時存在。
+- 靈魂標槍改成不能疊，才能附魔。調音叉現在會磨損（可敲 64 次），所以它和衝刺護符、哀悼號角都能附耐久與經驗修補。
+- 隙浮的「材料」分頁放了每個隙浮附魔的最高級附魔書。隙浮手記「器物」章新增「隙浮附魔」條目。
+
+### 修改：武器動畫
+- **手持物理**：第一人稱拿著隙浮的物品時有重量感。轉頭時物品會落後，再帶著一點回彈追上來；左右平移時會傾斜；每次出手都有一下反作用（砸地、揮擊、發射、投擲、衝刺、敲音叉）。
+- 第一人稱的重錘斜劈與法杖戳刺分成三段：前搖蓄勢、出手、餘勢過衝後慢慢收回。第三人稱的每個單次動作在回到原位前都會先多晃過去一點。
+- **動畫模組相容**：裝了 Punchy! 時，隙浮武器的第一人稱維持自己的姿勢；裝了 Punchy! Moves 時，拿著或使用隙浮武器它會讓開。`config/pysift.properties` 的 `animation_priority=override|yield`（預設 `override`）決定以誰為主，說明在 `docs/COMPAT.md`。尚未搭配 Better Combat、Emotecraft、Not Enough Animations 實測。
+
+### 修改
+- 暗板岩柱改用暗板岩磚的配色。
+
+### 技術
+- 裂隙腐爛與歌者庇護的方塊搜尋變快：不可能有目標方塊的區段整段跳過，也不再為了查找而載入未載入的區塊；歌者的檢查分散在不同時間。
+- 客戶端記錄每個實體的表（武器姿勢、玩家動畫）與衝刺護符的連段表不再無限增長。
+- 移除兩個範本留下的空 mixin。
+- 新工具：`tools/progression/build_enchantments.py`、`tools/worldgen/loot_books.py`、`tools/progression/test_enchantments.py`（測試伺服器上 38 項檢查）。
 
 ## v2.1.1（繁體中文）
 

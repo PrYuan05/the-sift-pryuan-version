@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     "pysift:aftershock",
-    "pysift:resonance"
+    "pysift:resonance",
+    "pysift:hemorrhage",
+    "pysift:ensnare",
+    "pysift:rift_step",
+    "pysift:soul_harvest"
   ]
 }

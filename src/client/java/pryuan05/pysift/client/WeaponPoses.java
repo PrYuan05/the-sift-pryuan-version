@@ -41,6 +41,12 @@ public final class WeaponPoses {
     private WeaponPoses() {
     }
 
+    /** 離開世界時清掉（實體 id 換世界就沒意義，不清會一直累積）。 */
+    public static void clear() {
+        DASH.clear();
+        SWINGS.clear();
+    }
+
     public static Kind kind(ItemStack stack) {
         if (stack.is(BossWeapons.SONIC_STAFF)) {
             return Kind.STAFF;
@@ -83,6 +89,65 @@ public final class WeaponPoses {
         }
         return t / DASH_TICKS;
     }
+
+    /**
+     * 關鍵影格：每一段用自己的緩動接到下一格（前搖用 easeOut 慢慢收、出手用 easeIn 加速、收招用 easeInOut）。
+     * 每格 = {時間 0～1, x, y, z, 繞 X, 繞 Y, 繞 Z}，緩動在「到這一格」的那一段上。
+     */
+    private record Keys(float[][] frames, Ease[] eases) {
+        float[] at(float t) {
+            float[][] f = frames;
+            if (t <= f[0][0]) {
+                return java.util.Arrays.copyOfRange(f[0], 1, 7);
+            }
+            for (int i = 1; i < f.length; i++) {
+                if (t <= f[i][0]) {
+                    float k = eases[i].apply((t - f[i - 1][0]) / (f[i][0] - f[i - 1][0]));
+                    float[] out = new float[6];
+                    for (int c = 0; c < 6; c++) {
+                        out[c] = Mth.lerp(k, f[i - 1][c + 1], f[i][c + 1]);
+                    }
+                    return out;
+                }
+            }
+            return java.util.Arrays.copyOfRange(f[f.length - 1], 1, 7);
+        }
+    }
+
+    private enum Ease {
+        LINEAR, IN, OUT, IN_OUT, OUT_BACK;
+
+        float apply(float x) {
+            return switch (this) {
+                case LINEAR -> x;
+                case IN -> x * x * x;
+                case OUT -> 1 - (1 - x) * (1 - x) * (1 - x);
+                case IN_OUT -> x < 0.5f ? 4 * x * x * x : 1 - (float) Math.pow(-2 * x + 2, 3) / 2;
+                case OUT_BACK -> {
+                    float c1 = 1.70158f, c3 = c1 + 1;
+                    yield 1 + c3 * (float) Math.pow(x - 1, 3) + c1 * (float) Math.pow(x - 1, 2);
+                }
+            };
+        }
+    }
+
+    /** 重錘斜劈：前搖（0～0.3，舉高拉到起手側）→ 出手（0.3～0.48，加速劈過去）→ 餘勢過衝並一頓（～0.6）→ 慢慢收回。 */
+    private static final Keys HAMMER_CHOP = new Keys(new float[][]{
+            {0.00f, 0.00f, 0.00f, 0.00f, 0.0f, 0.0f, 0.0f},
+            {0.30f, 0.22f, 0.32f, 0.08f, -62.0f, 0.0f, -42.0f},
+            {0.48f, -0.30f, -0.30f, -0.12f, 40.0f, 0.0f, 48.0f},
+            {0.60f, -0.24f, -0.24f, -0.08f, 32.0f, 0.0f, 40.0f},
+            {1.00f, 0.00f, 0.00f, 0.00f, 0.0f, 0.0f, 0.0f}},
+            new Ease[]{Ease.LINEAR, Ease.OUT, Ease.IN, Ease.OUT, Ease.IN_OUT});
+
+    /** 法杖戳刺：拉回蓄勢（0～0.25）→ 戳出去略過頭（0.25～0.4）→ 定住（～0.55）→ 收回。 */
+    private static final Keys STAFF_POKE = new Keys(new float[][]{
+            {0.00f, 0.00f, 0.00f, 0.00f, 0.0f, 0.0f, 0.0f},
+            {0.25f, -0.14f, -0.02f, 0.16f, -60.0f, 6.0f, 0.0f},
+            {0.40f, -0.18f, -0.10f, -0.32f, -80.0f, 9.0f, 0.0f},
+            {0.55f, -0.18f, -0.09f, -0.26f, -78.0f, 8.0f, 0.0f},
+            {1.00f, 0.00f, 0.00f, 0.00f, 0.0f, 0.0f, 0.0f}},
+            new Ease[]{Ease.LINEAR, Ease.OUT, Ease.IN, Ease.OUT, Ease.IN_OUT});
 
     /** 0（剛開始）～1（詠唱完成／蓄滿）。 */
     private static float progress(Kind kind, float ticks) {
@@ -247,18 +312,18 @@ public final class WeaponPoses {
             return false;
         }
         float side = arm == HumanoidArm.RIGHT ? 1.0f : -1.0f;
-        if (kind == Kind.STAFF) {   // poke: crystal pointing into the screen, from close to you a short way forward
-            float k = poke(swing);
-            float aim = Math.min(1.0f, swing * 6.0f) * (1 - Math.max(0.0f, swing - 0.8f) / 0.2f);   // turn to point ahead, then relax
-            pose.translate(-0.18f * side * aim, -0.08f * aim, Mth.lerp(k, 0.1f, -0.25f) * aim);
-            pose.rotateDegrees(Axis.YP, side * 8.0f * aim);
-            pose.rotateDegrees(Axis.XP, -75.0f * aim);
-        } else {                    // diagonal chop, alternating: upper right -> lower left, then upper left -> lower right
+        // pose = {x, y, z, rotX, rotY, rotZ}; each beat eases into the next (Keys)
+        if (kind == Kind.STAFF) {   // poke: draw back, thrust past the target, hold, ease back
+            float[] p = STAFF_POKE.at(swing);
+            pose.translate(p[0] * side, p[1], p[2]);
+            pose.rotateDegrees(Axis.YP, side * p[4]);
+            pose.rotateDegrees(Axis.XP, p[3]);
+        } else {                    // diagonal chop, alternating: wind up high on one side, cut across, overshoot, recover
             float dir = hammerSide(player.getId()) * side;
-            float e = swing * swing * (3 - 2 * swing);
-            pose.translate(dir * Mth.lerp(e, 0.15f, -0.25f), Mth.lerp(e, 0.25f, -0.25f), -0.1f * Mth.sin(swing * Mth.PI));
-            pose.rotateDegrees(Axis.ZP, dir * Mth.lerp(e, -35.0f, 40.0f));
-            pose.rotateDegrees(Axis.XP, Mth.lerp(e, -50.0f, 35.0f));
+            float[] p = HAMMER_CHOP.at(swing);
+            pose.translate(dir * p[0], p[1], p[2]);
+            pose.rotateDegrees(Axis.ZP, dir * p[5]);
+            pose.rotateDegrees(Axis.XP, p[3]);
         }
         return true;
     }

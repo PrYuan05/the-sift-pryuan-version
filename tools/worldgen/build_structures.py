@@ -12,6 +12,8 @@ loot_table/chests/<name>.json, and build/texture_pipeline/out/structures_preview
 Ruin damage is random but seeded, so re-running gives the same templates."""
 import gzip, io, json, random, struct, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import loot_books  # noqa: E402  (tools/worldgen/loot_books.py)
 
 P = Path(sys.argv[1])
 D = P / "src/main/resources/data/pysift"
@@ -304,7 +306,8 @@ EXTRA = {   # per-structure flavour
 for name in STRUCTURES:
     data = {"type": "minecraft:chest", "random_sequence": f"pysift:chests/{name}", "pools": [
         {"rolls": {"type": "minecraft:uniform", "min": 4, "max": 7}, "entries": COMMON + EXTRA[name]},
-        {"rolls": {"type": "minecraft:uniform", "min": 1, "max": 2}, "entries": RARE}]}
+        {"rolls": {"type": "minecraft:uniform", "min": 1, "max": 2}, "entries": RARE},
+        loot_books.book_pool(name)]}   # Sift-only enchantment books (tools/worldgen/loot_books.py)
     for folder in ("loot_table", "loot_tables"):
         wj(D / f"{folder}/chests/{name}.json", data)
 

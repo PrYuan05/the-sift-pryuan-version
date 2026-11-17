@@ -61,7 +61,9 @@ public class DashCharmItem extends Item {
         Vec3 look = player.getLookAngle();
         Vec3 flat = new Vec3(look.x, 0, look.z);
         flat = flat.lengthSqr() < 1.0E-4 ? Vec3.directionFromRotation(0, player.getYRot()) : flat.normalize();
-        player.setDeltaMovement(flat.x * SPEED, LIFT, flat.z * SPEED);
+        int afterimage = SiftEnchantments.level(level, stack, SiftEnchantments.AFTERIMAGE);   // 殘影：每級衝遠 15%
+        double speed = SPEED * (1.0 + 0.15 * afterimage);
+        player.setDeltaMovement(flat.x * speed, LIFT, flat.z * speed);
         player.fallDistance = 0;
         if (!(level instanceof ServerLevel server)) {
             return InteractionResult.SUCCESS;
@@ -73,10 +75,13 @@ public class DashCharmItem extends Item {
         boolean awakened = BossWeapons.isAwakened(stack);
         int max = awakened ? 3 : 2;
         long now = server.getGameTime();
+        if (CHAINS.size() > 32) {   // 過期的連段（下線或沒用完）順手清掉，避免一直累積
+            CHAINS.values().removeIf(c -> now - c.lastDash() > CHAIN_WINDOW);
+        }
         Chain chain = CHAINS.get(player.getUUID());
         if (chain == null || now - chain.lastDash() > CHAIN_WINDOW) {
             chain = new Chain(0, now);
-            BossWeapons.spawnDecoy(server, player, DECOY_TICKS);   // a new chain leaves a decoy where it started
+            BossWeapons.spawnDecoy(server, player, DECOY_TICKS + 60 * afterimage);   // a new chain leaves a decoy where it started (+3 s per Afterimage level)
         }
         server.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, player.getX(), player.getY(0.5), player.getZ(), 15, 0.3, 0.5, 0.3, 0.05);
         // 衝刺軌跡：沿著衝出去的方向留下一道靈魂火與青色殘影（羽刃劃過空氣）
@@ -100,7 +105,7 @@ public class DashCharmItem extends Item {
         int used = chain.used() + 1;
         if (used >= max) {
             CHAINS.remove(player.getUUID());
-            player.getCooldowns().addCooldown(stack, COOLDOWN);
+            player.getCooldowns().addCooldown(stack, COOLDOWN - 10 * afterimage);
         } else {
             CHAINS.put(player.getUUID(), new Chain(used, now));
         }

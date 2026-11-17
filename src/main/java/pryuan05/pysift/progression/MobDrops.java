@@ -95,9 +95,9 @@ public final class MobDrops {
     /** 放血箭：命中後流血 5 秒（{@link ModEffects#BLEEDING}）。 */
     public static final Item BLEEDING_ARROW = ModProgression.registerItem("bleeding_arrow", p -> new SpecialArrowItem(p, true));
     public static final Item SOUL_JAVELIN = ModProgression.registerItem("soul_javelin", SoulJavelinItem::new,
-            new Item.Properties().stacksTo(16));
+            new Item.Properties().stacksTo(1));   // one at a time, so it can be enchanted (Homecoming, Hemorrhage, Ensnare)
     public static final Item TUNING_FORK = ModProgression.registerItem("tuning_fork", TuningForkItem::new,
-            new Item.Properties().stacksTo(1));
+            new Item.Properties().durability(64));   // wears out a little with every strike, so Unbreaking and Mending apply
 
     private MobDrops() {
     }
@@ -263,7 +263,10 @@ public final class MobDrops {
             if (level instanceof ServerLevel server) {
                 server.sendParticles(net.minecraft.core.particles.ParticleTypes.NOTE, player.getX(), player.getEyeY() + 0.5, player.getZ(),
                         0, note / 24.0, 0, 0, 1.0);
-                int singers = pryuan05.pysift.entity.mob.SingerEntity.resonate(server, player, note);
+                int singers = pryuan05.pysift.entity.mob.SingerEntity.resonate(server, player, note,
+                        SiftEnchantments.level(server, stack, SiftEnchantments.HARMONY));
+                stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND
+                        ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
                 player.sendOverlayMessage(singers > 0
                         ? Component.translatable("message.pysift.tuning_fork.resonate", singers).withStyle(ChatFormatting.AQUA)
                         : Component.translatable("message.pysift.tuning_fork.no_singer").withStyle(ChatFormatting.GRAY));

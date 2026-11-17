@@ -142,12 +142,9 @@ public final class RotSpread {
 
     /** ROT_RANGE 格內（垂直 ±4）有隙浮傳送門。 */
     public static boolean nearRift(ServerLevel level, BlockPos pos) {
-        for (BlockPos p : BlockPos.betweenClosed(pos.offset(-ROT_RANGE, -4, -ROT_RANGE), pos.offset(ROT_RANGE, 4, ROT_RANGE))) {
-            if (level.getBlockState(p).is(ModBlocks.SIFT_PORTAL)) {
-                return true;
-            }
-        }
-        return false;
+        // palette-first scan (BlockScan): sections without a portal in their palette are skipped whole
+        return BlockScan.any(level, pos.offset(-ROT_RANGE, -4, -ROT_RANGE), pos.offset(ROT_RANGE, 4, ROT_RANGE),
+                state -> state.is(ModBlocks.SIFT_PORTAL));
     }
 
     /**
