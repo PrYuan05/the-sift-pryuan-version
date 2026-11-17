@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## v2.2.0
 
 ### New: Sift enchantments
 Ten new enchantments, on vanilla gear by kind (swords, spears, axes and the mace take the melee ones; pickaxes,
@@ -561,7 +561,7 @@ soul machines.
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
 
-## 尚未發布（繁體中文）
+## v2.2.0（繁體中文）
 
 ### 新增：隙浮附魔
 十個新附魔。原版裝備照種類適用（劍、矛、斧、重錘拿近戰附魔；鎬、鏟、斧、鋤拿挖掘附魔；弓、弩、三叉戟拿遠程附魔；盔甲拿防具附魔），隙浮自己的物品也能用。
