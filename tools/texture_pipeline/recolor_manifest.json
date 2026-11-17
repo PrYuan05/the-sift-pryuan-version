@@ -332,9 +332,10 @@
       "mode": "tall_strip_vine_pillar_sliced",
       "method": "minecraft_texture_crafter",
       "sha1_before": "98a835deef5ac7201b712992b0ae6b2e67b9b083",
-      "sha1_after": "d626d5e8a62be385d62c124b02d31ff2e731842d",
+      "sha1_after": "5ca256528be7644048c56de804155bd74d51416f",
       "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_bottom.png",
-      "date": "20261027-202704"
+      "date": "20261027-202704",
+      "note": "2026-11-17: recoloured to the dark_slate_bricks palette on request (rank remap); the hand-edited version is in .texture_backups/20261117-131532_dark_slate_pillar_recolor"
     },
     {
       "file": "textures/block/dark_slate_pillar/dark_slate_pillar_side.png",
@@ -344,9 +345,10 @@
       "mode": "tall_strip_vine_pillar_sliced",
       "method": "minecraft_texture_crafter",
       "sha1_before": "882ebafa60e100573a603a281f6ac55792acec61",
-      "sha1_after": "854f77eb49f8423ed0ef6803ba6ec8ec8ac7457f",
+      "sha1_after": "cef59d7efb6f9fae39b526d7b8194070e24ba37a",
       "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_side.png",
-      "date": "20261027-202704"
+      "date": "20261027-202704",
+      "note": "2026-11-17: recoloured to the dark_slate_bricks palette on request (rank remap); the hand-edited version is in .texture_backups/20261117-131532_dark_slate_pillar_recolor"
     },
     {
       "file": "textures/block/dark_slate_pillar/dark_slate_pillar_top.png",
@@ -356,9 +358,10 @@
       "mode": "tall_strip_vine_pillar_sliced",
       "method": "minecraft_texture_crafter",
       "sha1_before": "98a835deef5ac7201b712992b0ae6b2e67b9b083",
-      "sha1_after": "d626d5e8a62be385d62c124b02d31ff2e731842d",
+      "sha1_after": "5ca256528be7644048c56de804155bd74d51416f",
       "backup": ".texture_backups/20261027-194500_corrupted_slate_pillar/dark_slate_pillar/dark_slate_pillar_top.png",
-      "date": "20261027-202704"
+      "date": "20261027-202704",
+      "note": "2026-11-17: recoloured to the dark_slate_bricks palette on request (rank remap); the hand-edited version is in .texture_backups/20261117-131532_dark_slate_pillar_recolor"
     },
     {
       "file": "textures/block/dark_stone_bricks/chiseled_dark_stone_bricks.png",
