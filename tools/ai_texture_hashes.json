@@ -560,6 +560,7 @@
  "src/main/resources/assets/pysift/textures/entity/sift_warden/sift_warden_heart.png": "447e4ee40b03b68f1a462399c7215a4964a8679f",
  "src/main/resources/assets/pysift/textures/entity/sift_warden/sift_warden_pulsating_spots_1.png": "477d534bb27d0ddeaa1b8bc182b4bfdb2361e4c6",
  "src/main/resources/assets/pysift/textures/entity/sift_warden/sift_warden_pulsating_spots_2.png": "342e2824dab240cf87e7ee5d1881d4005edb371a",
+ "src/main/resources/assets/pysift/textures/entity/soul_wisp_ribbon.png": "bd2f4b7229c6153803f005037d5a4edd7cca32b9",
  "src/main/resources/assets/pysift/textures/entity/sprout.png": "c93fc9eb1bf40bafec307f29cfde69a7def293d5",
  "src/main/resources/assets/pysift/textures/entity/sprout_cold.png": "f5386df41c46e96582c68c5741a61db5bd6a5bea",
  "src/main/resources/assets/pysift/textures/entity/sprout_tropical.png": "2baef92c45251fc24540a3839b8db080055f27e2",
@@ -702,7 +703,7 @@
  "src/main/resources/assets/pysift/textures/item/wobble_spawn_egg.png": "2859a783e092af967d133cdfc6684577f2dc770c",
  "src/main/resources/assets/pysift/textures/mob_effect/bleeding.png": "848b4d65acf846fd30888c0c89ffa495295c01fa",
  "src/main/resources/assets/pysift/textures/mob_effect/ensnared.png": "eaa8cefab8ffd463d2324c6b450c4c1d07981120",
- "src/main/resources/assets/pysift/textures/particle/soul_trail.png": "bd764b38c4495bd1e03599a028a3bacf40e3d3bd",
+ "src/main/resources/assets/pysift/textures/particle/soul_trail.png": "53029da8b39dd3153846a4bde4a6087aed9191a8",
  "src/main/resources/assets/pysift/textures/particle/soul_trail_band.png": "2a66edfd9ec5ca8d14eed6338bf8037b2243e929",
- "src/main/resources/assets/pysift/textures/particle/soul_wisp.png": "4ebbb82c24d4626de9185ff0f0f88d401f2e6b7d"
+ "src/main/resources/assets/pysift/textures/particle/soul_wisp.png": "17a7fec2fb1cca8a22bc0e4ac66c60c4b805fe83"
 }

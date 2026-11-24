@@ -503,10 +503,10 @@ public class SingerEntity extends PysiftAnimalEntity {
                     s.triggerAnim("skill", "choir");
                 }
                 if (s != this) {   // 領唱的主旋律由 play() 發聲；其他人唱和聲
-                    float pitch = (float) Math.pow(2.0, (note + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length] - 12) / 12.0);
-                    pitch = Math.max(0.5f, Math.min(2.0f, pitch));
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.7f, pitch);
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.3f, pitch);
+                    int hNote = Math.max(0, Math.min(24, note + CHOIR_HARMONY[k++ % CHOIR_HARMONY.length]));
+                    float chimePitch = (float) Math.pow(2.0, (hNote - 12) / 12.0);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.singerNoteSound(hNote), SoundSource.NEUTRAL, 0.7f, pryuan05.pysift.sound.ModSounds.noteRegisterPitch(hNote));
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.3f, chimePitch);
                 }
                 level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, (i * 3) / 24.0, 0, 0, 1.0);
             }
@@ -614,8 +614,8 @@ public class SingerEntity extends PysiftAnimalEntity {
                 s.getNavigation().stop();
                 s.getLookControl().setLookAt(player, 30.0f, 30.0f);
                 if (s != lead) {
-                    float pitch = (float) Math.pow(2.0, (harmony(n, note, k++) - 12) / 12.0);
-                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.55f, pitch);
+                    int hNote = harmony(n, note, k++);
+                    level.playSound(null, s.getX(), s.getEyeY(), s.getZ(), pryuan05.pysift.sound.ModSounds.singerNoteSound(hNote), SoundSource.NEUTRAL, 0.55f, pryuan05.pysift.sound.ModSounds.noteRegisterPitch(hNote));
                     level.sendParticles(ParticleTypes.NOTE, s.getX(), s.getY() + s.getBbHeight() + 0.3, s.getZ(), 0, n / 24.0, 0, 0, 1.0);
                 }
                 s.triggerAnim("face", "face_note");
@@ -795,14 +795,15 @@ public class SingerEntity extends PysiftAnimalEntity {
 
     /** 笛聲唱一個音（音符盒半音 0~24），可以疊一聲輕輕的鐘聲；頭上冒出對應顏色的音符。 */
     private void hum(ServerLevel level, int note, boolean chime) {
-        float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
-        level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.SINGER_VOICE, SoundSource.NEUTRAL, 0.9f, pitch);
+        int clamped = Math.max(0, Math.min(24, note));
+        float chimePitch = (float) Math.pow(2.0, (clamped - 12) / 12.0);
+        level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.singerNoteSound(clamped), SoundSource.NEUTRAL, 0.9f, pryuan05.pysift.sound.ModSounds.noteRegisterPitch(clamped));
         int action = ritualAction();
         if (action != ACTION_AWAIT && action != ACTION_FINALE && action != ACTION_CELEBRATE) {   // 這幾個動作自己會張嘴
             this.triggerAnim("face", "face_note");
         }
         if (chime) {
-            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.35f, pitch);
+            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(), SoundSource.NEUTRAL, 0.35f, chimePitch);
         }
         // 音符粒子：count 0 時 xSpeed 是顏色（和音符盒一樣 note / 24）
         level.sendParticles(ParticleTypes.NOTE, this.getX(), this.getY() + this.getBbHeight() + 0.3, this.getZ(), 0, note / 24.0, 0.0, 0.0, 1.0);

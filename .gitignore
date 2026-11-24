@@ -58,3 +58,8 @@ art_workspace/
 # downloaded raw sound sources (only the README is tracked)
 sound_sources/*
 !sound_sources/README.md
+
+# local AI agent worktrees & zip archives
+.claude/worktrees/
+.agent/skills/*.zip
+~/

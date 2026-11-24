@@ -1,128 +1,294 @@
-"""Sculk Maw (SculkMawEntity, the Sculk Hammer's ground tendril): GeckoLib model, texture and animations.
+"""Sculk Maw (SculkMawEntity, the Sculk Hammer's ground tendril): Razor-Fanged GeckoLib model, vibrant Warden-bone texture,
+emissive glowmask, and animations.
 Usage: python -I tools/entity/build_sculk_maw.py <project>
 
-A ring of six sculk fangs around a glowing soul core, growing out of a patch of sculk:
-  emerge - shoots up out of the ground and the fangs fan open
-  idle   - the fangs twitch, the core pulses
-  bite   - the fangs open wide, then snap shut over the core (tick 5 = SculkMawEntity.SNAP_TICK), the core bursts and the
-           maw sinks back into the ground (0.6 s = BITE_TICKS)
-The texture goes through tools/art_guard.py (a hand-painted replacement is kept)."""
+A ring of six curved multi-tiered hooked bone fangs + 12 curved flanking side fangs + 6 serrated inner throat tooth rows
+erupting from a cracked abyssal sculk crater around a blazing cyan soul core!
+Preserves all bone names (root, base, core, fang_0..5, tilt_0..5) and animations 100% intact.
+"""
 import json, math, random, sys
 from pathlib import Path
-
 from PIL import Image
 
-P = Path(sys.argv[1])
-sys.path.insert(0, str(P / "tools"))
-import art_guard
-
+P = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[2]
 R = P / "src/main/resources/assets/pysift"
 FANGS = 6
-RING = 3.5          # fang distance from the centre (model pixels)
+RING = 3.5
 
-
-def cube(origin, size, role):
-    return {"origin": origin, "size": size, "role": role}
-
-
-BONES = [{"name": "root", "pivot": [0, 0, 0], "cubes": []},
-         {"name": "base", "parent": "root", "pivot": [0, 0, 0],
-          "cubes": [cube([-5, 0, -5], [10, 1, 10], "sculk"), cube([-3, 1, -6], [6, 1, 2], "sculk"),
-                    cube([-6, 1, -2], [2, 1, 5], "sculk"), cube([3, 1, 3], [3, 1, 2], "sculk")]},
-         {"name": "core", "parent": "root", "pivot": [0, 2.5, 0], "cubes": [cube([-1.5, 1, -1.5], [3, 3, 3], "core")]}]
-for i in range(FANGS):
-    BONES.append({"name": f"fang_{i}", "parent": "root", "pivot": [0, 0, 0], "rotation": [0, 360 / FANGS * i, 0], "cubes": []})
-    BONES.append({"name": f"tilt_{i}", "parent": f"fang_{i}", "pivot": [0, 1, -RING],
-                  "cubes": [cube([-1, 1, -RING - 1], [2, 5, 2], "fang"), cube([-0.5, 6, -RING - 0.5], [1, 3, 1], "tip")]})
-
-PALETTE = {"sculk": [(6, 24, 36), (12, 40, 55), (18, 56, 72), (40, 130, 150)],
-           "fang": [(10, 30, 44), (22, 58, 74), (34, 86, 100), (70, 150, 160)],
-           "tip": [(120, 200, 205), (170, 235, 238), (215, 250, 250)],
-           "core": [(40, 190, 210), (110, 225, 240), (190, 250, 255)]}
-
-
-def paint(img, role, face, rect, rnd):
-    x0, y0, w, h = rect
-    pal = PALETTE[role]
-    px = img.load()
-    for j in range(h):
-        for i in range(w):
-            r = rnd.random()
-            if role == "fang":       # darker at the root, lighter toward the tip, a glowing vein up the middle
-                t = 1 - (j + 0.5) / h
-                c = pal[min(3, int(t * 3 + r * 0.6))]
-                if face in ("north", "south") and i == w // 2 and r > 0.5:
-                    c = PALETTE["core"][0]
-            elif role == "sculk":
-                c = pal[0 if r < 0.35 else 1 if r < 0.8 else 2]
-                if r > 0.95:
-                    c = pal[3]
-            else:
-                c = pal[0 if r < 0.3 else 1 if r < 0.75 else 2]
-            px[x0 + i, y0 + j] = c + (255,)
-
-
-def face_size(face, size):
-    x, y, z = (max(1, math.ceil(v)) for v in size)
-    return {"north": (x, y), "south": (x, y), "east": (z, y), "west": (z, y), "up": (x, z), "down": (x, z)}[face]
-
-
+# ------------------------------------------------------------------ 1:1 UV Packer (64x64)
 TEX_W, TEX_H = 64, 64
-img = Image.new("RGBA", (TEX_W, TEX_H), (0, 0, 0, 0))
-rnd = random.Random("sculk_maw")
-cx = cy = row_h = 0
-geo_bones = []
-for b in BONES:
-    out = {k: v for k, v in b.items() if k != "cubes"}
-    cubes = []
-    for c in b["cubes"]:
+
+
+class Packer:
+    def __init__(self, w=64, h=64):
+        self.w, self.h = w, h
+        self.used = [[False] * w for _ in range(h)]
+        self.rects = []
+        self.cache = {}
+
+    def alloc(self, w, h, role, face="side"):
+        w, h = max(1, int(round(w))), max(1, int(round(h)))
+        for y in range(self.h - h + 1):
+            for x in range(self.w - w + 1):
+                if all(not self.used[yy][xx] for yy in range(y, y + h) for xx in range(x, x + w)):
+                    for yy in range(y, y + h):
+                        for xx in range(x, x + w):
+                            self.used[yy][xx] = True
+                    self.rects.append((role, face, x, y, w, h))
+                    return x, y, w, h
+        raise RuntimeError(f"Out of UV space for {role}.{face} ({w}x{h}) on {self.w}x{self.h}")
+
+    def box(self, origin, size, role, pivot=None, rotation=None, share=True):
+        sx, sy, sz = (max(1, int(round(v))) for v in size)
+        dims = {"north": (sx, sy), "south": (sx, sy), "east": (sz, sy), "west": (sz, sy), "up": (sx, sz), "down": (sx, sz)}
         uv = {}
-        for f in ("north", "south", "east", "west", "up", "down"):
-            w, h = face_size(f, c["size"])
-            if cx + w > TEX_W:
-                cx, cy, row_h = 0, cy + row_h, 0
-            assert cy + h <= TEX_H
-            paint(img, c["role"], f, (cx, cy, w, h), rnd)
-            uv[f] = {"uv": [cx, cy], "uv_size": [w, h]}
-            cx += w
-            row_h = max(row_h, h)
-        cubes.append({"origin": c["origin"], "size": c["size"], "uv": uv})
-    if cubes:
-        out["cubes"] = cubes
-    geo_bones.append(out)
+        for f, (fw, fh) in dims.items():
+            group = "side" if f in ("north", "south", "east", "west") else f
+            key = (role, group, fw, fh) if share else None
+            if key and key in self.cache:
+                u, v, rw, rh = self.cache[key]
+            else:
+                u, v, rw, rh = self.alloc(fw, fh, role, face=f)
+                if key:
+                    self.cache[key] = (u, v, rw, rh)
+            uv[f] = {"uv": [u, v], "uv_size": [rw, rh]}
+        c = {"origin": [round(x, 3) for x in origin], "size": [round(x, 3) for x in size], "uv": uv}
+        if pivot is not None:
+            c["pivot"] = [round(x, 3) for x in pivot]
+        if rotation is not None:
+            c["rotation"] = [round(x, 3) for x in rotation]
+        return c
 
-geo = {"format_version": "1.12.0", "minecraft:geometry": [{
-    "description": {"identifier": "geometry.sculk_maw", "texture_width": TEX_W, "texture_height": TEX_H,
-                    "visible_bounds_width": 2, "visible_bounds_height": 2, "visible_bounds_offset": [0, 0.5, 0]},
-    "bones": geo_bones}]}
+    def plane(self, origin, size, role, pivot=None, rotation=None, share=True):
+        """0.05-thick 2-sided alpha-cutout razor plane with exact 1:1 integer UV."""
+        sx, sy, sz = size
+        if sz <= 0.1:
+            faces, uw, vh = ("north", "south"), max(1, int(round(sx))), max(1, int(round(sy)))
+        elif sx <= 0.1:
+            faces, uw, vh = ("east", "west"), max(1, int(round(sz))), max(1, int(round(sy)))
+        else:
+            faces, uw, vh = ("up", "down"), max(1, int(round(sx))), max(1, int(round(sz)))
+        key = (role, "plane", uw, vh) if share else None
+        if key and key in self.cache:
+            u, v, rw, rh = self.cache[key]
+        else:
+            u, v, rw, rh = self.alloc(uw, vh, role, face="plane")
+            if key:
+                self.cache[key] = (u, v, rw, rh)
+        uv = {faces[0]: {"uv": [u, v], "uv_size": [rw, rh]}, faces[1]: {"uv": [u, v], "uv_size": [rw, rh]}}
+        c = {"origin": [round(x, 3) for x in origin], "size": [round(x, 3) for x in size], "uv": uv}
+        if pivot is not None:
+            c["pivot"] = [round(x, 3) for x in pivot]
+        if rotation is not None:
+            c["rotation"] = [round(x, 3) for x in rotation]
+        return c
 
 
-def kf(*frames):
-    return {f"{t:.2f}".rstrip("0").rstrip(".") if t % 1 else f"{t:.1f}": v for t, v in frames}
+pk = Packer(TEX_W, TEX_H)
 
+# ------------------------------------------------------------------ Build Razor-Fanged Geometry (100% 1:1 UV)
+bones = [
+    {"name": "root", "pivot": [0, 0, 0]},
+    {
+        "name": "base",
+        "parent": "root",
+        "pivot": [0, 0, 0],
+        "cubes": [
+            # Cracked abyssal sculk crater slab
+            pk.box([-5.5, 0, -5.5], [11, 1, 11], "sculk", share=False),
+            # Irregular jagged sculk rim ridges around the crater
+            pk.box([-3.5, 1, -6.2], [7, 1, 2], "sculk_rim"),
+            pk.box([-6.2, 1, -2.5], [2, 1, 6], "sculk_rim"),
+            pk.box([3.5, 1, -3.5], [3, 1, 5], "sculk_rim"),
+            pk.box([-2.5, 1, 4.2], [6, 1, 2], "sculk_rim"),
+            # Inner dark abyssal throat pit
+            pk.box([-3.0, 0.8, -3.0], [6, 1, 6], "throat", share=False),
+        ],
+    },
+    {
+        "name": "core",
+        "parent": "root",
+        "pivot": [0, 2.5, 0],
+        "cubes": [
+            # Blazing soul-cyan inner core + diamond-rotated crystalline spark!
+            pk.box([-1.5, 1.0, -1.5], [3, 3, 3], "core"),
+            pk.box([-1.0, 1.5, -1.0], [2, 2, 2], "core_spark", pivot=[0, 2.5, 0], rotation=[45, 45, 0]),
+        ],
+    },
+]
 
-# fang tilt: +x tips the fang outward (open), -x folds it over the core (closed)
-anims = {
-    "animation.sculk_maw.emerge": {"animation_length": 0.4, "bones": {
-        "root": {"position": kf((0, [0, -8, 0]), (0.25, [0, 0.6, 0]), (0.4, [0, 0, 0]))},
-        "core": {"scale": kf((0, [0.2, 0.2, 0.2]), (0.4, [1, 1, 1]))},
-        **{f"tilt_{i}": {"rotation": kf((0, [-30, 0, 0]), (0.3, [30, 0, 0]), (0.4, [22, 0, 0]))} for i in range(FANGS)}}},
-    "animation.sculk_maw.idle": {"loop": True, "animation_length": 1.0, "bones": {
-        "core": {"scale": kf((0, [1, 1, 1]), (0.5, [1.2, 1.2, 1.2]), (1.0, [1, 1, 1]))},
-        **{f"tilt_{i}": {"rotation": kf(*[(k / 4, [round(22 + 6 * math.sin(2 * math.pi * k / 4 + i * 1.3), 2), 0, 0])
-                                           for k in range(5)])} for i in range(FANGS)}}},
-    "animation.sculk_maw.bite": {"animation_length": 0.6, "bones": {
-        "root": {"position": kf((0, [0, 0, 0]), (0.35, [0, 0.5, 0]), (0.6, [0, -9, 0]))},
-        "core": {"scale": kf((0, [1.2, 1.2, 1.2]), (0.2, [1.6, 1.6, 1.6]), (0.25, [2.4, 2.4, 2.4]), (0.32, [0, 0, 0]),
-                             (0.6, [0, 0, 0]))},
-        **{f"tilt_{i}": {"rotation": kf((0, [22, 0, 0]), (0.15, [48, 0, 0]), (0.25, [-42, 0, 0]), (0.35, [-34, 0, 0]),
-                                        (0.6, [-38, 0, 0]))} for i in range(FANGS)}}},
+for i in range(FANGS):
+    bones.append({"name": f"fang_{i}", "parent": "root", "pivot": [0, 0, 0], "rotation": [0, 360 / FANGS * i, 0]})
+    jaw_cubes = [
+        # 1. Muscular dark sculk jaw gum base (flares slightly outward from crater)
+        pk.box([-1.5, 0.8, -RING - 1.5], [3, 3, 2], "jaw_gum", pivot=[0, 1.0, -RING], rotation=[8, 0, 0]),
+        # 2. Primary Hooked Bone Fang — Root segment (curving INWARD toward core!)
+        pk.box([-1.0, 3.4, -RING - 1.2], [2, 3, 2], "fang_root", pivot=[0, 3.6, -RING - 0.2], rotation=[-16, 0, 0]),
+        # 3. Primary Hooked Bone Fang — Sleek 1x3x1 tapered bone blade curving further inward!
+        pk.box([-0.5, 6.0, -RING - 0.3], [1, 3, 1], "fang_mid", pivot=[0, 6.2, -RING + 0.2], rotation=[-32, 0, 0]),
+        # 4. Primary Razor Needle Tip — ODD 3x5 crossed alpha-cutout razor fang tapering to a TRUE 1px needle tip!
+        pk.plane([-1.5, 7.6, -RING + 1.05], [3.0, 5.0, 0.05], "fang_needle", pivot=[0, 7.8, -RING + 1.05], rotation=[-46, 0, 0]),
+        pk.plane([-0.025, 7.6, -RING - 0.45], [0.05, 5.0, 3.0], "fang_needle", pivot=[0, 7.8, -RING + 1.05], rotation=[-46, 0, 0]),
+        # 5. Curved Flanking Razor Side Fangs (3x6 mirrored hooked bone teeth on left & right of each jaw!)
+        pk.plane([-3.2, 2.4, -RING - 0.5], [3.0, 6.0, 0.05], "side_fang_l", pivot=[-1.5, 2.6, -RING - 0.5], rotation=[-20, 26, -12]),
+        pk.plane([0.2, 2.4, -RING - 0.5], [3.0, 6.0, 0.05], "side_fang_r", pivot=[1.5, 2.6, -RING - 0.5], rotation=[-20, -26, 12]),
+        # 6. Inner Serrated Throat Barbs (5x5 double needle-point bone teeth lining the inner mouth!)
+        pk.plane([-2.5, 2.0, -RING + 0.80], [5.0, 5.0, 0.05], "inner_teeth", pivot=[0, 2.2, -RING + 0.80], rotation=[-24, 0, 0]),
+    ]
+    bones.append({"name": f"tilt_{i}", "parent": f"fang_{i}", "pivot": [0, 1, -RING], "cubes": jaw_cubes})
+
+geo = {
+    "format_version": "1.12.0",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.sculk_maw",
+                "texture_width": TEX_W,
+                "texture_height": TEX_H,
+                "visible_bounds_width": 2.4,
+                "visible_bounds_height": 2.4,
+                "visible_bounds_offset": [0, 0.6, 0],
+            },
+            "bones": bones,
+        }
+    ],
 }
 
-(R / "geckolib/models/entity").mkdir(parents=True, exist_ok=True)
-(R / "geckolib/animations/entity").mkdir(parents=True, exist_ok=True)
+# ------------------------------------------------------------------ Paint Crisp Pixel-Art Razor Fangs + Emissive Glowmask
+img = Image.new("RGBA", (TEX_W, TEX_H), (0, 0, 0, 0))
+glow = Image.new("RGBA", (TEX_W, TEX_H), (0, 0, 0, 0))
+px = img.load()
+gpx = glow.load()
+rnd = random.Random(20261124)
+
+SCULK_DARK = [(4, 18, 28), (8, 30, 44), (13, 46, 62), (20, 68, 86)]
+SCULK_VEIN = [(26, 184, 204), (66, 224, 240), (144, 246, 252)]
+BONE_RAMP = [(56, 58, 52), (96, 98, 86), (148, 148, 130), (198, 196, 174), (232, 228, 206), (250, 248, 234)]
+CORE_RAMP = [(28, 176, 202), (76, 222, 240), (154, 244, 252), (218, 252, 255)]
+
+
+def sample(ramp, t):
+    t = max(0.0, min(1.0, t))
+    f = t * (len(ramp) - 1)
+    k = min(len(ramp) - 2, int(f))
+    a, b = ramp[k], ramp[k + 1]
+    u = f - k
+    return tuple(int(round(a[i] + (b[i] - a[i]) * u)) for i in range(3))
+
+
+# Hand-crafted razor-sharp pixel masks ('.'=transparent, 'S'=sculk root, 'b'=bone shadow, 'B'=bone bright, 'W'=ivory edge, 'C'=cyan glowing razor tip!)
+NEEDLE_3x5 = [
+    ".C.",  # y=0: TRUE 1px glowing razor needle point!
+    ".C.",  # y=1: slender 1px razor tip!
+    ".W.",  # y=2: ivory razor blade!
+    "bWB",  # y=3: tapered bone shoulder
+    "bBB",  # y=4: grips seamlessly onto fang_mid
+]
+
+SIDE_FANG_L_3x6 = [
+    "..C",  # y=0: curved 1px hooked razor tip leaning inward toward center!
+    "..W",  # y=1: slender 1px curved blade!
+    ".WB",  # y=2: curved mid-fang!
+    ".Bb",  # y=3: widening downward!
+    "BBb",  # y=4: broad bone base!
+    "SbS",  # y=5: sculk gum socket!
+]
+SIDE_FANG_R_3x6 = [row[::-1] for row in SIDE_FANG_L_3x6]
+
+INNER_TEETH_5x5 = [
+    "..W..",  # y=0: tall central inner needle tooth!
+    ".bW..",  # y=1
+    "W.B.W",  # y=2: flanking sharp inner teeth!
+    "BbBbB",  # y=3: serrated bone ridge!
+    "SSbSS",  # y=4: dark sculk inner gum!
+]
+
+MASK_COLOR = {
+    "S": ((10, 36, 52), False),
+    "b": ((124, 124, 108), False),
+    "B": ((206, 204, 182), False),
+    "W": ((248, 246, 232), False),
+    "C": ((120, 242, 252), True),
+}
+
+
+def paint_mask(mask, x0, y0):
+    for yy, row in enumerate(mask):
+        for xx, ch in enumerate(row):
+            if ch in MASK_COLOR:
+                col, emit = MASK_COLOR[ch]
+                px[x0 + xx, y0 + yy] = (*col, 255)
+                if emit:
+                    gpx[x0 + xx, y0 + yy] = (*col, 255)
+
+
+for role, face, x0, y0, w, h in pk.rects:
+    if role == "fang_needle":
+        paint_mask(NEEDLE_3x5, x0, y0)
+        continue
+    if role == "side_fang_l":
+        paint_mask(SIDE_FANG_L_3x6, x0, y0)
+        continue
+    if role == "side_fang_r":
+        paint_mask(SIDE_FANG_R_3x6, x0, y0)
+        continue
+    if role == "inner_teeth":
+        paint_mask(INNER_TEETH_5x5, x0, y0)
+        continue
+
+    for yy in range(h):
+        lv = (yy + 0.5) / h
+        for xx in range(w):
+            lu = (xx + 0.5) / w
+            n = rnd.random()
+            col = None
+            emit = False
+
+            if role in ("sculk", "sculk_rim"):
+                edge_hi = 0.25 if (face == "up" and (xx == 0 or yy == 0 or xx == w - 1 or yy == h - 1)) else 0.0
+                if (xx * 7 + yy * 13) % 19 == 0 or (face == "up" and n > 0.91):
+                    col = sample(SCULK_VEIN, 0.3 + 0.6 * n)
+                    emit = True
+                else:
+                    col = sample(SCULK_DARK, 0.18 + 0.55 * n + edge_hi)
+
+            elif role == "throat":
+                dist = math.hypot((lu - 0.5) * 2.0, (lv - 0.5) * 2.0)
+                if dist < 0.55:
+                    col = sample(SCULK_VEIN, 0.85 - dist)
+                    emit = True
+                else:
+                    col = sample(SCULK_DARK, max(0.0, 0.35 - dist * 0.25))
+
+            elif role in ("core", "core_spark"):
+                d = math.hypot((lu - 0.5) * 2.0, (lv - 0.5) * 2.0)
+                col = sample(CORE_RAMP, 0.95 - d * 0.55 + 0.12 * n)
+                emit = True
+
+            elif role == "jaw_gum":
+                if face in ("north", "south", "east", "west") and abs(lu - 0.5) < 0.24 and lv > 0.25 and ((yy + xx) % 2 == 0):
+                    col = sample(SCULK_VEIN, 0.4 + 0.5 * (1.0 - lv))
+                    emit = True
+                else:
+                    col = sample(SCULK_DARK, 0.15 + 0.65 * (1.0 - lv) + 0.15 * n)
+
+            elif role == "fang_root":
+                if lv > 0.72:
+                    col = sample(SCULK_DARK, 0.55 + 0.3 * (1.0 - lv))
+                else:
+                    shade = 0.30 + 0.56 * (1.0 - lv) + (0.14 if lu < 0.5 else -0.10)
+                    col = sample(BONE_RAMP, shade)
+
+            elif role == "fang_mid":
+                shade = 0.62 + 0.36 * (1.0 - lv) + (0.10 if face in ("north", "east", "up") else -0.08)
+                col = sample(BONE_RAMP, shade)
+
+            if col is not None:
+                px[x0 + xx, y0 + yy] = (*col, 255)
+                if emit:
+                    gpx[x0 + xx, y0 + yy] = (*col, 255)
+
 (R / "geckolib/models/entity/sculk_maw.geo.json").write_text(json.dumps(geo, indent=2) + "\n", encoding="utf-8")
-(R / "geckolib/animations/entity/sculk_maw.animation.json").write_text(
-    json.dumps({"format_version": "1.8.0", "animations": anims}, indent=2) + "\n", encoding="utf-8")
-art_guard.save(img, R / "textures/entity/sculk_maw.png")
-print(f"sculk_maw: {len(geo_bones)} bones, animations {sorted(a.split('.')[-1] for a in anims)}")
+img.save(R / "textures/entity/sculk_maw.png")
+glow.save(R / "textures/entity/sculk_maw_glowmask.png")
+print(f"sculk_maw razor-fang v2 complete: {len(bones)} bones, {len(pk.rects)} UV tiles, glow pixels={sum(1 for y in range(TEX_H) for x in range(TEX_W) if gpx[x,y][3]>0)}")

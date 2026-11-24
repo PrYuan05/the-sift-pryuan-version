@@ -100,8 +100,9 @@ public class MournerEntity extends PysiftAnimalEntity {
         int i = t / WEEP_STEP;
         SingerSongs.Song song = SingerSongs.MOURNING;
         if (t % WEEP_STEP == 0 && i < song.length() && song.onset()[i]) {
-            float pitch = (float) Math.pow(2.0, (song.notes()[i] - 12) / 12.0) * 0.94f;   // 稍微走音
-            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.MOURNER_VOICE, SoundSource.NEUTRAL, 0.8f, pitch);
+            int n = Math.max(0, Math.min(24, song.notes()[i]));
+            float pitch = pryuan05.pysift.sound.ModSounds.noteRegisterPitch(n) * 0.97f;   // 稍微走音
+            level.playSound(null, this.getX(), this.getY() + 1.5, this.getZ(), pryuan05.pysift.sound.ModSounds.mournerNoteSound(n), SoundSource.NEUTRAL, 0.85f, pitch);
             if (i > 0) {   // 第一個音和哀號同時，不要打斷哀號的表情
                 this.triggerAnim("face", "face_note");
             }

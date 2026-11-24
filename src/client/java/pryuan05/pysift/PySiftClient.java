@@ -56,32 +56,40 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.HUNTER_JAVELIN, context -> new SiftArrowRenderer<>(context, "hunter_javelin", 2.0f));
         EntityRendererRegistry.register(ModEntities.THROWN_ROCK, ThrownItemRenderer::new);
         // Boss 招式的投射物：放大的幽匿塊（滾動方塊）、發光羽毛
-        EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_cube"));
+        EntityRendererRegistry.register(ModEntities.SCULK_CUBE, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_cube")
+                .withRenderLayer(VanillaGlowLayer::new));
         EntityRendererRegistry.register(ModEntities.MONARCH_FEATHER, context -> new ThrownItemRenderer<>(context, 1.5f, true));
         EntityRendererRegistry.register(ModEntities.TRAPPER_NET, context -> new ThrownItemRenderer<>(context, 1.6f, false));
         EntityRendererRegistry.register(ModEntities.SOUL_SNARE, NoopRenderer::new);
         net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.registerGlobalReceiver(
                 pryuan05.pysift.progression.DashPosePayload.TYPE,
                 (payload, context) -> pryuan05.pysift.client.WeaponPoses.markDash(payload.entityId()));   // 衝刺護符的雙手前刺
-        EntityRendererRegistry.register(ModEntities.SCULK_MAW, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_maw"));   // 重錘的幽匿咬刺   // 陷阱沒有模型，只有偶爾的靈魂微光
-        EntityRendererRegistry.register(ModEntities.HUNTER, context -> new PysiftUniversalGeoRenderer<>(context, "hunter"));
-        EntityRendererRegistry.register(ModEntities.TRAPPER, context -> new PysiftUniversalGeoRenderer<>(context, "trapper"));
+        EntityRendererRegistry.register(ModEntities.SCULK_MAW, context -> new PysiftUniversalGeoRenderer<>(context, "sculk_maw")
+                .withRenderLayer(VanillaGlowLayer::new));   // 重錘的幽匿咬刺
+        EntityRendererRegistry.register(ModEntities.HUNTER, context -> new PysiftUniversalGeoRenderer<>(context, "hunter")
+                .withRenderLayer(VanillaGlowLayer::new));
+        EntityRendererRegistry.register(ModEntities.TRAPPER, context -> new PysiftUniversalGeoRenderer<>(context, "trapper")
+                .withRenderLayer(VanillaGlowLayer::new));
         EntityRendererRegistry.register(ModEntities.BLUB, BlubRenderer::new);
         EntityRendererRegistry.register(ModEntities.ECHO_GOLEM, EchoGolemRenderer::new);
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
-        EntityRendererRegistry.register(ModEntities.MOURNER, context -> new PysiftUniversalGeoRenderer<>(context, "mourner"));
+        EntityRendererRegistry.register(ModEntities.MOURNER, context -> new PysiftUniversalGeoRenderer<>(context, "mourner")
+                .withRenderLayer(VanillaGlowLayer::new));
         EntityRendererRegistry.register(ModEntities.SIFT_WARDEN, pryuan05.pysift.client.SiftWardenRenderer::new);
         EntityRendererRegistry.register(ModEntities.NUZZLE, pryuan05.pysift.client.NuzzleRenderer::new);   // 剪毛、染色
         EntityRendererRegistry.register(ModEntities.LOOTKIN, context -> new PysiftUniversalGeoRenderer<>(context, "lootkin"));
-        EntityRendererRegistry.register(ModEntities.FUSEFLY, context -> new PysiftUniversalGeoRenderer<>(context, "fusefly"));
+        EntityRendererRegistry.register(ModEntities.FUSEFLY, context -> new PysiftUniversalGeoRenderer<>(context, "fusefly")
+                .withRenderLayer(VanillaGlowLayer::new));
         EntityRendererRegistry.register(ModEntities.DARTBACK, context -> new PysiftUniversalGeoRenderer<>(context, "dartback"));
         EntityRendererRegistry.register(ModEntities.HURLER, context -> new PysiftUniversalGeoRenderer<>(context, "hurler"));
         EntityRendererRegistry.register(ModEntities.POLLINATOR, context -> new PysiftUniversalGeoRenderer<>(context, "pollinator"));
         EntityRendererRegistry.register(ModEntities.NESTER, context -> new PysiftUniversalGeoRenderer<>(context, "nester"));
         EntityRendererRegistry.register(ModEntities.SEEDLING, context -> new PysiftUniversalGeoRenderer<>(context, "seedling"));
         EntityRendererRegistry.register(ModEntities.SPROUT, context -> new PysiftUniversalGeoRenderer<>(context, "sprout"));
-        EntityRendererRegistry.register(ModEntities.STALKER, context -> new PysiftUniversalGeoRenderer<>(context, "stalker"));
-        EntityRendererRegistry.register(ModEntities.SCAVENGER, context -> new PysiftUniversalGeoRenderer<>(context, "scavenger"));
+        EntityRendererRegistry.register(ModEntities.STALKER, context -> new PysiftUniversalGeoRenderer<>(context, "stalker")
+                .withRenderLayer(VanillaGlowLayer::new));
+        EntityRendererRegistry.register(ModEntities.SCAVENGER, context -> new PysiftUniversalGeoRenderer<>(context, "scavenger")
+                .withRenderLayer(VanillaGlowLayer::new));
         EntityRendererRegistry.register(ModEntities.SLABBER, SlabberRenderer::new);
         EntityRendererRegistry.register(ModEntities.PRICKLE, context -> new PysiftUniversalGeoRenderer<>(context, "prickle"));
         // Sentinel 的模型只有 0.89 格高，放大由實體的 SCALE 屬性負責（SentinelEntity.SCALE），和其他放大的生物一樣；

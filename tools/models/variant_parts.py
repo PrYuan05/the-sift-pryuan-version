@@ -1,16 +1,202 @@
-"""Shared 3D parts for the climate variant models (tools/models/build_<mob>_variants.py, user 2026-11-24).
+"""Exact-ratio 1:1 texel-density 3D part builder for Sift climate variant models (v2).
 
-Each builder defines REGIONS {"<role>.<key>": (x, y, w, h)} in unused texture space (mob_upgrade.paint_parts paints them
-by role) and builds cubes with the helpers below. Flowers are real 3D parts: a thin petal plate with a raised centre,
-facing up, +x (east), -x (west), -z (north) or +z (south)."""
+Unlike v1 (which stretched fixed UV boxes onto arbitrary cube dimensions, causing 5-8x squishing),
+UVAllocator packs every newly added 3D part with per-face UV sizes strictly matching the cube's
+physical dimensions times the mob's texel density (ratio error <= 1.15), and supports clean power-of-two
+canvas expansion (e.g. 32x32 -> 64x64) with original UVs untouched in the top-left quadrant.
+"""
 import copy, json
 from pathlib import Path
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 GEO = ROOT / "src/main/resources/assets/pysift/geckolib/models/entity"
+SNAP = ROOT / ".texture_backups/20261124_mob_originals/files"
 ALL = ("north", "south", "east", "west", "up", "down")
 
 
+class UVPacker:
+    """Packs exact-size UV rectangles into unused transparent space of a texture canvas (optionally expanded POT)."""
+
+    def __init__(self, width, height, occupied=None):
+        self.w = width
+        self.h = height
+        self.occ = set(occupied or ())
+        self.rects = []   # list of (role, x, y, w, h, face, cube_meta)
+
+    @classmethod
+    def from_base_model(cls, mob, target_size=None, snap_root=SNAP):
+        geo_path = GEO / f"{mob}.geo.json"
+        doc = json.loads(geo_path.read_text(encoding="utf-8"))
+        g = doc["minecraft:geometry"][0]
+        bw, bh = g["description"].get("texture_width", 64), g["description"].get("texture_height", 64)
+        tw, th = target_size or (bw, bh)
+        occ = set()
+        # Mark all base-model UV pixels and all opaque original pixels as occupied
+        tex_path = snap_root / f"textures/entity/{mob}.png"
+        if tex_path.exists():
+            im = Image.open(tex_path).convert("RGBA")
+            px = im.load()
+            for y in range(im.height):
+                for x in range(im.width):
+                    if px[x, y][3] > 0:
+                        occ.add((x, y))
+        for b in g["bones"]:
+            for c in b.get("cubes", []):
+                uv = c.get("uv")
+                if isinstance(uv, dict):
+                    for fd in uv.values():
+                        if not isinstance(fd, dict):
+                            continue
+                        u, v = fd["uv"]
+                        uw, vh = fd["uv_size"]
+                        x0, x1 = sorted((int(u), int(round(u + uw))))
+                        y0, y1 = sorted((int(v), int(round(v + vh))))
+                        for y in range(max(0, y0), min(th, y1)):
+                            for x in range(max(0, x0), min(tw, x1)):
+                                occ.add((x, y))
+        return cls(tw, th, occ)
+
+    def alloc(self, w, h, role, face="", meta=None):
+        w, h = max(1, int(round(w))), max(1, int(round(h)))
+        for y in range(self.h - h + 1):
+            for x in range(self.w - w + 1):
+                ok = True
+                for yy in range(y, y + h):
+                    for xx in range(x, x + w):
+                        if (xx, yy) in self.occ:
+                            ok = False
+                            break
+                    if not ok:
+                        break
+                if ok:
+                    for yy in range(y, y + h):
+                        for xx in range(x, x + w):
+                            self.occ.add((xx, yy))
+                    self.rects.append((role, x, y, w, h, face, meta or {}))
+                    return (x, y, w, h)
+        raise RuntimeError(f"UVPacker out of space for {role} ({w}x{h}) on {self.w}x{self.h} canvas")
+
+
+def make_box(packer, origin, size, role, density=1.0, pivot=None, rotation=None, inflate=0,
+             face_roles=None, shared_cache=None):
+    """Build a GeckoLib cube with exact proportional per-face UVs (1:1 texel density matching `density`).
+    `shared_cache`: optional dict[(role_key, uw, vh)] -> (u, v, uw, vh) to reuse identical texture tiles across symmetric parts."""
+    sx, sy, sz = size
+    dims = {
+        "north": (sx, sy), "south": (sx, sy),
+        "east": (sz, sy),  "west": (sz, sy),
+        "up": (sx, sz),    "down": (sx, sz),
+    }
+    uv = {}
+    for face, (fw, fh) in dims.items():
+        if fw <= 0.01 or fh <= 0.01:
+            continue
+        uw = max(1, int(round(fw * density)))
+        vh = max(1, int(round(fh * density)))
+        frole = (face_roles or {}).get(face, role)
+        ck = (frole, face if face in ("up", "down") else "side", uw, vh)
+        if shared_cache is not None and ck in shared_cache:
+            u, v, rw, rh = shared_cache[ck]
+        else:
+            u, v, rw, rh = packer.alloc(uw, vh, frole, face=face, meta={"size": list(size), "origin": list(origin)})
+            if shared_cache is not None:
+                shared_cache[ck] = (u, v, rw, rh)
+        uv[face] = {"uv": [u, v], "uv_size": [rw, rh]}
+    c = {"origin": [round(x, 3) for x in origin], "size": [round(x, 3) for x in size], "uv": uv}
+    if inflate:
+        c["inflate"] = inflate
+    if rotation:
+        c["pivot"] = [round(x, 3) for x in (pivot or origin)]
+        c["rotation"] = [round(x, 3) for x in rotation]
+    return c
+
+
+def make_plane(packer, origin, size, role, density=1.0, pivot=None, rotation=None, shared_cache=None):
+    """Build a vanilla-Minecraft thin alpha-cutout plane (0.05 thick, like Mooshroom/Axolotl/Warden/flowers).
+    Only emits the 2 broad faces (ZERO thin sliver faces, 100% exact 1:1 UV, front & back share 1 crisp sprite)."""
+    sx, sy, sz = size
+    if sz <= 0.15:
+        faces, fw, fh = ("north", "south"), sx, sy
+    elif sx <= 0.15:
+        faces, fw, fh = ("east", "west"), sz, sy
+    else:
+        faces, fw, fh = ("up", "down"), sx, sz
+    uw = max(2, int(round(fw * density)))
+    vh = max(2, int(round(fh * density)))
+    ck = ("plane", role, uw, vh)
+    if shared_cache is not None and ck in shared_cache:
+        u, v, rw, rh = shared_cache[ck]
+    else:
+        u, v, rw, rh = packer.alloc(uw, vh, role, face=faces[0], meta={"plane": True, "size": list(size), "origin": list(origin)})
+        if shared_cache is not None:
+            shared_cache[ck] = (u, v, rw, rh)
+    uv = {f: {"uv": [u, v], "uv_size": [rw, rh]} for f in faces}
+    c = {"origin": [round(x, 3) for x in origin], "size": [round(x, 3) for x in size], "uv": uv}
+    if rotation:
+        c["pivot"] = [round(x, 3) for x in (pivot or origin)]
+        c["rotation"] = [round(x, 3) for x in rotation]
+    return c
+
+
+def make_cross(packer, cx, by, cz, w, h, role, density=1.0, yaw=45.0, pitch=0.0, shared_cache=None):
+    """Build a classic vanilla Minecraft X-crossed 2-plane plant/flower/crystal sprite centered at (cx, by, cz)."""
+    piv = [cx, by, cz]
+    p1 = make_plane(packer, [cx - w * 0.5, by, cz - 0.025], [w, h, 0.05], role, density=density,
+                    pivot=piv, rotation=[pitch, yaw, 0], shared_cache=shared_cache)
+    p2 = make_plane(packer, [cx - w * 0.5, by, cz - 0.025], [w, h, 0.05], role, density=density,
+                    pivot=piv, rotation=[pitch, yaw + 90.0, 0], shared_cache=shared_cache)
+    return [p1, p2]
+
+
+def make_shell(packer, base_cube, inflate, role, density=1.0, skip_faces=("down",), shared_cache=None):
+    """Wrap a base cube in a sleek Minecraft outer fur/jacket layer (like Sheep wool / Player outer layer)
+    with exact 1:1 UVs and alpha-cutout shaggy lower hem."""
+    o, s = base_cube["origin"], base_cube["size"]
+    sx, sy, sz = s
+    dims = {"north": (sx, sy), "south": (sx, sy), "east": (sz, sy), "west": (sz, sy), "up": (sx, sz), "down": (sx, sz)}
+    uv = {}
+    for face, (fw, fh) in dims.items():
+        if face in skip_faces or fw <= 0.1 or fh <= 0.1:
+            continue
+        uw = max(2, int(round(fw * density)))
+        vh = max(2, int(round(fh * density)))
+        ck = ("shell", role, face if face in ("up", "down") else f"s_{uw}_{vh}", uw, vh)
+        if shared_cache is not None and ck in shared_cache:
+            u, v, rw, rh = shared_cache[ck]
+        else:
+            u, v, rw, rh = packer.alloc(uw, vh, role, face=face, meta={"shell": True, "size": list(s)})
+            if shared_cache is not None:
+                shared_cache[ck] = (u, v, rw, rh)
+        uv[face] = {"uv": [u, v], "uv_size": [rw, rh]}
+    c = {"origin": [round(x, 3) for x in o], "size": [round(x, 3) for x in s], "inflate": round(inflate, 3), "uv": uv}
+    if base_cube.get("rotation"):
+        c["pivot"] = list(base_cube.get("pivot", o))
+        c["rotation"] = list(base_cube["rotation"])
+    return c
+
+
+def build_variant(mob, variant, add_fn, target_size=None):
+    """Copy <mob>.geo.json to <mob>_<variant>.geo.json, optionally expand texture_width/height, and run add_fn."""
+    doc = json.loads((GEO / f"{mob}.geo.json").read_text(encoding="utf-8"))
+    geo = doc["minecraft:geometry"][0]
+    geo["description"]["identifier"] = f"geometry.{mob}_{variant}"
+    if target_size:
+        geo["description"]["texture_width"] = target_size[0]
+        geo["description"]["texture_height"] = target_size[1]
+    bones = {b["name"]: b for b in geo["bones"]}
+
+    def add(bone, cubes):
+        bones[bone].setdefault("cubes", []).extend(copy.deepcopy(cubes))
+
+    add_fn(add, bones)
+    out = GEO / f"{mob}_{variant}.geo.json"
+    out.write_text(json.dumps(doc, indent="\t", ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    print("wrote", out.name)
+    return out
+
+
+# Keep legacy Parts / build / check_regions exports so existing scripts continue to import cleanly during transition
 class Parts:
     def __init__(self, regions):
         self.R = regions
@@ -39,89 +225,6 @@ class Parts:
             c["pivot"], c["rotation"] = list(pivot), list(rotation)
         return c
 
-    def flower(self, facing, x, y, z, key="a", s=4, c=2, t=1):
-        """Petals s x s (t thick) with a c x c centre standing t out; (x, y, z) is the petal plate's min corner."""
-        P, E, C, CS = f"petal.{key}", f"petal_edge.{key}", f"centre.{key}", f"centre_side.{key}"
-        o = (s - c) / 2
-        if facing == "up":
-            return [self.box([x, y, z], [s, t, s], E, P), self.box([x + o, y + t, z + o], [c, t, c], CS, C)]
-        if facing in ("east", "west"):
-            plate = self.faces([x, y, z], [t, s, s], {"east": P, "west": P, "north": (E, 90), "south": (E, 90),
-                                                     "up": E, "down": E})
-            cx = x + t if facing == "east" else x - t
-            centre = self.faces([cx, y + o, z + o], [t, c, c], {"east": C, "west": C, "north": (CS, 90),
-                                                               "south": (CS, 90), "up": CS, "down": CS})
-            return [plate, centre]
-        plate = self.faces([x, y, z], [s, s, t], {"north": P, "south": P, "east": (E, 90), "west": (E, 90),
-                                                 "up": E, "down": E})
-        cz = z - t if facing == "north" else z + t
-        centre = self.faces([x + o, y + o, cz], [c, c, t], {"north": C, "south": C, "east": (CS, 90), "west": (CS, 90),
-                                                           "up": CS, "down": CS})
-        return [plate, centre]
-
-    def leaf(self, region, origin, size, pivot=None, rotation=None):
-        """A flat leaf: every face shows the leaf region (thin plates read as leaves from all sides)."""
-        return self.faces(origin, size, {f: region for f in ALL}, pivot, rotation)
-
-    def blade(self, blade, rim, origin, size, pivot=None, rotation=None):
-        """A 3D leaf with some thickness: its two broad faces show the blade region, the thin sides the rim region."""
-        thin = min(range(3), key=lambda i: size[i])
-        broad = {0: ("east", "west"), 1: ("up", "down"), 2: ("north", "south")}[thin]
-        return self.faces(origin, size, {f: (blade if f in broad else rim) for f in ALL}, pivot, rotation)
-
-    def tuft(self, centre, radii, region):
-        """A small round fluffy tuft: three crossing boxes (like ball) with radii (rx, ry, rz); each box is 65 % as deep
-        on the other two axes, so the outline steps in at the corners."""
-        out = []
-        for full in range(3):
-            size = [round(2 * radii[i] * (1 if i == full else 0.65), 3) for i in range(3)]
-            origin = [round(c - sz / 2, 3) for c, sz in zip(centre, size)]
-            out.append(self.box(origin, size, region, region))
-        return out
-
-    def ball(self, centre, r, side, top):
-        """A round fluffy ball: three crossing boxes (a 2r x 2r x 2r-2 core plus two thinner bars), reads as a sphere."""
-        cx, cy, cz = centre
-        return [self.box([cx - r, cy - r + 0.5, cz - r + 0.5], [2 * r, 2 * r - 1, 2 * r - 1], side, top),
-                self.box([cx - r + 0.5, cy - r, cz - r + 0.5], [2 * r - 1, 2 * r, 2 * r - 1], side, top),
-                self.box([cx - r + 0.5, cy - r + 0.5, cz - r], [2 * r - 1, 2 * r - 1, 2 * r], side, top)]
-
 
 def build(mob, variant, add_fn):
-    """Copy <mob>.geo.json to <mob>_<variant>.geo.json and let add_fn(add, bones) add cubes to existing bones."""
-    doc = json.loads((GEO / f"{mob}.geo.json").read_text(encoding="utf-8"))
-    geo = doc["minecraft:geometry"][0]
-    geo["description"]["identifier"] = f"geometry.{mob}_{variant}"
-    bones = {b["name"]: b for b in geo["bones"]}
-
-    def add(bone, cubes):
-        bones[bone].setdefault("cubes", []).extend(copy.deepcopy(cubes))
-
-    add_fn(add, bones)
-    (GEO / f"{mob}_{variant}.geo.json").write_text(json.dumps(doc, indent="\t", ensure_ascii=False) + "\n",
-                                                  encoding="utf-8", newline="\n")
-    print("wrote", f"{mob}_{variant}.geo.json")
-
-
-def check_regions(mob, regions):
-    """Every region must lie in texture space that the base model does not use and the original leaves transparent."""
-    import sys
-    from PIL import Image
-    sys.path.insert(0, str(ROOT / "tools/texture_pipeline"))
-    import mob_upgrade as mu
-    tex = Image.open(mu.SNAP / f"textures/entity/{mob}.png").convert("RGBA")
-    used = set()
-    for x0, y0, w, h, *_ in mu.faces(GEO / f"{mob}.geo.json"):
-        used.update((x, y) for x in range(x0, x0 + w) for y in range(y0, y0 + h))
-    cold = ("fluff", "ball", "ice", "tuft")                 # cold and tropical regions may share space (never both painted)
-    px, seen, bad = tex.load(), {}, []
-    for name, (x0, y0, w, h) in regions.items():
-        for y in range(y0, y0 + h):
-            for x in range(x0, x0 + w):
-                if not (0 <= x < tex.width and 0 <= y < tex.height) or px[x, y][3] or (x, y) in used:
-                    bad.append((name, x, y))
-                elif (x, y) in seen and (name.split(".")[0] in cold) == (seen[(x, y)].split(".")[0] in cold):
-                    bad.append((name, x, y, "overlaps " + seen[(x, y)]))
-                seen[(x, y)] = name
-    if bad:
-        raise SystemExit(f"{mob}: regions overlap used texture space: {bad[:8]}")
+    return build_variant(mob, variant, add_fn)

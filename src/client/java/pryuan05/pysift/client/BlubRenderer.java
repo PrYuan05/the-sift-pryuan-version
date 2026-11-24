@@ -6,6 +6,8 @@ import com.geckolib.renderer.base.RenderPassInfo;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import org.jspecify.annotations.Nullable;
 import pryuan05.pysift.entity.mob.BlubEntity;
 
 public class BlubRenderer extends PysiftUniversalGeoRenderer<BlubEntity> {
@@ -13,6 +15,14 @@ public class BlubRenderer extends PysiftUniversalGeoRenderer<BlubEntity> {
 
     public BlubRenderer(EntityRendererProvider.Context context) {
         super(context, new BlubModel());
+        // 只有草甸變體（blub_meadows）頭頂有青藍提燈，其他 4 種 Blub 不啟用發光層
+        withRenderLayer(new VanillaGlowLayer<>(this) {
+            @Override
+            protected @Nullable RenderType getRenderType(EntityRenderState renderState) {
+                BlubEntity.Variant v = ((GeoRenderState) renderState).getOrDefaultGeckolibData(VARIANT, BlubEntity.Variant.SOUL_ENGORGED);
+                return v == BlubEntity.Variant.MEADOWS ? super.getRenderType(renderState) : null;
+            }
+        });
     }
 
     @Override

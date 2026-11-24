@@ -122,14 +122,17 @@ public final class StoryItems {
             }
             if (t % p.step == 0 && p.song.onset()[i]) {
                 int note = p.song.notes()[i];
-                float pitch = (float) Math.pow(2.0, (note - 12) / 12.0);
-                // 歌者／哀悼者唱的用合成人聲；玩家吹號角、陶片提示仍是笛聲
-                net.minecraft.sounds.SoundEvent voice = p.source instanceof pryuan05.pysift.entity.mob.SingerEntity ? pryuan05.pysift.sound.ModSounds.SINGER_VOICE
-                        : p.source instanceof pryuan05.pysift.entity.mob.MournerEntity ? pryuan05.pysift.sound.ModSounds.MOURNER_VOICE
+                float chimePitch = (float) Math.pow(2.0, (note - 12) / 12.0);
+                // 歌者／哀悼者唱的依音區選低／中／高三組共鳴人聲；玩家吹號角、陶片提示仍是笛聲
+                boolean isSinger = p.source instanceof pryuan05.pysift.entity.mob.SingerEntity;
+                boolean isMourner = p.source instanceof pryuan05.pysift.entity.mob.MournerEntity;
+                net.minecraft.sounds.SoundEvent voice = isSinger ? pryuan05.pysift.sound.ModSounds.singerNoteSound(note)
+                        : isMourner ? pryuan05.pysift.sound.ModSounds.mournerNoteSound(note)
                         : SoundEvents.NOTE_BLOCK_FLUTE.value();
-                p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), voice, SoundSource.PLAYERS, 1.0f, pitch);
+                float voicePitch = (isSinger || isMourner) ? pryuan05.pysift.sound.ModSounds.noteRegisterPitch(note) : chimePitch;
+                p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), voice, SoundSource.PLAYERS, 1.0f, voicePitch);
                 p.level.playSound(null, p.source.getX(), p.source.getEyeY(), p.source.getZ(), SoundEvents.NOTE_BLOCK_CHIME.value(),
-                        SoundSource.PLAYERS, 0.4f, pitch);
+                        SoundSource.PLAYERS, 0.4f, chimePitch);
                 p.level.sendParticles(ParticleTypes.NOTE, p.source.getX(), p.source.getEyeY() + 0.6, p.source.getZ(), 0, note / 24.0, 0, 0, 1.0);
                 if (p.onNote != null) {
                     p.onNote.accept(i);

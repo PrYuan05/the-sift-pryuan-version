@@ -168,32 +168,104 @@ def compare(snap, names):
                 problems.append(f"silhouette changed on {moved} px")
             elif moved:
                 print(f"  note: {name}: alpha changed on {moved} px (allowed: {ALLOW_MASK[name]})")
-        err, worst = palette_error(rec["palette"], palette(new))
+        new_pal = palette(new)
+        err, worst = palette_error(rec["palette"], new_pal)
         if err > 0.10:
             problems.append(f"palette error {err:.1%} > 10% (worst families {worst})")
         so, sn = steps(old), steps(new)
-        # a new hard jump: a step > 0.18 that is also clearly harder (+0.06) than the original's step at the same place;
-        # borders between materials (fur next to an eye hole) keep roughly their original contrast and are not counted
         jumps = [k for k, d in sn.items() if d > 0.18 and d > so.get(k, 0) + 0.06]
         soft = sum(1 for d in sn.values() if d < 0.10) / max(1, len(sn))
         if len(jumps) > max(3, 0.01 * len(sn)):
             problems.append(f"{len(jumps)} new hard jumps (> 0.18 luminance)")
         if soft < 0.20:
             problems.append(f"soft transitions {soft:.0%} < 20%")
-        colours = len(palette(new))
+        # Visible upgrade delta & anti-flatness & no pure black/white
+        old_data = list(old.getdata())
+        new_data = list(new.getdata())
+        deltas = []
+        pure_bw = 0
+        if old.size == new.size:
+            for a, b in zip(old_data, new_data):
+                if a[3] > 0 and b[3] > 0:
+                    deltas.append((abs(a[0] - b[0]) + abs(a[1] - b[1]) + abs(a[2] - b[2])) / 3.0)
+        for b in new_data:
+            if b[3] > 0 and b[:3] in ((0, 0, 0), (255, 255, 255)):
+                pure_bw += 1
+        mean_d = sum(deltas) / max(1, len(deltas))
+        pct24 = sum(1 for d in deltas if d >= 24.0) / max(1, len(deltas))
+        total_op = max(1, sum(c["count"] for c in new_pal))
+        top_share = (new_pal[0]["count"] / total_op) if new_pal else 0.0
+        if pure_bw:
+            problems.append(f"{pure_bw} pure #000000/#FFFFFF px")
+        if mean_d < 20.0:
+            problems.append(f"mean RGB delta {mean_d:.1f}/255 < 20.0 (upgrade too subtle)")
+        if pct24 < 0.30:
+            problems.append(f"px with delta>=24 is {pct24:.0%} < 30%")
+        colours = len(new_pal)
         status = "FAIL" if problems else "ok"
         failed += bool(problems)
-        print(f"[{status}] {rel}: palette error {err:.1%}, colours {rec['colours']} -> {colours}, "
-              f"new hard jumps {len(jumps)}, soft {soft:.0%}" + ("".join("\n    - " + p for p in problems)))
+        print(f"[{status}] {rel}: pal_err {err:.1%}, mean_dRGB {mean_d:.1f} (>=24: {pct24:.0%}), "
+              f"cols {rec['colours']}->{colours}, top_share {top_share:.0%}, jumps {len(jumps)}, soft {soft:.0%}"
+              + ("".join("\n    - " + p for p in problems)))
         z = 8 if old.size[0] <= 64 else 4
         W, H = old.size
         sheet = Image.new("RGBA", (W * z * 3, H * z), (20, 20, 28, 255))
         diff = Image.new("RGBA", old.size)
-        diff.putdata([(min(255, abs(a[0] - b[0]) * 3), min(255, abs(a[1] - b[1]) * 3), min(255, abs(a[2] - b[2]) * 3), 255)
-                      if (a[3] or b[3]) else (0, 0, 0, 0) for a, b in zip(old.getdata(), new.getdata())])
-        for i, im in enumerate((old, new, diff)):
+        if old.size == new.size:
+            diff.putdata([(min(255, abs(a[0] - b[0]) * 3), min(255, abs(a[1] - b[1]) * 3), min(255, abs(a[2] - b[2]) * 3), 255)
+                          if (a[3] or b[3]) else (0, 0, 0, 0) for a, b in zip(old_data, new_data)])
+        for i, im in enumerate((old, new.crop((0, 0, W, H)) if new.size != old.size else new, diff)):
             sheet.alpha_composite(im.resize((W * z, H * z), Image.NEAREST), (i * W * z, 0))
         sheet.save(outdir / f"{name}.png")
+    sys.exit(1 if failed else 0)
+
+
+def uvcheck(names):
+    """Check UV aspect ratio (<= 1.15 on non-thin faces) and bounds for GeckoLib models (focusing on variant additions)."""
+    geo_dir = RES / "geckolib/models/entity"
+    failed = 0
+    for name in names:
+        p = geo_dir / f"{name}.geo.json"
+        doc = json.loads(p.read_text(encoding="utf-8"))
+        g = doc["minecraft:geometry"][0]
+        tw, th = g["description"].get("texture_width", 64), g["description"].get("texture_height", 64)
+        base_name = name.removesuffix("_tropical").removesuffix("_cold")
+        base_cubes = set()
+        if base_name != name and (geo_dir / f"{base_name}.geo.json").exists():
+            bg = json.loads((geo_dir / f"{base_name}.geo.json").read_text(encoding="utf-8"))["minecraft:geometry"][0]
+            for b in bg["bones"]:
+                for c in b.get("cubes", []):
+                    base_cubes.add((b["name"], tuple(c["origin"]), tuple(c["size"])))
+        oob, bad_new, bad_base = 0, [], []
+        for b in g["bones"]:
+            for c in b.get("cubes", []):
+                sx, sy, sz = c["size"]
+                is_new = bool(base_cubes) and (b["name"], tuple(c["origin"]), tuple(c["size"])) not in base_cubes
+                uv = c.get("uv")
+                if not isinstance(uv, dict):
+                    continue
+                dims = {"north": (sx, sy), "south": (sx, sy), "east": (sz, sy), "west": (sz, sy), "up": (sx, sz), "down": (sx, sz)}
+                for fn, fd in uv.items():
+                    if fn not in dims or not isinstance(fd, dict):
+                        continue
+                    u, v = fd.get("uv", [0, 0])
+                    uw, vh = fd.get("uv_size", [0, 0])
+                    if u < 0 or v < 0 or u + uw > tw or v + vh > th or u + uw < 0 or v + vh < 0:
+                        oob += 1
+                    fw, fh = dims[fn]
+                    if fd.get("uv_rotation", 0) in (90, 270):
+                        fw, fh = fh, fw
+                    if fw > 0.15 and fh > 0.15 and abs(uw) > 0 and abs(vh) > 0:
+                        ru, rv = abs(uw) / fw, abs(vh) / fh
+                        ratio = max(ru / rv, rv / ru)
+                        if ratio > 1.15:
+                            rec = (b["name"], fn, round(fw, 2), round(fh, 2), (uw, vh), round(ratio, 2))
+                            (bad_new if is_new else bad_base).append(rec)
+        ok = (oob == 0 and len(bad_new) == 0)
+        failed += not ok
+        print(f"[{'ok' if ok else 'FAIL'}] uvcheck {name} ({tw}x{th}): oob={oob}, new_part_distorted={len(bad_new)}, base_distorted={len(bad_base)}")
+        for r in bad_new[:8]:
+            print("    - new part distorted:", r)
     sys.exit(1 if failed else 0)
 
 
@@ -202,3 +274,5 @@ if __name__ == "__main__":
         snapshot(sys.argv[2])
     elif sys.argv[1] == "compare":
         compare(sys.argv[2], set(sys.argv[3:]))
+    elif sys.argv[1] == "uvcheck":
+        uvcheck(sys.argv[2:])

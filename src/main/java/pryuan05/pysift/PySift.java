@@ -78,6 +78,7 @@ public class PySift implements ModInitializer {
         pryuan05.pysift.soulpower.SoulPower.register();  // 靈魂動力：引擎、傳動軸、靈魂振波、研磨機
         SiftPortalRitual.register();
         BossLocateCommand.register();
+        pryuan05.pysift.command.MobShowcaseCommand.register();       // /pysift_mobs：一鍵召喚全模組生物展覽場
         pryuan05.pysift.block.RotSpread.registerCommand();
         pryuan05.pysift.block.RotSpread.registerHealing();
         pryuan05.pysift.worldgen.StructureShowcase.register();        // /pysift_showcase：在遊戲裡修改結構草稿

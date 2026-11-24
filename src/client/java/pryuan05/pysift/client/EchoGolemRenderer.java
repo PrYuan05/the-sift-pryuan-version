@@ -18,6 +18,8 @@ public class EchoGolemRenderer extends PysiftUniversalGeoRenderer<EchoGolemEntit
 
     public EchoGolemRenderer(EntityRendererProvider.Context context) {
         super(context, "echo_golem");
+        // 頭頂靈魂晶塊夜光層（crystal 骨骼縮放為 0 時發光也會自動隱藏）
+        withRenderLayer(new VanillaGlowLayer<>(this));
         // 儀式工人抱著的唱片盒（手持物品畫在 right_hand 骨骼上）
         withRenderLayer(new ItemInHandGeoLayer<>(context, this, "right_hand", "left_hand"));
     }

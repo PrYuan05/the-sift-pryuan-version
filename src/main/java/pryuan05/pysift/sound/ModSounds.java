@@ -28,11 +28,14 @@ public class ModSounds {
     public static final SoundEvent BLUB_GROWL = register("entity.blub.growl");
     public static final SoundEvent BLUB_WHINE = register("entity.blub.whine");
     public static final SoundEvent BLUB_SIT = register("entity.blub.sit");
-    // 歌者與哀悼者：程式合成的人聲（tools/audio/build_sounds.py）。VOICE 是一個 F#4 的唱音，用音符盒的音高倍率播放
+    // 歌者與哀悼者：Dungeons 2 風格共振人聲（tools/audio/singer_voice.py + build_sounds.py）。
+    // 分低音區 (B2, note 5)、中音區 (F#3, note 12)、高音區 (C#4, note 19) 三組音色，套用到歌曲不失真
     public static final SoundEvent SINGER_AMBIENT = register("entity.singer.ambient");
     public static final SoundEvent SINGER_HURT = register("entity.singer.hurt");
     public static final SoundEvent SINGER_DEATH = register("entity.singer.death");
     public static final SoundEvent SINGER_VOICE = register("entity.singer.voice");
+    public static final SoundEvent SINGER_VOICE_LOW = register("entity.singer.voice_low");
+    public static final SoundEvent SINGER_VOICE_HIGH = register("entity.singer.voice_high");
     // 歌者對世界與玩家的每個互動各有一段人聲
     public static final SoundEvent SINGER_GREET = register("entity.singer.greet");      // 從地底爬出
     public static final SoundEvent SINGER_BECKON = register("entity.singer.beckon");    // 儀式：招手等迴音碎片
@@ -51,9 +54,27 @@ public class ModSounds {
     public static final SoundEvent MOURNER_HURT = register("entity.mourner.hurt");
     public static final SoundEvent MOURNER_DEATH = register("entity.mourner.death");
     public static final SoundEvent MOURNER_VOICE = register("entity.mourner.voice");
+    public static final SoundEvent MOURNER_VOICE_LOW = register("entity.mourner.voice_low");
+    public static final SoundEvent MOURNER_VOICE_HIGH = register("entity.mourner.voice_high");
     public static final SoundEvent MOURNER_WAIL = register("entity.mourner.wail");      // 看到玩家、開始哭著唱
     public static final SoundEvent MOURNER_SOOTHE = register("entity.mourner.soothe");  // 泡靈液／聽香爐被安慰
     public static final SoundEvent MOURNER_HUSH = register("entity.mourner.hush");      // 被哀悼號角安撫
+
+    /** 依音符盒半音 (0~24) 選擇歌者對應音區的音色（低音 0~8、中音 9~16、高音 17~24）。 */
+    public static SoundEvent singerNoteSound(int note) {
+        return note <= 8 ? SINGER_VOICE_LOW : note >= 17 ? SINGER_VOICE_HIGH : SINGER_VOICE;
+    }
+
+    /** 依音符盒半音 (0~24) 選擇哀悼者對應音區的音色。 */
+    public static SoundEvent mournerNoteSound(int note) {
+        return note <= 8 ? MOURNER_VOICE_LOW : note >= 17 ? MOURNER_VOICE_HIGH : MOURNER_VOICE;
+    }
+
+    /** 對應三段音區基準音 (5 / 12 / 19) 的播放音高倍率（限制在 0.75~1.34，避免人聲共振峰失真）。 */
+    public static float noteRegisterPitch(int note) {
+        int base = note <= 8 ? 5 : note >= 17 ? 19 : 12;
+        return Math.max(0.5f, Math.min(2.0f, (float) Math.pow(2.0, (note - base) / 12.0)));
+    }
     // 用免費素材（sound_sources/）加工的生物音效，見 tools/audio/build_sounds.py 與 assets/pysift/sounds/CREDITS.md
     public static final SoundEvent NUZZLE_AMBIENT = register("entity.nuzzle.ambient");
     public static final SoundEvent NUZZLE_NUZZLE = register("entity.nuzzle.nuzzle");
