@@ -10,11 +10,14 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import pryuan05.pysift.entity.ClimateVariant;
 import pryuan05.pysift.entity.PysiftGeoEntity;
 
 public class PysiftUniversalGeoRenderer<T extends Entity & GeoEntity> extends GeoEntityRenderer<T, EntityRenderState> {
     /** 這隻生物有比原版長的死亡動畫（{@link PysiftGeoEntity#deathDuration()} &gt; 20）。 */
     private static final DataTicket<Boolean> LONG_DEATH = DataTicket.create("pysift_long_death", Boolean.class);
+    /** 動物的氣候變體（{@link ClimateVariant}），PysiftUniversalGeoModel 用來換貼圖。 */
+    public static final DataTicket<Integer> CLIMATE = DataTicket.create("pysift_climate", Integer.class);
 
     public PysiftUniversalGeoRenderer(EntityRendererProvider.Context context, String entityId) {
         super(context, new PysiftUniversalGeoModel<>(entityId));
@@ -32,6 +35,7 @@ public class PysiftUniversalGeoRenderer<T extends Entity & GeoEntity> extends Ge
     public void addRenderData(T animatable, Void relatedObject, EntityRenderState renderState, float partialTick) {
         super.addRenderData(animatable, relatedObject, renderState, partialTick);
         ((GeoRenderState) renderState).addGeckolibData(LONG_DEATH, longDeath(animatable));
+        ((GeoRenderState) renderState).addGeckolibData(CLIMATE, ClimateVariant.of(animatable));
     }
 
     /** 有自己完整死亡動畫的生物不套用原版的倒地翻轉（否則動畫會被整個轉 90 度）。 */

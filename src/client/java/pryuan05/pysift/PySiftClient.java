@@ -71,7 +71,7 @@ public class PySiftClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SINGER, context -> new PysiftUniversalGeoRenderer<>(context, "singer"));
         EntityRendererRegistry.register(ModEntities.MOURNER, context -> new PysiftUniversalGeoRenderer<>(context, "mourner"));
         EntityRendererRegistry.register(ModEntities.SIFT_WARDEN, pryuan05.pysift.client.SiftWardenRenderer::new);
-        EntityRendererRegistry.register(ModEntities.NUZZLE, context -> new PysiftUniversalGeoRenderer<>(context, "nuzzle"));
+        EntityRendererRegistry.register(ModEntities.NUZZLE, pryuan05.pysift.client.NuzzleRenderer::new);   // 剪毛、染色
         EntityRendererRegistry.register(ModEntities.LOOTKIN, context -> new PysiftUniversalGeoRenderer<>(context, "lootkin"));
         EntityRendererRegistry.register(ModEntities.FUSEFLY, context -> new PysiftUniversalGeoRenderer<>(context, "fusefly"));
         EntityRendererRegistry.register(ModEntities.DARTBACK, context -> new PysiftUniversalGeoRenderer<>(context, "dartback"));

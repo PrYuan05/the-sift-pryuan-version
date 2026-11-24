@@ -20,7 +20,26 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import org.jspecify.annotations.Nullable;
 import pryuan05.pysift.entity.PysiftAnimalEntity;
 
 /**
@@ -28,10 +47,16 @@ import pryuan05.pysift.entity.PysiftAnimalEntity;
  * <ul>
  *   <li>會主動走向 10 格內的玩家蹭臉（動畫 nuzzle），給予 10 秒發光與生命恢復 I；冷卻 60 秒。</li>
  *   <li>被攻擊時尖叫，並以 1.5 倍速度逃離攻擊者 10 秒。</li>
+ *   <li>像原版的羊（使用者）：剪刀剪毛掉 1～3 個羊毛（沒染色是紅色羊毛，染過是那個顏色），剪過的毛 2～4 分鐘長回來；
+ *       染料右鍵把毛染色。發射器也能剪（{@link Shearable}）。毛色、剪毛狀態同步給用戶端，渲染器換貼圖與染色。</li>
  * </ul>
  */
-public class NuzzleEntity extends PysiftAnimalEntity {
+public class NuzzleEntity extends PysiftAnimalEntity implements Shearable {
+    /** 毛：低 5 位元＝染色（0 是天生的紅色，n 是 DyeColor n-1），0x20＝剪過。 */
+    private static final EntityDataAccessor<Byte> DATA_FUR = SynchedEntityData.defineId(NuzzleEntity.class, EntityDataSerializers.BYTE);
+    private static final int SHEARED = 0x20;
     private int nuzzleCooldown = 100;
+    private int furRegrow;
 
     public NuzzleEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -55,6 +80,92 @@ public class NuzzleEntity extends PysiftAnimalEntity {
 
     private boolean isRecentAttacker(LivingEntity e) {
         return e == this.getLastHurtByMob() && this.tickCount - this.getLastHurtByMobTimestamp() < 200;
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_FUR, (byte) 0);
+    }
+
+    public boolean isSheared() {
+        return (entityData.get(DATA_FUR) & SHEARED) != 0;
+    }
+
+    public void setSheared(boolean sheared) {
+        int fur = entityData.get(DATA_FUR);
+        entityData.set(DATA_FUR, (byte) (sheared ? fur | SHEARED : fur & ~SHEARED));
+    }
+
+    /** 染過的毛色；沒染過是 null（天生的顏色）。 */
+    public @Nullable DyeColor getFurColor() {
+        int c = entityData.get(DATA_FUR) & 0x1F;
+        return c == 0 ? null : DyeColor.byId(c - 1);
+    }
+
+    public void setFurColor(@Nullable DyeColor color) {
+        int fur = entityData.get(DATA_FUR) & SHEARED;
+        entityData.set(DATA_FUR, (byte) (fur | (color == null ? 0 : color.getId() + 1)));
+    }
+
+    @Override
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (stack.is(Items.SHEARS)) {
+            if (level() instanceof ServerLevel level && readyForShearing()) {
+                shear(level, SoundSource.PLAYERS, stack);
+                gameEvent(GameEvent.SHEAR, player);
+                stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
+                return InteractionResult.SUCCESS_SERVER;
+            }
+            return InteractionResult.CONSUME;
+        }
+        DyeColor dye = stack.get(DataComponents.DYE);
+        if (dye != null && !isSheared() && dye != getFurColor()) {
+            if (!level().isClientSide()) {
+                setFurColor(dye);
+                level().playSound(null, this, SoundEvents.DYE_USE, SoundSource.PLAYERS, 1.0f, 1.0f);
+                stack.consume(1, player);
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, hand);
+    }
+
+    @Override
+    public void shear(ServerLevel level, SoundSource source, ItemStack tool) {
+        level.playSound(null, this, SoundEvents.SHEEP_SHEAR, source, 1.0f, 1.0f);
+        setSheared(true);
+        furRegrow = 2400 + random.nextInt(2400);
+        DyeColor color = getFurColor();
+        Item wool = BuiltInRegistries.ITEM.getValue(Identifier.withDefaultNamespace((color == null ? "red" : color.getName()) + "_wool"));
+        int count = 1 + random.nextInt(3);
+        for (int i = 0; i < count; i++) {
+            ItemEntity drop = spawnAtLocation(level, new ItemStack(wool), 1.0f);
+            if (drop != null) {
+                drop.setDeltaMovement(drop.getDeltaMovement().add((random.nextFloat() - random.nextFloat()) * 0.1f,
+                        random.nextFloat() * 0.05f, (random.nextFloat() - random.nextFloat()) * 0.1f));
+            }
+        }
+    }
+
+    @Override
+    public boolean readyForShearing() {
+        return isAlive() && !isSheared() && !isBaby();
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        super.addAdditionalSaveData(output);
+        output.putByte("Fur", entityData.get(DATA_FUR));
+        output.putInt("FurRegrow", furRegrow);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        super.readAdditionalSaveData(input);
+        entityData.set(DATA_FUR, input.getByteOr("Fur", (byte) 0));
+        furRegrow = input.getIntOr("FurRegrow", 0);
     }
 
     @Override
@@ -87,6 +198,9 @@ public class NuzzleEntity extends PysiftAnimalEntity {
         super.customServerAiStep(level);
         if (nuzzleCooldown > 0) {
             nuzzleCooldown--;
+        }
+        if (isSheared() && --furRegrow <= 0) {                  // 毛長回來
+            setSheared(false);
         }
     }
 
