@@ -157,7 +157,7 @@ public class SlabberEntity extends Animal implements GeoEntity {
         return this.entityData.get(DATA_GROWTH);
     }
 
-    private void setFlower(ItemStack flower, int growth) {
+    public void setFlower(ItemStack flower, int growth) {
         this.entityData.set(DATA_FLOWER, flower.copyWithCount(1));
         this.entityData.set(DATA_GROWTH, growth);
         growTimer = 0;

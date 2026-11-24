@@ -2,6 +2,21 @@
 
 ## v2.2.0
 
+### Original Texture & Asset Compliance Overhaul
+To ensure all visual and audio assets in **The Sift** are original, vanilla-harmonious, and free of third-party/Mojang asset reuse:
+- **Complete Hand-Crafted / Procedurally Shaded Mob Texture Overhaul (33 Base Mobs)**: Rebuilt and re-shaded all 33 base mob textures using a custom 6-step pixel-art shading pipeline (`tools/texture_pipeline/mob_painter_v2.py`) with 1:1 UV pixel density (`oob=0`), low-noise vanilla-inspired color ramps, and original silhouettes.
+- **Original Climate Variant Models & Textures (12 Mobs × 3 Climates = 36 Variants)**: Rebuilt Tropical and Cold variants across 12 Sift mobs (`nuzzle`, `lootkin`, `slabber`, `dartback`, `prickle`, `fusefly`, `wobble`, `nester`, `pollinator`, `seedling`, `sprout`, `sentinel`) with original alpha-cutout flora, outer wool/frost shells, and 3D anatomical details, all verified at 1:1 UV.
+- **Original Emissive Glowmasks (12 Glowmasks for 10 Mobs)**: Added dedicated emissive `*_glowmask.png` textures rendered via `VanillaGlowLayer`.
+- **Sculk Maw Original Redesign & Sculk Monstrosity Shading**: Rebuilt the Sculk Maw model, texture, and glowmask (`sculk_maw.geo.json` / `.png` / `_glowmask.png`) with original multi-tiered fangs and emissive cyan core; shaded flat sculk tissue on the Sculk Monstrosity while preserving glowmask pixels.
+- **100% Original Synthesized Singer & Mourner Voices**: Rebuilt all 49 Singer & Mourner vocal behavior and multi-register song files (`B3 / F#4 / C#5`) with an original Python DSP cascaded vocal-tract synthesis engine (`tools/audio/singer_voice.py`), using zero copyrighted recordings.
+
+### New: Nuzzle Shearing & 25-Color Climate-Adapted Dyeing
+- Nuzzles can be sheared for wool (regrowing over time) and dyed with **all 16 vanilla dyes and all 9 custom Sift dyes**, dropping matching vanilla or `pysift:*_wool` blocks when sheared.
+- Dyed Nuzzles adapt to their climate variant (Tropical preserves blooming hibiscus flowers until sheared; Cold dyes its full winter fleece hood, tail, and cuffs with a frosty tint).
+
+### New: The Sift Natural Mob Spawn Rebalance
+- Rebalanced biome temperatures and natural spawn tables across all 10 Sift biomes (`NORMAL`: 4, `TROPICAL`: 4, `COLD`: 2) so all 12 climate-variant mobs spawn naturally in all 3 climate forms exclusively in The Sift.
+
 ### New: Sift enchantments
 Ten new enchantments, on vanilla gear by kind (swords, spears, axes and the mace take the melee ones; pickaxes,
 shovels, axes and hoes the mining one; bows, crossbows and tridents the ranged ones; armor the armor ones) and on the

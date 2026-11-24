@@ -924,37 +924,45 @@ def biome(name, temperature, downfall, rain, sky, fog, water, spawn_attr):
 
 
 biome("crimson_strata_canyon", 2.0, 0.0, False, "#5a1f33", "#3a1426", "#7a3b55",
-      spawns(monster=[("dartback", 50, 1, 3), ("fusefly", 40, 1, 2), ("prickle", 30, 1, 2),
-                      ("nester", 8, 1, 1), ("seedling", 15, 2, 4), ("sprout", 15, 2, 3)],
-             creature=[("blub", 20, 2, 3)]))
+      spawns(monster=[("dartback", 45, 1, 3), ("fusefly", 35, 1, 2), ("prickle", 28, 1, 2),
+                      ("nester", 8, 1, 1), ("seedling", 15, 2, 4), ("sprout", 15, 2, 3), ("hurler", 10, 1, 1)],
+             creature=[("blub", 20, 2, 3), ("nuzzle", 8, 1, 2), ("pollinator", 12, 1, 2)]))
 biome("violet_slate_abyss", 0.3, 0.2, False, "#2e2838", "#1d1828", "#4a3d6b",
-      spawns(monster=[("sentinel", 20, 1, 1), ("stalker", 30, 1, 2), ("tuner", 15, 1, 1), ("hunter", 10, 1, 1)],
-             creature=[("echo_golem", 10, 1, 1), ("blub", 15, 2, 3)]))          # each Echo Golem brings 1-2 Singers (EchoGolemEntity)
-biome("willow_grove", 0.7, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
-      spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3)],
-             monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2)]))
+      spawns(monster=[("sentinel", 20, 1, 1), ("stalker", 30, 1, 2), ("tuner", 15, 1, 1), ("hunter", 10, 1, 1),
+                      ("dartback", 12, 1, 2), ("fusefly", 14, 1, 2), ("wobble", 14, 1, 2)],
+             creature=[("echo_golem", 10, 1, 1), ("blub", 15, 2, 3), ("nuzzle", 8, 1, 2), ("lootkin", 6, 1, 1)]))          # each Echo Golem brings 1-2 Singers (EchoGolemEntity)
+biome("willow_grove", 0.9, 0.8, True, "#8a7aa8", "#c497b4", "#7fd0d6",
+      spawns(creature=[("blub", 40, 2, 4), ("nuzzle", 20, 1, 2), ("pollinator", 20, 1, 2), ("slabber", 25, 2, 3),
+                       ("lootkin", 5, 1, 1)],
+             monster=[("roamroot", 8, 1, 1), ("bloombud", 20, 1, 2), ("wobble", 12, 1, 2)]))
 biome("red_zone_caves", 1.2, 0.4, False, "#4a1622", "#3a1018", "#7a3b55",
-      spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1), ("tuner", 10, 1, 1)],
+      spawns(monster=[("stalker", 30, 1, 2), ("prickle", 20, 1, 2), ("fusefly", 15, 1, 1), ("tuner", 10, 1, 1),
+                      ("dartback", 12, 1, 2), ("nester", 5, 1, 1), ("seedling", 10, 2, 3), ("sprout", 10, 1, 2)],
              creature=[("blub", 10, 1, 2), ("echo_golem", 6, 1, 1)]))
 biome("withered_hollows", 0.6, 0.0, False, "#26263a", "#1c1c2c", "#34405e",
-      spawns(monster=[("stalker", 25, 1, 2), ("hunter", 15, 1, 1), ("prickle", 15, 1, 2)],
-             creature=[("mourner", 5, 1, 1), ("blub", 5, 1, 2)]))      # the shallows rot: a Mourner now and then
+      spawns(monster=[("stalker", 25, 1, 2), ("hunter", 15, 1, 1), ("prickle", 18, 1, 2),
+                      ("dartback", 18, 1, 2), ("fusefly", 18, 1, 2), ("wobble", 12, 1, 2),
+                      ("nester", 6, 1, 1), ("seedling", 12, 2, 3), ("sprout", 12, 1, 2)],
+             creature=[("mourner", 5, 1, 1), ("blub", 8, 1, 2), ("nuzzle", 10, 1, 2), ("slabber", 12, 1, 2),
+                       ("pollinator", 10, 1, 2), ("lootkin", 5, 1, 1)]))      # the shallows rot: a Mourner now and then
 biome("resonant_vaults", 1.0, 0.3, False, "#2a2244", "#1a1430", "#6a4a9a",
       spawns(monster=[("sentinel", 20, 1, 1), ("tuner", 20, 1, 1), ("hunter", 12, 1, 1), ("stalker", 12, 1, 2)],
              creature=[("echo_golem", 20, 1, 2), ("blub", 5, 1, 2)]))   # each Echo Golem brings 1-2 Singers
 biome("spirit_deeps", 1.6, 0.8, False, "#3a1630", "#2a0e22", "#8a3a8a",
-      spawns(monster=[("fusefly", 25, 1, 2), ("wobble", 20, 1, 2), ("trapper", 10, 1, 1), ("sentinel", 10, 1, 1)],
-             creature=[("blub", 25, 2, 3), ("lootkin", 4, 1, 1)]))
-biome("lullaby_hills", 1.4, 0.3, False, "#6a2a48", "#4a1c34", "#d06a8c",
-      spawns(monster=[("dartback", 30, 1, 2), ("prickle", 25, 1, 2), ("seedling", 15, 2, 3), ("sprout", 15, 2, 3),
-                      ("fusefly", 20, 1, 2)],
-             creature=[("echo_golem", 14, 1, 2), ("blub", 20, 2, 3)]))
+      spawns(monster=[("fusefly", 20, 1, 2), ("wobble", 20, 1, 2), ("trapper", 10, 1, 1), ("sentinel", 12, 1, 1)],
+             creature=[("blub", 25, 2, 3), ("lootkin", 5, 1, 1), ("slabber", 10, 1, 2), ("pollinator", 10, 1, 2)]))
+biome("lullaby_hills", 1.1, 0.3, False, "#6a2a48", "#4a1c34", "#d06a8c",
+      spawns(monster=[("dartback", 28, 1, 2), ("prickle", 22, 1, 2), ("nester", 6, 1, 1),
+                      ("seedling", 14, 2, 3), ("sprout", 14, 2, 3), ("fusefly", 18, 1, 2),
+                      ("wobble", 12, 1, 2), ("bloombud", 8, 1, 1)],
+             creature=[("echo_golem", 14, 1, 2), ("blub", 20, 2, 3), ("nuzzle", 12, 1, 2),
+                       ("slabber", 10, 1, 2), ("pollinator", 18, 1, 2), ("lootkin", 6, 1, 1)]))
 biome("soul_caldera", 2.0, 0.0, False, "#1e1a2a", "#2a2440", "#5fd8e8",
-      spawns(monster=[("stalker", 30, 1, 2), ("fusefly", 25, 1, 2), ("prickle", 10, 1, 1)],
+      spawns(monster=[("stalker", 30, 1, 2), ("fusefly", 25, 1, 2), ("prickle", 10, 1, 1), ("dartback", 15, 1, 2)],
              creature=[("echo_golem", 6, 1, 1), ("blub", 10, 1, 2)]))
 biome("amber_dunes", 2.0, 0.0, False, "#c98a5a", "#a8704a", "#6fb0c0",
       spawns(monster=[("scavenger", 30, 1, 2), ("hurler", 20, 1, 1), ("wobble", 25, 1, 2), ("trapper", 10, 1, 1)],
-             creature=[("lootkin", 6, 1, 1), ("blub", 25, 2, 4)]))
+             creature=[("lootkin", 8, 1, 1), ("blub", 25, 2, 4), ("nuzzle", 8, 1, 2), ("slabber", 6, 1, 2)]))
 
 # ---- material (surface) rule ----
 ON_FLOOR, NOT_UNDERWATER = "minecraft:on_floor", "minecraft:not_underwater"

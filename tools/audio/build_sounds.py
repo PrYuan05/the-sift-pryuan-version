@@ -15,6 +15,7 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import synth as S  # noqa: E402
+import singer_voice as SV  # noqa: E402
 
 P = Path(sys.argv[1]).resolve()
 ARGS = sys.argv[2:]
@@ -24,9 +25,12 @@ PREVIEW = P / "build/audio_preview"
 ASSETS = P / "src/main/resources/assets/pysift/sounds"
 SOURCES = P / "sound_sources"
 
-A3 = 220.0
-# 唱歌用的單音：遊戲裡用音符盒的音高倍率（0.5~2.0，1.0 = 第 12 個半音）播放，所以錄在 F#4，唱出來是 F#3~F#5
-VOICE_BASE = 369.99
+# 歌者音域：對齊影片 Dungeons 2 歌者的清晰音高（170~334 Hz，A3 = 220 Hz 為中心），
+# 唱歌三段音區完全對齊原版音符盒八度（F#3~F#5）：低音區 B3 (note 5)、中音區 F#4 (note 12)、高音區 C#5 (note 19)
+A3 = 220.00
+VOICE_LOW = 246.94    # B3  (note 5,  覆蓋 0..8:  F#3..D4)
+VOICE_BASE = 369.99   # F#4 (note 12, 覆蓋 9..16: D#4..A#4)
+VOICE_HIGH = 554.37   # C#5 (note 19, 覆蓋 17..24: B4..F#5)
 SCALE = [0, 2, 4, 7, 9, 12, 14]   # major pentatonic - the Singers' lullaby
 
 
@@ -59,118 +63,112 @@ def pitch_shift(x, semitones):
     return resample(x, max(1, int(len(x) * factor)))
 
 
-# ================================================================ Singer: sung vowels and crystal overtones
-# 參考（Dungeons 2 歌者，只量特徵、不取用聲音）：音高很穩、幾乎沒有顫音、換音不滑音，音色圓潤偏暗（泛音少），
-# 常常好幾個聲部一起唱、起音柔和、殘響長。所以歌者的聲音是：暗的「嗚／嗯」母音、3 人齊唱、極淺的顫音、一點和聲。
-# 使用者指定（參考影片 0:00~0:20）：用「吶喊」的方式唱，帶一點風琴感；不要和聲。
-# 吶喊 = 張口的「啊／欸」、泛音亮、帶氣聲；風琴 = 一層音高完全不動的管風琴泛音疊在底下，起音像慢慢灌氣。
-def soft_voice(f0, rng, vowels=("ah", "eh")):
-    def render(f):
-        shout = S.voice(f, vowels, breath=0.09, rng=rng, rolloff=0.95)
-        return S.lowpass(shout, 7000)
-    v = S.chorus(render, f0, voices=3, detune_cents=6.0, spread=0.01, rng=rng)
-    v /= np.max(np.abs(v)) + 1e-9
-    pipe = S.organ(np.convolve(f0, np.ones(400) / 400, "same"))   # organ ignores the voice's tiny wobble
-    pipe /= np.max(np.abs(pipe)) + 1e-9
-    S.place(v, 0.38 * pipe, 0.0)
-    return v[: len(f0)]   # same length as the pitch curve, so envelopes line up
+# ================================================================ Singer: Dungeons 2 resonant hollow baritone-tenor
+# 參考 Minecraft Dungeons 2 歌者（baritone-tenor 115~310 Hz）：空靈渾厚的胸腔喉音「啊喔／嗚」、
+# 635 Hz 共鳴峰、自然氣聲與微粗糙聲帶質感、低亮度深洞穴殘響，並分為低／中／高三段音區音色供歌曲使用。
+def soft_voice(f0, rng, vowels=("aw", "oh"), brightness=1.0, grit=0.48, breath=0.14, reed_mix=0.0, shift=1.0):
+    return SV.singer_tone(f0, rng, vowels=vowels, brightness=brightness, grit=grit,
+                          breath=breath, reed_mix=reed_mix, shift=shift)
 
 
-def singer_phrase(rng, steps, base=A3, vowels=("ah", "eh"), harmony=0):
-    notes = [(note(base, SCALE[s]), rng.uniform(0.42, 0.7)) for s in steps]
-    notes[-1] = (notes[-1][0], notes[-1][1] + 0.5)
-    f0 = S.vibrato(S.glide_curve(notes, rng, glide=0.025), rate=4.8, depth=0.003, rng=rng, delay=0.3)
+def singer_phrase(rng, steps, base=A3, vowels=("aw", "oh"), harmony=0):
+    notes = [(note(base, SCALE[s]), rng.uniform(0.45, 0.72)) for s in steps]
+    notes[-1] = (notes[-1][0], notes[-1][1] + 0.55)
+    f0 = S.vibrato(S.glide_curve(notes, rng, glide=0.04), rate=4.6, depth=0.0038, rng=rng, delay=0.32)
     v = soft_voice(f0, rng, vowels)
-    if harmony:   # a quieter second part a fourth/fifth below
-        v2 = soft_voice(f0 * 2 ** (harmony / 12), rng, ("mm", "oo"))
-        S.place(v, 0.45 * v2[: len(v)], 0.0)
-    v = v * S.adsr(len(v), attack=0.2, release=0.6, curve=1.5)
-    t = 0.0   # crystal overtones: a soft bell on each note, two octaves up
+    if harmony:
+        v2 = soft_voice(f0 * 2 ** (harmony / 12), rng, ("oh", "oo"), brightness=0.85)
+        S.place(v, 0.42 * v2[: len(v)], 0.0)
+    v = v * S.adsr(len(v), attack=0.14, release=0.60, curve=1.40)
+    t = 0.0
     for f, d in notes:
-        S.place(v, 0.02 * S.bell(f * 4, 1.4, rng) * np.max(np.abs(v)), t)
+        S.place(v, 0.009 * S.bell(f * 4, 1.1, rng) * np.max(np.abs(v)), t)
         t += d
-    return S.reverb(S.normalise(v), wet=0.42, size=1.3)
+    return SV.dark_cavern_reverb(S.normalise(v), wet=0.28, size=1.08)
 
 
 def singer(rng):
     sounds = {}
     phrases = [[0, 2, 4], [4, 3, 1], [2, 4, 5, 4], [5, 4, 2, 0]]
-    for i, steps in enumerate(phrases, 1):
-        sounds[f"ambient{i}"] = S.normalise(singer_phrase(rng, steps), -4)
-    for i in (1, 2):   # hurt: a short startled rise and fall
-        f0 = S.glide_curve([(note(A3, 4 + i), 0.08), (note(A3, 11 + i), 0.12), (note(A3, 2), 0.18)], rng, glide=0.05)
-        v = soft_voice(S.vibrato(f0, rate=9, depth=0.02, rng=rng, delay=0), rng, ("ah", "oh"))
-        v = v * S.adsr(len(v), attack=0.01, release=0.15)
-        S.place(v, 0.15 * S.bell(note(A3, 24 + i), 0.5, rng), 0.0)
-        sounds[f"hurt{i}"] = S.normalise(S.reverb(S.normalise(v), wet=0.2, size=0.7), -3)
-    # death: a long fall from the top of the scale, the vibrato widening, then the crystal shatters
-    f0 = np.geomspace(note(A3, 12), note(A3, -12), int(1.9 * S.SR))
-    f0 = S.vibrato(f0, rate=6.5, depth=0.03, rng=rng, delay=0.3)
-    v = soft_voice(f0, rng, ("ah", "oh", "oo", "mm")) * S.adsr(len(f0), 0.04, 0.9)
+    vowel_sets = [("aw", "oh"), ("oh", "aw", "oo"), ("aw", "ah", "oh"), ("ah", "aw", "oh")]
+    for i, (steps, vs) in enumerate(zip(phrases, vowel_sets), 1):
+        sounds[f"ambient{i}"] = S.normalise(singer_phrase(rng, steps, vowels=vs), -4)
+    for i in (1, 2):   # hurt: startled husky cry
+        f0 = S.glide_curve([(note(A3, 4 + i), 0.08), (note(A3, 11 + i), 0.12), (note(A3, 1), 0.20)], rng, glide=0.045)
+        v = soft_voice(S.vibrato(f0, rate=8.5, depth=0.018, rng=rng, delay=0), rng, ("ah", "aw", "oh"),
+                       brightness=1.12, grit=0.56, breath=0.18)
+        v = v * S.adsr(len(v), attack=0.012, release=0.16)
+        S.place(v, 0.07 * S.bell(note(A3, 24 + i), 0.45, rng), 0.0)
+        sounds[f"hurt{i}"] = S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=0.20, size=0.75), -3)
+    # death: long hollow fall from high to deep chest + crystal shatter
+    f0 = np.geomspace(note(A3, 10), note(A3, -12), int(2.0 * S.SR))
+    f0 = S.vibrato(f0, rate=6.0, depth=0.028, rng=rng, delay=0.25)
+    v = soft_voice(f0, rng, ("aw", "oh", "oo", "mm"), brightness=0.88, grit=0.60, breath=0.20) * S.adsr(len(f0), 0.05, 0.95)
     for k in range(7):
-        S.place(v, 0.12 * S.bell(note(A3, 19 + rng.integers(0, 12)), 1.4, rng, bright=2.0), 1.1 + k * 0.05)
-    sounds["death1"] = S.normalise(S.reverb(S.normalise(v), wet=0.4, size=1.2), -3)
-    # 唱歌用的單音：和平常哼唱同一種圓潤的齊唱音色，音高很穩
-    f0 = S.vibrato(np.full(int(1.1 * S.SR), VOICE_BASE), rate=4.8, depth=0.003, rng=rng, delay=0.3)
-    v = soft_voice(f0, rng, ("ah", "eh"))
-    v = v * S.adsr(len(v), attack=0.07, release=0.6, curve=1.5)
-    S.place(v, 0.02 * S.bell(VOICE_BASE * 4, 1.0, rng) * np.max(np.abs(v)), 0.0)
-    sounds["voice"] = S.normalise(S.reverb(S.normalise(v), wet=0.35, size=1.1), -2)
+        S.place(v, 0.07 * S.bell(note(A3, 19 + rng.integers(0, 12)), 1.3, rng, bright=1.8), 1.15 + k * 0.05)
+    sounds["death1"] = S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=0.34, size=1.18), -3)
+    # 唱歌用的三段音區與音色變體（低 B2 / 中 F#3 / 高 C#4），供歌曲套用不失真
+    sounds["voice_low1"] = SV.render_singer_note(VOICE_LOW, rng, "low", 0, 1.2)
+    sounds["voice_low2"] = SV.render_singer_note(VOICE_LOW, rng, "low", 1, 1.2)
+    sounds["voice"] = SV.render_singer_note(VOICE_BASE, rng, "mid", 0, 1.15)
+    sounds["voice2"] = SV.render_singer_note(VOICE_BASE, rng, "mid", 1, 1.15)
+    sounds["voice_high1"] = SV.render_singer_note(VOICE_HIGH, rng, "high", 0, 1.1)
+    sounds["voice_high2"] = SV.render_singer_note(VOICE_HIGH, rng, "high", 1, 1.1)
     sounds.update(singer_actions(rng))
     return sounds
 
 
-def call(rng, notes, base=A3, vowels=("ah", "eh"), legato=True, attack=0.05, release=0.35, vib=0.003, vib_rate=4.8,
-         breath_burst=0.0, wet=0.38, size=1.1, peak=-3, tremble=0.0):
+def call(rng, notes, base=A3, vowels=("aw", "oh"), legato=True, attack=0.055, release=0.36, vib=0.0038, vib_rate=4.6,
+         breath_burst=0.0, wet=0.28, size=1.05, peak=-3, tremble=0.0, brightness=1.0, grit=0.48, breath=0.14):
     """A short vocal gesture. notes = [(semitones from base, seconds)]; legato = one breath, else separate syllables."""
     if legato:
-        f0 = S.glide_curve([(note(base, s), d) for s, d in notes], rng, glide=0.03)
-        f0 = S.vibrato(f0, rate=vib_rate, depth=vib, rng=rng, delay=0.1, jitter=tremble)
-        v = soft_voice(f0, rng, vowels) * S.adsr(len(f0), attack, release, curve=1.5)
+        f0 = S.glide_curve([(note(base, s), d) for s, d in notes], rng, glide=0.038)
+        f0 = S.vibrato(f0, rate=vib_rate, depth=vib, rng=rng, delay=0.12, jitter=tremble)
+        v = soft_voice(f0, rng, vowels, brightness=brightness, grit=grit, breath=breath) * S.adsr(len(f0), attack, release, curve=1.45)
     else:
         total = sum(d for _, d in notes) + 0.5
         v = np.zeros(int(total * S.SR))
         t = 0.0
         for s, d in notes:
-            f0 = S.vibrato(np.full(int(d * 0.8 * S.SR), note(base, s)), rate=vib_rate, depth=vib, rng=rng, delay=0.05, jitter=tremble)
-            syl = soft_voice(f0, rng, vowels) * S.adsr(len(f0), min(attack, 0.02), min(release, d * 0.4), curve=1.5)
+            f0 = S.vibrato(np.full(int(d * 0.82 * S.SR), note(base, s)), rate=vib_rate, depth=vib, rng=rng, delay=0.05, jitter=tremble)
+            syl = soft_voice(f0, rng, vowels, brightness=brightness, grit=grit, breath=breath) * S.adsr(len(f0), min(attack, 0.025), min(release, d * 0.42), curve=1.45)
             S.place(v, syl / (np.max(np.abs(syl)) + 1e-9), t)
             t += d
     if breath_burst:   # a sharp intake of breath before the voice (gasp)
         n = int(0.18 * S.SR)
-        b = S.noise_band(n, 1200, 6000, rng) * S.adsr(n, 0.02, 0.12) * breath_burst
+        b = S.noise_band(n, 700, 3800, rng) * S.adsr(n, 0.02, 0.12) * breath_burst
         v = np.concatenate([b, np.zeros(int(0.03 * S.SR)), v / (np.max(np.abs(v)) + 1e-9)])
-    return S.normalise(S.reverb(S.normalise(v), wet=wet, size=size), peak)
+    return S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=wet, size=size), peak)
 
 
 def singer_actions(rng):
     """歌者對世界與玩家的每個互動各有一段人聲（SingerEntity / SiftPortalRitual 裡播放）。"""
     s = {}
-    s["greet1"] = call(rng, [(4, 0.22), (9, 0.5)])                                   # 從地底爬出、抖掉泥土：「啊—欸！」往上
-    s["greet2"] = call(rng, [(2, 0.2), (7, 0.18), (12, 0.45)])
-    s["beckon1"] = call(rng, [(7, 0.3), (4, 0.45)], release=0.3)                     # 招手等迴音碎片：「嘿～」兩個音往下
-    s["beckon2"] = call(rng, [(9, 0.28), (7, 0.2), (4, 0.4)], release=0.3)
-    s["call1"] = call(rng, [(0, 0.35), (4, 0.3), (7, 0.3), (12, 0.9)], wet=0.5, size=1.4)   # 回應山羊角：長長的呼喊
-    s["call2"] = call(rng, [(-5, 0.35), (2, 0.3), (7, 0.35), (9, 0.9)], wet=0.5, size=1.4)
-    f0_sweep = [(0, 0.15), (5, 0.15), (9, 0.15), (12, 0.2), (9, 0.15), (5, 0.15), (2, 0.35)]
-    s["sweep1"] = call(rng, f0_sweep, vowels=("oo", "ah", "oo"), wet=0.45)            # 揮手打掃：上去又下來的長音
-    s["summon1"] = call(rng, [(0, 0.4), (7, 0.4), (12, 0.4), (16, 1.3)], vib=0.006, wet=0.55, size=1.6, peak=-2)   # 召喚傀儡：最用力的吶喊
-    s["gasp1"] = call(rng, [(9, 0.12), (5, 0.18), (0, 0.45)], vowels=("oh", "oo"), breath_burst=0.6, tremble=2.0)  # 儀式走調：倒抽一口氣
-    s["cheer1"] = call(rng, [(0, 0.12), (4, 0.12), (7, 0.12), (12, 0.12), (16, 0.6)], legato=False, release=0.2)  # 開門慶祝
-    s["cheer2"] = call(rng, [(7, 0.12), (12, 0.12), (7, 0.12), (12, 0.12), (19, 0.6)], legato=False, release=0.2)
-    s["giggle1"] = call(rng, [(12, 0.09), (14, 0.09), (12, 0.09), (16, 0.09), (12, 0.09), (19, 0.25)],   # 抱小傀儡玩：咯咯笑
-                        legato=False, vowels=("eh", "ah"), release=0.05, wet=0.3)
-    s["giggle2"] = call(rng, [(16, 0.08), (14, 0.08), (12, 0.08), (14, 0.08), (16, 0.08), (21, 0.3)],
-                        legato=False, vowels=("eh", "ah"), release=0.05, wet=0.3)
-    s["thanks1"] = call(rng, [(0, 0.25), (5, 0.6)], vowels=("mm", "ah"), wet=0.45)     # 收到靈魂晶塊：溫暖的「嗯—啊」
-    s["unease1"] = call(rng, [(2, 0.5), (1, 0.6)], base=A3 / 2, vowels=("oo", "mm"), vib=0.02, vib_rate=9, tremble=4.0, peak=-6)  # 看見監守者：發抖嗚咽
-    s["starve1"] = call(rng, [(0, 0.6), (-2, 0.8)], base=A3 / 2, vowels=("oh", "mm"), vib=0.015, tremble=3.0, wet=0.5, peak=-8)   # 快要屍化：虛弱的嘆息
-    f0 = S.vibrato(np.geomspace(note(A3, 7), note(A3, -10), int(2.4 * S.SR)), rate=7, depth=0.03, rng=rng, delay=0.2, jitter=4.0)
-    v = soft_voice(f0, rng, ("ah", "oh", "oo", "mm")) * S.adsr(len(f0), 0.05, 1.2)   # 屍化成哀悼者：長長的哭喊，聲音越來越空
-    v = v * np.linspace(1.0, 0.35, len(v)) + 0.25 * S.noise_band(len(v), 300, 2500, rng) * np.linspace(0, 1, len(v))
-    s["hollow1"] = S.normalise(S.reverb(S.normalise(v), wet=0.55, size=1.5), -3)
+    s["greet1"] = call(rng, [(4, 0.24), (9, 0.52)], vowels=("oh", "aw", "ah"), brightness=1.06)          # 從地底爬出：「喔—啊！」往上
+    s["greet2"] = call(rng, [(2, 0.22), (7, 0.20), (12, 0.48)], vowels=("oh", "aw", "ah"), brightness=1.08)
+    s["beckon1"] = call(rng, [(7, 0.32), (4, 0.46)], vowels=("aw", "oh"), release=0.32)                  # 招手等迴音碎片
+    s["beckon2"] = call(rng, [(9, 0.28), (7, 0.22), (4, 0.42)], vowels=("aw", "oh"), release=0.32)
+    s["call1"] = call(rng, [(0, 0.36), (4, 0.32), (7, 0.32), (12, 0.95)], vowels=("oh", "aw", "ah"), brightness=1.10, wet=0.48, size=1.35)   # 回應山羊角
+    s["call2"] = call(rng, [(-5, 0.36), (2, 0.32), (7, 0.36), (9, 0.92)], vowels=("oo", "aw", "ah"), brightness=1.08, wet=0.48, size=1.35)
+    f0_sweep = [(0, 0.16), (5, 0.16), (9, 0.16), (12, 0.22), (9, 0.16), (5, 0.16), (2, 0.36)]
+    s["sweep1"] = call(rng, f0_sweep, vowels=("oo", "aw", "oo"), wet=0.42)                               # 揮手打掃
+    s["summon1"] = call(rng, [(0, 0.42), (7, 0.42), (12, 0.42), (16, 1.3)], vowels=("aw", "ah", "aw"), brightness=1.16, grit=0.58, vib=0.006, wet=0.36, size=1.35, peak=-2)   # 召喚傀儡
+    s["gasp1"] = call(rng, [(9, 0.12), (5, 0.18), (0, 0.46)], vowels=("oh", "oo"), breath_burst=0.65, grit=0.56, tremble=2.0)  # 儀式走調
+    s["cheer1"] = call(rng, [(0, 0.13), (4, 0.13), (7, 0.13), (12, 0.13), (16, 0.62)], vowels=("aw", "ah"), brightness=1.14, grit=0.45, legato=False, release=0.22)  # 開門慶祝
+    s["cheer2"] = call(rng, [(7, 0.13), (12, 0.13), (7, 0.13), (12, 0.13), (17, 0.62)], vowels=("aw", "ah"), brightness=1.14, grit=0.45, legato=False, release=0.22)
+    s["giggle1"] = call(rng, [(10, 0.09), (12, 0.09), (10, 0.09), (14, 0.09), (10, 0.09), (17, 0.26)],   # 抱小傀儡玩：咯咯笑
+                        legato=False, vowels=("ah", "eh"), brightness=1.12, grit=0.36, release=0.06, wet=0.24)
+    s["giggle2"] = call(rng, [(14, 0.09), (12, 0.09), (10, 0.09), (12, 0.09), (14, 0.09), (19, 0.28)],
+                        legato=False, vowels=("ah", "eh"), brightness=1.14, grit=0.36, release=0.06, wet=0.24)
+    s["thanks1"] = call(rng, [(0, 0.26), (5, 0.62)], vowels=("mm", "aw", "oh"), brightness=0.96, grit=0.46, wet=0.30)     # 收到靈魂晶塊
+    s["unease1"] = call(rng, [(2, 0.52), (1, 0.62)], base=A3 * 0.75, vowels=("oo", "mm"), brightness=0.82, grit=0.60, breath=0.20, vib=0.018, vib_rate=8.5, tremble=3.5, peak=-5)  # 看見監守者
+    s["starve1"] = call(rng, [(0, 0.62), (-2, 0.82)], base=A3 * 0.75, vowels=("oh", "oo", "mm"), brightness=0.78, grit=0.62, breath=0.22, vib=0.016, tremble=3.0, wet=0.34, peak=-6)   # 快要屍化
+    f0 = S.vibrato(np.geomspace(note(A3, 7), note(A3, -10), int(2.4 * S.SR)), rate=6.8, depth=0.028, rng=rng, delay=0.2, jitter=3.8)
+    v = soft_voice(f0, rng, ("aw", "oh", "oo", "mm"), brightness=0.82, grit=0.64, breath=0.24) * S.adsr(len(f0), 0.06, 1.2)   # 屍化成哀悼者
+    v = v * np.linspace(1.0, 0.35, len(v)) + 0.22 * S.noise_band(len(v), 280, 2000, rng) * np.linspace(0, 1, len(v))
+    s["hollow1"] = S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=0.38, size=1.35, cutoff=2300.0), -3)
     # 哀悼者被治好、長回毛：從低低的哭腔一路往上，變成明亮的歡呼
-    s["reborn1"] = call(rng, [(-5, 0.35), (0, 0.3), (4, 0.3), (7, 0.3), (12, 1.0)], vib=0.004, wet=0.5, size=1.4, peak=-2)
+    s["reborn1"] = call(rng, [(-5, 0.36), (0, 0.32), (4, 0.32), (7, 0.32), (12, 1.05)], vowels=("oo", "oh", "aw", "ah"), brightness=1.12, grit=0.50, vib=0.004, wet=0.34, size=1.25, peak=-2)
     return s
 
 
@@ -178,44 +176,37 @@ def sung_note(rng, vowels, breath, vib, shift, chime, sob=False, seconds=1.0):
     """One sustained sung note at VOICE_BASE: the ritual songs play it at note-block pitches."""
     f0 = S.vibrato(np.full(int(seconds * S.SR), VOICE_BASE), rate=vib[0], depth=vib[1], rng=rng, delay=0.12,
                    jitter=3.0 if sob else 0.0)
-    v = S.voice(f0, vowels, breath=breath, rng=rng, shift=shift)
+    v = SV.singer_tone(f0, rng, vowels=vowels, breath=max(0.08, breath), shift=shift)
     if sob:
         v *= 1 - 0.35 * (0.5 + 0.5 * np.sin(2 * np.pi * 2.6 * np.arange(len(v)) / S.SR)) ** 3
-    v = v * S.adsr(len(v), attack=0.04, release=0.55)
+    v = v * S.adsr(len(v), attack=0.05, release=0.55)
     if chime:
         S.place(v, chime * S.bell(VOICE_BASE * 4, 1.0, rng) * np.max(np.abs(v)) * 8, 0.0)
-    return S.normalise(S.reverb(S.normalise(v), wet=0.25, size=0.8), -2)
+    return S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=0.28, size=0.9), -2)
 
 
 # ================================================================ Mourner: the Singer's voice, starved and weeping
-# 同一副嗓子（吶喊＋風琴），只是餓壞了：低四度、氣聲多、音一直在抖、跟著抽泣斷斷續續，風琴層也走音。
+# 同一副 Dungeons 2 歌者嗓子，只是餓壞了：低四度、聲帶沙啞粗糙、氣聲重、顫抖抽泣、空洞殘響。
 M_BASE = A3 / 2 ** (5 / 12)
 
 
-def sob(n, rng, rate=None, depth=0.5):
-    rate = rate or rng.uniform(2.2, 3.2)
+def sob(n, rng, rate=None, depth=0.45):
+    rate = rate or rng.uniform(2.2, 3.1)
     return 1 - depth * (0.5 + 0.5 * np.sin(2 * np.pi * rate * np.arange(n) / S.SR)) ** 3
 
 
-def mourner_voice(f0, rng, vowels=("oh", "oo")):
-    def render(f):
-        return S.lowpass(S.voice(f, vowels, breath=0.2, rng=rng, rolloff=1.1, shift=0.92), 5500)
-    v = S.chorus(render, f0, voices=3, detune_cents=14.0, spread=0.014, rng=rng)
-    v /= np.max(np.abs(v)) + 1e-9
-    pipe = S.organ(np.convolve(f0, np.ones(400) / 400, "same") * 2 ** (-0.35 / 12))   # the organ has gone flat
-    pipe /= np.max(np.abs(pipe)) + 1e-9
-    S.place(v, 0.25 * pipe, 0.0)
-    return v[: len(f0)]
+def mourner_voice(f0, rng, vowels=("oh", "oo"), brightness=0.80, grit=0.62, breath=0.22):
+    return SV.mourner_tone(f0, rng, vowels=vowels, brightness=brightness, grit=grit, breath=breath)
 
 
-def m_call(rng, notes, vowels=("oh", "oo"), attack=0.15, release=0.6, vib=0.025, sobbing=0.5, wet=0.5, size=1.4, peak=-4,
-           base=M_BASE):
-    f0 = S.glide_curve([(note(base, st) * 2 ** (-rng.uniform(0, 0.4) / 12), d) for st, d in notes], rng, glide=0.15)
-    f0 = S.vibrato(f0, rate=7.0, depth=vib, rng=rng, delay=0.05, jitter=3.5)
-    v = mourner_voice(f0, rng, vowels) * S.adsr(len(f0), attack, release, curve=1.5)
+def m_call(rng, notes, vowels=("oh", "oo"), attack=0.14, release=0.60, vib=0.022, sobbing=0.42, wet=0.36, size=1.25, peak=-4,
+           base=M_BASE, brightness=0.80, grit=0.62):
+    f0 = S.glide_curve([(note(base, st) * 2 ** (-rng.uniform(0, 0.38) / 12), d) for st, d in notes], rng, glide=0.14)
+    f0 = S.vibrato(f0, rate=6.8, depth=vib, rng=rng, delay=0.06, jitter=3.2)
+    v = mourner_voice(f0, rng, vowels, brightness=brightness, grit=grit) * S.adsr(len(f0), attack, release, curve=1.5)
     if sobbing:
         v *= sob(len(v), rng, depth=sobbing)
-    return S.normalise(S.reverb(S.normalise(v), wet=wet, size=size), peak)
+    return S.normalise(SV.dark_cavern_reverb(S.normalise(v), wet=wet, size=size, cutoff=2300.0), peak)
 
 
 def mourner(rng):
@@ -226,25 +217,28 @@ def mourner(rng):
         v = m_call(rng, notes, ("oh", "oo", "mm"), peak=-5)
         if samples:   # a free moan underneath, lowered and darkened
             smp = pitch_shift(samples[(i - 1) % len(samples)], -rng.uniform(3, 6))[: len(v)]
-            smp = S.bandpass(smp, 500, 0.8) * S.adsr(len(smp), 0.2, 0.6)
-            S.place(v, 0.5 * smp * np.max(np.abs(v)) / (np.max(np.abs(smp)) + 1e-9), 0.0)
+            smp = S.bandpass(smp, 480, 0.8) * S.adsr(len(smp), 0.2, 0.6)
+            S.place(v, 0.42 * smp * np.max(np.abs(v)) / (np.max(np.abs(smp)) + 1e-9), 0.0)
             v = S.normalise(v, -5)
         sounds[f"ambient{i}"] = v
-    for i in (1, 2):   # 受傷：短促的一聲哭叫
-        sounds[f"hurt{i}"] = m_call(rng, [(7 + i, 0.1), (3, 0.35)], ("ah", "oh"), attack=0.02, release=0.2, sobbing=0, wet=0.3, size=0.9, peak=-3)
-    f0 = S.vibrato(np.geomspace(note(M_BASE, 7), note(M_BASE, -14), int(2.6 * S.SR)), 6, 0.04, rng, 0.2, 4.0)
-    v = mourner_voice(f0, rng, ("oh", "oo", "mm")) * S.adsr(len(f0), 0.1, 1.4) * sob(len(f0), rng, 1.8, 0.4)
-    sounds["death1"] = S.normalise(S.reverb(S.normalise(v), 0.55, 1.5), -3)
-    # 唱歌用的單音（倒著唱八音時用）：F#4、抖著、帶抽泣
-    f0 = S.vibrato(np.full(int(1.2 * S.SR), VOICE_BASE * 2 ** (-0.3 / 12)), 7.0, 0.022, rng, 0.08, 3.0)
-    v = mourner_voice(f0, rng, ("oh", "oo")) * S.adsr(len(f0), 0.06, 0.6, curve=1.5) * sob(len(f0), rng, 2.6, 0.3)
-    sounds["voice"] = S.normalise(S.reverb(S.normalise(v), 0.4, 1.2), -2)
+    for i in (1, 2):   # 受傷：短促沙啞的一聲哭叫
+        sounds[f"hurt{i}"] = m_call(rng, [(7 + i, 0.11), (3, 0.36)], ("aw", "oh"), attack=0.02, release=0.22, sobbing=0, wet=0.26, size=0.88, peak=-3, brightness=0.92, grit=0.68)
+    f0 = S.vibrato(np.geomspace(note(M_BASE, 7), note(M_BASE, -13), int(2.6 * S.SR)), 6, 0.036, rng, 0.2, 3.8)
+    v = mourner_voice(f0, rng, ("oh", "oo", "mm"), grit=0.68) * S.adsr(len(f0), 0.1, 1.4) * sob(len(f0), rng, 1.8, 0.38)
+    sounds["death1"] = S.normalise(SV.dark_cavern_reverb(S.normalise(v), 0.40, 1.35, cutoff=2200.0), -3)
+    # 唱歌用的三段音區哀悼單音（倒唱哀悼之歌時自動依音高切換音色）
+    sounds["voice_low1"] = SV.render_mourner_note(VOICE_LOW, rng, "low", 0, 1.3)
+    sounds["voice_low2"] = SV.render_mourner_note(VOICE_LOW, rng, "low", 1, 1.3)
+    sounds["voice"] = SV.render_mourner_note(VOICE_BASE, rng, "mid", 0, 1.25)
+    sounds["voice2"] = SV.render_mourner_note(VOICE_BASE, rng, "mid", 1, 1.25)
+    sounds["voice_high1"] = SV.render_mourner_note(VOICE_HIGH, rng, "high", 0, 1.2)
+    sounds["voice_high2"] = SV.render_mourner_note(VOICE_HIGH, rng, "high", 1, 1.2)
     # 互動
-    sounds["wail1"] = m_call(rng, [(0, 0.5), (5, 0.5), (9, 1.4)], ("oo", "oh", "ah"), attack=0.4, release=0.9, sobbing=0.25, peak=-3)   # 看到玩家、開始哭著唱：一聲往上拉的哀號
-    sounds["wail2"] = m_call(rng, [(2, 0.5), (7, 0.6), (11, 1.3)], ("oo", "oh", "ah"), attack=0.4, release=0.9, sobbing=0.25, peak=-3)
-    sounds["soothe1"] = m_call(rng, [(4, 0.5), (7, 0.9)], ("mm", "ah"), vib=0.01, sobbing=0.1, peak=-6)   # 泡靈液／聽香爐：被安慰、鬆一口氣
-    sounds["soothe2"] = m_call(rng, [(2, 0.5), (9, 0.9)], ("mm", "ah"), vib=0.01, sobbing=0.1, peak=-6)
-    sounds["hush1"] = m_call(rng, [(5, 0.3), (4, 0.4), (2, 0.8)], ("oh", "mm"), vib=0.015, sobbing=0.3, release=0.8, peak=-7)   # 被號角安撫：哭聲漸漸收住
+    sounds["wail1"] = m_call(rng, [(0, 0.5), (5, 0.5), (9, 1.4)], ("oo", "oh", "aw"), attack=0.38, release=0.9, sobbing=0.25, peak=-3, brightness=0.90, grit=0.66)   # 看到玩家、開始哭著唱
+    sounds["wail2"] = m_call(rng, [(2, 0.5), (7, 0.6), (11, 1.3)], ("oo", "oh", "aw"), attack=0.38, release=0.9, sobbing=0.25, peak=-3, brightness=0.90, grit=0.66)
+    sounds["soothe1"] = m_call(rng, [(4, 0.5), (7, 0.9)], ("mm", "aw", "oh"), vib=0.01, sobbing=0.1, peak=-5, brightness=0.90, grit=0.52)   # 泡靈液／聽香爐
+    sounds["soothe2"] = m_call(rng, [(2, 0.5), (9, 0.9)], ("mm", "aw", "oh"), vib=0.01, sobbing=0.1, peak=-5, brightness=0.90, grit=0.52)
+    sounds["hush1"] = m_call(rng, [(5, 0.3), (4, 0.4), (2, 0.8)], ("oh", "oo", "mm"), vib=0.015, sobbing=0.28, release=0.82, peak=-6, grit=0.58)   # 被號角安撫
     return sounds
 
 

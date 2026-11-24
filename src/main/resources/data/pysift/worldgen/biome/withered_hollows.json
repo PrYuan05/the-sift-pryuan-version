@@ -30,7 +30,61 @@
                 "max_inclusive": 2,
                 "min_inclusive": 1
               },
-              "weight": 15
+              "weight": 18
+            },
+            {
+              "type": "pysift:dartback",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 18
+            },
+            {
+              "type": "pysift:fusefly",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 18
+            },
+            {
+              "type": "pysift:wobble",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
+            },
+            {
+              "type": "pysift:nester",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 6
+            },
+            {
+              "type": "pysift:seedling",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 12
+            },
+            {
+              "type": "pysift:sprout",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
             }
           ],
           "creature": [
@@ -48,6 +102,42 @@
               "count": {
                 "type": "minecraft:uniform",
                 "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 8
+            },
+            {
+              "type": "pysift:nuzzle",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            },
+            {
+              "type": "pysift:slabber",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
+            },
+            {
+              "type": "pysift:pollinator",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 10
+            },
+            {
+              "type": "pysift:lootkin",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
                 "min_inclusive": 1
               },
               "weight": 5

@@ -40,6 +40,42 @@
                 "min_inclusive": 1
               },
               "weight": 10
+            },
+            {
+              "type": "pysift:dartback",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
+            },
+            {
+              "type": "pysift:nester",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 5
+            },
+            {
+              "type": "pysift:seedling",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 3,
+                "min_inclusive": 2
+              },
+              "weight": 10
+            },
+            {
+              "type": "pysift:sprout",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 10
             }
           ],
           "creature": [

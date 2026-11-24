@@ -298,6 +298,31 @@
     "sounds": [
       {
         "name": "pysift:mob/singer/voice"
+      },
+      {
+        "name": "pysift:mob/singer/voice2"
+      }
+    ]
+  },
+  "entity.singer.voice_low": {
+    "subtitle": "subtitles.pysift.entity.singer.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/voice_low1"
+      },
+      {
+        "name": "pysift:mob/singer/voice_low2"
+      }
+    ]
+  },
+  "entity.singer.voice_high": {
+    "subtitle": "subtitles.pysift.entity.singer.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/singer/voice_high1"
+      },
+      {
+        "name": "pysift:mob/singer/voice_high2"
       }
     ]
   },
@@ -342,6 +367,31 @@
     "sounds": [
       {
         "name": "pysift:mob/mourner/voice"
+      },
+      {
+        "name": "pysift:mob/mourner/voice2"
+      }
+    ]
+  },
+  "entity.mourner.voice_low": {
+    "subtitle": "subtitles.pysift.entity.mourner.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/voice_low1"
+      },
+      {
+        "name": "pysift:mob/mourner/voice_low2"
+      }
+    ]
+  },
+  "entity.mourner.voice_high": {
+    "subtitle": "subtitles.pysift.entity.mourner.voice",
+    "sounds": [
+      {
+        "name": "pysift:mob/mourner/voice_high1"
+      },
+      {
+        "name": "pysift:mob/mourner/voice_high2"
       }
     ]
   },

@@ -2612,5 +2612,17 @@
   "book.pysift.sift_codex.gear.enchantments.p0.title": "Everyday enchantments",
   "book.pysift.sift_codex.gear.enchantments.p0.text": "Found at the enchanting table, from villagers and in loot, on vanilla gear as well as the Sift's:\n\n**Hemorrhage** (weapons, bows, crossbows, the soul javelin): hits may make the target bleed.\n**Ensnare** (bows, crossbows, tridents, the soul javelin): projectile hits may snare the target in place.\n**Rift Step** (boots): faster in the Sift, and from II you step up a full block.\n**Soul Harvest** (mining tools): more experience from ores.\n**Aftershock** (sculk hammer) and **Resonance** (sonic staff).",
   "book.pysift.sift_codex.gear.enchantments.p1.title": "Sift treasures",
-  "book.pysift.sift_codex.gear.enchantments.p1.text": "These are never offered at the table: they are found only as books in the chests of the Sift's structures, and the Echo Den's vault always holds one.\n\n**Soul Rend** (weapons): hits may tear the soul out of a creature.\n**Soul Ward** (helmet or chestplate): immune to Soul Deprivation.\n**Afterimage** (dash charm), **Harmony** (tuning fork), **Lament** (mourning horn).\n**Homecoming** (soul javelin): it flies back to you."
+  "book.pysift.sift_codex.gear.enchantments.p1.text": "These are never offered at the table: they are found only as books in the chests of the Sift's structures, and the Echo Den's vault always holds one.\n\n**Soul Rend** (weapons): hits may tear the soul out of a creature.\n**Soul Ward** (helmet or chestplate): immune to Soul Deprivation.\n**Afterimage** (dash charm), **Harmony** (tuning fork), **Lament** (mourning horn).\n**Homecoming** (soul javelin): it flies back to you.",
+  "tag.item.pysift.arrow_spines": "Arrow Spines",
+  "tag.item.pysift.aurum_tool_materials": "Aurum Tool Materials",
+  "tag.item.pysift.enchantable.dash_charm": "Dash Charm",
+  "tag.item.pysift.enchantable.hemorrhage": "Hemorrhage Targets",
+  "tag.item.pysift.enchantable.javelin": "Soul Javelins",
+  "tag.item.pysift.enchantable.mourning_horn": "Mourning Horns",
+  "tag.item.pysift.enchantable.ranged": "Ranged Weapons",
+  "tag.item.pysift.enchantable.sculk_hammer": "Sculk Hammers",
+  "tag.item.pysift.enchantable.sonic_staff": "Sonic Staffs",
+  "tag.item.pysift.enchantable.soul_rend": "Soul Rend Targets",
+  "tag.item.pysift.enchantable.soul_ward": "Soul Ward Targets",
+  "tag.item.pysift.enchantable.tuning_fork": "Tuning Forks"
 }

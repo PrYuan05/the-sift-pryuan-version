@@ -12,7 +12,7 @@
                 "max_inclusive": 3,
                 "min_inclusive": 1
               },
-              "weight": 50
+              "weight": 45
             },
             {
               "type": "pysift:fusefly",
@@ -21,7 +21,7 @@
                 "max_inclusive": 2,
                 "min_inclusive": 1
               },
-              "weight": 40
+              "weight": 35
             },
             {
               "type": "pysift:prickle",
@@ -30,7 +30,7 @@
                 "max_inclusive": 2,
                 "min_inclusive": 1
               },
-              "weight": 30
+              "weight": 28
             },
             {
               "type": "pysift:nester",
@@ -58,6 +58,15 @@
                 "min_inclusive": 2
               },
               "weight": 15
+            },
+            {
+              "type": "pysift:hurler",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 1,
+                "min_inclusive": 1
+              },
+              "weight": 10
             }
           ],
           "creature": [
@@ -69,6 +78,24 @@
                 "min_inclusive": 2
               },
               "weight": 20
+            },
+            {
+              "type": "pysift:nuzzle",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 8
+            },
+            {
+              "type": "pysift:pollinator",
+              "count": {
+                "type": "minecraft:uniform",
+                "max_inclusive": 2,
+                "min_inclusive": 1
+              },
+              "weight": 12
             }
           ]
         }

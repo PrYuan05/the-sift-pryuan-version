@@ -72,11 +72,13 @@ public class PySift implements ModInitializer {
         pryuan05.pysift.worldgen.SinkholeFeature.register();          // 天坑：連接表層與地底（v2.1.0）
         pryuan05.pysift.worldgen.SpeleothemFeature.register();        // 鐘乳石與石筍（v2.1.0）
         ModEntities.registerModEntities();
+        pryuan05.pysift.entity.ClimateVariant.register();   // 動物的熱帶／寒帶變體
         ModItems.registerModItems();
         pryuan05.pysift.block.SiftColors.register();   // 9 種新顏色：染料與彩色方塊
         pryuan05.pysift.soulpower.SoulPower.register();  // 靈魂動力：引擎、傳動軸、靈魂振波、研磨機
         SiftPortalRitual.register();
         BossLocateCommand.register();
+        pryuan05.pysift.command.MobShowcaseCommand.register();       // /pysift_mobs：一鍵召喚全模組生物展覽場
         pryuan05.pysift.block.RotSpread.registerCommand();
         pryuan05.pysift.block.RotSpread.registerHealing();
         pryuan05.pysift.worldgen.StructureShowcase.register();        // /pysift_showcase：在遊戲裡修改結構草稿
