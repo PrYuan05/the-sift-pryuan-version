@@ -65,6 +65,10 @@ MOBS = {
     "stalker": {"default": "skin", "glow": (0.4, 0.75)},
     "trapper": {"default": "skin", "kinds": [(300, 345, 0.3, 1, 0, 1, "shell")], "glow": (0.3, 0.99)},
     "tuner": {"default": "skin", "kinds": [(200, 260, 0.5, 1, 0, 1, "shell")], "glow": None},
+    # the deep-navy sculk tissue was one flat colour on 46 % of the texture; bone (beige) = shell, stone (grey) = stone,
+    # the bright cyan spots are the glowmask's (kept so sculk_monstrosity_glowmask.png still lines up)
+    "sculk_monstrosity": {"default": "skin", "kinds": [(30, 70, 0.15, 1, 0.5, 1, "shell"), (0, 360, 0, 0.12, 0, 1, "stone")],
+                          "glow": (0.55, 0.7), "min_px": 20},
     "sift_warden": {"default": "fur", "kinds": [(0, 60, 0, 0.45, 0.3, 1, "stone")], "glow": None,
                     "tex": "sift_warden/sift_warden", "geo_path": WARDEN_GEO},
 }
@@ -420,6 +424,16 @@ def main():
     root = RES if live else CAND
     for n in names:
         img, fams = upgrade(n)
+        # pixels under a <name>_glowmask.png keep the original colour, so the glow layer still lines up exactly
+        mask_path = RES / tex_rel(n, MOBS[n]).replace(".png", "_glowmask.png")
+        if mask_path.exists():
+            mask = Image.open(mask_path).convert("RGBA").load()
+            orig = Image.open(SNAP / tex_rel(n, MOBS[n])).convert("RGBA").load()
+            out = img.load()
+            for y in range(img.size[1]):
+                for x in range(img.size[0]):
+                    if mask[x, y][3]:
+                        out[x, y] = orig[x, y]
         path = root / tex_rel(n, MOBS[n])
         path.parent.mkdir(parents=True, exist_ok=True)
         img.save(path)
