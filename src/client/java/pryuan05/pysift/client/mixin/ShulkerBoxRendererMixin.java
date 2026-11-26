@@ -17,7 +17,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.client.SiftShulkerSprites;
 
-/** 篩靈界顏色的界伏殼貼圖（見 {@link SiftShulkerSprites}）。 */
+/** 隙浮顏色的界伏殼貼圖（見 {@link SiftShulkerSprites}）。 */
 @Mixin(ShulkerBoxRenderer.class)
 public abstract class ShulkerBoxRendererMixin {
     @Inject(method = "extractRenderState(Lnet/minecraft/world/level/block/entity/ShulkerBoxBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/ShulkerBoxRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",

@@ -48,11 +48,11 @@ import pryuan05.pysift.entity.ai.LeapSlamGoal;
  *   <li>繞圈旋轉：目標在 3~14 格，高速旋轉撲向目標（碰到 10 點），落點周圍的圓上留下 8 根羽毛，5 秒後射向玩家，冷卻 13 秒（動畫 hover_loop）。</li>
  *   <li>三段災厄連擊：貼近時前方斬擊（12 點）→ 迴旋衝刺（8 點）→ 再斬一次，冷卻 12 秒（動畫 calamity）。</li>
  *   <li>迴旋踢：貼身時短短一轉，周圍一圈 9 點傷害，冷卻 4 秒（動畫 heel_stomp）。</li>
- *   <li>召喚：咆哮召來 4 隻手下，牠們還活著時不重複召喚，冷卻 20 秒（動畫 summon）。一半血以上是 2 隻潛伏獵手＋2 隻食腐獸，
+ *   <li>召喚：咆哮召來 4 隻手下，牠們還活著時不重複召喚，冷卻 20 秒（動畫 summon）。一半血以上是 2 隻追蹤者＋2 隻食腐獸，
  *       一半血以下改成 2 隻獵人＋2 隻陷阱師。</li>
  *   <li>Monarch 分身：血量剩 3/4 以下時召出半透明的分身（30% 生命、同樣的招式、沒有血條、不掉落、不存檔）；分身被打倒 10 秒後再召一隻，本體死亡時分身一起消失。</li>
  *   <li>死亡時播放 death。</li>
- *   <li>威脅機制（BossMechanics）：二階段攻擊 +30%、移速 +15%、冷卻 ×0.65，並召喚 2 隻冠羽哨兵護衛；脫戰回血、守在競技場。</li>
+ *   <li>威脅機制（BossMechanics）：二階段攻擊 +30%、移速 +15%、冷卻 ×0.65，並召喚 2 隻哨兵護衛；脫戰回血、守在競技場。</li>
  * </ul>
  */
 public class MonarchEntity extends PysiftMonsterEntity {
@@ -103,7 +103,7 @@ public class MonarchEntity extends PysiftMonsterEntity {
         // 迴旋踢：貼身時短短一轉，周圍一圈 9 點傷害
         this.goalSelector.addGoal(1, new SkillGoal(this, "heel_stomp", 8, 18, 80, 0.0, 2.0 * SCALE, false,
                 (level, t) -> GroundSlamGoal.slamAt(level, this, this.position(), 2.5 * SCALE, 9.0f, 0.3, e -> !(e instanceof Enemy))));
-        // 召喚：咆哮召來 2 隻潛伏獵手、2 隻食腐獸（還活著時不重複召喚；分身不召喚）
+        // 召喚：咆哮召來 2 隻追蹤者、2 隻食腐獸（還活著時不重複召喚；分身不召喚）
         this.goalSelector.addGoal(1, new SkillGoal(this, "summon", 20, 36, 400, 0.0, 30.0, false, this::summonGuards) {
             @Override
             public boolean canUse() {
@@ -176,7 +176,7 @@ public class MonarchEntity extends PysiftMonsterEntity {
 
     private void summonGuards(ServerLevel level, LivingEntity target) {
         this.playSound(SoundEvents.RAVAGER_ROAR, 2.5f, 0.8f);
-        // 依血量階段：一半血以上召喚近戰的潛伏獵手＋食腐獸；一半血以下改召遠程的獵人＋陷阱師
+        // 依血量階段：一半血以上召喚近戰的追蹤者＋食腐獸；一半血以下改召遠程的獵人＋陷阱師
         List<EntityType<? extends Mob>> kinds = this.getHealth() > this.getMaxHealth() * 0.5f
                 ? List.of(ModEntities.STALKER, ModEntities.STALKER, ModEntities.SCAVENGER, ModEntities.SCAVENGER)
                 : List.of(ModEntities.HUNTER, ModEntities.HUNTER, ModEntities.TRAPPER, ModEntities.TRAPPER);

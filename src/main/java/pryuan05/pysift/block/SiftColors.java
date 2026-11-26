@@ -50,8 +50,8 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * 篩靈界的 9 種新顏色（原版 16 色寫死在 DyeColor，不能擴充，所以每個顏色有自己的一整套方塊）：
- * 染料（由同色的篩靈界植物合成，也能染皮甲：{@link SiftDyeRecipe}）＋羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、
+ * 隙浮的 9 種新顏色（原版 16 色寫死在 DyeColor，不能擴充，所以每個顏色有自己的一整套方塊）：
+ * 染料（由同色的隙浮植物合成，也能染皮甲：{@link SiftDyeRecipe}）＋羊毛（含半磚、階梯）、地毯、混凝土（含半磚、階梯）、
  * 混凝土粉末、陶土、彩繪陶瓦、染色玻璃、玻璃片、蠟燭、床、旗幟與坐墊。
  * 床與坐墊用畫好的貼圖（tools/progression/paint_sift_colors.py）；旗幟和原版一樣是白色底圖著色，
  * 由客戶端的 SiftBannerTint 換成這裡的顏色（原版旗幟的 DyeColor 只有 16 色）。坐墊是實體（{@link SiftCushion}）。
@@ -114,7 +114,7 @@ public final class SiftColors {
     public static final Map<Block, SiftColor> BANNER_COLORS = new LinkedHashMap<>();
     /** 界伏殼方塊 → 顏色（方塊實體與原版共用，DyeColor 是白色；客戶端 ShulkerBoxRendererMixin 換貼圖）。 */
     public static final Map<Block, SiftColor> SHULKER_COLORS = new LinkedHashMap<>();
-    /** 篩靈界顏色的坐墊實體（原版坐墊的大小與追蹤距離）。 */
+    /** 隙浮顏色的坐墊實體（原版坐墊的大小與追蹤距離）。 */
     public static EntityType<SiftCushion> CUSHION_TYPE;
     /** 物品欄的排列順序。 */
     private static final List<Item> ORDER = new ArrayList<>();

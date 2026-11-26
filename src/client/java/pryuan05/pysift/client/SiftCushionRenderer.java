@@ -7,7 +7,7 @@ import net.minecraft.world.entity.decoration.Cushion;
 import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.SiftCushion;
 
-/** 原版坐墊的模型，貼圖換成篩靈界顏色（textures/entity/cushion/<顏色>_cushion.png）。 */
+/** 原版坐墊的模型，貼圖換成隙浮顏色（textures/entity/cushion/<顏色>_cushion.png）。 */
 public class SiftCushionRenderer extends CushionRenderer {
     public SiftCushionRenderer(EntityRendererProvider.Context context) {
         super(context);

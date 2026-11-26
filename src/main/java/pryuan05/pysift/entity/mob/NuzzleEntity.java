@@ -45,12 +45,12 @@ import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.entity.PysiftAnimalEntity;
 
 /**
- * 親暱獸（溫馴，被動）。
+ * 蹭蹭怪（溫馴，被動）。
  * <ul>
  *   <li>會主動走向 10 格內的玩家蹭臉（動畫 nuzzle），給予 10 秒發光與生命恢復 I；冷卻 60 秒。</li>
  *   <li>被攻擊時尖叫，並以 1.5 倍速度逃離攻擊者 10 秒。</li>
- *   <li>像原版的羊（使用者）：剪刀剪毛掉 1～3 個羊毛（沒染色是紅色羊毛，染過是對應原版或篩靈界顏色的羊毛），剪過的毛 2～4 分鐘長回來；
- *       原版 16 色染料與本模組 9 種篩靈界染料皆可右鍵把毛染色，且完整適應普通／熱帶／寒帶氣候變體外觀。發射器也能剪（{@link Shearable}）。</li>
+ *   <li>像原版的羊（使用者）：剪刀剪毛掉 1～3 個羊毛（沒染色是紅色羊毛，染過是對應原版或隙浮顏色的羊毛），剪過的毛 2～4 分鐘長回來；
+ *       原版 16 色染料與本模組 9 種隙浮染料皆可右鍵把毛染色，且完整適應普通／熱帶／寒帶氣候變體外觀。發射器也能剪（{@link Shearable}）。</li>
  * </ul>
  */
 public class NuzzleEntity extends PysiftAnimalEntity implements Shearable {
@@ -100,13 +100,13 @@ public class NuzzleEntity extends PysiftAnimalEntity implements Shearable {
         entityData.set(DATA_FUR, (byte) (sheared ? fur | SHEARED : fur & ~SHEARED));
     }
 
-    /** 原版染過的毛色；沒染過或染了篩靈界顏色時為 null。 */
+    /** 原版染過的毛色；沒染過或染了隙浮顏色時為 null。 */
     public @Nullable DyeColor getFurColor() {
         int c = entityData.get(DATA_FUR) & 0x1F;
         return (c >= 1 && c < SIFT_COLOR_OFFSET) ? DyeColor.byId(c - 1) : null;
     }
 
-    /** 篩靈界模組染過的毛色；沒染過或染了原版顏色時為 null。 */
+    /** 隙浮模組染過的毛色；沒染過或染了原版顏色時為 null。 */
     public SiftColors.@Nullable SiftColor getSiftFurColor() {
         int c = entityData.get(DATA_FUR) & 0x1F;
         if (c >= SIFT_COLOR_OFFSET) {

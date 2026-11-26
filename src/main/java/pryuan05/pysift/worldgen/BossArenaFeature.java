@@ -38,7 +38,7 @@ import java.util.Optional;
  * <ul>
  *   <li><b>Monarch（沙皇 / 帝王）</b>：帝王日晷陵台（Imperial Sunken Ziggurat）——三層下沉式階梯鬥技場、十字日晷大道、中央高聳帝王寶座祭壇與四座宏偉對角方尖碑。</li>
  *   <li><b>Harmonizer（調和者）</b>：靈液環湖琴台（Resonant Spirit Lake Pavilion）——外層環繞深邃靈液湖泊、同心音律共振石環、四座跨湖聖橋、16 根風琴式起伏音律石柱與垂簾柳葉。</li>
- *   <li><b>Sculk Monstrosity（幽匿巨獸）</b>：深淵泰坦封印囚窟（The Abyssal Titan Crucible）——凹陷深谷鬥技場、四座拔高 10 格的泰坦禁錮堡壘、地下脈動的青藍靈魂晶塊能量導管與破裂中央封印。</li>
+ *   <li><b>Sculk Monstrosity（幽匿巨怪）</b>：深淵泰坦封印囚窟（The Abyssal Titan Crucible）——凹陷深谷鬥技場、四座拔高 10 格的泰坦禁錮堡壘、地下脈動的青藍靈魂晶塊能量導管與破裂中央封印。</li>
  * </ul>
  */
 public record BossArenaFeature(

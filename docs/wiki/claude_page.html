@@ -1,0 +1,373 @@
+<title>隙浮 Wiki</title>
+<meta name="description" content="The Sift（隙浮）Minecraft 模組的完整介紹：故事、生態域、生物、建築、方塊、物品與合成表。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;600;800&display=swap">
+<style>
+:root {
+  /* the Sift's own colours: mint dusk sky, spirit liquid, red sculk, void violet */
+  --sky: #8ee3cf;
+  --spirit: #0f8f9c;
+  --sculk: #c4435a;
+  --void: #2b2242;
+  --bg: #e9f4ef;
+  --paper: #fbfefc;
+  --ink: #221d33;
+  --muted: #5f6a73;
+  --line: #cfe1da;
+  --accent: #0f8f9c;
+  --accent-ink: #ffffff;
+  --link: #0b7480;
+  --top: #2b2242;
+  --top-ink: #e6fbf4;
+  --slot-hi: #ffffff;
+  --slot-lo: #373737;
+  --slot-bg: #8b8b8b;
+  --gui: #c6c6c6;
+  --codex: #f3eee2;
+  --codex-ink: #3b3024;
+  --note: #e2f3ed;
+  --shadow: 0 1px 0 rgba(43, 34, 66, .06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17131f; --paper: #1e1929; --ink: #e8f1ee; --muted: #a29db4; --line: #332b45; --accent: #4fd0d8;
+    --accent-ink: #12101a; --link: #6fdce3; --top: #120e1a; --top-ink: #d9f7ee; --gui: #3c3846; --slot-bg: #57535f;
+    --slot-hi: #7d7887; --slot-lo: #1b1822; --codex: #2b2620; --codex-ink: #ecdfc6; --note: #241e33;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17131f; --paper: #1e1929; --ink: #e8f1ee; --muted: #a29db4; --line: #332b45; --accent: #4fd0d8;
+  --accent-ink: #12101a; --link: #6fdce3; --top: #120e1a; --top-ink: #d9f7ee; --gui: #3c3846; --slot-bg: #57535f;
+  --slot-hi: #7d7887; --slot-lo: #1b1822; --codex: #2b2620; --codex-ink: #ecdfc6; --note: #241e33;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.65 "Noto Sans TC", system-ui, -apple-system, "Microsoft JhengHei", sans-serif;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30;
+  background: var(--top); }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font: 12.5px ui-monospace, Consolas, monospace; background: var(--note); padding: 1px 5px; border-radius: 4px; }
+
+/* ------------------------------------------------------------------ top bar */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; gap: 12px;
+  padding: 8px 16px; background: var(--top); color: var(--top-ink);
+}
+.brand { display: flex; align-items: center; gap: 8px; color: var(--top-ink); font-weight: 800; font-size: 18px; white-space: nowrap; }
+.brand small { font-weight: 400; opacity: .7; font-size: 12px; }
+.brand:hover { text-decoration: none; }
+.logo { width: 26px; height: 26px; image-rendering: pixelated; background:
+  linear-gradient(180deg, var(--sky) 0 50%, var(--sculk) 50% 62%, #4b3b6e 62%); box-shadow: inset 0 0 0 2px rgba(255,255,255,.22); }
+.top { border-bottom: 3px solid var(--sky); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.menu, .theme { background: none; border: 1px solid rgba(255,255,255,.25); color: var(--top-ink); border-radius: 6px;
+  width: 34px; height: 34px; font-size: 16px; cursor: pointer; }
+.menu { display: none; }
+.search { position: relative; flex: 1; max-width: 520px; margin-left: auto; }
+.search input { width: 100%; padding: 8px 12px; border-radius: 8px; border: 0; font: inherit; font-size: 14px;
+  background: rgba(255,255,255,.12); color: var(--top-ink); outline: none; }
+.search input::placeholder { color: rgba(232,246,242,.6); }
+.search input:focus { background: rgba(255,255,255,.2); }
+.results { position: absolute; top: 42px; left: 0; right: 0; max-height: 70vh; overflow: auto; background: var(--paper);
+  color: var(--ink); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+.results a { display: flex; gap: 8px; padding: 7px 12px; color: var(--ink); border-bottom: 1px solid var(--line); }
+.results a:hover { background: var(--note); text-decoration: none; }
+.results .k { font-size: 11px; color: var(--accent-ink); background: var(--accent); border-radius: 4px; padding: 1px 6px;
+  align-self: center; white-space: nowrap; }
+.results .none { padding: 10px 12px; color: var(--muted); }
+
+/* ------------------------------------------------------------------ layout */
+.layout { display: flex; max-width: 1320px; margin: 0 auto; }
+.side { position: sticky; top: 50px; align-self: flex-start; width: 200px; flex: none; padding: 16px 8px 40px 16px;
+  max-height: calc(100vh - 50px); overflow: auto; }
+.side a { display: block; padding: 5px 10px; border-radius: 6px; color: var(--ink); font-size: 14px; }
+.side a:hover { background: var(--note); text-decoration: none; }
+.side a.on { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.side .sep { height: 1px; background: var(--line); margin: 10px 6px; }
+.content { flex: 1; min-width: 0; margin: 16px 16px 60px; padding: 24px 32px 40px; background: var(--paper);
+  border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.content::after { content: ""; display: block; clear: both; }
+h1, h2, h3, .brand, .ib-t, .card b, blockquote.codex { font-family: "LXGW WenKai TC", "Noto Sans TC", serif; }
+h1 { font-size: 34px; line-height: 1.2; margin: 0 0 14px; font-weight: 700; border-bottom: 2px solid var(--sky); padding-bottom: 8px; }
+h2 { font-size: 23px; line-height: 1.3; margin: 30px 0 10px; font-weight: 700; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+h3 { font-weight: 700; }
+h2 small, h1 small { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+h3 { font-size: 17px; margin: 20px 0 6px; }
+p { margin: 8px 0; }
+ul, ol { padding-left: 22px; margin: 6px 0 10px; }
+.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+.muted { color: var(--muted); }
+.note { background: var(--note); border-left: 4px solid var(--accent); padding: 8px 12px; border-radius: 6px; margin: 10px 0; }
+.tip { background: #22262a; color: #e6e6e6; border: 2px solid #3d2a66; border-radius: 6px; padding: 8px 12px;
+  margin: 8px 0 12px; font-size: 14px; display: inline-block; max-width: 100%; }
+.tip div + div { color: #a9a9c9; }
+blockquote.codex { margin: 10px 0; padding: 12px 16px; background: var(--codex); color: var(--codex-ink);
+  border-radius: 6px; border-left: 4px solid #b99a62; font-size: 14.5px; }
+
+/* ------------------------------------------------------------------ tables */
+table.wt { border-collapse: collapse; margin: 8px 0 14px; font-size: 14px; max-width: 100%; display: block; overflow-x: auto; }
+table.wt th, table.wt td { border: 1px solid var(--line); padding: 5px 10px; text-align: left; vertical-align: middle; }
+table.wt th { background: var(--note); font-weight: 600; white-space: nowrap; }
+
+/* ------------------------------------------------------------------ infobox */
+.infobox { float: right; width: 300px; margin: 0 0 16px 22px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--bg); overflow: hidden; font-size: 13.5px; }
+.ib-t { background: var(--void); color: var(--top-ink); text-align: center; font-weight: 800; font-size: 17px; padding: 8px; }
+.ib-s { text-align: center; color: var(--muted); font-size: 12px; padding-top: 6px; }
+.ib-i { text-align: center; padding: 10px; }
+.ib-i img { max-width: 100%; border-radius: 6px; display: block; margin: 0 auto; }
+.ib-icon { padding: 18px; }
+.infobox table { width: 100%; border-collapse: collapse; }
+.infobox th, .infobox td { padding: 5px 10px; border-top: 1px solid var(--line); text-align: left; vertical-align: top; }
+.infobox th { width: 38%; color: var(--muted); font-weight: 600; }
+
+/* ------------------------------------------------------------------ icons (atlas of 64 px cells) */
+.ic { display: inline-block; vertical-align: middle; background-image: url(img/icons.png); image-rendering: pixelated;
+  flex: none; }
+.ic.s24 { width: 24px; height: 24px; background-size: calc(32 * 24px) auto; background-position: calc(var(--x) * -24px) calc(var(--y) * -24px); }
+.ic.s32 { width: 32px; height: 32px; background-size: calc(32 * 32px) auto; background-position: calc(var(--x) * -32px) calc(var(--y) * -32px); }
+.ic.s64 { width: 96px; height: 96px; background-size: calc(32 * 96px) auto; background-position: calc(var(--x) * -96px) calc(var(--y) * -96px); }
+.il { display: inline-flex; align-items: center; gap: 4px; margin-right: 4px; white-space: nowrap; }
+
+/* ------------------------------------------------------------------ recipes (inventory GUI look) */
+.recipes { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 12px; }
+.recipe { background: var(--gui); border: 2px solid; border-color: var(--slot-hi) var(--slot-lo) var(--slot-lo) var(--slot-hi);
+  border-radius: 4px; padding: 6px 10px 6px; color: #262626; }
+:root[data-theme="dark"] .recipe { color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .recipe { color: var(--ink); } }
+.rk { font-size: 11.5px; opacity: .75; margin-bottom: 4px; }
+.rn { font-size: 12.5px; margin-top: 4px; max-width: 240px; }
+.rb { display: flex; align-items: center; gap: 8px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 36px); grid-template-rows: repeat(3, 36px); }
+.row { display: flex; align-items: center; gap: 4px; }
+.slot { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; position: relative;
+  background: var(--slot-bg); border: 2px solid; border-color: var(--slot-lo) var(--slot-hi) var(--slot-hi) var(--slot-lo); }
+.slot.big { width: 46px; height: 46px; }
+.slot .cyc { display: none; }
+.slot .cyc.on { display: inline-flex; }
+.slot a:hover { text-decoration: none; }
+.cnt { position: absolute; right: 1px; bottom: -2px; color: #fff; font-weight: 800; font-size: 14px;
+  text-shadow: 2px 2px 0 #3f3f3f; }
+.arrow { font-size: 26px; opacity: .7; }
+.flame { width: 14px; height: 18px; display: inline-block; border-radius: 50% 50% 40% 40%;
+  background: radial-gradient(circle at 50% 70%, #ffd35a, #e2641f 70%); }
+.tag { font-size: 11px; background: rgba(0,0,0,.12); padding: 1px 6px; border-radius: 4px; }
+
+/* ------------------------------------------------------------------ grids of cells / cards */
+.cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 4px; margin: 6px 0 14px; }
+.cell { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 6px; color: var(--ink); font-size: 13.5px; }
+.cell:hover { background: var(--note); text-decoration: none; }
+.cell span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 10px 0 18px; }
+.card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; padding: 10px;
+  border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); }
+.card:hover { border-color: var(--accent); text-decoration: none; }
+.card img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.card.wide img { aspect-ratio: 16/10; object-fit: cover; border-radius: 6px; }
+.cards:has(.wide) { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.card small { color: var(--muted); font-size: 12px; }
+.fam { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.gallery { display: flex; flex-wrap: wrap; gap: 12px; }
+.gallery figure { margin: 0; width: 180px; text-align: center; background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 6px; }
+.gallery img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.gallery figcaption { font-size: 13px; color: var(--muted); }
+.mobimg { background: var(--bg); }
+.hero { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; align-items: center; margin-bottom: 10px; }
+.hero img { width: 100%; border-radius: 10px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; margin: 12px 0; }
+.tiles a { display: block; padding: 12px 14px; border-radius: 10px; background: var(--note); color: var(--ink);
+  border: 1px solid var(--line); }
+.tiles a b { display: block; font-size: 16px; }
+.tiles a span { font-size: 12.5px; color: var(--muted); }
+.tiles a:hover { border-color: var(--accent); text-decoration: none; }
+
+/* ------------------------------------------------------------------ home: the Sift itself is the hero */
+.home-hero { position: relative; margin: -24px -32px 22px; border-radius: 10px 10px 0 0; overflow: hidden; min-height: 300px;
+  background: var(--void); }
+.home-hero img { width: 100%; height: 340px; object-fit: cover; display: block; }
+.home-hero .ht { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 32px 22px;
+  background: linear-gradient(180deg, transparent, rgba(23, 17, 34, .86)); color: #f2fffa; }
+.home-hero h1 { border: 0; margin: 0; padding: 0; font-size: 52px; letter-spacing: .04em; color: #f2fffa; }
+.home-hero p { margin: 4px 0 0; max-width: 40em; color: #d4efe6; }
+@media (prefers-reduced-motion: no-preference) { .home-hero img { animation: drift 40s ease-in-out infinite alternate; } }
+@keyframes drift { from { transform: scale(1.04) translateX(0); } to { transform: scale(1.04) translateX(-2%); } }
+
+/* ------------------------------------------------------------------ phone */
+@media (max-width: 860px) {
+  .menu { display: inline-block; }
+  .brand small { display: none; }
+  .side { position: fixed; left: 0; top: 50px; bottom: 0; z-index: 15; background: var(--paper); width: 230px;
+    max-height: none; transform: translateX(-100%); transition: transform .2s; border-right: 1px solid var(--line); }
+  body.nav-open .side { transform: none; }
+  .content { margin: 10px 0 40px; padding: 16px; border-radius: 0; border-left: 0; border-right: 0; }
+  .infobox { float: none; width: 100%; margin: 0 0 14px; }
+  .hero { grid-template-columns: 1fr; }
+  .home-hero { margin: -16px -16px 16px; border-radius: 0; }
+  .home-hero img { height: 220px; }
+  .home-hero h1 { font-size: 36px; }
+  .home-hero .ht { padding: 40px 16px 14px; }
+  h1 { font-size: 24px; }
+  .top { padding: 8px 10px; gap: 8px; }
+  .brand { font-size: 16px; }
+}
+
+</style>
+<header class="top">
+  <button class="menu" aria-label="開關導覽" onclick="document.body.classList.toggle('nav-open')">☰</button>
+  <a class="brand" href="#home"><span class="logo"></span>隙浮 Wiki<small>The Sift</small></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="搜尋方塊、物品、生物、生態域…" autocomplete="off" aria-label="搜尋">
+    <div id="results" class="results" hidden></div>
+  </div>
+  <button class="theme" id="theme" aria-label="切換深淺色">◐</button>
+</header>
+<div class="layout">
+  <nav id="nav" class="side"></nav>
+  <main id="main" class="content"></main>
+</div>
+
+<script>
+(function boot() {
+  "use strict";
+  if (!window.WIKI) {
+    fetch("data.json").then(function (r) { return r.json(); }).then(function (d) { window.WIKI = d; boot(); })
+      .catch(function () { document.getElementById("main").innerHTML = "<h1>資料載入失敗</h1><p>重新整理頁面再試一次。</p>"; });
+    return;
+  }
+  var W = window.WIKI;
+  // routes like "item/soul_essence" travel in the hash as "item--soul-essence" (letters, digits, hyphens only);
+  // ids never contain "-", so the mapping is reversible. Old "#/item/soul_essence" links still work.
+  function enc(r) { return r.replace(/\//g, "--").replace(/_/g, "-"); }
+  function dec(h) { return h.charAt(0) === "/" ? h.slice(1) : h.replace(/--/g, "/").replace(/-/g, "_"); }
+  function fixLinks(root) {
+    [].forEach.call(root.querySelectorAll('a[href^="#/"]'), function (a) { a.setAttribute("href", "#" + enc(a.getAttribute("href").slice(2))); });
+  }
+  var main = document.getElementById("main");
+  var nav = document.getElementById("nav");
+  var q = document.getElementById("q");
+  var results = document.getElementById("results");
+
+  // ---------------------------------------------------------------- theme (per-viewer convenience only)
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+  var saved = store("sift-theme");
+  if (saved) document.documentElement.setAttribute("data-theme", saved);
+  document.getElementById("theme").onclick = function () {
+    var cur = document.documentElement.getAttribute("data-theme");
+    if (!cur) cur = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    var next = cur === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    store("sift-theme", next);
+  };
+
+  // ---------------------------------------------------------------- nav
+  nav.innerHTML = W.nav.map(function (n) {
+    if (!n[1]) return '<div class="sep"></div>';
+    return '<a href="#' + enc(n[1]) + '" data-r="' + n[1] + '">' + n[0] + "</a>";
+  }).join("");
+
+  // ---------------------------------------------------------------- router
+  fixLinks(document);
+  function route() {
+    var r = dec(decodeURIComponent((location.hash || "#home").slice(1))) || "home";
+    var anchor = null;
+    var i = r.indexOf("@");
+    if (i > 0) { anchor = r.slice(i + 1); r = r.slice(0, i); }
+    var p = W.pages[r];
+    if (!p) {
+      main.innerHTML = '<h1>找不到頁面</h1><p>沒有「' + esc(r) + '」這一頁。可以用上方的搜尋找看看。</p>';
+      document.title = "找不到頁面 - 隙浮 Wiki";
+      return;
+    }
+    main.innerHTML = crumbs(r) + p[1];
+    [].forEach.call(main.querySelectorAll(".rcp"), function (d) { d.outerHTML = recipe(W.recipes[+d.getAttribute("data-i")]); });
+    fixLinks(main);
+    document.title = p[0] + " - 隙浮 Wiki";
+    [].forEach.call(nav.querySelectorAll("a"), function (a) {
+      var dr = a.getAttribute("data-r");
+      var sec = { item: "items", mob: "mobs", biome: "biomes", structure: "structures" }[r.split("/")[0]];
+      a.classList.toggle("on", dr === r || dr === sec);
+    });
+    document.body.classList.remove("nav-open");
+    if (anchor) { var el = document.getElementById(anchor); if (el) { el.scrollIntoView(); return; } }
+    window.scrollTo(0, 0);
+  }
+  var KIND = { item: ["物品", "items"], mob: ["生物", "mobs"], biome: ["生態域", "biomes"], structure: ["建築與地形", "structures"], page: null };
+  function crumbs(r) {
+    var k = r.split("/")[0];
+    if (!KIND[k]) return "";
+    return '<div class="crumbs"><a href="#home">首頁</a> › <a href="#' + KIND[k][1] + '">' + KIND[k][0] + "</a></div>";
+  }
+  // ---------------------------------------------------------------- recipes (compact data -> inventory GUI)
+  function icon(id, size) {
+    var it = W.items[id] || [0, id, 0];
+    var n = it[0], c = W.cols;
+    var span = '<span class="ic s' + size + '" style="--x:' + (n % c) + ";--y:" + Math.floor(n / c) + '" title="' + esc(it[1]) + '"></span>';
+    return it[2] ? '<a href="#/item/' + id.slice(7) + '">' + span + "</a>" : span;
+  }
+  function slot(ids) {
+    if (!ids || !ids.length) return '<span class="slot"></span>';
+    return '<span class="slot' + (ids.length > 1 ? " multi" : "") + '">' + ids.map(function (x, k) {
+      return '<span class="cyc' + (k ? "" : " on") + '">' + icon(x, 32) + "</span>";
+    }).join("") + "</span>";
+  }
+  function recipe(r) {
+    if (!r) return "";
+    var lay = r[3], s = r[4], body;
+    if (lay === "g") body = '<span class="grid3">' + s.map(slot).join("") + "</span>";
+    else if (lay === "r") body = '<span class="row">' + s.map(slot).join("") + "</span>";
+    else if (lay === "b") body = '<span class="row">' + slot(s[0]) + '<span class="tag">' + esc(r[6]) + "</span>" + slot(s[1]) + "</span>";
+    else body = '<span class="row">' + slot(s[0]) + '<span class="flame"></span>' + (r[6] ? '<span class="tag">' + esc(r[6]) + "</span>" : "") + "</span>";
+    var out = '<span class="slot big">' + icon(r[1], 32) + (r[2] > 1 ? '<span class="cnt">' + r[2] + "</span>" : "") + "</span>";
+    return '<div class="recipe"><div class="rk">' + esc(r[0]) + '</div><div class="rb">' + body + '<span class="arrow">➜</span>' + out +
+      '</div><div class="rn">' + esc(r[5]) + "</div></div>";
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  window.addEventListener("hashchange", route);
+  route();
+
+  // ---------------------------------------------------------------- search
+  var KLABEL = { item: "物品", mob: "生物", biome: "生態域", structure: "建築", "": "頁面" };
+  function search(term) {
+    term = term.trim().toLowerCase();
+    if (!term) { results.hidden = true; return; }
+    var hits = [];
+    for (var i = 0; i < W.search.length && hits.length < 40; i++) {
+      var s = W.search[i];
+      var hay = (s[1] + " " + s[2]).toLowerCase();
+      var at = hay.indexOf(term);
+      if (at >= 0) hits.push([at === 0 ? 0 : s[1].toLowerCase().indexOf(term) >= 0 ? 1 : 2, s]);
+    }
+    hits.sort(function (a, b) { return a[0] - b[0] || a[1][1].length - b[1][1].length; });
+    results.innerHTML = hits.length ? hits.map(function (h) {
+      var s = h[1];
+      return '<a href="#' + enc(s[0]) + '"><span class="k">' + (KLABEL[s[3]] || "頁面") + "</span>" + esc(s[1]) + "</a>";
+    }).join("") : '<div class="none">找不到符合的結果</div>';
+    results.hidden = false;
+  }
+  q.addEventListener("input", function () { search(q.value); });
+  q.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { var a = results.querySelector("a"); if (a) { location.hash = a.getAttribute("href"); q.blur(); results.hidden = true; } }
+    if (e.key === "Escape") { results.hidden = true; q.blur(); }
+  });
+  results.addEventListener("click", function () { results.hidden = true; q.value = ""; });
+  document.addEventListener("click", function (e) { if (!e.target.closest(".search")) results.hidden = true; });
+
+  // ---------------------------------------------------------------- cycling ingredients (tags), like the wiki
+  setInterval(function () {
+    [].forEach.call(document.querySelectorAll(".slot.multi"), function (s) {
+      var c = s.querySelectorAll(".cyc");
+      for (var i = 0; i < c.length; i++) {
+        if (c[i].classList.contains("on")) { c[i].classList.remove("on"); c[(i + 1) % c.length].classList.add("on"); break; }
+      }
+    });
+  }, 1400);
+})();
+
+</script>

@@ -1,4 +1,4 @@
-"""把食腐獸／潛伏獵手／Trapper／Hunter 共用的 128x128 合併貼圖拆成四張 64x64，並把現有兩個模型的 UV 換算到新圖。
+"""把食腐獸／追蹤者／Trapper／Hunter 共用的 128x128 合併貼圖拆成四張 64x64，並把現有兩個模型的 UV 換算到新圖。
 Usage: python -I tools/models/split_scavenger_sheet.py
   左上 → scavenger.png，右上 → stalker.png（UV x 減 64），左下 → trapper.png，右下 → hunter.png。
   沒人用的 scavenger_stalker.png 移到備份。原檔先備份到 .texture_backups/<stamp>_split_sheet/。"""

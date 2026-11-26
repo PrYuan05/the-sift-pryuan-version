@@ -16,7 +16,7 @@ import pryuan05.pysift.entity.PysiftMonsterEntity;
 import pryuan05.pysift.entity.ai.SkillGoal;
 
 /**
- * 冠羽哨兵（遺跡武士，手持重刃）。
+ * 哨兵（遺跡武士，手持重刃）。
  * <ul>
  *   <li>重劈：目標在 3 格內時蓄力 0.8 秒（動畫 slash），12 點傷害並強力擊退；若目標正在舉盾，盾牌被粉碎（進入 3 秒冷卻）。冷卻 3 秒。</li>
  *   <li>其餘時間一般近戰（動畫 attack）。</li>

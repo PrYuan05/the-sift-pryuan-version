@@ -30,7 +30,7 @@ import pryuan05.pysift.PySift;
 import pryuan05.pysift.entity.PysiftMonsterEntity;
 
 /**
- * 潛伏獵手（暗影刺客）。
+ * 追蹤者（暗影刺客）。
  * <ul>
  *   <li>所在位置光照低於 7 時保持隱形（無粒子），亮處自動現形。</li>
  *   <li>繞後：鎖定目標後先繞到目標背後；從背後打出的第一刀造成 200% 傷害（動畫 attack，暴擊粒子）。</li>

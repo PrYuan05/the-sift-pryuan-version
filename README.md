@@ -29,7 +29,7 @@
 | 🐾 **33+ Animated Creatures** | Custom 6-step pixel-art shading, **12 climate-variant mobs × 3 climates (Normal / Tropical / Cold = 36 variants)**, **12 emissive glowmasks**, and **3 multi-phase bosses** (*Harmonizer*, *Monarch*, *Sculk Monstrosity*) |
 | 🐑 **Nuzzle & 9 Sift Colors** | Shearable **Nuzzles** dyeable with all **16 vanilla dyes + 9 custom Sift dyes** (*Teal, Mint, Coral, Amber, Lavender, Rose, Soul Blue, Void, Dusk Gold*), adapting to Normal, Tropical (blooming flowers), and Cold (frosty winter fleece) climates |
 | 🎵 **Singers & Mourners** | Interactive 8-disc Ancient City portal ritual, *Tuning Fork* choir harmonies, *Mourning Horn*, *Lullaby Censer*, and custom DSP-synthesized multi-register vocals (`B3 / F#4 / C#5`) |
-| ⚔️ **Gear & Enchantments** | Siftite → boss weapons (*Sculk Hammer*, *Sonic Staff*, *Soul Javelin*) → Sift Beacon → **Soulite** gear, **10 custom Sift enchantments**, and in-hand weapon physics (compatible with *Punchy!* / *Punchy! Moves*) |
+| ⚔️ **Gear & Enchantments** | Siftite → boss weapons (*Sculk Hammer*, *Sonic Staff*, *Dash Charm*) → Sift Beacon → **Soulite** gear, **10 custom Sift enchantments**, and in-hand weapon physics (compatible with *Punchy!* / *Punchy! Moves*) |
 | 🧭 **Helpers & Building** | **Sift Codex** (Modonomicon interactive guidebook & bestiary), Soul Compass, Homeward Stone, Soul Power machines, tameable Blubs, and **450+ blocks** |
 
 ---
@@ -90,9 +90,9 @@ docs/                           # Compatibility notes & Modrinth release docs
 **The Sift — PrYuan's Version（隙浮）** 是一款**參考自 *Minecraft Dungeons 2*** 世界觀與生物設定的非官方二創大型維度模組（適用 **Minecraft 26.3 / Fabric**）。
 
 * 🌌 **10 大地表與地底生態域**：包含柳林、緋紅岩層峽谷、紫岩深淵、琥珀沙丘、靈魂火山口、搖籃曲丘陵與 4 大地底層，以及**迴音殿堂**、巨型骸骨與靈魂晶洞等地標。
-* 🐾 **33+ 隻全動畫生物與 3 大多階段 Boss**：12 種生物具備**普通／熱帶／寒帶**三氣候專屬變體（共 36 種）、12 組夜光貼圖（Glowmask），以及**調和者**、**君主**與**幽匿巨獸**三大 Boss。
-* 🐑 **親暱獸（Nuzzle）25 色氣候適應染色**：支援全部 **16 種原版染料＋9 種隙浮專屬染料**，並依氣候保留熱帶扶桑花或呈現寒帶厚冬毛冰霜色澤。
-* ⚔️ **完整裝備進度與 10 種隙浮附魔**：從**隙浮金**、三大 Boss 武器一路進階至 **Soulite** 裝備，附帶 450+ 建築方塊、靈魂動力機器與內建互動式**隙浮法典（Sift Codex）**。
+* 🐾 **33+ 隻全動畫生物與 3 大多階段 Boss**：12 種生物具備**普通／熱帶／寒帶**三氣候專屬變體（共 36 種）、12 組夜光貼圖（Glowmask），以及**調和者**、**君王**與**幽匿巨怪**三大 Boss。
+* 🐑 **蹭蹭怪（Nuzzle）25 色氣候適應染色**：支援全部 **16 種原版染料＋9 種隙浮專屬染料**，並依氣候保留熱帶扶桑花或呈現寒帶厚冬毛冰霜色澤。
+* ⚔️ **完整裝備進度與 10 種隙浮附魔**：從**隙浮金**、三大 Boss 武器一路進階至**靈髓（Soulite）**裝備，附帶 450+ 建築方塊、靈魂動力機器與內建互動式**隙浮手記（Sift Codex）**。
 
 ### 從原始碼建置
 1. 安裝 **Java 25+** 並執行 `git clone https://github.com/PrYuan05/the-sift-pryuan-version.git`。

@@ -35,7 +35,7 @@
 | 🐾 **Creatures** | **33+ animated creatures** with custom 6-step pixel-art shading, **12 climate-variant mobs × 3 climates (Normal / Tropical / Cold = 36 variants)**, **12 emissive glowmasks**, and **3 multi-phase bosses** (*Harmonizer*, *Monarch*, *Sculk Monstrosity*) |
 | 🐑 **Nuzzle & 9 Sift Colors** | Shearable **Nuzzles** dyeable with all **16 vanilla dyes + 9 custom Sift dyes** (*Teal, Mint, Coral, Amber, Lavender, Rose, Soul Blue, Void, Dusk Gold*) — adapting to Normal, Tropical (blooming flowers), and Cold (frosty winter fleece) climates |
 | 🎵 **Singers & Mourners** | Interactive 8-disc singing ritual to open the Ancient City portal, **Tuning Fork** choir harmonies, **Mourning Horn**, **Lullaby Censer**, and custom synthesized multi-register vocals |
-| ⚔️ **Progression & Gear** | Siftite → boss weapons (*Sculk Hammer*, *Sonic Staff*, *Soul Javelin*) → Sift Beacon → **Soulite** gear with boss powers, **10 custom Sift enchantments**, and custom in-hand weapon physics (compatible with *Punchy!* / *Punchy! Moves*) |
+| ⚔️ **Progression & Gear** | Siftite → boss weapons (*Sculk Hammer*, *Sonic Staff*, *Dash Charm*) → Sift Beacon → **Soulite** gear with boss powers, **10 custom Sift enchantments**, and custom in-hand weapon physics (compatible with *Punchy!* / *Punchy! Moves*) |
 | 🧭 **Helpers & Life** | **Sift Codex** (Modonomicon interactive guidebook & bestiary), Soul Compass, Homeward Stone, Soul Berries, Gloomcaps, 13 creature foods, 2 new potions, Soul Power machines, and tameable **Blubs** |
 | 🧱 **Building** | **450+ blocks**, 38 building sets, full Soul Willow wood set, and complete block sets for all 9 custom Sift colors |
 
@@ -104,7 +104,7 @@ Install the mod on **both the client and the server**.
 
 ### 主要內容一覽
 * 🌌 **10 大地表與地底生態域**：柳林（Willow Grove）、緋紅岩層峽谷（Crimson Strata Canyon）、紫岩深淵（Violet Slate Abyss）、琥珀沙丘（Amber Dunes）、靈魂火山口（Soul Caldera）、搖籃曲丘陵（Lullaby Hills）以及 4 大地底層生態域，並包含**迴音殿堂（The Echo Den）**、巨型骸骨與靈魂晶洞等地標。
-* 🐾 **33+ 隻全動畫生物與 3 大多階段 Boss**：12 種生物擁有**普通／熱帶／寒帶**三氣候專屬外觀與模型（共 36 種變體），10 種生物具備夜光發光層（Glowmask），挑戰**調和者（Harmonizer）**、**君主（Monarch）**與**幽匿巨獸（Sculk Monstrosity）**。
-* 🐑 **親暱獸（Nuzzle）剪毛與 25 色氣候適應染色**：支援全部 **16 種原版染料＋9 種隙浮專屬染料**（青碧、薄荷、珊瑚、琥珀、薰衣草、玫瑰、靈魂藍、虛空、暮金），並依氣候保留熱帶扶桑花或呈現寒帶厚冬毛冰霜色澤。
+* 🐾 **33+ 隻全動畫生物與 3 大多階段 Boss**：12 種生物擁有**普通／熱帶／寒帶**三氣候專屬外觀與模型（共 36 種變體），10 種生物具備夜光發光層（Glowmask），挑戰**調和者（Harmonizer）**、**君王（Monarch）**與**幽匿巨怪（Sculk Monstrosity）**。
+* 🐑 **蹭蹭怪（Nuzzle）剪毛與 25 色氣候適應染色**：支援全部 **16 種原版染料＋9 種隙浮專屬染料**（青碧、薄荷、珊瑚、琥珀、薰衣草、赤紅玫瑰、靈魂藍、虛黑、暮光金），並依氣候保留熱帶扶桑花或呈現寒帶厚冬毛冰霜色澤。
 * 🎵 **歌者與哀悼者互動劇情**：在遠古城市門框前吹響山羊角喚出歌者、擺放八張唱片開啟傳送門；搭配**調音叉**合唱共鳴、**哀悼號角**與**靈魂導線動力機器**。
-* ⚔️ **完整裝備進度與 10 種專屬附魔**：從**隙浮金**、三大 Boss 武器（幽匿重錘、音波法杖、靈魂標槍）一路進階至超越獄髓的 **Soulite** 裝備，附帶 10 種隙浮附魔、450+ 建築方塊與內建互動式**隙浮法典（Sift Codex）**。
+* ⚔️ **完整裝備進度與 10 種專屬附魔**：從**隙浮金**、三大 Boss 武器（幽匿重錘、音波法杖、衝刺護符）一路進階至超越獄髓的**靈髓（Soulite）**裝備，附帶 10 種隙浮附魔、450+ 建築方塊與內建互動式**隙浮手記（Sift Codex）**。

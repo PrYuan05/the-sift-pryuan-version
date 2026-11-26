@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.PysiftAnimalEntity;
 
 /**
- * 藏寶小鬼（逃跑地精）：極快、極膽小，12 格內看到玩家就逃。
+ * 掠奪精（逃跑地精）：極快、極膽小，12 格內看到玩家就逃。
  * 掉落物見 data/pysift/loot_table/entities/lootkin.json（必掉礦物，稀有掉落 mod 材料與靈液桶）。
  */
 public class LootkinEntity extends PysiftAnimalEntity {

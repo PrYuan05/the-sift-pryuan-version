@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.PysiftMonsterEntity;
 
 /**
- * 音律使（戰術光環怪）。自己不攻擊，會和玩家保持 6 格以上距離；
+ * 調音器（戰術光環怪）。自己不攻擊，會和玩家保持 6 格以上距離；
  * 每 3 秒釋放音律光環（動畫 aura），給 12 格內所有敵對怪物 4 秒速度 I 與力量 I（附近沒有其他敵對怪物時不釋放）。
  */
 public class TunerEntity extends PysiftMonsterEntity {

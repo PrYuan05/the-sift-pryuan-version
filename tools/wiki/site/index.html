@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隙浮 Wiki</title>
+<meta name="description" content="The Sift（隙浮）Minecraft 模組的完整介紹：故事、生態域、生物、建築、方塊、物品與合成表。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="wiki.css">
+</head>
+<body>
+<header class="top">
+  <button class="menu" aria-label="開關導覽" onclick="document.body.classList.toggle('nav-open')">☰</button>
+  <a class="brand" href="#home"><span class="logo"></span>隙浮 Wiki<small>The Sift</small></a>
+  <div class="search">
+    <input id="q" type="search" placeholder="搜尋方塊、物品、生物、生態域…" autocomplete="off" aria-label="搜尋">
+    <div id="results" class="results" hidden></div>
+  </div>
+  <button class="theme" id="theme" aria-label="切換深淺色">◐</button>
+</header>
+<div class="layout">
+  <nav id="nav" class="side"></nav>
+  <main id="main" class="content"></main>
+</div>
+<script src="data.js"></script>
+<script src="wiki.js"></script>
+</body>
+</html>
