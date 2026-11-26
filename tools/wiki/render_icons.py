@@ -99,6 +99,10 @@ def pick_model(node):
         return node["model"]
     if t.endswith("special"):
         return node.get("base")
+    for c in node.get("cases", []):                 # the inventory look: the display_context case that lists "gui"
+        when = c.get("when")
+        if (when == "gui" or isinstance(when, list) and "gui" in when) and (r := pick_model(c.get("model"))):
+            return r
     for key in ("fallback", "on_true", "on_false"):
         if key in node and (r := pick_model(node[key])):
             return r

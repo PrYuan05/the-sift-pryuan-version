@@ -1,8 +1,15 @@
 # 隙浮 Wiki 產生器
 
-輸出在 `docs/wiki/`：
-- `index.html` 加上 `data.js`，可以直接開檔，也能放上 GitHub Pages。
-- `claude_page.html` 加上 `data.json`，是發布到 claude.ai 用的版本。
+輸出在 `docs/wiki/`，中英雙語，右上角可以切換語言：
+- `index.html` 加上 `data.zh.js`、`data.en.js`，可以直接開檔，也是 GitHub Pages 發布的版本。
+- `claude_page.html` 加上 `data.zh.json`、`data.en.json`，是發布到 claude.ai 用的版本。
+
+**英文版**：
+- 名稱、數值、手記原文直接讀 `en_us.json`。
+- 手寫說明在 `content/en/*.md`，分段 ID 和中文版相同。
+- 產生器寫出的中文介面字（標題、欄位名）由 `content/en/ui.tsv` 翻譯。如果還有沒翻到的，清單會寫在 `build/wiki_en_untranslated.txt`。
+
+**部署**：`.github/workflows/wiki-pages.yml` 會在 main 分支的 `docs/wiki` 有變動時，自動發布到 GitHub Pages。第一次使用前，要到倉庫的 Settings > Pages 把 Source 設成 GitHub Actions。
 
 ## 重新產生
     python -I tools/wiki/build_wiki.py      # 讀模組資料與 content/*.md，重畫圖示圖集，寫出網站

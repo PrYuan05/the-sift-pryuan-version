@@ -1,0 +1,36 @@
+# Publish the generated wiki (docs/wiki, built by tools/wiki/build_wiki.py) to GitHub Pages.
+# One-time setup in the repository: Settings > Pages > Build and deployment > Source: GitHub Actions.
+name: wiki-pages
+on:
+  push:
+    branches: [main]
+    paths: ['docs/wiki/**', '.github/workflows/wiki-pages.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: wiki-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v6
+      - name: configure pages
+        uses: actions/configure-pages@v5
+      - name: upload the wiki
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: docs/wiki
+      - name: deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

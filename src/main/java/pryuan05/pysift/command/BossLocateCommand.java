@@ -50,7 +50,7 @@ import java.util.Optional;
 public final class BossLocateCommand {
 
     public enum BossInfo {
-        MONARCH("monarch", "帝王 (Monarch)", ModEntities.MONARCH,
+        MONARCH("monarch", "君王 (Monarch)", ModEntities.MONARCH,
                 ResourceKey.create(Registries.BIOME, PySift.id("amber_dunes")),
                 "琥珀沙丘 (Amber Dunes)",
                 "帝王日晷陵台 (Imperial Sunken Ziggurat)",

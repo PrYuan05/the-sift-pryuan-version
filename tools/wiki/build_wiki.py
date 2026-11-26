@@ -57,18 +57,27 @@ for code, key in (("zh_tw", "zh"), ("en_us", "en")):
     LANG[key].update(jload(ASSETS / f"pysift/lang/{code}.json"))
 
 
-def tr(key, lang="zh"):
+CUR = "zh"          # the language being built (main() builds "zh" then "en")
+
+
+def other():
+    return "en" if CUR == "zh" else "zh"
+
+
+def tr(key, lang=None):
+    lang = lang or CUR
     return LANG[lang].get(key) or LANG["en"].get(key)
 
 
-def name(i, lang="zh"):
+def name(i, lang=None):
+    lang = lang or CUR
     i = norm(i)
     if i.startswith("#"):
         ns, p = i[1:].split(":")
         return tr(f"tag.item.{ns}.{p.replace('/', '.')}", lang) or f"#{p}"
     ns, p = i.split(":")
     if p == "sift_codex":
-        return tr("book.pysift.sift_codex.name", lang) or "隙浮手記"
+        return tr("book.pysift.sift_codex.name", lang) or ("隙浮手記" if lang == "zh" else "Sift Codex")
     for k in (f"item.{ns}.{p}", f"block.{ns}.{p}", f"entity.{ns}.{p}", f"biome.{ns}.{p}"):
         v = tr(k, lang)
         if v:
@@ -368,10 +377,12 @@ for bid, b in BIOMES.items():
 
 # --------------------------------------------------------------------------------------------------- hand content
 SECTIONS = {}
+SECTIONS_BY = {}
 
 
-def load_content():
-    for f in sorted(CONTENT.glob("*.md")):
+def load_content(folder=CONTENT):
+    SECTIONS.clear()
+    for f in sorted(folder.glob("*.md")):
         cur, buf = None, []
         for line in f.read_text(encoding="utf-8").splitlines():
             m = re.match(r"^=== (\S+)(?:\s*\|\s*(.*))?$", line)
@@ -386,6 +397,11 @@ def load_content():
 
 
 load_content()
+SECTIONS_BY["zh"] = dict(SECTIONS)
+load_content(CONTENT / "en")
+SECTIONS_BY["en"] = dict(SECTIONS)
+SECTIONS.clear()
+SECTIONS.update(SECTIONS_BY["zh"])
 
 # -------------------------------------------------------------------------------------------------------- icons
 ICON = {}
@@ -407,7 +423,7 @@ def icon_index():
 
 
 SECTION_ITEM_REFS = set()
-for _t, body in SECTIONS.values():
+for _t, body in list(SECTIONS_BY["zh"].values()) + list(SECTIONS_BY["en"].values()):
     for ref in re.findall(r"\[\[((?:pysift|minecraft):[a-z0-9_/]+)", body):
         SECTION_ITEM_REFS.add(ref)
 
@@ -524,8 +540,32 @@ def section(key, default=""):
     return md(SECTIONS[key][1]) if key in SECTIONS else default
 
 
-PAGE_TITLES = {k.split(":", 1)[1]: v[0] for k, v in SECTIONS.items() if k.startswith("page:")}
-STRUCT_NAMES = {k.split(":", 1)[1]: v[0] for k, v in SECTIONS.items() if k.startswith("structure:")}
+PAGE_TITLES = {}
+STRUCT_NAMES = {}
+
+
+def use_language(lang):
+    global CUR
+    CUR = lang
+    SECTIONS.clear()
+    SECTIONS.update(SECTIONS_BY[lang])
+    PAGE_TITLES.clear()
+    PAGE_TITLES.update({k.split(":", 1)[1]: v[0] for k, v in SECTIONS.items() if k.startswith("page:")})
+    STRUCT_NAMES.clear()
+    STRUCT_NAMES.update({k.split(":", 1)[1]: v[0] for k, v in SECTIONS_BY["zh"].items() if k.startswith("structure:")})
+    STRUCT_NAMES.update({k.split(":", 1)[1]: v[0] for k, v in SECTIONS.items() if k.startswith("structure:")})
+    PAGES.clear()
+    RJS.clear()
+    RJS_INDEX.clear()
+    USED_IDS.clear()
+
+
+def other_name(i):
+    """The name in the other language, marked so the English UI pass leaves it alone."""
+    return f'<span lang="{"en" if CUR == "zh" else "zh-Hant"}">{esc(name(i, other()))}</span>'
+
+
+OTHER_LABEL = {"zh": "英文名", "en": "中文名"}
 
 
 # --------------------------------------------------------------------------------------------------------- recipes
@@ -742,21 +782,21 @@ def page(route, title, body, search="", side=""):
 def infobox(title, img, rows, sub=""):
     trs = "".join(f"<tr><th>{esc(k)}</th><td>{v}</td></tr>" for k, v in rows if v not in (None, ""))
     return (f'<aside class="infobox"><div class="ib-t">{esc(title)}</div>'
-            f'{f"<div class=ib-s>{esc(sub)}</div>" if sub else ""}<div class="ib-i">{img}</div>'
+            f'{f"<div class=ib-s>{sub}</div>" if sub else ""}<div class="ib-i">{img}</div>'
             f"<table>{trs}</table></aside>")
 
 
 def tooltip_lines(i):
     p = i[7:]
-    keys = sorted(k for k in LANG["zh"] if k.startswith(f"tooltip.pysift.{p}") or k == f"item.pysift.{p}.desc"
+    keys = sorted(k for k in LANG[CUR] if k.startswith(f"tooltip.pysift.{p}") or k == f"item.pysift.{p}.desc"
                   or k.startswith(f"item.pysift.{p}.tooltip") or k.startswith(f"block.pysift.{p}.tooltip"))
-    return [LANG["zh"][k] for k in keys]
+    return [LANG[CUR][k] for k in keys]
 
 
 def build_item_pages():
     for i in ITEMS:
         p = i[7:]
-        rows = [("英文名", esc(name(i, "en"))), ("ID", f"<code>{esc(i)}</code>"),
+        rows = [(OTHER_LABEL[CUR], other_name(i)), ("ID", f"<code>{esc(i)}</code>"),
                 ("種類", "方塊" if i in IS_BLOCK else "物品")]
         if i in IS_BLOCK:
             t = TOOL_TAGS.get(i)
@@ -765,7 +805,7 @@ def build_item_pages():
             rows.append(("自然生成", "、".join(f'<a href="#/biome/{b}">{esc(name("pysift:" + b))}</a>'
                                            for b in sorted(GENERATES_IN[i]))))
         fam = family_of(i)
-        body = [infobox(name(i), f'<div class="ib-icon">{ic(i, 64, False)}</div>', rows, name(i, "en"))]
+        body = [infobox(name(i), f'<div class="ib-icon">{ic(i, 64, False)}</div>', rows, other_name(i))]
         body.append(f"<h1>{esc(name(i))}</h1>")
         note = section(f"item:{p}")
         tips = tooltip_lines(i)
@@ -802,11 +842,11 @@ def build_item_pages():
                 body.append(f"<p>其他用途：{more}</p>")
         if fam and fam.startswith("stone:") and len(FAMILIES.get(fam, [])) > 1:
             body.append("<h2>同系列方塊</h2><div class=fam>" + "".join(item_link(x) for x in FAMILIES[fam]) + "</div>")
-        page(f"item/{p}", name(i), "\n".join(body), f"{name(i)} {name(i, 'en')} {p}", "item")
+        page(f"item/{p}", name(i), "\n".join(body), f"{name(i)} {name(i, other())} {p}", "item")
 
 
 def chest_name(t):
-    return STRUCT_NAMES.get(t.split("/")[0], None) or {"echo_den_vault": "回音窟寶庫"}.get(t, t)
+    return STRUCT_NAMES.get(t.split("/")[0], None) or {"echo_den_vault": "回音窟寶庫" if CUR == "zh" else "Echo Den vault"}.get(t, t)
 
 
 def build_item_index():
@@ -864,13 +904,13 @@ def build_mob_pages():
         if mid in ("sift_warden", "echo_golem", "pollinator", "mourner", "roamroot"):
             kind = {"sift_warden": "可馴服", "echo_golem": "中立", "pollinator": "中立", "mourner": "中立",
                     "roamroot": "中立（被打才反擊）"}[mid]
-        rows = [("英文名", esc(name("pysift:" + mid, "en"))), ("ID", f"<code>pysift:{mid}</code>"), ("類型", kind),
+        rows = [(OTHER_LABEL[CUR], other_name("pysift:" + mid)), ("ID", f"<code>pysift:{mid}</code>"), ("類型", kind),
                 ("生命", hearts(a.get("MAX_HEALTH"))), ("攻擊力", attr(a, "ATTACK_DAMAGE")),
                 ("移動速度", attr(a, "MOVEMENT_SPEED")), ("飛行速度", attr(a, "FLYING_SPEED")),
                 ("護甲", attr(a, "ARMOR")), ("擊退抗性", attr(a, "KNOCKBACK_RESISTANCE")),
                 ("體型倍率", attr(a, "SCALE", "{:g}×")), ("碰撞箱", f'{m["w"]:g} × {m["h"]:g} 格')]
         img = mob_img(mid) or f'<div class="ib-icon">{ic("pysift:" + mid + "_spawn_egg", 64, False)}</div>'
-        body = [infobox(name("pysift:" + mid), img, rows, name("pysift:" + mid, "en")), f"<h1>{esc(name('pysift:' + mid))}</h1>"]
+        body = [infobox(name("pysift:" + mid), img, rows, other_name("pysift:" + mid)), f"<h1>{esc(name('pysift:' + mid))}</h1>"]
         body.append(section(f"mob:{mid}"))
         if mid in BOSSES:
             body.append("<h2>Boss 共通規則</h2>" + section("page:boss_common"))
@@ -897,7 +937,7 @@ def build_mob_pages():
         drops = ENTITY_LOOT.get(mid)
         if drops:
             body.append("<h2>掉落物</h2>" + loot_table_html(drops))
-        page(f"mob/{mid}", name("pysift:" + mid), "\n".join(body), f"{name('pysift:' + mid)} {name('pysift:' + mid, 'en')} {mid}", "mob")
+        page(f"mob/{mid}", name("pysift:" + mid), "\n".join(body), f"{name('pysift:' + mid)} {name('pysift:' + mid, other())} {mid}", "mob")
     # index
     groups = [("Boss", [m for m in MOBS if m in BOSSES]),
               ("被動與中立生物", [m for m in MOBS if MOBS[m]["cat"] == "CREATURE" and m not in BOSSES]),
@@ -905,7 +945,7 @@ def build_mob_pages():
     h = ["<h1>生物</h1>", section("page:mobs_intro")]
     for title, lst in groups:
         cards = "".join(f'<a class="card" href="#/mob/{m}">{mob_img(m) or ic("pysift:" + m + "_spawn_egg", 64, False)}'
-                        f'<b>{esc(name("pysift:" + m))}</b><small>{esc(name("pysift:" + m, "en"))}</small></a>'
+                        f'<b>{esc(name("pysift:" + m))}</b><small>{other_name("pysift:" + m)}</small></a>'
                         for m in sorted(lst, key=lambda x: name("pysift:" + x)))
         h.append(f"<h2>{title}</h2><div class=cards>{cards}</div>")
     page("mobs", "生物", "\n".join(h), "生物 mobs")
@@ -950,10 +990,10 @@ def build_biome_pages():
     for bid, b in BIOMES.items():
         shot = f"img/shots/biome_{bid}.jpg"
         img = f'<img src="{shot}" alt="" loading="lazy">' if (OUT / shot).exists() else ""
-        rows = [("英文名", esc(name("pysift:" + bid, "en"))), ("ID", f"<code>pysift:{bid}</code>"),
+        rows = [(OTHER_LABEL[CUR], other_name("pysift:" + bid)), ("ID", f"<code>pysift:{bid}</code>"),
                 ("溫度", f'{b["temp"]:g}'), ("降雨", "有" if b["rain"] else "無"),
                 ("氣候變體", "熱帶" if b["temp"] >= 1.4 else "寒帶" if b["temp"] <= 0.7 else "一般")]
-        body = [infobox(name("pysift:" + bid), img, rows, name("pysift:" + bid, "en")), f"<h1>{esc(name('pysift:' + bid))}</h1>"]
+        body = [infobox(name("pysift:" + bid), img, rows, other_name("pysift:" + bid)), f"<h1>{esc(name('pysift:' + bid))}</h1>"]
         body.append(section(f"biome:{bid}"))
         codex = codex_text("sift", bid)
         if codex:
@@ -975,7 +1015,7 @@ def build_biome_pages():
             body.append(f'<h3>{"怪物" if cat == "monster" else "生物" if cat == "creature" else cat}</h3>'
                         '<table class="wt"><thead><tr><th>生物</th><th>權重</th><th>每群</th></tr></thead>'
                         f"<tbody>{rows_}</tbody></table>")
-        page(f"biome/{bid}", name("pysift:" + bid), "\n".join(body), f"{name('pysift:' + bid)} {bid}", "biome")
+        page(f"biome/{bid}", name("pysift:" + bid), "\n".join(body), f"{name('pysift:' + bid)} {name('pysift:' + bid, other())} {bid}", "biome")
         cards.append(f'<a class="card wide" href="#/biome/{bid}">{img}<b>{esc(name("pysift:" + bid))}</b>'
                      f'<small>溫度 {b["temp"]:g}</small></a>')
     page("biomes", "生態域", "<h1>隙浮維度與生態域</h1>" + section("page:dimension")
@@ -1030,8 +1070,12 @@ def build_recipe_index():
 
 
 def build_home():
-    stats = (f"{len(ITEMS)} 個物品與方塊（其中 {len(IS_BLOCK)} 個方塊）、{len(MOBS)} 種生物、{len(BIOMES)} 個生態域、"
-             f"{len(RECIPES)} 個配方")
+    if CUR == "zh":
+        stats = (f"{len(ITEMS)} 個物品與方塊（其中 {len(IS_BLOCK)} 個方塊）、{len(MOBS)} 種生物、{len(BIOMES)} 個生態域、"
+                 f"{len(RECIPES)} 個配方")
+    else:
+        stats = (f"{len(ITEMS)} items and blocks ({len(IS_BLOCK)} of them blocks), {len(MOBS)} mobs, "
+                 f"{len(BIOMES)} biomes and {len(RECIPES)} recipes")
     hero = ('<div class="home-hero"><img src="img/shots/biome_willow_grove.jpg" alt="柳絮林地的薄荷色黃昏">'
             '<div class="ht"><h1>隙浮</h1><p>Minecraft 26.3 的 Fabric 維度模組。從遠古城市那道走調的門出發，走進永遠停在'
             '薄荷色黃昏的世界：發光的靈液河、赤紅色的幽匿、會唱歌的生物，還有三位守護者。</p></div></div>')
@@ -1045,15 +1089,32 @@ NAV = [("首頁", "home"), ("故事", "page/story"), ("新手攻略", "page/guid
        ("建材家族", "building_sets"), ("物品", "items"), ("合成索引", "recipes")]
 
 
-def write_site():
+CJK_RUN = "[" + chr(0x3400) + "-" + chr(0x9fff) + chr(0xff00) + "-" + chr(0xffef) + "（）、：；]+"
+
+
+def write_data():
     OUT.mkdir(parents=True, exist_ok=True)
     search = [[r, p["t"], p["s"], p["k"]] for r, p in PAGES.items()]
     items = {i: [ICON.get(i, 0), name(i), 1 if is_page_item(i) else 0] for i in sorted(USED_IDS)}
-    data = {"pages": {r: [p["t"], p["h"]] for r, p in PAGES.items()}, "search": search,
+    data = {"lang": CUR, "pages": {r: [p["t"], p["h"]] for r, p in PAGES.items()}, "search": search,
             "nav": NAV, "cols": COLS, "items": items, "recipes": RJS}
-    (OUT / "data.js").write_text("window.WIKI=" + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n",
-                                 encoding="utf-8")
-    (OUT / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    text = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+    if CUR == "en":     # the search index keeps the Chinese names on purpose (search in either language)
+        search_text = json.dumps(data.pop("search"), ensure_ascii=False, separators=(",", ":"))
+        body = en_ui(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
+        text = body[:-1] + ',"search":' + search_text + "}"
+        left = sorted(set(re.findall(CJK_RUN, strip_zh_spans(body))))
+        if left:
+            (ROOT / "build").mkdir(exist_ok=True)
+            (ROOT / "build/wiki_en_untranslated.txt").write_text(chr(10).join(left), encoding="utf-8")
+            print(f"  en: {len(left)} Chinese UI strings still untranslated (build/wiki_en_untranslated.txt)")
+    (OUT / f"data.{CUR}.js").write_text(f"window.WIKI_DATA=window.WIKI_DATA||{{}};window.WIKI_DATA.{CUR}={text};\n",
+                                        encoding="utf-8")
+    (OUT / f"data.{CUR}.json").write_text(text, encoding="utf-8")
+    print(f"  {CUR}: {len(PAGES)} pages, data.{CUR}.js {(OUT / f'data.{CUR}.js').stat().st_size // 1024} KB")
+
+
+def write_site():
     tpl = Path(__file__).resolve().parent / "site"
     for f in ("index.html", "wiki.css", "wiki.js"):
         (OUT / f).write_text((tpl / f).read_text(encoding="utf-8"), encoding="utf-8")
@@ -1067,10 +1128,36 @@ def write_site():
     js = (tpl / "wiki.js").read_text(encoding="utf-8")
     nl = chr(10)
     head = head.replace('<link rel="stylesheet" href="wiki.css">', "<style>" + nl + css + nl + "</style>")
-    body = body.replace('<script src="data.js"></script>', "").replace(
-        '<script src="wiki.js"></script>', "<script>" + nl + js + nl + "</script>")
+    body = body.replace('<script src="wiki.js"></script>',
+                        "<script>window.WIKI_FETCH=true;</script>" + nl + "<script>" + nl + js + nl + "</script>")
     (OUT / "claude_page.html").write_text(head.strip() + nl + body.strip() + nl, encoding="utf-8")
-    print(f"wiki: {len(PAGES)} pages, data.js {(OUT / 'data.js').stat().st_size // 1024} KB -> {OUT}")
+    for old in ("data.js", "data.json"):
+        if (OUT / old).exists():
+            (OUT / old).unlink()
+    print(f"wiki -> {OUT}")
+
+
+EN_UI_FILE = Path(__file__).resolve().parent / "content/en/ui.tsv"
+
+
+def strip_zh_spans(text):
+    return re.sub(r'<span lang=\\?"zh-Hant\\?">.*?</span>', "", text)
+
+
+def en_ui(text):
+    """Translate the Chinese UI phrases the generator writes (labels, headings, units) using content/en/ui.tsv
+    (zh<TAB>en per line, longest phrases first). Chinese names inside <span lang="zh-Hant"> are kept."""
+    pairs = []
+    for line in EN_UI_FILE.read_text(encoding="utf-8").splitlines():
+        if "\t" in line and not line.startswith("#"):
+            zh, en = line.split("\t", 1)
+            pairs.append((zh, en))
+    pairs.sort(key=lambda t: -len(t[0]))
+    parts = re.split(r'(<span lang=\\?"zh-Hant\\?">.*?</span>)', text)
+    for k in range(0, len(parts), 2):
+        for zh, en in pairs:
+            parts[k] = parts[k].replace(zh, en)
+    return "".join(parts)
 
 
 def check():
@@ -1092,15 +1179,20 @@ def check():
 
 def main():
     icon_index()
-    build_item_pages()
-    build_item_index()
-    build_mob_pages()
-    build_biome_pages()
-    build_structure_pages()
-    build_text_pages()
-    build_recipe_index()
-    build_home()
-    ok = check()
+    ok = True
+    for lang in ("zh", "en"):
+        use_language(lang)
+        build_item_pages()
+        build_item_index()
+        build_mob_pages()
+        build_biome_pages()
+        build_structure_pages()
+        build_text_pages()
+        build_recipe_index()
+        build_home()
+        ok = check() and ok
+        if "--check" not in sys.argv:
+            write_data()
     if "--check" not in sys.argv:
         write_site()
     sys.exit(0 if ok else 1)
