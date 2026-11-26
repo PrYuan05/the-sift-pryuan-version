@@ -1,4 +1,4 @@
-## v0.0.1
+## v0.2.1
 
 ### Fixed: food saturation
 Most Sift foods passed a vanilla-style saturation *modifier* (0.3–0.8) where 26.3's `FoodProperties` expects

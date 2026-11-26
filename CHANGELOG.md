@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.0.1
+## v0.2.1
 
 ### Fixed: food saturation
 Most Sift foods passed a vanilla-style saturation *modifier* (0.3–0.8) where 26.3's `FoodProperties` expects
@@ -614,7 +614,7 @@ soul machines.
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
 
-## v0.0.1（繁體中文）
+## v0.2.1（繁體中文）
 
 ### 修正：食物飽和度
 大部分隙浮食物把原版的飽和度「係數」（0.3～0.8）當成 26.3 `FoodProperties` 要的飽和度「點數」，吃了很快又餓。現在照原版公式（飢餓值 × 係數 × 2）：
