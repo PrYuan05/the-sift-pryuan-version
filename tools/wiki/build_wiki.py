@@ -401,7 +401,8 @@ def _load_food():
                 m = re.search(r'\bfood\("([a-z0-9_]+)",\s*(\d+),\s*([\d.]+)f?', stmt)
                 if not m:
                     continue
-                item, n, sat, always = m.group(1), int(m.group(2)), float(m.group(3)), False
+                item, n, always = m.group(1), int(m.group(2)), False
+                sat = round(n * float(m.group(3)) * 2, 2)  # MobDrops.food() 收係數，換算成點數
             effects = []
             for em in re.finditer(r"new MobEffectInstance\(([\w.]+),\s*(\d+)(?:,\s*(\d+))?\)(?:,\s*([\d.]+)f)?", stmt):
                 effects.append({"id": _effect_id(em.group(1)), "ticks": int(em.group(2)),
