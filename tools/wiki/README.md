@@ -9,7 +9,9 @@
 - 手寫說明在 `content/en/*.md`，分段 ID 和中文版相同。
 - 產生器寫出的中文介面字（標題、欄位名）由 `content/en/ui.tsv` 翻譯。如果還有沒翻到的，清單會寫在 `build/wiki_en_untranslated.txt`。
 
-**部署**：`.github/workflows/wiki-pages.yml` 會在 main 分支的 `docs/wiki` 有變動時，自動發布到 GitHub Pages。第一次使用前，要到倉庫的 Settings > Pages 把 Source 設成 GitHub Actions。
+**部署**：GitHub Pages 從 `gh-pages` 分支發布，網址是 https://pryuan05.github.io/the-sift-pryuan-version/ 。
+- 重新產生網站後，執行 `python -I tools/wiki/publish_pages.py`。它會把網站檔案提交到 gh-pages 分支並推送，不會動到工作區和目前的分支。
+- 第一次使用前，要到倉庫的 Settings > Pages，把 Source 設成 Deploy from a branch，分支選 `gh-pages`、資料夾選 `/ (root)`。
 
 ## 重新產生
     python -I tools/wiki/build_wiki.py      # 讀模組資料與 content/*.md，重畫圖示圖集，寫出網站
