@@ -9,6 +9,14 @@ Minecraft 26.3 的 Fabric 維度模組。從遠古城市那道走調的門出發
 是隙浮的物品。	 is an item from the Sift.
 <td>方塊</td>	<td>Block</td>
 <td>物品</td>	<td>Item</td>
+飽的時候也能吃	Can be eaten when full
+ 隻雞腿	 drumsticks
+機率	chance
+食物一覽	Food table
+飢餓值	Hunger
+飽和度	Saturation
+吃法	Eating
+效果	Effects
 中立（被打才反擊）	Neutral (fights back when hit)
 任何／不需工具	Any / no tool needed
 工作台（無序）	Crafting Table (shapeless)

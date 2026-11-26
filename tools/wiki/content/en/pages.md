@@ -245,10 +245,10 @@ The Sift's redstone. In the Sift, a signal is a song; vanilla redstone is "a sig
 | [[pysift:soul_filter]] | Chooses which signal passes |
 | [[pysift:soul_gauge]] | Shows soul pressure |
 | [[pysift:soul_note_block]] | Plays eight notes; the door song is 1 3 7 6 5 2 4 8 |
-| [[pysift:soul_grinder]] | Grinding (uses 2): bone → 6 bone meal, siftite ore → 2 raw siftite, doubled ores, cobblestone → gravel → sand |
-| [[pysift:soul_sifter]] | Sifting (uses 3): blue sculk → red sculk, gravel → flint, sand → clay balls |
+| [[pysift:soul_grinder]] | Grinding (64 SP at strength 15): bone → 6 bone meal, siftite ore → 2 raw siftite, doubled ores, cobblestone → gravel → sand |
+| [[pysift:soul_sifter]] | Sifting (96 SP at strength 15), turns blue sculk within 8 blocks red; blue sculk → red sculk, gravel → flint, sand → clay balls |
 | [[pysift:charoite_beam_emitter]], [[pysift:charoite_beam_receiver]], [[pysift:charoite_prism]] | Wireless beams; use a prism to turn it |
-| [[pysift:resonance_core]], [[pysift:resonance_pedestal]] | Resonance Array: a core and 8 pedestals that make echo shards, charoite and reinforced deepslate |
+| [[pysift:resonance_core]], [[pysift:resonance_pedestal]] | Resonance Array (128 SP at strength 15): a core and 8 pedestals that make echo shards, charoite and reinforced deepslate, and copy discs |
 
 ## Kinetic add-on
 Registered only when `config/pysift.properties` sets `kinetic_addon=on` (the default, auto, leaves it off). A Create-style rotation system:

@@ -245,10 +245,10 @@
 | [[pysift:soul_filter]] | 切換讓哪種訊號通過 |
 | [[pysift:soul_gauge]] | 顯示靈壓 |
 | [[pysift:soul_note_block]] | 播放八個音；開門的歌是 1 3 7 6 5 2 4 8 |
-| [[pysift:soul_grinder]] | 研磨（耗 2）：骨頭→6 骨粉、隙浮金礦→2 粗隙浮金、礦石加倍、圓石→礫石→沙 |
-| [[pysift:soul_sifter]] | 淨化篩（耗 3）：藍幽匿→赤紅幽匿、礫石→燧石、沙→黏土球 |
+| [[pysift:soul_grinder]] | 研磨（強度 15 時 64 SP）：骨頭→6 骨粉、隙浮金礦→2 粗隙浮金、礦石加倍、圓石→礫石→沙 |
+| [[pysift:soul_sifter]] | 淨化篩（強度 15 時 96 SP），8 格內的藍幽匿變回紅色；藍幽匿→赤紅幽匿、礫石→燧石、沙→黏土球 |
 | [[pysift:charoite_beam_emitter]]、[[pysift:charoite_beam_receiver]]、[[pysift:charoite_prism]] | 無線光束，右鍵稜鏡可以轉向 |
-| [[pysift:resonance_core]]、[[pysift:resonance_pedestal]] | 共鳴靈陣：核心＋8 座台座，做回音碎片、紫龍晶、強化深板岩 |
+| [[pysift:resonance_core]]、[[pysift:resonance_pedestal]] | 共鳴靈陣（強度 15 時 128 SP）：核心＋8 座台座，做回音碎片、紫龍晶、強化深板岩，也能複製唱片 |
 
 ## 機械附加包
 在 `config/pysift.properties` 設 `kinetic_addon=on` 才會註冊（預設 auto 不會開）。仿 Create 的轉速系統：

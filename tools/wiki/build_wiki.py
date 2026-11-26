@@ -375,6 +375,67 @@ for bid, b in BIOMES.items():
             hi = c.get("max_inclusive", s.get("maxCount", 1)) if isinstance(c, dict) else c
             SPAWNS_OF[norm(s["type"]).split(":")[1]].append((bid, s.get("weight"), lo, hi, cat))
 
+# ------------------------------------------------------------------------------------------------------------ food
+# FoodProperties(nutrition, saturation, canAlwaysEat) in the item registrations: 26.3 takes the saturation points
+# themselves (vanilla's builder turns a modifier into points), so the numbers are shown as the game uses them.
+FOOD = {}
+
+
+def _effect_id(const):
+    owner, _, name_ = const.rpartition(".")
+    sift = {"SOUL_WARD", "ECHO_SIGHT", "BLEEDING", "ENSNARED", "SOUL_DEPRIVATION"}
+    ns = "pysift" if name_ in sift or owner not in ("MobEffects", "") else "minecraft"
+    return f"{ns}:{name_.lower()}"
+
+
+def _load_food():
+    for f in JAVA.rglob("*.java"):
+        t = f.read_text(encoding="utf-8")
+        if "FoodProperties" not in t and 'food("' not in t:
+            continue
+        for stmt in t.split(";"):
+            m = re.search(r'registerItem\("([a-z0-9_]+)".*?new FoodProperties\((\d+),\s*([\d.]+)f?,\s*(true|false)\)', stmt, re.S)
+            if m:
+                item, n, sat, always = m.group(1), int(m.group(2)), float(m.group(3)), m.group(4) == "true"
+            else:
+                m = re.search(r'\bfood\("([a-z0-9_]+)",\s*(\d+),\s*([\d.]+)f?', stmt)
+                if not m:
+                    continue
+                item, n, sat, always = m.group(1), int(m.group(2)), float(m.group(3)), False
+            effects = []
+            for em in re.finditer(r"new MobEffectInstance\(([\w.]+),\s*(\d+)(?:,\s*(\d+))?\)(?:,\s*([\d.]+)f)?", stmt):
+                effects.append({"id": _effect_id(em.group(1)), "ticks": int(em.group(2)),
+                                "amp": int(em.group(3) or 0), "chance": float(em.group(4)) if em.group(4) else None})
+            FOOD[f"pysift:{item}"] = {"n": n, "sat": sat, "always": always, "effects": effects,
+                                      "drink": "defaultDrink" in stmt, "fast": "consumeSeconds(0.8f)" in stmt}
+
+
+_load_food()
+ROMAN = ["", "", " II", " III", " IV", " V"]
+
+
+def effect_text(e):
+    nm = tr(f"effect.{e['id'].replace(':', '.')}") or e["id"].split(":")[1]
+    secs = e["ticks"] / 20
+    dur = f"{int(secs // 60)}:{int(secs % 60):02d}" if secs >= 60 else f"{secs:g} 秒"
+    txt = f"{nm}{ROMAN[e['amp'] + 1] if e['amp'] + 1 < len(ROMAN) else ''}（{dur}）"
+    if e["chance"] is not None:
+        txt += f" {e['chance'] * 100:g}% 機率"
+    return txt
+
+
+def food_rows(i):
+    f = FOOD.get(i)
+    if not f:
+        return []
+    rows = [("飢餓值", f'{f["n"]}（{f["n"] / 2:g} 隻雞腿）'), ("飽和度", f'{f["sat"]:g}')]
+    if f["effects"]:
+        rows.append(("效果", "<br>".join(esc(effect_text(e)) for e in f["effects"])))
+    if f["always"]:
+        rows.append(("吃法", "飽的時候也能吃"))
+    return rows
+
+
 # --------------------------------------------------------------------------------------------------- hand content
 SECTIONS = {}
 SECTIONS_BY = {}
@@ -798,6 +859,7 @@ def build_item_pages():
         p = i[7:]
         rows = [(OTHER_LABEL[CUR], other_name(i)), ("ID", f"<code>{esc(i)}</code>"),
                 ("種類", "方塊" if i in IS_BLOCK else "物品")]
+        rows += food_rows(i)
         if i in IS_BLOCK:
             t = TOOL_TAGS.get(i)
             rows.append(("適用工具", TOOL_ZH.get(t, "任何") if t else "任何／不需工具"))
@@ -813,6 +875,16 @@ def build_item_pages():
             body.append('<div class="tip">' + "".join(f"<div>{inline(t)}</div>" for t in tips) + "</div>")
         if note:
             body.append(note)
+        elif not tips and i in FOOD:
+            f = FOOD[i]
+            eff = "、".join(effect_text(e) for e in f["effects"])
+            if CUR == "zh":
+                txt = f"{name(i)}可以吃，回復 {f['n']} 點飢餓值（{f['n'] / 2:g} 隻雞腿）、{f['sat']:g} 點飽和度"
+                txt += f"，並獲得{eff}。" if eff else "。"
+            else:
+                txt = f"{name(i)} is food: it restores {f['n']} hunger ({f['n'] / 2:g} drumsticks) and {f['sat']:g} saturation"
+                txt += f", and gives {eff}." if eff else "."
+            body.append(f'<p data-lang="{CUR}">{esc(txt)}</p>')
         elif not tips:
             body.append(f"<p>{esc(name(i))}是隙浮的{'方塊' if i in IS_BLOCK else '物品'}。</p>")
         # obtaining
@@ -865,7 +937,12 @@ def build_item_index():
         (blocks if c in ("building", "nature", "plants", "wood", "colors", "decor", "soulpower", "story_blocks",
                          "blocks_other") else items).append(html_)
     page("blocks", "方塊", "<h1>方塊</h1>" + section("page:blocks_intro") + "".join(blocks), "方塊 blocks")
-    page("items", "物品", "<h1>物品</h1>" + section("page:items_intro") + "".join(items), "物品 items")
+    foods = sorted((i for i in FOOD if i in ITEMS), key=lambda i: -FOOD[i]["n"])
+    ft = "".join(f'<tr><td>{item_link(i, size=24)}</td><td>{FOOD[i]["n"]}</td><td>{FOOD[i]["sat"]:g}</td>'
+                 f'<td>{"、".join(esc(effect_text(e)) for e in FOOD[i]["effects"]) or "—"}</td></tr>' for i in foods)
+    food_table = ('<h2 id="food-table">食物一覽</h2><table class="wt"><thead><tr><th>食物</th><th>飢餓值</th><th>飽和度</th>'
+                  f"<th>效果</th></tr></thead><tbody>{ft}</tbody></table>") if foods else ""
+    page("items", "物品", "<h1>物品</h1>" + section("page:items_intro") + "".join(items) + food_table, "物品 items")
     # building families
     fam_html = []
     for f in sorted(k for k in FAMILIES if k.startswith("stone:")):
