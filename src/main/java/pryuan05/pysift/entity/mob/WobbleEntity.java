@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 import pryuan05.pysift.entity.PysiftMonsterEntity;
 
 /**
- * 晃晃怪（不穩定的滑稽生物）。左右搖晃著走（walk 動畫）並近戰（動畫 attack）；
+ * 搖晃怪（不穩定的滑稽生物）。左右搖晃著走（walk 動畫）並近戰（動畫 attack）；
  * 死亡時像史萊姆一樣彈起（動畫 death），留下 3 秒、半徑 3 格的反胃迷霧（接觸者反胃 8 秒）。
  */
 public class WobbleEntity extends PysiftMonsterEntity {

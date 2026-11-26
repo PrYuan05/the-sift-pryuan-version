@@ -6,7 +6,7 @@ import pryuan05.pysift.PySift;
 import pryuan05.pysift.block.SiftColors;
 
 /**
- * 篩靈界顏色的界伏殼貼圖：方塊實體與原版共用（DyeColor 是白色），ShulkerBoxRendererMixin 依方塊換成
+ * 隙浮顏色的界伏殼貼圖：方塊實體與原版共用（DyeColor 是白色），ShulkerBoxRendererMixin 依方塊換成
  * textures/entity/shulker/shulker_<顏色>.png（原版 shulker_boxes 圖集會收進所有命名空間的 entity/shulker/）。
  * 物品欄的界伏殼用原版特殊模型，貼圖寫在 items/<顏色>_shulker_box.json。
  */

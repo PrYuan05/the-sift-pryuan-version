@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import pryuan05.pysift.block.SiftColors;
 import pryuan05.pysift.client.SiftBannerTint;
 
-/** 篩靈界顏色旗幟的底色（見 {@link SiftBannerTint}）。 */
+/** 隙浮顏色旗幟的底色（見 {@link SiftBannerTint}）。 */
 @Mixin(BannerRenderer.class)
 public abstract class BannerRendererMixin {
     @Inject(method = "extractRenderState(Lnet/minecraft/world/level/block/entity/BannerBlockEntity;Lnet/minecraft/client/renderer/blockentity/state/BannerRenderState;FLnet/minecraft/world/phys/Vec3;Lnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",

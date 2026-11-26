@@ -49,7 +49,7 @@ import pryuan05.pysift.entity.ai.SonicBeamGoal;
  *       停下後右拳點燃，0.7 秒後揮出重拳（動畫 mega_punch）：前方 4×SCALE 格 16 點傷害、擊飛、靈魂剝奪與 4 秒火焰。冷卻 11 秒。</li>
  *   <li>二階段（血量 &lt; 50%）：每 5 秒對 20 格內的玩家施加黑暗。</li>
  *   <li>出場時吼叫（動畫 roar），死亡時播放 death。</li>
- *   <li>威脅機制（BossMechanics）：二階段攻擊 +30%、移速 +15%、冷卻 ×0.65，並召喚 2 隻潛伏獵手；脫戰回血、守在競技場。</li>
+ *   <li>威脅機制（BossMechanics）：二階段攻擊 +30%、移速 +15%、冷卻 ×0.65，並召喚 2 隻追蹤者；脫戰回血、守在競技場。</li>
  * </ul>
  */
 public class SculkMonstrosityEntity extends PysiftMonsterEntity {

@@ -1,5 +1,43 @@
 # Changelog
 
+## v0.2.1
+
+### Fixed: food saturation
+Most Sift foods passed a vanilla-style saturation *modifier* (0.3–0.8) where 26.3's `FoodProperties` expects
+saturation *points*, so they filled the hunger bar but left you hungry again almost at once. They now use vanilla's
+formula (nutrition × modifier × 2):
+
+| Food | Hunger | Saturation (before → after) |
+|---|---|---|
+| Sift Stew | 10 | 0.8 → 16 |
+| Cooked Slabber Steak | 8 | 0.8 → 12.8 |
+| Cooked Nuzzle Meat | 6 | 0.8 → 9.6 |
+| Gloomcap Stew | 7 | 0.6 → 8.4 |
+| Blub Jelly, Cooked Dartback Meat | 6 | 0.6 → 7.2 |
+| Fried Nester Egg, Baked Roamroot Tuber | 5 | 0.6 → 6 |
+| Soul Nectar | 4 | 0.4 → 3.2 |
+| Wobble Jelly | 4 | 0.3 → 2.4 |
+| Soul Berries | 3 | 0.4 → 2.4 |
+| Raw Slabber Steak | 3 | 0.3 → 1.8 |
+| Blub Gel, Raw Dartback Meat, Raw Nuzzle Meat | 2 | 0.3 → 1.2 |
+| Roamroot Tuber | 1 | 0.3 → 0.6 |
+
+The Aurum Apple, Aurum Carrot and Aurum Berries were already right and are unchanged.
+
+### Fixed: names
+- The 10 Sift biomes have names on the map, the F3 screen and `/locate` (they showed raw IDs before).
+- Chinese: every creature now has one name everywhere (Codex, advancements, `/locate boss`, blocks named after
+  it), the Codex is always 隙浮手記, and the Sculk Hammer is 幽匿重錘.
+- Removed language keys for charoite blocks that no longer exist.
+
+### New: The Sift Wiki
+- A bilingual (繁體中文 / English) wiki in a minecraft.wiki-style layout:
+  https://pryuan05.github.io/the-sift-pryuan-version/
+- Story, progression guide, every block and item with crafting grids, uses and where it is found, all mobs with stats,
+  spawns, drops and climate variants, biomes, structures, Soul Power and other mechanics, foods with hunger and
+  saturation.
+- Generated from the mod's own data by `tools/wiki/build_wiki.py`; see `tools/wiki/README.md`.
+
 ## v2.2.0
 
 ### Original Texture & Asset Compliance Overhaul
@@ -575,6 +613,38 @@ soul machines.
 ### Changes
 - Creative tabs are grouped and sorted (block families together, blocks that generate in the world first).
 - Monarch model lowered so it no longer floats above the ground.
+
+## v0.2.1（繁體中文）
+
+### 修正：食物飽和度
+大部分隙浮食物把原版的飽和度「係數」（0.3～0.8）當成 26.3 `FoodProperties` 要的飽和度「點數」，吃了很快又餓。現在照原版公式（飢餓值 × 係數 × 2）：
+
+| 食物 | 飢餓值 | 飽和度（改前 → 改後） |
+|---|---|---|
+| 隙浮燉菜 | 10 | 0.8 → 16 |
+| 熟泥板獸排 | 8 | 0.8 → 12.8 |
+| 熟蹭蹭肉 | 6 | 0.8 → 9.6 |
+| 幽光菇燉湯 | 7 | 0.6 → 8.4 |
+| 布魯布果凍、熟飛鏢背殼肉 | 6 | 0.6 → 7.2 |
+| 煎築巢者蛋、烤漫遊根塊莖 | 5 | 0.6 → 6 |
+| 靈魂花蜜 | 4 | 0.4 → 3.2 |
+| 搖晃凍 | 4 | 0.3 → 2.4 |
+| 靈莓 | 3 | 0.4 → 2.4 |
+| 生泥板獸排 | 3 | 0.3 → 1.8 |
+| 布魯布凝膠、生飛鏢背殼肉、生蹭蹭肉 | 2 | 0.3 → 1.2 |
+| 漫遊根塊莖 | 1 | 0.3 → 0.6 |
+
+金岩蘋果、金岩胡蘿蔔、金岩莓果本來就對，沒有改。
+
+### 修正：名稱
+- 10 個隙浮生態域在地圖、F3 畫面與 `/locate` 顯示名稱（原本顯示原始 ID）。
+- 每種生物在手記、進度、`/locate boss` 與以牠命名的方塊都用同一個名字：追蹤者、掠奪精、蹭蹭怪、調音器、搖晃怪、哨兵、布魯布、君王、幽匿巨怪；「隙浮法典」統一為「隙浮手記」。重錘改名幽匿重錘。
+- 刪除已經不存在的紫龍晶方塊語系鍵。
+
+### 新增：隙浮 Wiki
+- 仿 minecraft.wiki 的中英雙語 wiki：https://pryuan05.github.io/the-sift-pryuan-version/
+- 內容：故事、進度攻略、每個方塊與物品的合成表、用途與出處，所有生物的數值、生成、掉落與氣候變體，生態域、結構、靈魂動力等機制，食物的飢餓值與飽和度。
+- 由 `tools/wiki/build_wiki.py` 從模組資料產生，說明見 `tools/wiki/README.md`。
 
 ## v2.2.0（繁體中文）
 

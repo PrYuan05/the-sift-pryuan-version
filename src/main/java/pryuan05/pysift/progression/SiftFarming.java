@@ -88,12 +88,12 @@ public final class SiftFarming {
             BlockBehaviour.Properties.ofFullCopy(Blocks.SWEET_BERRY_BUSH)
                     .lightLevel(state -> state.getValue(SoulBerryBushBlock.AGE) * 3));
     public static final Item SOUL_BERRIES = ModProgression.registerItem("soul_berries", p -> new BlockItem(SOUL_BERRY_BUSH, p),
-            new Item.Properties().useItemDescriptionPrefix().food(new FoodProperties(3, 0.4f, false),
+            new Item.Properties().useItemDescriptionPrefix().food(new FoodProperties(3, 2.4f, false),
                     Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(SOUL_WARD, 200))).build()));
     public static final Block GLOOMCAP = ModProgression.registerBlock("gloomcap",
             p -> new GloomcapBlock(p.lightLevel(state -> 5).sound(SoundType.FUNGUS)), Blocks.BROWN_MUSHROOM);
     public static final Item GLOOMCAP_STEW = ModProgression.registerItem("gloomcap_stew", Item::new,
-            new Item.Properties().stacksTo(1).usingConvertsTo(Items.BOWL).food(new FoodProperties(7, 0.6f, false),
+            new Item.Properties().stacksTo(1).usingConvertsTo(Items.BOWL).food(new FoodProperties(7, 8.4f, false),
                     Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(ECHO_SIGHT, 900))).build()));
 
     private SiftFarming() {

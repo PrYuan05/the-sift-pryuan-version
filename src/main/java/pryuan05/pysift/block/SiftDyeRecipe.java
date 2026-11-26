@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 用篩靈界的新染料染皮甲（皮革頭盔、胸甲、護腿、靴子、皮革馬鎧、狼鎧）：一件可染色的物品 + 一個以上的新染料。
+ * 用隙浮的新染料染皮甲（皮革頭盔、胸甲、護腿、靴子、皮革馬鎧、狼鎧）：一件可染色的物品 + 一個以上的新染料。
  * 原版的染色配方只認 16 色的 DyeColor，所以另外寫；混色的算法和原版一樣（顏色平均，再把亮度拉回最亮的那個）。
  * 資料檔：data/pysift/recipe/sift_dye_armor.json（{"type": "pysift:crafting_sift_dye"}）。
  */

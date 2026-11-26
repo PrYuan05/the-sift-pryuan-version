@@ -14,7 +14,7 @@ import pryuan05.pysift.entity.ClimateVariant;
 import pryuan05.pysift.entity.mob.NuzzleEntity;
 
 /**
- * 蹭蹭怪：像原版的羊一樣剪毛與染色，完整支援原版 16 色＋本模組 9 種篩靈界顏色，且適應普通／熱帶／寒帶氣候變體。
+ * 蹭蹭怪：像原版的羊一樣剪毛與染色，完整支援原版 16 色＋本模組 9 種隙浮顏色，且適應普通／熱帶／寒帶氣候變體。
  * <ul>
  *   <li>沒剪、沒染：原本的貼圖（依氣候變體）。</li>
  *   <li>剪過：nuzzle&lt;氣候&gt;_sheared.png（毛與花朵／冬帽皆剪掉，露出皮）。</li>

@@ -437,12 +437,12 @@ BIOMES = [   # (id, icon, en, zh, text en, text zh)
      "floors, rotten blue sculk and a few thin columns. Wind whistles through the cracks. Stalkers and Hunters lurk, and "
      "now and then a Mourner sits weeping.",
      "地底最淺的洞穴，和靈液隔絕：像乾燥石灰岩節理的窄長裂縫、灰色的地面、腐爛的藍色幽匿和幾根細細的石柱。"
-     "風從裂縫裡鑽過去，吹出口哨聲。潛伏獵手與獵人藏在這裡，偶爾還有一位哀悼者坐著哭。"),
+     "風從裂縫裡鑽過去，吹出口哨聲。追蹤者與獵人藏在這裡，偶爾還有一位哀悼者坐著哭。"),
     ("red_zone_caves", "pysift:crimson_vein_stone", "Red Zone Caves", "紅區洞穴",
      "The singing caves: fat winding passages like the water-cut tunnels of a great limestone cave, rose-grey floors, red sculk "
      "and orange vines. Stalkers, Pricklers and Fuseflies lurk; Tuners and Echo Golems wander through.",
      "歌聲洞穴：像大型石灰岩洞裡被水切出來的粗大蜿蜒坑道，玫瑰灰色的地面、赤紅幽匿與橘色藤蔓。"
-     "潛伏獵手、刺球與引信蠅藏在這裡；調音器與迴音傀儡在其中漫步。"),
+     "追蹤者、刺球與引信蠅藏在這裡；調音器與迴音傀儡在其中漫步。"),
     ("resonant_vaults", "pysift:polished_void_stone", "Resonant Vaults", "共鳴穹窟",
      "Huge high halls like the great chambers of Carlsbad or Son Doong, full of rock columns, with polished floors and charoite "
      "growing from the ceiling. This is where the choir sings and the Echo Dens lie. Sentinels and Tuners keep the halls; "
@@ -547,7 +547,7 @@ MOBS = [   # rows by home; (id, en, zh, text en, text zh)
      ("sentinel", "Sentinel", "哨兵",
       "A crested ruin warrior with a heavy blade. Its charged cleave hits hard enough to **shatter a raised shield**.",
       "頭戴羽冠、手持重刃的遺跡武士。蓄力重劈強到能**擊碎舉起的盾牌**。"),
-     ("stalker", "Stalker", "潛伏獵手",
+     ("stalker", "Stalker", "追蹤者",
       "Invisible in the dark. It circles behind you; its first strike from behind does double damage. Bring light.",
       "在暗處是隱形的。牠會繞到你背後，第一刀從背後打出雙倍傷害。帶上光源。"),
      ("tuner", "Tuner", "調音器",
@@ -585,7 +585,7 @@ MOBS = [   # rows by home; (id, en, zh, text en, text zh)
       "君王的另一名部下。會丟網子，還會把靈魂陷阱埋在你正要走的路上。"),
      ("lootkin", "Lootkin", "掠奪精",
       "A tiny, very fast treasure goblin that flees on sight. Catch it for ores and rare Sift materials.",
-      "跑得飛快、膽子很小的藏寶小鬼，一看到人就逃。抓到牠能得到礦物與稀有的隙浮材料。")],
+      "跑得飛快、膽子很小的掠奪精，一看到人就逃。抓到牠能得到礦物與稀有的隙浮材料。")],
 ]
 MOBS.append([
     ("mourner", "Mourner", "哀悼者",

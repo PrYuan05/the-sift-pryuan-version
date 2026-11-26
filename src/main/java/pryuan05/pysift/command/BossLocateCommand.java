@@ -50,19 +50,19 @@ import java.util.Optional;
 public final class BossLocateCommand {
 
     public enum BossInfo {
-        MONARCH("monarch", "帝王 (Monarch)", ModEntities.MONARCH,
+        MONARCH("monarch", "君王 (Monarch)", ModEntities.MONARCH,
                 ResourceKey.create(Registries.BIOME, PySift.id("amber_dunes")),
-                "黃琥珀沙丘 (Amber Dunes)",
+                "琥珀沙丘 (Amber Dunes)",
                 "帝王日晷陵台 (Imperial Sunken Ziggurat)",
                 ChatFormatting.GOLD),
         HARMONIZER("harmonizer", "調和者 (Harmonizer)", ModEntities.HARMONIZER,
                 ResourceKey.create(Registries.BIOME, PySift.id("willow_grove")),
-                "靈魂柳林 (Willow Grove)",
+                "柳絮林地 (Willow Grove)",
                 "靈液環湖琴台 (Resonant Spirit Lake Pavilion)",
                 ChatFormatting.AQUA),
-        SCULK_MONSTROSITY("sculk_monstrosity", "幽匿巨獸 (Sculk Monstrosity)", ModEntities.SCULK_MONSTROSITY,
+        SCULK_MONSTROSITY("sculk_monstrosity", "幽匿巨怪 (Sculk Monstrosity)", ModEntities.SCULK_MONSTROSITY,
                 ResourceKey.create(Registries.BIOME, PySift.id("violet_slate_abyss")),
-                "紫板岩深淵 (Violet Slate Abyss)",
+                "紫晶深板岩區 (Violet Slate Abyss)",
                 "深淵泰坦封印囚窟 (Abyssal Titan Crucible)",
                 ChatFormatting.DARK_AQUA);
 

@@ -489,7 +489,7 @@ WEAPON_MASKS = {
 }
 WEAPON_NAMES = {"sonic_staff": ("Sonic Staff", "音波法杖", "音波法杖：頂端鑲著藍色音晶的長杖"),
                 "dash_charm": ("Dash Charm", "衝刺護符", "衝刺護符：金框鑲著王冠紋章的護符"),
-                "sculk_hammer": ("Sculk Hammer", "重錘", "重錘：深青色幽匿錘頭的大錘")}
+                "sculk_hammer": ("Sculk Hammer", "幽匿重錘", "幽匿重錘：深青色幽匿錘頭的大錘")}
 for name, rows in WEAPON_MASKS.items():
     save_placeholder(mask_sprite(rows), f"item/{name}", WEAPON_NAMES[name][2] + "（物品 16x16）")
     wj(A / f"models/item/{name}.json", {"parent": "minecraft:item/handheld" if name != "dash_charm" else "minecraft:item/generated",
@@ -515,7 +515,7 @@ awaken("sculk_hammer", "pysift:resonant_crystal", "pysift:monarch_feather")
 WEAPON_LANG = {
     "item.pysift.sonic_staff": ("Sonic Staff", "音波法杖"),
     "item.pysift.dash_charm": ("Dash Charm", "衝刺護符"),
-    "item.pysift.sculk_hammer": ("Sculk Hammer", "重錘"),
+    "item.pysift.sculk_hammer": ("Sculk Hammer", "幽匿重錘"),
     "tooltip.pysift.awakened": ("✦ Awakened", "✦ 已覺醒"),
     "tooltip.pysift.sonic_staff.use": ("Hold right-click to chant for 0.6 s, then a sonic boom (8 damage, 15 blocks, 3 s cooldown)", "按住右鍵詠唱 0.6 秒後發射音爆（8 點傷害，15 格，冷卻 3 秒）"),
     "tooltip.pysift.sonic_staff.use_awakened": ("Hold right-click to chant for 0.6 s, then a wide sonic boom (12 damage, 15 blocks, 2 s cooldown)", "按住右鍵詠唱 0.6 秒後發射寬幅音爆（12 點傷害，15 格，冷卻 2 秒）"),

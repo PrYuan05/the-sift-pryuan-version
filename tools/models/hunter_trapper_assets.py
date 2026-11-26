@@ -118,7 +118,7 @@ def lang():
 
 
 def spawn_eggs():
-    """以潛伏獵手的蛋為形狀：底色像素換成主色、斑點換成副色（亮度保留）。"""
+    """以追蹤者的蛋為形狀：底色像素換成主色、斑點換成副色（亮度保留）。"""
     src = Image.open(A / "textures/item/stalker_spawn_egg.png").convert("RGBA")
     px = src.load()
     for mob, base, spot in (("hunter", (16, 56, 70), (240, 122, 58)), ("trapper", (44, 40, 76), (240, 122, 176))):
@@ -160,7 +160,7 @@ def effect_icon():
 
 
 def biome_spawns():
-    """低權重自然生成：獵人和潛伏獵手一起在紫晶區，陷阱師和食腐獸一起在沙丘。build_the_sift.py 也同步加上。"""
+    """低權重自然生成：獵人和追蹤者一起在紫晶區，陷阱師和食腐獸一起在沙丘。build_the_sift.py 也同步加上。"""
     for biome, mob, w in (("violet_slate_abyss", "hunter", 10), ("amber_dunes", "trapper", 10)):
         p = D / f"worldgen/biome/{biome}.json"
         backup(p)

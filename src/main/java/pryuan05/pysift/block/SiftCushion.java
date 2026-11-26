@@ -29,8 +29,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * 篩靈界顏色的坐墊。原版坐墊（{@link Cushion}）的顏色是 DyeColor，只有 16 色，所以這裡用同一個實體的子類別多記一個
- * 篩靈界顏色：坐上去、被打掉、被火燒等行為都沿用原版。原版程式裡「顏色 → 物品」的地方（掉落物、中鍵選取、
+ * 隙浮顏色的坐墊。原版坐墊（{@link Cushion}）的顏色是 DyeColor，只有 16 色，所以這裡用同一個實體的子類別多記一個
+ * 隙浮顏色：坐上去、被打掉、被火燒等行為都沿用原版。原版程式裡「顏色 → 物品」的地方（掉落物、中鍵選取、
  * 破壞粒子）由 CushionMixin 換成 {@link #item()}；貼圖由客戶端的 SiftCushionRenderer 換。
  */
 public class SiftCushion extends Cushion {

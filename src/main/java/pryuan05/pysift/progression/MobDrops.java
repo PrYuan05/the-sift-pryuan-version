@@ -63,15 +63,15 @@ public final class MobDrops {
     public static final Item BAKED_ROAMROOT_TUBER = food("baked_roamroot_tuber", 5, 0.6f);
     /** 靈魂花蜜：授粉者採的蜜，喝了靈魂守護 10 秒，留下玻璃瓶。 */
     public static final Item SOUL_NECTAR = ModProgression.registerItem("soul_nectar", Item::new,
-            new Item.Properties().stacksTo(16).usingConvertsTo(Items.GLASS_BOTTLE).food(new FoodProperties(4, 0.4f, true),
+            new Item.Properties().stacksTo(16).usingConvertsTo(Items.GLASS_BOTTLE).food(new FoodProperties(4, 3.2f, true),
                     Consumables.defaultDrink().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(SiftFarming.SOUL_WARD, 200))).build()));
     /** 搖晃凍：能吃，但 3 成機率頭暈 8 秒。 */
     public static final Item WOBBLE_JELLY = ModProgression.registerItem("wobble_jelly", Item::new,
-            new Item.Properties().food(new FoodProperties(4, 0.3f, false), Consumables.defaultFood().onConsume(
+            new Item.Properties().food(new FoodProperties(4, 2.4f, false), Consumables.defaultFood().onConsume(
                     new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.NAUSEA, 160), 0.3f)).build()));
     /** 隙浮燉菜：熟泥板獸排＋烤塊莖＋幽光菇＋碗，最飽的一道菜，附回音視界 1 分鐘。 */
     public static final Item SIFT_STEW = ModProgression.registerItem("sift_stew", Item::new,
-            new Item.Properties().stacksTo(1).usingConvertsTo(Items.BOWL).food(new FoodProperties(10, 0.8f, false),
+            new Item.Properties().stacksTo(1).usingConvertsTo(Items.BOWL).food(new FoodProperties(10, 16.0f, false),
                     Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(SiftFarming.ECHO_SIGHT, 1200))).build()));
 
     // ---------------------------------------------------------------- 材料
@@ -102,12 +102,19 @@ public final class MobDrops {
     private MobDrops() {
     }
 
-    private static Item food(String name, int nutrition, float saturation) {
-        return ModProgression.registerItem(name, Item::new, new Item.Properties().food(new FoodProperties(nutrition, saturation, false)));
+    /** FoodProperties 的第二個參數是飽和度點數；這裡收原版的飽和度係數，換算成 飢餓值 × 係數 × 2（同原版 FoodConstants.saturationByModifier）。 */
+    private static float saturation(int nutrition, float modifier) {
+        return nutrition * modifier * 2.0F;
     }
 
-    private static Item food(String name, int nutrition, float saturation, MobEffectInstance effect) {
-        return ModProgression.registerItem(name, Item::new, new Item.Properties().food(new FoodProperties(nutrition, saturation, false),
+    private static Item food(String name, int nutrition, float saturationModifier) {
+        return ModProgression.registerItem(name, Item::new, new Item.Properties().food(
+                new FoodProperties(nutrition, saturation(nutrition, saturationModifier), false)));
+    }
+
+    private static Item food(String name, int nutrition, float saturationModifier, MobEffectInstance effect) {
+        return ModProgression.registerItem(name, Item::new, new Item.Properties().food(
+                new FoodProperties(nutrition, saturation(nutrition, saturationModifier), false),
                 Consumables.defaultFood().onConsume(new ApplyStatusEffectsConsumeEffect(effect)).build()));
     }
 

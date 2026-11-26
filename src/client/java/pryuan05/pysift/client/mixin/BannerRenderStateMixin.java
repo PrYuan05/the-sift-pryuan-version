@@ -5,7 +5,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import pryuan05.pysift.client.SiftBannerTint;
 
-/** 旗幟的 render state 多記一個篩靈界底色（-1 = 原版旗幟）。 */
+/** 旗幟的 render state 多記一個隙浮底色（-1 = 原版旗幟）。 */
 @Mixin(BannerRenderState.class)
 public abstract class BannerRenderStateMixin implements SiftBannerTint.State {
     @Unique
